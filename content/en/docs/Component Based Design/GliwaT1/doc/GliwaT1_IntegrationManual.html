@@ -1,0 +1,502 @@
+---
+title: GliwaT1_IntegrationManual
+linkTitle: GliwaT1_IntegrationManual
+weight: 2
+---
+
+<p><strong>Module Design Document</strong></p>
+<p><strong>For</strong></p>
+<p><strong>GliwaT1</strong></p>
+<p><strong>Note: Quick Start guide at end of document provides integration overview.</strong></p>
+<p><strong>Document Identifier: &lt;Project_id&gt;_&lt;Config Id&gt;</strong></p>
+<p><strong>VERSION: GliwaT1_01.00</strong></p>
+<p><strong>DATE: May 19, 2014</strong></p>
+<p><strong>Prepared By:</strong></p>
+<p><strong>Core Software,</strong></p>
+<p><strong>Nexteer Automotive,</strong></p>
+<p><strong>Saginaw, MI, USA</strong></p>
+<p><strong>Location:</strong> The official version of this document is stored in the Nexteer Configuration Management System and is uniquely identified by: &lt;Project_ID&gt;_&lt;Config Id&gt;</p>
+<p><strong>Revision History</strong></p>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 39%" />
+<col style="width: 23%" />
+<col style="width: 12%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Sl. No.</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Author</strong></td>
+<td><strong>Version</strong></td>
+<td><strong>Date</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial Version</td>
+<td>Blake Latchford</td>
+<td>1</td>
+<td>May 19, 2014</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Updates per review with Michale Story.</td>
+<td>Blake Latchford</td>
+<td>2</td>
+<td>July 14, 2014</td>
+</tr>
+</tbody>
+</table>
+<p>Table of Contents</p>
+<p><a href="#abbrevations-and-acronyms">1 Abbrevations And Acronyms 4</a></p>
+<p><a href="#references">2 References 5</a></p>
+<p><a href="#dependencies">3 Dependencies 6</a></p>
+<p><a href="#swcs">3.1 SWCs 6</a></p>
+<p><a href="#global-functionsnon-rte-to-be-provided-to-integration-project">3.2 Global Functions(Non RTE) to be provided to Integration Project 6</a></p>
+<p><a href="#configuration">4 Configuration 8</a></p>
+<p><a href="#build-time-config">4.1 Build Time Config 8</a></p>
+<p><a href="#config">4.2 Configuration Files to be provided by Integration Project 8</a></p>
+<p><a href="#da-vinci-parameter-configuration-changes">4.3 Da Vinci Parameter Configuration Changes 8</a></p>
+<p><a href="#__RefHeading___Toc387219722">4.4 DaVinci Interrupt Configuration Changes 8</a></p>
+<p><a href="#manual-configuration-changes">4.5 Manual Configuration Changes 8</a></p>
+<p><a href="#integration">5 Integration 10</a></p>
+<p><a href="#required-global-data-inputs">5.1 Required Global Data Inputs 10</a></p>
+<p><a href="#required-global-data-outputs">5.2 Required Global Data Outputs 10</a></p>
+<p><a href="#specific-include-path-present">5.3 Specific Include Path present 10</a></p>
+<p><a href="#runnable-scheduling">6 Runnable Scheduling 12</a></p>
+<p><a href="#memory-mapping">7 Memory Mapping 14</a></p>
+<p><a href="#mapping">7.1 Mapping 14</a></p>
+<p><a href="#usage">7.2 Usage 14</a></p>
+<p><a href="#non-rte-nvm-blocks">7.3 Non RTE NvM Blocks 14</a></p>
+<p><a href="#rte-nvm-blocks">7.4 RTE NvM Blocks 14</a></p>
+<p><a href="#compiler-settings">8 Compiler Settings 15</a></p>
+<p><a href="#preprocessor-macro">8.1 Preprocessor MACRO 15</a></p>
+<p><a href="#optimization-settings">8.2 Optimization Settings 15</a></p>
+<p><a href="#appendix">9 Appendix 16</a></p>
+<h1 id="abbrevations-and-acronyms">Abbrevations And Acronyms</h1>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 71%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Abbreviation</td>
+<td>Description</td>
+</tr>
+<tr class="even">
+<td>DFD</td>
+<td>Design functional diagram</td>
+</tr>
+<tr class="odd">
+<td>MDD</td>
+<td>Module design Document</td>
+</tr>
+</tbody>
+</table>
+<h1 id="references">References</h1>
+<p>This section Lists the title &amp; version of all the documents that are referred for development of this document</p>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 65%" />
+<col style="width: 22%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Sr. No.</td>
+<td>Title</td>
+<td>Version</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>&lt;Add if more available&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="dependencies">Dependencies</h1>
+<h2 id="swcs">SWCs</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 69%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Module</strong></td>
+<td><strong>Required Feature</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Metrics</strong></td>
+<td>Must be removed from integration project.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="global-functionsnon-rte-to-be-provided-to-integration-project">Global Functions(Non RTE) to be provided to Integration Project</h2>
+<ul>
+<li><p>T1_TraceStartNoSusp – For use in motor control ISR.</p></li>
+<li><p>T1_TraceStopNoSusp – For use in motor control ISR.</p></li>
+<li><p>Metrics_TaskStart – Allows backwards compaitibilty with existing Metrics configuration. Also to be used when interrupt disabling is required.</p></li>
+<li><p>Metrics_TaskStop – Same as Metrics_TaskStart, but for the end of the task.</p></li>
+</ul>
+<h1 id="configuration">Configuration</h1>
+<h2 id="build-time-config">Build Time Config</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Modules</strong></td>
+<td><strong>Notes</strong></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>None</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-files-to-be-provided-by-integration-project">Configuration Files to be provided by Integration Project</h2>
+<p>Examples of the following configuration options can be found in the GliwaT1\utp\Example_Tools_GliwaT1\config\ folder. This folder contains data intended to go in the project path Tools directory (not the component).</p>
+<h2 id="config">config</h2>
+<p>These files configure the Gliwa provided PERL scripts that generate various files when integration is performed. Some of the values more likely to change between projects are called out below.</p>
+<ul>
+<li><p>T1_Cfg.inv</p>
+<ul>
+<li><p>txCycle – Time in ms between calls to T1_AppHandler.</p></li>
+<li><p>t1ScopeOverheadNs – Overhead to be filled in as called out in Overhead_Calculation.xlsx (Can be found in component tools directory) .</p></li>
+<li><p>t1FlexOverheadNs – Overhead to be filled in as called out in Overhead_Calculation.xlsx.</p></li>
+</ul></li>
+<li><p>T1_OsCfg.inv</p>
+<ul>
+<li><p>Shouldn’t change per project.</p></li>
+</ul></li>
+<li><p>T1_UserCfg.inv</p>
+<ul>
+<li><p>projectName – Name of the program (C1xx, LWR, UKL, etc.)</p></li>
+<li><p>traceBufferEntries – Size of the trace buffer. This number determines how much RAM is required to store trace events. A minimum for this number on a typical system would be in the range of 300-400 entries. If more space is added to this buffer then each trace download will be able to show a larger picture. If this buffer is made too small then data will be lost, resulting in errors and incomplete data collection.</p></li>
+</ul></li>
+</ul>
+<h2 id="da-vinci-parameter-configuration-changes">Da Vinci Parameter Configuration Changes</h2>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Parameter</strong></td>
+<td><strong>Notes</strong></td>
+<td><strong>SWC</strong></td>
+</tr>
+<tr class="even">
+<td><strong>None</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="davinci-interrupt-configuration-changes">DaVinci Interrupt Configuration Changes</h2>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 9%" />
+<col style="width: 36%" />
+<col style="width: 38%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>ISR Name</strong></td>
+<td><strong>VIM #</strong></td>
+<td><strong>Priority Dependency</strong></td>
+<td><strong>Notes</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Isr_MtrCtrl</strong></td>
+<td></td>
+<td>None</td>
+<td>Add T1_TraceStartNoSusp(T1_Isr_MtrCtrl_ID) and T1_TraceStopNoSusp(T1_Isr_MtrCtrl_ID) calls to the beginning and end of the ISR.</td>
+</tr>
+<tr class="odd">
+<td><strong>Any other ISR</strong></td>
+<td></td>
+<td>None</td>
+<td>Add Metrics_TaskStart(&lt;ID&gt;) and Metrics_TaskEnd(&lt;ID&gt;) to the beginning and end of each ISR. ID will be a symbol generated from the .ecuc.arxml file.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="manual-configuration-changes">Manual Configuration Changes</h2>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Constant</strong></td>
+<td><strong>Notes</strong></td>
+<td><strong>SWC</strong></td>
+</tr>
+<tr class="even">
+<td><strong>Messages need to be added to the .dbc file.</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>GENy must be updated.</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Gliwa communicates on CAN via a custom protocol on the CAN bus. It uses IDs that must be distinct from other IDs already in use. By default these are 0x7FA and 0x7CB. They can be reconfigured if a program intends to use these identifiers for a different purpose.</p>
+<h1 id="target-to-host">Target to Host</h1>
+<p>The 0x7FA message is used to transmit data from the target (ECU) to the host (PC). In the example provided this is done by use of the CanMsgTransmit() API. If the program supports this API it will likely need to be turned on via the Low Level Transmission.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:6.50764in;height:5.43819in" /></p>
+<p>If this API is unavailable, adding a spontaneous message to the database may be used as an alternative. Once that is completed the standard spontaneous message transmission methods for a SIP can be used. An example of this spontaneous messages is shown below.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.png" style="width:3.87639in;height:3.09375in" /></p>
+<h1 id="host-to-target">Host To Target</h1>
+<p>The 0x7CB message is used by default to transmit data from the host (PC) to the target (ECU). This message must be added to the database file to ensure that the hardware doesn’t filter out the message. AN example of the message configuration for this message is shown below.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.png" style="width:3.92222in;height:3.09861in" /></p>
+<h1 id="integration">Integration</h1>
+<h2 id="required-global-data-inputs">Required Global Data Inputs</h2>
+<p>&lt;Mention any global variable that this component requires for other components&gt;</p>
+<h2 id="required-global-data-outputs">Required Global Data Outputs</h2>
+<p>&lt;Mention any global variable that this component requires for other components&gt;</p>
+<h2 id="specific-include-path-present">Specific Include Path present</h2>
+<p>Yes</p>
+<h1 id="runnable-scheduling">Runnable Scheduling </h1>
+<p>This section specifies the required runnable scheduling.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Init</strong></td>
+<td><strong>Scheduling Requirements</strong></td>
+<td><strong>Trigger</strong></td>
+</tr>
+<tr class="even">
+<td><strong>T1_AppInit</strong></td>
+<td>As early as possible. Recommend the beginning of the main function.</td>
+<td>Init</td>
+</tr>
+</tbody>
+</table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Runnable</strong></td>
+<td><strong>Scheduling Requirements</strong></td>
+<td><strong>Trigger</strong></td>
+</tr>
+<tr class="even">
+<td><strong>T1_AppHandler</strong></td>
+<td>10ms (alternatively, the time called out by txCycle)</td>
+<td>Manually scheduled.</td>
+</tr>
+<tr class="odd">
+<td><strong>T1_AppBgHandler</strong></td>
+<td>Background</td>
+<td>Background task.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="memory-mapping">Memory Mapping</h1>
+<p>Memory mapping for this component is performed directly through the linker command file. The following sections must be defined.</p>
+<ul>
+<li><p>.T1_bss</p>
+<ul>
+<li><p>This section should be placed somewhere in RAM. No assumptions are made about the initialization of this memory. This memory is only accessed from a trusted application.</p></li>
+</ul></li>
+<li><p>.T1_traceBuffer</p>
+<ul>
+<li><p>This is similar to .T1_bss, but is sepearated for flexibility of placement due to its large size. It contains the ring buffer for logged trace events.</p></li>
+</ul></li>
+<li><p>.T1_code</p>
+<ul>
+<li><p>Should be placed similarly to the existing .text section. Application flash is the recommended location.</p></li>
+</ul></li>
+<li><p>.T1_const</p>
+<ul>
+<li><p>Expects to be initialized. Application flash is the recommended location.</p></li>
+</ul></li>
+<li><p>.T1_codeFast</p>
+<ul>
+<li><p>Code that needs to execute quickly. It has been shown that execution from RAM has minimal impact, though for consistent overhead measurements the following sections should be aligned to a 16 byte flash boundary.</p></li>
+<li><p>.T1_codeFast:T1_TraceEventNoSusp_</p></li>
+<li><p>.T1_codeFast:T1_GetTraceTime</p></li>
+<li><p>.T1_codeFast:T1_TraceEventFast_</p></li>
+</ul></li>
+</ul>
+<h2 id="mapping">Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 26%" />
+<col style="width: 28%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Memory Section</strong></td>
+<td><strong>Contents</strong></td>
+<td><strong>Notes</strong></td>
+</tr>
+<tr class="even">
+<td><strong>None</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>* Each …START_SEC… constant is terminated by a …STOP_SEC… constant as specified in the AUTOSAR Memory Mapping requirements.</p>
+<h2 id="usage">Usage</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Feature</strong></td>
+<td><strong>RAM</strong></td>
+<td><strong>ROM</strong></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: ARM Cortex R4 Memory Usage</p>
+<h2 id="non-rte-nvm-blocks">Non RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Block Name</strong></td>
+</tr>
+<tr class="even">
+<td><strong>None</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="rte-nvm-blocks">RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Block Name</strong></td>
+</tr>
+<tr class="even">
+<td><strong>None</strong></td>
+</tr>
+</tbody>
+</table>
+<h1 id="compiler-settings">Compiler Settings</h1>
+<h2 id="preprocessor-macro"> Preprocessor MACRO</h2>
+<p>T1_ENABLE will be defined after the integration script is run. If this does not occur then something went wrong in the overlay of T1_AppInterface.h. This can be debugged by viewing the text output of the PerformOverlay.bat file.</p>
+<h2 id="optimization-settings">Optimization Settings</h2>
+<p>N/A</p>
+<h2 id="section"></h2>
+<h1 id="appendix">Appendix</h1>
+<h2 id="gliwa-repository">Gliwa Repository</h2>
+<p>For updates to the Gliwa T1 library or any additional files Gliwa has provided an Xfer server for access by Nexteer employees.</p>
+<p><a href="https://gliwa.com/xfer">https://gliwa.com/xfer</a></p>
+<p>Username: nexteer</p>
+<p>Password: la7Feje7</p>
+<h2 id="files-to-be-provided-by-the-integration-project">Files to be provided by the integration project</h2>
+<p>Examples of these files can be found in the folder GliwaT1/utp/Example_Integration_Specific</p>
+<h2 id="t1_appinterface_cfg.c">T1_Appinterface_Cfg.c</h2>
+<p>This file provides an interface for the reception and transmission of messages on the CAN bus in order to communicate with the host PC. Since messages are handled differently depending on the Vector SIP provided, a wrapper must exist for this functionality.</p>
+<p>On reception of a message from the host PC, the target ECU must call the T1_RxCallback function. The buffer passed to this function is processed in the T1_AppHandler call. Therefore the buffer most remain valid constantly. A temporary buffer declared at the beginning of the fuction is not sufficient. Furthermore the function must swtich to privldiged mode to permit acces to T1 RAM.</p>
+<p>T1_Trasmit is called by T1_AppHandler when T1 needs to transmit a message. The application is responsible for ensuring that this data is put on the bus in the correct order, and before the next call to T1_AppHandler. Any switch to supervisor mode would be redundant as it is already performed in the handler.</p>
+<h2 id="t1_appinterface_cfg.h">T1_Appinterface_Cfg.h</h2>
+<p>This file contains several constants for backwards compatilbity. D_I2CNXT_CNT_U08, D_SPINXT1_CNT_U08, and D_SPINXT2_CNT_U08 must be included if either the SpiNxt or I2cNxt components are included. They should be redefined to use the T1 generated constants rather than using a literal. For example if the I2C component is included the following can be used to alias the Identifier.</p>
+<p>#define D_I2CNXT_CNT_U08 T1_Isr_I2c_ID</p>
+<p>The PollT1HostToTarget function like macro should be defined if the application uses polling to handle messages. If any headers are required to poll for the message they should be included in T1_Appinterface_Cfg.h.</p>
+<p>D_GLIWAT1_SWITCHTOPRIVMODE_CNT_LGC should be set to STD_ON if the target application uses MPU regions. This puts all memory accesses by T1 into privlidged mode, so its memory can be allocated anywhere.</p>
+<p>D_GLIWAT1_SLOWWAITSTATES_CNT_LGC should be set to STD_ON if the standard wait states of 3dws and 1aws are used. If seto STD_OFF it is assumed that there are 2dws and 0aws. If this is set incorrectly there will be an increase in measurement overhead.</p>
+<h2 id="executable-scripts">Executable Scripts</h2>
+<p>Two batch files are provided in the UTP/Example_Tools_GliwaT1 folder. Perform integration copies the overlay onto the file system, and perfroms the necessary generation steps. The remove integration batch file removes the overlay from the working directory. They are both intended to run from the projects Tools/GliwaT1 folder.</p>
+<p>These scripts expect that Perl has been installed locally, and the AsrToOil utility has been installed in the Tools folder of the integration project. Active Perl has been used in the past, but any windows implementation of Perl should work. No modules other than those provided by Gliwa are required to run these scripts.</p>
+<h2 id="overlay">Overlay</h2>
+<p>The point of the overlay is to change files that cannot be modified for an official build. Examples of this include the OS, and vector provided ISRs. The overlay should contain a duplicate of the files contained which are intended to be changed. Since the many of the most important files to be replaced are provided by the Vector SIP, different SIPs will have to tailor their overlay folder to their project.</p>
+<p>For ISRs that execute in an non-trusted application it is recommended that the Metrics_TaskStart and Metrics_TaskEnd interface is used. This interface ensures that the events are logged in a privlidged mode. The ID provided should be the ID generated by the Gliwa Perl scripts.</p>
+<h2 id="basic-test-guidelines">Basic Test Guidelines</h2>
+<h2 id="minimum-conditions-for-a-valid-test">Minimum Conditions for a Valid Test</h2>
+<ul>
+<li><p>Merged with calibrations traceable to eCalNet</p>
+<ul>
+<li><p>Any modifications should be noted in the report comments.</p></li>
+</ul></li>
+<li><p>Every serial communications message that EPS receives being transmitted on all busses.</p></li>
+<li><p>Controller enters operate state without any defeats enabled.</p></li>
+<li><p>Turn on all conditionally enabled functionality.</p>
+<ul>
+<li><p>Examples include Lane Keeping Assist on GM C1xx, and Black Box functionality on Ford S550.</p></li>
+</ul></li>
+</ul>
+<h2 id="gliwa-t1-configuration">Gliwa T1 configuration</h2>
+<ul>
+<li><p>Overheads should be re-calculated using Overhead_Calculation.xlsx which is located in the component’s tools directory.</p></li>
+<li><p>All ISRs must be instrumented, with the exception of any that do not return.</p></li>
+</ul>
+<h2 id="required-measurements">Required Measurements</h2>
+<ul>
+<li><p>Overall average CPU usage</p>
+<ul>
+<li><p>Appears on report as average CPU use from T1.cont</p></li>
+</ul></li>
+<li><p>Task core execution time</p></li>
+<li><p>Task chain time</p>
+<ul>
+<li><p>Time from the activation of the first task executed at a periodic rate, to completion of the last task in that periodic rate.</p></li>
+</ul></li>
+</ul>
+<h2 id="additional-measurements">Additional Measurements</h2>
+<ul>
+<li><p>Motor Control ISR function execution times.</p></li>
+<li><p>Task chain thresholds</p>
+<ul>
+<li><p>Add T1_Delay calls to the end of each task, and increase the delay until a failure occurs.</p></li>
+</ul></li>
+</ul>
+<h2 id="quick-start-guide">Quick Start Guide</h2>
+<ol type="1">
+<li><p>Remove any existing traces of the old Metrics Component. This includes the component, and any configuration files (likely within the GenData directory).</p></li>
+<li><p>Add GliwaT1 component to Synergy</p></li>
+<li><p>Copy the contents of the Gliwa component’s utp/Example_Tools_GliwaT1 directory to the project’s Tools directory in a new GliwaT1 folder.</p></li>
+<li><p>Modify the Overlay directory to conform to the expected layout of the project.</p>
+<ol type="1">
+<li><p>The GM_C1XX_EPS_TMS570 folder at the highest level in the Overlay directory will have to be renamed to the name of the project.</p></li>
+<li><p>All interrupts must be instrumented. See section 4.4. If the OS has changed since integration int C1xx, the OS files will have to be updated appropriately. If significant changes to the OS have occurred then Gliwa support may be required.</p></li>
+</ol></li>
+<li><p>Add the two messages to allow the host (PC) software to communicate with the target (ECU).</p>
+<ol type="1">
+<li><p>See section 4.5.</p></li>
+</ol></li>
+</ol>

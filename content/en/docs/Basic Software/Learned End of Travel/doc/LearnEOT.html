@@ -1,0 +1,584 @@
+---
+title: LearnEOT
+linkTitle: LearnEOT
+weight: 3
+---
+
+<h1 class="unnumbered" id="module----lrneot">Module -- LrnEOT</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>LrnEOT uses vehicle operational information to learn the appropriate end of travel positions for a given system.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.90278in;height:3.26875in" /></p>
+<h1 id="module-inputs-and-outputs"><br />
+Module Inputs and Outputs</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs (Global Variable Name)</th>
+<th>Module Outputs (Global Variable Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MtrVelCRF_MtrRadpS_f32</td>
+<td>CWPosition_HwDeg_f32</td>
+</tr>
+<tr class="even">
+<td>HandwheelPosition_HwDeg_f32</td>
+<td>CCWPosition_HwDeg_f32</td>
+</tr>
+<tr class="odd">
+<td>HandwheelAuthority_Uls_f32</td>
+<td>CWFound_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td>HwTorque_HwNm_f32</td>
+<td>CCWFound_Cnt_lgc</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DiagStsHwPosDis_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LrnEOT_CcwEOTTimer_mS_M_u32</td>
+<td>1</td>
+<td>0</td>
+<td>Full</td>
+<td>LRNEOT_START_SEC_VAR_32</td>
+</tr>
+<tr class="even">
+<td>LrnEOT_CwEOTTimer_mS_M_u32</td>
+<td>1</td>
+<td>0</td>
+<td>Full</td>
+<td>LRNEOT_START_SEC_VAR_32</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>LrnEOT_ResetLimitReq_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>LRNEOT_START_SEC_VAR_ BOOLEAN</td>
+</tr>
+</tbody>
+</table>
+<h3 class="unnumbered" id="section"></h3>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 30%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>Storage Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_MinRackTrvl_HwDeg_f32</td>
+</tr>
+<tr class="even">
+<td>k_MaxRackTrvl_HwDeg_f32</td>
+</tr>
+<tr class="odd">
+<td>k_AuthorityStartLrn_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_HwTrqEOTLrn_HwNm_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MtrVelEOTLrn_MtrRadpS_f32</td>
+</tr>
+<tr class="even">
+<td>k_EOTLrnTimer_mS_u16</td>
+</tr>
+<tr class="odd">
+<td>k_MtrTrqEOTLrn_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td>k_MinResetAuthority_Uls_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 29%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_CCWEOTPOSITIONLOLIM_HWDEG_F32</td>
+<td>Single precision Float</td>
+<td>(-1440.11)</td>
+</tr>
+<tr class="even">
+<td>D_CCWEOTPOSITIONHILIM_HWDEG_F32</td>
+<td>Single precision Float</td>
+<td>(-360.0)</td>
+</tr>
+<tr class="odd">
+<td>D_CWEOTPOSITIONLOLIM_HWDEG_F32</td>
+<td>Single precision Float</td>
+<td>360.0</td>
+</tr>
+<tr class="even">
+<td>D_CWEOTPOSITIONHILIM_HWDEG_F32</td>
+<td>Single precision Float</td>
+<td>1440.11</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+<tr class="even">
+<td>D_FALSE_CNT_LGC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 13%" />
+<col style="width: 34%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>Abs_f32_m()</p></li>
+<li><p>Max_m()</p></li>
+<li><p>Min_m()</p></li>
+<li><p>Limit_m()</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<p>The data hiding functions / macros used in this module are identified below,</p>
+<ol type="1">
+<li><p>Rte_Call_LearnedEOTData_SetRamBlockStatus()</p></li>
+<li><p>Rte_Call_LearnedEOTData_WriteBlock()</p></li>
+</ol>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>The local functions/macros in this module are identified below:</p>
+<ol type="1">
+<li><p>ResetEOT()</p></li>
+</ol>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-lrneot_init">Init: LrnEOT_Init()</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="initialize-end-of-travel">Initialize End-of-Travel</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<p>Rte_IWrite_LrnEOT_Init1_CCWFound_Cnt_lgc(Rte_Pim_LearnedEOT()-&gt;CCWEOTFound_Cnt_lgc)</p>
+<p>Rte_IWrite_LrnEOT_Init1­_CCWPosition_HwDeg_f32(Rte_Pim_LearnedEOT()-&gt;CCWEOTPosition_HwDeg_f32)</p>
+<p>Rte_IWrite_LrnEOT_Init1_CWFound_Cnt_lgc(Rte_Pim_LearnedEOT()-&gt;CWEOTFound_Cnt_lgc)</p>
+<p>Rte_IWrite_LrnEOT_Init1_CWPosition_HwDeg_f32(Rte_Pim_LearnedEOT()-&gt;CWEOTPosition_HwDeg_f32)</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-lrneot_per1">Per: LrnEOT_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_LrnEOT_Per1_CP0_CheckpointReached</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>Local Variables:</p>
+<p><em>DiagStsHwPosDis_Cnt_T_lgc</em> = Rte_IRead_LrnEOT_Per1_DiagStsHwPosDis_Cnt_lgc()</p>
+<p><em>HandwheelAuthority_Uls_T_f32</em> = Rte_IRead_LrnEOT_Per1_HandwheelAuthority_Uls_f32()</p>
+<p><em>HandwheelPosition_HwDeg_T_f32</em> = Rte_IRead_LrnEOT_Per1_HandwheelPosition_HwDeg_f32()</p>
+<p><em>HwTorque_MtrNm_T_f32</em> = Rte_IRead_LrnEOT_Per1_HwTorque_HwNm_f32()</p>
+<p><em>MtrVel_MtrRadpS_T_f32</em> = Rte_IRead_LrnEOT_Per1_MtrVelCRF_MtrRadpS_f32()</p>
+<h4 id="reset-eot-limits">Reset EOT Limits</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h4 id="learn-end-of-travel-limits">Learn End of Travel Limits</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h4 id="eot-learn-complete-indication">EOT Learn Complete Indication</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_IWrite_LrnEOT_Per1_CCWFound_Cnt_lgc(Rte_Pim_LearnedEOT()-&gt;CCWEOTFound_Cnt_lgc)</p>
+<p>Rte_IWrite_LrnEOT_Per1_CCWPosition_HwDeg_f32(CWWEOTPosition_HwDeg_T_f32)</p>
+<p>Rte_IWrite_LrnEOT_Per1_CWFound_Cnt_lgc(Rte_Pim_LearnedEOT()-&gt;CWEOTFound_Cnt_lgc)</p>
+<p>Rte_IWrite_LrnEOT_Per1_CWPosition_HwDeg_f32(CWEOTPosition_HwDeg_T_f32)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_LrnEOT_Per1_CP1_CheckpointReached</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<h3 id="lrneot_scom_reseteot">LrnEOT_Scom_ResetEOT</h3>
+<blockquote>
+<p>LrnEOT_ResetLimitReq_Cnt_M_lgc = True</p>
+</blockquote>
+<h2 id="local-functionmacro-definitions">Local Function/Macro Definitions</h2>
+<h3 id="reset-end-of-travel">Reset End of Travel</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ResetEOT</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h1 class="unnumbered" id="section-1"></h1>
+<h1 id="execution-requirements"><br />
+Execution Requirements</h1>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 21%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LrnEOT_Init ()</td>
+<td>On Event</td>
+<td>On Init</td>
+</tr>
+<tr class="even">
+<td>LrnEOT_Per1()</td>
+<td>10mS</td>
+<td>ALL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LrnEOT_Scom_ResetEOT</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LrnEOT_Per1</td>
+<td>RTE_START_SEC_AP_LRNEOT_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>LrnEOT_Scom_ResetEOT</td>
+<td>RTE_START_SEC_AP_LRNEOT_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ResetEOT</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>Inline functions in GlobalMacro.h are not unit tested.</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 61%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial release</td>
+<td>13Feb12</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Updated ResetEOT function to use WriteBlock API, fixed anomaly 3206</td>
+<td>26-Apr-12</td>
+<td>VK</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3</td>
+<td>Correction of anomaly 3259, QAC updates</td>
+<td>29-May-12</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4</td>
+<td>Updated to SF-11 v002</td>
+<td>20-Jun-12</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5</td>
+<td>UTP Fix – calibration name</td>
+<td>27-Jun-12</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6</td>
+<td>Moved RackCentering function to new Ap_LnRkCr component – FDD SF-39</td>
+<td>18-Aug-12</td>
+<td>BDO</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7</td>
+<td>Check points flow updated</td>
+<td>23- Sep -12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8</td>
+<td>Changed Per1 trigger rate from 4ms to 10ms.</td>
+<td>22-Oct-12</td>
+<td>BWL</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9</td>
+<td>Updated to SF 11 v006</td>
+<td>24-Apr-14</td>
+<td>SB</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10</td>
+<td>Updated as per Unit test findings</td>
+<td>18-Aug-14</td>
+<td>KPIT_SM</td>
+</tr>
+</tbody>
+</table>

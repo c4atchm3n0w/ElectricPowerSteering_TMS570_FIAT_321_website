@@ -1,0 +1,487 @@
+---
+title: Shutdown_Mechanisms_MDD
+linkTitle: Shutdown_Mechanisms_MDD
+weight: 3
+---
+
+<h1 class="unnumbered" id="module">Module – </h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module handles diagnostic data during an F1 fault. The actual signal control is performed in other modules which “own” the signal.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:1.80903in;height:1.35625in" /></p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">None</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ESMErrOutStat_Cnt_D_u08</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>SHTDNMECH_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="even">
+<td>SysFault2Stat_Cnt_D_u08</td>
+<td>8</td>
+<td>0</td>
+<td>8</td>
+<td>SHTDNMECH_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="odd">
+<td>GateDrvResetStat_Cnt_D_u32</td>
+<td>524288</td>
+<td>0</td>
+<td>524288</td>
+<td>SHTDNMECH_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>NHETPwmStat_Cnt_D_u32</td>
+<td>22282308</td>
+<td>0</td>
+<td>22282308</td>
+<td>SHTDNMECH_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_ESMERROUTSTAT_CNT_U08</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x01</td>
+</tr>
+<tr class="even">
+<td>D_SYSFAULT2STAT_CNT_U08</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x08</td>
+</tr>
+<tr class="odd">
+<td>D_GATEDRVRESETSTAT_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x00080000</td>
+</tr>
+<tr class="even">
+<td>D_NHETPWMSTAT_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x01540044</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_ZERO_CNT_U8</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_CNT_U32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>None</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="section-1"></h3>
+<h4 id="section-2"></h4>
+<h4 id="section-3"></h4>
+<p>None</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-_per1">Per: _Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_ShtdnMech_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>Rte_Call_FetDrvReset_OP_GET(&amp;FetDrvReset_Cnt_T_lgc)</p>
+<p>Rte_Call_SysFault2_OP_GET(&amp;SysFault2_Cnt_T_lgc)</p>
+<p>Rte_Call_SysFault3_OP_GET(&amp;SysFault3_Cnt_T_lgc)</p>
+<h4 id="status-signals-for-testing">Status Signals for Testing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_ShtdnMech_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="transition-functions">Transition Functions</h2>
+<h3 id="section-4"></h3>
+<h4 id="section-5"></h4>
+<p>None</p>
+<h4 id="section-6"></h4>
+<h4 id="section-7"></h4>
+<h4 id="section-8"></h4>
+<h4 id="section-9"></h4>
+<h4 id="section-10"></h4>
+<h3 id="section-11"></h3>
+<h4 id="section-12"></h4>
+<h4 id="section-13"></h4>
+<h4 id="section-14"></h4>
+<h4 id="section-15"></h4>
+<h4 id="section-16"></h4>
+<h4 id="section-17"></h4>
+<h2 id="section-18"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="section-19"></h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ShtdnMech_Per1</td>
+<td>10 ms</td>
+<td>ALL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-20"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ShtdnMech_Per1</td>
+<td>RTE_START_SEC_SA_SHTDNMECH_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-21"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-22"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Item #</strong></th>
+<th><strong>Rev #</strong></th>
+<th><strong>Change Description</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author Initials</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1.0</td>
+<td>Initial Version</td>
+<td>25-Jul-12</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>2.0</td>
+<td>Updates to remove NHETPINDIS, removed control of SysFault3 pin (this is handled in hardware). Only control NHET Direction on entering operate state (instead of exiting disable state) as other pins are controlled by other modules and NHET pins should remain inputs in warm init.</td>
+<td>03-Aug-12</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>3.0</td>
+<td>Update for anomaly 3640 correction</td>
+<td>22-Aug-12</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>4.0</td>
+<td>Added checkpoints and memmap software segment is updated for static variables</td>
+<td>27-Sep-12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>5.0</td>
+<td>Implemented FDD 18B v003 (removed signal control from module)</td>
+<td>17-Oct-12</td>
+<td>OT</td>
+</tr>
+</tbody>
+</table>

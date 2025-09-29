@@ -1,0 +1,1262 @@
+---
+title: Frequency_Dependant_Damping_And_Inertia_Compenstation_MDD
+linkTitle: Frequency_Dependant_Damping_And_Inertia_Compenstation_MDD
+weight: 3
+---
+
+<h1 class="unnumbered" id="module----frequency-dependant-damping-and-inertia-compensation">Module -- Frequency Dependant Damping and Inertia Compensation</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This MDD describes the methods to provide compensation that is dependent on filter of motor velocity which will compensate for motor inertia at low frequencies and provide damping acting at higher frequencies.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-component">Diagram – Component </h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.69345in;height:2.52381in" /><strong><br />
+</strong></p>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>N/A</p>
+<h3 id="diagram-frqdepdmpninrtcmp_per1">Diagram – FrqDepDmpnInrtCmp_Per1</h3>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">HwTorque_HwNm_f32</td>
+<td>FrqDepDmpnInrtCmp_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">CRFMotorVel_MtrRadpS_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">BaseAssistCmd_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">VehicleSpeed_Kph_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">WIRCmdAmpBlnd_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">FreqDepDmpSrlComSvcDft_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">VehicleLonAccel_KphpS_T_f32</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 15%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PrevTbarAng_HwDeg_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-20</td>
+<td>20</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>Prev1SclDrvVel_RadpS_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-12917.3</td>
+<td>12917.3</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>Prev2SclDrvVel_RadpS_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-12917.3</td>
+<td>12917.3</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>Prev1PreAttnComp_MtrNm_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-8.8</td>
+<td>8.8</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>Prev2PreAttnComp_MtrNm_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-8.8</td>
+<td>8.8</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>TbarVelFiltSv_M_str</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>TbarVelFiltSv_M_str.K_ULS_F32</td>
+<td>Single Precision Floating Point</td>
+<td>0.001255848</td>
+<td>0.715390457</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>TbarVelFiltSv_M_str.SV_ULS_F32</td>
+<td>Single Precision Floating Point</td>
+<td>-6.6667</td>
+<td>6.6667</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>PreDecelGain_Uls_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>1</td>
+<td>FULL</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-display-variables">Module Display Variables</h3>
+<p>This section identifies the name, range and resolutions for data test points defined by the FDD. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ADDCoef_MtrNmSpRad_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>DriverVelocity_MtrRadpS_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>FDDAttenOut_MtrNm_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>InertiaCompCalc_MtrNm_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>FiltFreqLUBlnd_RadpS_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>RawDecelGain_Uls_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>TbarVelFiltVal_HwDegpSec_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>FRQDEPDMPNINRTCMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>typedef struct filterCoef_T</td>
+<td>b0_Uls_f32</td>
+<td>Float32</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>b1_Uls_f32</td>
+<td>Float32</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>b2_Uls_f32</td>
+<td>Float32</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>a0_Uls_f32</td>
+<td>Float32</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>a1_Uls_f32</td>
+<td>Float32</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>a2_Uls_f32</td>
+<td>Float32</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_InrtCmp_MtrInertia_KgmSq_f32</td>
+</tr>
+<tr class="even">
+<td>t_InrtCmp_ScaleFactorTblY_Uls_u9p7[12]</td>
+</tr>
+<tr class="odd">
+<td>k_InrtCmp_TBarVelLPFKn_Hz_f32</td>
+</tr>
+<tr class="even">
+<td>t_InrtCmp_TBarVel_ScaleFactorTblY_Uls_u9p7[12]</td>
+</tr>
+<tr class="odd">
+<td>k_InrtCmp_MtrVel_ScaleFactor_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>t_FDD_ADDStaticTblY_MtrNmpRadpS_um1p17[10]</td>
+</tr>
+<tr class="odd">
+<td>t2_FDD_ADDRollingTblYM_MtrNmpRadpS_um1p17[2][10]</td>
+</tr>
+<tr class="even">
+<td>t_FDD_BlendTblY_Uls_u8p8[6]</td>
+</tr>
+<tr class="odd">
+<td>t2_FDD_FreqTblYM_Hz_u12p4[2][12]</td>
+</tr>
+<tr class="even">
+<td>t_FDD_AttenTblX_MtrRadpS_u12p4[2]</td>
+</tr>
+<tr class="odd">
+<td>t_FDD_AttenTblY_Uls_u8p8[2]</td>
+</tr>
+<tr class="even">
+<td>t_WIRBlndTblX_MtrNm_u8p8[5]</td>
+</tr>
+<tr class="odd">
+<td>t_RIAstWIRBlndTblY_Uls_u2p14[5]</td>
+</tr>
+<tr class="even">
+<td>t_DmpFiltKpWIRBlndY_Uls_u2p14[5]</td>
+</tr>
+<tr class="odd">
+<td>t_DmpDecelGainSlewY_UlspS_u13p3[6]</td>
+</tr>
+<tr class="even">
+<td>t_DmpDecelGainSlewX_MtrRadpS_u11p5[6]</td>
+</tr>
+<tr class="odd">
+<td>k_DmpGainOnThresh_KphpS_f32</td>
+</tr>
+<tr class="even">
+<td>k_DmpDecelGain_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_DmpDecelGainFSlew_UlspS_f32</td>
+</tr>
+<tr class="even">
+<td>k_DmpGainOffThresh_KphpS_f32</td>
+</tr>
+<tr class="odd">
+<td>t_CmnVehSpd_Kph_u9p7[12]</td>
+</tr>
+<tr class="even">
+<td>t_FddADDCoefTblX_MtrNm_u4p12[10]</td>
+</tr>
+<tr class="odd">
+<td>k_CmnTbarStiff_NmpDeg_f32</td>
+</tr>
+<tr class="even">
+<td>k_CmnSysKinRatio_MtrDegpHwDeg_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section"></h2>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_FDDADDCOEFTBLSIZE_ULS_U8</td>
+<td>uint8</td>
+<td>Uls</td>
+<td>24U</td>
+</tr>
+<tr class="even">
+<td>D_FLOATONE_ULS_F32</td>
+<td>Float32</td>
+<td>Uls</td>
+<td>1.0F</td>
+</tr>
+<tr class="odd">
+<td>D_FLOATEIGHT_ULS_F32</td>
+<td>Float32</td>
+<td>Uls</td>
+<td>8.0F</td>
+</tr>
+<tr class="even">
+<td>D_FLOATFOUR_ULS_F32</td>
+<td>Float32</td>
+<td>Uls</td>
+<td>4.0F</td>
+</tr>
+<tr class="odd">
+<td>D_FLOATTWO_ULS_F32</td>
+<td>Float32</td>
+<td>Uls</td>
+<td>2.0F</td>
+</tr>
+<tr class="even">
+<td>D_ATTENTBLMAXINPUT_MTRRADPS_F32</td>
+<td>Float32</td>
+<td>MtrRadpS</td>
+<td>4095.9375</td>
+</tr>
+<tr class="odd">
+<td>D_ATTENTBLMININPUT_MTRRADPS_F32</td>
+<td>Float32</td>
+<td>MtrRadpS</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_ONE_ULS_F32</td>
+</tr>
+<tr class="even">
+<td>D_PIOVR180_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td>D_2MS_SEC_F32</td>
+</tr>
+<tr class="even">
+<td>D_2PI_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td>D_MTRTRQCMDHILMT_MTRNM_F32</td>
+</tr>
+<tr class="even">
+<td>BC_FREQDEPDAMPING_FAULTINJECTIONPOINT</td>
+</tr>
+<tr class="odd">
+<td>FLTINJ_INERTIACOMP</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>Abs_f32_m</p></li>
+<li><p>FPM_FloatToFixed_m</p></li>
+<li><p>TableSize_m</p></li>
+<li><p>FPM_FixedToFloat_m</p></li>
+<li><p>LPF_SvUpdate_s16InFixKTrunc_m</p></li>
+<li><p>Limit_m</p></li>
+<li><p>FPM_FloatToFixedWithRound_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>IntplVarXY_u16_u16Xu16Y_Cnt</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>N/A</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="calculate-driver-velocity">Calculate Driver Velocity</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 47%" />
+<col style="width: 9%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DriverVelCalc</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>HwTroque_HwNm_T_f32</td>
+<td>float32</td>
+<td>-10</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>CRFMotorVel_MtrRadpS_T_f32</td>
+<td>float32</td>
+<td>-1118</td>
+<td>1118</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>512</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>ScaledDriverVel_MtrRadpS_T_f32</td>
+<td>float32</td>
+<td>-7226.652</td>
+<td>7226.652</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h3 id="calculate-gain">Calculate Gain</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 47%" />
+<col style="width: 9%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DecelGain</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>VehicleLonAccel_KphpS_T_f32</td>
+<td>float32</td>
+<td>-10</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>CRFMotorVel_MtrRadpS_T_f32</td>
+<td>float32</td>
+<td>-1118</td>
+<td>1118</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>DecelGain_Uls_T_f32</td>
+<td>float32</td>
+<td>1</td>
+<td>FULL</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h3 id="calculate-add-coefficient">Calculate ADD Coefficient</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ADDCoefCalc</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>BaseAssistCmd_MtrNm_T_f32</td>
+<td>float32</td>
+<td>-8.8</td>
+<td>8.8</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>WIRCmdAmpBlnd_MtrNm_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>512</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>ADDCoefCalc_MtrNmSpRad_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>0.041306</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-2">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h3 id="calculate-filter-coefficients">Calculate Filter Coefficients</h3>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 9%" />
+<col style="width: 20%" />
+<col style="width: 27%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td colspan="2">FilterCoefCalc</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td colspan="2">ADDCoef_MtrNmSpRad_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>0.041306</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td colspan="2">WIRCmdAmpBlnd_MtrNm_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td></td>
+<td colspan="2">VehicleSpeed_Kph_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>512</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>*FilterCoefStr</td>
+<td>b0_Uls_f32</td>
+<td>float32</td>
+<td>-2.74156205240179</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>b1_Uls_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>0.330448</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>b2_Uls_f32</td>
+<td>float32</td>
+<td>-0.160083862455113</td>
+<td>2.41111405240179</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>a0_Uls_f32</td>
+<td>float32</td>
+<td>0.5525885</td>
+<td>3.9498924</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>a1_Uls_f32</td>
+<td>float32</td>
+<td>-7.9996842</td>
+<td>-4.8417266</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>a2_Uls_f32</td>
+<td>float32</td>
+<td>4.0504234</td>
+<td>10.6056849</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-3">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h3 id="generate-command">Generate Command</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 18%" />
+<col style="width: 12%" />
+<col style="width: 14%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td colspan="2">GenFddIcCmd</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td colspan="2">ScaledDriverVel_MtrRadpS_T_f32</td>
+<td>float32</td>
+<td>-7226.652</td>
+<td>7226.652</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td rowspan="6">*FilterCoefStr</td>
+<td>b0_Uls_f32</td>
+<td>float32</td>
+<td>-2.74156205240179</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>b1_Uls_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>0.330448</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>b2_Uls_f32</td>
+<td>float32</td>
+<td>-0.166262133009164</td>
+<td>2.41111405240179</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>a0_Uls_f32</td>
+<td>float32</td>
+<td>0.5525885</td>
+<td>3.9498924</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>a1_Uls_f32</td>
+<td>float32</td>
+<td>-7.9996842</td>
+<td>-4.8417266</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>a2_Uls_f32</td>
+<td>float32</td>
+<td>4.0504234</td>
+<td>10.6056849</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td colspan="2">Compenstation_MtrNm_T_f32</td>
+<td>Float</td>
+<td>-8.8</td>
+<td>8.8</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-4">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rte_InitValue_BaseAssistCmd_MtrNm_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_CRFMotorVel_MtrRadpS_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_FreqDepDmpSrlComSvcDft_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_FrqDepDmpnInrtCmp_MtrNm_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_HwTorque_HwNm_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_VehicleSpeed_Kph_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_WIRCmdAmpBlnd_MtrNm_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_BaseAssistCmd_MtrNm_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_CRFMotorVel_MtrRadpS_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="even">
+<td>Rte_ InitValue_VehicleLonAccel_KphpS_f32</td>
+<td>0.0F</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="frqdepdmpninrtcmp_init"> FrqDepDmpnInrtCmp_Init</h3>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-_per1">Per: _Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>This periodic handles all location function calls to calculate the inertia and frequency dependant damping compensation.</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_FrqDepDmpnInrtCmp_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HwTorque_HwNm_T_f32</td>
+<td>Rte_IRead_FrqDepDmpnInrtCmp_Per1_HwTorque_HwNm_f32()</td>
+</tr>
+<tr class="even">
+<td>CRFMotorVel_MtrRadpS_T_f32</td>
+<td>Rte_IRead_FrqDepDmpnInrtCmp_Per1_CRFMotorVel_MtrRadpS_f32()</td>
+</tr>
+<tr class="odd">
+<td>BaseAssistCmd_MtrNm_T_f32</td>
+<td>Rte_IRead_FrqDepDmpnInrtCmp_Per1_BaseAssistCmd_MtrNm_f32()</td>
+</tr>
+<tr class="even">
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>Rte_IRead_FrqDepDmpnInrtCmp_Per1_VehicleSpeed_Kph_f32()</td>
+</tr>
+<tr class="odd">
+<td>WIRCmdAmpBlnd_MtrNm_T_f32</td>
+<td>Rte_IRead_FrqDepDmpnInrtCmp_Per1_WIRCmdAmpBlnd_MtrNm_f32()</td>
+</tr>
+<tr class="even">
+<td>FDDDefSrvFlg_Cnt_T_lgc</td>
+<td>Rte_IRead_FrqDepDmpnInrtCmp_Per1_FreqDepDmpSrlComSvcDft_Cnt_lgc()</td>
+</tr>
+<tr class="odd">
+<td>VehicleLonAccel_KphpS_T_f32</td>
+<td>Rte_IRead_FrqDepDmpnInrtCmp_Per1_VehicleLonAccel_KphpS_f32()</td>
+</tr>
+</tbody>
+</table>
+<h4 id="processing-of-function"> (Processing of function)………</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FrqDepDmpnInrtCmp_MtrNm_T_f32</td>
+<td>Rte_IWrite_FrqDepDmpnInrtCmp_Per1_FrqDepDmpnInrtCmp_MtrNm_f32()</td>
+</tr>
+</tbody>
+</table>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_FrqDepDmpnInrtCmp_Per1_CP1_CheckpointReached();</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>N/A</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>N/A</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>N/A</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>N/A</p>
+<h2 class="unnumbered" id="section-1"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FrqDepDmpnInrtCmp_Per1</td>
+<td>2ms</td>
+<td>WarmInit, Operate ,Off</td>
+</tr>
+<tr class="even">
+<td>FrqDepDmpnInrtCmp_Init</td>
+<td>Once at startup</td>
+<td>On Init</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FrqDepDmpnInrtCmp_Per1</td>
+<td>RTE_START_SEC_AP_FRQDEPDMPNINRTCMP_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>FrqDepDmpnInrtCmp_Init</td>
+<td>RTE_START_SEC_AP_FRQDEPDMPNINRTCMP_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DriverVelCalc</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="even">
+<td>ADDCoefCalc</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="odd">
+<td>FilterCoefCalc</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="even">
+<td>GenFddIcCmd</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 class="unnumbered" id="section-5"><br />
+</h1>
+<h1 id="filter-analysis">Filter Analysis</h1>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></td>
+<td>Filter analysis for all the LPF filters called in this MDD. Analysis contains high/low cutoff frequencies with max output.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<ol start="20" type="1">
+<li><p>INLINE functions defined in globalmacro.h are not unit tested</p></li>
+</ol>
+<h1 class="unnumbered" id="section-6"></h1>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial Release</td>
+<td>23-Nov-11</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Corrections made after initial compile of the component, also updated service defeat input for clarity</td>
+<td>29-Nov-11</td>
+<td>KJS</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Corrections made to range of module variable PrevTbar, and overflow condition in GenFDDIcCmd function.</td>
+<td>21-Dec-11</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Updated attenuation table limits for unsigned value</td>
+<td>21-Dec-11</td>
+<td>KJS</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Corrected anomaly 2787</td>
+<td>10-Jan-12</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6.0</td>
+<td>Corrected anomaly 2799, changes to section 5.4.1.1</td>
+<td>13-Jan-12</td>
+<td>KJS</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7.0</td>
+<td>Updated diagrams for anomaly correction 2855, filter analysis in section 9 and UTP known issue comment in section 10.</td>
+<td>21-Jan-12</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8.0</td>
+<td>Updated ranges on filter coefficients</td>
+<td>08-Feb-12</td>
+<td>KJS</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9.0</td>
+<td>Fixed Anom 3616</td>
+<td>09-Aug-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10.0</td>
+<td>UTP fixes as per mismatch with SRC</td>
+<td>28-Aug-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>11</td>
+<td>Check Points added</td>
+<td>20-sep-2012</td>
+<td>SSK</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>12</td>
+<td>Updated to version 5 FDD SF-14</td>
+<td>7-Feb-13,</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>13</td>
+<td>Change in the calibration names</td>
+<td>8-Feb-12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>14</td>
+<td>Fixed anomaly 4786</td>
+<td>12-Apr-2013</td>
+<td>SP</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>15</td>
+<td>Interpolation input signal resolution corrections, anomaly 4775</td>
+<td>12-Apr-2013</td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>17</td>
+<td>A6259 fix - Initialized the module level variable used for previous value of DecelGain to 1.</td>
+<td>27-Aug-14</td>
+<td>SB</td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td>18</td>
+<td>Ranges for parameters added in the function” FilterCoefCalc”. And flowcharts updated</td>
+<td>16-Sep-14</td>
+<td>KPIT/SB</td>
+</tr>
+</tbody>
+</table>

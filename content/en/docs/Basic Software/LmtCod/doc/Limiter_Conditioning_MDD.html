@@ -1,0 +1,633 @@
+---
+title: Limiter_Conditioning_MDD
+linkTitle: Limiter_Conditioning_MDD
+weight: 3
+---
+
+<h1 class="unnumbered" id="module-limiter-conditioning">Module – Limiter Conditioning</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This MDD describes the summation of all assist and limit terms used in an Electric Power Steering application.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-component-diagram">Diagram – Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:3.03056in;height:2.59375in" /></p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Module Inputs</td>
+<td colspan="2">Module Outputs</td>
+</tr>
+<tr class="even">
+<td colspan="2">AssistEOTGain_Uls_f32</td>
+<td>EOTGainLtd_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">AssistEOTLimit_MtrNm_f32</td>
+<td>EOTLimitLtd_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">AssistStallLimit_MtrNm_f32</td>
+<td>OutputRampMultLtd_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">AssistVehSpdLimit_MtrNm_f32</td>
+<td>StallLimitLtd_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">OutputRampMult_Uls_f32</td>
+<td>ThermalLimitLtd_MtrNm_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">ThermalLimit_MtrNm_f32</td>
+<td>VehSpdLimitLtd_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">VehicleSpeed_Kph_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">CCLTrqRamp_Uls_f32</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Variable Name</td>
+<td>Resolution</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>CurrAssistEOTGain_Uls_M_f32</td>
+<td>Single Precision Float</td>
+<td>0</td>
+<td>1</td>
+<td>LMTCOD_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CurrOutputRampMult_Uls_M_f32</td>
+<td>Single Precision Float</td>
+<td>0</td>
+<td>1</td>
+<td>LMTCOD_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CurrAssistEOTLimit_MtrNm_M_f32</td>
+<td>Single Precision Float</td>
+<td>0</td>
+<td>8.8</td>
+<td>LMTCOD_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CurrAssistStallLimit_MtrNm_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>0</td>
+<td>8.8</td>
+<td>LMTCOD_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CurrAssistVehSpdLimit_MtrNm_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>0</td>
+<td>8.8</td>
+<td>LMTCOD_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CurrThermalLimit_MtrNm_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>0</td>
+<td>8.8</td>
+<td>LMTCOD_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CCLTrqRamp_Uls_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>0</td>
+<td>1</td>
+<td>LMTCOD_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Typedef Name</td>
+<td>Element Name</td>
+<td>User Defined Type</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>k_GainDecSlew_UlspS_f32</td>
+</tr>
+<tr class="odd">
+<td>k_TorqueDecSlew_MtrNmpS_f32</td>
+</tr>
+<tr class="even">
+<td>t_GainIncSlewTblX_Kph_u9p7[2]</td>
+</tr>
+<tr class="odd">
+<td>t_GainIncSlewTblY_UlspS_u9p7[2]</td>
+</tr>
+<tr class="even">
+<td>t_TorqueIncSlewTblX_Kph_u9p7[2]</td>
+</tr>
+<tr class="odd">
+<td>t_TorqueIncSlewTblY_MtrNmpS_u13p3[2]</td>
+</tr>
+<tr class="even">
+<td>k_CCLTrqRampIncSlew_UlspS_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Units</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td>D_2MS_SEC_F32</td>
+</tr>
+<tr class="odd">
+<td>FLTINJ_ASSTEOTGAIN_LMTCOD</td>
+</tr>
+<tr class="even">
+<td>FLTINJ_OUTPUTRAMPMULT_LMTCOD</td>
+</tr>
+<tr class="odd">
+<td>FLTINJ_ASSTEOTLIMIT_LMTCOD</td>
+</tr>
+<tr class="even">
+<td>BC_LMTRCONDN_FAULTINJECTIONPOINT</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>Limit_m()</p></li>
+<li><p>Sign_f32_m()</p></li>
+<li><p>Min_m()</p></li>
+<li><p>Max_m()</p></li>
+<li><p>Abs_f32_m()</p></li>
+<li><p>IntplVarXY_u16_u16Xu16Y_Cnt()</p></li>
+<li><p>FPM_FloatToFixed_m()</p></li>
+<li><p>FPM_FixedToFloat_m()</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>N/A</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>N/A</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>N/A</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 91%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Data</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_AssistEOTGain_Uls_f32</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_AssistEOTLimit_MtrNm_f32</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_AssistStallLimit_MtrNm_f32</td>
+<td>8.8</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_AssistVehSpdLimit_MtrNm_f32</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_OutputRampMult_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_ThermalLimit_MtrNm_f32</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_EOTGainLtd_Uls_f32</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_EOTLimitLtd_MtrNm_f32</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_OutputRampMultLtd_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_StallLimitLtd_MtrNm_f32</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_ThermalLimitLtd_MtrNm_f32</td>
+<td>8.8</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_VehSpdLimitLtd_MtrNm_f32</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_VehicleSpeed_Kph_f32</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_CCLTrqRamp_Uls _f32</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>N/A</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-lmtcod_per1">Per: LmtCod_Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>This function provides a layer of protection from erroneous signals feeding into SF-04 Sum &amp; Limit. It is applied primarily to “Limiting” signals that serve to reduce motor torque command under certain operating conditions. This function can prevent step response or “toggling” behavior that might cause undesirable vehicle feel. It includes capability of fault injection at some inputs to facilate tuning. See FDD SF-38 for more details.</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_LmtCod_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Local Copy</td>
+<td>Module Input Name</td>
+</tr>
+<tr class="even">
+<td>AssistEOTGain_Uls_T_f32</td>
+<td>Rte_IRead_LmtCod_Per1_AssistEOTGain_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>AssistEOTLimit_MtrNm_T_f32</td>
+<td>Rte_IRead_LmtCod_Per1_AssistEOTLimit_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>AssistStallLimit_MtrNm_T_f32</td>
+<td>Rte_IRead_LmtCod_Per1_AssistStallLimit_MtrNm_f32</td>
+</tr>
+<tr class="odd">
+<td>AssistVehSpdLimit_MtrNm_T_f32</td>
+<td>Rte_IRead_LmtCod_Per1_AssistVehSpdLimit_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>OutputRampMult_Uls_T_f32</td>
+<td>Rte_IRead_LmtCod_Per1_OutputRampMult_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>ThermalLimit_MtrNm_T_f32</td>
+<td>Rte_IRead_LmtCod_Per1_ThermalLimit_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>Rte_IRead_LmtCod_Per1_VehicleSpeed_Kph_f32</td>
+</tr>
+<tr class="odd">
+<td>_CCLTrqRamp_Uls _T_f32</td>
+<td>Rte_IRead_LmtCod_Per1_CCLTrqRamp_Uls _f32</td>
+</tr>
+</tbody>
+</table>
+<h4 id="processing-of-function"> (Processing of function)………</h4>
+<p>\</p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 44%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Local Copy</td>
+<td>Module Output Name</td>
+</tr>
+<tr class="even">
+<td>CurrAssistEOTGain_Uls_M_f32</td>
+<td>Rte_IWrite_LmtCod_Per1_EOTGainLtd_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>CurrAssistEOTLimit_MtrNm_M_f32</td>
+<td>Rte_IWrite_LmtCod_Per1_EOTLimitLtd_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>FinalCurrOutputRampMult_Uls_T_f32</td>
+<td>Rte_IWrite_LmtCod_Per1_OutputRampMultLtd_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>CurrAssistStallLimit_MtrNm_M_f32</td>
+<td>Rte_IWrite_LmtCod_Per1_StallLimitLtd_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>CurrThermalLimit_MtrNm_M_f32</td>
+<td>Rte_IWrite_LmtCod_Per1_ThermalLimitLtd_MtrNm_f32</td>
+</tr>
+<tr class="odd">
+<td>CurrAssistVehSpdLimit_MtrNm_M_f32</td>
+<td>Rte_IWrite_LmtCod_Per1_VehSpdLimitLtd_MtrNm_f32</td>
+</tr>
+</tbody>
+</table>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_LmtCod_Per1_CP1_CheckpointReached()</p>
+<h4 id="fault-recovery-functions">Fault Recovery Functions</h4>
+<p>N/A</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>N/A</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>N/A</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>N/A</p>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Calling Frequency</td>
+<td>System State(s) in which the function is called</td>
+</tr>
+<tr class="even">
+<td>LmtCod_Per1</td>
+<td>2ms</td>
+<td>All</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Sub-Module called by (Serial Comm Function Name)</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section"><br />
+</h1>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>LmtCod_Per1()</td>
+<td>RTE_START_SEC_AP_LMTCOD_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-1"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions defined in globalmacro.h are not unittested.</p></li>
+</ol>
+<h1 class="unnumbered" id="revision-control-log">Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Document creation for component based design process</td>
+<td>28-Aug-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Check points corrected</td>
+<td>23-Sep-12</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Update to FDD SF38 v002 – CR8292</td>
+<td>17-May-13</td>
+<td>BDO</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Update to FDD SF38 v003</td>
+<td>09-July-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Changed the init value of “CCLTrqSlew” from “0” to “1”</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>

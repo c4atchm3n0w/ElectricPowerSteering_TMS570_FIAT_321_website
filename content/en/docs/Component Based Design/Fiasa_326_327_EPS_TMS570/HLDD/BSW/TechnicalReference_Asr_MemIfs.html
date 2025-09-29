@@ -1,0 +1,1480 @@
+---
+title: TechnicalReference_Asr_MemIfs
+linkTitle: TechnicalReference_Asr_MemIfs
+weight: 87
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-1_1.png"/><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/><b>MICROSAR MemIf&#160;<br/></b>Technical Reference&#160;<br/>&#160;<br/>&#160;<br/>Version 1.0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+Authors&#160;<br/>
+Tobias Schmid&#160;<br/>
+Status&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-2_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-2_2.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>1 Document&#160;</b><br/>
+<b>Information&#160;</b><br/>
+<b>1.1 History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;</b><br/>
+<b>Remarks&#160;</b><br/>
+Tobias Schmid&#160;<br/>
+2008-04-14&#160;<br/>
+1.0&#160;<br/>
+Creation of document&#160;<br/>
+Table 1-1&#160;&#160;&#160;History&#160;of the&#160;document&#160;<br/>
+<b>1.2 Reference&#160;</b><br/>
+<b>Documents&#160;</b><br/>
+<b>No.&#160;</b><br/>
+<b>Title&#160;</b><br/>
+<b>Version&#160;</b><br/>
+[1] &#160;&#160;AUTOSAR_SWS_Mem_AbstractionInterface.pdf&#160;<br/>
+V1.2.0&#160;<br/>
+[2] &#160;&#160;AUTOSAR_SWS_DET.pdf&#160;<br/>
+V2.2.0&#160;<br/>
+[3] &#160;&#160;AUTOSAR_BasicSoftwareModules.pdf&#160;<br/>
+V1.0.0&#160;<br/>
+[4] &#160;&#160;AUTOSAR_SWS_EEPROM_Abstraction.pdf&#160;<br/>
+V1.2.0&#160;<br/>
+[5] &#160;&#160;AUTOSAR_SWS_Flash_EEPROM_Emulation.pdf&#160;<br/>
+V1.2.0&#160;<br/>
+Table 1-2&#160;&#160;&#160;Reference documents&#160;<br/>
+&#160;<br/>
+<b>1.1&#160;&#160;Scope of the Document&#160;</b><br/>
+This technical reference describes the general use of module MemIf (AUTOSAR Memory&#160;<br/>Abstraction Interface).&#160;<br/>
+&#160;<br/>
+<b>Please note&#160;<br/></b>We have configured the&#160;programs in accordance&#160;with your specifications in the&#160;<br/>
+&#160;&#160;questionnaire. Whereas&#160;the programs do support&#160;other configurations than the one&#160;<br/>
+specified&#160;in&#160;your questionnaire, Vector´s release&#160;of the programs delivered to your&#160;<br/>company is&#160;expressly restricted to the&#160;configuration you have&#160;specified in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+2&#160;/&#160;&#160;32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-3_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2"><b>1</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2"><b>Document Information....................................................................................................&#160;2</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2">1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2">History...............................................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2">1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2">Reference Documents&#160;......................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2">1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2">Scope of the Document&#160;....................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#6"><b>2</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#6"><b>Introduction&#160;.....................................................................................................................&#160;6</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#7">2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#7">Architecture&#160;Overview.......................................................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8"><b>3</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8"><b>Functional Description&#160;...................................................................................................&#160;8</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">Features............................................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">Initialization&#160;.......................................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">3.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">Main Functions&#160;.................................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">3.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">Error Handling...................................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">3.4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">Development Error Reporting&#160;...........................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#10">3.4.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#10">Parameter Checking&#160;.......................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11"><b>4</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11"><b>Integration&#160;.....................................................................................................................&#160;11</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11">4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11">Scope of Delivery.............................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11">4.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11">Static Files&#160;.......................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11">4.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11">Dynamic Files&#160;..................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#12">4.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#12">Include Structure.............................................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#12">4.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#12">Compiler&#160;Abstraction and Memory&#160;Mapping&#160;...................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#14"><b>5</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#14"><b>API Description&#160;.............................................................................................................&#160;14</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#14">5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#14">Interfaces Overview&#160;........................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#14">5.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#14">Type Definitions&#160;..............................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#15">5.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#15">Services provided by MemIf&#160;...........................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#16">5.3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#16">MemIf_GetVersionInfo&#160;....................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#16">5.3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#16">MemIf_SetMode&#160;.............................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#17">5.3.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#17">MemIf_Read&#160;...................................................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#18">5.3.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#18">MemIf_Write....................................................................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#19">5.3.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#19">MemIf_Cancel.................................................................................................&#160;19&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#20">5.3.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#20">MemIf_GetStatus&#160;............................................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#21">5.3.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#21">MemIf_GetJobResult&#160;......................................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#22">5.3.8&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#22">MemIf_EraseImmediateBlock&#160;.........................................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#23">5.3.9&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#23">MemIf_InvalidateBlock....................................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#23">5.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#23">Services used by MemIf&#160;.................................................................................&#160;23&#160;</a><br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+3&#160;/&#160;&#160;32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-4_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_MemIfs.html#25"><b>6</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#25"><b>Configuration&#160;................................................................................................................&#160;25</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#25">6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#25">Configuration with EAD...................................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#25">6.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#25">Architecture&#160;View&#160;............................................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#26">6.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#26">Memory Interface Settings&#160;..............................................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#27">6.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#27">Module API&#160;.....................................................................................................&#160;27&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30"><b>7</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30"><b>AUTOSAR Standard&#160;Compliance.................................................................................&#160;30</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30">7.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30">Deviations&#160;.......................................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30">7.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30">Extension of Error Codes................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30">7.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30">Mapping 1 Device only&#160;...................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30">7.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30">Additions/ Extensions&#160;.....................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30">7.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#30">Additional Error Codes....................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#31"><b>8</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#31"><b>Glossary&#160;and&#160;Abbreviations&#160;........................................................................................&#160;31</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#31">8.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#31">Glossary..........................................................................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#31">8.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#31">Abbreviations&#160;..................................................................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#32"><b>9</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#32"><b>Contact...........................................................................................................................&#160;32</b>&#160;</a><br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+4&#160;/&#160;&#160;32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-5_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#7">Figure 2-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#7">AUTOSAR architecture.....................................................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#7">Figure 2-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#7">Interfaces to&#160;adjacent modules of the MemIf&#160;....................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#12">Figure 4-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#12">Include structure&#160;.............................................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#14">Figure 5-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#14">MemIf interactions with other BSW.................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#25">Figure 6-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#25">EAD Architecture&#160;View....................................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#26">Figure 6-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#26">Memory Interface Settings Configuration&#160;.......................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#28">Figure 6-3&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#28">Module API&#160;.....................................................................................................&#160;28&#160;</a><br/>
+<b>&#160;</b><br/>
+<b>Tables&#160;</b><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2">Table 1-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2">History of the document&#160;....................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2">Table 1-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2">Reference documents.......................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">Table 3-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#8">Supported SWS features&#160;..................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#9">Table 3-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#9">Mapping of service IDs to services&#160;...................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#9">Table 3-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#9">Errors reported to DET&#160;.....................................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#10">Table 3-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#10">Development Error Reporting:&#160;Assignment of checks to&#160;services&#160;..................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11">Table 4-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11">Static files.........................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11">Table 4-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#11">Generated files&#160;................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#13">Table 4-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#13">Compiler abstraction and memory&#160;mapping&#160;...................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#15">Table 5-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#15">Type definitions...............................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#16">Table 5-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#16">MemIf_GetVersionInfo&#160;....................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#16">Table 5-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#16">MemIf_SetMode&#160;.............................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#17">Table 5-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#17">MemIf_Read&#160;...................................................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#18">Table 5-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#18">MemIf_Write&#160;...................................................................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#19">Table 5-6&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#19">MemIf_Cancel.................................................................................................&#160;19&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#20">Table 5-7&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#20">MemIf_GetStatus&#160;............................................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#21">Table 5-8&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#21">MemIf_GetJobResult&#160;......................................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#22">Table 5-9&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#22">MemIf_EraseImmediateBlock&#160;.........................................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#23">Table 5-10&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#23">MemIf_InvalidateBlock....................................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#24">Table 5-11&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#24">Services used by the MemIf&#160;...........................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#27">Table 6-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#27">Memory Interface Settings&#160;..............................................................................&#160;27&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#31">Table 8-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_MemIfs.html#31">Glossary..........................................................................................................&#160;31&#160;</a><br/>
+Table 8-2&#160;&#160;<br/>
+Abbreviations&#160;..................................................................................................&#160;31&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+5&#160;/&#160;&#160;32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-6_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>2 Introduction&#160;</b><br/>
+This document describes the functionality,&#160;API and configuration&#160;of the&#160;AUTOSAR BSW&#160;<br/>module MemIf&#160;<a href="TechnicalReference_Asr_MemIfs.html#2">as specified in&#160;[1]</a>. &#160;<br/>
+&#160;<br/>
+<b>Supported AUTOSAR&#160;Release:&#160;</b><br/>
+3.0&#160;<br/>
+<b>Supported Configuration Variants:&#160;</b><br/>
+MemIf supports&#160;a combination of pre-compile and link&#160;<br/>time configurable configuration parameters.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Vendor ID:&#160;</b><br/>
+MEMIF_VENDOR_ID&#160;30&#160;<br/>
+decimal&#160;<br/>
+(= Vector-Informatik,&#160;<br/>according to&#160;HIS)&#160;<br/>
+<b>Module ID:&#160;</b><br/>
+MEMIF_MODULE_ID &#160;&#160;<br/>
+22 decimal&#160;<br/>
+(according to ref.&#160;<a href="TechnicalReference_Asr_MemIfs.html#2">[3]</a>)&#160;<br/>
+&#160;<br/>
+MemIf (Memory&#160;Abstraction Interface) provides the interface&#160;that is used by the NvM to&#160;<br/>access NV memory devices.&#160;Two different types of NV memory are intended for use: Flash&#160;<br/>memory and EEPROM.&#160;To&#160;abstract the hardware dependencies&#160;of the memory devices,&#160;<br/>low level drivers with a commonly&#160;defined&#160;API are used: Fls and Eep (internal or external).&#160;<br/>These modules are abstracted&#160;by the modules Fee (Flash&#160;EEPROM Emulation) and Ea&#160;<br/>(EEPROM Abstraction).&#160;Multiple&#160;instances of these modules may exist.&#160;<br/>
+MemIf offers a common interface for accessing Fee or Ea instances. In order to distinguish&#160;<br/>those different instances MemIf provides a&#160;set of device handles, which&#160;may be used for&#160;<br/>configuration of NvM.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+6&#160;/&#160;&#160;32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-7_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-7_2.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>2.1 Architecture&#160;</b><br/>
+<b>Overview&#160;</b><br/>
+The following figure shows where the MemIf is&#160;located in the&#160;AUTOSAR architecture.&#160;<br/>
+&#160;<br/>
+Figure 2-1&#160;&#160;AUTOSAR architecture&#160;<br/>
+&#160;<br/>
+The next figure shows the interfaces&#160;to adjacent modules of the MemIf.&#160;These interfaces&#160;<br/><a href="TechnicalReference_Asr_MemIfs.html#14">are described in chapter&#160;5</a>. &#160;<br/>
+COM<br/>
+DCM<br/>
+NvM<br/>
+IPDU<br/>
+Det<br/>
+MemIf<br/>
+Fee<br/>
+FR&#160;<br/>
+Ea<br/>
+CAN IF<br/>
+FR&#160;IF<br/>
+Fls<br/>
+Eep<br/>
+&#160;<br/>
+Figure 2-2&#160;&#160;Interfaces to adjacent modules of the MemIf<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+7&#160;/&#160;&#160;32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-8_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-8_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-8_3.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>3 Functional&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>3.1 Features&#160;</b><br/>
+The features listed in this chapter cover the complete functionality<a href="TechnicalReference_Asr_MemIfs.html#2">&#160;specified in&#160;[1].&#160;</a><br/>
+The &#34;supported&#34; and &#34;not supported&#34; features are presented&#160;in&#160;the following two tables.&#160;<br/>For further information of not suppor<a href="TechnicalReference_Asr_MemIfs.html#30">ted features also see chapter&#160;7</a>.&#160;<br/>
+<a href="TechnicalReference_Asr_MemIfs.html#2">The following features described in&#160;[1]</a>&#160;are supported:&#160;<br/>
+<b>Feature&#160;</b><br/>
+MemIf&#160;allows&#160;the NVRAM manager to access&#160;multiple instances of memory hardware&#160;<br/>abstraction&#160;modules (Fee or Ea), regardless of&#160;different&#160;APIs and implementations.&#160;<br/>
+Table 3-1&#160;&#160;&#160;Supported SWS&#160;features&#160;<br/>
+<b>3.2 Initialization&#160;</b><br/>
+MemIf does not need any initialization. Nevertheless it is necessary to initialize&#160;all memory&#160;<br/>hardware abstraction module instances&#160;that are interfaced by MemIf.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>MemIf does&#160;<b>not&#160;</b>provide any services for initialization of underlying memory hardware&#160;<br/>
+&#160;&#160;abstraction&#160;modules. Initialization of&#160;these modules is not done by MemIf!&#160;<br/>
+<b>&#160;</b><br/>
+<b>3.3 Main&#160;</b><br/>
+<b>Functions&#160;</b><br/>
+MemIf does not implement main-functions that would need recurring execution. Job&#160;<br/>requests are mapped to&#160;the appropriate underlying memory hardware abstraction module,&#160;<br/>which implements the main-function for processing the job.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>MemIf is&#160;<b>not</b>&#160;responsible for calling&#160;main-functions of the underlying hardware&#160;<br/>
+&#160;&#160;abstraction&#160;modules. Calling main-functions&#160;cyclically has to&#160;be implemented in the&#160;<br/>
+BSW Scheduler (or something similar).&#160;<br/>
+<b>&#160;</b><br/>
+<b>3.4 Error&#160;</b><br/>
+<b>Handling&#160;</b><br/>
+<b>3.4.1 Development&#160;</b><br/>
+<b>Error&#160;</b><br/>
+<b>Reporting&#160;</b><br/>
+Development errors are reported by default to&#160;DET&#160;using the service Det_ReportError(),&#160;<br/>(specified in&#160;<a href="TechnicalReference_Asr_MemIfs.html#2">[2]), if the pre-compile c</a>onfiguration parameter for “Development Mode” and&#160;<br/>“Debug Reporting” are enabled (s<a href="TechnicalReference_Asr_MemIfs.html#26">ee chapter&#160;6.1.2</a>).&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+8&#160;/&#160;&#160;32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-9_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+The reported service IDs identify the services which are described in&#160;<a href="TechnicalReference_Asr_MemIfs.html#15">5.3</a>. The&#160;following&#160;<br/>table presents the service IDs and the related services:&#160;<br/>
+<b>Service ID&#160;</b><br/>
+<b>Service&#160;</b><br/>
+1&#160;MemIf_SetMode&#160;<br/>
+2&#160;MemIf_Read&#160;<br/>
+3&#160;MemIf_Write&#160;<br/>
+4&#160;MemIf_Cancel&#160;<br/>
+5&#160;MemIf_GetStatus&#160;<br/>
+6&#160;MemIf_GetJobResult&#160;<br/>
+7&#160;MemIf_InvalidateBlock&#160;<br/>
+8&#160;MemIf_GetVersionInfo&#160;<br/>
+9&#160;MemIf_EraseImmediateBlock&#160;<br/>
+Table 3-2&#160;&#160;&#160;Mapping of service IDs to services&#160;<br/>
+The errors reported to DET&#160;are described in the following table:&#160;<br/>
+<b>Error Code&#160;</b><br/>
+<b>Description&#160;</b><br/>
+0x01&#160;MEMIF_E_PARAM_DEVICE&#160;The&#160;<br/>
+parameter&#160;<br/>
+denoting&#160;the device index passed to the&#160;<br/>
+API service is out of range. &#160;<br/>
+0x02&#160;<br/>
+MEMIF_E_PARAM_VINFO&#160;<br/>
+The parameter passed to&#160;MemIf_GetVersionInfo&#160;<br/>references no valid address (NULL-Pointer).&#160;<br/>
+This error code is an extension to the error codes&#160;<br/><a href="TechnicalReference_Asr_MemIfs.html#2">defined in&#160;[1].&#160;</a><br/>
+Table 3-3&#160;&#160;&#160;Errors reported to DET&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+9&#160;/&#160;&#160;32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-10_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>3.4.1.1 Parameter&#160;</b><br/>
+<b>Checking&#160;</b><br/>
+The following table shows which parameter checks are performed on which services:&#160;<br/>
+<b>Check&#160;</b><br/>
+ter&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+e<br/>
+e<br/>
+&#160;to&#160;<br/>
+&#160;<br/>
+ing a&#160;<br/>
+es<br/>
+&#160;<br/>
+vic<br/>
+ssed<br/>
+ic<br/>
+ram<br/>
+a<br/>
+a<br/>
+rv<br/>
+ddress&#160;<br/>
+&#160;<br/>
+k de<br/>
+e<br/>
+k p<br/>
+c<br/>
+x p<br/>
+c<br/>
+<b>Service&#160;</b><br/>
+PI s<br/>
+Che<br/>
+inde<br/>
+A<br/>
+Che<br/>
+for &#160;referenc<br/>
+valid a<br/>
+MemIf_GetVersionInfo&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+MemIf_SetMode&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+MemIf_Read&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+MemIf_Write&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+MemIf_Cancel&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+MemIf_GetStatus&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+MemIf_GetJobResult&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+MemIf_InvalidateBlock&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+MemIf_EraseImmediateBlock&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+Table 3-4&#160;&#160;&#160;Development Error&#160;Reporting:&#160;Assignment of checks to services&#160;<br/>
+AUTOSAR requires that&#160;API functions check&#160;the validity&#160;of their parameters.&#160;The checks in&#160;<br/><a href="TechnicalReference_Asr_MemIfs.html#10">Table 3-4</a>&#160;are internal parameter checks of the&#160;API functions.&#160;These checks are for&#160;<br/>development error reporting and can be&#160;en-/disabled sepa<a href="TechnicalReference_Asr_MemIfs.html#8">rately (see chapter&#160;3.4.1</a>&#160;for&#160;<br/>configuration of these paraneters). En-/disabling of single checks is an addition to the&#160;<br/>AUTOSAR standard which is&#160;only available if&#160;the global error detection switch&#160;<br/>“Development Mode” is configured to enabled.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+10&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-11_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>4 Integration&#160;</b><br/>
+This chapter gives&#160;necessary information for&#160;the integration of the MICROSAR MemIf into&#160;<br/>an application environment of an ECU.&#160;<br/>
+<b>4.1&#160;&#160;Scope of Delivery&#160;</b><br/>
+The delivery of the MemIf contains the files which are described in the chapte<a href="TechnicalReference_Asr_MemIfs.html#11">rs&#160;4.1.1</a>&#160;and&#160;<br/><a href="TechnicalReference_Asr_MemIfs.html#11">4.1.2</a>:&#160;<br/>
+<b>4.1.1 Static&#160;</b><br/>
+<b>Files&#160;</b><br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+MemIf.h&#160;<br/>
+API of module MemIf, only this file needs to be included by upper layer&#160;<br/>software (typically NvM)&#160;<br/>
+MemIf_Types.h&#160;<br/>
+Defines all standard types, needed by&#160;upper layer modules as well as the&#160;<br/>modules Fee and Ea.&#160;<br/>
+This file needs to be included by all memory hardware abstraction&#160;<br/>modules according to&#160;AUTOSAR.&#160;<br/>
+MemIf.c/.o&#160;<br/>
+Implementation of the functionalities&#160;of the module MemIf&#160;<br/>
+T_MemIf_Cfg.h&#160;<br/>
+Template from which the configuration header file&#160;is generated from&#160;<br/>
+T_MemIf_Cfg.c&#160;<br/>
+Template from which the configuration source file&#160;is generated from&#160;<br/>
+MemIf_bswmd.arxml&#160;&#160;AUTOSAR&#160;Release 3.0&#160;BSW Module Description&#160;<br/>
+MemIf.xml&#160;<br/>
+Necessary files for MICROSAR EAD&#160;support&#160;<br/>
+Generation.xml&#160;<br/>
+Validation.xml&#160;<br/>
+Identifier.xml&#160;<br/>
+Table 4-1&#160;&#160;&#160;Static files&#160;<br/>
+&#160;<br/>
+<b>4.1.2 Dynamic&#160;</b><br/>
+<b>Files&#160;</b><br/>
+The dynamic files are generated by the&#160;configuration tool&#160;MICROSAR EAD.&#160;<br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+MemIf_Cfg.h&#160;<br/>
+Configuration header file&#160;(generated from&#160;T_MemIf_Cfg.h)&#160;<br/>
+MemIf_Cfg.c&#160;<br/>
+Configuration source file&#160;(generated from&#160;T_MemIf_Cfg.c)&#160;<br/>
+Table 4-2&#160;&#160;&#160;Generated files&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+11&#160;/&#160;32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-12_1.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-12_2.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-12_3.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-12_4.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-12_5.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-12_6.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-12_7.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-12_8.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-12_9.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-12_10.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>4.2 Include&#160;</b><br/>
+<b>Structure&#160;</b><br/>
+<b>deployment&#160;File&#160;Structure</b><br/>
+Fee.h<br/>
+«configurable<br/>
+0..*<br/>
+MemIf_Cfg.h<br/>
+include»<br/>
+Det.h<br/>
+«include»<br/>
+«configurable<br/>
+Ea.h<br/>
+include»<br/>
+0..*<br/>
+«include»<br/>
+MemIf.h<br/>
+MemIf_T&#160;ypes.h<br/>
+«include»<br/>
+Std_T&#160;ypes.h<br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+MemIf.c<br/>
+MemIf_Cfg.c<br/>
+&#160;<br/>
+Figure 4-1&#160;&#160;Include structure&#160;<br/>
+<b>4.3&#160;&#160;Compiler Abstraction and Memory&#160;Mapping &#160;</b><br/>
+The objects (e.g. variables, functions, constants) are declared by compiler&#160;independent&#160;<br/>definitions – the compiler abstraction definitions. Each compiler abstraction definition is&#160;<br/>assigned to a memory section.&#160;<br/>
+The following table contains the memory section names and the compiler abstraction&#160;<br/>definitions defined for the&#160;MemIf and illustrates their&#160;assignment among each other.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+12&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-13_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>Compiler Abstraction</b><br/>
+A&#160;<br/>
+<b>Definitions</b><br/>
+T<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Memory&#160;Mapping&#160;</b><br/>
+<b>Sections&#160;</b><br/>
+MEMIF_CONST&#160;<br/>
+MEMIF_CODE&#160;<br/>
+MEMIF_APPL_DA<br/>
+MEMIF_START_SEC_CONST_8BIT&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+MEMIF_STOP_SEC_CONST_8BIT&#160;<br/>
+MEMIF_START_SEC_CONST_32BIT&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+MEMIF_STOP_SEC_CONST_32BIT&#160;<br/>
+MEMIF_START_SEC_CODE&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+MEMIF_STOP&#160;_SEC_CODE&#160;<br/>
+Memory sections&#160;in which underlying&#160;memory&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+hardware abstraction modules’&#160;code&#160;resides&#160;<br/>
+Memory&#160;sections of data buffers, which are passed&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+to the&#160;API services for read&#160;or write jobs&#160;<br/>
+Memory&#160;sections of buffers passed&#160;to&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+MemIf_GetVersionInfo&#160;<br/>
+Table 4-3&#160;&#160;&#160;Compiler abstraction and memory&#160;mapping&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+13&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-14_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>5 API&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>5.1 Interfaces&#160;</b><br/>
+<b>Overview&#160;</b><br/>
+<b>class Logical&#160;View</b><br/>
+<b>Nv&#160;M</b><br/>
+<b>MemIf</b><br/>
++&#160;&#160;MemIf_Cancel(uint8)&#160;:&#160;void<br/>+&#160;&#160;MemIf_EraseImmediateBlock(uint8,&#160;uint16)&#160;:&#160;Std_ReturnType<br/>+ MemIf_GetJobResult(uint8)&#160;<br/>
+:&#160;<br/>
+MemIf_JobResultType<br/>
++ MemIf_GetStatus(uint8)&#160;<br/>
+:&#160;<br/>
+MemIf_StatusType<br/>
++&#160;&#160;MemIf_GetVersionInfo(Std_VersionInfoType*)&#160;:&#160;void<br/>
+<b>Det</b><br/>
++&#160;&#160;MemIf_InvalidateBlock(uint8,&#160;uint16)&#160;:&#160;Std_ReturnType<br/>+&#160;&#160;MemIf_Read(uint8,&#160;uint16,&#160;uint16,&#160;MemIf_DataPtr_pu8*,&#160;uint16)&#160;:&#160;Std_ReturnType<br/>
++&#160;&#160;Det_ReportError(uint16,&#160;uint8,&#160;uint8,&#160;uint8)&#160;:&#160;void<br/>
++&#160;&#160;MemIf_SetMode(MemIf_ModeType)&#160;:&#160;void<br/>+&#160;&#160;MemIf_Write(uint8,&#160;uint16,&#160;MemIf_DataPtr_pu8)&#160;:&#160;Std_ReturnType<br/>
+0..*<br/>
+0..*<br/>
+<b>Fee</b><br/>
+<b>Ea</b><br/>
++&#160;&#160;Fee_Cancel()&#160;:&#160;void<br/>
++&#160;&#160;Ea_Cancel()&#160;:&#160;void<br/>
++&#160;&#160;Fee_EraseImmediateBlock(uint16)&#160;:&#160;Std_ReturnType<br/>
++&#160;Ea_EraseImmediateBlock(uint16)&#160;<br/>
+:&#160;<br/>
+Std_ReturnT&#160;ype<br/>
++&#160;Fee_GetJobResult()&#160;<br/>
+:&#160;<br/>
+MemIf_JobResultType<br/>
++&#160;Ea_GetJobResult()&#160;<br/>
+:&#160;<br/>
+MemIf_JobResultType<br/>
++&#160;Fee_GetStatus()&#160;<br/>
+:&#160;<br/>
+MemIf_StatusType<br/>
++&#160;&#160;Ea_GetStatus()&#160;:&#160;MemIf_StatusT&#160;ype<br/>
++&#160;Fee_GetVersionInfo(Std_VersionInfoT&#160;ype*)&#160;<br/>
+:&#160;<br/>
+void<br/>
++&#160;Ea_GetVersionInfo(Std_VersionInfoType)&#160;<br/>
+:&#160;<br/>
+void<br/>
++&#160;&#160;Fee_Init()&#160;:&#160;void<br/>
++&#160;&#160;Ea_Init()&#160;:&#160;void<br/>
++&#160;Fee_InvalidateBlock(uint16)&#160;<br/>
+:&#160;<br/>
+Std_ReturnType<br/>
++&#160;&#160;Ea_InvalidateBlock(uint16)&#160;:&#160;Std_ReturnT&#160;ype<br/>
++&#160;&#160;Fee_Read(uint16,&#160;uint16,&#160;uint8*,&#160;uint16)&#160;:&#160;Std_ReturnType<br/>
++&#160;&#160;Ea_Read(uint16,&#160;uint16,&#160;uint8*,&#160;uint16)&#160;:&#160;Std_ReturnType<br/>
++&#160;&#160;Fee_SetMode(MemIf_ModeType)&#160;:&#160;void<br/>
++&#160;Ea_SetMode(MemIf_ModeT&#160;ype)&#160;<br/>
+:&#160;<br/>
+void<br/>
++&#160;&#160;Fee_Write(uint16,&#160;uint8*)&#160;:&#160;Std_ReturnT&#160;ype<br/>
++&#160;&#160;Ea_Write(uint16,&#160;uint8*)&#160;:&#160;Std_ReturnType<br/>
+&#160;<br/>
+Figure 5-1&#160;&#160;MemIf interactions&#160;with other BSW&#160;<br/>
+<b>5.2 Type&#160;</b><br/>
+<b>Definitions&#160;</b><br/>
+<b>Type Name&#160;</b><br/>
+<b>C-Type&#160;&#160;Description&#160;</b><br/>
+<b>Value Range&#160;</b><br/>
+MEMIF_UNINIT&#160;<br/>
+MemIf_StatusType&#160;<br/>
+enum&#160;<br/>
+Denotes the states of&#160;<br/>BSW modules in the&#160;<br/>
+Module is not initialized&#160;<br/>
+memory&#160;stack&#160;<br/>
+MEMIF_IDLE&#160;<br/>
+There are no pending jobs that&#160;<br/>need processing&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+14&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-15_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>Type Name&#160;</b><br/>
+<b>C-Type&#160;&#160;Description&#160;</b><br/>
+<b>Value Range&#160;</b><br/>
+MEMIF_BUSY&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Module is processing&#160;jobs, no&#160;<br/>further job requests&#160;are&#160;accepted&#160;<br/>
+MEMIF_BUSY_INTERNAL&#160;<br/>
+No job requests&#160;are being&#160;<br/>processed,&#160;but the module is busy&#160;<br/>executing internal operations&#160;<br/>
+MEMIF_JOB_OK&#160;<br/>
+MemIf_JobResultType&#160;&#160;enum&#160;<br/>
+Denotes the result of a&#160;<br/>job request&#160;after&#160;<br/>
+Job processing finished&#160;<br/>
+processing&#160;of this job&#160;<br/>
+successfully&#160;<br/>
+MEMIF_JOB_FAILED&#160;<br/>
+Job processing finished&#160;with an&#160;<br/>error&#160;<br/>
+MEMIF_JOB_PENDING&#160;<br/>
+Job is currently being processed&#160;<br/>
+MEMIF_JOB_CANCELLED&#160;<br/>
+Job has been cancelled&#160;by the&#160;<br/>user&#160;<br/>
+MEMIF_BLOCK_INCONSISTENT&#160;<br/>
+Job finished&#160;successfully, but data&#160;<br/>is inconsistent&#160;<br/>
+MEMIF_BLOCK_INVALID&#160;<br/>
+Job finished&#160;successfully but data&#160;<br/>has been invalidated&#160;<br/>
+MEMIF_MODE_SLOW&#160;<br/>
+MemIf_ModeType&#160;<br/>
+enum&#160;<br/>
+Denotes the processing&#160;<br/>mode for a module in the&#160;&#160;Jobs are processed with&#160;the&#160;<br/>
+memory&#160;stack&#160;<br/>
+configured properties for&#160;slow&#160;<br/>mode&#160;<br/>
+MEMIF_MODE_FAST&#160;<br/>
+Jobs are processed with&#160;the&#160;<br/>configured properties for&#160;fast mode<br/>
+Table 5-1&#160;&#160;&#160;Type definitions&#160;<br/>
+<b>5.3&#160;&#160;Services provided by&#160;MemIf&#160;</b><br/>
+The MemIf&#160;API consists of services,&#160;which are realized by function calls.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+15&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-16_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>5.3.1 MemIf_GetVersionInfo&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>MemIf_GetVersionInfo&#160;</b>( Std_VersionInfoType *&#160;VersionInfoPtr )<br/>
+<b>Parameter&#160;</b><br/>
+VersionInfoPtr&#160;<br/>
+Reference to a version information&#160;structure in RAM&#160;<br/>
+<b>Return code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service&#160;writes&#160;the version information of MemIf to the referenced&#160;structure. &#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;In case the passed&#160;parameter references an invalid address (NULL-pointer) the error&#160;<br/>
+MEMIF_E_PARAM_VINFO&#160;is reported&#160;to Det and execution of the service is&#160;aborted.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;only available if&#160;MEMIF_VERSION_INFO_API&#160;is configured to&#160;STD_ON&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;This&#160;service&#160;has no restriction to&#160;the allowed or expected caller&#160;context.&#160;<br/>
+Table 5-2&#160;&#160;&#160;MemIf_GetVersionInfo&#160;<br/>
+<b>5.3.2 MemIf_SetMode&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>MemIf_SetMode</b>(MemIf_ModeType Mode )<br/>
+<b>Parameter&#160;</b><br/>
+Mode&#160;<br/>
+Mode to switch modules&#160;into&#160;<br/>
+<b>Return code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service switches all underlying memory hardware&#160;abstraction&#160;modules&#160;to the requested mode of&#160;<br/>operation, by calling [Ea|Fee]_SetMode (See description of respective module’s function).&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;All memory abstraction modules&#160;have to&#160;be in state&#160;MEMIF_IDLE&#160;when&#160;this service is executed.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;This&#160;service&#160;has no restriction to&#160;the allowed or expected caller&#160;context.&#160;<br/>
+Table 5-3&#160;&#160;&#160;MemIf_SetMode&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+16&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-17_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>5.3.3 MemIf_Read&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType&#160;<b>MemIf_Read</b>&#160;<br/>
+(&#160;<br/>&#160;uint8&#160;<br/>
+DeviceIndex,&#160;<br/>
+&#160;uint16&#160;<br/>
+&#160;<br/>
+BlockNumber,&#160;<br/>
+&#160;uint16&#160;<br/>
+&#160;<br/>
+BlockOffset,&#160;<br/>
+&#160;uint8*&#160;<br/>
+&#160;<br/>
+DataBufferPtr,&#160;<br/>
+&#160;uint16&#160;<br/>
+&#160;<br/>
+Length&#160;<br/>
+)<br/>
+<b>Parameter&#160;</b><br/>
+DeviceIndex&#160;<br/>
+Index of the memory hardware abstraction module to which the read operation&#160;<br/>shall be&#160;delegated.&#160;<br/>
+BlockNumber&#160;<br/>
+Identifies the&#160;block to read&#160;in non-volatile memory.&#160;<br/>
+BlockOffset&#160;<br/>
+Offset in the block identified by BlockNumber from which on reading is&#160;<br/>performed&#160;<br/>
+DataBufferPtr&#160;<br/>
+Reference to the data buffer to which the&#160;data in non-volatile memory is read&#160;<br/>to.&#160;<br/>
+Length&#160;<br/>
+Number of bytes&#160;to read&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Read job request is accepted by the addressed memory hardware abstraction&#160;<br/>module.&#160;<br/>
+E_NOT_OK&#160;<br/>
+Read job request is&#160;rejected by the addressed memory hardware abstraction&#160;<br/>module.&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Delegates&#160;the job request to the appropriate memory&#160;hardware abstraction module by calling the service&#160;<br/>[Ea|Fee]_Read of the addressed&#160;module&#160;instance&#160;(See description of respective module’s function)&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;If the parameter&#160;DeviceIndex&#160;is out of range&#160;(greater than the&#160;number of configured&#160;devices), the&#160;<br/>
+error code&#160;MEMIF_E_PARAM_DEVICE&#160;is reported to Det and execution of the service is aborted.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;NvM /&#160;Application&#160;<br/>
+Table 5-4&#160;&#160;&#160;MemIf_Read&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+17&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-18_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>5.3.4 MemIf_Write&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType&#160;<b>MemIf_Write</b>&#160;&#160;<br/>
+(&#160;<br/>&#160;uint8&#160;<br/>
+DeviceIndex,&#160;<br/>
+&#160;uint16&#160;<br/>
+&#160;<br/>
+BlockNumber,&#160;<br/>
+&#160;uint8*&#160;<br/>
+&#160;<br/>
+DataBufferPtr&#160;<br/>
+)<br/>
+<b>Parameter&#160;</b><br/>
+DeviceIndex&#160;<br/>
+Index of the memory hardware abstraction module to which the write&#160;<br/>operation shall be delegated.&#160;<br/>
+BlockNumber&#160;<br/>
+Identifies the&#160;block to write&#160;to non-volatile&#160;memory.&#160;<br/>
+DataBufferPtr&#160;<br/>
+Reference to the data buffer whose&#160;content is written to non-volatile&#160;memory&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Write job&#160;request is accepted by the addressed memory hardware abstraction&#160;<br/>module.&#160;<br/>
+E_NOT_OK&#160;<br/>
+Write job&#160;request is&#160;rejected by the&#160;addressed memory hardware abstraction&#160;<br/>module.&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Delegates&#160;the job request to the appropriate memory&#160;hardware abstraction module by calling the service&#160;<br/>[Ea|Fee]_Write of the addressed module instance (See description of respective module’s function)&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;If the parameter&#160;DeviceIndex&#160;is out of range&#160;(greater than the&#160;number of configured&#160;devices), the&#160;<br/>
+error code&#160;MEMIF_E_PARAM_DEVICE&#160;is reported to Det and execution of the service is aborted.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;NvM /&#160;Application&#160;<br/>
+Table 5-5&#160;&#160;&#160;MemIf_Write&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+18&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-19_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>5.3.5 MemIf_Cancel&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>MemIf_Cancel</b>&#160;( uint8 DeviceIndex )<br/>
+<b>Parameter&#160;</b><br/>
+DeviceIndex&#160;<br/>
+Index of the memory hardware abstraction module whose job processing&#160;shall&#160;<br/>be cancelled.&#160;<br/>
+<b>Return code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Delegates&#160;the cancel request to the appropriate&#160;memory hardware&#160;abstraction&#160;module by calling the&#160;<br/>service [Ea|Fee]_Cancel of&#160;the addressed module instance&#160;(See&#160;description of&#160;respective module’s&#160;<br/>function)&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;If the parameter&#160;DeviceIndex&#160;is out of range&#160;(greater than the&#160;number of configured&#160;devices), the&#160;<br/>
+error code&#160;MEMIF_E_PARAM_DEVICE&#160;is reported to Det and execution of the service is aborted.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;NvM /&#160;Application&#160;<br/>
+Table 5-6&#160;&#160;&#160;MemIf_Cancel&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+19&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-20_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>5.3.6 MemIf_GetStatus&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+MemIf_StatusType&#160;<b>MemIf_GetStatus</b>&#160;( uint8 DeviceIndex )<br/>
+<b>Parameter&#160;</b><br/>
+DeviceIndex&#160;<br/>
+Index of the memory hardware abstraction module whose job processing&#160;shall&#160;<br/>be cancelled.&#160;<br/>
+<b>Return code&#160;</b><br/>
+MEMIF_IDLE&#160;<br/>
+Addressed module is&#160;ready&#160;to accept job requests&#160;<br/>
+MEMIF_UNINIT&#160;<br/>
+Addressed module is&#160;not initialized&#160;<br/>
+MEMIF_BUSY&#160;<br/>
+Addressed module is&#160;processing a job and is not able to accept new job&#160;<br/>requests&#160;<br/>
+MEMIF_BUSY_INTERNAL&#160;Addressed module is&#160;not processing&#160;any&#160;job requests, but the module is busy&#160;<br/>
+executing internal operations&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Delegates&#160;the call to this service to the&#160;appropriate&#160;memory hardware abstraction module by&#160;calling the&#160;<br/>service [Ea|Fee]_GetStatus&#160;(See description of respective module’s function). &#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;If the parameter&#160;DeviceIndex&#160;is out of range&#160;(greater than the&#160;number of configured devices&#160;and&#160;<br/>
+unequal to&#160;MEMIF_BROADCAST_ID), the error&#160;code&#160;MEMIF_E_PARAM_DEVICE&#160;is reported to&#160;Det and&#160;<br/>execution of the service is&#160;aborted.&#160;<br/>
+&#160;&#160;In case the&#160;MEMIF_BROADCAST_ID&#160;is used as&#160;device&#160;index parameter,&#160;the overall status&#160;of all&#160;<br/>
+underlying memory abstraction modules is returned.&#160;This overall status&#160;is&#160;computed as follows:&#160;<br/>
+&#160;&#160;MEMIF_IDLE&#160;– all underlying devices are in this state&#160;<br/>
+&#160;&#160;MEMIF_UNINIT&#160;– at least one device returned this&#160;state&#160;<br/>
+&#160;&#160;MEMIF_BUSY&#160;– at least one device returned this&#160;state&#160;and no other returned&#160;MEMIF_UNINIT&#160;<br/>
+&#160;&#160;MEMIF_BUSY_INTERNAL&#160;– at least one&#160;device returned this state and no other&#160;returned&#160;<br/>
+MEMIF_BUSY&#160;or&#160;MEMIF_UNINIT&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;NvM /&#160;Application&#160;<br/>
+Table 5-7&#160;&#160;&#160;MemIf_GetStatus&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+20&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-21_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>5.3.7 MemIf_GetJobResult&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+MemIf_JobResultType&#160;<b>MemIf_GetJobResult&#160;</b>( uint8 DeviceIndex )<br/>
+<b>Parameter&#160;</b><br/>
+DeviceIndex&#160;<br/>
+Index of the memory hardware&#160;abstraction module whose job&#160;<br/>processing shall be cancelled.&#160;<br/>
+<b>Return code&#160;</b><br/>
+MEMIF_JOB_OK&#160;<br/>
+Job processing finished successfully&#160;<br/>
+MEMIF_JOB_FAILED&#160;<br/>
+Job processing finished with an error&#160;<br/>
+MEMIF_JOB_PENDING&#160;<br/>
+Job is&#160;currently being processed&#160;<br/>
+MEMIF_JOB_CANCELLED&#160;<br/>
+Job has been&#160;cancelled by the user&#160;<br/>
+MEMIF_BLOCK_INCONSISTENT&#160;&#160;Job finished&#160;successfully, but data is inconsistent&#160;<br/>
+MEMIF_BLOCK_INVALID&#160;<br/>
+Job finished successfully but data has been invalidated&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Delegates&#160;the call to this service to the&#160;appropriate&#160;memory hardware abstraction module by&#160;calling the&#160;<br/>service [Ea|Fee]_GetJobResult (See&#160;description of respective module’s&#160;function). &#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;If the parameter&#160;DeviceIndex&#160;is out of range&#160;(greater than the&#160;number of configured&#160;devices), the&#160;<br/>
+error code&#160;MEMIF_E_PARAM_DEVICE&#160;is reported to Det and execution of the service is aborted.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;NvM /&#160;Application&#160;<br/>
+Table 5-8&#160;&#160;&#160;MemIf_GetJobResult&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+21&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-22_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>5.3.8 MemIf_EraseImmediateBlock&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType&#160;<b>MemIf_EraseImmediateBlock</b>&#160;&#160;<br/>
+(&#160;<br/>&#160;uint8&#160;<br/>
+DeviceIndex,&#160;<br/>
+&#160;uint16&#160;<br/>
+&#160;<br/>
+BlockNumber&#160;<br/>
+)<br/>
+<b>Parameter&#160;</b><br/>
+DeviceIndex&#160;<br/>
+Index of the memory hardware abstraction module to which the operation&#160;shall&#160;<br/>be delegated.&#160;<br/>
+BlockNumber&#160;<br/>
+Identifies the&#160;block to erase in non-volatile memory.&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Erase job request is accepted by the addressed memory hardware abstraction&#160;<br/>module.&#160;<br/>
+E_NOT_OK&#160;<br/>
+Erase job request is&#160;rejected by the&#160;addressed memory hardware abstraction&#160;<br/>module.&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Delegates&#160;the job request to the appropriate memory&#160;hardware abstraction module by calling the service&#160;<br/>[Ea|Fee]_EraseImmediateBlock of the addressed module instance&#160;(See description of respective module’s&#160;<br/>function)&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;If the parameter&#160;DeviceIndex&#160;is out of range&#160;(greater than the&#160;number of configured&#160;devices), the&#160;<br/>
+error code&#160;MEMIF_E_PARAM_DEVICE&#160;is reported to Det and execution of the service is aborted.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;NvM /&#160;Application&#160;<br/>
+Table 5-9&#160;&#160;&#160;MemIf_EraseImmediateBlock&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+22&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-23_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>5.3.9 MemIf_InvalidateBlock&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType&#160;<b>MemIf_InvalidateBlock</b>&#160;&#160;<br/>
+(&#160;<br/>&#160;uint8&#160;<br/>
+DeviceIndex,&#160;<br/>
+&#160;uint16&#160;<br/>
+&#160;<br/>
+BlockNumber&#160;<br/>
+)<br/>
+<b>Parameter&#160;</b><br/>
+DeviceIndex&#160;<br/>
+Index of the memory hardware abstraction module to which the operation&#160;shall&#160;<br/>be delegated.&#160;<br/>
+BlockNumber&#160;<br/>
+Identifies the&#160;block to invalidate in non-volatile memory.&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Erase job request is accepted by the addressed memory hardware abstraction&#160;<br/>module.&#160;<br/>
+E_NOT_OK&#160;<br/>
+Erase job request is&#160;rejected by the&#160;addressed memory hardware abstraction&#160;<br/>module.&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Delegates&#160;the job request to the appropriate memory&#160;hardware abstraction module by calling the service&#160;<br/>[Ea|Fee]_InvalidateBlock of&#160;the addressed module instance (See&#160;description of&#160;respective&#160;module’s&#160;<br/>function)&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;If the parameter&#160;DeviceIndex&#160;is out of range&#160;(greater than the&#160;number of configured&#160;devices), the&#160;<br/>
+error code&#160;MEMIF_E_PARAM_DEVICE&#160;is reported to Det and execution of the service is aborted.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;NvM /&#160;Application&#160;<br/>
+Table 5-10&#160;MemIf_InvalidateBlock&#160;<br/>
+<b>5.4&#160;&#160;Services used by&#160;MemIf&#160;</b><br/>
+In the following table services&#160;provided by other components,&#160;which are used by the&#160;MemIf&#160;<br/>are listed. For details&#160;about prototype and functionality refer to&#160;the documentation of the&#160;<br/>providing component.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+23&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-24_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>Component&#160;</b><br/>
+<b>API&#160;</b><br/>
+DET<a href="TechnicalReference_Asr_MemIfs.html#2">&#160;(see&#160;[2])&#160;</a>Det_ReportError&#160;<br/>
+EA&#160;(see&#160;<a href="TechnicalReference_Asr_MemIfs.html#2">[4]</a>)&#160;<br/>
+Ea_SetMode&#160;<br/>
+Ea_Read&#160;<br/>
+Ea_Write&#160;<br/>
+Ea_Cancel&#160;<br/>
+Ea_GetStatus&#160;<br/>
+Ea_GetJobResult&#160;<br/>
+Ea_InvalidateBlock&#160;<br/>
+Ea_GetVersionInfo&#160;<br/>
+Ea_EraseImmediateBlock&#160;<br/>
+FEE (see&#160;<a href="TechnicalReference_Asr_MemIfs.html#2">[5])&#160;</a><br/>
+Fee_SetMode&#160;<br/>
+Fee_Read&#160;<br/>
+Fee_Write&#160;<br/>
+Fee_Cancel&#160;<br/>
+Fee_GetStatus&#160;<br/>
+Fee_GetJobResult&#160;<br/>
+Fee_InvalidateBlock&#160;<br/>
+Fee_GetVersionInfo&#160;<br/>
+Fee_EraseImmediateBlock&#160;<br/>
+Table 5-11&#160;&#160;Services used by the MemIf&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+24&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-25_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-25_2.jpg"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-25_3.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>6 Configuration&#160;</b><br/>
+In the MemIf the attributes can be configured with the&#160;following methods:&#160;<br/>
+&#160;&#160;Configuration in EAD for a detailed description see&#160;<a href="TechnicalReference_Asr_MemIfs.html#25">6.1&#160;&#160;</a><br/>
+<b>6.1 Configuration&#160;</b><br/>
+<b>with&#160;</b><br/>
+<b>EAD&#160;</b><br/>
+<b>6.1.1 Architecture&#160;</b><br/>
+<b>View&#160;</b><br/>
+After EAD has been started, create a new project (or open an&#160;existing). The&#160;architecture&#160;<br/>view will then be the first screen that appears:&#160;<br/>
+&#160;<br/>
+Figure 6-1&#160;&#160;EAD&#160;Architecture View&#160;<br/>
+<b>&#160;</b><br/>
+<b>Enable MemIf</b>&#160;<br/>Select MemIf in the “Memory&#160;HW&#160;Abstraction”-group and activate it (context menu&#160;Æ&#160;<br/>
+&#160;&#160;Activate)&#160;<br/>
+<b>Enable appropriate memory&#160;hardware abstraction modules</b>&#160;<br/>Select the appropriate&#160;memory hardware abstraction modules that shall be used in the&#160;<br/>system for non volatile&#160;memory access and activate them.&#160;The active modules are&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+25&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=26></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-26_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-26_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-26_3.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+automatically registered to MemIf.&#160;<br/>
+<b>Accept architecture configuration</b>&#160;<br/>To commit the changes&#160;to the architecture, press button “Accept”&#160;<br/>
+<b>&#160;</b><br/>
+<b>6.1.2&#160;</b><br/>
+<b>Memory&#160;Interface Settings&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Navigate to MemIf’s configuration view</b>&#160;<br/>Select MemIf in the&#160;Architecture View&#160;and select “Properties” from the context menu.&#160;<br/>
+&#160;&#160;Another way to navigate to the configuration view is to select&#160;Memory&#160;Æ&#160;MemIf in the&#160;<br/>
+Technical Fellow (located on the left&#160;side of the&#160;main screen).&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+Figure 6-2&#160;&#160;Memory&#160;Interface Settings Configuration&#160;<br/>
+EAD now presents the configuration view&#160;of module MemIf. On the first tab of the register&#160;<br/>“Memory Interface Settings” the standard configuration parameters of the module are&#160;<br/>displayed.&#160;The left&#160;side of this page lists&#160;the active memory hardware abstraction modules&#160;<br/>and the related device index.&#160;This table can&#160;not be edited in this view, but only by&#160;<br/>activating or deactivating modules&#160;in EAD’s&#160;Architecture View:&#160;<br/>
+The right side of this page displays the configuration parameters for detecting development&#160;<br/>errors.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+26&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=27></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-27_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-27_2.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+The following table provides information about&#160;the different configuration parameters:&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;<br/>is written in bold&#160;<br/>
+Eeprom Abstraction/Flash&#160;EEPROM&#160;Emulation&#160;<br/>
+-&#160;<br/>
+The list of&#160;<br/>
+-&#160;-&#160;<br/>
+The list only shows information on&#160;<br/>
+devices is link&#160;<br/>
+which memory hardware&#160;<br/>
+time configurable&#160;<br/>
+abstraction&#160;modules&#160;are active.&#160;<br/>(De-)activating has to be done in&#160;<br/>the Architecture&#160;View&#160;<br/>
+Error Detection&#160;<br/>
+Development&#160;Mode&#160;<br/>
+Pre-Compile&#160;<br/>
+boolean&#160;<br/>
+ON/<b>OFF</b>&#160;<br/>
+Enables&#160;or disables all&#160;checks in&#160;<br/>the module generally.&#160;<br/>
+Check Device Index&#160;<br/>
+Pre-Compile&#160;boolean&#160;<br/>
+<b>ON</b>/OFF<b>&#160;</b><br/>
+Enables&#160;or disables&#160;checking of&#160;<br/>
+Parameter&#160;<br/>
+the device index parameter in&#160;API&#160;<br/>services&#160;separately&#160;(if&#160;<br/>Development&#160;Mode is enabled)&#160;<br/>
+Check if&#160;<br/>
+Pre-Compile&#160;boolean&#160;<br/>
+<b>ON</b>/OFF<b>&#160;</b><br/>
+Enables&#160;or disables checking&#160;of&#160;<br/>
+VersionInfoPtr&#160;is&#160;<br/>
+the parameter&#160;<br/>
+NULL_PTR&#160;<br/>
+VersionInfoPtr&#160;in&#160;<br/>
+MemIf_GetVersionInfo&#160;(if&#160;<br/>Development Mode is enabled)<br/>
+Debug Reporting&#160;<br/>
+Pre-Compile&#160;<br/>
+boolean&#160;<br/>
+<b>ON</b>/OFF<b>&#160;</b><br/>
+Enables&#160;or disables reporting of&#160;<br/>development errors to Det&#160;(if&#160;<br/>Development&#160;Mode is enabled)&#160;<br/>
+Errorhook Function&#160;<br/>
+Pre-Compile&#160;<br/>
+Function&#160;<br/>
+e.g.&#160;<br/>
+Configure a function&#160;name&#160;that is&#160;<br/>
+Name&#160;<br/>
+<b>Det_ReportEr&#160;</b>used for reporting development&#160;<br/><b>ror&#160;</b><br/>
+errors.&#160;The function must have the&#160;<br/>same prototype as&#160;<br/>Det_ReportError:&#160;<br/>
+&#160;<br/>
+void&#160;<b>Det_ReportError</b>&#160;<br/>&#160;(&#160;<br/>&#160;&#160;uint16&#160;<br/>
+ModuleId,&#160;<br/>
+&#160;&#160;uint8&#160;<br/>
+InstanceId,&#160;<br/>
+&#160;&#160;uint8&#160;<br/>
+ApiId,&#160;<br/>
+&#160;&#160;uint8&#160;<br/>
+ErrorId&#160;<br/>
+&#160;<br/>
+)<br/>
+Include File&#160;<br/>
+Pre-Compile&#160;<br/>
+C Header&#160;&#160;e.g.&#160;<b>Det.h</b>&#160;<br/>
+Configure the&#160;header file in which&#160;<br/>
+File Name<br/>
+the prototype&#160;for the error&#160;<br/>reporting&#160;service from the&#160;<br/>configuration parameter&#160;<br/>“Errorhook&#160;Function” is located.&#160;<br/>
+Table 6-1&#160;&#160;&#160;Memory&#160;Interface Settings&#160;<br/>
+<b>6.1.3 Module&#160;</b><br/>
+<b>API&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Navigate to the register’s tab “Module&#160;API”</b>&#160;<br/>Simply click&#160;on the register tab “Module&#160;API”&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+27&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=28></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-28_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-28_2.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+Figure 6-3&#160;&#160;Module&#160;API&#160;<br/>
+The following table provides information about&#160;the different configuration parameters:&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;<br/>is written in bold&#160;<br/>
+API Switches&#160;<br/>
+Provide Version Info&#160;<br/>
+Pre-Compile&#160;boolean&#160;<br/>
+ON/<b>OFF</b>&#160;<br/>
+Enables&#160;or disables the&#160;API&#160;<br/>
+Function&#160;<br/>
+service&#160;<br/>MemIf_GetVersionInfo.&#160;<br/>
+This&#160;can be used to reduce&#160;code&#160;<br/>size of the module, in case this&#160;<br/>service is not in use.&#160;<br/>
+Use Function&#160;API&#160;<br/>
+Pre-Compile&#160;boolean&#160;<br/>
+<b>ON</b>/OFF&#160;<br/>
+Decides whether MemIf’s&#160;API is&#160;<br/>
+instead of macros&#160;<br/>
+realized as&#160;macros or&#160;as&#160;real&#160;<br/>functions.&#160;<br/>
+If “Development Mode” is&#160;enabled,&#160;<br/>this&#160;switch&#160;has&#160;no effect. It is&#160;not&#160;<br/>possible to use the macro&#160;API in&#160;<br/>this&#160;case.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+28&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=29></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-29_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;<br/>is written in bold&#160;<br/>
+Provided API&#160;<br/>
+-&#160;-&#160;<br/>
+-&#160;<br/>
+<b>-&#160;</b><br/>
+Displays the&#160;available&#160;API in&#160;<br/>module MemIf. If parts of the&#160;API&#160;<br/>are disabled&#160;by configuration,&#160;<br/>those&#160;parts&#160;will be displayed in&#160;<br/>grey.&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+29&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=30></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-30_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>7&#160;&#160;AUTOSAR Standard Compliance&#160;</b><br/>
+<b>7.1 Deviations&#160;</b><br/>
+<b>7.1.1&#160;</b><br/>
+<b>Extension of Error Codes&#160;</b><br/>
+In contradiction to&#160;AUTOSAR standard MemIf008, an additional&#160;error code has&#160;been&#160;<br/>defined: MEMIF_E_PARAM_VINFO (see chapter&#160;<a href="TechnicalReference_Asr_MemIfs.html#8">3.4.1&#160;for det</a>ails on this error code).&#160;<br/>
+<b>7.1.2&#160;</b><br/>
+<b>Mapping 1 Device only&#160;</b><br/>
+In contradiction to&#160;AUTOSAR standard MemIf019, in case there is only one memory&#160;<br/>hardware abstraction module, its&#160;API is not mapped by&#160;simple macros. In order to provide&#160;<br/>link time configuration capability,&#160;mapping of&#160;the&#160;APIs is always realized by function pointer&#160;<br/>tables.&#160;<br/>
+<b>7.2 Additions/&#160;</b><br/>
+<b>Extensions&#160;</b><br/>
+<b>7.2.1&#160;</b><br/>
+<b>Additional Error Codes&#160;</b><br/>
+The following error codes are reported&#160;additionally to the errors defined in&#160;<a href="TechnicalReference_Asr_MemIfs.html#2">[1]&#160;(see chapter&#160;<br/></a><a href="TechnicalReference_Asr_MemIfs.html#8">3.4.1</a>&#160;for details):&#160;<br/>
+&#160;&#160;MEMIF_E_PARAM_VINFO&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+30&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=31></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-31_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>8 Glossary&#160;</b><br/>
+<b>and&#160;</b><br/>
+<b>Abbreviations&#160;</b><br/>
+<b>8.1 Glossary&#160;</b><br/>
+<b>Term&#160;</b><br/>
+<b>Description&#160;</b><br/>
+EAD&#160;<br/>
+Embedded&#160;Architecture&#160;Designer; generation tool for MICROSAR&#160;<br/>components&#160;<br/>
+GENy&#160;<br/>
+Generation tool for CANbedded and&#160;MICROSAR components&#160;<br/>
+Table 8-1&#160;&#160;&#160;Glossary&#160;<br/>
+<b>8.2 Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+API&#160;Application&#160;<br/>
+Programming&#160;<br/>
+Interface&#160;<br/>
+&#160;<br/>
+AUTOSAR&#160;Automotive&#160;<br/>
+Open&#160;<br/>
+System&#160;<br/>
+Architecture&#160;<br/>
+BSW&#160;Basis&#160;<br/>
+Software&#160;<br/>
+DET&#160;Development&#160;<br/>
+Error&#160;<br/>
+Tracer&#160;<br/>
+EAD&#160;Embedded&#160;<br/>
+Architecture&#160;<br/>
+Designer&#160;<br/>
+ECU&#160;<br/>
+Electronic Control Unit&#160;<br/>
+MICROSAR&#160;<br/>
+Microcontroller Open System&#160;Architecture (the Vector&#160;AUTOSAR&#160;<br/>solution)&#160;<br/>
+SRS&#160;<br/>
+Software Requirement Specification&#160;<br/>
+SWS&#160;Software&#160;<br/>
+Specification&#160;<br/>
+NVRAM&#160;<br/>
+Non volatile memory&#160;<br/>
+NvM&#160;NVRAM&#160;<br/>
+Manager&#160;<br/>
+Fee&#160;Flash&#160;<br/>
+EEPROM&#160;<br/>
+Emulation&#160;<br/>
+Ea&#160;EEPROM&#160;<br/>
+Abstraction&#160;<br/>
+Fls&#160;Flash&#160;<br/>
+Driver&#160;<br/>
+Eep&#160;EEPROM&#160;<br/>
+Driver&#160;<br/>
+Table 8-2&#160;&#160;&#160;Abbreviations&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+31&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=32></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_MemIf-32_1.png"/><br/>
+Technical Reference MICROSAR MemIf &#160;<br/>
+&#160;<br/>
+<b>9 Contact&#160;</b><br/>
+Visit our website for more information on&#160;<br/>&#160;<br/>&gt;&#160; &#160;News&#160;<br/>&gt;&#160; &#160;Products&#160;<br/>&gt;&#160; &#160;Demo software&#160;<br/>&gt;&#160; &#160;Support&#160;<br/>&gt;&#160; &#160;Training data&#160;<br/>&gt;&#160; &#160;Addresses&#160;<br/>&#160;<br/>
+<a href="http://www.vector-informatik.com/"><b>www.vector-informatik.com</b></a><br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.0&#160;<br/>
+32&#160;/ 32<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#2">1 Document Information</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#2">1.1 History</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#2">1.2 Reference Documents</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#2">1.1 Scope of the Document</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#6">2 Introduction</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#7">2.1 Architecture Overview</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#8">3 Functional Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#8">3.1 Features</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#8">3.2 Initialization</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#8">3.3 Main Functions</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#8">3.4 Error Handling</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#8">3.4.1 Development Error Reporting</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#10">3.4.1.1 Parameter Checking</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#11">4 Integration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#11">4.1 Scope of Delivery</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#11">4.1.1 Static Files</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#11">4.1.2 Dynamic Files</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#12">4.2 Include Structure</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#12">4.3 Compiler Abstraction and Memory Mapping&#160;</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#14">5 API Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#14">5.1 Interfaces Overview</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#14">5.2 Type Definitions</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#15">5.3 Services provided by MemIf</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#16">5.3.1 MemIf_GetVersionInfo</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#16">5.3.2 MemIf_SetMode</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#17">5.3.3 MemIf_Read</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#18">5.3.4 MemIf_Write</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#19">5.3.5 MemIf_Cancel</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#20">5.3.6 MemIf_GetStatus</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#21">5.3.7 MemIf_GetJobResult</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#22">5.3.8 MemIf_EraseImmediateBlock</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#23">5.3.9 MemIf_InvalidateBlock</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#23">5.4 Services used by MemIf</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#25">6 Configuration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#25">6.1 Configuration with EAD</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#25">6.1.1 Architecture View</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#26">6.1.2 Memory Interface Settings</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#27">6.1.3 Module API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#30">7 AUTOSAR Standard Compliance</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#30">7.1 Deviations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#30">7.1.1 Extension of Error Codes</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#30">7.1.2 Mapping 1 Device only</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#30">7.2 Additions/ Extensions</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#30">7.2.1 Additional Error Codes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#31">8 Glossary and Abbreviations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_MemIfs.html#31">8.1 Glossary</a></li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#31">8.2 Abbreviations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_MemIfs.html#32">9 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

@@ -1,0 +1,505 @@
+---
+title: Integration_Manual_ADC
+linkTitle: Integration_Manual_ADC
+weight: 7
+---
+
+<p><a href="#dependencies">1 Dependencies <span>2</span></a></p>
+<p><a href="#swcs">1.1 SWCs <span>2</span></a></p>
+<p><a href="#global-functionsnon-rte-to-be-provided-to-integration-project">1.2 Global Functions(Non RTE) to be provided to Integration Project <span>2</span></a></p>
+<p><a href="#configuration">2 Configuration <span>3</span></a></p>
+<p><a href="#build-time-config">2.1 Build Time Config <span>3</span></a></p>
+<p><a href="#configuration-files-to-be-provided-by-integration-project">2.2 Configuration Files to be provided by Integration Project <span>3</span></a></p>
+<p><a href="#da-vinci-parameter-configuration-changes">2.2.1 Da Vinci Parameter Configuration Changes <span>3</span></a></p>
+<p><a href="#davinci-interrupt-configuration-changes">2.2.2 DaVinci Interrupt Configuration Changes <span>3</span></a></p>
+<p><a href="#manual-configuration-changes">2.2.3 Manual Configuration Changes <span>3</span></a></p>
+<p><a href="#integration">3 Integration <span>6</span></a></p>
+<p><a href="#required-global-data-inputs">3.1 Required Global Data Inputs <span>6</span></a></p>
+<p><a href="#required-global-data-outputs">3.2 Required Global Data Outputs <span>6</span></a></p>
+<p><a href="#specific-include-path-present">3.3 Specific Include Path present <span>6</span></a></p>
+<p><a href="#runnable-scheduling">4 Runnable Scheduling <span>7</span></a></p>
+<p><a href="#memory-mapping">5 Memory Mapping <span>8</span></a></p>
+<p><a href="#mapping">5.1 Mapping <span>8</span></a></p>
+<p><a href="#usage">5.2 Usage <span>8</span></a></p>
+<p><a href="#non-rte-nvm-blocks">5.3 Non RTE NvM Blocks <span>8</span></a></p>
+<p><a href="#rte-nvm-blocks">5.4 RTE NvM Blocks <span>8</span></a></p>
+<p><a href="#compiler-settings">6 Compiler Settings <span>8</span></a></p>
+<p><a href="#preprocessor-macro">6.1 Preprocessor MACRO <span>8</span></a></p>
+<p><a href="#optimization-settings">6.2 Optimization Settings <span>8</span></a></p>
+<p><a href="#revision-control-log">7 Revision Control Log <span>9</span></a></p>
+<h1 id="dependencies">Dependencies</h1>
+<h2 id="swcs">SWCs</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Required Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>IoHwAbsUsr</td>
+<td><p>Parts of the Adc FDDs (33C or 33E) are intended to be implemented at the integration level and are typically included in IoHwAbsUsr. Note that this includes implementation of NTC 0x32 and/or NTC 0x33 as needed for the specific application.</p>
+<p>NOTE that as of FDD33C rev 008 and FDD33E rev 002, DMA-related updates are not included in the FDDs. The looping on group busy and associated timeouts and NTC setting should not be implemented when using with DMA; alternate means of getting the data when ready and associated fault setting are outlined in the DMA FDD ES-52.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Note : Referencing the external components should be avoided in most cases. Only in unavoidable circumstance external components should be refered. Developer should track the references.</p>
+<h2 id="global-functionsnon-rte-to-be-provided-to-integration-project">Global Functions(Non RTE) to be provided to Integration Project</h2>
+<ul>
+<li><p>Adc_Init() NOTE this is a macro mapped to Adc_Init_FixedCfg for Autosar interface compatibility. The Adc_Init macro takes a parameter which is not used by the function.</p></li>
+<li><p>FUNC(void, ADC_CODE) Adc_StartGroupConversion(Adc_GroupType Group)</p></li>
+<li><p>FUNC(Std_ReturnType, ADC_CODE) Adc_ReadGroup(Adc_GroupType Group, Adc_ValueGroupRefType DataBufferPtr)</p></li>
+<li><p>FUNC(Adc_StatusType, ADC_CODE) Adc_GetGroupStatus(Adc_GroupType Group)</p></li>
+<li><p>inline uint16 Adc2_ReadConversion(uint16 ConvId) NOTE this function directly accesses Adc RAM and should not be used when using DMA to transfer Adc data</p></li>
+<li><p>void Adc2_Init1(void)</p></li>
+<li><p>void Adc2_StartGroupConversion(uint8 group)</p></li>
+</ul>
+<h1 id="configuration">Configuration</h1>
+<h2 id="build-time-config">Build Time Config</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modules</th>
+<th>Notes</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-files-to-be-provided-by-integration-project">Configuration Files to be provided by Integration Project</h2>
+<h2 class="unnumbered" id="section"></h2>
+<p>Adc_Cfg.h and Adc2_Cfg.h. Configuration file templates are in the Tools folder.</p>
+<p>NOTE:</p>
+<p>For Projects using 33E, make sure “D_ADC1CURRENTMODE_ULS_LGC” is defined in Adc_Cfg.h file.</p>
+<p>For Projects using 33C, make sure “D_ADC1CURRENTMODE_ULS_LGC” is <strong>NOT</strong> defined in Adc_Cfg.h file.</p>
+<h3 id="da-vinci-parameter-configuration-changes">Da Vinci Parameter Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;Configurator Changes for parameters&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="davinci-interrupt-configuration-changes">DaVinci Interrupt Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 9%" />
+<col style="width: 38%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ISR Name</th>
+<th>VIM #</th>
+<th>Priority Dependency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;Configurator Changes for Interrupts&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-configuration-changes">Manual Configuration Changes</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 44%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_ADC1GEVTSRC_CNT_U32*</td>
+<td>Initialization value for adcREG1-&gt;G0SRC</td>
+<td>Adc_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_ADC1GEVTDMACR_CNT_U32*</td>
+<td>Initialization value for adcREG1-&gt;G0DMACR</td>
+<td>Adc_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_ADC1G1SRC_CNT_U32*</td>
+<td>Initialization value for adcREG1-&gt;G1SRC</td>
+<td>Adc_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_ADC1G1DMACR_CNT_U32*</td>
+<td>Initialization value for adcREG1-&gt;G1DMACR</td>
+<td>Adc_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_ADC1G2SRC_CNT_U32*</td>
+<td>Initialization value for adcREG1-&gt;G2SRC</td>
+<td>Adc_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_ADC1G2DMACR_CNT_U32*</td>
+<td>Initialization value for adcREG1-&gt;G2DMACR</td>
+<td>Adc_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_ADC1USEDMA_CNT_LGC*</td>
+<td>STD_ON if using DMA to transfer ADC1 data; otherwise STD_OFF</td>
+<td>Adc_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_HWTRGADC1GEVT_CNT_LGC*</td>
+<td>STD_ON to reconfigure ADC1 event group for hardware trigger after initial reads; otherwise STD_OFF</td>
+<td>Adc_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_HWTRGADC1G1_CNT_LGC*</td>
+<td>STD_ON to reconfigure ADC1 group 1 for hardware trigger after initial reads; otherwise STD_OFF</td>
+<td>Adc_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_HWTRGADC1G2_CNT_LGC*</td>
+<td>STD_ON to reconfigure ADC1 group 2 for hardware trigger after initial reads; otherwise STD_OFF</td>
+<td>Adc_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_ADC2EVINTENA_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+GxINTENA[D_GROUPEV_CNT_U8]</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_ADC2EVSAMPDISEN_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+G0SAMPDISEN</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_ADC2EVFIFORESETCR_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+GxFIFORESETCR[D_GROUPEV_CNT_U8]</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_ADC2EVDMACR_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+G0DMACR</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_ADC2G1INTENA_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+GxINTENA[D_GROUP1_CNT_U8]</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_ADC2G1SAMPDISEN_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+G0SAMPDISEN</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_ADC2G1FIFORESETCR_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+GxFIFORESETCR[D_GROUP1_CNT_U8]</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_ADC2G1DMACR_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+G0DMACR</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_ADC2G2INTENA_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+GxINTENA[D_GROUP2_CNT_U8]</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_ADC2G2SAMPDISEN_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+G0SAMPDISEN</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_ADC2G2FIFORESETCR_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+GxFIFORESETCR[D_GROUP2_CNT_U8]</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_ADC2G2DMACR_CNT_U32*</td>
+<td>Initialization value for adcREG2-&gt;<br />
+G0DMACR</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_HWTRGADC2GEVT_CNT_LGC*</td>
+<td>STD_ON to reconfigure ADC2 event group for hardware trigger after initial reads; otherwise STD_OFF</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_HWTRGADC2G1_CNT_LGC*</td>
+<td>STD_ON to reconfigure ADC2 group 1 for hardware trigger after initial reads; otherwise STD_OFF</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_HWTRGADC2G2_CNT_LGC*</td>
+<td>STD_ON to reconfigure ADC2 group 2 for hardware trigger after initial reads; otherwise STD_OFF</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_ADC2USEDMA_CNT_LGC*</td>
+<td>STD_ON if using DMA to transfer ADC2 data; otherwise STD_OFF</td>
+<td>Adc2_Cfg.h</td>
+</tr>
+</tbody>
+</table>
+<p>*NOTE: See template Adc_Cfg.h and Adc2_Cfg.h files in Tools folder for settings to maintain pre-DMA (FDD33C rev008 and FDD33E rev002) behavior.</p>
+<p>**NOTE: Additional manual configuration constants are needed, and are included in the template config header files, but are not listed here. To be added in CR 11738 complete design review of this component.</p>
+<h1 id="integration">Integration</h1>
+<h2 id="required-global-data-inputs">Required Global Data Inputs</h2>
+<p>None</p>
+<h2 id="required-global-data-outputs">Required Global Data Outputs</h2>
+<p>ADC1OffsetComp_Cnt_u8p8</p>
+<p>ADC2OffsetComp_Cnt_u8p8 (From ADC2 to Current Measurement)</p>
+<h2 id="specific-include-path-present">Specific Include Path present</h2>
+<p>Yes</p>
+<h1 id="runnable-scheduling">Runnable Scheduling </h1>
+<p>This section specifies the required runnable scheduling.</p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 53%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Init</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Adc_Init()</td>
+<td>Before <strong>Adc2_Init1</strong><br />
+Before <strong>IoHwAb_Init</strong><br />
+After <strong>SystemTime_Init<br />
+</strong>After <strong>Dma_Init</strong></td>
+<td>ECU Startup</td>
+</tr>
+<tr class="even">
+<td>Adc2_Init1()</td>
+<td>Before <strong>PWMCdd_Init</strong><br />
+Before enabling Motor Control ISR<br />
+After <strong>SystemTime_Init<br />
+</strong>After <strong>Dma_Init</strong></td>
+<td>ECU Startup</td>
+</tr>
+</tbody>
+</table>
+<p>*NOTE: Depending on configuration, some of the other listed init functions may not be present. Other application-specific scheduling requirements may exist.</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 51%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Adc_StartGroupConversion</td>
+<td>As determined by application needs and configuration</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Adc2_StartGroupConversion</td>
+<td>As determined by application needs and configuration</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>.</strong></p>
+<h1 id="memory-mapping">Memory Mapping</h1>
+<h2 id="mapping">Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 26%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Memory Section</th>
+<th>Contents</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ADC2_START_SEC_CODE</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>ADC2_START_SEC_CONST_32</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>ADC_START_SEC_CONST_32</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>ADC_START_SEC_CODE</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>* Each …START_SEC… constant is terminated by a …STOP_SEC… constant as specified in the AUTOSAR Memory Mapping requirements.</p>
+<h2 id="usage">Usage</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>RAM</th>
+<th>ROM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;Memmap usuage info&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: ARM Cortex R4 Memory Usage</p>
+<h2 id="non-rte-nvm-blocks">Non RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;NVM block used Non RTE functions &gt;</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h2 id="rte-nvm-blocks"> RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;NVM block used in RTE functions &gt;</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h1 id="compiler-settings">Compiler Settings</h1>
+<h2 id="preprocessor-macro"> Preprocessor MACRO</h2>
+<p>&lt;Define all the preprocessor Macros needed and conditions when needed&gt;.</p>
+<h2 id="optimization-settings">Optimization Settings</h2>
+<p>&lt;Define Optimization levels that are needed and conditions when needed&gt;.</p>
+<h2 class="unnumbered" id="section-1"></h2>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 71%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial version</td>
+<td>09-Apr-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Updated to latest integration manual template. Updated per changes made for use with DMA. Added init function scheduling requirements that had previously been listed in the MDDs.</td>
+<td>11-Apr-14</td>
+<td>KMC</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Updated for ADC offset compensation</td>
+<td>27-Jun-14</td>
+<td>Selva</td>
+</tr>
+</tbody>
+</table>

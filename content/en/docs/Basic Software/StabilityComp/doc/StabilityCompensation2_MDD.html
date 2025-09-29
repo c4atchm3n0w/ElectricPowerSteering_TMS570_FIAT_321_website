@@ -1,0 +1,820 @@
+---
+title: StabilityCompensation2_MDD
+linkTitle: StabilityCompensation2_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module----stability-compensation">Module -- Stability Compensation</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This function provides in-vehicle stability of EPS behavior. To maximize steering feel, the function blends between two different tunings based on vehicle speed and low frequency handwheel torque. Because system gains may get multiplied by various scale factors, either from serial communications or from other software functions, this function provides a second blending feature.</p>
+<p>Some vehicle programs require a secondary, or "systematic", calculation of stability compensation followed by a correlation check. The systematic calculations usually must reside in a separate Memory Partition Unit (MPU), and switching between MPUs negatively impacts system throughput. This model is designed using the best-known implementation at this time.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:4.3632in;height:3.95491in" /></p>
+<h2 id="variable-data-dictionary">Variable Data Dictionary</h2>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">AssistDDFactor_Uls_f32</td>
+<td>SysAssistCmd_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">HwTorque_HwNm_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">VehicleSpeed_Kph_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">CombinedAssist_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">AsstFWActive_Uls_f32</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>StCmp1Out2_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-2312</td>
+<td>2312</td>
+<td>STABILITYCOMP2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>StCmp2Out2_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-2312</td>
+<td>2312</td>
+<td>STABILITYCOMP2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>StCmp3Out2_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-2312</td>
+<td>2312</td>
+<td>STABILITYCOMP2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>StCmp4Out2_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-2312</td>
+<td>2312</td>
+<td>STABILITYCOMP2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>HwTorqueSV_HwNm_M_f32</td>
+<td>Single Precision Float</td>
+<td>-10</td>
+<td>10</td>
+<td>STABILITYCOMP2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>VehicleSpeedSV_Kph_M_f32</td>
+<td>Single Precision Float</td>
+<td>0</td>
+<td>511.9921875</td>
+<td>STABILITYCOMP2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>AssistDDFactorSV_Uls_M_f32</td>
+<td>Single Precision Float</td>
+<td>1</td>
+<td>2</td>
+<td>STABILITYCOMP2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CombAstNFSV2_Cnt_M_Str*</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>STABILITYCOMP2_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>CombAstNFSV2_Cnt_M_Str[].SV1_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-2077</td>
+<td>2077</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CombAstNFSV2_Cnt_M_Str[].SV2_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-1981</td>
+<td>1981</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CombAstNFSV2_Cnt_M_Str[].Out_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-2312</td>
+<td>2312</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CombAstNFSV2_Cnt_M_Str[].KPtr_Cnt_Str-&gt;A1_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-2</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CombAstNFSV2_Cnt_M_Str[].KPtr_Cnt_Str-&gt;A2_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-1</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CombAstNFSV2_Cnt_M_Str[].KPtr_Cnt_Str-&gt;B0_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>0</td>
+<td>2300</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CombAstNFSV2_Cnt_M_Str[].KPtr_Cnt_Str-&gt;B1_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-4500</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CombAstNFSV2_Cnt_M_Str[].KPtr_Cnt_Str-&gt;B2_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-4</td>
+<td>2300</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>HwTrqSV2_HwNm_M_Str</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>STABILITYCOMP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>HwTrqSV2_HwNm_M_Str.K_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>0.000125</td>
+<td>0.4666</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>HwTrqSV2_HwNm_M_Str.SV_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>0</td>
+<td>10</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>* See unit testing notes in section 2.3.1 for range considerations of Notch Filter </p>
+<h3 id="notch-filter-unit-testing-considerations">Notch filter Unit testing considerations</h3>
+<p>Since the notch filter implementation used in this module is dynamic in nature, absolute ranges are difficult to determine without pre-defined knowledge on the combination of coefficient values (A1, A2, B0, B1, B2). Because of this, the systems group ran simulations on 10 different combinations of coefficients (2 with defined default calibrations, 8 considered extreme cases of notch filters) and logged the ranges of the filter state variables and outputs during a frequency sweep. The ranges given throughout this module were taken as the worst case results of all of the given test cases.</p>
+<p>To provide useful cases for unit testing, the boundary checks tested during unit testing should be altered to test the state variable minimum and maximum for each of the 10 test cases with the given coefficients set to the values given in that test case. In the case where the default values of the coefficients are used in a vector, the unit tester should not test the corresponding state variables with values over the range defined for that set of coefficients. See attached simulation results.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>t_StCmpADDFBlendX_Uls_u2p14[ ]</td>
+</tr>
+<tr class="even">
+<td>t_StCmpADDFBlendY_Uls_u2p14[ ]</td>
+</tr>
+<tr class="odd">
+<td>t_StCmpBlendSpdBS_Kph_u9p7[ ]</td>
+</tr>
+<tr class="even">
+<td>t_StCmpBlend12Trq_HwNm_u8p8[ ]</td>
+</tr>
+<tr class="odd">
+<td>t2_StCmpBlend12TblY_Uls_u2p14[ ][ ]</td>
+</tr>
+<tr class="even">
+<td>t2_StCmpBlend02TblY_Uls_u2p14[ ][ ]</td>
+</tr>
+<tr class="odd">
+<td>t_StCmpBlend34Trq_HwNm_u8p8[ ]</td>
+</tr>
+<tr class="even">
+<td>t2_StCmpBlend34TblY_Uls_u2p14[ ][ ]</td>
+</tr>
+<tr class="odd">
+<td>t2_StCmpBlend04TblY_Uls_u2p14[ ][ ]</td>
+</tr>
+<tr class="even">
+<td>t_StCmpNFK_Str[ ]</td>
+</tr>
+<tr class="odd">
+<td>t_StCmpNFK_Str[ ].A1_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>t_StCmpNFK_Str[ ].A2_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>t_StCmpNFK_Str[ ].B0_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>t_StCmpNFK_Str[ ].B1_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>t_StCmpNFK_Str[ ].B2_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_StCmpHwTrqLPFKn_Hz_f32</td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="program-fixed-constants">Program (fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_COMPINLIMIT_MTRNM_F32</td>
+<td>Single Precision Floating Point</td>
+<td>MtrNm</td>
+<td>10.275</td>
+</tr>
+<tr class="even">
+<td>D_NUMNOTCHFILT_CNT_U08</td>
+<td>UINT08</td>
+<td>Cnt</td>
+<td>(TableSize_m(t_StCmpNFK_Str))</td>
+</tr>
+<tr class="odd">
+<td>D_NUMNFBLENDS_CNT_U08</td>
+<td>UINT08</td>
+<td>Cnt</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>D_ASSISTINIT_MTRNM_F32</td>
+<td>Single Precision Floating Point</td>
+<td>MtrNm</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>D_COMPBLND12IDX_CNT_U08</td>
+<td>UINT08</td>
+<td>Cnt</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>D_COMPBLND34IDX_CNT_U08</td>
+<td>UINT08</td>
+<td>Cnt</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>D_COMPBLND02IDX_CNT_U08</td>
+<td>UINT08</td>
+<td>Cnt</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>D_COMPBLND04IDX_CNT_U08</td>
+<td>UINT08</td>
+<td>Cnt</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>D_ASSTSCLMT_MTRNM_F32</td>
+<td>Single Precision Floating Point</td>
+<td>MtrNm</td>
+<td>8.8</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+<tr class="even">
+<td>D_2MS_SEC_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>FPM_FloatToFixed_m</p></li>
+<li><p>Limit_m</p></li>
+<li><p>NF_Init_f32</p></li>
+<li><p>FPM_FixedToFloat_m</p></li>
+<li><p>BilinearXYM_u16_u16Xu16YM_Cnt</p></li>
+<li><p>IntplVarXY_u16_u16Xu16Y_Cnt</p></li>
+<li><p>Blend_f32</p></li>
+<li><p>Abs_f32_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="applystabilitycomp2">ApplyStabilityComp2</h3>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 4%" />
+<col style="width: 25%" />
+<col style="width: 20%" />
+<col style="width: 12%" />
+<col style="width: 9%" />
+<col style="width: 10%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td colspan="2">ApplyStabilityComp2</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td colspan="2">Assist_MtrNm_T_f32</td>
+<td>float32</td>
+<td>-10.275</td>
+<td>10.275</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td colspan="2">FiltSVPtr_Uls_T_Str*</td>
+<td>Pointer to NotchFiltSV_Str</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>.SV1_Uls_f32</td>
+<td>float32</td>
+<td>-2077</td>
+<td>2077</td>
+<td>0.000489</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>.SV2_Uls_f32</td>
+<td>float32</td>
+<td>-1981</td>
+<td>1981</td>
+<td>0.000489</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>.Out_Uls_f32</td>
+<td>float32</td>
+<td>-2312</td>
+<td>2312</td>
+<td>0.000489</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>.KPtr_Cnt_Str-&gt;A1_Uls_f32</td>
+<td>float32</td>
+<td>-2</td>
+<td>0</td>
+<td>0.00005</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>.KPtr_Cnt_Str-&gt;A2_Uls_f32</td>
+<td>float32</td>
+<td>-1</td>
+<td>1</td>
+<td>0.00005</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>.KPtr_Cnt_Str-&gt;B0_Uls_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>2300</td>
+<td>0.00005</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td>.KPtr_Cnt_Str-&gt;B1_Uls_f32</td>
+<td>float32</td>
+<td>-4500</td>
+<td>0</td>
+<td>0.00005</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>.KPtr_Cnt_Str-&gt;B2_Uls_f32</td>
+<td>float32</td>
+<td>-4</td>
+<td>2300</td>
+<td>0.00005</td>
+</tr>
+<tr class="even">
+<td></td>
+<td colspan="2">CompBlnd_Uls_T_u2p14</td>
+<td>Pointer to uint16</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td colspan="2">ADDFBlend_Uls_T_u2p14</td>
+<td>uint16</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td colspan="2">WriteDisplayVars_Cnt_T_lgc</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td colspan="2">FilteredOutput_MtrNm_T_s4p11</td>
+<td>sint16 (s4p11_T)</td>
+<td>-8.8</td>
+<td>8.8</td>
+<td>4.89E-04</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="see-unit-testing-notes-in-section-2.3.1-for-range-considerations-of-notch-filter">* See unit testing notes in section 2.3.1 for range considerations of Notch Filter</h4>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AssistDDFactor_Uls_f32</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>HwTorque_HwNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>CombinedAssist_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>AsstFWActive_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>VehicleSpeed_Kph_f32</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-stabilitycomp2_init1">Init: StabilityComp2_Init1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-stabilitycomp_per1">Per: StabilityComp_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_StabilityComp2_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>AssistDDFactor_Uls_T_f32 = Rte_IRead_StabilityComp2_Per1_AssistDDFactor_Uls_f32();</p>
+<p>AsstFWActive_Uls_T_f32 = Rte_IRead_StabilityComp2_Per1_AsstFWActive_Uls_f32();</p>
+<p>CombinedAssist_MtrNm_T_f32 = Rte_IRead_StabilityComp2_Per1_CombinedAssist_MtrNm_f32();</p>
+<p>HwTorque_HwNm_T_f32 = Rte_IRead_StabilityComp2_Per1_HwTorque_HwNm_f32();</p>
+<p>VehicleSpeed_Kph_T_f32 = Rte_IRead_StabilityComp2_Per1_VehicleSpeed_Kph_f32();</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_IWrite_StabilityComp2_Per1_SysAssistCmd_MtrNm_f32(SysAssistCmd_MtrNm_T_f32);</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_StabilityComp2_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<h2 class="unnumbered" id="section-1"></h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>StabilityComp2_Per1</td>
+<td>2ms</td>
+<td>ALL STATES</td>
+</tr>
+<tr class="even">
+<td>StabilityComp2_Init1</td>
+<td>STARTUP</td>
+<td>COLD INIT</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>StabilityComp2_Per1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ApplyStabilityComp2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions defined in GlobalMacro.h are not unit tested</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 63%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial MDD</td>
+<td>27 Feb 2013</td>
+<td>SP</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Anomaly 4719 fixes</td>
+<td>05 Apr 2013</td>
+<td>SP</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>4.0</td>
+<td>Anomaly 4886 Updates. Range updates and notes about unit testing the notch filter.</td>
+<td>27 Apr 2013</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>5.0</td>
+<td>Range updates on HwTrq filter SV. Added tolerance for pointer values on local function.</td>
+<td>06 June 2013</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>6</td>
+<td>Added cal ptr for parameter in function call to NF_FullUpdate_f32</td>
+<td>05-Dec-13</td>
+<td>VT</td>
+</tr>
+</tbody>
+</table>

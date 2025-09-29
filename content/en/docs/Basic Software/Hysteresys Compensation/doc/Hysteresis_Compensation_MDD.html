@@ -1,0 +1,998 @@
+---
+title: Hysteresis_Compensation_MDD
+linkTitle: Hysteresis_Compensation_MDD
+weight: 5
+---
+
+<h1 class="unnumbered" id="module----hysteresis-compensation">Module -- Hysteresis Compensation</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module will calculate a motor torque command to add into the low pass assist torque that will compensate for the hysteresis present in the system.</p>
+<h1 id="figures">Figures</h1>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.96875in;height:2.94792in" /></p>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>This diagram shows all data that is shared between functions within the module.</p>
+<h3 id="diagram-hystcomp_per1">Diagram – HystComp_Per1</h3>
+<p>This diagram describes the functional characteristics and data flow of a given function.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.wmf" /></p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Module Inputs (Global Variable Name)</td>
+<td>Module Outputs (Global Variable Name)</td>
+</tr>
+<tr class="even">
+<td>HwTorque_HwNm_f32</td>
+<td>HysteresisComp_MtrNm_f32</td>
+</tr>
+<tr class="odd">
+<td>BaseAssistCmd_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DefeatHystService_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VehicleSpeed_Kph_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>WIRCmdAmpBlnd_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>AssistMechTempEst_DegC_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>FricOffset_HwNm_f32</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 14%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 21%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Variable Name</td>
+<td>Resolution</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>* AssistCmdLPFiltSV_HwNm_M_str</td>
+<td>Multiple</td>
+<td>Multiple</td>
+<td>Multiple</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td><ul>
+<li><p>K_Uls_f32</p></li>
+</ul></td>
+<td>Single Precision Float</td>
+<td>0.0124877435</td>
+<td>0.4665119090</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ul>
+<li><p>SV_HwNm_f32</p></li>
+</ul></td>
+<td>Single Precision Float</td>
+<td>-440</td>
+<td>440</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>* HwTrqLPFiltSV_HwNm_M_str</td>
+<td>Multiple</td>
+<td>Multiple</td>
+<td>Multiple</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td><ul>
+<li><p>K_Uls_f32</p></li>
+</ul></td>
+<td>Single Precision Float</td>
+<td>0.0124877435</td>
+<td>0.4665119090</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ul>
+<li><p>SV_HwNm_f32</p></li>
+</ul></td>
+<td>Single Precision Float</td>
+<td>-10</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>* RawHystCompLPFiltSV_HwNm_M_str</td>
+<td>Multiple</td>
+<td>Multiple</td>
+<td>Multiple</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td><ul>
+<li><p>K_Uls_f32</p></li>
+</ul></td>
+<td>Single Precision Float</td>
+<td>0.0124877435</td>
+<td>0.4665119090</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><ul>
+<li><p>SV_HwNm_f32</p></li>
+</ul></td>
+<td>Single Precision Float</td>
+<td>-15</td>
+<td>15</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>HwTrqLastUsed_HwNm_M_f32</td>
+<td>Single Precision Float</td>
+<td>-10.0</td>
+<td>10.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>Fraction_Uls_M_f32</td>
+<td>Single Precision Float</td>
+<td>-1.0</td>
+<td>1.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>RawCalc_HwNm_M_f32</td>
+<td>Single Precision Float</td>
+<td>-15.0</td>
+<td>15.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>RiseX_HwNm_M_f32</td>
+<td>Single Precision Float</td>
+<td>-1.0</td>
+<td>1.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>AstCmdLastUsed_HwNm_ M_s8p7</td>
+<td>2<sup>-7</sup></td>
+<td>-255.0</td>
+<td>255.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>CompAvail_HwNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-15</td>
+<td>15.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>HwTrqFilt_HwNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-15.0</td>
+<td>15.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CoulFric_HwNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-15.0</td>
+<td>15.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>PosAvail_HwNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-15.0</td>
+<td>15.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>NegAvail_HwNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-15.0</td>
+<td>15.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>EffCompTrq_HwNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-15.0</td>
+<td>15.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>AssistCmdFilt_HwNm_D_s8p7</td>
+<td>2<sup>-7</sup></td>
+<td>-15.0</td>
+<td>15.0</td>
+<td>HYSTCOMP_START_SEC_VAR_CLEARED_16</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 31%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Typedef Name</td>
+<td>Element Name</td>
+<td>User Defined Type</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td>k_CmnSysTrqRatio_HwNmpMtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>k_HysCmpLPAstLPFKn_Hz_f32</td>
+</tr>
+<tr class="odd">
+<td>k_HysCmpHwTrqLPFKn_Hz_f32</td>
+</tr>
+<tr class="even">
+<td>k_HysFinalOutLPFKn_Hz_f32</td>
+</tr>
+<tr class="odd">
+<td>k_LpFricIpLim_HwNm_u9p7</td>
+</tr>
+<tr class="even">
+<td>k_HysRevGain_InvHwNm_f32</td>
+</tr>
+<tr class="odd">
+<td>k_HysOutLIm_HwNm_f32</td>
+</tr>
+<tr class="even">
+<td>t_HysRiseTblX_HwNm_u2p14</td>
+</tr>
+<tr class="odd">
+<td>t_HysRiseTblY_Uls_u2p14</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td>t_CmnVehSpd_Kph_u9p7</td>
+</tr>
+<tr class="even">
+<td>t_EffOffTblY_HwNm_u9p7</td>
+</tr>
+<tr class="odd">
+<td>t_EffLossTblY_Uls_u4p12</td>
+</tr>
+<tr class="even">
+<td>t2_HysHwTrqBlndTblX_HwNm_u9p7</td>
+</tr>
+<tr class="odd">
+<td>t2_HysHwTrqBlndTblY_Uls_u4p12</td>
+</tr>
+<tr class="even">
+<td>t_HysCompCoulFricY_HwNm_u9p7</td>
+</tr>
+<tr class="odd">
+<td>t_HysCompCoulFricTempScaleX_DegC_s14p1</td>
+</tr>
+<tr class="even">
+<td>t_HysCompCoulFricTempScaleY_HwNm_u9p7</td>
+</tr>
+<tr class="odd">
+<td>t_HysCompHysSatY_HwNm_u9p7</td>
+</tr>
+<tr class="even">
+<td>t_HysCompCoulFricWIRBlendX_MtrNm_u8p8</td>
+</tr>
+<tr class="odd">
+<td>t_HysCompCoulFricWIRBlendY_Uls_u2p14</td>
+</tr>
+<tr class="even">
+<td>t_HysCompNegHysCompX_MtrNm_u8p8</td>
+</tr>
+<tr class="odd">
+<td>t_HysCompNegHysCompY_HwNm_u9p7</td>
+</tr>
+<tr class="even">
+<td>t_HysCompNegHysBlendX_HwNm_u9p7</td>
+</tr>
+<tr class="odd">
+<td>t_HysCompNegHysBlendY_Uls_u2p14</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 22%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>D_HYSPOSLMT_ULS_F32</td>
+<td>Single Precision Floating Point</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td>D_WIROFF_IDX_U16</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>D_WIRON_IDX_U16</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>D_WIRCMDBLNDFRC_ULS_F32</td>
+<td>Single Precision Floating Point</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>D_HYSSATLOWLMT_HWNM_F32</td>
+<td>Single Precision Floating Point</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>D_HYSOUTLMT_MTRNM_F32</td>
+<td>Single Precision Floating Point</td>
+<td>8.8</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>BC_HYSTCOMP_FAULTINJECTIONPOINT</td>
+</tr>
+<tr class="odd">
+<td>STD_ON</td>
+</tr>
+<tr class="even">
+<td>FLTINJ_HYSTCOMP</td>
+</tr>
+<tr class="odd">
+<td>D_2MS_SEC_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 20%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>FPM_FloatToFixed_m()</p></li>
+<li><p>FPM_FixedToFloat_m()</p></li>
+<li><p>LPF_OpUpdate_f32_m ()</p></li>
+<li><p>IntplVarXY_u16_u16Xu16Y_Cnt()</p></li>
+<li><p>IntplVarXY_u16_s16Xu16Y_Cnt()</p></li>
+<li><p>TableSize_m()</p></li>
+<li><p>Abs_s16_m()</p></li>
+<li><p>Abs_f32_m()</p></li>
+<li><p>Sign_s16_m()</p></li>
+<li><p>Sign_f32_m()</p></li>
+<li><p>Limit_m()</p></li>
+<li><p>BilinearXMYM_u16_u16XMu16YM_Cnt</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<p>The data hiding functions / macros used in this module are identified below,</p>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>(Note if they are defined in another source file, then reference the appropriate header file)</p>
+<p>The local functions/macros in this module are identified below,</p>
+<ol type="1">
+<li><p>MoreCompensation()</p></li>
+<li><p>LessCompensation()</p></li>
+<li><p>CalcAvailComp()</p></li>
+</ol>
+<h1 class="unnumbered" id="section"><br />
+</h1>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>(Note: For multiple init functions, insert new headers at the “Header 2” level – subset of “5.1 Initialization Functions” and follow the same sub-section design shown below)</p>
+<h3 id="init-hystcomp_init1">Init: HystComp_Init1()</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>LPF_KUpdate_f32 is used to initialize the LPF filter instead of the full LPF_Init_f32 macro as an optimization since the required initial state of the filter is 0, which is the initialized value of the RAM, so there is no need to explicitly initialize the state variables in this init function.</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<p>None</p>
+<h4 id="initialize-low-pass-filters">Initialize Low Pass Filters</h4>
+<h2 class="unnumbered" id="section-1"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.wmf" /></h2>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-hystcomp_per1">Per: HystComp_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<h4 id="rte_call_hystcomp_per1_cp0_checkpointreachedstore-module-inputs-to-local-copies">Rte_Call_HystComp_Per1_CP0_CheckpointReached()Store Module Inputs to Local copies</h4>
+<p>DefeatHystService_Cnt_lgc as Boolean</p>
+<p>VehSpd_Kph_T_f32 of type float32</p>
+<p>AssistCmd_MtrNm_T_f32 as float32</p>
+<p>HwTrq_HwNm_T_f32 of type float32</p>
+<p>AssistCmd_HwNm_T_f32 of type float32</p>
+<p>AssistCmdFilt_HwNm_T_s8p7 of type s8p7_T</p>
+<p>AssistCmdFilt_HwNm_T_f32 of type float32</p>
+<p>HwTrqFilt_HwNm_T_f32 of type float32</p>
+<p>RawHysComp_HwNm_St_f32 of type float32</p>
+<p>HysComp_HwNm_T_f32 as float32</p>
+<p>HysComp_MtrNm_T_f32 as float32</p>
+<p>Fraction_Uls_T_f32 as float32</p>
+<p>CompAvail_HwNm_T_f32 as float32</p>
+<p>TrqChange_HwNm_T_f32 as type float32 </p>
+<p>PrevRiseY_Uls_T_f32 as float32</p>
+<p>RawHysCompZm1_HwNm_T_f32 as float32</p>
+<p>PrevRiseY_Uls_T_f32 = Fraction_Uls_M_f32</p>
+<p>RawHysCompZm1_HwNm_T_f32 = RawCalc_HwNm_M_f32</p>
+<p>DefeatHystService_Cnt_lgc = Rte_IRead_HystComp_Per1_DefeatHystService_Cnt_lgc();</p>
+<p>VehSpd_Kph_T_u9p7 = FPM_FloatToFixed_m(Rte_Iread_HystComp_Per1_VehicleSpeed_Kph_f32(), u9p7_T)</p>
+<p>AssistCmd_MtrNm_T_f32 = Rte_Iread_HystComp_Per1_ BaseAssistCmd_MtrNm_f32 ()</p>
+<p>HwTrq_HwNm_T_f32 =Rte_Iread_HystComp_Per1_HwTorque_HwNm_f32() Convert Low Pass Assist Command to HwNm</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.wmf" /></p>
+<h4 id="apply-filtering-to-torque-inputs">Apply Filtering to Torque Inputs</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.wmf" /></p>
+<h4 id="freeze-input-values-if-lp-assist-exceeds-threshold">Freeze Input Values if LP Assist Exceeds Threshold</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.wmf" /></p>
+<h4 id="calculate-hysteresis-loop-position-based-on-quadrant">Calculate Hysteresis Loop Position Based on Quadrant</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.wmf" /></p>
+<h4 id="calculate-hysteresis-and-limit-rate-of-change">Calculate Hysteresis and Limit Rate of Change</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.wmf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_Iwrite_HystComp_Per1_HysteresisComp_MtrNm_f32(HysComp_MtrNm_T_f32)</p>
+<p>AstCmdLastUsed_HwNm_M_s8p7 = AssistCmdFilt_HwNm_T_s8p7;</p>
+<p>HwTrqLastUsed_HwNm_M_f32 = HwTrqFilt_HwNm_T_f32;</p>
+<p>Fraction_Uls_M_f32 = Fraction_Uls_T_f32;/*HysComp_Fraction*/</p>
+<p>RawCalc_HwNm_M_f32 = RawHysComp_HwNm_T_f32;/*HysComp_RawCalc*/</p>
+<p>CompAvail_HwNm_D_f32 = CompAvail_HwNm_T_f32 ;/*HysComp_Avail*/</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_HystComp_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="local-functionmacro-definitions">Local Function/Macro Definitions</h2>
+<p>If these are numerous and defined in a separate source file then reference the source file only.</p>
+<h3 id="morecompensation-calculation">MoreCompensation Calculation</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 28%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 14%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>MoreCompensation</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tolerance</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>TrqChange_HwNm_T_f32</td>
+<td>float32</td>
+<td>-20.0</td>
+<td>20.0</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>RiseXPtr_HwNm_T_f32</td>
+<td>float32*</td>
+<td>-1.0</td>
+<td>1.0</td>
+<td>7.81E-03</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>RiseY_Uls_T_s1p14</td>
+<td>s1p14_T</td>
+<td>-1.0</td>
+<td>1.0</td>
+<td>7.81E-03</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.wmf" /></p>
+<h3 id="lesscompensation-calculation">LessCompensation Calculation</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 30%" />
+<col style="width: 15%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LessCompensation</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tolerance</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>TrqChange_HwNm_T_f32</td>
+<td>Float32</td>
+<td>-20.0</td>
+<td>20.0</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>PrevRiseY_Uls_T_f32</td>
+<td>Float32</td>
+<td>-1.0</td>
+<td>1.0</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>RiseXPtr_HwNm_T_f32</td>
+<td>float32*</td>
+<td>-1.0</td>
+<td>1.0</td>
+<td>7.81E-03</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>RiseY_Uls_T_f32</td>
+<td>Float32</td>
+<td>-300.0</td>
+<td>300.0</td>
+<td>7.81E-03</td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>Two saturation blocks from the partial reversal block were omitted from the design as they were redundant. The limiting of the RiseY happens after the merge block and is redundant and the RiseX is implicitly limited by the interpolation lookup.</p>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.wmf" /></p>
+<h3 id="calculate-available-compensation">Calculate Available Compensation</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 29%" />
+<col style="width: 15%" />
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 14%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CalcAvailComp</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tolerance</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>HwTrqFilt_HwNm_T_f32</td>
+<td>Float32</td>
+<td>-10.0</td>
+<td>10.0</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>AssistCmdFilt_HwNm_T_s8p7</td>
+<td>s8p7_T</td>
+<td>-255.0</td>
+<td>255.0</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>VehSpd_Kph_T_u9p7</td>
+<td>u9p7_T</td>
+<td>0.0</td>
+<td>511.0</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>CompAvail_HwNm_T_f32</td>
+<td>Float32</td>
+<td>-15.0</td>
+<td>15.0</td>
+<td>7.81E-03</td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-3">Design Rationale</h4>
+<p>The limit function that bounds HysTrq_HwNm_T_f32 between ZERO and FPSATHILMT was used to match the design in the FDD, however, the HIGH bound of the limit is unreachable as the maximum possible value for the input does not cause a limiting condition. An alternate design choice would have been to use a max() function between HysTrq_HwNm_T_f32 and ZERO as the only limiting factor is the LOWER bound.</p>
+<h4 id="description-2">Description</h4>
+<p>Localvariables:</p>
+<p>EffOff_HwNm_T_f32</p>
+<p>EffLoss_Uls_T_f32</p>
+<p>HysTrq_HwNm_T_f32</p>
+<p>HysBlend_Uls_T_f32</p>
+<p>WIROffFric_HwNm_T_f32</p>
+<p>WIROnFric_HwNm_T_f32</p>
+<p>WIROffFric_HwNm_T_f32</p>
+<p>CoulFricHysBlend_T_f32</p>
+<p>HysNegBlend_Uls_T_f32</p>
+<p>WIRFric_HwNm_T_f32</p>
+<p>TempScale_HwNm_T_f32</p>
+<p>CoulFric_HwNm_T_f32</p>
+<p>HwTrqFilt_HwNm_T_s7p8</p>
+<p>HysSat_HwNm_T_f32</p>
+<p>HysNegBlndCmp_T_f32</p>
+<p>WIRCmdAmpBlnd_MtrNm_u8p8</p>
+<p>WIRCmdBlnd_Uls_T_f32</p>
+<p>HysNegComp_Uls_T_f32</p>
+<p>WIRFric_HwNm_T_f32</p>
+<p>AssistMechTempEst_DegC_T_s14p1</p>
+<p>AbsCombinedTrq_HwNm_T_f32</p>
+<p>CompAvail_HwNm_T_f32</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.wmf" /></p>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Task List</td>
+<td>Calling Frequency</td>
+<td>System State(s) in which the function is called</td>
+</tr>
+<tr class="even">
+<td>HystComp_Per1()</td>
+<td></td>
+<td>2ms</td>
+<td>ALL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Sub-Module called by (Serial Comm Function Name)</td>
+</tr>
+<tr class="even">
+<td>N/A</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"><br />
+</h1>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>HystComp_Init1()</td>
+<td>RTE_AP_HYSTCOMP_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>HystComp_Per1()</td>
+<td>RTE_AP_HYSTCOMP_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>MoreCompensation()</td>
+<td>AP_HYSTCOMP_CODE</td>
+</tr>
+<tr class="odd">
+<td>LowCompensation()</td>
+<td>AP_HYSTCOMP_CODE</td>
+</tr>
+<tr class="even">
+<td>CalcAvailComp()</td>
+<td>AP_HYSTCOMP_CODE</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"><br />
+</h1>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE Functions defined in globalmacro.h are not unittested</p></li>
+</ol>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial AutoSAR version.</td>
+<td>16Feb11</td>
+<td>L.N.</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Added negative hysteresis and ConstFric Blending interface</td>
+<td>14Jul11</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Added ball screw temperature compensation</td>
+<td>16Nov11</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Update section9 for INLINE functions</td>
+<td>6Dec11</td>
+<td>N.Reddy</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Removed Per1 no longer used</td>
+<td>9Dec11</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6</td>
+<td>Corrections per SWC interface requirements</td>
+<td>12Dec11</td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7</td>
+<td>Corrected initialization of HwNmPerMtrNm_Uls_T_f32</td>
+<td>13Jan12</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8</td>
+<td>Anomaly Fixes and removed unused Module level variable PrevRiseX_Uls_M_s8p7</td>
+<td>6March12</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9</td>
+<td>Changes done as per FaultInjectionTechnique</td>
+<td>1-May-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10</td>
+<td>Changed component over to floating point</td>
+<td>25May12</td>
+<td>JWJ</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>11</td>
+<td>Added design rationale to CalcAvailComp to document unit test limit path failure</td>
+<td>20JUN12</td>
+<td>JWJ</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>12</td>
+<td>Updated to new Average Friction Learninput requirements</td>
+<td>13JUL12</td>
+<td>JWJ</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>13</td>
+<td><ol type="1">
+<li><p>Removed SlewRate limit in 6.2.1.7 section</p></li>
+<li><p>Replaced Limit with Max and removed D_FPSATHILMT_ULS_F32 in sec 6.7.3.2</p></li>
+</ol></td>
+<td>23JUL12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>14</td>
+<td>Added checkpoints and memmap software segment is updated for static variables</td>
+<td>25-Sep-12</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>15</td>
+<td>Replaced 1-D AsstMagBlndTbl with 2D HwTrqBlnd Table.Six more Display variables added</td>
+<td>04-Nov-12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>16</td>
+<td>Changed precision of t_HysRiseTblY &amp; t_HysRiseTblX per Anom 6855.</td>
+<td>12-Nov-12</td>
+<td>BWL</td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td>17</td>
+<td>Anomaly 4110 correction</td>
+<td>28-Nov-12</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td>17.1.1</td>
+<td>Anom 4937 correction</td>
+<td>1-may-13</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>19</td>
+<td>18</td>
+<td>Update to FDD ver 007</td>
+<td>2-May-13</td>
+<td>Jared</td>
+</tr>
+</tbody>
+</table>

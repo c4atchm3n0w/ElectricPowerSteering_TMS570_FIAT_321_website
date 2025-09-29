@@ -1,0 +1,423 @@
+---
+title: SignalConditioning_MDD
+linkTitle: SignalConditioning_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module-signal-conditioning">Module – Signal Conditioning</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This function conditions a signal received from SER prior to its distribution to other functions. Typical conditioning methods may include filters, slew rates, gain values or limits.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:3.50625in;height:1.64306in" /></p>
+<h3 class="unnumbered" id="section"><br />
+</h3>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs (Global Variable Name)</th>
+<th>Module Outputs (Global Variable Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SrlComVehSpd_Kph_f32</td>
+<td>VehicleSpeed_Kph_f32</td>
+</tr>
+<tr class="even">
+<td>SrlCom_VehicleLonAccel_KphpS_f32</td>
+<td>Vehicle_LonAccel_KphpS_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SignlCondn_CurrSrlComVehSpd_Kph_M_f32</td>
+<td>Single precision floating point</td>
+<td>See DataDictionary</td>
+<td>See DataDictionary</td>
+<td>SIGNLCONDN_START_SEC_VAR_NOINIT_32</td>
+</tr>
+<tr class="even">
+<td>SignlCondn_CurrSrlComVehLonAccel_KphpS_M_f32</td>
+<td>Single precision floating point</td>
+<td>See DataDictionary</td>
+<td>See DataDictionary</td>
+<td>SIGNLCONDN_START_SEC_VAR_NOINIT_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 31%" />
+<col style="width: 13%" />
+<col style="width: 9%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_VehSpdSlewRate_KphpSec_f32</td>
+</tr>
+<tr class="even">
+<td>k_VehAccelSlewRate_KphpSecSq_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 24%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_VEHLONACCELGAIN_KPHPS_F32</td>
+<td>N/A</td>
+<td>3.6</td>
+</tr>
+<tr class="even">
+<td>D_VEHSPDLOLMT_KPH_F32</td>
+<td>Single precision Float</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>D_VEHSPDHILMT_KPH_F32</td>
+<td>Single precision Float</td>
+<td>511.0</td>
+</tr>
+<tr class="even">
+<td>D_VEHLONACCELLOLMT_KPHPS_F32</td>
+<td>Single precision Float</td>
+<td>(-50.0)</td>
+</tr>
+<tr class="odd">
+<td>D_VEHLONACCELHILMT_KPHPS_F32</td>
+<td>Single precision Float</td>
+<td>50.0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_2MS_SEC_F32</td>
+</tr>
+<tr class="even">
+<td>BC_SIGNLCONDN_FAULTINJECTIONPOINT</td>
+</tr>
+<tr class="odd">
+<td>FLTINJ_SRLCOMVEHSPD_SGNLCOND</td>
+</tr>
+<tr class="even">
+<td>FLTINJ_SRLCOMVEHLONACCEL_SGNLCOND</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants"><br />
+Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 20%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="lookup-table-definitions">Lookup Table Definitions</h2>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-signlcondn-_per1">Per: SignlCondn _Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>NOTE: For “starttime” calculations there is tendency for underflow and this is expected in s/w design. So for unittesting, VBA model should be implemented</p>
+<p>such that it handles underflow and behaves like source code design.</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<h4 id="rte_call_signlcondn_per1_cp0_checkpointreachedstore-module-inputs-to-local-copies">Rte_Call_SignlCondn_Per1_CP0_CheckpointReached()Store Module Inputs to Local copies</h4>
+<p>SrlComVehSpd_Kph_T_f32 = Rte_IRead_SignlCondn_Per1_SrlComVehSpeed_Kph_f32</p>
+<p>SrlComVehLonAccel_KphpS_T_f32 = Rte_IRead_SignlCondn_Per1_SrlCom_VehicleLonAccel_KphpS_f32()</p>
+<h4 id="signal-conditioning">Signal Conditioning</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_Iwrite_SignlCondn_Per1_VehicleSpeed_Kph_f32 (SignlCondn_CurrSrlComVehSpd_Kph_M_f32)</p>
+<p>Rte_IWrite_SignlCondn_Per1_Vehicle_LonAccel_KphpS_f32(SignlCondn_CurrSrlComVehLonAccel_KphpS_M_f32)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_SignlCondn_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<h1 id="requirements"> Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 21%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SignlCondn_Per1</td>
+<td>2 ms</td>
+<td>ALL States</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-1"></h2>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SignlCondn_Per1</td>
+<td>RTE_AP_SIGNLCONDN_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions defined in globalmacro.h are not unit tested</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial release</td>
+<td>14-May-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Updated as per FDDVer002, FaultInjectionPoint added to SrlComVehSpeed signal</td>
+<td>20-Aug-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Corrected Fault Injection function call</td>
+<td>05-Sep-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Added checkpoints and memmap software segment is updated for static variables</td>
+<td>25-Sep-12</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Updated to SF-33 ver 003</td>
+<td>23-May-13</td>
+<td>SP</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6.0</td>
+<td>Anomaly 6343 – Limit Outputs</td>
+<td>02-Apr-14</td>
+<td>SB</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7.0</td>
+<td>Changed naming for module internal variables</td>
+<td>09-May-14</td>
+<td>SB</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8.0</td>
+<td>UTP fixes 11915</td>
+<td>12-May-14</td>
+<td>SB</td>
+</tr>
+</tbody>
+</table>

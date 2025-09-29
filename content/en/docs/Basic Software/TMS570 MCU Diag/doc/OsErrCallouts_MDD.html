@@ -1,0 +1,443 @@
+---
+title: OsErrCallouts_MDD
+linkTitle: OsErrCallouts_MDD
+weight: 8
+---
+
+<h1 id="high-level-description">High-Level Description</h1>
+<p>OsErrCallouts provides the error hook functions ErrorHook() and ProtectionHook() to provide diagnostic information for certain errors that result in calls to these hooks.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>No Shared Data</p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">None</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>UNUSEDINTERRUPT</td>
+</tr>
+<tr class="even">
+<td>STACKOVERWRITE</td>
+</tr>
+<tr class="odd">
+<td>MPUVIOLATION</td>
+</tr>
+<tr class="even">
+<td>osdErrSOStackOverflow</td>
+</tr>
+<tr class="odd">
+<td>osdErrYOStackOverflow</td>
+</tr>
+<tr class="even">
+<td>osdErrUEUnhandledException</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>RednRpdShtdn()</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>OSErrorGetosCANError()</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="global-function-1">Global Function #1</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 35%" />
+<col style="width: 17%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ErrorHook</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>ErrorCode</td>
+<td>StatusType</td>
+<td></td>
+<td>N/A</td>
+<td>N/A</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>When the error was an unhandled exception, reset with a reset cause indicating unexpected interrupt. Currently does no handling of other errors.</p>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<h3 id="global-function-2">Global Function #2</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 28%" />
+<col style="width: 19%" />
+<col style="width: 5%" />
+<col style="width: 10%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ProtectionHook</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>ErrorCode</td>
+<td>StatusType</td>
+<td></td>
+<td>N/A</td>
+<td>N/A</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>&lt;has return value defined but function does not return&gt;</td>
+<td>ProtectionReturnType</td>
+<td></td>
+<td colspan="2">PRO_SHUTDOWN</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>When the protection violation was a stack fault, reset with a reset cause of STACKOVERWRITE. For any other protection violation, reset with a reset cause of MPUVIOLATION.</p>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>None</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions"><br />
+Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 class="unnumbered" id="section-1"></h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<p>None.</p>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ErrorHook</td>
+<td>APPLCB_CODE</td>
+</tr>
+<tr class="even">
+<td>ProtectionHook</td>
+<td>APPLCB_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-2"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Local Function</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<p>None</p>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial Revision</td>
+<td>6/26/2013</td>
+<td>KMC</td>
+</tr>
+</tbody>
+</table>

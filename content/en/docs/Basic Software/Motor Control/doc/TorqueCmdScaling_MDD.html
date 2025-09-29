@@ -1,0 +1,420 @@
+---
+title: TorqueCmdScaling_MDD
+linkTitle: TorqueCmdScaling_MDD
+weight: 10
+---
+
+<h1 class="unnumbered" id="module----torque-command-scaling4.04.0">Module -- Torque Command Scaling4.04.0</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>The Torque Command Scale module multiplies the Torque_Command_MRF input signal by a calibration which is set during a manufacturing EOL calibration process. This calibration is provided to reduce overall system output torque variation. This scaled version of the torque command is used by all other sub functions within motor control which have a torque dependent component.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>This diagram shows all data that is shared between functions within the module.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:3.91597in;height:2.04167in" /></p>
+<h3 id="diagram-function-name">Diagram – Function (Name)</h3>
+<p>This diagram describes the functional characteristics and data flow of a given function.</p>
+<p>(Note – This is not mandatory, only used where a graphical representation helps explain the function. It is left to the author’s discretion. New headers of this level (Level 3) should be created for each function.</p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Module Inputs (Global Variable Name)</td>
+<td>Module Outputs (Global Variable Name)</td>
+</tr>
+<tr class="even">
+<td>MRFMtrTrqCmd_MtrNm_f32</td>
+<td>MRFMtrTrqCmdScl_MtrNm_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Variable Name</td>
+<td>Resolution</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 31%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Typedef Name</td>
+<td>Element Name</td>
+<td>User Defined Type</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>k_MinTrqCmdScl_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MaxTrqCmdScl_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>TorqueCmdSF_Uls_f32 (NVM)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 22%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>None</td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 20%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>Limit_m()</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<p>The data hiding functions / macros used in this module are identified below,</p>
+<ol type="1">
+<li><p>Rte_Call_TrqCmdScl_WriteBlock()</p></li>
+<li><p>Rte_Pim_TorqueCmdSF_Uls_f32()</p></li>
+</ol>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>(Note if they are defined in another source file, then reference the appropriate header file)</p>
+<p>The local functions/macros in this module are identified below,</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-trqcmdscl_per1">Per: TrqCmdScl_Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_TrqCmdScl_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>MRFMtrTrqCmd_MtrNm_T_f32 = Rte_IRead_TrqCmdScl_Per1_MRFMtrTrqCmd_MtrNm_f32()</p>
+<p>TorqueCmdSF_Uls_T_f32 = *Rte_Pim_TorqueCmdSF_Uls_f32()</p>
+<h4 id="apply-torque-command-scaling">Apply Torque Command Scaling</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.wmf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_IWrite_TrqCmdScl_Per1_MRFMtrTrqCmdScl_MtrNm_f32(MRFMtrTrqCmdScl_MtrNm_T_f32)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<h4 class="unnumbered" id="rte_call_trqcmdscl_per1_cp1_checkpointreached">Rte_Call_TrqCmdScl_Per1_CP1_CheckpointReached()</h4>
+<h4 id="flow-end">Flow End</h4>
+<p>N/A</p>
+<h3 id="scomm-trqcmdscl_scom_get">Scomm: TrqCmdScl_SCom_Get</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<h4 class="unnumbered" id="na">N/A</h4>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="get-torque-command-scaling">Get Torque Command Scaling</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.wmf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<h3 class="unnumbered" id="na-1">N/A</h3>
+<h3 id="scomm-trqcmdscl_scom_set"><br />
+Scomm: TrqCmdScl_SCom_Set</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-2">Program Flow Start</h4>
+<p>N/A</p>
+<h4 id="store-module-inputs-to-local-copies-2">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="set-torque-command-scaling">Set Torque Command Scaling</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.wmf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-2">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-2">Program Flow End</h4>
+<p>N/A</p>
+<h2 id="local-functionmacro-definitions">Local Function/Macro Definitions</h2>
+<p>If these are numerous and defined in a separate source file then reference the source file only.</p>
+<h3 id="function">Function</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 42%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td></td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>TrqCmdScl_Per1 must be executed in the forward path before quadrant detection, the voltage command numerator, phase advance, voltage command denominator, and Modulation Index.</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 24%" />
+<col style="width: 31%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Calling Frequency</td>
+<td>System State(s)</td>
+</tr>
+<tr class="even">
+<td>TrqCmdScl_Per1</td>
+<td>2ms</td>
+<td>ALL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Sub-Module called by (Serial Comm Function Name)</td>
+</tr>
+<tr class="even">
+<td>TrqCmdScl_Scom_Get()</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>TrqCmdScl_Scom_Set()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section"><br />
+</h1>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>TrqCmdScl_Per1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-1"><br />
+</h1>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Document creation and initial release for the component</td>
+<td>29NOV11</td>
+<td>VK</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>1.1</td>
+<td>Corrections to assign EOL scaling factor to temporary variable</td>
+<td>02DEC11</td>
+<td>VK</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3</td>
+<td>Added checkpoints and memmap software segment is updated for static variables</td>
+<td>26Sep12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4</td>
+<td>Heading and format corrected</td>
+<td>21Nov12</td>
+<td>Selva</td>
+</tr>
+</tbody>
+</table>

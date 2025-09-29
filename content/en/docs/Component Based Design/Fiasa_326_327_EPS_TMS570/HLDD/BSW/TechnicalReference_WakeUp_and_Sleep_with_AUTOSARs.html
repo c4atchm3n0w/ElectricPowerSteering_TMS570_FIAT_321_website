@@ -1,0 +1,1656 @@
+---
+title: TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs
+linkTitle: TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs
+weight: 131
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-1_1.png"/><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Wake-up and&#160;Sleep with&#160;AUTOSAR&#160;&#160;<br/></b>Technical Reference&#160;<br/>&#160;<br/>
+Wakeup CAN, LIN, FlexRay&#160;via Communication Channel&#160;<br/>Version&#160;1.00.05&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Authors&#160;<br/>
+Mark&#160;A.&#160;Fingerle,&#160;Thomas&#160;Kuhl&#160;<br/>
+Status&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-2_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-2_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>Document&#160;Information&#160;</b><br/>
+<b>History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;</b><br/>
+<b>Remarks&#160;</b><br/>
+Mark&#160;A.&#160;Fingerle&#160;<br/>
+2010-01-19&#160;<br/>
+1.0&#160;<br/>
+Initial&#160;version&#160;<br/>
+Thomas Kuhl&#160;<br/>
+2011-02-22&#160;<br/>
+1.00.01&#160;<br/>
+Change CAN&#160;wake&#160;up&#160;source&#160;<br/>validation&#160;handling&#160;refer&#160;to&#160;<br/><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">2.3.5&#160;</a><br/>
+Mark&#160;A.&#160;Fingerle,&#160;Klaus&#160;Emmert&#160;&#160;2011-07-19&#160;<br/>
+1.00.02&#160;<br/>
+Remove Chapter&#160;“1.2.4&#160;<br/>Wake-up&#160;by&#160;polling&#160;the&#160;wake-<br/>up&#160;source(s)”&#160;feature&#160;not&#160;<br/>supported&#160;by&#160;EcuM&#160;<br/>
+<b>&gt;&#160;&#160;</b>Synchronous&#160;and&#160;<br/>
+asynchronous&#160;wake-up&#160;<br/>handling&#160;added&#160;(chapter&#160;<br/><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#11">1.4.1).</a>&#160;<br/>
+<b>&gt;&#160;&#160;</b>New&#160;screen shots&#160;for&#160;<br/>
+ECUM&#160;and ICU&#160;<br/>
+Klaus&#160;Emmert&#160;<br/>
+2013-01-21&#160;<br/>
+1.00.03&#160;<br/>
+Chapter<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">&#160;1.3&#160;</a>added&#160;&#160;<br/>Chapter&#160;2.3.5&#160;example code&#160;<br/>updated&#160;<br/>
+Thoms&#160;Kuhl&#160;<br/>
+2013-05-22&#160;<br/>
+1.00.04&#160;<br/>
+correct&#160;typing&#160;errors&#160;inside&#160;<br/>source&#160;code samples&#160;<br/>(ESCAN00052636)&#160;<br/>
+Thomas Kuhl&#160;<br/>
+2013-08-01&#160;<br/>
+1.00.05&#160;<br/>
+correct&#160;typing&#160;errors&#160;<br/>(ESCAN00068119)&#160;<br/>
+<b>Reference&#160;Documents&#160;</b><br/>
+<b>No.&#160;</b><br/>
+<b>Source&#160;&#160;Title&#160;</b><br/>
+<b>Version&#160;</b><br/>
+[1]&#160;&#160;&#160;<br/>
+ASR&#160;<br/>
+Specification&#160;of&#160;ECU&#160;State Manager&#160;<br/>
+1.2.0&#160;<br/>
+[2]&#160;&#160;&#160;<br/>
+Vector&#160;<br/>
+AN-ISC-2-1098_Wakeup_by_GPT_ICU&#160;<br/>
+1.0&#160;<br/>
+[3]&#160;&#160;&#160;<br/>
+Vector&#160;<br/>
+TechnicalReference_Asr_ComM&#160;<br/>
+3.7&#160;<br/>
+[4]&#160;&#160;&#160;<br/>
+Vector&#160;<br/>
+TechnicalReference_Asr_Nm&#160;<br/>
+2.7.1&#160;<br/>
+[5]&#160;&#160;&#160;<br/>
+NXP&#160;<br/>
+TJA1041&#160;AN00094_3.pdf&#160;<br/>
+Rev&#160;03&#160;<br/>
+[6]&#160;&#160;&#160;<br/>
+<b>Philips</b>&#160;<br/>
+AN00093_2---TJA1020&#160;LIN&#160;transceiver.pdf&#160;<br/>
+Rev&#160;02&#160;<br/>
+[7]&#160;&#160;&#160;<br/>
+<b>NXP&#160;</b><br/>
+071130&#160;TJA1080A.pdf&#160;<br/>
+Rev&#160;02&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Please&#160;note&#160;<br/></b>We&#160;have configured&#160;the&#160;programs&#160;in&#160;accordance&#160;with your&#160;specifications&#160;in the&#160;<br/>
+&#160;&#160;questionnaire.&#160;Whereas&#160;the&#160;programs&#160;do&#160;support&#160;other&#160;configurations&#160;than&#160;the&#160;one&#160;<br/>
+specified&#160;in your&#160;questionnaire,&#160;Vector´s&#160;release&#160;of&#160;the&#160;programs&#160;delivered to&#160;your&#160;<br/>company&#160;is&#160;expressly&#160;restricted&#160;to&#160;the&#160;configuration&#160;you&#160;have specified&#160;in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+2&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-3_1.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#6"><b>1</b>&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#6"><b>Introduction...................................................................................................................&#160;6</b>&#160;<br/>1.1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#6">Procedure&#160;..........................................................................................................&#160;6&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">Use Cases&#160;.........................................................................................................&#160;7&#160;<br/>1.2.1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">Bus wake-up&#160;by&#160;internal&#160;run&#160;request&#160;..................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">Wake-up&#160;by&#160;timer&#160;interrupt&#160;.................................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.3&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">Wake-up&#160;by&#160;µC&#160;I/O&#160;port......................................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.4&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">Wake-up&#160;by&#160;CAN&#160;transceiver&#160;.............................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.5&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">Wake-up&#160;by&#160;CAN&#160;controller&#160;................................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.6&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">Wake-up&#160;by&#160;LIN transceiver&#160;...............................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.7&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">Wake-up&#160;by&#160;LIN controller:&#160;.................................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.8&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">Wake-up&#160;by&#160;FlexRay&#160;transceiver&#160;interrupt:&#160;.........................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">1.2.9&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">Wake-up&#160;by&#160;FlexRay&#160;polling&#160;mode:&#160;....................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">1.3&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">Wake&#160;Up Detection&#160;at&#160;ECU&#160;Start-Up&#160;..................................................................&#160;8&#160;<br/>1.3.1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">Functional&#160;Description&#160;........................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">1.3.2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">Configuration....................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">1.4&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">Wake-up&#160;Process&#160;.............................................................................................&#160;10&#160;<br/></a><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#11">1.4.1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#11">Synchronous&#160;and&#160;Asynchronous&#160;Wake-Up Concept&#160;........................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#14">1.4.2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#14">Configuring Synchronous&#160;and&#160;Asynchronous&#160;Wake-Up&#160;...................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16"><b>2</b>&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16"><b>Wake-up&#160;Event&#160;............................................................................................................&#160;16</b>&#160;<br/>2.1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">ECUM&#160;Configuration&#160;........................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#20">2.2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#20">ICU&#160;Interrupt&#160;(µC&#160;I/O&#160;port)&#160;................................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#22">2.3&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#22">CAN&#160;.................................................................................................................&#160;22&#160;<br/>2.3.1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#22">General&#160;............................................................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#22">2.3.2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#22">CAN&#160;Wake-up&#160;by&#160;Transceiver&#160;..........................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#25">2.3.3&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#25">CAN&#160;Wake-up&#160;by&#160;Controller&#160;.............................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#27">2.3.4&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#27">CAN&#160;Wakeup&#160;by&#160;Polling&#160;the&#160;CAN&#160;Driver&#160;..........................................&#160;27&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">2.3.5&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">CAN&#160;Wake-up&#160;Validation&#160;..................................................................&#160;28&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#31">2.4&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#31">LIN&#160;...................................................................................................................&#160;31&#160;<br/>2.4.1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#31">LIN&#160;Wake-up&#160;by&#160;Transceiver&#160;............................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#33">2.4.2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#33">LIN&#160;Wake-up&#160;by&#160;Controller&#160;...............................................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#34">2.5&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#34">FlexRay&#160;...........................................................................................................&#160;34&#160;<br/>2.5.1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#34">FlexRay&#160;Wake-up&#160;by&#160;Transceiver&#160;Interrupt&#160;.......................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#38">2.5.2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#38">FlexRay&#160;Wake-up&#160;by&#160;Polling&#160;the&#160;Transceiver&#160;...................................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#39"><b>3</b>&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#39"><b>Special&#160;Use&#160;Cases&#160;......................................................................................................&#160;39</b>&#160;<br/>3.1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#39">Multiple&#160;Wake-up&#160;Sources&#160;Share&#160;one µC&#160;I/O&#160;Port&#160;...........................................&#160;39&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#39">3.2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#39">CAN&#160;Wake-up&#160;Without&#160;Validation&#160;.....................................................................&#160;39&#160;</a><br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+3&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-4_1.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#40"><b>4</b>&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#40"><b>Integration&#160;hints&#160;.........................................................................................................&#160;40</b>&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41"><b>5</b>&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41"><b>Glossary&#160;and&#160;Abbreviations&#160;......................................................................................&#160;41</b>&#160;<br/>5.1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41">Glossary&#160;..........................................................................................................&#160;41&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41">5.2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41">Abbreviations&#160;...................................................................................................&#160;41&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#42"><b>6</b>&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#42"><b>Contact&#160;........................................................................................................................&#160;42</b>&#160;</a><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+4&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-5_1.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#6">Figure&#160;1-1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#6">Example ECU&#160;schematic&#160;with CAN,&#160;LÍN and&#160;FlexRay&#160;transceiver&#160;..............&#160;6&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">Figure&#160;1-2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">ECU&#160;sample&#160;...............................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">Figure&#160;1-3&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">Enable&#160;Wakeup&#160;Source&#160;for&#160;CAN&#160;Driver&#160;....................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">Figure&#160;1-4&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">Wakeup&#160;Source&#160;on&#160;Driver&#160;Side&#160;.................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">Figure&#160;1-5&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">Wake&#160;Up support&#160;settings&#160;.........................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">Figure&#160;1-6&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">Wakeup&#160;Source&#160;on&#160;Transceiver&#160;Side&#160;........................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#13">Figure&#160;1-7&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#13">Extract&#160;from&#160;the&#160;AUTSOAR&#160;document&#160;<br/><b>AUTOSAR_SWS_ECU_StateManager.pdf</b>.&#160;It&#160;shows&#160;both&#160;use&#160;cases.&#160;....&#160;13&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#13">Figure&#160;1-8&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#13">Possible results&#160;for&#160;asynchronous&#160;wake-up&#160;concept&#160;.................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#14">Figure&#160;1-9&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#14">Configuration&#160;&#160;using&#160;GENy.&#160;.......................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#15">Figure&#160;1-10&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#15">Configuration using DaVinci&#160;Developer&#160;.....................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">Figure&#160;2-1&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">Configuration of&#160;the&#160;wake-up&#160;source&#160;IDs&#160;..................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#17">Figure&#160;2-2&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#17">Configuration of&#160;the&#160;ECUM&#160;Sleep mode&#160;...................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#18">Figure&#160;2-3&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#18">Configuration of&#160;the&#160;ECUM&#160;shut&#160;down&#160;......................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#21">Figure&#160;2-4&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#21">Configuration of&#160;the&#160;wake-up&#160;settings&#160;of&#160;a&#160;ICU&#160;channel&#160;............................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#22">Figure&#160;2-5&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#22">General&#160;CAN&#160;configuration&#160;in GENy&#160;.........................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#23">Figure&#160;2-6&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#23">Configuration of&#160;the&#160;CAN&#160;transceiver&#160;wake-up&#160;source&#160;..............................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#23">Figure&#160;2-7&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#23">Selection of&#160;the&#160;desired&#160;interrupt&#160;service&#160;for&#160;the&#160;CAN&#160;transceiver&#160;wake-<br/>up&#160;.............................................................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#23">Figure&#160;2-8&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#23">Activation of&#160;the&#160;CAN&#160;wake-up&#160;reason&#160;type&#160;in the&#160;configuration&#160;tool&#160;........&#160;23&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#25">Figure&#160;2-9&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#25">Selection of&#160;the&#160;CAN&#160;wake-up&#160;processing&#160;type&#160;interrupt&#160;..........................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#26">Figure&#160;2-10&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#26">Selection of&#160;the&#160;desired interrupt&#160;service and configuration&#160;of&#160;the CAN&#160;<br/>controller&#160;wake-up&#160;source&#160;.........................................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#27">Figure&#160;2-11&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#27">Selection of&#160;the&#160;CAN&#160;wake-up&#160;processing&#160;type&#160;polling&#160;.............................&#160;27&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">Figure&#160;2-12&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">Activation of&#160;the&#160;CAN&#160;wake-up&#160;validation&#160;and configuration&#160;of&#160;the&#160;<br/>validation&#160;function&#160;.....................................................................................&#160;28&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#32">Figure&#160;2-13&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#32">Selection of&#160;the&#160;desired&#160;interrupt&#160;service&#160;for&#160;the&#160;LIN&#160;transceiver&#160;wake-up&#160;32&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#32">Figure&#160;2-14&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#32">Activation of&#160;the&#160;LIN&#160;transceiver&#160;wakeup and configuration&#160;of&#160;the wake-<br/>up&#160;source&#160;..................................................................................................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#33">Figure&#160;2-15&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#33">Selection of&#160;the&#160;desired&#160;interrupt&#160;service of&#160;the&#160;LIN&#160;controller&#160;..................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#34">Figure&#160;2-16&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#34">Activation of&#160;the&#160;LIN&#160;controller&#160;wake-up&#160;support&#160;and&#160;configuration&#160;wake-<br/>up&#160;source&#160;..................................................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#35">Figure&#160;2-17&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#35">Selection of&#160;the&#160;FlexRay&#160;wakeup processing&#160;type&#160;interrupt&#160;and&#160;<br/>configuration&#160;of&#160;the&#160;wake-up&#160;source&#160;.........................................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#38">Figure&#160;2-18&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#38">Selection of&#160;the&#160;FlexRay&#160;wake-up&#160;processing&#160;type&#160;polling&#160;and&#160;<br/>configuration&#160;of&#160;the&#160;wake-up&#160;source&#160;.........................................................&#160;38&#160;</a><br/>
+<b>&#160;</b><br/>
+<b>Tables&#160;<br/></b><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41">Table&#160;5-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41">Glossary&#160;...................................................................................................&#160;41&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41">Table&#160;5-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41">Abbreviations&#160;............................................................................................&#160;41&#160;</a><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+5&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-6_1.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>1&#160;&#160;Introduction&#160;</b><br/>
+This&#160;document&#160;describes&#160;the&#160;usage&#160;of&#160;MICROSAR&#160;(based&#160;on&#160;AUTOSAR&#160;3.x)&#160;if&#160;the&#160;ECU&#160;<br/>shall&#160;wake&#160;up&#160;and&#160;start&#160;its&#160;own&#160;communication&#160;due&#160;to&#160;detected&#160;communication&#160;on&#160;the&#160;bus.&#160;<br/>Here&#160;&#160;is&#160;&#160;described&#160;&#160;how&#160;&#160;a&#160;&#160;communication&#160;&#160;channel&#160;&#160;(CAN,&#160;&#160;LIN&#160;&#160;or&#160;&#160;FlexRay)&#160;&#160;can&#160;&#160;be&#160;<br/>reactivated&#160;from&#160;sleep&#160;mode&#160;and&#160;if&#160;the&#160;system&#160;is&#160;in&#160;a&#160;power&#160;save&#160;mode,&#160;how&#160;the&#160;ECU&#160;can&#160;<br/>be&#160;reactivated&#160;via&#160;a&#160;wake-up&#160;event&#160;on&#160;a&#160;communication&#160;channel.&#160;<br/>
+&#160;<br/>
+Watchdog<br/>
+WD<br/>
+<b>VBAT</b><br/>
+<b>Power-</b><br/>
+Reset<br/>
+<b>µC</b><br/>
+<b>supply</b><br/>
+5V<br/>
+INH<br/>
+V<br/>
+/<br/>
+CC<br/>
+Wakeup&#160;<br/>
+1<br/>
+VI/O<br/>
+by&#160;port&#160;<br/>pin<br/>
+INH<br/>
+<b>WAKE</b><br/>
+STB&#160;+&#160;EN<br/>
+<b>CAN&#160;</b><br/>
+Wakeup&#160;<br/>
+<b>CAN_H</b><br/>
+ERRN<br/>
+<b>Transceiver</b><br/>
+by&#160;CAN<br/>
+<b>CAN_L</b><br/>
+RXD<br/>
+CAN controller<br/>
+TXD<br/>
+INH<br/>
+<b>WAKE</b><br/>
+<b>LIN&#160;</b><br/>
+NSLP<br/>
+Wakeup&#160;<br/>
+<b>Transceiver</b><br/>
+by&#160;LIN<br/>
+<b>LIN</b><br/>
+RXD<br/>
+LIN&#160;controller<br/>
+TXD<br/>
+INH<br/>
+<b>WAKE</b><br/>
+STB&#160;+&#160;EN<br/>
+<b>FlexRay&#160;</b><br/>
+Wakeup&#160;by&#160;<br/>
+<b>Transceiver</b><br/>
+ERR<br/>
+FlexRay<br/>
+<b>BP</b><br/>
+RXEN<br/>
+<b>BM</b><br/>
+FlexRay&#160;controller<br/>
+TXD<br/>
+&#160;<br/>
+Figure&#160;1-1&#160;&#160;Example&#160;ECU&#160;schematic&#160;with&#160;CAN,&#160;LÍN&#160;and&#160;FlexRay&#160;transceiver&#160;<br/>
+<b>1.1&#160;</b><br/>
+<b>Procedure&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>Configure the&#160;ECU&#160;wake-up&#160;sources&#160;(DaVinci Configurator Pro:&#160;ECUM)&#160;<br/>
+<b>&gt;&#160;&#160;</b>Configure the&#160;desired&#160;wake-up&#160;indication&#160;(DaVinci Configurator Pro:&#160;ICU&#160;interrupt,&#160;<br/>
+GENy:&#160;bus-specific interrupt,&#160;bus-specific&#160;polling&#160;mode)&#160;<br/>
+<b>&gt;&#160;&#160;</b>Implement&#160;the&#160;needed&#160;ECUM&#160;callback&#160;functions&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+6&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-7_1.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>1.2&#160;</b><br/>
+<b>Use&#160;Cases&#160;</b><br/>
+For every&#160;wake-up&#160;interrupt&#160;use&#160;case&#160;the&#160;wake-up&#160;sources&#160;have&#160;to&#160;be&#160;configured.&#160;<br/>
+<b>&gt;&#160;&#160;</b>See<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">&#160;2.1&#160;ECUM&#160;Configuration&#160;</a><br/>
+<b>1.2.1&#160;</b><br/>
+<b>Bus&#160;wake-up by&#160;internal&#160;run&#160;request&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;ECU&#160;is active&#160;and&#160;the&#160;application&#160;demands&#160;full&#160;communication&#160;mode&#160;for a&#160;<br/>
+network.&#160;The&#160;COMM&#160;starts the&#160;communication&#160;of&#160;the&#160;network (see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#2">&#160;[3]).</a>&#160;<br/>
+<b>&gt;&#160;&#160;</b>If&#160;the&#160;communication&#160;of&#160;a&#160;channel is started&#160;the&#160;NM also&#160;starts the&#160;communication&#160;of&#160;<br/>
+the&#160;other synchronized&#160;channels (see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#2">&#160;[4]).</a>&#160;<br/>
+<b>1.2.2&#160;</b><br/>
+<b>Wake-up by&#160;timer&#160;interrupt&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;GPT&#160;module&#160;triggers the&#160;wake-up&#160;interrupt&#160;and&#160;calls the&#160;function&#160;<br/>
+EcuM_CheckWakeup&#160;(see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#2">&#160;[2]).</a>&#160;<br/>
+<b>1.2.3&#160;</b><br/>
+<b>Wake-up by</b>&#160;<b>µC I/O&#160;port&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>Any&#160;desired&#160;wake-up&#160;source&#160;may&#160;be&#160;connected&#160;to&#160;an&#160;I/O&#160;port&#160;of&#160;the&#160;ECU.&#160;The&#160;event&#160;<br/>
+on&#160;the&#160;I/O&#160;port is detected&#160;by&#160;the&#160;ICU&#160;which&#160;starts the&#160;EcuM_CheckWakeup&#160;(not&#160;<br/>scope&#160;of&#160;this document).&#160;<br/>
+<b>1.2.4&#160;</b><br/>
+<b>Wake-up by&#160;CAN&#160;transceiver&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;used&#160;CAN controller does&#160;not&#160;support&#160;the&#160;feature&#160;&#34;wakeup&#160;by&#160;CAN&#160;message&#34;,&#160;i.e.&#160;<br/>
+the&#160;CAN&#160;controller cannot&#160;detect&#160;incoming&#160;CAN messages and&#160;generate&#160;a&#160;wakeup&#160;<br/>interrupt.&#160;The&#160;ECU&#160;shall&#160;wake&#160;up&#160;and&#160;start&#160;its&#160;own&#160;communication&#160;due&#160;to&#160;detected&#160;<br/>communication&#160;on&#160;the&#160;CAN bus.&#160;In&#160;this case&#160;the&#160;CAN&#160;transceiver is used&#160;as interrupt&#160;<br/>source.&#160;<br/>
+<b>&gt;&#160;&#160;</b>See<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#20">&#160;2.2&#160;ICU Interrupt&#160;(µC I/O&#160;port);&#160;</a><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#22">2.3.2&#160;CAN&#160;Wake-up&#160;</a><br/>
+<b>1.2.5&#160;</b><br/>
+<b>Wake-up by&#160;CAN controller&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;used&#160;CAN&#160;controller supports the&#160;feature&#160;&#34;wake-up&#160;by&#160;CAN&#160;message”.&#160;<br/>
+<b>&gt;&#160;&#160;</b>See<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#25">&#160;2.3.3&#160;CAN&#160;Wake-up&#160;</a><br/>
+<b>1.2.6&#160;</b><br/>
+<b>Wake-up by&#160;LIN transceiver&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;used&#160;LIN controller does&#160;not&#160;support the&#160;feature &#34;wake-up&#160;by&#160;message” and&#160;the&#160;<br/>
+transceiver&#160;should&#160;be&#160;used&#160;as wake-up&#160;source.&#160;In&#160;this case&#160;the&#160;LIN&#160;transceiver is used&#160;<br/>as interrupt&#160;source.&#160;<br/>
+<b>&gt;&#160;&#160;</b>&#160;See<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#20">&#160;2.2&#160;ICU Interrupt&#160;(µC I/O&#160;port),&#160;</a><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#31">2.4.1&#160;LIN&#160;Wake-up&#160;</a><br/>
+<b>1.2.7&#160;</b><br/>
+<b>Wake-up by&#160;LIN controller:&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;used&#160;LIN&#160;controller supports&#160;the&#160;feature&#160;&#34;wake-up&#160;by&#160;message”.&#160;<br/>
+<b>&gt;&#160;&#160;</b>&#160;See<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#33">&#160;2.4.2&#160;LIN&#160;Wake-up&#160;</a><br/>
+<b>1.2.8&#160;</b><br/>
+<b>Wake-up by&#160;FlexRay&#160;transceiver&#160;interrupt:&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;FlexRay&#160;transceiver should&#160;be&#160;used&#160;as&#160;wake-up&#160;source&#160;via&#160;interrupt.&#160;<br/>
+<b>&gt;&#160;&#160;</b>&#160;See<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#20">&#160;2.2&#160;ICU Interrupt&#160;(µC I/O&#160;port),&#160;</a><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#34">2.5.1&#160;FlexRay&#160;Wake-up&#160;by&#160;Transceiver Interrupt&#160;</a><br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+7&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-8_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-8_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>1.2.9&#160;</b><br/>
+<b>Wake-up by&#160;FlexRay&#160;polling</b>&#160;<b>mode:&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;FlexRay&#160;transceiver should&#160;be&#160;used&#160;as&#160;wake-up&#160;source&#160;in&#160;polling&#160;mode.&#160;<br/>
+<b>&gt;&#160;&#160;</b>See<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#38">&#160;2.5.2&#160;FlexRay&#160;Wake-up&#160;by&#160;Polling&#160;the&#160;Transceiver&#160;</a><br/>
+<b>1.3&#160;</b><br/>
+<b>Wake&#160;Up Detection&#160;at&#160;ECU&#160;Start-Up&#160;</b><br/>
+The&#160;following&#160;listed&#160;conditions&#160;must&#160;be&#160;true&#160;for the&#160;ECU&#160;project:&#160;<br/>
+<b>&gt;&#160;&#160;</b>the&#160;used&#160;ECU&#160;supply&#160;voltage&#160;is switched&#160;by&#160;a&#160;CAN&#160;transceiver&#160;<br/>
+<b>&gt;&#160;&#160;</b>the&#160;ECU&#160;shall&#160;start&#160;up&#160;but&#160;the&#160;CAN&#160;wake-up&#160;event&#160;shall&#160;be&#160;validated&#160;before the&#160;ECU&#160;<br/>
+enters RUN&#160;state&#160;<br/>
+Such&#160;&#160;a&#160;&#160;scenario&#160;&#160;is&#160;&#160;not&#160;&#160;fully&#160;&#160;supported&#160;&#160;by&#160;&#160;the&#160;&#160;AUTOSAR&#160;&#160;standard.&#160;&#160;The&#160;&#160;functional&#160;<br/>description&#160;below&#160;is an&#160;extension&#160;for&#160;AUTOSAR.&#160;<br/>
+&#160;<br/>
+Figure&#160;1-2&#160;&#160;ECU&#160;sample&#160;<br/>
+<b>1.3.1&#160;</b><br/>
+<b>Functional&#160;Description&#160;</b><br/>
+The&#160;&#160;bus&#160;&#160;wakeup&#160;&#160;detection&#160;&#160;is&#160;&#160;done&#160;&#160;inside&#160;&#160;the&#160;&#160;transceiver&#160;&#160;initialization,&#160;&#160;i.e.&#160;&#160;during&#160;<br/>EcuM_AL_DriverInitTwo.&#160;&#160;The&#160;&#160;transceiver&#160;&#160;monitors&#160;&#160;a&#160;&#160;detected&#160;&#160;bus&#160;&#160;wake-up&#160;&#160;to&#160;&#160;the&#160;<br/>EcuM&#160;via&#160;EcuM_SetWakeupEvent(…).&#160;<br/>
+An&#160;exception&#160;is partial&#160;networking&#160;as described&#160;in&#160;the&#160;following&#160;chapter.&#160;&#160;<br/>
+<b>1.3.1.1&#160;</b><br/>
+<b>Transceivers&#160;Supporting Partial&#160;Networking&#160;</b><br/>
+The&#160;&#160;transceiver&#160;&#160;driver&#160;&#160;only&#160;&#160;supports&#160;&#160;1&#160;&#160;wake-up&#160;&#160;source&#160;&#160;and&#160;&#160;uses&#160;&#160;this&#160;&#160;source&#160;&#160;for&#160;&#160;the&#160;<br/>following&#160;wake-up&#160;reasons:&#160;<br/>
+<b>&gt;&#160;&#160;</b>POR&#160;–&#160;Power-On-Reset&#160;<br/>
+<b>&gt;&#160;&#160;</b>SYSERR&#160;<br/>
+<b>&gt;&#160;&#160;</b>WUP&#160;(wake-up&#160;pattern) /&#160;WUF (wake-up&#160;frame)&#160;–&#160;i.e.&#160;the&#160;wake-up&#160;event&#160;from&#160;the&#160;bus&#160;<br/>
+<b>&gt;&#160;&#160;</b>LWU&#160;(local wake-up/wakePin&#160;if&#160;supported&#160;by&#160;the&#160;hardware)&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+8&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-9_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-9_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+For&#160;Transceivers with&#160;partial networking&#160;the&#160;standard wake-up&#160;validation&#160;shall&#160;not&#160;be&#160;used.&#160;<br/>For&#160;that&#160;reason&#160;it&#160;is&#160;necessary&#160;to&#160;figure&#160;out&#160;the&#160;wake-up&#160;event.&#160;This can&#160;be&#160;done&#160;using&#160;the&#160;<br/>function&#160;CanIf_GetTrcvWakeupReason():&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>Here&#160;is&#160;an&#160;example how&#160;to&#160;figure out&#160;the&#160;wake-up&#160;reason.&#160;&#160;<br/>
+&#160;&#160;FUNC(void,&#160;ECUM_CODE)&#160;EcuM_AL_DriverInitTwo&#160;&#160;(P2CONST(EcuM_ConfigType,&#160;AUTOMATIC,&#160;<br/>
+ECUM_APPL_CONFIG)&#160;ConfigPtr)&#160;&#160;<br/>{&#160;<br/>&#160;&#160;CanIf_TrcvWakeupModeType&#160;wakeupModeType;&#160;<br/>&#160;&#160;CanTrcv_Init()&#160;/*&#160;the&#160;Transceiver&#160;Treiber&#160;checks&#160;at&#160;initialization&#160;&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;on&#160;a&#160;corresponding&#160;wake-up&#160;event&#160;and&#160;informs&#160;the&#160;&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;ECUM&#160;via&#160;EcuM_SetWakeupEvent(&lt;WK_Source_Handle&gt;)!&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;The&#160;transceiver&#160;has&#160;to&#160;be&#160;initialized&#160;with&#160;the&#160;&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;state&#160;normal!*/&#160;<br/>&#160;<br/>&#160;&#160;/*&#160;Can&#160;driver&#160;initialization&#160;*/&#160;<br/>&#160;&#160;CanDrv_Init()&#160;<br/>&#160;<br/>&#160;&#160;/*&#160;CAN&#160;interface&#160;initialization&#160;*/&#160;<br/>&#160;&#160;CanIf_Init()&#160;<br/>&#160;<br/>&#160;&#160;/*&#160;The&#160;source&#160;code&#160;section&#160;below&#160;has&#160;to&#160;be&#160;performed&#160;per&#160;configured&#160;&#160;&#160;&#160;&#160;<br/>&#160;&#160;CAN&#160;channel&#160;*/&#160;<br/>&#160;&#160;/*&#160;The&#160;source&#160;code&#160;section&#160;below&#160;must&#160;be&#160;performed&#160;before&#160;&#160;<br/>&#160;&#160;CanSM_Init&#160;()&#160;is&#160;called&#160;*/&#160;<br/>&#160;<br/>&#160;&#160;if(EcuM_GetStatusOfWakeupSource(&lt;WK_Source_Handle&gt;)&#160;==&#160;&#160;&#160;<br/>&#160;&#160;ECUM_WKSTATUS_PENDING)&#160;<br/>&#160;&#160;{&#160;<br/>&#160;&#160;&#160;&#160;(void)CanIf_GetTrcvWakeupReason(&lt;TrcvId&gt;,&#160;&amp;wakeupModeType);&#160;<br/>&#160;<br/>&#160;&#160;&#160;&#160;if(wakeupModeType&#160;!=&#160;CANIF_TRCV_WU_BY_BUS)&#160;<br/>&#160;&#160;&#160;&#160;{&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;/*&#160;wakeup&#160;not&#160;triggered&#160;because&#160;of&#160;CAN&#160;bus&#160;event&#160;e.g.&#160;reception&#160;of&#160;&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;wake&#160;up&#160;pattern&#160;(refer&#160;to&#160;the&#160;specific&#160;transceiver&#160;&#160;driver&#160;&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;technical&#160;reference&#160;about&#160;the&#160;supported&#160;value&#160;range&#160;of&#160;the&#160;&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;CanIf_TrcvWakeupModeType&#160;&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Dependent&#160;on&#160;which&#160;wake-up&#160;event&#160;the&#160;bus&#160;should&#160;be&#160;started,&#160;the&#160;if&#160;&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;condition&#160;has&#160;to&#160;be&#160;extended.&#160;*/&#160;<br/>&#160;&#160;&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;/*&#160;wake&#160;up&#160;event&#160;will&#160;be&#160;cleared&#160;to&#160;prevent&#160;invalid&#160;bus&#160;wake&#160;up&#160;*/&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;EcuM_ClearWakeupEvent(&lt;WK_Source_Handle&gt;);&#160;<br/>&#160;&#160;&#160;&#160;}&#160;<br/>&#160;&#160;}&#160;<br/>}&#160;<br/>&#160;<br/>If&#160;the&#160;wake-up&#160;reason&#160;is&#160;WUP&#160;or&#160;LWU,&#160;the&#160;bus&#160;can be&#160;woken&#160;up.&#160;Otherwise leave the&#160;<br/>bus&#160;sleeping.&#160;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+9&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-10_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-10_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-10_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-10_4.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-10_5.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>1.3.2&#160;</b><br/>
+<b>Configuration&#160;</b><br/>
+<b>1.3.2.1&#160;</b><br/>
+<b>CAN&#160;Driver Configuration&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>Enable&#160;Wakeup&#160;Support&#160;<br/>
+&#160;<br/>
+Figure&#160;1-3&#160;&#160;Enable&#160;Wakeup&#160;Source&#160;for&#160;CAN&#160;Driver&#160;<br/>
+<b>&gt;&#160;&#160;</b>Configure the&#160;<b>CanWakeupSourceRef</b>&#160;to&#160;the&#160;same&#160;value&#160;as you&#160;are&#160;going&#160;to&#160;set&#160;the&#160;<br/>
+values for the&#160;transceiver in&#160;the&#160;next&#160;chapte<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">r&#160;1.3.2.2.&#160;</a>&#160;<br/>
+&#160;<br/>
+Figure&#160;1-4&#160;&#160;Wakeup&#160;Source&#160;on&#160;Driver&#160;Side&#160;<br/>
+<b>1.3.2.2&#160;</b><br/>
+<b>Transceiver&#160;Driver&#160;Configuration&#160;&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>Set&#160;<b>Wake&#160;Up Support&#160;</b><br/>
+&#160;<br/>
+Figure&#160;1-5&#160;&#160;Wake&#160;Up&#160;support&#160;settings&#160;<br/>
+<b>&gt;&#160;&#160;</b>Set&#160;the&#160;<b>Wakeup Source</b>&#160;to&#160;appropriate&#160;value&#160;<br/>
+&#160;<br/>
+Figure&#160;1-6&#160;&#160;Wakeup&#160;Source&#160;on&#160;Transceiver&#160;Side&#160;<br/>
+&#160;<br/>
+<b>1.4&#160;</b><br/>
+<b>Wake-up Process&#160;</b><br/>
+This is&#160;a&#160;short explanation&#160;how&#160;a&#160;typical wake-up&#160;sequence&#160;is executed.&#160;For a&#160;detailed&#160;<br/>description&#160;of&#160;the&#160;execution&#160;flow&#160;when&#160;a&#160;wake-up&#160;event&#160;occurs&#160;please&#160;refer to&#160;the&#160;<br/>AUTOSAR ECUM<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#2">&#160;[1]&#160;</a>specification&#160;Chapter&#160;9.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+10&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-11_1.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/><b>&gt;&#160;&#160;Enable&#160;Trigger:</b>&#160;Wake-up&#160;Enabled&#160;(init,&#160;shutdown,&#160;bus sleep).&#160;The&#160;wake-up&#160;sources&#160;<br/>
+will&#160;be&#160;enabled&#160;<br/>
+<b>&gt;&#160;&#160;</b>if&#160;the&#160;according&#160;communication&#160;channel stops the&#160;communication&#160;or&#160;<br/>
+<b>&gt;&#160;&#160;</b>if&#160;the&#160;ECU&#160;enters the&#160;sleep&#160;mode.&#160;<br/>
+<b>&gt;&#160;&#160;Trigger:</b>&#160;WakeupEvent&#160;(bus interrupt,&#160;ICU interrupt,&#160;SCHM(bus)&#160;polling)&#160;<br/>
+<b>&gt;&#160;&#160;</b>A&#160;wake-up&#160;event&#160;is detected&#160;and&#160;the&#160;ECUM&#160;is informed&#160;about&#160;the&#160;wake-up&#160;source.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Alternatively&#160;the&#160;ECUM&#160;cyclically&#160;checks each&#160;wake-up&#160;source&#160;(which&#160;is configured&#160;<br/>
+as polling&#160;mode&#160;source) if a&#160;wake-up&#160;is&#160;pending.&#160;<br/>
+<b>&gt;&#160;&#160;Check:</b>&#160;EcuM_CheckWakeup&#160;triggers wake-up&#160;source-specific&#160;handling&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;ECUM&#160;triggers the&#160;“check wake-up”&#160;function&#160;of&#160;the&#160;according&#160;&lt;bus&gt;-interface.&#160;If&#160;<br/>
+a&#160;wake-up&#160;is pending&#160;the&#160;ECUM&#160;is informed&#160;via&#160;the&#160;SetWakeupEvent&#160;function.&#160;<br/>
+<b>&gt;&#160;&#160;</b>In&#160;case&#160;of&#160;shared&#160;interrupts&#160;multiple&#160;wake-up&#160;sources&#160;can&#160;be&#160;passed&#160;in&#160;one&#160;call.&#160;<br/>
+<b>&gt;&#160;&#160;</b>ECUM&#160;starts wake-up&#160;validation&#160;timeout.&#160;<br/>
+<b>&gt;&#160;&#160;Set:</b>&#160;EcuM_SetWakeupEvent&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;transceiver/controller driver of&#160;the&#160;wake-up&#160;source&#160;informs the&#160;ECUM&#160;if&#160;this&#160;<br/>
+wakeup&#160;source&#160;has&#160;triggered&#160;the&#160;wake-up&#160;event.&#160;<br/>
+<b>&gt;&#160;&#160;Disable:</b>&#160;Wake-up&#160;/&#160;Set&#160;MCU&#160;<br/>
+<b>&gt;&#160;&#160;</b>After a&#160;valid&#160;wake-up&#160;the&#160;(interrupt&#160;notification&#160;of&#160;the&#160;wakeup) source&#160;becomes&#160;<br/>
+disabled.&#160;This&#160;might&#160;is&#160;done&#160;by&#160;the&#160;ECUM&#160;in&#160;case&#160;of&#160;an&#160;ECU&#160;wake-up&#160;or it&#160;has&#160;to&#160;be&#160;<br/>done&#160;by&#160;the&#160;wake-up&#160;source&#160;e.g.&#160;by&#160;the&#160;CanTrcv.&#160;<br/>
+<b>&gt;&#160;&#160;Validation</b>:&#160;(CAN)&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;ECUM&#160;starts&#160;the&#160;bus which&#160;matches&#160;to&#160;the&#160;wake-up&#160;source&#160;<br/>
+(EcuM_StartWakeupSources).&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;ECUM&#160;starts&#160;the&#160;validation&#160;of&#160;the&#160;wake-up&#160;event&#160;(if&#160;configured)&#160;and&#160;triggers the&#160;<br/>
+CanIf_CheckValidation&#160;function&#160;which&#160;matches to&#160;the&#160;wake-up&#160;source.&#160;<br/>
+<b>&gt;&#160;&#160;</b>If&#160;a&#160;correct&#160;message&#160;is&#160;received&#160;on&#160;the&#160;CAN&#160;bus the&#160;CanIf_CheckValidation&#160;<br/>
+function&#160;has to&#160;call&#160;EcuM_ValidateWakeupEvent&#160;to&#160;indicate&#160;the&#160;ECUM&#160;about&#160;a&#160;valid&#160;<br/>wake-up&#160;event.&#160;The&#160;ECUM&#160;informs the&#160;COMM&#160;via&#160;<br/>ComM_EcuM_WakeUpIndication.&#160;<br/>
+<b>&gt;&#160;&#160;</b>If&#160;the&#160;validation&#160;time&#160;expires the&#160;ECUM&#160;executes the&#160;callout&#160;<br/>
+EcuM_StopWakeupSource&#160;where activities&#160;are implemented&#160;to&#160;stop&#160;the&#160;bus&#160;again.&#160;<br/>The&#160;ECUM&#160;sets&#160;back&#160;the&#160;ECU&#160;into&#160;the&#160;preceding&#160;state&#160;again.&#160;<br/>
+,&#160;<br/>
+<b>1.4.1&#160;</b><br/>
+<b>Synchronous&#160;and&#160;Asynchronous&#160;Wake-Up Concept&#160;</b><br/>
+These&#160;concepts&#160;are&#160;working&#160;for&#160;all&#160;bus&#160;systems&#160;and&#160;any&#160;wake-up&#160;source.&#160;For&#160;this&#160;reason&#160;<br/>it is described&#160;only&#160;once.&#160;It&#160;can&#160;be&#160;transferred&#160;to&#160;your actual use&#160;case&#160;very&#160;easily.&#160;&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+11&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-12_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-12_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Note&#160;<br/></b>For&#160;the&#160;explanation we use&#160;CAN&#160;as example.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+When&#160;a&#160;wake-up&#160;interrupt&#160;occurs,&#160;a&#160;CanIf_CheckWakeup&#160;has&#160;to&#160;be&#160;performed&#160;for&#160;figure&#160;<br/>out&#160;the&#160;reason&#160;for&#160;the&#160;wake-up&#160;interrupt.&#160;The&#160;result of&#160;this check can&#160;be&#160;&#160;<br/>
+1.&#160;&#160;Wake-up&#160;reason&#160;detected,&#160;the&#160;reason&#160;is e.g.&#160;CAN message&#160;receipt.&#160;&#160;<br/>
+2.&#160;&#160;No&#160;reason&#160;detected.&#160;&#160;<br/>
+<b>Synchronous&#160;Wake-Up Concept&#160;</b><br/>
+In&#160;&#160;the&#160;&#160;synchronous&#160;&#160;case,&#160;&#160;the&#160;&#160;ECUM&#160;&#160;waits&#160;&#160;actively&#160;&#160;for&#160;&#160;the&#160;&#160;response&#160;&#160;of&#160;&#160;the&#160;<br/>CanIf_CheckWakeup.&#160;&#160;<br/>
+In&#160;case&#160;of&#160;a&#160;longer&#160;process&#160;to&#160;figure&#160;out&#160;the&#160;wake-up&#160;reason,&#160;this&#160;would&#160;result&#160;in&#160;delay&#160;of&#160;<br/>the&#160;system.&#160;<br/>
+<b>Asynchronous&#160;Wake-Up Concept&#160;</b><br/>
+The&#160;only&#160;difference&#160;to&#160;the&#160;synchronous&#160;wake-up&#160;is&#160;the&#160;timer&#160;you&#160;start,&#160;when&#160;you&#160;check&#160;for&#160;<br/>the&#160;wake-up&#160;reason&#160;via&#160;CanIf_CheckWakeup.&#160;There could&#160;be&#160;three&#160;results<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#13">&#160;(Figure&#160;1-8):</a>&#160;<br/>
+1.&#160;&#160;The&#160;successfully&#160;detected&#160;wake-up&#160;reason&#160;is&#160;returned&#160;before&#160;the&#160;timer expires&#160;<br/>
+2.&#160;&#160;An&#160;EcuM_EndCheckWakeup&#160;is received&#160;before the&#160;timer expires.&#160;Then&#160;the&#160;timer is&#160;<br/>
+stopped&#160;and&#160;work can&#160;be&#160;continued.&#160;&#160;<br/>
+3.&#160;&#160;The&#160;timer expires.&#160;In&#160;this case&#160;the&#160;result is,&#160;that&#160;there is&#160;no&#160;wake-up&#160;detected&#160;and&#160;<br/>
+work can&#160;be&#160;continued.&#160;&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+12&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-13_1.png"/><br/>
+<b>&#160;sd&#160;EcuM_CanWakeupByTransceiv&#160;erInterrupt</b><br/>
+«module»<br/>
+«module»<br/>
+ECU&#160;Firmware<br/>
+«module»<br/>
+«module»<br/>
+«module»<br/>
+«module»<br/>
+«module»<br/>
+«Peripheral»<br/>
+«Peripheral»<br/>
+Os<br/>
+EcuM<br/>
+Mcu<br/>
+Icu<br/>
+CanIf<br/>
+Can<br/>
+CanTrcv<br/>
+CanController<br/>
+CAN&#160;Transceiver<br/>
+Hardware<br/>
+<b>GOSLEEP</b><br/>
+Technical Re<br/>
+EcuM_Enable&#160;fe<br/>
+Wakeuren<br/>
+pSources&#160;c<br/>
+(E&#160;e<br/>
+cuM&#160;&#160;<br/>
+_&#160;W<br/>
+Wakeupa<br/>
+So&#160;k<br/>
+ur<br/>
+e<br/>
+ceT<br/>
+-<br/>
+ype&#160;u<br/>
+)<br/>
+p&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+CanSM&#160;will&#160;have&#160;called&#160;CanIf_SetControllerMode&#160;and&#160;CanIf_SetTransceiverMode&#160;when&#160;going&#160;to&#160;sleep.<br/>
+GetResource(uint8)<br/>
+<b>&#160;sd&#160;EcuM_CanWakeupByTransceiv&#160;erInterrupt&#160;</b>If&#160;the&#160;Scheduler&#160;will&#160;not&#160;be&#160;acquired&#160;as&#160;resource&#160;it&#160;is&#160;not&#160;assured&#160;that&#160;the&#160;program&#160;flow&#160;continues&#160;<br/>
+after&#160;HALT&#160;instruction&#160;because&#160;re-scheduling&#160;takes&#160;place&#160;after&#160;occurence&#160;of&#160;an&#160;ISR&#160;Cat&#160;2.<br/>
+«module»<br/>
+«module»<br/>
+ECU&#160;Firmware<br/>
+«module»<br/>
+«module»<br/>
+«module»<br/>
+«module»<br/>
+«module»<br/>
+«Peripheral»<br/>
+«Peripheral»<br/>
+Os<br/>
+EcuM<br/>
+Mcu<br/>
+Icu<br/>
+CanIf<br/>
+Can<br/>
+CanTrcv<br/>
+CanController<br/>
+CAN&#160;Transceiver<br/>
+Hardware<br/>
+<b>SLEEP</b><br/>
+<b>GOSLEEP</b><br/>
+Mcu_SetMode(Mcu_ModeType)<br/>
+EcuM_EnableWakeupSources(EcuM_WakeupSourceType)<br/>
+CanSM&#160;will&#160;have<br/>
+<b>HA&#160;</b>&#160;ca<br/>
+<b>LT&#160;</b>lled&#160;CanIf_SetControllerMode&#160;and&#160;CanIf_SetTransceiverMode&#160;when&#160;going&#160;to&#160;sleep.<br/>
+<b>alt&#160;</b><br/>
+GetResource(uint8)<br/>
+Wakeup<br/>
+[synchron]<br/>
+interrupt()<br/>
+EcuM_CheckWakeup(EcuM_WakeupSourceType)<br/>
+If&#160;the&#160;Scheduler&#160;will&#160;not&#160;be&#160;acquired&#160;as&#160;resource&#160;it&#160;is&#160;not&#160;assured&#160;that&#160;the&#160;program&#160;flow&#160;continues&#160;<br/>after&#160;HALT&#160;instruction&#160;because&#160;re-scheduling&#160;takes&#160;place&#160;after&#160;occurence&#160;of&#160;an&#160;ISR&#160;Cat&#160;2.<br/>
+activate<br/>PLL()<br/>
+<b>SLEEP</b><br/>
+CanIf_CheckWakeup(EcuM_WakeupSourceType,<br/>Std_ReturnType)<br/>
+CanTrcv_CB_WakeupByBus(uint8,<br/>
+Mcu_SetMode(Mcu_ModeType)<br/>
+Std_ReturnType)<br/>
+<b>HALT</b><br/>
+EcuM_SetWakeupEvent(EcuM_WakeupSourceType)<br/>
+<b>alt&#160;</b><br/>
+Wakeup<br/>
+[synchron]<br/>
+interrupt()<br/>
+EcuM_CheckWakeup(EcuM_WakeupSourceType)<br/>
+activate<br/>PLL()<br/>
+Return&#160;from<br/>interrupt()<br/>
+CanIf_CheckWakeup(EcuM_WakeupSourceType,<br/>Std_ReturnType)<br/>
+CanTrcv_CB_WakeupByBus(uint8,<br/>
+[asynchron]<br/>
+Std_ReturnType)<br/>
+Wakeup&#160;interrupt()<br/>
+EcuM_CheckWakeu&#160;E<br/>
+p&#160;cu<br/>
+(E&#160;M<br/>
+cu&#160;_S<br/>
+M_etW<br/>
+Wa&#160;a<br/>
+k&#160;k<br/>
+e&#160;e<br/>
+u&#160;u<br/>
+p&#160;p<br/>
+S&#160;E<br/>
+o&#160;ve<br/>
+ur&#160;n<br/>
+cet(<br/>
+TEcu<br/>
+ypeM<br/>
+)&#160;_WakeupSourceType)<br/>
+EcuM_StartCheckWakeup(EcuM_WakeupSourceType)<br/>
+start<br/>CheckWakeupTimer()<br/>
+CanIf_CheckWakeup(EcuM_WakeupSourceType,&#160;Std_ReturnType)<br/>
+CanTrcv_CB_WakeupByBus(uint8,<br/>Std_ReturnType)<br/>
+Return&#160;from<br/>interrupt()<br/>
+[asynchron]<br/>
+Wakeup&#160;interrupt()<br/>
+EcuM_CheckWakeup(EcuM_WakeupSourceType)<br/>
+EcuM_StartCheckWakeup(EcuM_WakeupSourceType)<br/>
+Execution&#160;continues&#160;after&#160;HALT&#160;instruction.<br/>
+start<br/>CheckWakeupTimer()<br/>
+Mcu_SetMode()<br/>
+CanIf_CheckWakeup(EcuM_WakeupSourceType,&#160;Std_ReturnType)<br/>
+<b>WAKEUP&#160;I</b><br/>
+CanTrcv_CB_WakeupByBus(uint8,<br/>Std_ReturnType)<br/>
+Mcu_SetMode(Mcu_ModeType)<br/>
+EcuM_DisableWakeupSources(EcuM_WakeupSourceType)<br/>
+&#160;<br/>
+Figure&#160;1-7R&#160;elea&#160;E<br/>
+seR&#160;x<br/>
+estor<br/>
+u&#160;a<br/>
+rcec<br/>
+(u&#160;ti&#160;<br/>
+nt&#160;f8r<br/>
+)&#160;om&#160;the&#160;AUTSOAR&#160;d<br/>
+E&#160;o<br/>
+xe&#160;c<br/>
+cutiu<br/>
+o&#160;m<br/>
+n&#160;co&#160;e<br/>
+nti&#160;n<br/>
+nu&#160;te&#160;s&#160;<b>A</b><br/>
+aft&#160;<b>U</b><br/>
+er&#160;&#160;<b>T</b><br/>
+HA&#160;<b>OS</b><br/>
+LT&#160;inst&#160;<b>A</b><br/>
+ruct<b>R</b><br/>
+ion<b>_</b><br/>
+.&#160;<b>SWS_ECU_StateManager.pdf</b>.&#160;It&#160;shows&#160;both&#160;use&#160;cases.&#160;<br/>
+Release&#160;Scheduler&#160;resource&#160;to&#160;allow&#160;other&#160;tasks&#160;to&#160;run.<br/>
+Mcu_SetMode()<br/>
+<b>WAKEUP&#160;I</b><br/>
+Mcu_SetMode(Mcu_ModeType)<br/>
+<b>opt&#160;(asynchron)</b><br/>
+SPI_AsyncTransmit()<br/>
+EcuM_DisableWakeupSources(EcuM_WakeupSourceType)<br/>
+SPI_Job1EndNotification()<br/>
+<b>alt&#160;Wait&#160;for&#160;Wakeup&#160;Indication</b><br/>
+<b>alt&#160;JobResult</b><br/>
+[Wakeup&#160;Indication]<br/>
+[Wake&#160;Up]<br/>
+EcuM_SetWakeupEvent(EcuM_WakeupSourceType)<br/>
+ReleaseResource(uint8)<br/>
+Release&#160;Scheduler&#160;resource&#160;to&#160;allow&#160;other&#160;tasks&#160;to&#160;run.<br/>
+[Job&#160;End&#160;Notification]<br/>
+[No&#160;Wake&#160;Up]<br/>
+EcuM_EndCheckWakeup(EcuM_WakeupSourceType)<br/>
+<b>opt&#160;(asynchron)</b><br/>
+SPI_AsyncTransmit()<br/>
+[Timeout]<br/>
+CheckWakeupTimer&#160;expired()<br/>
+SPI_Job1EndNotification()<br/>
+<b>alt&#160;Wait&#160;for&#160;Wakeup&#160;Indication</b><br/>
+<b>alt&#160;JobResult</b><br/>
+[Wakeup&#160;Indication]<br/>
+[Wake&#160;Up]<br/>
+EcuM_SetWakeupEvent(EcuM_WakeupSourceType)<br/>
+<b>WAKEUP&#160;</b><br/>
+<b>VALIDATION</b><br/>
+[Job&#160;End&#160;Notification]<br/>
+[No&#160;Wake&#160;Up]<br/>
+EcuM_EndCheckWakeup(EcuM_WakeupSourceType)<br/>
+&#160;<br/>
+Figure&#160;1-8&#160;&#160;Possible&#160;results&#160;for&#160;asynchronous&#160;wake-up&#160;concept&#160;<br/>
+[Timeout]<br/>
+CheckWakeupTimer&#160;expired()<br/>
+&#160;<br/>
+<b>WAKEUP&#160;</b><br/>
+<b>VALIDATION</b><br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+13&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-14_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-14_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-14_3.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>1.4.2&#160;</b><br/>
+<b>Configuring Synchronous&#160;and&#160;Asynchronous&#160;Wake-Up&#160;</b><br/>
+To&#160;get&#160;the&#160;asynchronous&#160;wake-up&#160;handling&#160;just&#160;enter&#160;a&#160;value&#160;in&#160;the&#160;field&#160;<b>Check&#160;Wakeup&#160;<br/>timeout&#160;(in sec)</b>.&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Note&#160;<br/></b>It&#160;depends&#160;on&#160;your&#160;project&#160;whether&#160;you&#160;do&#160;the&#160;configuration of&#160;ECUM&#160;in GENy&#160;or&#160;in&#160;<br/>
+&#160;&#160;DaVinci&#160;Configurator&#160;Pro.&#160;Both&#160;ways&#160;are&#160;shown in&#160;the&#160;following&#160;screen&#160;shots.&#160;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+Figure&#160;1-9&#160;&#160;Configuration&#160;&#160;using&#160;GENy.&#160;&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+14&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-15_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-15_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Figure&#160;1-10&#160;&#160;Configuration&#160;using&#160;DaVinci&#160;Developer&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+15&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-16_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-16_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>2&#160;&#160;Wake-up&#160;Event&#160;</b><br/>
+<b>2.1&#160;</b><br/>
+<b>ECUM&#160;Configuration&#160;</b><br/>
+This&#160;example&#160;shows&#160;the&#160;configuration&#160;of&#160;the&#160;ECUM&#160;with&#160;the&#160;MICROSAR&#160;Configurator&#160;Pro.&#160;<br/>It&#160;is also&#160;possible&#160;to&#160;configure the&#160;ECUM&#160;with&#160;GENy.&#160;<br/>
+&#160;<br/>
+Figure&#160;2-1&#160;&#160;Configuration&#160;of&#160;the&#160;wake-up&#160;source&#160;IDs&#160;<br/>
+If&#160;&#160;the&#160;&#160;wake-up&#160;&#160;source&#160;&#160;needs&#160;&#160;to&#160;&#160;be&#160;&#160;validated&#160;&#160;enter&#160;&#160;a&#160;&#160;value&#160;&#160;greater&#160;&#160;than&#160;&#160;zero&#160;&#160;in&#160;&#160;the&#160;&#160;field&#160;<br/><b>Validation Timeout</b>.&#160;<br/>Create&#160;an&#160;identifier&#160;for&#160;each&#160;of&#160;your&#160;wake-up&#160;sources.&#160;The&#160;<b>Wake-up&#160;Source&#160;Name</b>&#160;has&#160;to&#160;<br/>be&#160;a&#160;valid&#160;C name.&#160;<br/>Select&#160;the&#160;according&#160;user handle&#160;of&#160;the&#160;COMM&#160;(<b>ComM&#160;channel&#160;handle</b>).&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+16&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-17_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-17_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-17_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-17_4.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>The&#160;<b>Wakeup&#160;Source&#160;ID</b>&#160;has&#160;to&#160;be&#160;a&#160;multiple of&#160;two (2^n)&#160;and each&#160;ID&#160;has&#160;to&#160;be&#160;<br/>
+&#160;&#160;unique.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>The&#160;wake-up&#160;source&#160;belongs&#160;to&#160;the&#160;network&#160;(not&#160;to&#160;the&#160;transceiver&#160;or&#160;controller).&#160;In&#160;the&#160;<br/>
+&#160;&#160;example shown in<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">&#160;Figure&#160;2-1&#160;</a>the&#160;<b>Wake-up&#160;Source ID</b>&#160;<b>64</b>&#160;is&#160;used&#160;for&#160;the&#160;first&#160;network&#160;<br/>
+<b>CAN0</b>&#160;independent&#160;if&#160;the&#160;wake-up&#160;event&#160;is&#160;triggered&#160;by&#160;the&#160;CAN&#160;transceiver&#160;or&#160;the&#160;<br/>CAN&#160;controller.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+Figure&#160;2-2&#160;&#160;Configuration&#160;of&#160;the&#160;ECUM&#160;Sleep&#160;mode&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+17&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-18_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-18_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+The&#160;ECUM&#160;performs&#160;the&#160;enabling&#160;of&#160;the&#160;wake-up&#160;source&#160;if&#160;the&#160;according&#160;channel&#160;enters&#160;<br/>the&#160;&#160;sleep&#160;&#160;mode.&#160;&#160;Add&#160;&#160;all&#160;&#160;needed&#160;&#160;wake-up&#160;&#160;sources&#160;&#160;to&#160;&#160;the&#160;&#160;list&#160;&#160;of&#160;&#160;the&#160;&#160;<b>Enabled&#160;&#160;Wakeup&#160;<br/>Sources</b>.&#160;<br/>
+&#160;<br/>
+Figure&#160;2-3&#160;&#160;Configuration&#160;of&#160;the&#160;ECUM&#160;shut&#160;down&#160;<br/>
+This&#160;&#160;parameter&#160;&#160;specifies&#160;&#160;the&#160;&#160;sleep&#160;&#160;mode&#160;&#160;which&#160;&#160;should&#160;&#160;be&#160;&#160;selected&#160;&#160;when&#160;&#160;the&#160;&#160;default&#160;<br/>shutdown&#160;target&#160;state&#160;is&#160;<b>Sleep</b>&#160;see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#18">&#160;Figure&#160;2-3.&#160;</a>Select&#160;the&#160;name&#160;of&#160;the&#160;sleep&#160;mode&#160;which&#160;<br/>contains the&#160;list of&#160;your wake-up&#160;sources&#160;which&#160;has&#160;been&#160;configured&#160;<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#17">in&#160;Figure&#160;2-2.</a>&#160;<br/>The&#160;following&#160;callouts&#160;are used&#160;to&#160;enable&#160;and&#160;to&#160;disable&#160;the&#160;wake-up&#160;sources&#160;selected&#160;by&#160;<br/>the&#160;current&#160;sleep&#160;mode&#160;and&#160;to&#160;provide&#160;a&#160;specific reaction&#160;handling&#160;when&#160;a&#160;wake-up&#160;event&#160;<br/>has occurred.&#160;<br/>&#160;<br/><b>&gt;&#160;&#160;</b>EcuM_EnableWakeupSources()&#160;<br/>
+<b>&gt;&#160;&#160;</b>EcuM_DisableWakeupSources()&#160;<br/>
+<b>&gt;&#160;&#160;</b>EcuM_CheckWakeup()&#160;<br/>
+<b>&gt;&#160;&#160;</b>EcuM_StartWakeupSources()&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+18&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-19_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-19_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-19_3.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>&gt;&#160;&#160;</b>EcuM_StopWakeupSources()&#160;<br/>
+<b>&gt;&#160;&#160;</b>EcuM_CheckValidation()&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>In&#160;AUTOSAR R 2.1&#160;the&#160;modules&#160;are specified&#160;to call&#160;EcuM_SetWakeupEvent&#160;API&#160;for correct&#160;<br/>
+&#160;&#160;wake-up detection.&#160;<br/>
+In&#160;AUTOSAR 3.0 the&#160;modules&#160;should call&#160;EcuM_CheckWakeup.&#160;The&#160;ICU specification is&#160;<br/>inconsistent&#160;at&#160;this&#160;point. Please refer to the&#160;specific&#160;driver module documentation&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+The&#160;following&#160;parts&#160;are&#160;only&#160;necessary&#160;if&#160;the&#160;wake-up&#160;source&#160;shall&#160;also&#160;be&#160;able&#160;to&#160;wake&#160;up&#160;<br/>the&#160;ECU&#160;(see&#160;“Wake-up&#160;Capability<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#21">”&#160;<b>Figure&#160;2-4</b>).</a>&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;EcuM_EnableWakeupSources(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;if&#160;((wakeupSource &amp;&#160;ECUM_WKSOURCE_CAN0) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* Enable CAN transceiver wakeup */&#160;<br/>&#160; &#160;&#160;CanIf_SetTransceiverWakeupMode(0, CANIF_TRCV_WU_ENABLE);&#160;<br/>&#160; &#160;&#160;/* Enable ECU wakeup which is activated in the configuration via&#160;<br/>the “Wakeup Capability”. Parameter is the &#34;ChannelName&#34;&#160;of the&#160;<br/>&#34;IcuChannel&#34; &#160;*/&#160;<br/>&#160; &#160;&#160;Icu_EnableWakeup(Icu_CAN0_TrcvWakeUp);&#160;<br/>&#160; &#160;&#160;/* Reduced power operation. Only those notifications are available&#160;<br/>which are configured as wakeup capable */&#160;<br/>&#160; &#160;&#160;Icu_SetMode(ICU_MODE_SLEEP);&#160;<br/>&#160;&#160;}&#160;<br/>&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_LIN0) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* Enable ECU wakeup which is activated in the configuration via&#160;<br/>the “Wakeup Capability”. Parameter is the &#34;ChannelName&#34; of the&#160;<br/>&#34;IcuChannel&#34; &#160;*/&#160;<br/>&#160; &#160;&#160;Icu_EnableWakeup(Icu_LIN0_TrcvWakeUp);&#160;<br/>&#160; &#160;&#160;/* Reduced power operation. Only those&#160;notifications are available&#160;<br/>which are configured as wakeup capable */&#160;<br/>&#160; &#160;&#160;Icu_SetMode(ICU_MODE_SLEEP);&#160;<br/>&#160;&#160;}&#160;<br/>&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_FR) != 0)&#160;<br/>&#160;&#160;{&#160;&#160;<br/>&#160; &#160;&#160;/* Enable ECU wakeup which is activated in the configuration via&#160;<br/>the “Wakeup Capability”. Parameter is the &#34;ChannelName&#34; of the&#160;<br/>&#34;IcuChannel&#34; &#160;*/&#160;<br/>&#160; &#160;&#160;Icu_EnableWakeup(Icu_FlexRay_WakeUp);&#160;<br/>&#160; &#160;&#160;/* Reduced power operation. Only those notifications are available&#160;<br/>which are configured as wakeup capable */&#160;<br/>&#160; &#160;&#160;Icu_SetMode(ICU_MODE_SLEEP);&#160;<br/>&#160;&#160;}&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+If&#160;the&#160;ECU&#160;enters&#160;the&#160;sleep&#160;mode,&#160;the&#160;wake-up&#160;sources&#160;which&#160;shall&#160;be&#160;able&#160;so&#160;wake&#160;the&#160;<br/>ECU&#160;&#160;has&#160;&#160;to&#160;&#160;be&#160;&#160;enabled.&#160;&#160;Enable&#160;&#160;the&#160;&#160;CAN&#160;&#160;transceiver&#160;&#160;wake-up&#160;&#160;as&#160;&#160;wake-up&#160;&#160;source&#160;&#160;if&#160;&#160;it&#160;<br/>should&#160;be&#160;the&#160;wake-up&#160;source.&#160;Enable&#160;the&#160;<b>Wake-up&#160;Capability</b>&#160;of&#160;the&#160;ICU&#160;channel&#160;via&#160;the&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+19&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-20_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-20_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+function&#160;Icu_EnableWakeup&#160;with&#160;the&#160;ICU&#160;<b>ChannelName</b>&#160;of&#160;the&#160;<b>IcuChannel</b>&#160;as&#160;parameter&#160;<br/>(see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#21">&#160;Figure&#160;2-4). S</a>et&#160;the&#160;ICU&#160;in&#160;reduced&#160;power operation&#160;via&#160;Icu_SetMode.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;EcuM_DisableWakeupSources(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN0) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* Disable ECU wakeup which is activated in the configuration via&#160;<br/>the “Wakeup Capability”. Parameter is the &#34;ChannelName&#34; of the&#160;<br/>&#34;IcuChannel&#34; &#160;*/&#160;<br/>&#160; &#160;&#160;Icu_DisableWakeup(Icu_CAN0_TrcvWakeUp);&#160;<br/>&#160; &#160;&#160;/* Normal operation, all used interrupts are enabled according to&#160;<br/>the notification requests */&#160;<br/>&#160; &#160;&#160;Icu_SetMode(ICU_MODE_NORMAL);&#160;<br/>&#160; &#160;&#160;/* Disable CAN transceiver wakeup */&#160;<br/>&#160; &#160;&#160;CanIf_SetTransceiverWakeupMode(0, CANIF_TRCV_WU_DISABLE);&#160;<br/>&#160;&#160;}&#160;<br/>&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_LIN0) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* Disable ECU wakeup&#160;which is activated in the configuration via&#160;<br/>the “Wakeup Capability”. Parameter is the &#34;ChannelName&#34; of the&#160;<br/>&#34;IcuChannel&#34; &#160;*/&#160;<br/>&#160; &#160;&#160;Icu_DisableWakeup(Icu_LIN0_TrcvWakeUp);&#160;<br/>&#160; &#160;&#160;/* Normal&#160;operation, all used interrupts are enabled according to&#160;<br/>the notification requests */&#160;<br/>&#160; &#160;&#160;Icu_SetMode(ICU_MODE_NORMAL);&#160;<br/>&#160;&#160;}&#160;<br/>&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_FR) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* Disable ECU wakeup which is activated in the configuration via&#160;<br/>the “Wakeup&#160;Capability”. Parameter is the &#34;ChannelName&#34; of the&#160;<br/>&#34;IcuChannel&#34; &#160;*/&#160;<br/>&#160; &#160;&#160;Icu_DisableWakeup(Icu_FlexRay_WakeUp);&#160;<br/>&#160; &#160;&#160;/* Normal operation, all used interrupts are enabled according to&#160;<br/>the notification requests */&#160;<br/>&#160; &#160;&#160;Icu_SetMode(ICU_MODE_NORMAL);&#160;<br/>&#160;&#160;}&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+If&#160;the&#160;ECU&#160;wakes&#160;up&#160;the&#160;wakeup&#160;source&#160;has&#160;to&#160;be&#160;disabled.&#160;Disable&#160;the&#160;CAN&#160;transceiver&#160;<br/>wakeup&#160;&#160;for&#160;&#160;the&#160;&#160;wake-up&#160;&#160;source&#160;&#160;if&#160;&#160;it&#160;&#160;is&#160;&#160;used&#160;&#160;as&#160;&#160;wake-up&#160;&#160;source.&#160;&#160;Disable&#160;&#160;the&#160;&#160;<b>Wakeup&#160;<br/>Capability</b>&#160;&#160;of&#160;&#160;the&#160;&#160;ICU&#160;&#160;channel&#160;&#160;via&#160;&#160;the&#160;&#160;function&#160;&#160;Icu_DisableWakeup&#160;&#160;with&#160;&#160;the&#160;&#160;ICU&#160;<br/><b>ChannelName</b>&#160;of&#160;the&#160;<b>IcuChannel</b>&#160;as&#160;parameter&#160;(see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#21">&#160;Figure&#160;2-4).&#160;</a>Set&#160;the&#160;ICU&#160;to&#160;NORMAL&#160;<br/>operation&#160;via&#160;Icu_SetMode.&#160;<br/>
+<b>2.2&#160;</b><br/>
+<b>ICU Interrupt&#160;(µC I/O&#160;port)&#160;</b><br/>
+The&#160;proposal&#160;described&#160;in&#160;&#160;this&#160;chapter&#160;is&#160;using&#160;an&#160;additional&#160;μC&#160;I/O&#160;&#160;port&#160;to&#160;generate&#160;the&#160;<br/>wake-up&#160;information&#160;via&#160;the&#160;ICU&#160;driver.&#160;This&#160;I/O&#160;port&#160;is&#160;connected,&#160;e.g.&#160;to&#160;a&#160;Rx&#160;port&#160;of&#160;the&#160;<br/>wake-up&#160;&#160;source.&#160;&#160;The&#160;shown&#160;&#160;example&#160;&#160;pictures&#160;&#160;may&#160;&#160;differ,&#160;&#160;dependent&#160;&#160;on&#160;&#160;the&#160;hardware&#160;&#160;or&#160;<br/>the&#160;used&#160;configuration&#160;tool.&#160;<br/>
+Add&#160;an&#160;IcuChannel (via&#160;<b>[Insert]</b>)&#160;for each&#160;of&#160;your&#160;wake-up&#160;sources&#160;which&#160;&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+20&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-21_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-21_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>&gt;&#160;&#160;</b>are not&#160;in&#160;polling&#160;mode&#160;<br/>
+<b>&gt;&#160;&#160;</b>do&#160;not&#160;have&#160;an&#160;interrupt&#160;function&#160;of&#160;its own&#160;and&#160;&#160;<br/>
+<b>&gt;&#160;&#160;</b>use&#160;the&#160;service&#160;of&#160;the&#160;ICU.&#160;<br/>
+&#160;<br/>
+Figure&#160;2-4&#160;&#160;Configuration&#160;of&#160;the&#160;wake-up&#160;settings&#160;of&#160;a&#160;ICU&#160;channel&#160;<br/>
+<b>&gt;&#160;&#160;</b>Choose&#160;the&#160;<b>Hw&#160;Channel</b>&#160;which&#160;matches&#160;to&#160;the&#160;wake-up&#160;source.&#160;<br/>
+<b>&gt;&#160;&#160;</b>If&#160;the&#160;wake-up&#160;event&#160;shall&#160;be&#160;able&#160;to&#160;wake&#160;up&#160;the&#160;ECU&#160;(and&#160;not&#160;only&#160;the&#160;<br/>
+communication&#160;channel)&#160;it&#160;is necessary&#160;to&#160;activate&#160;the&#160;<b>Wake-up Capability</b>&#160;for this&#160;<br/>ICU channel, otherwise&#160;the&#160;wake-up&#160;event&#160;will&#160;be&#160;ignored&#160;when&#160;the&#160;ICU is set&#160;to&#160;<br/>ICU_MODE_SLEEP&#160;mode.&#160;If&#160;the&#160;<b>Signal&#160;Notification</b>&#160;function&#160;is NOT&#160;used&#160;then&#160;also&#160;<br/>activate&#160;<b>Report Wakeup Source</b>&#160;in&#160;the&#160;tab&#160;<b>General&#160;settings</b>&#160;(that&#160;the&#160;ICU triggers&#160;<br/>EcuM_CheckWakeup(“<b>Channel&#160;Wakeup Info</b>”)&#160;if&#160;a&#160;wakeup&#160;event&#160;occurs).&#160;<br/>
+<b>&gt;&#160;&#160;</b>In&#160;the&#160;<b>Channel&#160;Wake-up Info</b>&#160;drop&#160;down&#160;list choose&#160;the&#160;identifier which&#160;matches to&#160;<br/>
+the&#160;<b>Wakeup Source&#160;Name</b>&#160;set&#160;in&#160;the&#160;ECUM.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Create&#160;a&#160;name&#160;for the&#160;<b>Signal&#160;Notification</b>&#160;function.&#160;<br/>
+The&#160;user has&#160;to&#160;implement&#160;the&#160;signal&#160;notification&#160;function.&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+21&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-22_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-22_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-22_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-22_4.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;“Signal Notification” (void)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;EcuM_CheckWakeup(“Wakeup Source Name”);&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>2.3&#160;</b><br/>
+<b>CAN&#160;</b><br/>
+<b>2.3.1&#160;</b><br/>
+<b>General&#160;</b><br/>
+&#160;<br/>
+Figure&#160;2-5&#160;&#160;General&#160;CAN&#160;configuration&#160;in&#160;GENy&#160;<br/>
+Enable&#160;&#160;the&#160;&#160;<b>Wake-up&#160;&#160;Event&#160;&#160;API</b>&#160;&#160;and&#160;&#160;enter&#160;&#160;the&#160;&#160;name&#160;&#160;of&#160;&#160;the&#160;&#160;<b>Wake-up&#160;&#160;Notification&#160;<br/>Function</b>.&#160;Here&#160;the&#160;notification&#160;EcuM_SetWakeupEvent&#160;of&#160;the&#160;ASR&#160;ECUM&#160;is used.&#160;<br/>
+<b>2.3.2&#160;</b><br/>
+<b>CAN Wake-up by&#160;Transceiver&#160;</b><br/>
+The&#160;&#160;wake-up&#160;&#160;information&#160;&#160;is&#160;&#160;generated&#160;&#160;via&#160;&#160;the&#160;&#160;ICU&#160;&#160;driver&#160;&#160;(see&#160;&#160;chapte<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#20">r&#160;&#160;2.2)&#160;&#160;</a>by&#160;&#160;using&#160;&#160;an&#160;<br/>additional&#160;&#160;μC&#160;&#160;I/O&#160;&#160;port.&#160;&#160;This&#160;&#160;I/O&#160;&#160;port&#160;&#160;is&#160;&#160;connected&#160;&#160;to&#160;&#160;the&#160;&#160;CAN&#160;&#160;transceiver&#160;&#160;pin&#160;&#160;which&#160;<br/>indicates&#160;the&#160;wake-up.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>If&#160;a&#160;TJA1041(A)&#160;CAN&#160;transceivers&#160;is&#160;used,&#160;connect&#160;the&#160;ERRN&#160;port&#160;with the µC&#160;I/O&#160;port.&#160;<br/>
+&#160;&#160;The&#160;RXD&#160;pin of&#160;the&#160;transceiver&#160;also indicates&#160;a&#160;wake-up&#160;and&#160;could be&#160;also used.&#160;But&#160;<br/>
+the&#160;advantage of&#160;the&#160;ERRN&#160;is&#160;that&#160;it&#160;distinguishes&#160;between a&#160;local&#160;wake-up&#160;(via&#160;WAKE&#160;<br/>pin)&#160;a&#160;remote wake-up&#160;(via CAN&#160;bus)&#160;(see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#2">&#160;[5])</a>.&#160;A&#160;HIGH&#160;signal&#160;indicates&#160;a&#160;remote&#160;<br/>wake-up.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+22&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-23_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-23_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-23_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-23_4.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-23_5.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>In&#160;&#160;dependency&#160;&#160;of&#160;&#160;the&#160;&#160;provided&#160;&#160;ICU&#160;&#160;configuration&#160;&#160;options&#160;&#160;it&#160;&#160;is&#160;&#160;possible&#160;&#160;to&#160;<br/>
+&#160;&#160;configure&#160;&#160;the&#160;&#160;<b>IcuDefaultStartEdge</b>.&#160;&#160;This&#160;&#160;option&#160;&#160;should&#160;&#160;be&#160;&#160;configured&#160;&#160;to&#160;<br/>
+ICU_FALLING_EDGE,&#160;&#160;because&#160;&#160;the&#160;&#160;wake-up&#160;&#160;event&#160;&#160;is&#160;&#160;provided&#160;&#160;by&#160;&#160;the&#160;&#160;Rx&#160;&#160;pin&#160;<br/>and/or the&#160;ERRN pin&#160;via&#160;a&#160;level change&#160;from&#160;recessive&#160;to&#160;dominant.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+Figure&#160;2-6&#160;&#160;Configuration&#160;of&#160;the&#160;CAN&#160;transceiver&#160;wake-up&#160;source&#160;<br/>
+Enter&#160;&#160;the&#160;&#160;<b>Transceiver&#160;&#160;WakeUpSource</b>&#160;&#160;in&#160;&#160;the&#160;&#160;CAN&#160;&#160;interface.&#160;&#160;The&#160;&#160;value&#160;&#160;has&#160;&#160;to&#160;&#160;match&#160;&#160;to&#160;<br/>the&#160;&#160;<b>Wakeup&#160;&#160;Source&#160;&#160;ID</b>&#160;&#160;in&#160;&#160;the&#160;&#160;ECUM&#160;&#160;(cp.&#160;&#160;Chapter&#160;&#160;<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">2.1).&#160;&#160;</a>Enter&#160;&#160;0&#160;&#160;(zero)&#160;&#160;if&#160;&#160;the&#160;&#160;channel&#160;<br/>should&#160;not&#160;be&#160;woken&#160;up&#160;by&#160;the&#160;transceiver.&#160;Set&#160;the&#160;wake-up&#160;source&#160;ID&#160;of&#160;the&#160;controller&#160;to&#160;<br/>zero as shown&#160;in<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#26">&#160;Figure&#160;2-10, .</a>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Figure&#160;2-7&#160;&#160;Selection&#160;of&#160;the&#160;desired&#160;interrupt&#160;service&#160;for&#160;the&#160;CAN&#160;transceiver&#160;wake-up&#160;<br/>
+Select&#160;ISR&#160;for the&#160;<b>Wake&#160;Up Support</b>.&#160;<br/>
+&#160;<br/>
+Figure&#160;2-8&#160;&#160;Activation&#160;of&#160;the&#160;CAN&#160;wake-up&#160;reason&#160;type&#160;in&#160;the&#160;configuration&#160;tool&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+23&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-24_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-24_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-24_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-24_4.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+Enable&#160;the&#160;feature&#160;<b>Wakeup By&#160;Bus</b>&#160;in&#160;the&#160;channel view&#160;of&#160;the&#160;CanTrcv.&#160;<br/>The&#160;&#160;ICU&#160;&#160;triggers&#160;&#160;the&#160;&#160;notification&#160;&#160;function.&#160;&#160;This&#160;&#160;informs&#160;&#160;the&#160;&#160;ECUM&#160;&#160;about&#160;&#160;the&#160;&#160;wake-up&#160;<br/>interrupt&#160;by&#160;calling&#160;EcuM_CheckWakeup&#160;with&#160;all&#160;according&#160;wake-up&#160;sources&#160;as&#160;parameter.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;Icu_TrcvWakeUpNotification_0 (void)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;/* inform the EcuM about the wakeup event, the&#160;parameter is the&#160;<br/>configured transceiver wakeup source */&#160;<br/>&#160;&#160;EcuM_CheckWakeup(ECUM_WKSOURCE_CAN0);&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+The&#160;&#160;EcuM&#160;&#160;does&#160;&#160;not&#160;&#160;know&#160;&#160;if&#160;&#160;the&#160;&#160;function&#160;&#160;EcuM_CheckWakeup&#160;&#160;has&#160;&#160;been&#160;&#160;called&#160;&#160;by&#160;&#160;the&#160;<br/>wakeup&#160;&#160;source&#160;&#160;itself.&#160;&#160;Therefore,&#160;&#160;the&#160;&#160;EcuM_CheckWakeup&#160;&#160;has&#160;&#160;to&#160;&#160;ask&#160;&#160;the&#160;&#160;driver&#160;&#160;of&#160;&#160;the&#160;<br/>wakeup&#160;&#160;source&#160;&#160;if&#160;&#160;it&#160;&#160;was&#160;&#160;responsible&#160;&#160;for&#160;&#160;that&#160;&#160;wakeup.&#160;&#160;Add&#160;&#160;the&#160;&#160;CanIf_CheckWakeup&#160;<br/>function&#160;of&#160;the&#160;CAN&#160;bus with&#160;the&#160;according&#160;wake-up&#160;source&#160;as parameter.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;EcuM_CheckWakeup(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;if&#160;((wakeupSource&#160;&amp; ECUM_WKSOURCE_CAN0) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* ask the driver of the wakeup source if it was responsible for&#160;<br/>the wakeup */&#160;<br/>&#160;&#160;&#160;&#160;CanIf_CheckWakeup(ECUM_WKSOURCE_CAN0);&#160;<br/>&#160;&#160;}&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+To&#160;&#160;avoid&#160;&#160;wake-up&#160;&#160;events&#160;&#160;while&#160;&#160;the&#160;&#160;communication&#160;&#160;channel&#160;&#160;is&#160;&#160;in&#160;&#160;normal&#160;&#160;mode,&#160;&#160;it&#160;&#160;is&#160;<br/>necessary&#160;&#160;to&#160;&#160;disable&#160;&#160;the&#160;&#160;notification&#160;&#160;if&#160;&#160;the&#160;&#160;transceiver&#160;&#160;enters&#160;&#160;normal&#160;&#160;mode&#160;&#160;and&#160;&#160;to&#160;&#160;re-<br/>enable&#160;&#160;the&#160;&#160;notification&#160;&#160;if&#160;&#160;the&#160;&#160;transceiver&#160;&#160;enters&#160;&#160;standby&#160;&#160;mode.&#160;&#160;Adapt&#160;&#160;the&#160;<br/>CanTrcv_&lt;TrcvName&gt;_SetOpMode&#160;function&#160;according&#160;the&#160;example.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>Std_ReturnType CanTrcv_30_&lt;TrcvName&gt;_SetOpMode(CanIf_TransceiverModeType&#160;<br/>
+&#160;&#160;OpMode, uint8 CanTrcvIndex)&#160;<br/>
+{&#160;<br/>&#160;&#160;switch(OpMode)&#160;<br/>&#160; &#160;&#160;case&#160;CANTRCV_30_&lt;TrcvName&gt;_OP_MODE_NORMAL:&#160;<br/>&#160; &#160; &#160;&#160;/* Disable wakeup interrupt on normal operation mode */&#160;<br/>&#160; &#160; &#160;&#160;Icu_DisableNotification(Icu_CAN0_TrcvWakeUp);&#160;<br/>&#160; &#160;&#160;case&#160;CANTRCV_30_&lt;TrcvName&gt;_OP_MODE_STANDBY:&#160;<br/>&#160; &#160; &#160;&#160;Icu_EnableNotification(Icu_CAN0_TrcvWakeUp);&#160;<br/>&#160; &#160; &#160;&#160;case&#160;CANTRCV_30_&lt;TrcvName&gt;_OP_MODE_SLEEP&#160;<br/>&#160; &#160; &#160; &#160;&#160;Icu_EnableNotification(Icu_CAN0_TrcvWakeUp);&#160;<br/>&#160; &#160; &#160; &#160;&#160;/* example for TJA1041&#160;<br/>Dio_WriteChannel(CanTrcv_30_xChannel[CanTrcvIndex].CanTrcvPinEN,STD_LOW);&#160;<br/>&#160; &#160; &#160; &#160;&#160;<br/>Dio_WriteChannel(CanTrcv_30_xChannel[CanTrcvIndex].CanTrcvPinSTB,STD_LOW); &#160; &#160; &#160;<br/>*/&#160;<br/>}&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+24&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-25_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-25_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-25_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-25_4.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Caution&#160;<br/></b>The&#160;ICU&#160;notification&#160;function&#160;activation,&#160;via&#160;Icu_EnableNotification(...),&#160;has&#160;<br/>
+<b>&#160;&#160;</b>to be&#160;called&#160;before&#160;the&#160;transceiver&#160;HW&#160;is&#160;set&#160;into&#160;the&#160;standby&#160;mode&#160;(e.g.&#160;via&#160;<br/>
+Dio_WriteChannel(..)&#160;).&#160;Refer&#160;to&#160;the&#160;example above.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Caution&#160;<br/></b>The&#160;function&#160;call&#160;Icu_DisableNotification&#160;does not&#160;disable the&#160;interrupts!&#160;The ICU&#160;<br/>
+<b>&#160;&#160;</b>notification&#160;functionality&#160;is&#160;one level&#160;above the&#160;interrupt&#160;handling.&#160;This&#160;is&#160;important&#160;if&#160;the&#160;<br/>
+RX&#160;line&#160;of&#160;the&#160;transceiver&#160;is&#160;connected&#160;to&#160;the&#160;ICU&#160;interrupt&#160;pin.&#160;With&#160;such&#160;a&#160;<br/>configuration,&#160;CAN&#160;communication would lead&#160;to&#160;a high µC&#160;load because&#160;of&#160;many&#160;<br/>interrupts&#160;on&#160;the&#160;ICU&#160;channel.&#160;<br/>A&#160;possible solution is&#160;to&#160;also disable/enable the&#160;interrupt.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+The&#160;CAN&#160;bus&#160;may&#160;be&#160;woken&#160;up&#160;by&#160;an&#160;EMC&#160;disturbance.&#160;In&#160;this&#160;case&#160;it&#160;is&#160;not&#160;necessary&#160;to&#160;<br/>wake&#160;up&#160;the&#160;bus&#160;or&#160;switch&#160;the&#160;ECU&#160;in&#160;RUN&#160;mode.&#160;To&#160;eliminate&#160;an&#160;unwanted&#160;wake-up&#160;the&#160;<br/>ECUM&#160;waits&#160;for&#160;a&#160;valid&#160;CAN&#160;message.&#160;The&#160;next&#160;step&#160;in&#160;the&#160;wake-up&#160;sequence&#160;is&#160;the<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">&#160;CAN&#160;<br/>Wake-up&#160;Validation,</a>&#160;see&#160;chapte<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">r&#160;2.3.5,</a>&#160;if&#160;<b>Validation&#160;Timeout</b>&#160;in&#160;the&#160;ECUM&#160;configuration&#160;in&#160;<br/><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">Figure&#160;2-1&#160;</a>is greater than&#160;zero.&#160;<br/>
+<b>2.3.3&#160;</b><br/>
+<b>CAN Wake-up by&#160;Controller&#160;</b><br/>
+&#160;<br/>
+Figure&#160;2-9&#160;&#160;Selection&#160;of&#160;the&#160;CAN&#160;wake-up&#160;processing&#160;type&#160;interrupt&#160;<br/>
+Select&#160;the&#160;Interrupt&#160;mode&#160;for the&#160;<b>Wakeup Processing</b>.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+25&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=26></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-26_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-26_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-26_3.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Figure&#160;2-10&#160;&#160;Selection&#160;of&#160;the&#160;desired&#160;interrupt&#160;service&#160;and&#160;configuration&#160;of&#160;the&#160;CAN&#160;controller&#160;wake-up&#160;source&#160;<br/>
+Enter&#160;the&#160;<b>Wakeup&#160;Source</b>&#160;in&#160;the&#160;channel&#160;view&#160;of&#160;the&#160;CAN&#160;driver.&#160;The&#160;value&#160;has&#160;to&#160;match&#160;<br/>to&#160;&#160;the&#160;&#160;<b>Wakeup&#160;&#160;Source&#160;&#160;ID</b>&#160;&#160;in&#160;&#160;the&#160;&#160;ECUM&#160;&#160;(cp.&#160;&#160;Chapter<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">&#160;&#160;2.1).&#160;&#160;</a>Enter&#160;&#160;0&#160;&#160;(zero)&#160;&#160;if&#160;&#160;the&#160;&#160;channel&#160;<br/>should&#160;not&#160;be&#160;woken&#160;up&#160;by&#160;the&#160;controller.&#160;Set&#160;the&#160;wake-up&#160;source&#160;ID&#160;of&#160;the&#160;transceiver&#160;to&#160;<br/>zero as shown&#160;in<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#23">&#160;Figure&#160;2-6.</a>&#160;<br/>Choose&#160;the&#160;related&#160;interrupt&#160;service&#160;function&#160;for&#160;the&#160;CAN&#160;controller.&#160;This&#160;function&#160;has&#160;to&#160;be&#160;<br/>called&#160;by&#160;the&#160;interrupt&#160;dispatcher&#160;after&#160;identifying&#160;the&#160;interrupt&#160;source&#160;which&#160;belongs&#160;to&#160;the&#160;<br/>CAN controller.&#160;<br/>void&#160;CanIsr_0(&#160;void&#160;)&#160;<br/>
+{&#160;<br/>
+CanInterrupt(kCanPhysToLogChannelIndex_0);&#160;<br/>
+}&#160;<br/>
+The&#160;&#160;CAN&#160;&#160;Driver&#160;&#160;will&#160;&#160;detect&#160;&#160;an&#160;&#160;interrupt&#160;&#160;in&#160;&#160;the&#160;&#160;CanInterrupt&#160;&#160;function&#160;&#160;and&#160;&#160;triggers&#160;&#160;the&#160;<br/>EcuM_CheckWakeup&#160;with&#160;the&#160;according&#160;wake-up&#160;source&#160;ID&#160;of&#160;the&#160;controller as&#160;parameter.&#160;<br/>The&#160;&#160;EcuM&#160;&#160;does&#160;&#160;not&#160;&#160;know&#160;&#160;if&#160;&#160;the&#160;&#160;function&#160;&#160;EcuM_CheckWakeup&#160;&#160;has&#160;&#160;been&#160;&#160;called&#160;&#160;by&#160;&#160;the&#160;<br/>wakeup&#160;&#160;source&#160;&#160;itself.&#160;&#160;Therefore,&#160;&#160;the&#160;&#160;EcuM_CheckWakeup&#160;&#160;has&#160;&#160;to&#160;&#160;ask&#160;&#160;the&#160;&#160;driver&#160;&#160;of&#160;&#160;the&#160;<br/>wakeup&#160;&#160;source&#160;&#160;if&#160;&#160;it&#160;&#160;was&#160;&#160;responsible&#160;&#160;for&#160;&#160;that&#160;&#160;wakeup.&#160;&#160;Add&#160;&#160;the&#160;&#160;CanIf_CheckWakeup&#160;<br/>function&#160;of&#160;the&#160;CAN bus with&#160;the&#160;according&#160;wake-up&#160;source&#160;as parameter.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;EcuM_CheckWakeup(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN1) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* ask the driver of the wakeup source if it was responsible for&#160;<br/>the&#160;wakeup */&#160;<br/>&#160; &#160;&#160;CanIf_CheckWakeup(ECUM_WKSOURCE_CAN1);&#160;<br/>&#160;&#160;}&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+The&#160;CAN&#160;bus&#160;may&#160;be&#160;woken&#160;up&#160;by&#160;an&#160;EMC&#160;disturbance.&#160;In&#160;this&#160;case&#160;it&#160;is&#160;not&#160;necessary&#160;to&#160;<br/>wake&#160;up&#160;the&#160;bus&#160;or&#160;switch&#160;the&#160;ECU&#160;in&#160;RUN&#160;mode.&#160;To&#160;eliminate&#160;an&#160;unwanted&#160;wake-up&#160;the&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+26&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=27></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-27_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-27_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-27_3.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+ECUM&#160;waits&#160;for&#160;a&#160;valid&#160;CAN&#160;message.&#160;The&#160;next&#160;step&#160;in&#160;the&#160;wake-up&#160;sequence&#160;is&#160;the<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">&#160;CAN&#160;<br/>Wake-up&#160;Validation,</a>&#160;see&#160;chapte<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">r&#160;2.3.5,</a>&#160;if&#160;<b>Validation&#160;Timeout</b>&#160;in&#160;the&#160;ECUM&#160;configuration&#160;in&#160;<br/><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">Figure&#160;2-1&#160;</a>is greater than&#160;zero.&#160;<br/>
+<b>2.3.4&#160;</b><br/>
+<b>CAN Wakeup by&#160;Polling the&#160;CAN Driver&#160;</b><br/>
+&#160;<br/>
+Figure&#160;2-11&#160;&#160;Selection&#160;of&#160;the&#160;CAN&#160;wake-up&#160;processing&#160;type&#160;polling&#160;<br/>
+Select&#160;&#160;the&#160;&#160;polling&#160;&#160;mode&#160;&#160;for&#160;&#160;the&#160;&#160;<b>Wakeup&#160;&#160;Processing</b>.&#160;&#160;The&#160;&#160;SCHM&#160;&#160;will&#160;&#160;call&#160;&#160;the&#160;<br/>Can_MainFunction_Wakeup&#160;cyclically.&#160;In&#160;this&#160;function&#160;the&#160;CAN&#160;driver&#160;detects&#160;if&#160;a&#160;wake-up&#160;<br/>is&#160;pending&#160;at&#160;any&#160;CAN&#160;controller&#160;or&#160;CAN&#160;transceiver&#160;and&#160;trigger&#160;the&#160;EcuM_CheckWakeup&#160;<br/>with&#160;the&#160;according&#160;wake-up&#160;source&#160;ID&#160;of&#160;the&#160;controller as&#160;parameter.&#160;<br/>The&#160;&#160;EcuM&#160;&#160;does&#160;&#160;not&#160;&#160;know&#160;&#160;if&#160;&#160;the&#160;&#160;function&#160;&#160;EcuM_CheckWakeup&#160;&#160;has&#160;&#160;been&#160;&#160;called&#160;&#160;by&#160;&#160;the&#160;<br/>wakeup&#160;&#160;source&#160;&#160;itself.&#160;&#160;Therefore,&#160;&#160;the&#160;&#160;EcuM_CheckWakeup&#160;&#160;has&#160;&#160;to&#160;&#160;ask&#160;&#160;the&#160;&#160;driver&#160;&#160;of&#160;&#160;the&#160;<br/>wakeup&#160;&#160;source&#160;&#160;if&#160;&#160;it&#160;&#160;was&#160;&#160;responsible&#160;&#160;for&#160;&#160;that&#160;&#160;wakeup.&#160;&#160;Add&#160;&#160;the&#160;&#160;CanIf_CheckWakeup&#160;<br/>function&#160;of&#160;the&#160;CAN&#160;bus with&#160;the&#160;according&#160;wake-up&#160;source&#160;as parameter.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;EcuM_CheckWakeup(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN0) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* ask the driver of the wakeup source if it was responsible for&#160;<br/>the wakeup */&#160;<br/>&#160; &#160;&#160;CanIf_CheckWakeup(ECUM_WKSOURCE_CAN0);&#160;<br/>&#160;&#160;}&#160;<br/>&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN1) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* ask the driver of the wakeup source if it was responsible for&#160;<br/>the wakeup */&#160;<br/>&#160; &#160;&#160;CanIf_CheckWakeup(ECUM_WKSOURCE_CAN1);&#160;<br/>&#160;&#160;}&#160;<br/>}&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+27&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=28></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-28_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-28_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-28_3.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+The&#160;CAN&#160;bus&#160;may&#160;be&#160;woken&#160;up&#160;by&#160;an&#160;EMC&#160;disturbance.&#160;In&#160;this&#160;case&#160;it&#160;is&#160;not&#160;necessary&#160;to&#160;<br/>wake&#160;up&#160;the&#160;bus&#160;or&#160;switch&#160;the&#160;ECU&#160;in&#160;RUN&#160;mode.&#160;To&#160;eliminate&#160;an&#160;unwanted&#160;wake-up&#160;the&#160;<br/>ECUM&#160;waits&#160;for&#160;a&#160;valid&#160;CAN&#160;message.&#160;The&#160;next&#160;step&#160;in&#160;the&#160;wake-up&#160;sequence&#160;is&#160;the<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">&#160;CAN&#160;<br/>Wake-up&#160;Validation,</a>&#160;see&#160;chapte<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">r&#160;2.3.5,</a>&#160;if&#160;<b>Validation&#160;Timeout</b>&#160;in&#160;the&#160;ECUM&#160;configuration&#160;in&#160;<br/><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">Figure&#160;2-1&#160;</a>is greater than&#160;zero.&#160;<br/>
+<b>2.3.5&#160;</b><br/>
+<b>CAN Wake-up Validation&#160;</b><br/>
+&#160;<br/>
+Figure&#160;2-12&#160;&#160;Activation&#160;of&#160;the&#160;CAN&#160;wake-up&#160;validation&#160;and&#160;configuration&#160;of&#160;the&#160;validation&#160;function&#160;<br/>
+Enable&#160;&#160;the&#160;&#160;<b>Wakeup&#160;&#160;validation&#160;&#160;notification</b>&#160;&#160;and&#160;&#160;enter&#160;&#160;the&#160;&#160;name&#160;&#160;of&#160;&#160;the&#160;&#160;<b>Wakeup&#160;<br/>Validation&#160;&#160;Notification&#160;&#160;Function</b>.&#160;&#160;Here&#160;&#160;the&#160;&#160;notification&#160;&#160;EcuM_ValidateWakeupEvent&#160;&#160;of&#160;<br/>the&#160;ECUM&#160;is used.&#160;<br/>After&#160;&#160;the&#160;&#160;detection&#160;&#160;of&#160;&#160;the&#160;&#160;wake-up&#160;&#160;source&#160;&#160;in&#160;&#160;Ecu_CheckWakeup&#160;&#160;the&#160;&#160;wake-up&#160;&#160;validation&#160;<br/>will&#160;be&#160;performed.&#160;The&#160;ECUM&#160;triggers&#160;the&#160;callback&#160;which&#160;has&#160;to&#160;start&#160;the&#160;transceiver&#160;and&#160;<br/>controller&#160;of&#160;the&#160;wake-up&#160;source.&#160;Add&#160;the&#160;according&#160;function&#160;calls&#160;in&#160;the&#160;callback&#160;function&#160;<br/>EcuM_StartWakeupSources.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;EcuM_StartWakeupSources(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;ComM_ModeType CanMode =&#160;COMM_NO_COMMUNICATION;&#160;<br/>
+&#160;<br/>
+&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN0) != 0)&#160;<br/>&#160;{&#160;&#160;<br/>
+/* determine in which is the current Can&#160;network&#160;state */&#160;<br/>(void)CanSM_GetCurrentComMode(0, &amp;CanMode);&#160;<br/>if(COMM_NO_COMMUNICATION&#160;== CanMode)&#160;<br/>{&#160;<br/>
+&#160; &#160;&#160;/* set the controller and trcv&#160;mode into normal operation mode */&#160;<br/>&#160; &#160;&#160;CanIf_SetTransceiverMode(0&#160;/* TrcvIdx */, CANIF_TRCV_MODE_NORMAL);&#160;<br/>&#160; &#160;&#160;CanIf_SetControllerMode&#160;(0 /*&#160;CtrlIdx */, CANIF_CS_STOPPED);&#160;<br/>&#160; &#160;&#160;CanIf_SetControllerMode&#160;(0 /* CtrlIdx */, CANIF_CS_STARTED);&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+28&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=29></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-29_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-29_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;&#160;}&#160;<br/>&#160;&#160;else&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/*&#160;stack already up and running&#160;*/&#160;<br/>&#160;&#160;}&#160;<br/>&#160;}/* IF ECUM_WKSOURCE_CAN0*/&#160;<br/>&#160;<br/>&#160;<br/>&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN1) != 0)&#160;<br/>&#160;{&#160;<br/>
+/* determine in which is the current Can&#160;Network&#160;state */&#160;<br/>(void)CanSM_GetCurrentComMode(1, &amp;CanMode);&#160;<br/>if(COMM_NO_COMMUNICATION&#160;== CanMode)&#160;<br/>{&#160;<br/>
+&#160; &#160;&#160;/* set the controller and trcv mode into normal operation mode */&#160;<br/>&#160; &#160;&#160;CanIf_SetTransceiverMode(1&#160;/* TrcvIdx */,&#160;CANIF_TRCV_MODE_NORMAL);&#160;<br/>&#160; &#160;&#160;CanIf_SetControllerMode&#160;(1&#160;/* CtrlIdx */, CANIF_CS_STOPPED);&#160;<br/>&#160; &#160;&#160;CanIf_SetControllerMode&#160;(1&#160;/* CtrlIdx */, CANIF_CS_STARTED);&#160;<br/>&#160;&#160;}&#160;<br/>&#160;&#160;else&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* stack already up and running */&#160;<br/>&#160;&#160;}&#160;<br/>&#160;}/* IF ECUM_WKSOURCE_CAN1*/&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+Alternatively&#160;&#160;with&#160;&#160;the&#160;&#160;latest&#160;&#160;CANSM&#160;&#160;the&#160;&#160;code&#160;&#160;could&#160;&#160;look&#160;&#160;like&#160;&#160;shown&#160;&#160;below.&#160;&#160;The&#160;&#160;CANIF&#160;<br/>calls can&#160;be&#160;replaced&#160;by&#160;CanSM_StartWakeupSources(&lt;Channel ID&gt;).&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;for latest CANSM&#160;version&#160;<br/></b>void&#160;EcuM_StartWakeupSources(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;ComM_ModeType CanMode =&#160;COMM_NO_COMMUNICATION;&#160;<br/>
+&#160;<br/>
+&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN0) != 0)&#160;<br/>&#160;{&#160;&#160;<br/>
+/* determine in which is the current Can&#160;network&#160;state */&#160;<br/>CanSM_StartWakeupSources(0);&#160;<br/>
+&#160;}/* IF ECUM_WKSOURCE_CAN0*/&#160;<br/>&#160;<br/>&#160;<br/>&#160;if&#160;((wakeupSource &amp;&#160;ECUM_WKSOURCE_CAN1) != 0)&#160;<br/>&#160;{&#160;<br/>
+/* determine in which is the current Can&#160;Network&#160;state */&#160;<br/>
+&#160;&#160;CanSM_StartWakeupSources(1);&#160;<br/>&#160;}/* IF ECUM_WKSOURCE_CAN1*/&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+The&#160;ECUM&#160;calls&#160;cyclically&#160;the&#160;validation&#160;function&#160;which&#160;has&#160;to&#160;trigger&#160;the&#160;channel&#160;specific&#160;<br/>validation&#160;&#160;of&#160;&#160;the&#160;&#160;wake-up&#160;&#160;source.&#160;&#160;CANIF&#160;&#160;indicates&#160;&#160;the&#160;&#160;passed&#160;&#160;validation&#160;&#160;by&#160;&#160;calling&#160;&#160;the&#160;<br/>function&#160;&#160;EcuM_ValidateWakeupEvent&#160;&#160;if&#160;&#160;it&#160;&#160;recognizes&#160;&#160;the&#160;&#160;successful&#160;&#160;reception&#160;&#160;of&#160;&#160;at&#160;&#160;least&#160;<br/>one&#160;&#160;message&#160;&#160;and&#160;&#160;the&#160;&#160;ECUM&#160;&#160;triggers&#160;&#160;the&#160;&#160;ComM_EcuM_WakeUpIndication&#160;&#160;to&#160;&#160;start&#160;&#160;the&#160;<br/>network.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+29&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=30></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-30_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-30_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-30_3.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;EcuM_CheckValidation(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN0) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* Query the driver if the wakeup event was valid */&#160;<br/>&#160; &#160;&#160;CanIf_CheckValidation(ECUM_WKSOURCE_CAN0);&#160;<br/>&#160;&#160;}&#160;<br/>&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN1) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* Query the driver if the wakeup event was valid */&#160;<br/>&#160; &#160;&#160;CanIf_CheckValidation(ECUM_WKSOURCE_CAN1);&#160;<br/>&#160;&#160;}&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+The&#160;&#160;validation&#160;&#160;fails&#160;&#160;if&#160;&#160;the&#160;&#160;CANIF&#160;&#160;could&#160;&#160;not&#160;&#160;recognize&#160;&#160;the&#160;&#160;successful&#160;&#160;reception&#160;&#160;of&#160;&#160;a&#160;<br/>message&#160;&#160;during&#160;&#160;the&#160;&#160;validation&#160;&#160;time.&#160;&#160;Due&#160;&#160;to&#160;&#160;the&#160;&#160;failed&#160;&#160;validation&#160;&#160;the&#160;&#160;ECUM&#160;&#160;initiates&#160;&#160;the&#160;<br/>shutdown&#160;&#160;of&#160;&#160;the&#160;&#160;network&#160;&#160;and&#160;&#160;sets&#160;&#160;the&#160;&#160;ECU&#160;&#160;back&#160;&#160;in&#160;&#160;the&#160;&#160;preceding&#160;&#160;state&#160;&#160;again.&#160;&#160;So&#160;&#160;the&#160;<br/>ECUM&#160;&#160;executes&#160;&#160;the&#160;&#160;GOSLEEP&#160;&#160;sequence&#160;&#160;(see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#2">&#160;&#160;[1])&#160;&#160;</a>or&#160;&#160;stays&#160;&#160;in&#160;&#160;RUN.&#160;&#160;Add&#160;&#160;the&#160;&#160;according&#160;<br/>function&#160;calls in&#160;the&#160;callback&#160;function&#160;EcuM_StopWakeupSources.&#160;<br/>
+&#160;<br/>
+<b>Example&#160;<br/></b>void&#160;EcuM_StopWakeupSources(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;ComM_ModeType CanMode =&#160;COMM_NO_COMMUNICATION;&#160;<br/>&#160;<br/>&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN0) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;/* Validation was not successful*/&#160;<br/>
+&#160;(void)CanSM_GetCurrentComMode(0, &amp;CanMode);&#160;<br/>&#160;if(COMM_NO_COMMUNICATION == CanMode)&#160;<br/>&#160;{&#160;<br/>&#160; &#160;/* Can channel is not started by the ECU internally, set the CAN&#160;&#160;<br/>&#160; &#160; &#160;&#160;controller and Transceiver back to sleep */&#160;<br/>
+&#160; &#160;&#160;&#160;CanIf_SetControllerMode(0 /* CtrlIdx */, CANIF_CS_STOPPED);&#160;<br/>&#160; &#160;&#160;&#160;CanIf_SetControllerMode(0 /*&#160;CtrlIdx */, CANIF_CS_SLEEP);&#160;<br/>&#160; &#160;&#160;&#160;CanIf_SetTransceiverMode(0 /*TrcvIdx*/, CANIF_TRCV_MODE_STANDBY);&#160;<br/>&#160; &#160;}&#160;<br/>&#160;&#160;}&#160;<br/>&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN1) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;/* Validation was not successful*/&#160;<br/>
+&#160;(void)CanSM_GetCurrentComMode(1, &amp;CanMode);&#160;<br/>&#160;if(COMM_NO_COMMUNICATION == CanMode)&#160;<br/>&#160;{&#160;<br/>&#160; &#160;/* Can channel is not started by the ECU internally, set the CAN&#160;&#160;<br/>&#160; &#160; &#160;&#160;controller and Transceiver back to sleep */&#160;<br/>
+&#160; &#160;&#160;&#160;CanIf_SetControllerMode(1 /* CtrlIdx */, CANIF_CS_STOPPED);&#160;<br/>&#160; &#160;&#160;&#160;CanIf_SetControllerMode(1 /*&#160;CtrlIdx */, CANIF_CS_SLEEP);&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+30&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=31></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-31_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-31_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-31_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-31_4.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160; &#160;&#160;&#160;CanIf_SetTransceiverMode(1 /*TrcvIdx*/, CANIF_TRCV_MODE_STANDBY);&#160;<br/>&#160; &#160;}&#160;<br/>&#160;&#160;}&#160;<br/>}&#160;<br/>
+&#160;<br/>
+Alternatively&#160;&#160;with&#160;&#160;the&#160;&#160;latest&#160;&#160;CANSM,&#160;&#160;the&#160;&#160;code&#160;&#160;could&#160;&#160;look&#160;&#160;like&#160;&#160;shown&#160;&#160;below.&#160;&#160;The&#160;&#160;CANIF&#160;<br/>calls can&#160;be&#160;replaced&#160;by&#160;CanSM_StopWakeupSources(&lt;Channel&#160;ID&gt;).&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;for latest CANSM&#160;version&#160;<br/></b>void&#160;EcuM_StopWakeupSources(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;ComM_ModeType CanMode =&#160;COMM_NO_COMMUNICATION;&#160;<br/>&#160;<br/>&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN0) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;/* Validation was not successful*/&#160;<br/>
+&#160;CanSM_StopWakeupSources(0);&#160;<br/>}&#160;<br/>&#160;<br/>
+&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_CAN1) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;/* Validation was not successful*/&#160;<br/>
+CanSM_StopWakeupSources(1);&#160;<br/>
+&#160;&#160;}&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Caution&#160;<br/></b>The&#160;EcuM&#160;functions&#160;EcuM_StartWakeupSources()&#160;and&#160;EcuM_StopWakeupSources()&#160;<br/>
+<b>&#160;&#160;</b>must&#160;not&#160;be&#160;interrupted&#160;by&#160;the&#160;ComM,&#160;CanSM&#160;and CanNm&#160;main&#160;function.&#160;This&#160;can&#160;be&#160;<br/>
+implemented&#160;by&#160;adding&#160;additional&#160;exclusive areas&#160;inside&#160;the&#160;two&#160;EcuM&#160;functions.&#160;<br/>Additionally&#160;the&#160;EcuM_MainFunction must&#160;not&#160;interrupt&#160;the&#160;main&#160;functions&#160;of&#160;ComM,&#160;<br/>CanSM&#160;and CanNm,&#160;e.g.&#160;same&#160;task&#160;priority&#160;or&#160;same&#160;task&#160;context.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+<b>2.4&#160;</b><br/>
+<b>LIN&#160;</b><br/>
+<b>2.4.1&#160;</b><br/>
+<b>LIN Wake-up by&#160;Transceiver&#160;</b><br/>
+The&#160;&#160;wake-up&#160;&#160;information&#160;&#160;is&#160;&#160;generated&#160;&#160;via&#160;&#160;the&#160;&#160;ICU&#160;&#160;driver&#160;&#160;(see&#160;&#160;chapte<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#20">r&#160;&#160;2.2)&#160;&#160;</a>by&#160;&#160;using&#160;&#160;an&#160;<br/>additional&#160;μC&#160;I/O&#160;port.&#160;This&#160;&#160;I/O&#160;port&#160;is&#160;connected&#160;to&#160;the&#160;pin&#160;of&#160;&#160;the&#160;LIN&#160;transceiver&#160;which&#160;<br/>indicates&#160;the&#160;wake-up.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>If&#160;TJA1020&#160;transceivers&#160;is&#160;used&#160;connect&#160;the&#160;pin RXD&#160;with the&#160;µC&#160;I/O&#160;port.&#160;The&#160;RXD&#160;pin&#160;<br/>
+&#160;&#160;switches&#160;to low&#160;if&#160;the&#160;transceiver&#160;detects&#160;bus&#160;activity.&#160;To&#160;get&#160;a&#160;reliable negative edge it&#160;<br/>
+has&#160;to&#160;be&#160;ensured&#160;that&#160;the RXD&#160;pin has&#160;a&#160;high level&#160;if&#160;the&#160;transceiver&#160;is&#160;in&#160;SLEEP&#160;<br/>mode&#160;(see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#2">&#160;[6],</a>&#160;Fig 7)&#160;e.g.&#160;the&#160;pin is&#160;connected&#160;to&#160;a pull-up&#160;reference.&#160;The&#160;wake-up&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+31&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=32></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-32_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-32_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-32_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-32_4.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+source has&#160;to be&#160;deactivated&#160;to avoid interrupts&#160;during normal&#160;communication.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>The&#160;LIN&#160;transceiver TJA1020&#160;in&#160;sleep&#160;mode&#160;triggers the&#160;inhibit&#160;pin&#160;only&#160;once&#160;in&#160;<br/>
+&#160;&#160;case&#160;of&#160;a&#160;valid&#160;wakeup&#160;event&#160;(see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#2">&#160;[6],&#160;</a>Table&#160;1).&#160;So&#160;it&#160;is&#160;not&#160;necessary&#160;to&#160;<br/>
+enable/disable&#160;the&#160;ICU&#160;notification&#160;function.&#160;But&#160;the&#160;voltage&#160;is also&#160;floating&#160;if&#160;the&#160;<br/>transceiver is in&#160;SLEEP&#160;mode&#160;(see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#2">&#160;[6],&#160;</a>Fig&#160;7).&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+Figure&#160;2-13&#160;&#160;Selection&#160;of&#160;the&#160;desired&#160;interrupt&#160;service&#160;for&#160;the&#160;LIN&#160;transceiver&#160;wake-up&#160;<br/>
+Select&#160;ISR&#160;for the&#160;<b>Wakeup Support</b>.&#160;<br/>
+&#160;<br/>
+Figure&#160;2-14&#160;&#160;Activation&#160;of&#160;the&#160;LIN&#160;transceiver&#160;wakeup&#160;and&#160;configuration&#160;of&#160;the&#160;wake-up&#160;source&#160;<br/>
+Enable&#160;the&#160;feature&#160;<b>Wakeup by&#160;Transceiver</b>&#160;in&#160;the&#160;channel view&#160;of&#160;the&#160;LINTRCV.&#160;<br/>
+Enter&#160;the&#160;<b>Wakeup&#160;Source&#160;By&#160;Bus</b>&#160;in&#160;the&#160;channel&#160;view&#160;of&#160;the&#160;LINTRCV.&#160;The&#160;value&#160;has&#160;to&#160;<br/>match&#160;&#160;to&#160;&#160;the&#160;&#160;<b>Wakeup&#160;&#160;Source&#160;&#160;ID</b>&#160;&#160;in&#160;&#160;the&#160;&#160;ECUM&#160;&#160;(cp.&#160;&#160;Chapte<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">r&#160;&#160;2.1).</a>&#160;&#160;Enter&#160;&#160;0&#160;&#160;(zero)&#160;&#160;if&#160;&#160;the&#160;<br/>channel should&#160;not&#160;be&#160;woken&#160;up&#160;by&#160;the&#160;transceiver.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+32&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=33></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-33_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-33_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-33_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-33_4.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+The&#160;&#160;ICU&#160;&#160;triggers&#160;&#160;the&#160;&#160;notification&#160;&#160;function.&#160;&#160;This&#160;&#160;informs&#160;&#160;the&#160;&#160;ECUM&#160;&#160;about&#160;&#160;the&#160;&#160;wake-up&#160;<br/>interrupt&#160;by&#160;calling&#160;EcuM_CheckWakeup&#160;with&#160;all&#160;according&#160;wake-up&#160;sources&#160;as&#160;parameter.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;Icu_LinTrcvWakeUpNotification_0(void)&#160;<br/>
+&#160;&#160;{&#160;&#160;<br/>
+&#160;&#160;/* inform the EcuM about the wakeup event, the parameter is the&#160;<br/>configured transceiver wakeup source */&#160;<br/>&#160;&#160;EcuM_CheckWakeup(ECUM_WKSOURCE_LIN0);&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+The&#160;&#160;EcuM&#160;&#160;does&#160;&#160;not&#160;&#160;know&#160;&#160;if&#160;&#160;the&#160;&#160;function&#160;&#160;EcuM_CheckWakeup&#160;&#160;has&#160;&#160;been&#160;&#160;called&#160;&#160;by&#160;&#160;the&#160;<br/>wakeup&#160;&#160;source&#160;&#160;itself.&#160;&#160;Therefore,&#160;&#160;the&#160;&#160;EcuM_CheckWakeup&#160;&#160;has&#160;&#160;to&#160;&#160;ask&#160;&#160;the&#160;&#160;driver&#160;&#160;of&#160;&#160;the&#160;<br/>wakeup&#160;&#160;source&#160;&#160;if&#160;&#160;it&#160;&#160;was&#160;&#160;responsible&#160;&#160;for&#160;&#160;that&#160;&#160;wakeup.&#160;&#160;Add&#160;&#160;the&#160;&#160;LinIf_Cbk_CheckWakeup&#160;<br/>callback&#160;function&#160;of&#160;the&#160;LIN bus with&#160;the&#160;according&#160;wake-up&#160;source&#160;as parameter.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;EcuM_CheckWakeup(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;if&#160;((wakeupSource &amp; ECUM_WKSOURCE_LIN0) != 0)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;/* ask the driver of the&#160;wakeup source if it was responsible for&#160;<br/>the wakeup */&#160;<br/>&#160; &#160;&#160;LinIf_Cbk_CheckWakeup(ECUM_WKSOURCE_LIN0);&#160;<br/>&#160;&#160;}&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+The&#160;bus&#160;will&#160;be&#160;woken&#160;up&#160;by&#160;a&#160;special&#160;signal&#160;pattern&#160;so&#160;it&#160;is&#160;improbable&#160;that&#160;the&#160;bus&#160;has&#160;<br/>been&#160;&#160;woken&#160;&#160;up&#160;&#160;by&#160;&#160;an&#160;&#160;EMC&#160;&#160;disturbance.&#160;&#160;From&#160;&#160;there&#160;&#160;no&#160;&#160;wakeup&#160;&#160;validation&#160;&#160;is&#160;&#160;necessary&#160;<br/>and&#160;the&#160;<b>Validation Timeout</b>&#160;in&#160;the&#160;ECUM&#160;configuration&#160;in<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">&#160;Figure&#160;2-1&#160;</a>has to&#160;be&#160;zero.&#160;<br/>
+<b>2.4.2&#160;</b><br/>
+<b>LIN Wake-up by&#160;Controller&#160;</b><br/>
+&#160;<br/>
+Figure&#160;2-15&#160;&#160;Selection&#160;of&#160;the&#160;desired&#160;interrupt&#160;service&#160;of&#160;the&#160;LIN&#160;controller&#160;<br/>
+<b>&gt;&#160;&#160;</b>Choose&#160;the&#160;needed&#160;<b>Type&#160;of&#160;Interrupt&#160;Function</b>.&#160;&#160;<br/>
+<b>&gt;&#160;&#160;</b>Category&#160;1:&#160;Interrupt&#160;function&#160;has&#160;to&#160;be&#160;added&#160;to&#160;the&#160;interrupt&#160;vector table.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+33&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=34></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-34_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-34_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>&gt;&#160;&#160;</b>Category&#160;2:&#160;Interrupt&#160;function&#160;is defined&#160;with&#160;ISR() define.&#160;<br/>
+<b>&gt;&#160;&#160;</b>void&#160;Func(void): Interrupt&#160;function&#160;is&#160;defined&#160;as void&#160;Func(void) function.&#160;<br/>
+Choose&#160;the&#160;related&#160;interrupt&#160;service&#160;function&#160;for&#160;the&#160;LIN&#160;controller.&#160;This&#160;function&#160;has&#160;to&#160;be&#160;<br/>called&#160;by&#160;the&#160;interrupt&#160;dispatcher&#160;after&#160;identifying&#160;the&#160;interrupt&#160;source&#160;which&#160;belongs&#160;to&#160;the&#160;<br/>LIN controller.&#160;<br/>ISR( LinIsr_0 ){&#160;&#160;<br/>
+Lin_Interrupt(0);&#160;&#160;<br/>
+}&#160;<br/>
+The&#160;&#160;LIN&#160;&#160;driver&#160;&#160;will&#160;&#160;detect&#160;&#160;an&#160;&#160;interrupt&#160;&#160;in&#160;&#160;the&#160;&#160;Lin_Interrupt&#160;&#160;function&#160;&#160;and&#160;&#160;triggers&#160;&#160;the&#160;<br/>EcuM_CheckWakeup&#160;with&#160;the&#160;according&#160;wake-up&#160;source&#160;ID&#160;of&#160;the&#160;controller as&#160;parameter.&#160;<br/>
+&#160;<br/>
+Figure&#160;2-16&#160;&#160;Activation&#160;of&#160;the&#160;LIN&#160;controller&#160;wake-up&#160;support&#160;and&#160;configuration&#160;wake-up&#160;source&#160;<br/>
+Enable&#160;the&#160;feature&#160;<b>Wakeup support</b>&#160;in&#160;the&#160;channel view&#160;of&#160;the&#160;LIN&#160;driver.&#160;<br/>
+Enter the&#160;<b>Wakeup&#160;Source</b>&#160;in&#160;the&#160;channel&#160;view&#160;of&#160;the&#160;LIN&#160;driver.&#160;The&#160;value&#160;has&#160;to&#160;match&#160;to&#160;<br/>the&#160;&#160;<b>Wakeup&#160;&#160;Source&#160;&#160;ID</b>&#160;&#160;in&#160;&#160;the&#160;&#160;ECUM&#160;&#160;(cp.&#160;&#160;Chapter&#160;&#160;<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">2.1).&#160;&#160;</a>Enter&#160;&#160;0&#160;&#160;(zero)&#160;&#160;if&#160;&#160;the&#160;&#160;channel&#160;<br/>should&#160;not&#160;be&#160;woken&#160;up&#160;by&#160;the&#160;transceiver.&#160;<br/>The&#160;bus&#160;will&#160;be&#160;woken&#160;up&#160;by&#160;a&#160;special&#160;signal&#160;pattern&#160;so&#160;it&#160;is&#160;improbable&#160;that&#160;the&#160;bus&#160;has&#160;<br/>been&#160;woken&#160;&#160;up&#160;by&#160;an&#160;EMC&#160;disturbance.&#160;&#160;From&#160;there&#160;&#160;no&#160;wake-up&#160;validation&#160;is&#160;necessary&#160;<br/>and&#160;the&#160;<b>Validation Timeout</b>&#160;in&#160;the&#160;ECUM&#160;configuration&#160;in<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">&#160;Figure&#160;2-1&#160;</a>has to&#160;be&#160;zero.&#160;<br/>
+<b>2.5&#160;</b><br/>
+<b>FlexRay&#160;</b><br/>
+<b>2.5.1&#160;</b><br/>
+<b>FlexRay&#160;Wake-up by&#160;Transceiver Interrupt&#160;</b><br/>
+For&#160;&#160;FlexRay&#160;&#160;a&#160;&#160;wake-up&#160;&#160;is&#160;&#160;only&#160;&#160;possible&#160;&#160;via&#160;&#160;the&#160;&#160;FlexRay&#160;&#160;transceivers.&#160;&#160;There&#160;&#160;are&#160;&#160;two&#160;<br/>transceivers&#160;&#160;for&#160;&#160;the&#160;&#160;two&#160;&#160;different&#160;&#160;channels&#160;&#160;in&#160;&#160;a&#160;&#160;FlexRay&#160;&#160;cluster.&#160;&#160;They&#160;&#160;are&#160;&#160;treated&#160;&#160;as&#160;<br/>belonging&#160;&#160;to&#160;&#160;one&#160;&#160;network&#160;&#160;and&#160;&#160;thus,&#160;&#160;there&#160;&#160;should&#160;&#160;be&#160;&#160;only&#160;&#160;one&#160;&#160;wake-up&#160;&#160;source&#160;&#160;identifier&#160;<br/>configured&#160;&#160;for&#160;&#160;both&#160;&#160;channels.&#160;&#160;The&#160;&#160;wake-up&#160;&#160;information&#160;&#160;is&#160;&#160;generated&#160;&#160;via&#160;&#160;the&#160;&#160;ICU&#160;&#160;driver&#160;<br/>(see&#160;chapte<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#20">r&#160;&#160;2.2)&#160;</a>by&#160;using&#160;an&#160;additional&#160;μC&#160;I/O&#160;&#160;port&#160;which&#160;&#160;is&#160;connected&#160;to&#160;the&#160;pin&#160;of&#160;the&#160;<br/>transceiver which&#160;indicates the&#160;wake-up.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+34&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=35></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-35_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-35_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-35_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-35_4.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-35_5.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>If&#160;&#160;TJA1080A&#160;&#160;FlexRay&#160;&#160;transceiver&#160;&#160;is&#160;&#160;used&#160;&#160;connect&#160;&#160;the&#160;&#160;RXEN&#160;&#160;port&#160;&#160;of&#160;&#160;the&#160;<br/>
+&#160;&#160;transceiver&#160;with&#160;the&#160;µC&#160;I/O&#160;port.&#160;If&#160;the&#160;bus&#160;is&#160;idle&#160;the&#160;pin&#160;RXEN&#160;is&#160;switched&#160;to&#160;<br/>
+HIGH&#160;&#160;and&#160;&#160;if&#160;&#160;activity&#160;&#160;is&#160;&#160;detected&#160;on&#160;&#160;the&#160;&#160;bus&#160;&#160;lines&#160;&#160;the&#160;pin&#160;&#160;RXEN&#160;&#160;is&#160;&#160;switched&#160;&#160;to&#160;<br/>LOW&#160;(see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#2">&#160;[7],&#160;</a>Table&#160;9).&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>In&#160;&#160;dependency&#160;&#160;of&#160;&#160;the&#160;&#160;provided&#160;&#160;ICU&#160;&#160;configuration&#160;&#160;options&#160;&#160;it&#160;&#160;is&#160;&#160;possible&#160;&#160;to&#160;<br/>
+&#160;&#160;configure&#160;&#160;the&#160;&#160;<b>IcuDefaultStartEdge</b>.&#160;&#160;This&#160;&#160;option&#160;&#160;should&#160;&#160;be&#160;&#160;configured&#160;&#160;to&#160;<br/>
+ICU_FALLING_EDGE,&#160;because&#160;the&#160;wake-up&#160;event&#160;is provided&#160;by&#160;the&#160;RXEN&#160;pin&#160;<br/>via&#160;a&#160;level change&#160;from&#160;recessive&#160;to&#160;dominant.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+Figure&#160;2-17&#160;&#160;Selection&#160;of&#160;the&#160;FlexRay&#160;wakeup&#160;processing&#160;type&#160;interrupt&#160;and&#160;configuration&#160;of&#160;the&#160;wake-up&#160;source&#160;<br/>
+Select&#160;FRTRCV_WAKEUP_INTERRUPT&#160;for&#160;the&#160;<b>Transceiver Wakeup Detection</b>.&#160;<br/>Enter&#160;the&#160;according&#160;wake-up&#160;source&#160;ID&#160;of&#160;the&#160;ECUM&#160;in&#160;<b>Transceiver&#160;WakeupSourceRef</b>&#160;<br/>(cp.&#160;Chapte<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">r&#160;2.1).</a>&#160;<br/>The&#160;&#160;ICU&#160;&#160;triggers&#160;&#160;the&#160;&#160;notification&#160;&#160;function.&#160;&#160;This&#160;&#160;informs&#160;&#160;the&#160;&#160;ECUM&#160;&#160;about&#160;&#160;the&#160;&#160;wake-up&#160;<br/>interrupt&#160;by&#160;calling&#160;EcuM_CheckWakeup&#160;with&#160;all&#160;according&#160;wake-up&#160;sources&#160;as&#160;parameter.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;Icu_FrTrcvWakeUpNotification_0(void)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+35&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=36></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-36_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-36_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-36_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-36_4.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;&#160;/* inform the EcuM about the wakeup event, the parameter is the&#160;<br/>configured transceiver&#160;wakeup source */&#160;<br/>&#160;&#160;EcuM_CheckWakeup(ECUM_WKSOURCE_FR);&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+The&#160;&#160;EcuM&#160;&#160;does&#160;&#160;not&#160;&#160;know&#160;&#160;if&#160;&#160;the&#160;&#160;function&#160;&#160;EcuM_CheckWakeup&#160;&#160;has&#160;&#160;been&#160;&#160;called&#160;&#160;by&#160;&#160;the&#160;<br/>wakeup&#160;&#160;source&#160;&#160;itself.&#160;&#160;Therefore,&#160;&#160;the&#160;&#160;EcuM_CheckWakeup&#160;&#160;has&#160;&#160;to&#160;&#160;ask&#160;&#160;the&#160;&#160;driver&#160;&#160;of&#160;&#160;the&#160;<br/>wakeup&#160;<br/>
+source&#160;<br/>
+if&#160;<br/>
+it&#160;<br/>
+was&#160;<br/>
+responsible&#160;<br/>
+for&#160;<br/>
+that&#160;<br/>
+wakeup.&#160;<br/>
+Add&#160;<br/>
+the&#160;<br/>
+FrIf_Cbk_WakeupByTransceiver&#160;&#160;callback&#160;&#160;function&#160;&#160;of&#160;&#160;the&#160;&#160;FlexRay&#160;&#160;bus&#160;&#160;with&#160;&#160;the&#160;&#160;according&#160;<br/>controller index.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;EcuM_CheckWakeup(EcuM_WakeupSourceType wakeupSource)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;if&#160;((wakeupSource &amp;&#160;ECUM_WKSOURCE_FR) != 0)&#160;<br/>&#160;&#160;{&#160;&#160;<br/>&#160; &#160;&#160;/* ask the driver of the wakeup source if it was responsible for&#160;<br/>the wakeup */&#160;<br/>&#160; &#160;&#160;FrIf_Cbk_WakeupByTransceiver(0 /* FrCtrlIdx */, FR_CHANNEL_A );&#160;<br/>&#160; &#160;&#160;FrIf_Cbk_WakeupByTransceiver(0 /* FrCtrlIdx */, FR_CHANNEL_B );&#160;<br/>&#160;&#160;}&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Caution&#160;<br/></b>Note&#160;that&#160;in&#160;EcuM_CheckWakeup&#160;need&#160;to&#160;be&#160;two&#160;separate&#160;calls&#160;to&#160;<br/>
+<b>&#160;&#160;</b>FrIf_Cbk_WakeupByTransceiver,&#160;one&#160;for&#160;each&#160;FlexRay&#160;channel.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+To&#160;&#160;avoid&#160;&#160;the&#160;&#160;setting&#160;&#160;of&#160;&#160;wake-up&#160;&#160;events&#160;&#160;during&#160;&#160;the&#160;&#160;communication&#160;&#160;channel&#160;&#160;is&#160;&#160;in&#160;&#160;normal&#160;<br/>mode,&#160;&#160;it&#160;&#160;is&#160;necessary&#160;&#160;to&#160;&#160;disable&#160;&#160;the&#160;notification&#160;&#160;if&#160;&#160;the&#160;&#160;transceiver&#160;enters&#160;&#160;NORMAL&#160;mode&#160;<br/>and&#160;to&#160;re-enable&#160;the&#160;notification&#160;if&#160;the&#160;transceiver&#160;enters&#160;STANDBY&#160;mode.&#160;The&#160;FRTRCV&#160;<br/>enable&#160;and&#160;disables&#160;the&#160;ICU&#160;notification&#160;function&#160;already.&#160;Check if&#160;code&#160;fit&#160;to&#160;your needs.&#160;<br/>It&#160;&#160;is&#160;&#160;possible&#160;&#160;to&#160;&#160;enable/disable&#160;&#160;the&#160;transceiver&#160;&#160;interrupt&#160;&#160;depending&#160;&#160;which&#160;&#160;state&#160;&#160;has&#160;&#160;been&#160;<br/>entered.&#160;This&#160;functionality&#160;can&#160;be&#160;enabled&#160;by&#160;defining&#160;the&#160;following&#160;parameter:&#160;<br/>#define FRTRCV_WUPINT_CBK STD_ON&#160;<br/>
+This&#160;&#160;switch&#160;&#160;can&#160;&#160;be&#160;&#160;defined&#160;&#160;in&#160;&#160;a&#160;&#160;user&#160;&#160;config&#160;&#160;file.&#160;&#160;When&#160;&#160;this&#160;&#160;feature&#160;&#160;is&#160;&#160;enabled&#160;&#160;the&#160;<br/>Icu_DisableNotification&#160;and&#160;Icu_EnableNotification&#160;will&#160;be&#160;called.&#160;Whether&#160;the&#160;transceiver&#160;<br/>interrupt&#160;&#160;will&#160;&#160;be&#160;&#160;enabled&#160;&#160;or&#160;&#160;disabled&#160;&#160;can&#160;&#160;be&#160;&#160;configured&#160;&#160;via&#160;&#160;the&#160;&#160;trcvIcuFctPtr&#160;&#160;option&#160;&#160;in&#160;<br/>FrTrcvPhy.c.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>/* Modes are { Unknown, Normal, Standby, Sleep, Receiveonly } */&#160;&#160;<br/>
+&#160;&#160;STATIC CONST(trcvIcuFctPtrType, FRTRCV_CONST) trcvIcuFctPtr[] =&#160;<br/>
+{ Icu_DisableNotification,&#160;&#160;<br/>&#160;&#160;Icu_DisableNotification,&#160;&#160;<br/>&#160;&#160;Icu_EnableNotification,&#160;&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+36&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=37></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-37_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-37_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-37_3.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;&#160;Icu_EnableNotification,&#160;&#160;<br/>&#160;&#160;Icu_DisableNotification };&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+Enter&#160;&#160;the&#160;&#160;ICU&#160;&#160;channel&#160;&#160;name&#160;&#160;(Icu_FlexRay_WakeUp)&#160;&#160;in&#160;&#160;the&#160;&#160;array&#160;&#160;FrTrcvChannel&#160;<br/>FrTrcvPhy.c(line&#160;78)&#160;or&#160;use&#160;the&#160;default&#160;name&#160;of&#160;the&#160;FrTrcv&#160;FRTRCV_CHANNEL_INT_0&#160;as&#160;<br/>name&#160;for the&#160;ICU&#160;channel (cp<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#21">.&#160;<b>Figure&#160;2-4</b>).</a>&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>STATIC CONST( FrTrcvChannelType, FRTRCV_CONST ) FrTrcvChannel[] =&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;{&#160;/* I/O used for Transceiver 1 */&#160;<br/>&#160; &#160;&#160;(Dio_ChannelType)FRTRCV_CHANNEL_EN_0,&#160;<br/>&#160; &#160;&#160;(Dio_ChannelType)FRTRCV_CHANNEL_STBN_0,&#160;<br/>&#160; &#160;&#160;(Dio_ChannelType)FRTRCV_CHANNEL_ERRN_0,&#160;<br/>#if&#160;( FRTRCV_WUPINT_CBK == STD_ON )&#160;<br/>&#160; &#160;&#160;(Icu_ChannelType)&#160;<b>Icu_FlexRay_WakeUp</b>&#160;<br/>#endif&#160;<br/>&#160;&#160;},&#160;<br/>&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>The&#160;(de)activation&#160;of&#160;the&#160;transceiver&#160;wake-up&#160;is done&#160;by&#160;the&#160;FlexRay&#160;state&#160;<br/>
+&#160;&#160;manager via&#160;FrIf_DisableTransceiverWakeup&#160;and&#160;<br/>
+FrIf_EnableTransceiverWakeup.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+The&#160;&#160;bus&#160;&#160;will&#160;&#160;be&#160;&#160;wakened&#160;by&#160;&#160;a&#160;&#160;special&#160;&#160;signal&#160;&#160;pattern&#160;&#160;so&#160;&#160;it’s&#160;&#160;improbable&#160;&#160;that&#160;&#160;the&#160;bus&#160;&#160;has&#160;<br/>been&#160;woken&#160;up&#160;by&#160;an&#160;EMC&#160;disturbance.&#160;&#160;From&#160;there&#160;&#160;no&#160;wake-up&#160;validation&#160;is&#160;necessary&#160;<br/>and&#160;the&#160;<b>Validation Timeout</b>&#160;in&#160;the&#160;ECUM&#160;configuration&#160;in<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">&#160;Figure&#160;2-1&#160;</a>has to&#160;be&#160;zero.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+37&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=38></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-38_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-38_2.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>2.5.2&#160;</b><br/>
+<b>FlexRay&#160;Wake-up by&#160;Polling the&#160;Transceiver&#160;</b><br/>
+&#160;<br/>
+Figure&#160;2-18&#160;&#160;Selection&#160;of&#160;the&#160;FlexRay&#160;wake-up&#160;processing&#160;type&#160;polling&#160;and&#160;configuration&#160;of&#160;the&#160;wake-up&#160;source&#160;<br/>
+Select&#160;FRTRCV_WAKEUP_POLLING&#160;for the&#160;<b>Transceiver Wakeup&#160;Detection</b>.&#160;<br/>Enter&#160;the&#160;according&#160;wakeup&#160;source&#160;&#160;ID&#160;of&#160;the&#160;ECUM&#160;in&#160;&#160;<b>Transceiver&#160;&#160;WakeupSourceRef</b>&#160;<br/>(cp.&#160;Chapte<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">r&#160;2.1).</a>&#160;<br/>Main&#160;&#160;function&#160;&#160;of&#160;&#160;the&#160;&#160;transceiver&#160;&#160;driver&#160;&#160;polls&#160;&#160;the&#160;&#160;respective&#160;&#160;transceiver&#160;&#160;for&#160;&#160;any&#160;&#160;wake-up&#160;<br/>events.&#160;In&#160;case&#160;a&#160;wake-up&#160;is&#160;detected&#160;and&#160;notifications&#160;are&#160;allowed&#160;the&#160;ECUM&#160;is&#160;notified&#160;<br/>via&#160;EcuM_SetWakeupEvent.&#160;<br/>The&#160;bus&#160;will&#160;be&#160;woken&#160;up&#160;by&#160;a&#160;special&#160;signal&#160;pattern&#160;so&#160;it&#160;is&#160;improbable&#160;that&#160;the&#160;bus&#160;has&#160;<br/>been&#160;woken&#160;up&#160;by&#160;an&#160;EMC&#160;disturbance.&#160;&#160;From&#160;there&#160;&#160;no&#160;wake-up&#160;validation&#160;is&#160;necessary&#160;<br/>and&#160;the&#160;<b>Validation Timeout</b>&#160;in&#160;the&#160;ECUM&#160;configuration&#160;in<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">&#160;Figure&#160;2-1&#160;</a>has to&#160;be&#160;zero.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+38&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=39></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-39_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-39_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-39_3.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>3&#160;&#160;Special&#160;Use&#160;Cases&#160;</b><br/>
+<b>3.1&#160;</b><br/>
+<b>Multiple&#160;Wake-up Sources&#160;Share&#160;one&#160;µC&#160;I/O&#160;Port&#160;</b><br/>
+For&#160;&#160;shared&#160;&#160;interrupts&#160;&#160;the&#160;&#160;ECU&#160;&#160;firmware&#160;&#160;may&#160;&#160;have&#160;&#160;to&#160;&#160;check&#160;&#160;multiple&#160;&#160;wake-up&#160;&#160;sources&#160;<br/>within&#160;&#160;EcuM_CheckWakeup.&#160;&#160;The&#160;&#160;ICU&#160;&#160;has&#160;&#160;to&#160;&#160;pass&#160;&#160;the&#160;&#160;identifiers&#160;&#160;of&#160;&#160;all&#160;&#160;wake-up&#160;&#160;sources&#160;<br/>that&#160;may&#160;have&#160;caused&#160;this interrupt&#160;to&#160;EcuM_CheckWakeup.&#160;<br/>Configure&#160;&#160;the&#160;&#160;ICU&#160;&#160;as&#160;&#160;described&#160;&#160;in&#160;&#160;chapter&#160;&#160;<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#20">2.2.&#160;&#160;</a>As&#160;&#160;<b>Signal&#160;&#160;Notification</b>&#160;&#160;function&#160;&#160;is&#160;<br/>Icu_Notification_0&#160;used.&#160;<br/>The&#160;&#160;ICU&#160;&#160;triggers&#160;&#160;the&#160;&#160;notification&#160;&#160;function&#160;&#160;if&#160;&#160;any&#160;&#160;of&#160;&#160;the&#160;&#160;wake-up&#160;&#160;sources&#160;&#160;causes&#160;&#160;an&#160;<br/>interrupt.&#160;&#160;Call&#160;&#160;the&#160;&#160;EcuM_CheckWakeup&#160;&#160;once&#160;&#160;with&#160;&#160;all&#160;&#160;the&#160;&#160;wake-up&#160;&#160;sources&#160;&#160;which&#160;&#160;are&#160;<br/>connected&#160;&#160;to&#160;&#160;the&#160;&#160;I/O&#160;&#160;port&#160;&#160;as&#160;&#160;parameter.&#160;&#160;EcuM_WakeupSourceType&#160;&#160;contains&#160;&#160;one&#160;&#160;bit&#160;&#160;for&#160;<br/>each&#160;&#160;wake-up&#160;&#160;source,&#160;&#160;so&#160;&#160;that&#160;&#160;multiple&#160;&#160;wake-up&#160;&#160;sources&#160;&#160;can&#160;&#160;be&#160;&#160;passed&#160;&#160;in&#160;&#160;one&#160;&#160;call.&#160;The&#160;<br/>EcuM&#160;&#160;will&#160;&#160;check&#160;&#160;each&#160;&#160;network&#160;&#160;which&#160;&#160;corresponds&#160;&#160;to&#160;&#160;a&#160;&#160;wake-up&#160;&#160;source&#160;&#160;if&#160;&#160;it&#160;&#160;was&#160;<br/>responsible&#160;&#160;for&#160;&#160;that&#160;&#160;wake-up.&#160;&#160;If&#160;&#160;the&#160;&#160;channel&#160;&#160;reports&#160;&#160;a&#160;&#160;positiv&#160;&#160;answer&#160;&#160;via&#160;<br/>EcuM_SetWakeupEvent&#160;the&#160;ECUM&#160;trigger the&#160;COMM&#160;to&#160;start the&#160;network.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;Icu_Notification_0 (void)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;/* inform the EcuM about the wake up event, the parameter are the&#160;<br/>configured wake up source<b>s</b>&#160;*/&#160;<br/>&#160;&#160;EcuM_CheckWakeup(ECUM_WKSOURCE_CAN0 || ECUM_WKSOURCE_CAN1 ||&#160;<br/>ECUM_WKSOURCE_FR);&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>3.2&#160;</b><br/>
+<b>CAN Wake-up Without Validation&#160;</b><br/>
+Set&#160;the&#160;<b>Validation Timeout</b>&#160;to&#160;zero in&#160;the&#160;ECUM&#160;configuration&#160;(see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">&#160;Figure&#160;2-1).</a>&#160;<br/>Disable&#160;the&#160;validation&#160;in&#160;the&#160;CANIF&#160;configuration&#160;(see<a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">&#160;Figure&#160;2-12).</a>&#160;<br/>Skip&#160;&#160;the&#160;&#160;call&#160;&#160;EcuM_CheckWakeup&#160;&#160;and&#160;&#160;call&#160;&#160;EcuM_SetWakeupEvent&#160;&#160;direct&#160;&#160;and&#160;&#160;so&#160;&#160;the&#160;<br/>ECUM&#160;doesn’t start the&#160;validation&#160;process.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>void&#160;Icu_TrcvWakeUpNotification_0(void)&#160;<br/>
+&#160;&#160;{&#160;<br/>
+&#160;&#160;/* inform&#160;the EcuM about the wakeup event, the parameter is the&#160;<br/>configured transceiver wakeup source */&#160;<br/>&#160;&#160;EcuM_SetWakeupEvent(ECUM_WKSOURCE_CAN0);&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+39&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=40></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-40_1.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>4&#160;&#160;Integration&#160;hints&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;normal&#160;bus communication,&#160;started&#160;with&#160;COMM&#160;mode&#160;request&#160;at&#160;system&#160;<br/>
+initialization&#160;should&#160;work before&#160;you&#160;try&#160;to&#160;start the&#160;communication&#160;via&#160;wake-up.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Check if&#160;the&#160;system&#160;reacts&#160;on&#160;an&#160;incoming&#160;(wake-up) signal and&#160;the&#160;configured&#160;<br/>
+interrupt&#160;function&#160;is called.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Check if&#160;the&#160;interrupts&#160;are enabled&#160;(e.g.&#160;enable&#160;at&#160;start-up&#160;and&#160;skip&#160;disabling).&#160;There&#160;<br/>
+are several ways how&#160;the&#160;communication&#160;is disabled.&#160;All&#160;possible&#160;ways has to&#160;be&#160;<br/>considered&#160;E.g.&#160;&#160;<br/>
+<b>&gt;&#160;&#160;</b>transceiver is set&#160;to&#160;OP_MODE_STANDBY,&#160;<br/>
+<b>&gt;&#160;&#160;</b>transceiver is set&#160;to&#160;OP_MODE_ SLEEP&#160;or&#160;<br/>
+<b>&gt;&#160;&#160;</b>ECUM&#160;switches to&#160;state&#160;SLEEP.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Check if&#160;the&#160;wake-up&#160;source&#160;is the&#160;correct&#160;one.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+40&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=41></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-41_1.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>5&#160;&#160;Glossary&#160;and&#160;Abbreviations&#160;</b><br/>
+<b>5.1&#160;</b><br/>
+<b>Glossary&#160;</b><br/>
+<b>Term&#160;</b><br/>
+<b>Description&#160;</b><br/>
+MICROSAR&#160;<br/>
+Generation&#160;tool&#160;for&#160;MICROSAR&#160;components&#160;<br/>
+Configurator&#160;Pro&#160;<br/>GENy&#160;<br/>
+Generation&#160;tool&#160;for&#160;CANbedded&#160;and MICROSAR&#160;components&#160;<br/>
+TJA1041&#160;<br/>
+A&#160;CAN&#160;transceiver&#160;<br/>
+TJA1080A&#160;<br/>
+A&#160;FlexRay&#160;transceiver&#160;<br/>
+TJA1020&#160;<br/>
+A&#160;LIN&#160;transceiver&#160;<br/>
+Table&#160;5-1&#160;&#160;&#160;Glossary&#160;<br/>
+<b>5.2&#160;</b><br/>
+<b>Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+µC&#160;<br/>
+micro-controller&#160;<br/>
+ASR&#160;<br/>
+AUTOSAR&#160;<br/>
+AUTOSAR&#160;<br/>
+Automotive Open System&#160;Architecture&#160;<br/>
+CAN&#160;<br/>
+Controller&#160;Area&#160;Network&#160;<br/>
+ComM&#160;<br/>
+Communication&#160;Manager&#160;<br/>
+Ctrl&#160;<br/>
+Controller&#160;<br/>
+ECU&#160;<br/>
+Electronic&#160;Control&#160;Unit&#160;<br/>
+EcuM&#160;<br/>
+ECU&#160;State&#160;Manager&#160;<br/>
+ERRN&#160;<br/>
+Error&#160;<br/>
+FR&#160;<br/>
+FlexRay&#160;<br/>
+GPT&#160;<br/>
+General&#160;Purpose&#160;Timer&#160;<br/>
+ICU&#160;<br/>
+Input&#160;Capture&#160;Unit&#160;<br/>
+I/O&#160;<br/>
+input&#160;/&#160;output&#160;<br/>
+ISR&#160;<br/>
+Interrupt&#160;Service Routine&#160;<br/>
+LIN&#160;<br/>
+Local&#160;Interconnect&#160;Network&#160;<br/>
+Nm&#160;<br/>
+MICROSAR&#160;Network&#160;Management&#160;Interface&#160;<br/>
+Rx&#160;<br/>
+Receive&#160;<br/>
+SchM&#160;<br/>
+BSW&#160;Scheduler&#160;Module&#160;<br/>
+Trcv&#160;<br/>
+Transceiver&#160;<br/>
+Tx&#160;<br/>
+Transmission&#160;<br/>
+Table&#160;5-2&#160;&#160;&#160;Abbreviations&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+41&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name=42></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_WakeUp_and_Sleep_with_AUTOSAR-42_1.png"/><br/>
+Technical Reference&#160;Wake-up&#160;and&#160;Sleep&#160;with&#160;AUTOSAR&#160;&#160;&#160;<br/>
+&#160;<br/>
+<b>6&#160;&#160;Contact&#160;</b><br/>
+Visit&#160;our website&#160;for&#160;more&#160;information&#160;on&#160;<br/>&#160;<br/>&gt;&#160; &#160;News&#160;<br/>&gt;&#160; &#160;Products&#160;<br/>&gt;&#160; &#160;Demo&#160;software&#160;<br/>&gt;&#160; &#160;Support&#160;<br/>&gt;&#160; &#160;Training&#160;data&#160;<br/>&gt;&#160; &#160;Addresses&#160;<br/>&#160;<br/><b>www.vector-informatik.com&#160;</b><br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.00.05&#160;<br/>
+42&#160;/&#160;42&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.2&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#6">1 Introduction</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#6">1.1 Procedure</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2 Use Cases</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.1 Bus wake-up by internal run request</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.2 Wake-up by timer interrupt</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.3 Wake-up by µC I/O port</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.4 Wake-up by CAN transceiver</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.5 Wake-up by CAN controller</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.6 Wake-up by LIN transceiver</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.7 Wake-up by LIN controller:</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#7">1.2.8 Wake-up by FlexRay transceiver interrupt:</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">1.2.9 Wake-up by FlexRay polling mode:</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">1.3 Wake Up Detection at ECU Start-Up</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">1.3.1 Functional Description</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#8">1.3.1.1 Transceivers Supporting Partial Networking</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">1.3.2 Configuration</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">1.3.2.1 CAN Driver Configuration</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">1.3.2.2 Transceiver Driver Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#10">1.4 Wake-up Process</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#11">1.4.1 Synchronous and Asynchronous Wake-Up Concept</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#14">1.4.2 Configuring Synchronous and Asynchronous Wake-Up</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">2 Wake-up Event</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#16">2.1 ECUM Configuration</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#20">2.2 ICU Interrupt (µC I/O port)</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#22">2.3 CAN</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#22">2.3.1 General</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#22">2.3.2 CAN Wake-up by Transceiver</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#25">2.3.3 CAN Wake-up by Controller</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#27">2.3.4 CAN Wakeup by Polling the CAN Driver</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#28">2.3.5 CAN Wake-up Validation</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#31">2.4 LIN</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#31">2.4.1 LIN Wake-up by Transceiver</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#33">2.4.2 LIN Wake-up by Controller</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#34">2.5 FlexRay</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#34">2.5.1 FlexRay Wake-up by Transceiver Interrupt</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#38">2.5.2 FlexRay Wake-up by Polling the Transceiver</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#39">3 Special Use Cases</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#39">3.1 Multiple Wake-up Sources Share one µC I/O Port</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#39">3.2 CAN Wake-up Without Validation</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#40">4 Integration hints</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41">5 Glossary and Abbreviations</a>
+<ul>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41">5.1 Glossary</a></li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#41">5.2 Abbreviations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_WakeUp_and_Sleep_with_AUTOSARs.html#42">6 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

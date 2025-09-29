@@ -1,0 +1,469 @@
+---
+title: MotorVelocity2_MDD
+linkTitle: MotorVelocity2_MDD
+weight: 5
+---
+
+<h1 class="unnumbered" id="module----motor-velocity">Module -- Motor Velocity</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>This diagram shows all data that is shared between functions within the module.</p>
+<p>No Shared Data</p>
+<h3 id="diagram-mtrvel">Diagram – MtrVel</h3>
+<p>This diagram describes the functional characteristics and data flow of a given function.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:4.69861in;height:2.63542in" /></p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Module Inputs (Global Variable Name)</td>
+<td>Module Outputs (Global Variable Name)</td>
+</tr>
+<tr class="even">
+<td>AsstAssemblyPolarity _Cnt_s08</td>
+<td>SysCDiagMtrVelMRF_MtrRadpS_f32</td>
+</tr>
+<tr class="odd">
+<td>HandwheelVel_HwRadpS_f32</td>
+<td>SysCDiagHwVel_HwRadpS_f32</td>
+</tr>
+<tr class="even">
+<td>MotorVelMRF_MtrRadpS_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CumMechMtrPosMRF_Deg_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MechMtrPos1Timestamp_USec_u32</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Variable Name</td>
+<td>Resolution</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>MtrVel2_SysCMtrVelMRF_MtrRadpS_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-1350</td>
+<td>1350</td>
+<td>MTRVEL2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>MtrVel2_SysCHwVelCRF_HwRadpS_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-42</td>
+<td>42</td>
+<td>MTRVEL2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>MtrVel2_SysCMtrVelDiffAcc_Cnt_M_u16</td>
+<td>1</td>
+<td>0</td>
+<td>255</td>
+<td>MTRVEL2_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>MtrVel2_SysCHwVelDiffAcc_Cnt_M_u16</td>
+<td>1</td>
+<td>0</td>
+<td>255</td>
+<td>MTRVEL2_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td><strong>MtrVel2_PrevSysCDiagCumMtrPos_Rad_M_f32</strong></td>
+<td>Single Precision Floating Point</td>
+<td>-6.283185307164</td>
+<td>6.283185307164</td>
+<td>MTRVEL2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>MtrVel2_SysCMtrVelCorrLimDiff_MtrRadpS_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>0</td>
+<td>2700</td>
+<td>MTRVEL2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>MtrVel2_SysCHwVelCorrLimDiff_HwRadpS_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>0</td>
+<td>2700</td>
+<td>MTRVEL2_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<p>* Note: These ranges are based on the range of the normalized sine and cosine global inputs, which in turn are based on the maximum amount of signal variation that can be caused by temperature changes on the MSB signals.</p>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 31%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Typedef Name</td>
+<td>Element Name</td>
+<td>User Defined Type</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+</tr>
+<tr class="even">
+<td><p>(Name given for the user defined typdef of type struct/union)</p>
+<p>(Variable name qualified similar to all other variables)</p></td>
+<td>(Variable name qualified similar to all other variables)</td>
+<td>as other variables</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>k_GearRatio_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MtrVelCorrLim_Cnt_Str</td>
+</tr>
+<tr class="even">
+<td>k_HwVelCorrLim_Cnt_Str</td>
+</tr>
+<tr class="odd">
+<td>k_MtrVelCorrLim_MtrRadpS_f32</td>
+</tr>
+<tr class="even">
+<td>k_HwVelCorrLim_HwRadpS_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 19%" />
+<col style="width: 35%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>D_MICROSECTOSEC_f32</td>
+<td>Single Precision float</td>
+<td>0.000001</td>
+</tr>
+<tr class="odd">
+<td>D_MAXHANDWHEELVEL_HWRADPS_F32</td>
+<td>Single Precision float</td>
+<td>+42</td>
+</tr>
+<tr class="even">
+<td>D_MINHANDWHEELVEL_HWRADPS_F32</td>
+<td>Single Precision float</td>
+<td>-42</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>D_MSECPERSEC_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td>D_RADPERREV_ULS_F32</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 20%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>Abs_f32_m()</p></li>
+<li><p>LPF_OpUpdate_f32_m ()</p></li>
+<li><p>LPF_KUpdate_f32_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<p>The data hiding functions / macros used in this module are identified below,</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>(Note if they are defined in another source file, then reference the appropriate header file)</p>
+<p>The local functions/macros in this module are identified below,</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-mtrvel2_init1">Init: MtrVel2_Init1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<h4 id="module-internal">Module Internal </h4>
+<p>None</p>
+<h4 id="design">Design </h4>
+<h4 class="unnumbered" id="cummtrposmrf_deg_t_f32-rte_iread_mtrvel2_init_cummechmtrposmrf_deg_f32"> CumMtrPosMRF_Deg_T_f32= Rte_IRead_MtrVel2_Init_CumMechMtrPosMRF_Deg_f32()</h4>
+<h4 class="unnumbered" id="syscdiagcummtrpos_rad_t_f32-cummtrposmrf_deg_t_f32-d_piovr180_uls_f32">SysCDiagCumMtrPos_Rad_T_f32 = (CumMtrPosMRF_Deg_T_f32) * D_PIOVR180_ULS_F32</h4>
+<h4 class="unnumbered" id="mtrvel2_prevsyscdiagcummtrpos_rad_m_f32-syscdiagcummtrpos_rad_t_f32">MtrVel2_PrevSysCDiagCumMtrPos_Rad_M_f32= SysCDiagCumMtrPos_Rad_T_f32</h4>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-mtrvel2_per1">Per: MtrVel2_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_MtrVel2_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>AsstAssemPol_Cnt_T_s8 = Rte_IRead_MtrVel2_Per1_AsstAssemblyPolarity_Cnt_s08();</p>
+<p>MechMtrPosTimeStamp_uSec_T_u32 = Rte_IRead_MtrVel2_Per1_MechMtrPos1Timestamp_USec_u32();</p>
+<p>CumMtrPosMRF_Deg_T_f32 = Rte_IRead_MtrVel2_Per1_CumMechMtrPosMRF_Deg_f32();</p>
+<h4 id="calculate-sysc-motor-velocity">Calculate SysC Motor Velocity</h4>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_IWrite_MtrVel2_Per1_SysCDiagHandwheelVel_HwRadpS_f32 (SysCHwVelCRF_HwRadpS_M_f32)</p>
+<p>Rte_IWrite_MtrVel2_Per1_SysCDiagMtrVelMRF_MtrRadpS_f32(SysCMtrVelRawMRF_MtrRadpS_T_f32)</p>
+<p>MtrVel2_SysCMtrVelMRF_MtrRadpS_M_f32 = SysCMtrVelRawMRF_MtrRadpS_T_f32</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_MtrVel2_Per1_CP1_CheckpointReached()</p>
+<h2 id="periodic-functions-1">Periodic Functions</h2>
+<h3 id="per-mtrvel2_per2">Per: MtrVel2_Per2</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>N/A</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>Rte_Call_MtrVel2_Per2_CP0_CheckpointReached()</p>
+<p>HandwheelVel_HwRadpS_T_f32 = Rte_IRead_MtrVel2_Per2_HandwheelVel_HwRadpS_f32 ()</p>
+<p>MRFMotorVel_MtrRadpS_T_f32 = Rte_IRead_MtrVel2_Per2_MotorVelMRF_MtrRadpS_f32 ()</p>
+<h4 id="calculate-raw-motor-velocity">Calculate Raw Motor Velocity</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.wmf" /></p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>Rte_Call_MtrVel2_Per2_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="local-functionmacro-definitions">Local Function/Macro Definitions</h2>
+<p>None</p>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 21%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Calling Frequency</td>
+<td>System State(s) in which the function is called</td>
+</tr>
+<tr class="even">
+<td>MtrVel2_Init1</td>
+<td>Once</td>
+<td>ALL STATES</td>
+</tr>
+<tr class="odd">
+<td>MtrVel2_Per1</td>
+<td>2ms</td>
+<td>ALL STATES</td>
+</tr>
+<tr class="even">
+<td>MtrVel2_Per2</td>
+<td>2ms</td>
+<td>ALL STATES</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Sub-Module called by (Serial Comm Function Name)</td>
+</tr>
+<tr class="even">
+<td>N/A</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section"><br />
+</h1>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>MtrVel2_Per1</td>
+<td>RTE_START_SEC_SA_MTRVEL2_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>MtrVel2_Per2</td>
+<td>RTE_START_SEC_SA_MTRVEL2_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-functions">Local Functions</h2>
+<p>none</p>
+<h1 class="unnumbered" id="section-1"><br />
+</h1>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial AutoSAR release.</td>
+<td>5- June-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Update the Input and output ports of Motor Velocity</td>
+<td>30-July-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Updated Port interface name to match the FDD</td>
+<td>22-Aug-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>A-5749 fixes ie replacing MtrVel with raw cal values</td>
+<td>06-Oct-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Update Motor Velocity for A7136, A7138, A7385 (Section 6.2.4 , section 6.8.3 flow chart)</td>
+<td>12-Dec-14</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6.0</td>
+<td>Updated as per Unit Test Findings</td>
+<td>29-Dec-14</td>
+<td>KPIT-AB</td>
+</tr>
+</tbody>
+</table>

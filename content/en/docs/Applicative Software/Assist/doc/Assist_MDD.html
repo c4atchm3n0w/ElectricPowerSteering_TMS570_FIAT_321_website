@@ -1,0 +1,620 @@
+---
+title: Assist_MDD
+linkTitle: Assist_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module----assist">Module -- Assist</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>The Assist Function applies an appropriate level of motor torque based on handwheel torque and vehicle speed.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.59514in;height:2.53472in" /></p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 56%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs (Global Variable Name)</th>
+<th>Module Outputs (Global Variable Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HwTrq_HwNm_f32</td>
+<td>BaseAssistCmd_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>HwTrqHysAdd_HwNm_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VehSpd_Kph_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>AssistDDFactor_Uls_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>IpTrqOvr_HwNm_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>WIRCmdAmpBlnd_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DftAsstTbl_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DwnldAsstGain_Uls_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DutyCycleLevel_Uls_f32</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 15%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>WIRBlend_Uls_D_u2p14</td>
+<td>2<sup>-14</sup></td>
+<td>0</td>
+<td>1</td>
+<td>ASSIST_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>ThermalAssistScl_Uls_D_u2p14</td>
+<td>2<sup>-14</sup></td>
+<td>0</td>
+<td>1</td>
+<td>ASSIST_START_SEC_VAR_CLEARED_16</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 31%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>t2_AsstHwtX0_HwNm_u8p8[][]</td>
+</tr>
+<tr class="even">
+<td>t2_AsstHwtX1_HwNm_u8p8[][]</td>
+</tr>
+<tr class="odd">
+<td>t2_AsstAsstY0_MtrNm_s4p11[][]</td>
+</tr>
+<tr class="even">
+<td>t2_AsstAsstY1_MtrNm_s4p11[][]</td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td>t_CmnVehSpd_Kph_u9p7[]</td>
+</tr>
+<tr class="odd">
+<td>t2_AsstWIRBlndX_MtrNm_u5p11[][]</td>
+</tr>
+<tr class="even">
+<td>t2_AsstWIRBlendY_Uls_u2p14[][]</td>
+</tr>
+<tr class="odd">
+<td>t_AsstThermSclX_Cnt_u16p0[]</td>
+</tr>
+<tr class="even">
+<td>t_AsstThermSclY_Uls_u2p14[]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 24%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_WIRBLENDFRAC_ULS_U2P14</td>
+<td>2<sup>-14</sup></td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>D_ASSTTRQLLMT_MTRNM_F32</td>
+<td>Single precision floating point</td>
+<td>-0.1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>BC_ASSIST_FAULTINJECTIONPOINT</strong></td>
+</tr>
+<tr class="even">
+<td><strong>STD_ON</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>FLTINJ_ASSIST</strong></td>
+</tr>
+<tr class="even">
+<td><strong>D_MTRTRQCMDHILMT_MTRNM_F32</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>D_MTRTRQCMDLOLMT_MTRNM_F32</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 20%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>FPM_FloatToFixed_m</p></li>
+<li><p>FPM_FixedToFloat_m</p></li>
+<li><p>Sign_f32_m</p></li>
+<li><p>Abs_f32_m</p></li>
+<li><p>BilinearXMYM_s16_u16XMs16YM_Cnt</p></li>
+<li><p>BilinearXMYM_u16_u16XMu16YM_Cnt</p></li>
+<li><p>IntplVarXY_u16_u16Xu16Y_Cnt</p></li>
+<li><p>TableSize_m</p></li>
+<li><p>Limit_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>None</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HwTrq_HwNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>HwTrqHysAdd_HwNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>VehSpd_Kph_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>AssistDDFactor_Uls_f32</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>IpTrqOvr_HwNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>WIRCmdAmpBlnd_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>DftAsstTbl_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>DwnldAsstGain_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>BaseAssistCmd_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_DutyCycleLevel_Uls_f32</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-assist_per1">Per: Assist_Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_Assist_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p><em>HwTrq_HwNm_T_f32</em> = Rte_IRead_Assist_Per1_HwTrq_HwNm_f32()</p>
+<p><em>VehSpd_Kph_T_u9p7</em> = FPM_FloatToFixed_m((Rte_Iread_Assist_Per1_VehSpd_Kph_f32()), u9p7_T)</p>
+<p><em>HystAdd_HwNm_T_f32</em> =Rte_Iread_Assist_Per1_HysteresisAdd_HwNm_f32()</p>
+<p><em>DutyCycleLevel_Cnt_T_u16p0 =</em> FPM_FloatToFixed_m(Rte_IRead_Assist_Per1_DutyCycleLevel_Uls_f32(), u16p0_T)</p>
+<p><em>AssistDDFactor_Uls_T_f32</em> = Rte_Iread_Assist_Per1_AssistDDFactor_Uls_f32()</p>
+<p><em>IpTrqOvr_HwNm_T_f32</em> = Rte_Iread_Assist_Per1_IpTrqOvr_HwNm_f32()</p>
+<p><em>WIRCmdAmpBlnd_MtrNm_T_u5p11</em> = FPM_FloatToFixed_m((Rte_Iread_Assist_Per1_WIRCmdAmpBlnd_MtrNm_f32()), u5p11_T)</p>
+<p><em>DwnldAsstGain_Uls_T_f32 =</em> Rte_Iread_Assist_Per1_ DwnldAsstGain_Uls_f32()</p>
+<p><em>DftAsstTbl_Cnt_T_lgc =</em> Rte_Iread_Assist_Per1_DftAsstTbl_Cnt_lgc ()</p>
+<p>Temporary variables:</p>
+<p><em>SignModTrq_Uls_T_s32</em></p>
+<p><em>ModTrq_HwNm_T_u8p8</em></p>
+<p><em>WIR0_MtrNm_T_s4p11</em></p>
+<p><em>WIRBlend_Uls_T_u2p14</em></p>
+<p><em>WIR1_MtrNm_T_s4p11</em></p>
+<p><em>WIR0_MtrNm_T_s6p25</em></p>
+<p><em>WIR1_MtrNm_T_ s6p25</em></p>
+<p><em>AssistTrq_MtrNm_T_s6p25</em></p>
+<p><em>AssistTrq_MtrNm_T_f32</em></p>
+<p><em>ThermalAssistScl_Uls_T_u2p14</em></p>
+<p><em>ThermalAssistScl_Uls_T_f32</em></p>
+<p><em>BaseAssistCmd_MtrNm_T_f32</em></p>
+<p><em>ModTrq_HwNm_T_f32</em></p>
+<p><em>AbsModTrq_HwNm_T_f32</em></p>
+<h4 id="base-assist-calculation">Base Assist Calculation</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_Iwrite_Assist_Per1_BaseAssistCmd_MtrNm_f32(BaseAssistCmd_MtrNm_T_f32)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_Assist_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None.</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h1 id="execution-requirements"><br />
+Execution Requirements</h1>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Assist_Per1</td>
+<td>2ms</td>
+<td>ALL</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section"></h2>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N/A</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-1"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Assist_Per1</td>
+<td> RTE_START_SEC_AP_ASSIST_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>Range for HystAdd_HwNm unknown during design of revision 8 of this document. The assumption is -16 to 16 Nm based on calibration values in the HystAdd FDD document.</p></li>
+<li><p>INLINE functions in GlobalMacro.h are not unit tested</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Item #</strong></th>
+<th><strong>Rev #</strong></th>
+<th><strong>Change Description</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author Initials</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1.0</td>
+<td>Initial AutoSAR release.</td>
+<td>01/04/11</td>
+<td>L.N.</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>2</td>
+<td>Applied drive-dynamics assist scale factor to low-pass assist.</td>
+<td>05/26/11</td>
+<td>YY</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>3</td>
+<td>Updates for all pass design and new FDD rev 002</td>
+<td>06/02/11</td>
+<td>SH</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>4</td>
+<td>Updates from Unit testing. Changed name of BaseAssistCmd ouput and updated diagram in section 5.2.1.4</td>
+<td>06/07/11</td>
+<td>SH</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>5</td>
+<td>Updates to fix always positive assist. Remove extra( HwTrq-LpTrq) subtraction after low pass filter output(sec5.2.1.5). Remove unnessesary sign application of HwTrq to HPAssist_MtrNM_T_f32(sec 5.2.1.6). Also, apply sign of BaseTrq to BaseAssist_MtrNm calculation instead of HwTrq(sec 5.2.1.4).</td>
+<td>6/14/11</td>
+<td>SH</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>6</td>
+<td>Added HPAssist_MtrNm_D_f32 Display variable to meet FDD</td>
+<td>6/16/11</td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>7</td>
+<td>Changed base assist to signed Y table. Added base assist, Hpgain, and filter blending interface</td>
+<td>07/14/11</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>.8</td>
+<td>8</td>
+<td>Updated to FDD #SF-1 ver 008, Updated to Template EA3, Rev1</td>
+<td>11/08/11</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>9</td>
+<td>Changed Cal names to new standard</td>
+<td>11/29/11</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>10</td>
+<td>Anomally correction 3246: Moved sign block into ‘if’ statement to re-apply sign to assist command to allow the assist gain common manufacturing service to control the motor. Error would cause motor to spin in one direction only.</td>
+<td>01/05/12</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>11</td>
+<td>Changes done as per FaultInjection technique</td>
+<td>01/05/12</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>12</td>
+<td>Updated to SF-01 v010 (changed input ThermalAssistScl to DutyCycleLevel)</td>
+<td>06/20/12</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>13</td>
+<td>Changed Thermal Scale Y table to be u2p14 to workaround interpolation library anomaly.</td>
+<td>07/23/12</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>14</td>
+<td>Changed Thermal Scale X table to be u16p0 to workaround interpolation library anomaly.</td>
+<td>07/23/12</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>15</td>
+<td>Added checkpoints to Per1</td>
+<td>09/15/12</td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>16</td>
+<td>Updated to FDD Ver 011</td>
+<td>10/03/12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>17</td>
+<td>Updated to FDD ver 012</td>
+<td>24-Apr-13</td>
+<td>Jared</td>
+</tr>
+</tbody>
+</table>

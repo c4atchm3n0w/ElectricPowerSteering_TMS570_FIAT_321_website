@@ -1,0 +1,2158 @@
+---
+title: Filter_Library_Design_Document
+linkTitle: Filter_Library_Design_Document
+weight: 2
+---
+
+<p><a href="#partial-notch-filter">1 Partial Notch Filter 3</a></p>
+<p><a href="#filter-equations">1.1 Filter Equations 3</a></p>
+<p><a href="#node-b-state-variable-initialization">1.1.1 Node b State Variable Initialization 3</a></p>
+<p><a href="#node-d-state-variable-initialization">1.1.2 Node d State Variable Initialization 3</a></p>
+<p><a href="#filter-output-calculation">1.1.3 Filter Output Calculation 3</a></p>
+<p><a href="#node-b-state-variable-calculation">1.1.4 Node b State Variable Calculation 3</a></p>
+<p><a href="#node-d-state-variable-calculation">1.1.5 Node d State Variable Calculation 3</a></p>
+<p><a href="#filter-output-calculation-1">1.1.6 Filter Output Calculation 4</a></p>
+<p><a href="#library-routines-design">1.2 Library Routines Design 4</a></p>
+<p><a href="#notch-filter-initialization-function">1.2.1 Notch Filter Initialization Function 4</a></p>
+<p><a href="#notch-filter-state-variable-update-function">1.2.2 Notch Filter State Variable Update Function 4</a></p>
+<p><a href="#notch-filter-output-update-function">1.2.3 Notch Filter Output Update Function 4</a></p>
+<p><a href="#notch-filter-full-update-function">1.2.4 Notch Filter Full Update Function 5</a></p>
+<p><a href="#notch-filter-structure-acceptable-ranges">1.3 Notch Filter Structure Acceptable Ranges 5</a></p>
+<p><a href="#usage">1.4 Usage 6</a></p>
+<p><a href="#st-order-low-pass-filter-1-pole--coefficient">2 1<sup>st</sup> Order Low Pass Filter, 1 Pole- coefficient 7</a></p>
+<p><a href="#topology-1-1lp1-c">2.1 Topology 1 – 1LP1-C 7</a></p>
+<p><a href="#filter-equations-1">2.1.1 Filter Equations 8</a></p>
+<p><a href="#library-routines-design-1">2.1.2 Library Routines Design 8</a></p>
+<p><a href="#unity-gain-no-dead-band-compensation-fixed-k-calibratable-kn-fixed-16-bit-kd-32-bit-state-variable-truncate-divide-unsigned-16-bit-input">2.1.2.1 Unity Gain, No Dead band Compensation, Fixed K – calibratable Kn, fixed 16 bit Kd, 32 Bit State Variable, Truncate divide, Unsigned 16 bit Input 8</a></p>
+<p><a href="#unity-gain-no-dead-band-compensation-fixed-k-calibratable-kn-fixed-16-bit-kd-32-bit-state-variable-truncate-divide-signed-16-bit-input">2.1.2.2 Unity Gain, No Dead band Compensation, Fixed K – calibratable Kn, fixed 16 bit Kd, 32 Bit State Variable, Truncate divide, Signed 16 bit Input 11</a></p>
+<p><a href="#topology-2-1lp1-b">2.2 Topology 2 – 1LP1-B 14</a></p>
+<p><a href="#filter-equations-2">2.2.1 Filter Equations 14</a></p>
+<p><a href="#library-routines-design-2">2.2.2 Library Routines Design 15</a></p>
+<p><a href="#variable-gain-variable-d-variable-k-calibratable-16-bit-kn-variable-kd-32-bit-state-variable-truncate-divide-unsigned-16-bit-input">2.2.2.1 Variable Gain, Variable D, Variable K – calibratable 16 bit Kn, variable Kd, 32 Bit State Variable, Truncate divide, Unsigned 16 bit Input 15</a></p>
+<p><a href="#variable-gain-variable-d-variable-k---calibratable-16-bit-kn-variable-kd-32-bit-state-variable-truncate-divide-signed-16-bit-input">2.2.2.2 Variable Gain, Variable D, Variable K - calibratable 16 bit Kn, variable Kd, 32 Bit State Variable, Truncate divide, Signed 16 bit Input 17</a></p>
+<p><a href="#topology-3-1lp1-cf-floating-point-implementation">2.3 Topology 3 – 1LP1-CF (Floating Point Implementation) 20</a></p>
+<p><a href="#filter-equations-3">2.3.1 Filter Equations 20</a></p>
+<p><a href="#coefficient-k-calculation-and-state-variable-initialization">2.3.1.1 Coefficient K Calculation and State Variable Initialization 20</a></p>
+<p><a href="#coefficient-k-recalculation">2.3.1.2 Coefficient K Recalculation 20</a></p>
+<p><a href="#normal-operation">2.3.1.3 Normal Operation 20</a></p>
+<p><a href="#library-routines-design-3">2.3.2 Library Routines Design 21</a></p>
+<p><a href="#unity-gain-no-dead-band-compensation-calibratable-k-single-precision-float-input">2.3.2.1 Unity Gain, No Dead band Compensation, calibratable K, Single-Precision Float Input 21</a></p>
+<p><a href="#st-order-high-pass-filter-1-pole--coefficient">3 1<sup>st</sup> Order High Pass Filter, 1 Pole- coefficient 23</a></p>
+<p><a href="#topology-1-hp-cf-floating-point-implementation">3.1 Topology 1 – HP-CF (Floating Point Implementation) 23</a></p>
+<p><a href="#filter-equations-4">3.1.1 Filter Equations 23</a></p>
+<p><a href="#__RefHeading___Toc323024662">3.1.1.1 Coefficient K Calculation and State Variable Initialization 23</a></p>
+<p><a href="#__RefHeading___Toc323024663">3.1.1.2 Coefficient K Recalculation 23</a></p>
+<p><a href="#normal-operation-1">3.1.1.3 Normal Operation 23</a></p>
+<p><a href="#library-routine-design">3.1.2 Library Routines Design 24</a></p>
+<p><a href="#unity-gain-no-dead-band-compensation-calibratable-k-single-precision-float-input-1">3.1.2.1 Unity Gain, No Dead band Compensation, calibratable K, Single-Precision Float Input 24</a></p>
+<p><a href="#revision-control-log">4 Revision Control Log 26</a></p>
+<h1 id="partial-notch-filter">Partial Notch Filter</h1>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:5.99306in;height:3.09583in" /></p>
+<h2 id="filter-equations">Filter Equations</h2>
+<p>The first three equations, 1.1.1, 1.1.2, and 1.1.3 shall be combined into a single Notch Filter Initialization function. The next two equations 1.1.4 and 1.1.5 shall be combined into a single state variable update function. Finally, equation 1.1.6 shall be standalone as the output update function. For convenience, the last two function, state variable update and output update shall be combined into a single inline function to provide a single call from the modules _per() sub-module.</p>
+<h3 id="node-b-state-variable-initialization">Node b State Variable Initialization</h3>
+<blockquote>
+<p>SV2 = In * (B2 - A2);</p>
+</blockquote>
+<h3 id="node-d-state-variable-initialization">Node d State Variable Initialization</h3>
+<blockquote>
+<p>SV1 = In * (B1 + B2 - A1 - A2);</p>
+</blockquote>
+<h3 id="filter-output-calculation">Filter Output Calculation</h3>
+<blockquote>
+<p>Out = In;</p>
+</blockquote>
+<h3 id="node-b-state-variable-calculation">Node b State Variable Calculation</h3>
+<p>SV2 = (B2 * In) - (Out * A2);</p>
+<h3 id="node-d-state-variable-calculation">Node d State Variable Calculation</h3>
+<p>SV1 = (SV2 + (In * B1)) - (Out * A1);</p>
+<h3 id="filter-output-calculation-1">Filter Output Calculation</h3>
+<blockquote>
+<p>Out = SV1 + (B0 * In);</p>
+</blockquote>
+<h2 id="library-routines-design">Library Routines Design</h2>
+<h3 id="notch-filter-initialization-function">Notch Filter Initialization Function</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 43%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>NF_Init_f32</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>In_Uls_T_f32 – Initial input to the filter</td>
+<td>Float 32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SVPtr_Cnt_T_Str – Pointer to state variable struct</td>
+<td>NotchFiltSV_Str</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>FiltK_Cnt_T_Str – Pointer to coefficient structure</td>
+<td>NotchFiltK_Str</td>
+<td colspan="2">**See 1.3</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code:</strong></p>
+<blockquote>
+<p>KPtr_Cnt_Str = FiltK_Cnt_T_Str;</p>
+<p>Out = In;</p>
+<p>SV1 = In * (B1 + B2 - A1 - A2);</p>
+<p>SV2 = In * (B2 - A2);</p>
+</blockquote>
+<h3 id="notch-filter-state-variable-update-function">Notch Filter State Variable Update Function</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 43%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>NF_SvUpdate_f32</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>In_Uls_T_f32 – Input to notch filter</td>
+<td>Float 32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SVPtr_T_Cnt_Str – Pointer to state variable struct</td>
+<td>NotchFiltSV_Str</td>
+<td colspan="2">**See 1.3</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>FiltK_Cnt_T_Str – Pointer to filter cal struct</td>
+<td>NotchFiltK_Str</td>
+<td colspan="2">**See 1.3</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code:</strong> KPtr_Cnt_Str = FiltK_Cnt_T_Str</p>
+<blockquote>
+<p>SV1 = (SV2 + (In * B1)) - (Out * A1);</p>
+<p>SV2 = (B2 * In) - (Out * A2);</p>
+</blockquote>
+<h3 id="notch-filter-output-update-function">Notch Filter Output Update Function</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 43%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>NF_OpUpdate_f32</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>In_Uls_T_f32 – Input to the notch filter</td>
+<td>Float 32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SVPtr_T_Cnt_Str – Pointer to state variable struct</td>
+<td>NotchFiltSV_Str</td>
+<td colspan="2">**See 1.3</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>Filtered Output, SV Structure Updated</td>
+<td>Float 32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code:</strong></p>
+<p>Out = SV1 + (B0 * In);</p>
+<h3 id="notch-filter-full-update-function">Notch Filter Full Update Function</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 44%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>NF_FullUpdate_f32</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>In_Uls_T_f32 – Input to notch filter</td>
+<td>Float 32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SVPtr_Cnt_T_Str – Pointer to state variable struct</td>
+<td>NotchFiltSV_Str</td>
+<td colspan="2">**See 1.3</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>FiltK_Cnt_T_Str – Pointer to filter cal struct</td>
+<td>NotchFiltK_Str</td>
+<td colspan="2">**See 1.3</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Filtered output</td>
+<td>Float 32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code:</strong></p>
+<p>Full Update simply calls OpUpdate followed by SvUpdate as a convenient alternative to calling each of the functions individually.</p>
+<h1 class="unnumbered" id="section"></h1>
+<h2 id="notch-filter-structure-acceptable-ranges">Notch Filter Structure Acceptable Ranges</h2>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 44%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Structure Name</strong></td>
+<td>NotchFiltSV_Str</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Members</strong></td>
+<td>SV1_Uls_f32</td>
+<td>Float 32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SV2_Uls_f32</td>
+<td>Float 32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Out_Uls_f32</td>
+<td>Float 32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>KPtr_Cnt_Str</td>
+<td>KPtr_Cnt_Str</td>
+<td colspan="2">**See Below</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 44%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Structure Name</strong></td>
+<td>NotchFiltK_Str</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Members</strong></td>
+<td>A1_Uls_f32</td>
+<td>Float 32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>A2_Uls_f32</td>
+<td>Float 32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>B0_Uls_f32</td>
+<td>Float 32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>B1_Uls_f32</td>
+<td>Float 32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>B2_Uls_f32</td>
+<td>Float 32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage">Usage</h2>
+<p>For a module that executes a Notch Filter, in its _Init() sub module execute the following function.</p>
+<blockquote>
+<p>NF_Init_f32(&lt;Input&gt;, &lt;SV_Ptr&gt;, &lt;FiltK_Ptr&gt;);</p>
+</blockquote>
+<p>In the same module’s _Per() sub module execute the following functions in the given sequence,</p>
+<blockquote>
+<p>NF_OpUpdate_f32(&lt;Input&gt;, &lt;SV_Ptr&gt;);</p>
+<p>NF_SvUpdate_f32(&lt;Input&gt;, &lt;SV_Ptr&gt;, &lt;FiltK_Ptr&gt;);</p>
+</blockquote>
+<p>Alternatively, a single call to the following function can be made in place of the above pair within the _Per() sub module.</p>
+<blockquote>
+<p>NF_FullUpdate_f32(&lt;Input&gt;, &lt;SV_Ptr&gt;, &lt;FiltK_Ptr&gt;);</p>
+</blockquote>
+<h1 id="st-order-low-pass-filter-1-pole--coefficient">1<sup>st</sup> Order Low Pass Filter, 1 Pole- coefficient</h1>
+<h2 id="topology-1-1lp1-c">Topology 1 – 1LP1-C</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.wmf" style="width:5.80208in;height:1.92431in" />The Filter topology 1LP1-C is as given,</p>
+<p>There may be multiple library functions defined for the same topology, based on the cut-off frequency, and input size requirements.</p>
+<p>A filter tool is available to design the low pass filter for this topology – “1<sup>st</sup> Order Design,1LP1-B.xls”. This tool provides the bit sizes for all nodes shown in the filter. The tool must be used to see which library function is required for the given input, cut-off frequency, sampling rate, and filter coefficient size.</p>
+<p>The above filter topology requires the following constants to be defined</p>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 21%" />
+<col style="width: 67%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Symbol</td>
+<td>Description</td>
+<td>Constant Classification</td>
+</tr>
+<tr class="even">
+<td>Kn</td>
+<td>Numerator of Filter Coefficient</td>
+<td>This may be defined as a calibration constant or an embedded local constant based on the usage.</td>
+</tr>
+<tr class="odd">
+<td>Kd</td>
+<td>Denominator of Filter Coefficient</td>
+<td>Based on the implementation, this value may be a fixed value, which is embedded within the library function/macro or could be passed as a parameter.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Node Symbol</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="even">
+<td>I</td>
+<td>Input</td>
+</tr>
+<tr class="odd">
+<td>e</td>
+<td>State Variable (filt_SV)</td>
+</tr>
+<tr class="even">
+<td>O</td>
+<td>Output (filt_O)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="filter-equations-1">Filter Equations</h3>
+<p>The filter equations are given below. Each equation shall be implemented as a library macro.</p>
+<p><strong>State Variable (Node e) Initialization</strong></p>
+<p>The equation to initialize the state variable, (Node e) is as follows:</p>
+<p>filt_SV = Input * Kd.</p>
+<p><strong>Output (Node O) Initialization</strong></p>
+<p>The equation to initialize the output, (Node O) is as follows:</p>
+<p>filt_O = [( ( Input – (filt_SV / Kd) ) * Kn ) + filt_SV] / Kd</p>
+<p><strong>Normal Operation</strong></p>
+<p>During normal operation the state variable (Node e) shall be updated prior to the output of the filter (Node O) being updated.</p>
+<p>The equation for the state variable (Node e) is as follows:</p>
+<p>filt_SV = ( ( Input – (filt_SV / Kd) ) * Kn ) + filt_SV</p>
+<p>The equation for the output (Node O) is as follows:</p>
+<p>filt_O = filt_SV / Kd</p>
+<p>The equations to update filt_Sv and filt_O or the library routines that calculate these values should be executed in the exact order shown above.</p>
+<h3 id="library-routines-design-1">Library Routines Design</h3>
+<h4 id="unity-gain-no-dead-band-compensation-fixed-k-calibratable-kn-fixed-16-bit-kd-32-bit-state-variable-truncate-divide-unsigned-16-bit-input">Unity Gain, No Dead band Compensation, Fixed K – calibratable Kn, fixed 16 bit Kd, 32 Bit State Variable, Truncate divide, Unsigned 16 bit Input</h4>
+<p>There will be four macros defined for this implementation:- state variable initialization, filter output initialization, state variable update and filter output update.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Node Symbol</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Data Type</strong></td>
+</tr>
+<tr class="even">
+<td>I</td>
+<td>Input</td>
+<td>UINT 16</td>
+</tr>
+<tr class="odd">
+<td>c</td>
+<td></td>
+<td>UINT16</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td></td>
+<td>UINT32</td>
+</tr>
+<tr class="odd">
+<td>e</td>
+<td>State Variable (filt_SV)</td>
+<td>UINT 32</td>
+</tr>
+<tr class="even">
+<td>f</td>
+<td></td>
+<td>UINT16</td>
+</tr>
+<tr class="odd">
+<td>O</td>
+<td>Output (filt_O)</td>
+<td>UINT 16</td>
+</tr>
+</tbody>
+</table>
+<h5 id="state-variable-initialization-macro">State Variable Initialization Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_SvInit_u16InFixKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Initialized value of node e</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>Lvalue = Input &lt;&lt; Kd</p>
+<p>where Kd is pre-defined for a fixed16 bit filter coefficient = 16 bits</p>
+<h5 id="filter-output-initialization-macro">Filter Output Initialization Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_OpInit_u16InFixKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Filt_SV – Initialized value of the state variable</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Kn - Numerator of the filter coefficient</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Initialized output of the low pass filter</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>Lvalue = (((Input – (Filt_SV &gt;&gt; Kd)) * Kn ), + Filt_SV)&gt;&gt;Kd</p>
+<p>where Kd is pre-defined for a fixed16 bit filter coefficient = 16 bits</p>
+<h5 id="filter-state-variable-update-macro">Filter State Variable Update Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_SvUpdate_u16InFixKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Filt_SV – Calculated value of the state variable</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Kn - Numerator of the filter coefficient</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Output of the low pass filter</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo code:</strong></p>
+<p>&lt;Lvalue&gt; = ( ( Input – (filt_SV &gt;&gt; Kd) ) * Kn ) + filt_SV</p>
+<p>where Kd is pre-defined for a fixed16 bit filter coefficient = 16 bits</p>
+<h5 id="output-update-macro">Output Update Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_OpUpdate_u16InFixKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Filt_SV – Calculated value of the state variable</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Output of the low pass filter</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo code:</strong></p>
+<p>&lt;Lvalue&gt; = filt_SV &gt;&gt; Kd</p>
+<p>where Kd is pre-defined for a 16 bit filter coefficient = 16 bits</p>
+<h5 id="usage-1"><strong>Usage</strong></h5>
+<p>For a module that executes a LPF, in its _Init() sub module execute the following macros in the given sequence</p>
+<blockquote>
+<p>LPF_SvInit_u16InFixKTrunc_m (&lt;Input&gt;)</p>
+<p>LPF_OpInit_u16InFixKTrunc_m (&lt;Input&gt;, &lt;Filt_SV&gt;, &lt;Kn&gt;)</p>
+</blockquote>
+<p>In the same module’s _Per() sub module execute the following macros in the given sequence,</p>
+<blockquote>
+<p>LPF_SvUpdate_u16InFixKTrunc_m (&lt;Input&gt;, &lt;filt_SV&gt;, &lt;Kn&gt;)</p>
+<p>LPF_OpUpdate_u16InFixKTrunc_m ( &lt;filt_SV&gt;)</p>
+</blockquote>
+<h4 id="unity-gain-no-dead-band-compensation-fixed-k-calibratable-kn-fixed-16-bit-kd-32-bit-state-variable-truncate-divide-signed-16-bit-input">Unity Gain, No Dead band Compensation, Fixed K – calibratable Kn, fixed 16 bit Kd, 32 Bit State Variable, Truncate divide, Signed 16 bit Input</h4>
+<p>There will be three macros defined for this implementation:- state variable initialization, state variable update and filter output update.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Node Symbol</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Data Type</strong></td>
+</tr>
+<tr class="even">
+<td>I</td>
+<td>Input</td>
+<td>SINT 16</td>
+</tr>
+<tr class="odd">
+<td>c</td>
+<td></td>
+<td>SINT 16</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td></td>
+<td>SINT 32</td>
+</tr>
+<tr class="odd">
+<td>e</td>
+<td>State Variable (filt_SV)</td>
+<td>SINT 32</td>
+</tr>
+<tr class="even">
+<td>f</td>
+<td></td>
+<td>SINT 16</td>
+</tr>
+<tr class="odd">
+<td>O</td>
+<td>Output (filt_O)</td>
+<td>SINT 16</td>
+</tr>
+</tbody>
+</table>
+<h5 id="state-variable-initialization-macro-1">State Variable Initialization Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_SvInit_s16InFixKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Initilized value of Node e</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>Lvalue = Input &lt;&lt; Kd</p>
+<p>where Kd is pre-defined for a 16 bit filter coefficient as 16 bits</p>
+<h5 id="filter-output-initialization-macro-1">Filter Output Initialization Macro </h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_OpInit_s16InFixKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Filt_SV – Initialized value of the state variable</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Kn – Numerator of the filter coefficient</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Initialized value of filter output</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>Lvalue = (((Input – (Filt_SV &gt;&gt; Kd)) * Kn ), + Filt_SV)&gt;&gt;Kd</p>
+<p>where Kd is pre-defined for a fixed16 bit filter coefficient = 16 bits</p>
+<h5 id="filter-state-variable-update-macro-1">Filter State Variable Update Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_SvUpdate_s16InFixKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Filt_SV – Initialized value of the state variable</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Kn – Numerator of the filter coefficient</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Calculated value of filt_SV</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo code:</strong></p>
+<p>&lt;Lvalue&gt; = ( ( Input – (filt_SV &gt;&gt; Kd) ) * Kn ) + filt_SV</p>
+<p>where Kd is pre-defined for a 16 bit filter coefficient = 16 bits</p>
+<h5 id="output-update-macro-1">Output Update Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_OpUpdate_s16InFixKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Filt_SV – calculated value of filter state variable</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Output of the low pass filter</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo code:</strong></p>
+<p>&lt;Lvalue&gt; = filt_O &gt;&gt; Kd</p>
+<p>where Kd is pre-defined for a 16 bit filter coefficient = 16</p>
+<h5 id="usage-2"><strong>Usage</strong></h5>
+<p>For a module that executes a LPF, in its _Init() sub module execute the following macros in the given sequence</p>
+<blockquote>
+<p>LPF_SvInit_s16InFixKTrunc_m (&lt;Input&gt;)</p>
+<p>LPF_OpInit_s16InFixKTrunc_m (&lt;Input&gt;, &lt;Filt_SV&gt;, &lt;Kn&gt;)</p>
+</blockquote>
+<p>In the same module’s _Per() sub module execute the following macros in the given sequence</p>
+<blockquote>
+<p>LPF_SvUpdate_s16InFixKTrunc_m (&lt;Input&gt;, &lt;filt_SV&gt;, &lt;Kn&gt;)</p>
+<p>LPF_OpUpdate_s16InFixKTrunc_m ( &lt;filt_SV&gt;)</p>
+</blockquote>
+<h2 class="unnumbered" id="section-1"><br />
+</h2>
+<h2 id="topology-2-1lp1-b">Topology 2 – 1LP1-B</h2>
+<p>The filter topology 1LP1-B is as given,</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.wmf" style="width:5.99444in;height:1.26806in" /></p>
+<h3 id="filter-equations-2">Filter Equations</h3>
+<p>The filter equations are given below. Each equation shall be implemented as a library macro.</p>
+<p><strong>State Variable (Node e) Initialization</strong></p>
+<p>The equation to initialize the state variable, (Node e) is as follows:</p>
+<p>filt_SV = Input * G * Kd * D</p>
+<p><strong>Output (Node O) Initialization</strong></p>
+<p>The equation to initialize the output, (Node O) is as follows:</p>
+<p>filt_O = [( ( (Input * G * D) – (filt_SV / Kd) ) * Kn ) + filt_SV] / (Kd * D)</p>
+<p><strong>Normal Operation</strong></p>
+<p>During normal operation the state variable (Node e) shall be updated prior to the output of the filter (Node O) being updated.</p>
+<p>The equation for the state variable (Node e) is as follows:</p>
+<p>filt_SV = ( ( (Input * G * D) – (filt_SV / Kd) ) * Kn ) + filt_SV</p>
+<p>The equation for the output (Node O) is as follows:</p>
+<p>filt_O = filt_SV / (Kd * D)</p>
+<p>The equations to update filt_Sv and filt_O or the library routines that calculate these values should be executed in the exact order shown above.</p>
+<p>The multiplication for the Filter Input by G shall be implemented external to the library macros. Thus the Input as used by the macros shall represent actual filter input * G, for non unity gain filter implementation.</p>
+<p><em>Note: Constraint on this filter is that Node b cannot exceed 16 bits.</em></p>
+<h3 id="library-routines-design-2">Library Routines Design</h3>
+<h4 id="variable-gain-variable-d-variable-k-calibratable-16-bit-kn-variable-kd-32-bit-state-variable-truncate-divide-unsigned-16-bit-input">Variable Gain, Variable D, Variable K – calibratable 16 bit Kn, variable Kd, 32 Bit State Variable, Truncate divide, Unsigned 16 bit Input</h4>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Node Symbol</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Data Type</strong></td>
+</tr>
+<tr class="even">
+<td>I</td>
+<td>Input</td>
+<td>UINT 16</td>
+</tr>
+<tr class="odd">
+<td>a</td>
+<td></td>
+<td>UINT 16</td>
+</tr>
+<tr class="even">
+<td>b</td>
+<td></td>
+<td>UINT 16</td>
+</tr>
+<tr class="odd">
+<td>c</td>
+<td></td>
+<td>UINT 16</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td></td>
+<td>UINT 32</td>
+</tr>
+<tr class="odd">
+<td>e</td>
+<td>State Variable (filt_SV)</td>
+<td>UINT 32</td>
+</tr>
+<tr class="even">
+<td>f</td>
+<td></td>
+<td>UINT 16</td>
+</tr>
+<tr class="odd">
+<td>g</td>
+<td></td>
+<td>UINT 16</td>
+</tr>
+<tr class="even">
+<td>O</td>
+<td>Output (filt_O)</td>
+<td>UINT 16</td>
+</tr>
+</tbody>
+</table>
+<h5 id="state-variable-initialization-macro-2">State Variable Initialization Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_SvInit_u16InVarKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Kd – Denominator bits of filter coefficient</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>D – Deadband factor</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Initialized value of Node e</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>Lvalue = (Input &lt;&lt; Kd) &lt;&lt; D</p>
+<p>Note:- The multiplication by D shall not be performed for D = 0.</p>
+<h5 id="filter-output-initialization-macro-2">Filter Output Initialization Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_OpInit_u16InVarKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Filt_SV – Initialized value of state variable</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Kn – Numerator of coefficient</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Kd – Denominator bits of filter coefficient</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>D – Deadband factor</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Low pass filter output</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>Lvalue = [((((Input&lt;&lt;D) – (Filt_SV &gt;&gt; Kd)) * Kn ) + Filt_SV)&gt;&gt;Kd]&gt;&gt;D</p>
+<p>Note:- The multiplication and division by D shall not be performed for D = 0.</p>
+<h5 id="filter-state-variable-update-macro-2">Filter State Variable Update Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_SvUpdate_u16InVarKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Filt_SV – Calculated value of filter state variable</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Kn – Numerator of coefficient</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Kd – Denominator bits of filter coefficient</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>D – Deadband factor</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Low pass filter output</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo code:</strong></p>
+<p>&lt;Lvalue&gt; = ( ( (Input &lt;&lt; D) – (filt_SV &gt;&gt; Kd) ) * Kn ) + filt_SV</p>
+<p>Note:- The multiplication by D shall not be performed for D = 0.</p>
+<h5 id="output-update-macro-2">Output Update Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_OpUpdate_u16InVarKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Filt_SV – Calculated value of filter state variable</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Kd – Denominator bits of filter coefficient</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>D – Deadband factor</td>
+<td>UINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Low pass filter output</td>
+<td>UINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo code:</strong></p>
+<p>&lt;Lvalue&gt; = (filt_SV &gt;&gt; Kd ) &gt;&gt;D</p>
+<p>Note:- The division by D shall not be performed for D = 0.</p>
+<h5 id="usage-3"><strong>Usage</strong></h5>
+<p>For a module that executes a LPF, in its _Init() sub module execute the following macros in the given sequence</p>
+<blockquote>
+<p>LPF_SvInit_u16InVarKTrunc_m (&lt;Input&gt;, &lt;Kd&gt;, &lt;D&gt;)</p>
+<p>LPF_OpInit_u16InVarKTrunc_m (&lt;Input&gt;, &lt;Filt_SV&gt;, &lt;Kn&gt;, &lt;Kd&gt;, &lt;D&gt;)</p>
+</blockquote>
+<p>In the same module’s _Per() sub module execute the following macros in the given sequence,</p>
+<blockquote>
+<p>LPF_SvUpdate_u16InVarKTrunc_m (&lt;Input&gt;, &lt;filt_SV&gt;, &lt;Kn&gt;, &lt;Kd&gt;, &lt;D&gt;)</p>
+<p>LPF_OpUpdate_u16InVarKTrunc_m ( &lt;filt_SV&gt;, &lt;Kd&gt;, &lt;D&gt;)</p>
+</blockquote>
+<h4 id="variable-gain-variable-d-variable-k---calibratable-16-bit-kn-variable-kd-32-bit-state-variable-truncate-divide-signed-16-bit-input">Variable Gain, Variable D, Variable K - calibratable 16 bit Kn, variable Kd, 32 Bit State Variable, Truncate divide, Signed 16 bit Input</h4>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Node Symbol</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Data Type</strong></td>
+</tr>
+<tr class="even">
+<td>I</td>
+<td>Input</td>
+<td>SINT 16</td>
+</tr>
+<tr class="odd">
+<td>a</td>
+<td></td>
+<td>SINT 16</td>
+</tr>
+<tr class="even">
+<td>b</td>
+<td></td>
+<td>SINT 16</td>
+</tr>
+<tr class="odd">
+<td>c</td>
+<td></td>
+<td>SINT 16</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td></td>
+<td>SINT 32</td>
+</tr>
+<tr class="odd">
+<td>e</td>
+<td>State Variable (filt_SV)</td>
+<td>SINT 32</td>
+</tr>
+<tr class="even">
+<td>f</td>
+<td></td>
+<td>SINT 16</td>
+</tr>
+<tr class="odd">
+<td>g</td>
+<td></td>
+<td>SINT 16</td>
+</tr>
+<tr class="even">
+<td>O</td>
+<td>Output (filt_O)</td>
+<td>SINT 16</td>
+</tr>
+</tbody>
+</table>
+<h5 id="state-variable-initialization-macro-3">State Variable Initialization Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_SvInit_s16InVarKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Kd – Denominator bits of filter coefficient</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>D – Deadband factor</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Initialized value of Node e</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>Lvalue = (Input &lt;&lt; Kd) &lt;&lt; D</p>
+<p>Note:- The multiplication by D shall not be performed for D = 0.</p>
+<h5 id="filter-output-initialization-macro-3">Filter Output Initialization Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_OpInit_s16InVarKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Filt_SV – Initialized value of filter state variable</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Kn – Numerator of filter coefficient</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Kd – Denominator bits of filter coefficient</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>D – Deadband factor</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Initialized value of filter output</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>Lvalue = [((((Input&lt;&lt;D) – (Filt_SV &gt;&gt; Kd)) * Kn ), + Filt_SV)&gt;&gt;Kd]&gt;&gt;D</p>
+<p>Note:- The multiplication and division by D shall not be performed for D = 0.</p>
+<h5 id="filter-state-variable-update-macro-3">Filter State Variable Update Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_SvUpdate_s16InVarKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to the low pass filter</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Filt_SV – Calculated value of filter state variable</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Kn – Numerator of filter coefficient</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Kd – Denominator bits of filter coefficient</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>D – Deadband factor</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Calculated value of filt_SV as given below</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo code:</strong></p>
+<p>&lt;Lvalue&gt; = ( ( (Input &lt;&lt; D) – (filt_SV &gt;&gt; Kd) ) * Kn ) + filt_SV</p>
+<p>Note:- The multiplication by D shall not be performed for D = 0.</p>
+<h5 id="output-update-macro-3">Output Update Macro</h5>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_OpUpdate_s16InVarKTrunc_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Filt_SV – Calculated value of filter state variable</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Kd – Denominator bits of filter coefficient</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>D – Deadband factor</td>
+<td>SINT16</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Low pass filter output</td>
+<td>SINT32</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo code:</strong></p>
+<p>&lt;Lvalue&gt; = (filt_SV &gt;&gt; Kd ) &gt;&gt;D</p>
+<p>Note:- The division by D shall not be performed for D = 0.</p>
+<h5 id="usage-4"><strong>Usage</strong></h5>
+<p>For a module that executes a LPF, in its _Init() sub module execute the following macros in the given sequence</p>
+<blockquote>
+<p>LPF_SvInit_s16InVarKTrunc_m (&lt;Input&gt;, &lt;Kd&gt;, &lt;D&gt;)</p>
+<p>LPF_OpInit_s16InVarKTrunc_m (&lt;Input&gt;, &lt;Filt_SV&gt;, &lt;Kn&gt;, &lt;Kd&gt;, &lt;D&gt;)</p>
+</blockquote>
+<p>In the same module’s _Per() sub module execute the following macros in the given sequence,</p>
+<blockquote>
+<p>LPF_SvUpdate_s16InVarKTrunc_m (&lt;Input&gt;, &lt;filt_SV&gt;, &lt;Kn&gt;, &lt;Kd&gt;, &lt;D&gt;)</p>
+<p>LPF_OpUpdate_s16InVarKTrunc_m ( &lt;filt_SV&gt;, &lt;Kd&gt;, &lt;D&gt;)</p>
+</blockquote>
+<h2 id="topology-3-1lp1-cf-floating-point-implementation">Topology 3 – 1LP1-CF (Floating Point Implementation)</h2>
+<p>The filter topology 1LP1-CF is as given,</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.png" style="width:4.17778in;height:1.54167in" /></p>
+<h3 id="filter-equations-3">Filter Equations</h3>
+<p>The filter equations are given below. Each equation shall be implemented as a library macro.</p>
+<h4 id="coefficient-k-calculation-and-state-variable-initialization">Coefficient K Calculation and State Variable Initialization</h4>
+<p>The equation to calculate the filter coefficient K is as follows: (Where Fp is in hertz and T is in seconds.)</p>
+<p>K = 1 – exp(-2 * π * Fp * T)</p>
+<p>And the equation for initialization of the state variable is as follows:</p>
+<p>Filt_SV = Input</p>
+<h4 id="coefficient-k-recalculation">Coefficient K Recalculation</h4>
+<p>The equation for recalculation of the filter coefficient K is exactly the same as that defined in the initialization function above.</p>
+<h4 id="normal-operation">Normal Operation </h4>
+<p>The equation for the output (Node O) is as follows:</p>
+<p>filt_Out = ( ( Input – prev_SV ) * K ) + prev_SV</p>
+<p>The value of filt_SV is the value of filt_Out from the previous call to the above function.</p>
+<h3 id="library-routines-design-3">Library Routines Design</h3>
+<h4 id="unity-gain-no-dead-band-compensation-calibratable-k-single-precision-float-input">Unity Gain, No Dead band Compensation, calibratable K, Single-Precision Float Input</h4>
+<p>There will be three macros defined for this implementation:- state variable and coefficient initialization, coefficient calculation, and filter output update.</p>
+<h5 id="coefficient-and-state-variable-initialization-macro"><strong>Coefficient and State Variable</strong> Initialization Macro</h5>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 40%" />
+<col style="width: 14%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_Init_f32_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Initial input to filter</td>
+<td>Float 32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Fp – Pole cutoff frequency in hertz</td>
+<td>Float 32</td>
+<td>0.1% 1/T</td>
+<td>50% 1/T</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>T – Sampling interval in seconds</td>
+<td>Float 32</td>
+<td>0.00005</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SV_Str – Pointer to the state variable structure</td>
+<td>LPF32KSV_Str</td>
+<td colspan="2">*See 2.3.2.1.4</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>Initial output, node O</td>
+<td>Float 32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>&lt;SV_Str-&gt; SV_Uls_f32&gt; = Input</p>
+<p>&lt;Lvalue&gt; = Input</p>
+<p>LPF_KUpdate_f32_m(Fp, T, SV_Str)</p>
+<h5 id="coefficient-recalculation-macro">Coefficient Recalculation Macro</h5>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 41%" />
+<col style="width: 14%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_KUpdate_f32_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Fp – Pole cutoff frequency in hertz</td>
+<td>Float 32</td>
+<td>0.1% 1/T</td>
+<td>50% 1/T</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>T – Sampling interval in seconds</td>
+<td>Float 32</td>
+<td>0.00005</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>SV_Str – Pointer to the state variable structure</td>
+<td>LPF32KSV_Str</td>
+<td colspan="2">*See 2.3.2.1.4</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>New value of K stored in state variable structure</td>
+<td>Float 32</td>
+<td>0.0</td>
+<td>1.0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>&lt;SV_Str-&gt; K_Uls_f32&gt; = 1 – expf(-2π * Fp * T)</p>
+<h5 id="output-update-macro-4">Output Update Macro</h5>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 42%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LPF_OpUpdate_f32_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to low pass filter</td>
+<td>Float 32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SV_Str – Pointer to the state variable structure</td>
+<td>LPF32KSV_Str</td>
+<td colspan="2">*See 2.3.2.1.4</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>Output of low pass filter</td>
+<td>Float 32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo code:</strong></p>
+<p>&lt;Lvalue&gt; = &lt;SV_Str-&gt;SV_Uls_f32&gt; =</p>
+<p>(Input – &lt;SV_Str-&gt;SV_Uls_f32&gt;) * &lt;SV_Str-&gt;K_Uls_f32&gt; + &lt;SV_Str-&gt;SV_Uls_f32&gt;</p>
+<h5 id="usable-ranges-for-lpf32ksv_str-structure"><strong>Usable ranges for LPF32KSV_Str Structure</strong></h5>
+<table>
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 18%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>LPF32KSV_Str</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td>K_Uls_f32</td>
+<td>Float 32</td>
+<td>0.0</td>
+<td>1.0</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>SV_Uls_f32</td>
+<td>Float 32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="usage-5"><strong>Usage</strong></h5>
+<p>For a module that executes a LPF, in its _Init() sub module execute the following macros:</p>
+<p>LPF_Init_f32_m(&lt;Input&gt;, &lt;Fp&gt;, &lt;T&gt;, &lt;LPF32KSV_Str&gt;)</p>
+<p>In the same module’s _Per() sub module execute the following macro:</p>
+<p>LPF_OpUpdate_f32_m ( &lt;Input&gt;, &lt;LPF32KSV_Str&gt;)</p>
+<p>The module may optionally call the following macro if the coefficient value K needs to be updated on the fly to support variable cutoff filtering.</p>
+<p>LPF_KUpdate_f32_m(&lt;Fp&gt;, &lt;T&gt;, &lt;LPF32KSV_Str&gt;)</p>
+<h1 id="st-order-high-pass-filter-1-pole--coefficient">1<sup>st</sup> Order High Pass Filter, 1 Pole- coefficient</h1>
+<h2 id="topology-1-hp-cf-floating-point-implementation">Topology 1 – HP-CF (Floating Point Implementation)</h2>
+<p>The filter topology HP-CF is as given:</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.wmf" /></p>
+<h3 id="filter-equations-4">Filter Equations</h3>
+<p>The filter equations are given below. Each equation shall be implemented as a library macro.</p>
+<h4 id="low-pass-filter">Low Pass Filter</h4>
+<p>The low-pass filter aspect of the design uses the 1LP1-CF implementation as described in section 2.3.</p>
+<h4 id="cf-calculation">CF Calculation</h4>
+<p>The CF (correction factor) is calculated as follows:</p>
+<blockquote>
+<p>CF = (1 + exp(2PI * Fp * T)) / (2 * sqrt(1 + ((2 * Fp * T)^2)))</p>
+</blockquote>
+<h4 id="normal-operation-1">Normal Operation </h4>
+<p>The equation for the output is as follows:</p>
+<p>filt_Out = ( Input – LPF_Output ) * CF</p>
+<h3 id="library-routine-design">Library Routine Design</h3>
+<h4 id="unity-gain-no-dead-band-compensation-calibratable-k-single-precision-float-input-1">Unity Gain, No Dead band Compensation, calibratable K, Single-Precision Float Input</h4>
+<p>There will be three macros defined for this implementation: state variable and coefficient initialization, coefficient calculation, and filter output update. The interface for these macros will be similar to that of the 1LP1-CF low pass filter design.</p>
+<h5 id="coefficient-and-state-variable-initialization-macro-1">Coefficient and State Variable Initialization Macro</h5>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 40%" />
+<col style="width: 14%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>HPF_Init_f32_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Initial input to filter</td>
+<td>Float 32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Fp – Pole cutoff frequency in hertz</td>
+<td>Float 32</td>
+<td>0.1% 1/T</td>
+<td>50% 1/T</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>T – Sampling interval in seconds</td>
+<td>Float 32</td>
+<td>0.00005</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SV_Ptr – Pointer to the state variable structure</td>
+<td>HPF32KSV_Str</td>
+<td colspan="2">*See 3.1.2.1.4</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>Assignment returns initial output</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>LPF_Init_f32_m(Input, Fp, T, &amp;(SV_Ptr-&gt;LPF_Str))</p>
+<p>HPF_KUpdate_f32_m(Fp, T, SV_Ptr)</p>
+<h5 id="coefficient-recalculation-macro-1">Coefficient Recalculation Macro</h5>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 40%" />
+<col style="width: 14%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>HPF_KUpdate_f32_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Fp – Pole cutoff frequency in hertz</td>
+<td>Float 32</td>
+<td>0.1% 1/T</td>
+<td>50% 1/T</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>T – Sampling interval in seconds</td>
+<td>Float 32</td>
+<td>0.00005</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>SV_Ptr – Pointer to the state variable structure</td>
+<td>HPF32KSV_Str</td>
+<td colspan="2">*See 3.1.2.1.4</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Assignment returns correction factor</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo Code</strong>:</p>
+<p>SV_Ptr-&gt;CF = (1 + exp(2PI * Fp * T)) / (2 * sqrt(1 + ((2 * Fp * T)^2)))</p>
+<p>LPF_KUpdate_f32_m(Fp_f32, T_f32, &amp;(SV_Ptr-&gt;LPF_Str))</p>
+<h5 id="output-update-macro-5">Output Update Macro</h5>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 41%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>HPF_OpUpdate_f32_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input – Input to low pass filter</td>
+<td>Float 32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SV_Ptr – Pointer to the state variable structure</td>
+<td>HPF32KSV_Str</td>
+<td colspan="2">*See 3.1.2.1.4</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>Assignment returns filter output</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pseudo code:</strong></p>
+<p>(Input - LPF_OpUpdate_f32_m(input_f32, &amp;(SV_Ptr-&gt;LPF_Str))) * SV_Ptr-&gt;CF_Uls_f32</p>
+<h5 id="usable-ranges-for-hpf32ksv_str-structure"><strong>Usable ranges for H</strong>PF32KSV_Str Structure</h5>
+<table>
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 18%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>HPF32KSV_Str</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td>LPF_Str</td>
+<td>LPF32KSV_Str</td>
+<td colspan="2">*See 2.3.2.1.4</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CF_Uls_f32</td>
+<td>Float 32</td>
+<td>0.0</td>
+<td>FULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h5 id="usage-6"><strong>Usage</strong></h5>
+<p>For a module that executes a HPF, in its _Init() sub module execute the following macros:</p>
+<blockquote>
+<p>HPF_Init_f32_m(&lt;Input&gt;, &lt;Fp&gt;, &lt;T&gt;, &lt;HPF32KSV_Str&gt;)</p>
+</blockquote>
+<p>In the same module’s _Per() sub module execute the following macro:</p>
+<blockquote>
+<p>HPF_OpUpdate_f32_m ( &lt;Input&gt;, &lt;HPF32KSV_Str&gt;)</p>
+</blockquote>
+<p>The module may optionally call the following macro if the coefficient value K needs to be updated on the fly to support variable cutoff filtering:</p>
+<blockquote>
+<p>HPF_KUpdate_f32_m(&lt;Fp&gt;, &lt;T&gt;, &lt;HPF32KSV_Str&gt;)</p>
+</blockquote>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 59%" />
+<col style="width: 12%" />
+<col style="width: 16%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>#</strong></td>
+<td><strong>Rev</strong></td>
+<td><strong>Change</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Added floating point low-pass filter</td>
+<td>09FEB12</td>
+<td>Jared Julien</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Added floating point high-pass filter, fixed issues in FP LPF</td>
+<td>26-Apr-12</td>
+<td>Owen Tosh</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Correct output types for some filters (32 bits output instead of 16bits) – no code change</td>
+<td>25-Jan-13</td>
+<td>D. Djena</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Added new parameter to functions NF_FullUpdate_f32 and NF_SvUpdate_f32</td>
+<td>05-Dec-13</td>
+<td>VT</td>
+</tr>
+</tbody>
+</table>

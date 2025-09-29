@@ -1,0 +1,497 @@
+---
+title: Cd_uDiagFPU_MDD
+linkTitle: Cd_uDiagFPU_MDD
+weight: 3
+---
+
+<h1 id="high-level-description">High-Level Description</h1>
+<p>Cd_uDiagFPU provides diagnostic data on floating point exceptions. Based on “Unreleased draft of EA3.x FDD 32.5 uC Diagnostics Execution (0x02A-0x031) v002.docx” as saved on May 7, 2013 and “Unreleased Draft of EA3.x FDD 32.Appendices v002.docx” as saved on May 6, 2013.</p>
+<p>On initialization, it sets up the Secondary Auxiliary Control Register to generate a floating point interrupt (VIM47) on the occurrence of any of these floating point exception flags: IOC (invalid operation), OFC (overflow), or DZC (divide by zero), and enables the floating point interrupt. When the floating point interrupt occurs, the module’s ISR saves program address information (to indicate where the exception occurred) and a reset reason indicating the type of exception, and causes a reset.</p>
+<p>Cd_uDiagFPU functionality is enabled/disabled by D_ENABLEFPUDIAG_CNT_LGC. See Integration Manual for the configuration parameter that controls this #define.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>No Shared Data</p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">ResetCause_Cnt_Enum</td>
+<td>ResetCause_Cnt_Enum</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FPUExceptionAddr_Cnt_D_u32</td>
+<td>NA</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>See Integration Manual</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 class="unnumbered" id="section"></h2>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-1"></h2>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 class="unnumbered" id="section-2"></h3>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_FPSCRBITIOC_CNT_U32</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>0x00000001</td>
+</tr>
+<tr class="even">
+<td>D_FPSCRBITDZC_CNT_U32</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>0x00000002</td>
+</tr>
+<tr class="odd">
+<td>D_FPSCRBITOFC_CNT_U32</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>0x00000004</td>
+</tr>
+<tr class="even">
+<td>D_VFPEXCEPTIONOUTPUTEN_CNT_U32</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>0x00001600</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section-3"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FPUDZCEXCP</td>
+</tr>
+<tr class="even">
+<td>FPUOFCEXCP</td>
+</tr>
+<tr class="odd">
+<td>FPUIOCEXCP</td>
+</tr>
+<tr class="even">
+<td>FPUUNKNOWNEXCP</td>
+</tr>
+<tr class="odd">
+<td>D_ENABLEFPUDIAG_CNT_LGC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>RednRpdShtdn()</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>_coreGetSecondaryAuxiliaryControlRegister_()</p></li>
+<li><p>_coreSetSecondaryAuxiliaryControlRegister_()</p></li>
+<li><p>_coreGetFPSCR_()</p></li>
+<li><p>EnableVFPInterrupt()</p></li>
+<li><p>_uDiagGetLinkRegForFiqIsr_()</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="global-function-1">Global Function #1</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>uDiagFPU_Init1</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>When the reset cause was a floating point exception, need to ensure that shutdown can be reached without another floating point exception occurring . Therefore the floating point exceptions should only be enabled when the reset cause was NOT a floating point exception.</p>
+<p>When built with D_ENABLEFPUDIAG_CNT_LGC == STD_ON, the function operates as shown in 5.3.1.2. When built with D_ENABLEFPUDIAG_CNT_LGC == STD_OFF, the function returns without doing anything.</p>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<h3 id="global-function-2">Global Function #2</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>uDiagFPU_Init2</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>When the reset cause was a floating point exception, need to ensure that shutdown can be reached without another floating point exception occurring . Therefore the floating point interrupt should only be enabled when the reset cause was NOT a floating point exception.</p>
+<p>When built with D_ENABLEFPUDIAG_CNT_LGC == STD_ON, the function operates as shown in 5.3.2.2. When built with D_ENABLEFPUDIAG_CNT_LGC == STD_OFF, the function returns without doing anything.</p>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>None</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<h3 id="isr-mcu_fpuirq">Isr: Mcu_FpuIrq()</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>The floating point interrupt is set up as an FIQ so that it is the highest priority interrupt in the system (see section 9.2).</p>
+<p>When a floating point interrupt occurs, need to ensure that shutdown is reached even if floating point processing is not operational. Therefore, this ISR calls the Redundant Rapid Shutdown function with a reset reason indicating which type of floating point exception occurred. The shutdown function resets the processor, so control does not return from this floating point interrupt ISR. After the reset, the reset handler sets a DTC shutdown fault with parameter bit(s) set to indicate the type of floating point exception.</p>
+<p>Only three of six possible floating point exceptions are enabled. Also, if this interrupt is not the highest priority interrupt in the system, it is possible that the Floating Point Status and Control Register will no longer indicate an exception on entry to this ISR (see section 9.2). Therefore, in addition to reset reasons for the three expected floating point exception types, an “Unknown FP Exception” type will be indicated if none of the three expected types is seen in the status register.</p>
+<p>When built with D_ENABLEFPUDIAG_CNT_LGC == STD_OFF, this function will never be invoked because the interrupt will not be enabled in the uDiagFPU_Init2() function.</p>
+<h4 id="processing">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 class="unnumbered" id="section-5"></h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<p>See Integration Manual.</p>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>uDiagFPU_Init1</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>uDiagFPU_Init2</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>Mcu_FpuIrq</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-6"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Local Function</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-7"></h1>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<h2 id="section-8"></h2>
+<blockquote>
+<p>Saved program address where exception occurred is actually the contents of the link register; it will usually give the address of the instruction at or shortly after where the exception occurred. However, under some circumstances the address may not indicate where the exception occurred.</p>
+</blockquote>
+<h2 id="section-9"></h2>
+<blockquote>
+<p>If a floating point exception occurs in an ISR that has higher priority than the floating point exception ISR, entry to the floating point ISR will not occur until after the return from the ISR where the actual exception occurred. Because the processor saves/restores the Link Register and the Floating Point Status and Control register to/from the stack on interrupt, these registers will no longer contain the relevant information about the floating point exception after the return from the higher priority ISR, so the information will not be available to the floating point exception ISR. In this case, the reset reason will indicate Unknown Floating Point Exception, and the saved program address information will not be related to the occurrence of the exception.</p>
+</blockquote>
+<h2 id="section-10"></h2>
+<blockquote>
+<p>NOTE that D_ENABLEFPUDIAG_CNT_LGC is controlled by a configuration parameter and will be defined in the private section of uDiag_Cfg.h. For the D_ENABLEFPUDIAG_CNT_LGC symbol to be properly defined on compilation of uDiagFPU.c, the uDiagFPU.c file must include these lines:</p>
+<p>#define UDIAG_C /* to include module private section of header */</p>
+<p>#include "uDiag.h"</p>
+<p>and uDiag.h must include uDiag_Cfg.h.</p>
+<p>If the D_ENABLEFPUDIAG_CNT_LGC symbol is not defined at compilation of this code, e.g. if the above includes are not properly set up, the floating point exception handling WILL be present and functional regardless of the configuration parameter setting..</p>
+</blockquote>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 68%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1.0</td>
+<td>Initial Revision</td>
+<td>6/6/2013</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>2.0</td>
+<td>Added D_ENABLEFPUDIAG_CNT_LGC to enable/disable floating point exception diagnostic functionality.</td>
+<td>6/26/13</td>
+<td>KMC</td>
+</tr>
+</tbody>
+</table>

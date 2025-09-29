@@ -1,0 +1,859 @@
+---
+title: Dma_MDD
+linkTitle: Dma_MDD
+weight: 5
+---
+
+<p><strong>Module Design Document</strong></p>
+<p><strong>For</strong></p>
+<p><strong>DMA</strong></p>
+<p><strong>Document Identifier: &lt;Project_id&gt;_&lt;Config Id&gt;</strong></p>
+<p><strong>VERSION:</strong> <strong>4</strong></p>
+<p><strong>DATE:</strong> <strong>31-Jan-2015</strong></p>
+<p><strong><br />
+Location:</strong> The official version of this document is stored in the Nexteer Configuration Management System and is uniquely identified by: &lt;Project_ID&gt;_&lt;Config Id&gt;</p>
+<p><strong>Revision History</strong></p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 43%" />
+<col style="width: 23%" />
+<col style="width: 11%" />
+<col style="width: 15%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Sl. No.</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Author</strong></td>
+<td><strong>Version</strong></td>
+<td><strong>Date</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial version</td>
+<td>Owen Tosh</td>
+<td>1</td>
+<td>04-Apr-2014</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Updated to FDD52 v001</td>
+<td>Owen Tosh</td>
+<td>2</td>
+<td>29-Apr-2014</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Updated to FDD52 v002</td>
+<td>Owen Tosh</td>
+<td>3</td>
+<td>02-May-2014</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Updated to ES-52 v004</td>
+<td>Kathleen Creager</td>
+<td>4</td>
+<td>31-Jan-2015</td>
+</tr>
+</tbody>
+</table>
+<p><strong><u><br />
+Table of Contents</u></strong></p>
+<p><a href="#abbrevations-and-acronyms">1 Abbrevations And Acronyms <span>5</span></a></p>
+<p><a href="#references">2 References <span>6</span></a></p>
+<p><a href="#dma-high-level-description">3 DMA &amp; High-Level Description <span>7</span></a></p>
+<p><a href="#design-details-of-software-module">4 Design details of software module <span>8</span></a></p>
+<p><a href="#graphical-representation-of-dma">4.1 Graphical representation of DMA <span>8</span></a></p>
+<p><a href="#variable-data-dictionary">5 Variable Data Dictionary <span>9</span></a></p>
+<p><a href="#user-defined-typedef-definitiondeclaration">5.1 User defined typedef definition/declaration <span>9</span></a></p>
+<p><a href="#_Toc338170478">5.2 Variable definition for enumerated types <span>9</span></a></p>
+<p><a href="#constant-data-dictionary">6 Constant Data Dictionary <span>10</span></a></p>
+<p><a href="#programfixed-constants">6.1 Program(fixed) Constants <span>10</span></a></p>
+<p><a href="#embedded-constants">6.1.1 Embedded Constants <span>10</span></a></p>
+<p><a href="#local">6.1.1.1 Local <span>10</span></a></p>
+<p><a href="#global">6.1.1.2 Global <span>10</span></a></p>
+<p><a href="#module-specific-lookup-tables-constants">6.1.2 Module specific Lookup Tables Constants <span>10</span></a></p>
+<p><a href="#library-functions-macros">6.1.3 Library Functions / Macros <span>10</span></a></p>
+<p><a href="#data-hiding-functions">6.1.4 Data Hiding Functions <span>11</span></a></p>
+<p><a href="#software-module-implementation">7 Software Module Implementation <span>12</span></a></p>
+<p><a href="#initialization-functions">7.1 Initialization Functions <span>12</span></a></p>
+<p><a href="#init-dma_init">7.1.1 Init: Dma _Init <span>12</span></a></p>
+<p><a href="#design-rationale">7.1.1.1 Design Rationale <span>12</span></a></p>
+<p><a href="#mpu-settings">7.1.1.1.1 MPU Settings <span>12</span></a></p>
+<p><a href="#priority-assignments">7.1.1.1.2 Priority Assignments <span>12</span></a></p>
+<p><a href="#_Toc384116599">7.1.1.1.3 FlsTst Group (Channels 0 and 1) <span>12</span></a></p>
+<p><a href="#initialize-dma-registers">7.1.1.2 Initialize DMA Registers <span>12</span></a></p>
+<p><a href="#module-outputs">7.1.1.3 Module Outputs <span>12</span></a></p>
+<p><a href="#module-internal">7.1.1.4 Module Internal <span>13</span></a></p>
+<p><a href="#periodic-functions">7.2 PERIODIC FUNCTIONS <span>13</span></a></p>
+<p><a href="#_Toc384116604">7.2.1 Per: Dma _Per1 <span>13</span></a></p>
+<p><a href="#_Toc384116605">7.2.1.1 Design Rationale <span>13</span></a></p>
+<p><a href="#_Toc384116606">7.2.1.2 Store Module Inputs to Local copies <span>13</span></a></p>
+<p><a href="#_Toc384116607">7.2.1.3 Clear DMA RAM Buffers <span>13</span></a></p>
+<p><a href="#_Toc384116608">7.2.1.4 Store Local copy of outputs into Module Outputs <span>13</span></a></p>
+<p><a href="#interrupt-functions">7.3 Interrupt Functions <span>13</span></a></p>
+<p><a href="#transient-functions">7.4 TRANSIENT FUNCTIONS <span>13</span></a></p>
+<p><a href="#serial-communication-functions">7.5 Serial Communication Functions <span>13</span></a></p>
+<p><a href="#local-functionmacro-definitions">7.6 Local Function/Macro Definitions <span>13</span></a></p>
+<p><a href="#global-functionmacro-definitions">7.7 GLObAL Function/Macro Definitions <span>13</span></a></p>
+<p><a href="#setup-mtrctrl-groups">7.7.1 Setup MtrCtrl Groups <span>13</span></a></p>
+<p><a href="#description-2">7.7.1.1 Description <span>13</span></a></p>
+<p><a href="#setup-flstst-blocks">7.7.2 Setup FlsTst Blocks <span>14</span></a></p>
+<p><a href="#description-3">7.7.2.1 Description <span>14</span></a></p>
+<p><a href="#enable-flstst-block">7.7.3 Enable FlsTst Block <span>14</span></a></p>
+<p><a href="#description-4">7.7.3.1 Description <span>14</span></a></p>
+<p><a href="#disable-flstst-block">7.7.4 Disable FlsTst Block <span>14</span></a></p>
+<p><a href="#description-5">7.7.4.1 Description <span>14</span></a></p>
+<p><a href="#_Toc384116622">7.7.5 Report DMA MPU Error <span>14</span></a></p>
+<p><a href="#_Toc384116623">7.7.5.1 Description <span>14</span></a></p>
+<p><a href="#known-limitations-with-design">8 Known Limitations With Design <span>15</span></a></p>
+<p><a href="#unit-test-consideration">9 UNIT TEST CONSIDERATION <span>16</span></a></p>
+<p><a href="#appendix-a-configuration-schemes">10 Appendix A – Configuration Schemes <span>17</span></a></p>
+<h1 id="abbrevations-and-acronyms">Abbrevations And Acronyms</h1>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Abbreviation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MDD</td>
+<td>Module design Document</td>
+</tr>
+<tr class="even">
+<td>MtrCtrl ISR</td>
+<td>Motor Control Interrupt Service Routine. This is the “fast” code loop that controls the main PWM signals.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="references">References</h1>
+<p>This section Lists the title &amp; version of all the documents that are referred for development of this document</p>
+<table>
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 65%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sr. No.</th>
+<th>Title</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>MDD Guidelines</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Software Naming Conventions</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Coding Standands</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>ES 52 – DMA</td>
+<td>004</td>
+</tr>
+</tbody>
+</table>
+<h1 id="dma-high-level-description">DMA &amp; High-Level Description</h1>
+<p>DMA is a driver level module that performs flash, RAM, and peripheral reads and writes in the background, freeing up the CPU to do other work in parallel. It is equipped with parity checking and an MPU, but timing and data consistency must be considered with respect to CPU execution.</p>
+<h1 id="design-details-of-software-module">Design details of software module</h1>
+<h2 id="graphical-representation-of-dma">Graphical representation of DMA</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<h2 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h2>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 48%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="7">DMADataType_Str *</td>
+<td>DummyVarForAlignment_Uls_f64**</td>
+<td>float64</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td>FastSPI_Cnt_u16[D_NUMFASTSPIWORDS_CNT_U16]</td>
+<td>uint16</td>
+<td>0</td>
+<td>2<sup>16</sup> - 1</td>
+</tr>
+<tr class="odd">
+<td>SlowSPI_Cnt_u16[D_NUMSLOWSPIWORDS_CNT_U16]</td>
+<td>uint16</td>
+<td>0</td>
+<td>2<sup>16</sup> - 1</td>
+</tr>
+<tr class="even">
+<td>SlowADC_Cnt_u16[D_NUMFASTADCCHANNELS_CNT_U16]</td>
+<td>uint16</td>
+<td>0</td>
+<td>2<sup>16</sup> - 1</td>
+</tr>
+<tr class="odd">
+<td>FastADC_Cnt_u16[D_NUMSLOWADCCHANNELS_CNT_U16]</td>
+<td>uint16</td>
+<td>0</td>
+<td>2<sup>16</sup> - 1</td>
+</tr>
+<tr class="even">
+<td>PWMCmp_Cnt_u16[4][2]</td>
+<td>uint16</td>
+<td>0</td>
+<td>2<sup>16</sup> - 1</td>
+</tr>
+<tr class="odd">
+<td>PWMPeriod_Cnt_u32</td>
+<td>uint32</td>
+<td>0</td>
+<td>2<sup>32</sup> - 1</td>
+</tr>
+</tbody>
+</table>
+<p><span id="_Toc338170478" class="anchor"></span>* Note that the elements of this structure are dependent on whether the respective peripherals are configured to use DMA. In the case that none of the ADC, SPI, or PWM groups are enabled in DMA, the type will not be defined.</p>
+<p>** Note that the boundaries of this struct type must be 64-bit aligned due to TMS570 DMA MPU operation, which in some cases allows access outside of configured MPU region boundaries up to a 64-bit boundary if the region boundaries are not 64-bit aligned. A float64 is used to force the alignment; per section 6.2.1.6 of SPNU151G–August 2011 (ARM Optimizing C/C++ Compiler v 4.9 User’s Guide) “Structures are aligned according to the member with the most restrictive alignment requirement. Structures are padded so that the size of the structure is a multiple of its alignment.”</p>
+<h2 id="variable-definition-for-enumerated-types">Variable definition for enumerated types</h2>
+<table>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 40%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Enum Name</th>
+<th>Element Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h2 id="embedded-constants">Embedded Constants</h2>
+<h2 id="local">Local</h2>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_DMAFLSTSTENABLED_CNT_ENUM</td>
+<td>enum</td>
+<td>Count</td>
+<td>configurable</td>
+</tr>
+<tr class="even">
+<td>D_FASTSPIGROUPENABLED_CNT_ENUM</td>
+<td>enum</td>
+<td>Count</td>
+<td>configurable</td>
+</tr>
+<tr class="odd">
+<td>D_FASTADCGROUPENABLED_CNT_ENUM</td>
+<td>enum</td>
+<td>Count</td>
+<td>configurable</td>
+</tr>
+<tr class="even">
+<td>D_FASTPWMGROUPENABLED_CNT_ENUM</td>
+<td>enum</td>
+<td>Count</td>
+<td>configurable</td>
+</tr>
+<tr class="odd">
+<td>D_SLOWADCGROUPENABLED_CNT_ENUM</td>
+<td>enum</td>
+<td>Count</td>
+<td>configurable</td>
+</tr>
+<tr class="even">
+<td>D_CRCCTRLREGSTART_CNT_U32</td>
+<td>1</td>
+<td>Count</td>
+<td>&amp;(CRCCTRLREG-&gt;CRC_REGL1)</td>
+</tr>
+<tr class="odd">
+<td>D_CRCPSASIGREGSTART_CNT_U32</td>
+<td>1</td>
+<td>Count</td>
+<td>&amp;(CRCCTRLREG-&gt;PSA_SIGREGL1)</td>
+</tr>
+<tr class="even">
+<td>D_NUMFASTSPIWORDS_CNT_U16</td>
+<td>1</td>
+<td>Count</td>
+<td>D_TGSIZE_CNT_U16</td>
+</tr>
+<tr class="odd">
+<td>D_FASTSPISTARTADDR_CNT_U32</td>
+<td>1</td>
+<td>Count</td>
+<td>&amp;(mibspiRAM3-&gt;rx[0].data)</td>
+</tr>
+<tr class="even">
+<td>D_NUMFASTADCCHANNELS_CNT_U16</td>
+<td>1</td>
+<td>Count</td>
+<td>D_ADC2G1BUFSZ_CNT_U08</td>
+</tr>
+<tr class="odd">
+<td>D_FASTADCSTARTADDR_CNT_U32</td>
+<td>1</td>
+<td>Count</td>
+<td>(D_ADC2RSLTBASEADR_CNT_U32 + (4u * D_ADC2EVTBUFSZ_CNT_U08) + 2u)</td>
+</tr>
+<tr class="even">
+<td>D_DMANHETPERIODADDR_CNT_U32</td>
+<td>1</td>
+<td>Count</td>
+<td>&amp;(HET_PRD_BUF1_0.memory.data_word)</td>
+</tr>
+<tr class="odd">
+<td>D_EPWMSTARTADDR_CNT_U32</td>
+<td>1</td>
+<td>Count</td>
+<td>&amp;(ePWM1-&gt;CMPA)</td>
+</tr>
+<tr class="even">
+<td>D_NUMSLOWADCCHANNELS_CNT_U16</td>
+<td>1</td>
+<td>Count</td>
+<td>D_ADC1G2BUFSZ_CNT_U08</td>
+</tr>
+<tr class="odd">
+<td>D_SLOWADCSTARTADDR_CNT_U32</td>
+<td>1</td>
+<td>Count</td>
+<td>(0xFF3E0000ul + (4u * (D_ADC1EVTBUFSZ_CNT_U08 + D_ADC1G1BUFSZ_CNT_U08)) + 2u)</td>
+</tr>
+<tr class="even">
+<td>D_NUMSLOWSPIWORDS_CNT_U16</td>
+<td>1</td>
+<td>Count</td>
+<td>D_TGSIZE_CNT_U16</td>
+</tr>
+<tr class="odd">
+<td>D_SLOWSPISTARTADDR_CNT_U32</td>
+<td>1</td>
+<td>Count</td>
+<td>&amp;(mibspiRAM5-&gt;rx[0].data)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="global">Global</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>STD_OFF</td>
+</tr>
+<tr class="even">
+<td>STD_ON</td>
+</tr>
+<tr class="odd">
+<td>CRCCTRLREG</td>
+</tr>
+<tr class="even">
+<td>D_TGSIZE_CNT_U16</td>
+</tr>
+<tr class="odd">
+<td>mibspiRAM3</td>
+</tr>
+<tr class="even">
+<td>D_ADC2G1BUFSZ_CNT_U08</td>
+</tr>
+<tr class="odd">
+<td>D_ADC2RSLTBASEADR_CNT_U32</td>
+</tr>
+<tr class="even">
+<td>D_ADC2EVTBUFSZ_CNT_U08</td>
+</tr>
+<tr class="odd">
+<td>HET_PRD_BUF1_0</td>
+</tr>
+<tr class="even">
+<td>ePWM1</td>
+</tr>
+<tr class="odd">
+<td>D_ADC1G2BUFSZ_CNT_U08</td>
+</tr>
+<tr class="even">
+<td>D_ADC1EVTBUFSZ_CNT_U08</td>
+</tr>
+<tr class="odd">
+<td>D_ADC1G1BUFSZ_CNT_U08</td>
+</tr>
+<tr class="even">
+<td>mibspiRAM5</td>
+</tr>
+<tr class="odd">
+<td>DMA_PARITY_ENABLE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h2>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 20%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules shall be identified in this section</p>
+<p>None</p>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<p>The Data hiding functions that’s uses RTE interface or other macro interfaces shall be listed in this section.</p>
+<p>DMA_REPORTERRORSTATUS(event, param, status)</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h2 id="init-dma_init">Init: Dma_Init</h2>
+<h2 id="design-rationale">Design Rationale</h2>
+<p>The DMA module must encapsulate many possible configurations. These configurations can be enabled or disabled per the configuration header file. All programs use DMA for the Flash CRC Test (part of the TMS570 uC diagnostics); some programs configure additional uses.</p>
+<p>The DMA peripheral is reset by a system reset and can also be reset by a control register bit. The latest version of TMS_570 Startup includes a test of DMA MPU functionality; at the conclusion of this test it sets the DMA peripheral reset bit. Per discussion with TI and draft updates to TI documentation, the reset bit should be checked to ensure the peripheral is out of reset before configuring registers.</p>
+<p>This init function checks the reset bit; whether the peripheral was last reset by a system reset (when used with older versions of TMS_570 Startup) or by the reset at the end of the startup test, the peripheral is expected to be out of reset by the time this init function executes. If the reset bit indicates the peripheral is not out of reset, a global variable flag is used to indicate a DMA reset failure. This flag is used in the TMS570_uDiag component which controls the Peripheral Startup Fault NTC (0x037).</p>
+<p>DMA is enabled at the end of the function. Once this is done, DMA will remain active for the remainder of the ignition cycle. Individual channels can be enabled or disabled as needed, however.</p>
+<h2 id="mpu-settings">MPU Settings</h2>
+<p>The nature of the DMA MPU is different from that of the CPU. The DMA has four configurable memory regions; anything outside of the declared regions is considered full access. The regions may overlap, however, and are treated by “priority” – that is, for addresses included in multiple regions, the settings in the lowest-numbered region are used. In light of this, the final memory region is used to cover the majority of the memory map. The other three regions are configured to allow access to specific regions. The following table shows the memory region allocations:</p>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 16%" />
+<col style="width: 20%" />
+<col style="width: 23%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Region</strong></th>
+<th><strong>Access</strong></th>
+<th><strong>Purpose</strong></th>
+<th><strong>Start Address</strong></th>
+<th><strong>End Address</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Read/Write</td>
+<td>SPI, ADC, NHET</td>
+<td>0xFF0A0000</td>
+<td>0xFF473FFF</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Read/Write</td>
+<td>ePWM, CRC</td>
+<td>0xFCF78C00</td>
+<td>0xFE0001FF</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Read/Write</td>
+<td>RAM</td>
+<td>&amp;DMAData_G_str</td>
+<td>&amp;DMAData_G_str + sizeof(DMAData_G_str) - 1</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>No Access</td>
+<td>Everything but Flash</td>
+<td>0x00200000</td>
+<td>0xFFFFFFFF</td>
+</tr>
+</tbody>
+</table>
+<p>This configuration is based on safety analysis (included in FDD 52) and the DMA MPU limitations.</p>
+<p>Per discussion with TI and draft TI documentation updates, in some cases (depending on element size being transferred), the DMA MPU may allow access beyond the end of a DMA MPU region to the next 64-bit boundary if the region boundary is not 64-bit aligned (start address is 64-bit aligned, end address is the last byte of a 64-bit aligned space, i.e. end address is a 64-bit aligned address minus one). For this reason, a dummy 64-bit variable is included at the beginning of the DMADataType_Str type.</p>
+<p>When DMA is used for Flash CRC Test only, the DMA MPU settings are more restrictive, providing only the access needed by the Flash CRC test:</p>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 15%" />
+<col style="width: 19%" />
+<col style="width: 26%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Region</strong></th>
+<th><strong>Access</strong></th>
+<th><strong>Purpose</strong></th>
+<th><strong>Start Address</strong></th>
+<th><strong>End Address</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Write only</td>
+<td>CRC</td>
+<td>Address of first CRC register needed</td>
+<td>Address of last byte of last CRC register needed</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>No access</td>
+<td>Peripheral RAM and registers</td>
+<td>0xF0800000UL</td>
+<td>0xFFFFFFFFUL</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Read only</td>
+<td>Entire address space</td>
+<td>0x00000000UL</td>
+<td>0xFFFFFFFFUL</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Region not enabled</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h2 id="priority-assignments">Priority Assignments</h2>
+<p>Channels 0 and 1 are assigned low priority, while the other channels are assigned as high priority. As channels 0 and 1 are used for FlsTst functionality, they are designed to be run “in the background”, while the other channels need high priority to ensure the MtrCtrl ISR is run on schedule. Any unused channel is left at a default of low priority.</p>
+<h2 id="initialize-dma-registers">Initialize DMA Registers</h2>
+<p>&lt;flow chart&gt;</p>
+<h2 id="module-outputs">Module Outputs</h2>
+<p>None</p>
+<h2 id="module-internal">Module Internal </h2>
+<p>None</p>
+<h2 id="periodic-functions"><br />
+PERIODIC FUNCTIONS </h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="transient-functions">TRANSIENT FUNCTIONS</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="local-functionmacro-definitions">Local Function/Macro Definitions</h2>
+<p>None</p>
+<h2 id="global-functionmacro-definitions">GLObAL Function/Macro Definitions</h2>
+<h2 id="check-validity-of-slow-adc-group">Check Validity of Slow ADC Group</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>Dma_SlowADCGroupValidity</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>RetValue_Cnt_T_lgc</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="design-rationale-1">Design Rationale</h2>
+<p>This function is provided as one part of the data integrity scheme. The FDD requires that the DMA buffer be checked before the data is read, and cleared after the data is read. This function is designed to be called before the ADC data is read, and returns FALSE if the data is invalid. The FDD specifies that the data be copied if it is valid; for throughput and memory reasons, this is left as the responsibility of the caller.</p>
+<h2 id="description">Description</h2>
+<p>&lt;flow chart&gt;</p>
+<h2 id="invalidate-slow-adc-group-buffers">Invalidate Slow ADC Group Buffers</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>Dma_InvalidateSlowADCGroup</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="design-rationale-2">Design Rationale</h2>
+<p>To ensure that the DMA is running, this function is provided to be run after the DMA data is collected by the 2ms IoHwAbstraction component. The buffers are cleared to 0xFFFF with the expectation that the DMA will fill them with proper data before the data is collected again. If the DMA fails to do so, the cleared buffers will trigger the internal DMA diagnostic (implemented in Dma_SlowADCGroupValidity).</p>
+<p>This is intended to be used as part of a larger data consistency scheme. See Appendix A for more information on how this is designed to be used.</p>
+<h2 id="description-1">Description</h2>
+<p>&lt;flow chart&gt;</p>
+<h2 id="setup-mtrctrl-groups">Setup MtrCtrl Groups</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>Dma_SetupMtrCtrlGroups</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="description-2">Description</h2>
+<p>&lt;flow chart&gt;</p>
+<h2 id="setup-flstst-blocks">Setup FlsTst Blocks</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>Dma_SetupFlsTstBlock</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>CRCAddr_Cnt_T_u32</td>
+<td>uint32</td>
+<td>0</td>
+<td>2<sup>32</sup> - 1</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>FlsAddr_Cnt_T_u32</td>
+<td>uint32</td>
+<td>0</td>
+<td>2<sup>32</sup> - 1</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DmaFrameCount_Cnt_T_u16</td>
+<td>uint16</td>
+<td>0</td>
+<td>2<sup>16</sup> - 1</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>DmaElementCount_Cnt_T_u16</td>
+<td>uint16</td>
+<td>0</td>
+<td>2<sup>16</sup> - 1</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="description-3">Description</h2>
+<p>&lt;flow chart&gt;</p>
+<h2 id="enable-flstst-block">Enable FlsTst Block</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>Dma_EnableFlsTstBlock</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="description-4">Description</h2>
+<p>&lt;flow chart&gt;</p>
+<h2 id="disable-flstst-block">Disable FlsTst Block</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>Dma_DisableFlsTstBlock</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="description-5">Description</h2>
+<p>&lt;flow chart&gt;</p>
+<h1 id="known-limitations-with-design">Known Limitations With Design</h1>
+<ol type="1">
+<li><p>This design only considers DMA transfers for a specific sensor configuration. Older or newer programs may have other DMA needs that are not considered, and the design will need to be updated to accommodate those sensor configurations in time.</p></li>
+<li><p>This design has only been verified on Champion hardware. It would need to be validated on Gladiator hardware before use.</p></li>
+</ol>
+<h1 id="unit-test-consideration">UNIT TEST CONSIDERATION</h1>
+<p>None</p>
+<h1 id="appendix-a-configuration-schemes">Appendix A – Configuration Schemes</h1>
+<p>The DMA module is intended to be configurable for any number of use cases. While each channel is specifically assigned, each channel can be enabled or disabled per program.</p>
+<p>The following diagram shows the MtrCtrl ISR groups and where they are designed to run. The trigger points for each group, as well as non-configurable data formats and lengths, are based on this data and the corresponding peripherals.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>

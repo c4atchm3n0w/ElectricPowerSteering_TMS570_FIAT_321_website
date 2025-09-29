@@ -1,0 +1,2180 @@
+---
+title: TechnicalReference_ASR_IpduMs
+linkTitle: TechnicalReference_ASR_IpduMs
+weight: 83
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-1_1.png"/><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/><b>MICROSAR I-PDU Multiplexer&#160;<br/></b>Technical Reference&#160;<br/>&#160;<br/>&#160;<br/>Version 1.2.0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+Authors&#160;<br/>
+Safiulla Shakir&#160;<br/>
+Status&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-2_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-2_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-2_3.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>1&#160;&#160;Document Information&#160;</b><br/>
+<b>1.1&#160;</b><br/>
+<b>History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;</b><br/>
+<b>Remarks&#160;</b><br/>
+Safiulla Shakir&#160;<br/>
+26.03.2009&#160;<br/>
+1.0&#160;<br/>
+Initial version&#160;<br/>
+Safiulla Shakir&#160;<br/>
+28.06.2010&#160;<br/>
+1.1.0&#160;<br/>
+Updated to support IPDUM&#160;<br/>system description 3.1.4&#160;<br/>format &#160;<br/>
+Safiulla Shakir&#160;<br/>
+02.02.2011&#160;<br/>
+1.2.0&#160;<br/>
+ESCAN00046128&#160;<br/>
+Table 1-1&#160;&#160;<br/>
+History&#160;of the&#160;document&#160;<br/>
+<b>1.2&#160;</b><br/>
+<b>Reference Documents&#160;</b><br/>
+<b>No.&#160;</b><br/>
+<b>Title&#160;</b><br/>
+<b>Version&#160;</b><br/>
+[1]&#160;AUTOSAR_SWS_IPDUM.pdf&#160;<br/>
+1.2.1&#160;<br/>
+[2]&#160;AUTOSAR_SWS_IPDUM.doc&#160;<br/>
+1.3.0&#160;<br/>
+[3]&#160;AUTOSAR_BasicSoftwareModules.pdf&#160;<br/>
+1.0.0&#160;<br/>
+[4]&#160;AUTOSAR_SWS_IPDUM&#160;<br/>
+ASR3.2.pdf&#160;<br/>
+1.3.0&#160;<br/>
+Table 1-2&#160;&#160;<br/>
+Reference documents&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Please note&#160;<br/></b>We have configured the&#160;programs in accordance&#160;with your specifications in the&#160;<br/>
+&#160;&#160;questionnaire. Whereas&#160;the programs do support&#160;other configurations than the one&#160;<br/>
+specified&#160;in&#160;your questionnaire, Vector’s&#160;release&#160;of the programs delivered to your&#160;<br/>company is&#160;expressly restricted to the&#160;configuration you have&#160;specified in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/><a href="TechnicalReference_ASR_IpduMs.html#2">[2]&#160;is a draf</a>t&#160;version of&#160;AUTOSAR release 4.0.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+2&#160;/&#160;&#160;44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-3_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#2"><b>1</b>&#160;&#160;<b>Document Information.....................................................................................................&#160;2</b>&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#2">1.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#2">History...............................................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#2">1.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#2">Reference Documents&#160;......................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#7"><b>2</b>&#160;&#160;<b>Introduction&#160;......................................................................................................................&#160;7</b>&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#8">2.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#8">Architecture&#160;Overview.......................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#10"><b>3</b>&#160;&#160;<b>Functional Description&#160;..................................................................................................&#160;10</b>&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#10">3.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#10">Features..........................................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#10">3.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#10">Initialization&#160;.....................................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#11">3.3&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#11">States&#160;...............................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#11">3.4&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#11">Main Functions&#160;................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#11">3.5&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#11">Error Handling..................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#11">3.5.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#11">Development Error Reporting&#160;..........................................................................11&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#12">3.5.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#12">Production Error&#160;Reporting&#160;.............................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13"><b>4</b>&#160;&#160;<b>Integration.......................................................................................................................&#160;13</b>&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">4.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">Scope of Delivery............................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">4.1.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">Static Files&#160;......................................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">4.1.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">Dynamic Files&#160;.................................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">4.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">Include Structure.............................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">4.3&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">Compiler&#160;Abstraction and Memory&#160;Mapping&#160;...................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#14">4.4&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#14">Critical Sections&#160;..............................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#14">4.4.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#14">BSW Scheduler&#160;..............................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#15">4.4.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#15">Vector Standard Library&#160;..................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#16"><b>5</b>&#160;&#160;<b>API Description&#160;..............................................................................................................&#160;16</b>&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#16">5.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#16">Services provided by IPDUM&#160;..........................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#16">5.1.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#16">IpduM_InitMemory&#160;..........................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#16">5.1.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#16">IpduM_Init&#160;.......................................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#17">5.1.3&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#17">IpduM_RxIndication&#160;........................................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#17">5.1.4&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#17">IpduM_Transmit&#160;..............................................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#18">5.1.5&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#18">IpduM_TxConfirmation&#160;...................................................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#19">5.1.6&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#19">IpduM_TriggerTransmit...................................................................................&#160;19&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#20">5.1.7&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#20">IpduM_MainFunction&#160;......................................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#20">5.1.8&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#20">IpduM_GetVersionInfo&#160;....................................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#20">5.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#20">Services used by IPDUM&#160;................................................................................&#160;20&#160;</a><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+3&#160;/&#160;&#160;44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-4_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_ASR_IpduMs.html#22"><b>6</b>&#160;&#160;<b>Configuration..................................................................................................................&#160;22</b>&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#22">6.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#22">EcuC configuration with&#160;GENy&#160;.......................................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#23">6.1.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#23">General parameters&#160;........................................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#24">6.1.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#24">Link time and Post build&#160;configuration&#160;............................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#25">6.1.3&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#25">Multiplexing and De-multiplexing&#160;....................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#27">6.1.4&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#27">Tx Pathway&#160;.....................................................................................................&#160;27&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#28">6.1.5&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#28">Transmission Confirmations&#160;...........................................................................&#160;28&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#30">6.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#30">ECU Configuration parameters:......................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#30">6.2.1.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#30">IPduMConfig&#160;...................................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#30">6.2.1.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#30">IPduMRxPathway&#160;...........................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#30">6.2.1.3&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#30">IPduMRxIndication..........................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#31">6.2.1.4&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#31">IPduMBitField&#160;.................................................................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#31">6.2.1.5&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#31">IPduMRxDynamicPart&#160;....................................................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#32">6.2.1.6&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#32">IPduMCopyBitField&#160;.........................................................................................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#32">6.2.1.7&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#32">IPduMBitField&#160;.................................................................................................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#33">6.2.1.8&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#33">IPduMRxStaticPart..........................................................................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#33">6.2.1.9&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#33">IPduMCopyBitField&#160;.........................................................................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#34">6.2.1.10&#160;&#160;IPduMBitField&#160;.................................................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#34">6.2.1.11&#160;&#160;IPduMTxPathway............................................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#34">6.2.1.12&#160;&#160;IPduMTxConfirmation&#160;.....................................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#35">6.2.1.13&#160;&#160;IPduMDynamicTxConfirmation&#160;.......................................................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#35">6.2.1.14&#160;&#160;IPduMTxRequest&#160;............................................................................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#36">6.2.1.15&#160;&#160;IPduMBitField&#160;.................................................................................................&#160;36&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#37">6.2.1.16&#160;&#160;IPduMTxDynamicPart&#160;.....................................................................................&#160;37&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#37">6.2.1.17&#160;&#160;IPduMCopyBitField&#160;.........................................................................................&#160;37&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#38">6.2.1.18&#160;&#160;IPduMBitField&#160;.................................................................................................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#38">6.2.1.19&#160;&#160;IPduMTxStaticPart&#160;..........................................................................................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#39">6.2.1.20&#160;&#160;IPduMCopyBitField&#160;.........................................................................................&#160;39&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#39">6.2.1.21&#160;&#160;IPduMBitField&#160;.................................................................................................&#160;39&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#39">6.2.1.22&#160;&#160;IPduMGeneral.................................................................................................&#160;39&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#41">6.2.1.23&#160;&#160;IPduMplexCh&#160;..................................................................................................&#160;41&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#42"><b>7</b>&#160;&#160;<b>AUTOSAR Standard&#160;Compliance..................................................................................&#160;42</b>&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#42">7.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#42">Deviations&#160;.......................................................................................................&#160;42&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#42">7.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#42">Additions/ Extensions&#160;.....................................................................................&#160;42&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#42">7.3&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#42">Limitations.......................................................................................................&#160;42&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#43"><b>8</b>&#160;&#160;<b>Glossary&#160;and&#160;Abbreviations..........................................................................................&#160;43</b>&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#43">8.1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#43">Glossary..........................................................................................................&#160;43&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#43">8.2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#43">Abbreviations&#160;..................................................................................................&#160;43&#160;</a><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+4&#160;/&#160;&#160;44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-5_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_ASR_IpduMs.html#44"><b>9</b>&#160;&#160;<b>Contact&#160;............................................................................................................................&#160;44</b>&#160;<br/></a>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+5&#160;/&#160;&#160;44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-6_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#8">Figure 2-1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#8">AUTOSAR architecture&#160;................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#9">Figure 2-2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#9">IPDUM Interfaces to adjacent modules........................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#11">Figure 3-1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#11">DET&#160;Activation.............................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#23">Figure 6-1&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#23">GENy component selection........................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#24">Figure 6-2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#24">Static part activation&#160;...................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#24">Figure 6-3&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#24">Link time and post build&#160;parameters&#160;..........................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#25">Figure 6-4&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#25">Copy bit field configuration of a dynamic part&#160;............................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#26">Figure 6-5&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#26">Copy bit field configuration of a static part&#160;.................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#26">Figure 6-6&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#26">Dynamic part layout selection&#160;....................................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#27">Figure 6-7&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#27">Tx Pathway&#160;configuration parameters........................................................&#160;27&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#29">Figure 6-8&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#29">Dynamic part confirmation configuration&#160;....................................................&#160;29&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#29">Figure 6-9&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#29">Static part confirmation configuration&#160;.........................................................&#160;29&#160;</a><br/>
+<b>&#160;</b><br/>
+<b>Tables&#160;</b><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#2">Table 1-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#2">History of the document&#160;...............................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#2">Table 1-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#2">Reference documents&#160;..................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#10">Table 3-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#10">Supported SWS features&#160;...........................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">Table 4-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">Static files&#160;...................................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">Table 4-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#13">Generated files...........................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#14">Table 4-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#14">Compiler abstraction and memory&#160;mapping&#160;..............................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#16">Table 5-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#16">IpduM_InitMemory&#160;.....................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#17">Table 5-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#17">IpduM_Init&#160;..................................................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#17">Table 5-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#17">IpduM_RxIndication&#160;...................................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#18">Table 5-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#18">IpduM_Transmit&#160;.........................................................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#18">Table 5-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#18">IpduM_TxConfirmation...............................................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#19">Table 5-6&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#19">IpduM_TriggerTransmit&#160;..............................................................................&#160;19&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#20">Table 5-7&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#20">IpduM_MainFunction..................................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#20">Table 5-8&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#20">IpduM_GetVersionInfo&#160;...............................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#21">Table 5-9&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#21">Services used by the IPDUM&#160;.....................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#43">Table 8-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#43">Glossary&#160;.....................................................................................................&#160;43&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#43">Table 8-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#43">Abbreviations&#160;.............................................................................................&#160;43&#160;</a><br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+6&#160;/&#160;&#160;44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-7_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-7_2.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>2&#160;&#160;Introduction&#160;</b><br/>
+This document describes the functionality,&#160;API and configuration&#160;of the&#160;AUTOSAR BSW&#160;<br/>module IPDUM&#160;<a href="TechnicalReference_ASR_IpduMs.html#2">as specified in&#160;[1]</a>. &#160;<br/>
+&#160;<br/>
+<b>Supported AUTOSAR&#160;Release<a href="TechnicalReference_ASR_IpduMs.html#7">*</a></b><b>:&#160;3.x&#160;</b><br/>
+<b>Supported Configuration Variants:&#160;</b><br/>
+<b>pre-compile, link-time, post-build&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Vendor ID:&#160;</b><br/>
+<b>IPDUM_VENDOR_ID&#160;</b><br/>
+<b>30 decimal&#160;</b><br/>
+<b>(= Vector-Informatik&#160;<br/>GmbH, according to&#160;<br/>HIS)&#160;</b><br/>
+<b>Module ID:&#160;</b><br/>
+<b>IPDUM_MODULE_ID &#160;&#160;</b><br/>
+<b>52 decimal&#160;</b><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#2"><b>(according to ref.&#160;[3]</b></a><b>)&#160;</b><br/>
+* For the precise&#160;AUTOSAR Release 3.x please&#160;see&#160;the release&#160;specific&#160;documentation. &#160;<br/>&#160;<br/>
+Multiplexing is a concept generally used to&#160;save CAN identifiers where an I-PDU with a&#160;<br/>CAN ID is used to carry different I-PDUs there by saving the CAN IDs for the I-PDUs it&#160;<br/>carries.&#160;<br/>&#160;<br/>The implementation is based on the&#160;AUTOSAR IPDUM specifications&#160;<a href="TechnicalReference_ASR_IpduMs.html#2">[1]&#160;and&#160;[2]. It is&#160;<br/></a>assumed that the reader is familiar with&#160;this document and other&#160;relevant&#160;AUTOSAR&#160;<br/>related specifications.&#160;<br/>&#160;<br/>I-PDU multiplexing means using the same PCI (Protocol Control Information) of a PDU&#160;<br/>(Protocol Data Unit) with more than one unique&#160;layouts of its SDU (Service Data Unit).&#160;<br/>The SDU in a multiplexed I-PDU contains a selector field which is used to determine the&#160;<br/>layout of the SDU being multiplexed or de-multiplexed.&#160;<br/>The AUTOSAR I-PDU multiplexer&#160;multiplexes a dynamic part&#160;along with or without a static&#160;<br/>part depending on whether a static part is configured to the multiplex I-PDU or not.&#160;<br/>Each dynamic or static part is&#160;an independent signal-I-PDU in Com.&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/>Dynamic part or static part is the IPDUM&#160;vocabulary for an upper layer I-PDU which&#160;is&#160;<br/>
+&#160;&#160;to be multiplexed or de-multiplexed.&#160;<br/>
+<b>&#160;</b><br/>
+A given multiplex I-PDU can have&#160;1 or no static part configured&#160;to it and it can multiplex 1&#160;<br/>to 255 dynamic parts (layouts)&#160;depending on the selector field&#160;value along with the static&#160;<br/>part if configured.&#160;<br/>A dynamic or static part may&#160;be further divided into sub parts. Each sub part is a bit field&#160;<br/>with the start and end bit positions. The dynamic part contains the selector field.&#160;<br/>The selector field can be thought of as a signal&#160;in every&#160;dynamic part in Com whose value&#160;<br/>is set at configuration time&#160;and is never changed at runtime.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+7&#160;/&#160;&#160;44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-8_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-8_2.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>2.1&#160;&#160;Architecture Overview&#160;</b><br/>
+The following figure shows where the IPDUM is&#160;located in the&#160;AUTOSAR architecture.&#160;<br/>
+&#160;<br/>
+Figure 2-1&#160;<br/>
+AUTOSAR architecture&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+8&#160;/&#160;&#160;44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-9_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-9_2.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+The next figure shows the interfaces of&#160;the IPDUM&#160;to its adjacent module(s).&#160;&#160;These&#160;<br/><a href="TechnicalReference_ASR_IpduMs.html#16">interfaces are described in chapter&#160;5</a>. &#160;<br/>
+&#160;<br/>
+Figure 2-2&#160;<br/>
+IPDUM Interfaces to adjacent modules&#160;<br/>
+Normally the I-PDU multiplexer&#160;only interacts with the PduR. If required the I-PDU&#160;<br/>multiplexer&#160;can interface Com directly bypassing the PduR while indicating receptions and&#160;<br/><a href="TechnicalReference_ASR_IpduMs.html#2">confirming transmissions to Com as demanded in&#160;[1]</a>.&#160;<br/>
+The IPDUM also uses the interfaces to the BSW Scheduler and Det.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+9&#160;/&#160;&#160;44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-10_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-10_2.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>3&#160;&#160;Functional Description&#160;</b><br/>
+<b>3.1&#160;</b><br/>
+<b>Features&#160;</b><br/>
+The features listed in this chapter cover the complete functionality<a href="TechnicalReference_ASR_IpduMs.html#2">&#160;specified in&#160;[1].&#160;</a><br/>
+The &#34;supported&#34; and &#34;not supported&#34; features are presented in&#160;the following two tables.&#160;<br/>For further information on featur<a href="TechnicalReference_ASR_IpduMs.html#42">es not supported see chapter&#160;7</a>.&#160;<br/>
+The main purpose of the&#160;AUTOSAR BSW module&#160;IPDUM is to multiplex and de-multiplex&#160;<br/>IPDUs between upper (AUTOSAR Com) and the&#160;interface layers (CanIf, LinIf, FrIf).&#160;<br/>&#160;<br/>
+<a href="TechnicalReference_ASR_IpduMs.html#2">The following features described in&#160;[1]</a>&#160;are supported:&#160;<br/>
+<b>Supported Feature&#160;</b><br/>
+<b>Configuration</b>&#160;<br/>
+<b>&gt;&#160;&#160;</b>Multiplexing of the static and dynamic parts and their transmission.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Event base transmission triggering&#160;of the multiplex I-PDU(s).&#160;<br/>
+<b>&gt;&#160;&#160;</b>Confirming transmissions of the multiplexed I-PDUs to the BSW module&#160;AUTOSAR&#160;<br/>
+Com.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Timeout handling while confirming transmissions.&#160;<br/>
+<b>&gt;&#160;&#160;</b>De-multiplexing and indicating receptions&#160;of the de-multiplexed dynamic parts and&#160;<br/>
+static part to the BSW&#160;module&#160;AUTOSAR Com.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Static part configuration support in multiplex I-PDU(s).&#160;<br/>
+<b>&gt;&#160;&#160;</b>AUTOSAR EcuC format&#160;<br/>
+<b>&gt;&#160;&#160;</b>Initialization of buffers of&#160;the multiplex I-PDUs in case their transmission is triggered&#160;<br/>
+by interface layer BSW modules&#160;(relevant for FrIf, LinIf only)&#160;<br/>
+Table 3-1&#160;&#160;<br/>
+Supported SWS&#160;features&#160;<br/>
+<b>3.2&#160;&#160;Initialization&#160;</b><br/>
+The IPDUM is normally initialized by calling the&#160;API&#160;IpduM_Init.&#160;This is done by the&#160;<br/>EcuM. If this is not the case, an adequate and suitable solution has&#160;to be provided. During&#160;<br/>initialization the IPDUM initializes all the transmission multiplex I-PDU(s) buffer(s) and all&#160;<br/>runtime module relevant variables.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/>If the BSW module Det is not used&#160;and the IPDUM is not initialized before its&#160;<br/>
+&#160;&#160;functionalities are used, the IPDUM’s behavior is&#160;undefined.&#160;The IPDUM should be&#160;<br/>
+initialized before using its functionalities.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+10&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-11_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-11_2.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>3.3&#160;&#160;States&#160;</b><br/>
+The IPDUM has the states: uninitialized and initialized.&#160;<br/>
+<b>3.4&#160;&#160;Main Functions&#160;</b><br/>
+IPDUM provides&#160;all functions&#160;described in&#160;<a href="TechnicalReference_ASR_IpduMs.html#2">[1]</a>. The&#160;function&#160;IpduM_MainFunction&#160;<br/>should be called cyclically by the Basic&#160;Software Scheduler or a similar component.&#160;The&#160;<br/>IpduM_MainFunction&#160;&#160;primarily takes care of the timeout handling of the multiplex I-<br/>PDU(s) transmission confirmations.&#160;<br/>
+<b>3.5&#160;&#160;Error Handling&#160;</b><br/>
+<b>3.5.1&#160;</b><br/>
+<b>Development Error Reporting&#160;</b><br/>
+By default, development errors are reported to the DET&#160;using the service&#160;<br/>Det_ReportError()as&#160;&#160;specified in&#160;<a href="TechnicalReference_ASR_IpduMs.html#2">[2]&#160;if development error&#160;</a>reporting is&#160;enabled (i.e.&#160;<br/>pre-compile parameter&#160;IPDUM_DEV_ERROR_DETECT == STD_ON).&#160;The DET&#160;reporting&#160;<br/>can be enabled during pre-compile&#160;time using the tool GENy.&#160;<br/>
+To&#160;do this set the check box against the parameter Development Error Detection as shown&#160;<br/>in&#160;<a href="TechnicalReference_ASR_IpduMs.html#11">Figure 3-1</a>:&#160;<br/>
+&#160;<br/>
+Figure 3-1&#160;<br/>
+DET&#160;Activation&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+11&#160;/&#160;44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-12_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+If another module is used for error reporting instead of DET,&#160;the function prototype for&#160;<br/>reporting the error can be configured by the integrator, but must have the same signature&#160;<br/>as the service&#160;Det_ReportError().&#160;<br/>
+The reported IPDUM module ID is 52.&#160;<br/>
+The reported services&#160;IDs identify t<a href="TechnicalReference_ASR_IpduMs.html#2">he IPDUM services as specified by&#160;[1]</a>. For the service&#160;<br/><a href="TechnicalReference_ASR_IpduMs.html#2">IDs and their related service names see section 8.3 of&#160;[1]</a>. &#160;<br/>
+The errors reported to DET&#160;are described in section 7.6 of&#160;<a href="TechnicalReference_ASR_IpduMs.html#2">[1]:&#160;</a><br/>
+<b>3.5.2&#160;</b><br/>
+<b>Production Error Reporting&#160;</b><br/>
+No production error codes are currently defined for I-PDU multiplexer.&#160;For whatever&#160;<br/>reasons&#160;&#160;<a href="TechnicalReference_ASR_IpduMs.html#2">[1]&#160;demands the detection of production code&#160;</a>errors should not be&#160;switched off.&#160;<br/><a href="TechnicalReference_ASR_IpduMs.html#11">Hence as shown in the&#160;Figure 3-1</a>&#160;Dem is always on and cannot be de-activated.&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+12&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-13_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>4&#160;&#160;Integration&#160;</b><br/>
+This chapter gives information required for&#160;the integration of the IPDUM into an ECU&#160;<br/>application environment.&#160;<br/>
+<b>4.1&#160;&#160;Scope of Delivery&#160;</b><br/>
+The delivery of the IPDUM contains the files&#160;which are described in the chapters&#160;<a href="TechnicalReference_ASR_IpduMs.html#13">4.1.1&#160;and&#160;<br/>4.1.2</a>:&#160;<br/>
+<b>4.1.1&#160;</b><br/>
+<b>Static Files&#160;</b><br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+IpduM.c&#160;<br/>
+Source file if&#160;ordered as&#160;source code.&#160;<br/>
+IpduM.h&#160;<br/>
+Header file if ordered as source code&#160;<br/>
+IpduM.lib&#160;<br/>
+Library file.&#160;The extension of the library may change depending on the used&#160;<br/>compiler&#160;<br/>
+Table 4-1&#160;&#160;<br/>
+Static files&#160;<br/>
+&#160;<br/>
+<b>4.1.2&#160;</b><br/>
+<b>Dynamic Files&#160;</b><br/>
+The dynamic files are generated by&#160;the configuration tool [GENy].&#160;<br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+IpduM_Cfg.h&#160;<br/>
+Contains pre-compile switches and&#160;symbolic defines.&#160;<br/>
+IpduM_Lcfg.c&#160;<br/>
+Contains link time parameters.&#160;<br/>
+IpduM_PBcfg.c&#160;&#160;Contains post build parameters.&#160;<br/>
+Table 4-2&#160;&#160;<br/>
+Generated files&#160;<br/>
+<b>4.2&#160;&#160;Include Structure&#160;</b><br/>
+The I-PDU multiplexer’s include struct<a href="TechnicalReference_ASR_IpduMs.html#2">ure is as illustrated in 5.4.2 in&#160;[1]</a>. Apart&#160;from&#160;that&#160;&#160;<br/>IpduM.c also includes Com_Cbk.h due to the demanded optimization&#160;of interacting with&#160;<br/>BSW module Com directly&#160;bypassing the PDU-Router.&#160;<br/>
+&#160;<br/>
+<b>4.3&#160;</b><br/>
+<b>Compiler Abstraction and Memory&#160;Mapping &#160;</b><br/>
+The objects (e.g. variables, functions, constants) have declared using the compiler&#160;<br/>independent compiler abstraction definitions. Each compiler&#160;abstraction definition is&#160;<br/>assigned to a memory section.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+13&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-14_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+The following table contains the IPDUM&#160;memory sections, its compiler abstraction&#160;<br/>definitions and their relationship among each other.&#160;<br/>
+<b>Compiler Abstraction</b><br/>
+<b>Definitions</b><br/>
+A&#160;<br/>T<br/>
+<b>&#160;</b><br/>
+NIT&#160;<br/>
+&#160;<br/>
+E&#160;<br/>
+FG&#160;<br/>
+_INIT&#160;<br/>
+_NOI<br/>
+L_DA<br/>
+D<br/>
+C<br/>
+<b>Memory&#160;Mapping&#160;</b><br/>
+O<br/>
+AR<br/>
+AR<br/>
+C<br/>
+V<br/>
+V<br/>
+<b>Sections&#160;</b><br/>
+IPDUM_<br/>
+IPDUM_PB<br/>
+IPDUM_<br/>
+IPDUM_<br/>
+IPDUM_ PBCFG _ROOT&#160;<br/>
+IPDUM_ APP<br/>
+IPDUM_START_SEC_CODE&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+IPDUM_STOP_SEC_CODE&#160;<br/>
+IPDUM_START_SEC_PBCFG&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+IPDUM_STOP_SEC_PBCFG&#160;<br/>
+IPDUM_START_SEC_PBCFG_ROOT&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+IPDUM_STOP_SEC_PBCFG_ROOT&#160;<br/>
+IPDUM_START_SEC_VAR_INIT_UNSPECIFIED&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+IPDUM_STOP_SEC_VAR_INIT_UNSPECIFIED&#160;<br/>
+IPDUM_START_SEC_VAR_NOINIT_8BIT&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+IPDUM_STOP_SEC_VAR_NOINIT_8BIT&#160;<br/>
+IPDUM_START_SEC_VAR_NOINIT_UNSPECIFIED<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+IPDUM_STOP_SEC_VAR_NOINIT_UNSPECIFIED&#160;<br/>
+Table 4-3&#160;&#160;<br/>
+Compiler abstraction and memory&#160;mapping&#160;<br/>
+<b>4.4&#160;</b><br/>
+<b>Critical Sections&#160;</b><br/>
+The IPDUM can use the BSW Scheduler to handle its critical sections. It can also use the&#160;<br/>Vector solution VStdLib to handle its critical sections.&#160;<br/>
+The critical sections are entered in the context of de-multiplexing, multiplexing and the&#160;<br/>IpduM_MainFunction(). &#160;<br/>
+<b>4.4.1&#160;</b><br/>
+<b>BSW Scheduler &#160;</b><br/>
+If the BSW Scheduler is used to&#160;handle critical sections, the IPDUM uses&#160;the following&#160;<br/>APIs for optimized runtime.&#160;<br/>
+SchM_Enter_IpduM (IPDUM_EXCLUSIVE_AREA_0)&#160;<br/>
+SchM_Exit_IpduM (IPDUM_EXCLUSIVE_AREA_0)&#160;<br/>
+These are configured in the template&#160;_SchM_IpduMS.h&#160;of the BSW Scheduler.&#160;<br/>IPDUM_EXCLUSIVE_AREA_0 should be defined to&#160;<br/>SCHM_EA_SUSPENDALLINTERRUPTS. &#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+14&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-15_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>4.4.2&#160;</b><br/>
+<b>Vector Standard Library&#160;</b><br/>
+If the Vector Standard Library (VStdLib) is&#160;used to handle the&#160;critical section, the IPDUM&#160;<br/>uses the following&#160;API:&#160;VStdSuspendAllInterrupts()&#160;which suspends the interrupts&#160;<br/>globally and&#160;VStdResumeAllInterrupts()&#160;which resumes the interrupts globally.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+15&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-16_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>5&#160;&#160;API Description&#160;</b><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#9">For an interfaces overview please see&#160;Figure 2-2</a>.&#160;<br/>
+<b>5.1&#160;&#160;Services provided by&#160;IPDUM&#160;</b><br/>
+The IPDUM&#160;API consists of services, which are realized by function calls.&#160;<br/>
+<b>5.1.1&#160;</b><br/>
+<b>IpduM_InitMemory&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>IpduM_InitMemory&#160;</b>(void) &#160;<br/>
+<b>Parameter&#160;</b><br/>
+void&#160;<br/>
+none&#160;<br/>
+<b>Return code&#160;</b><br/>
+void&#160;<br/>
+none&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+The function initializes&#160;variables, which&#160;cannot be initialized&#160;with the startup code.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+The function is used by the&#160;application.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+The function must be&#160;called on task level.&#160;<br/>
+Table 5-1&#160;&#160;<br/>
+IpduM_InitMemory&#160;<br/>
+<b>5.1.2&#160;</b><br/>
+<b>IpduM_Init&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>IpduM_Init&#160;</b>(const IpduM_ConfigType* ConfigPtr) &#160;<br/>
+<b>Parameter&#160;</b><br/>
+ConfigPtr&#160;<br/>
+Pointer to the&#160;IpduM configuration data, if IPDUM_CONFIG_VARIANT&#160;3 is&#160;<br/>configured.&#160;<br/>
+<b>Return code&#160;</b><br/>
+void&#160;<br/>
+none&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service initializes&#160;all internal and module related&#160;variables&#160;of the IPDU Multiplexer.&#160;&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+The function is used by the&#160;ECU Manager&#160;<br/>
+Expected Caller Context&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+16&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-17_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+The function must be&#160;called during the initialization&#160;phase of the stack or before&#160;the intended use of&#160;<br/>
+any of the IPDU Multiplexer’s&#160;services.&#160;<br/>
+Table 5-2&#160;&#160;<br/>
+IpduM_Init&#160;<br/>
+<b>5.1.3&#160;</b><br/>
+<b>IpduM_RxIndication&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+# if(IPDUM_USE_PDUINFOTYPE == STD_ON)&#160;<br/>
+# &#160;define IPDUM_RXIND_PARA &#160; &#160; &#160; &#160; &#160; &#160;PduInfoPtr&#160;<br/>
+# &#160;define IPDUM_RXIND_TYPE &#160; &#160; &#160; &#160; &#160; &#160;P2CONST(PduInfoType, AUTOMATIC,&#160;<br/>IPDUM_APPL_DATA)&#160;<br/>
+# else&#160;<br/>
+# &#160;define IPDUM_RXIND_PARA &#160; &#160; &#160; &#160; &#160; &#160;SduPtr&#160;<br/>
+# &#160;define IPDUM_RXIND_TYPE &#160; &#160; &#160; &#160; &#160; &#160;P2CONST(uint8, AUTOMATIC,&#160;<br/>IPDUM_APPL_DATA)&#160;<br/>
+# endif&#160;<br/>
+void&#160;<b>IpduM_RxIndication&#160;</b>(PduIdType PdumRxPduId, IPDUM_RXIND_TYPE &#160;<br/>IPDUM_RXIND_PARA) &#160;<br/>
+<b>Parameter&#160;</b><br/>
+SduPtr&#160;<br/>
+Contains&#160;the length (SduLength) for the&#160;received&#160;I-PDU and a pointer to a&#160;<br/>buffer (SduDataPtr)&#160;containing the I-PDU.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Payload information of the received I-PDU (pointer to&#160;data and data&#160;length). &#160; &#160; &#160;<br/>
+PduInfoPtr&#160;<br/>
+This Parameter is used, if IPDUM_USE_PDUINFOTYPE is defined&#160;to&#160;<br/>
+&#160;<br/>
+STD_ON.&#160;<br/>
+PdumRxPduId&#160;<br/>
+ID of received multiplexed&#160;I-PDU. Identifies the payload. Range: 0 to count of&#160;<br/>multiplex I-PDU IDs received –1 &#160;<br/>
+<b>Return code&#160;</b><br/>
+void&#160;<br/>
+none&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This service de-multiplexes&#160;the&#160;received multiplexed IPDU. &#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+The function is called by the PDU-Router&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+The function is called in an&#160;interrupt context or at the task level&#160;<br/>
+Table 5-3&#160;&#160;<br/>
+IpduM_RxIndication&#160;<br/>
+<b>5.1.4&#160;</b><br/>
+<b>IpduM_Transmit&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+StdReturnType&#160;<b>IpduM_Transmit&#160;</b>(PduIdType PdumTxPduId, const PduInfoType*&#160;<br/>PduInfoPtr) &#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+17&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-18_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Parameter&#160;</b><br/>
+PduInfoPtr&#160;<br/>
+Pointer to the&#160;payload of the transmit request.&#160;<br/>
+PdumTxPduId&#160;<br/>
+ID of transmit&#160;request (static or dynamic&#160;part). Identifies the payload.&#160;Range: 0&#160;<br/>to count of dynamic/static I-PDU ID/parts&#160;multiplexed&#160;by IPDU Multiplexer –1 &#160;<br/>
+<b>Return code&#160;</b><br/>
+StdReturnType&#160;<br/>
+E_OK: request accepted, E_NOT_OK: request rejected&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service&#160;multiplexes the received dynamic/static part&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+The function is called by the PDU-Router&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+The function is called at the task level&#160;<br/>
+Table 5-4&#160;&#160;<br/>
+IpduM_Transmit&#160;<br/>
+<b>5.1.5&#160;</b><br/>
+<b>IpduM_TxConfirmation &#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>IpduM_TxConfirmation&#160;</b>(PduIdType PdumTxPduId) &#160;<br/>
+<b>Parameter&#160;</b><br/>
+PdumTxPduId&#160;<br/>
+ID of transmitted multiplexed IPDU. Range:&#160;0 to count of multiplex I-PDU IDs&#160;<br/>transmitted –1&#160; &#160;<br/>
+<b>Return code&#160;</b><br/>
+void&#160;<br/>
+none&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service confirms&#160;the transmissions&#160;of the dynamic and&#160;static&#160;parts contained in the multiplex IPDU&#160;<br/>whose transmission is&#160;confirmed.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+The function is called by the PDU-Router&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+The function is called in an&#160;interrupt context or at the task level&#160;<br/>
+Table 5-5&#160;&#160;<br/>
+IpduM_TxConfirmation&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+18&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-19_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>5.1.6&#160;</b><br/>
+<b>IpduM_TriggerTransmit&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+# if(IPDUM_USE_PDUINFOTYPE == STD_ON)&#160;<br/>
+# &#160;define IPDUM_TT_PARA &#160; &#160; &#160; &#160; PduInfoPtr&#160;<br/>
+# &#160;define IPDUM_TT_TYPE &#160; &#160; &#160; &#160; CONSTP2VAR(PduInfoType, AUTOMATIC,&#160;<br/>IPDUM_APPL_DATA)&#160;<br/>
+# &#160;define IPDUM_TT_RETURN &#160; &#160; &#160; Std_ReturnType&#160;<br/>
+# else&#160;<br/>
+# &#160;define IPDUM_TT_PARA &#160; &#160; &#160; &#160; SduPtr&#160;<br/>
+# &#160;define IPDUM_TT_TYPE &#160; &#160; &#160; &#160; P2VAR(uint8, AUTOMATIC,&#160;<br/>IPDUM_APPL_DATA)&#160;<br/>
+# &#160;define IPDUM_TT_RETURN &#160; &#160; &#160; void&#160;<br/>
+# endif&#160;<br/>
+&#160;<br/>
+Std_ReturnType&#160;<b>IpduM_TriggerTransmit&#160;</b>(PduIdType PdumTxPduId,&#160;<br/>IPDUM_TT_TYPE IPDUM_TT_PARA) &#160;<br/>
+<b>Parameter&#160;</b><br/>
+PdumTxPduId&#160;<br/>
+ID of transmission multiplexed IPDU. Range:&#160;0 to count of multiplex I-PDU IDs&#160;<br/>transmitted –1&#160; &#160;<br/>
+SduPtr&#160;<br/>
+Pointer to the received I-PDU data.&#160;This Parameter is used, if&#160;<br/>IPDUM_USE_PDUINFOTYPE is defined to STD_OFF.&#160;<br/>
+&#160;<br/>
+Contains&#160;a pointer to a buffer (SduDataPtr) to where&#160;the SDU&#160;shall&#160;be copied&#160;<br/>
+PduInfoPtr&#160;<br/>
+to. On return,&#160;the service will indicate&#160;the&#160;length of the copied SDU data in&#160;<br/>SduLength.&#160;<br/>
+<b>Return code&#160;</b><br/>
+Std_ReturnType&#160;<br/>
+E_OK: SDU&#160;has been&#160;copied and SduLength indicates the number of copied&#160;<br/>bytes.&#160;&#160;<br/>
+E_NOT_OK: No SDU has been&#160;copied. SduLength has not been set.&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service copies&#160;the transmission&#160;multiplexed IPDU&#160;to the provided&#160;buffer.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+The function is called by the interface layers (LIN/FR)&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+The function is called in an&#160;interrupt context or at the task level&#160;<br/>
+Table 5-6&#160;&#160;<br/>
+IpduM_TriggerTransmit&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+19&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-20_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>5.1.7&#160;</b><br/>
+<b>IpduM_MainFunction&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>IpduM_MainFunction&#160;</b>(void) &#160;<br/>
+<b>Parameter&#160;</b><br/>
+void&#160;<br/>
+none&#160;<br/>
+<b>Return code&#160;</b><br/>
+void&#160;<br/>
+none&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service takes care of the timeout handling of the transmission confirmations.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+The function is called cyclically by the BSW scheduler&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+The function is called at the task level&#160;<br/>
+Table 5-7&#160;&#160;<br/>
+IpduM_MainFunction&#160;<br/>
+<b>5.1.8&#160;</b><br/>
+<b>IpduM_GetVersionInfo&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>IpduM_GetVersionInfo&#160;</b>(Std_VersionInfoType* versioninfo) &#160;<br/>
+<b>Parameter&#160;</b><br/>
+Std_VersionInfoType&#160;<br/>
+Pointer to the&#160;structure to&#160;write the versioninfo&#160;<br/>
+<b>Return code&#160;</b><br/>
+void&#160;<br/>
+none&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Provides&#160;the version information of the IPDU Multiplexer.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+none&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+The function can be&#160;called&#160;at any time at the&#160;application’&#160;discretion,&#160;interrupt or task level&#160;<br/>
+Table 5-8&#160;&#160;<br/>
+IpduM_GetVersionInfo&#160;<br/>
+&#160;<br/>
+<b>5.2&#160;&#160;Services used by&#160;IPDUM&#160;</b><br/>
+In the following table services provided&#160;by other components, which are used by the&#160;<br/>IPDUM are listed. For details&#160;about prototype and functionality refer to the documentation&#160;<br/>of the providing component.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+20&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-21_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Component&#160;</b><br/>
+<b>API&#160;</b><br/>
+Det&#160;Det_ReportError&#160;<br/>
+PduR&#160;PduR_IpduMTransmit&#160;<br/>
+PduR&#160;PduR_IpduMTxConfirmation&#160;<br/>
+PduR&#160;PduR_IpduMRxIndication&#160;<br/>
+Com&#160;Com_RxIndication&#160;<br/>
+Com&#160;Com_TxConfirmation&#160;<br/>
+BSW Scheduler&#160;<br/>
+SchM_Enter_IpduM&#160;<br/>
+BSW Scheduler&#160;<br/>
+SchM_Exit_IpduM&#160;<br/>
+Table 5-9&#160;&#160;<br/>
+Services used by the IPDUM&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+21&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-22_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-22_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-22_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-22_4.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>6&#160;&#160;Configuration&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/>Currently the IPDUM implementation supports&#160;only an&#160;AUTOSAR EcuC.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+The IPDUM can be configured using an EcuC file through the Vector configuration and&#160;<br/>generation tool GENy. A few of the parameters and their configurations have been&#160;<br/><a href="TechnicalReference_ASR_IpduMs.html#11">described in the section&#160;3.5.1</a>&#160;(see above). The following chapter provides a detailed&#160;<br/>description of the&#160;IPDUM&#160;EcuC parameters.&#160;&#160;<br/>
+<b>6.1&#160;</b><br/>
+<b>EcuC configuration with GENy&#160;</b><br/>
+&#160;<br/>A detail description of all the IPDUM parameters is given in the following sections.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/>Should the GENy support for IPDUM configuration be intended? Please&#160;ensure the&#160;<br/>
+&#160;&#160;basic software module definition file&#160;(IpduM_bswmd.xml) and&#160;the Il_AsrIpduM.dll are&#160;<br/>
+available in the GENy components folder&#160;<br/>
+<b>&#160;</b><br/>
+All of the IPDUM configuration parameters&#160;are imported from the EcuC into GENy.&#160;<br/>However some non AUTOSAR parameters (e.g&#160;IPduMUserConfigFile, IpduMVStdLibUsed,&#160;<br/>IPduMPBStartAddress, IPduMBufferSize, IPduMMaxRxBufferSize,&#160;<br/>IPduMMaxNumberOfTxRequests see section&#160;<a href="TechnicalReference_ASR_IpduMs.html#39">6.2.1.22) may not be available by default in&#160;<br/></a>the EcuC. Such parameters will be exported to the EcuC file through GENy.&#160;<br/>&#160;<br/>Only a few IPDUM parameters imported from the EcuC file may have to be configured in&#160;<br/>GENy such parameters are editable.&#160;<br/>&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>The IPDUM EcuC parameters which&#160;are not editable in GENy are directly&#160;derived from&#160;<br/>
+<b>&#160;&#160;</b>the systems description&#160;and should&#160;not be manually edited /&#160;configured by&#160;the user. &#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>&#160;&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+22&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-23_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-23_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-23_3.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+&#160;<br/>The IPDUM can be enabled in the component&#160;selection section of the GENy GUI as&#160;<br/><a href="TechnicalReference_ASR_IpduMs.html#23">shown in the&#160;Figure 6-1</a>.&#160;<br/>&#160;<br/>
+&#160;<br/>
+Figure 6-1&#160;<br/>
+GENy&#160;component selection&#160;<br/>
+&#160;<br/>
+<b>6.1.1&#160;</b><br/>
+<b>General parameters&#160;</b><br/>
+<a href="TechnicalReference_ASR_IpduMs.html#24">Figure 6-2</a>&#160;shows the activation of static parts&#160;support in the IPDUM. If the IPDUM EcuC&#160;<br/>multiplex I-PDUs are configured with static parts or static part support in expected in a post&#160;<br/>build configuration, the parameter IpduMStaticPartExists&#160;should be enabled in GENy at&#160;<br/>pre-compile time.&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>If this parameter is not enabled the IPDUM will not support static parts. &#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>Likewise if the IPDUM version info is&#160;required at runtime, the parameter&#160;<br/>IPduMVersionInfoApi should be activated at pre-compile time.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+23&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-24_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-24_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-24_3.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Figure 6-2&#160;<br/>
+Static part activation&#160;<br/>
+&#160;<br/>
+<b>6.1.2&#160;</b><br/>
+<b>Link time&#160;and Post build configuration&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+Figure 6-3&#160;<br/>
+Link time and post build parameters&#160;<br/>
+<a href="TechnicalReference_ASR_IpduMs.html#24">Figure 6-3&#160;shows the link time and&#160;</a>post build parameters.&#160;The desired configuration can&#160;<br/>be chosen using the configuration variant drop down menu. &#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+24&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-25_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-25_2.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+¾&#160;<br/>
+PB Start&#160;Address is the start address of&#160;the post build configuration structure&#160;<br/>of the I-PDU multiplexer&#160;module in the ROM.&#160;This address is required by the&#160;<br/>IPDUM post build configuration.&#160;<br/>
+¾&#160;<br/>
+The buffer size required by the transmitted multiplex I-PDU(s) (Tx Pathways)&#160;<br/>in the IPDUM configuration can be computed by clicking the button against&#160;<br/>the field “Compute Max&#160;Tx&#160;Buffer Size”.&#160;If more&#160;Tx&#160;Pathways are anticipated&#160;<br/>in a post build configuration the size can be manually edited&#160;<br/>
+¾&#160;<br/>
+The count of the transmitted multiplex&#160;I-PDU(s) (Tx&#160;Pathways) in the IPDUM&#160;<br/>configuration can be computed by clicking the button against the field “Max&#160;<br/>Number of&#160;Tx Requests”. If more&#160;Tx&#160;Pathways are anticipated in a post build&#160;<br/>configuration the count&#160;can be manually edited&#160;<br/>
+¾&#160;<br/>
+The buffer size required by the received&#160;multiplex I-PDU(s) (Rx Pathways) in&#160;<br/>the IPDUM&#160;configuration&#160;can be computed by clicking the button against the&#160;<br/>field “Compute Max Rx Buffer Size”. If&#160;an increment in length of the largest&#160;<br/>received multiplex is anticipated in a post build configuration the size can be&#160;<br/>manually edited&#160;<br/>
+&#160;<br/>
+<b>6.1.3&#160;</b><br/>
+<b>Multiplexing and De-multiplexing &#160;</b><br/>
+The IPDUM multiplexes or de-multiplexes different dynamic parts associated to a multiplex&#160;<br/>I-PDU along with the configured&#160;static part if any.&#160;The multiplexing&#160;and&#160;de-multiplexing&#160;is&#160;<br/>executed based on the configuration derived&#160;from the system description and therefore&#160;<br/>should not be edited.&#160;<br/>
+<a href="TechnicalReference_ASR_IpduMs.html#25">Figure 6-4&#160;shows the configuration of</a>&#160;a dynamic part to be multiplexed.&#160;The start bit and&#160;<br/>end bit give&#160;the the bit field positions in the dynamic part.&#160;The destination bit is the bit&#160;<br/>position&#160;in&#160;the multiplex I-PDU to which&#160;the bit field has to&#160;be copied.&#160;The IPDUM&#160;<br/>multiplexes&#160;accordingly and triggers the transmission of the multiplex I-PDU(s) (Tx&#160;<br/>Pathway(s)).&#160;<br/>
+&#160;<br/>
+Figure 6-4&#160;<br/>
+Copy&#160;bit field configuration of a dynamic part&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+25&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=26></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-26_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-26_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-26_3.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_ASR_IpduMs.html#26">Figure 6-5</a>&#160;shows the configuration of a static part&#160;to be de-multiplexed.&#160;The start bit and&#160;<br/>end bit give&#160;the bit field positions in the multiplexed I-PDU.&#160;The destination bit is the bit&#160;<br/>position in the static part to which the bit&#160;field has to be copied.&#160;The IPDUM de-multiplexes&#160;<br/>accordingly&#160;and indicates the reception of the static part to Com.&#160;<br/>
+&#160;<br/>
+Figure 6-5&#160;<br/>
+Copy&#160;bit field configuration of a static part&#160;<br/>
+While de-multiplexing a dynamic part contained&#160;in a received multiplex I-PDU.&#160;The IPDUM&#160;<br/>chooses the associated dynamic part layout&#160;based on the parameter “Rx Selector Value”&#160;<br/>which is derived from the system&#160;description and should not be edited.&#160;<br/>
+&#160;<br/>
+Figure 6-6&#160;<br/>
+Dynamic part&#160;layout selection&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+26&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=27></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-27_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-27_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-27_3.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>It should be&#160;noted here that:&#160;<br/>
+<b>&#160;</b><br/>
+¾&#160;<br/>
+The parameters Start Bit, End bit&#160;and Destination Bit are derived&#160;<br/>from the system description.&#160;<br/>
+¾&#160;<br/>
+The&#160;AUTOSAR system template versions prior to 3.1.4 do not&#160;<br/>support the configuration of more&#160;than 1 sub parts (IPduMBitField)&#160;<br/>per static or dynamic part(s). &#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+<b>6.1.4&#160;</b><br/>
+<b>Tx&#160;Pathway &#160;</b><br/>
+All parameters for a multiplex I-PDU (TxPathway/TxRequest)&#160;configuration are shown in&#160;<br/><a href="TechnicalReference_ASR_IpduMs.html#27">the&#160;Figure 6-7</a>.&#160;<br/>
+&#160;<br/>
+Figure 6-7&#160;<br/>
+Tx Pathway configuration parameters&#160;<br/>
+¾&#160;<br/>
+All the parameters except “Tx Confirmation&#160;Timeout” are derived from the&#160;<br/>system description and hence should not&#160;be edited. While configuring the&#160;<br/>value for this parameter the user has&#160;to consider the “Tx Mode” of the&#160;<br/>associated dynamic and / or static parts in Com. If configured the IPDUM&#160;<br/>performs a time out handling for every&#160;multiplex I-PDU (Tx Pathway) it&#160;<br/>transmits. No transmission requests of the associated static or dynamic parts&#160;<br/>are accepted for a transmitted multiplex&#160;I-PDU as long as&#160;the transmission&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+27&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=28></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-28_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-28_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-28_3.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+confirmation is received or the configured transmission confirmation timeout&#160;<br/>hasn’t elapsed.&#160;<br/>
+¾&#160;<br/>
+In the system description with format&#160;3.0.1 along with above parameter,&#160;<br/>another parameter “Tx&#160;Trigger Mode” also seen in the figure above can be&#160;<br/>configured using the drop down.&#160;The parameter “Tx&#160;Trigger Mode” is the&#160;<br/>event which triggers the transmission of&#160;a multiplex I-PDU by IPDUM.&#160;The&#160;<br/>transmission of a multiplex IPDU can be configured following the below&#160;<br/>events:&#160;<br/>
+♦&#160;DYNAMIC_PART_TRIGGER:&#160;Transmission of the multiplex&#160;I-PDU is&#160;<br/>
+triggered by the IPDUM when Com requests the transmission of a&#160;<br/>multiplexed&#160;dynamic part.&#160;<br/>
+♦&#160;STATIC_OR_DYNAMIC_PART_TRIGGER:&#160;Transmission of the multiplex&#160;<br/>
+I-PDU is triggered by the IPDUM when Com&#160;requests&#160;the transmission of&#160;<br/>a multiplexed dynamic&#160;part or&#160;the configured static part.&#160;<br/>
+♦&#160;STATIC_ PART_TRIGGER:&#160;Transmission of the multiplex I-PDU is&#160;<br/>
+triggered by the IPDUM when Com requests the transmission of the&#160;<br/>configured static part.&#160;<br/>
+♦&#160;&#160;NONE:&#160;Transmission&#160;of the multiplex I-PDU is never triggered by the&#160;<br/>
+IPDUM.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/>In case of the last event the static or&#160;dynamic part is copied to its associated buffer but&#160;<br/>
+&#160;&#160;no transmission is triggered.&#160;<br/>
+<b>&#160;</b><br/>
+The trigger event NONE is useful in case the transmission of a multiplex I-PDU is triggered&#160;<br/>by a lower interface&#160;layer (FrIf, LinIf) layer.&#160;The IPDU Multiplexer provides the&#160;API&#160;<br/>IpduM_TriggerTransmit&#160;for such a scenario.&#160;<br/>
+<b>6.1.5&#160;</b><br/>
+<b>Transmission Confirmations&#160;</b><br/>
+The IPDUM confirms the transmission of every dynamic part it multiplexes through a&#160;<br/>multiplex I-PDU and a static part if configured to the multiplex I-PDU to Com.&#160;<br/>
+<a href="TechnicalReference_ASR_IpduMs.html#29">Figure 6-8</a>&#160;shows the transmission confirmation configurations of different dynamic parts&#160;<br/>multiplexed&#160;by a multiplex I-PDU (Tx Pathway).&#160;<br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/>The IPDUM confirms the&#160;transmission of all the dynamic parts multiplexed by a&#160;<br/>
+&#160;&#160;multiplex I-PDU and also confirms the transmission of the static part if configured to the&#160;<br/>
+multiplex I-PDU.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+28&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=29></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-29_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-29_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-29_3.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Figure 6-8&#160;<br/>
+Dynamic part&#160;confirmation configuration&#160;<br/>
+<a href="TechnicalReference_ASR_IpduMs.html#29">Figure 6-9</a>&#160;shows the transmission confirmation configuration of the static part configured&#160;<br/>to a multiplex I-PDU (Tx Pathway).&#160;<br/>
+&#160;<br/>
+Figure 6-9&#160;<br/>
+Static part confirmation configuration&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+29&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=30></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-30_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>6.2&#160;</b><br/>
+<b>ECU Configuration parameters:&#160;</b><br/>
+&#160;<br/>
+<b>Container Name&#160;</b><br/>
+IPduMplex&#160;<br/>
+<b>Multiplicity&#160;</b><br/>
+0...1&#160;<br/>
+<b>Description&#160;</b><br/>
+Configuration&#160;of the IPduMplex&#160;(IPdu Multiplexer) module.&#160;<br/>
+&#160;<br/>
+<b>6.2.1.1&#160;</b><br/>
+<b>IPduMConfig&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMConfig&#160;1...1&#160;<br/>
+&#160;&#160;&#160;&#160;This&#160;<br/>
+container&#160;<br/>
+contains&#160;the sub containers&#160;of the&#160;<br/>
+IPduMplex module.&#160;The IPduMTxPathway&#160;<br/>subcontainer&#160;includes&#160;information about sent I-<br/>PDUs.&#160;The IPduMRxPathway includes information&#160;<br/>about received&#160;I-PDUs.&#160;<br/>
+This&#160;container is a MultipleConfigurationContainer,&#160;<br/>i.e. this container and its&#160;sub-containers&#160;exist once&#160;<br/>per configuration set.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMRxPathway&#160;0...*&#160;<br/>
+IPduMTxPathway&#160;0...*&#160;<br/>
+&#160;<br/>
+<b>6.2.1.2&#160;</b><br/>
+<b>IPduMRxPathway&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMRxPathway&#160;0...*&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Contains&#160;<br/>
+the&#160;<br/>
+configuration parameters&#160;of the I-<br/>
+PDUs received&#160;by the IPduM module.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMRxIndication&#160;1...1&#160;<br/>
+&#160;<br/>
+<b>6.2.1.3&#160;</b><br/>
+<b>IPduMRxIndication&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMRxIndication&#160;1...1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Contains&#160;the configuration for incoming&#160;<br/>RxIndication calls.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+30&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=31></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-31_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMRxHandleId&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+This&#160;is&#160;the I-PDU ID of the incoming I-PDU. If an&#160;<br/>
+ER&#160;<br/>
+incoming RxIndication's I-PDU ID matches this&#160;<br/>value then it is unpacked according to the&#160;<br/>specification in&#160;this container.&#160;<br/>
+IPduMRxIndicationP&#160;1...1&#160;REFER&#160;&#160;<br/>
+Reference to the received&#160;Pdu representation in&#160;<br/>
+duRef&#160;<br/>
+ENCE&#160;<br/>
+the ECU Configuration&#160;Description exchange file.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+IPduMRxDynamicPart&#160;1...*&#160;<br/>
+IPduMRxStaticPart&#160;0...1&#160;<br/>
+&#160;<br/>
+<b>6.2.1.4&#160;</b><br/>
+<b>IPduMBitField&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+&#160;&#160;&#160;<br/>
+This&#160;<br/>
+is&#160;<br/>
+used&#160;<br/>
+to specify a contiguous range of bits&#160;<br/>
+within an I-PDU.&#160;The range is inclusive.&#160;<br/>
+IPduMEndBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the end of the&#160;bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or&#160;higher than&#160;Ipdum_StartBit.&#160;<br/>
+IPduMStartBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the start of the bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or lower than Ipdum_EndBit.&#160;<br/>
+&#160;<br/>
+<b>6.2.1.5&#160;</b><br/>
+<b>IPduMRxDynamicPart&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMRxDynamicP<br/>
+1...*&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+This&#160;container contains&#160;the configuration for the&#160;<br/>
+art&#160;<br/>
+dynamic&#160;part of incoming&#160;RxIndication&#160;calls.&#160;<br/>
+When&#160;an received I-PDU's selector field&#160;matches&#160;<br/>the IPduM_Selector_Value&#160;the I-PDU is&#160;unpacked&#160;<br/>according to the values&#160;in the IPduMCopyBitfield&#160;<br/>and then the&#160;new I-PDU&#160;constructed and sent out&#160;<br/>with the I-PDU ID referenced by&#160;<br/>IPduMOutgoingDyamicPduRef.&#160;<br/>
+IPduMRxSelectorVal&#160;1...1&#160;INTEG<br/>
+&#160;<br/>
+This is the selector value in&#160;the received IPDU&#160;<br/>
+ue&#160;<br/>
+ER&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+31&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=32></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-32_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMOutgoingDyn<br/>
+1...1&#160;REFER&#160;&#160;<br/>
+When the new I-PDU is&#160;sent out it is&#160;sent with this&#160;<br/>
+amicPduRef&#160;<br/>
+ENCE&#160;<br/>
+I-PDU ID. Reference to the&#160;sent PDU&#160;<br/>representation in the ECU&#160;Configuration&#160;<br/>Description exchange file.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMCopyBitField&#160;1...*&#160;<br/>
+&#160;<br/>
+<b>6.2.1.6&#160;</b><br/>
+<b>IPduMCopyBitField&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMCopyBitField&#160;1...*&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Specifies&#160;<br/>
+the&#160;<br/>
+source bit fields&#160;and the destination&#160;<br/>
+bit position, so that the bits&#160;in the source&#160;can be&#160;<br/>copied to the bits&#160;in the destination.&#160;<br/>
+Within one I-PDU multiple&#160;instances of this&#160;<br/>container are used&#160;to specify the bit&#160;fields in that I-<br/>PDU.&#160;<br/>
+Adjacent bit fields&#160;could be&#160;merged&#160;in order to&#160;<br/>reduce the number of instances of this container.&#160;<br/>
+IPduMDestinationBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the start of the&#160;<br/>
+ER&#160;<br/>
+destination bit field for the copy. &#160;<br/>
+The resulting destination field must fit inside the I-<br/>PDU.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+&#160;<br/>
+<b>6.2.1.7&#160;</b><br/>
+<b>IPduMBitField&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+&#160;&#160;&#160;<br/>
+This&#160;<br/>
+is&#160;<br/>
+used&#160;<br/>
+to specify a contiguous range of bits&#160;<br/>
+within an I-PDU.&#160;The range is inclusive.&#160;<br/>
+IPduMEndBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the end of the&#160;bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or&#160;higher than&#160;Ipdum_StartBit.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+32&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=33></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-33_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMStartBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the start of the bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or lower than Ipdum_EndBit.&#160;<br/>
+&#160;<br/>
+<b>6.2.1.8&#160;</b><br/>
+<b>IPduMRxStaticPart&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMRxStaticPart&#160;<br/>
+0...1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+This&#160;container contains&#160;the information on how to&#160;<br/>unpack the static part of an&#160;incoming&#160;I-PDU.&#160;<br/>
+IPduMOutgoingStati<br/>
+1...1&#160;REFER&#160;&#160;<br/>
+When the new I-PDU is&#160;sent out it is&#160;sent with this&#160;<br/>
+cPduRef&#160;<br/>
+ENCE&#160;<br/>
+I-PDU ID. Reference to the&#160;sent Pdu&#160;<br/>representation in the ECU&#160;Configuration&#160;<br/>Description exchange file.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMCopyBitField&#160;1...*&#160;<br/>
+&#160;<br/>
+<b>6.2.1.9&#160;</b><br/>
+<b>IPduMCopyBitField&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMCopyBitField&#160;1...*&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Specifies&#160;<br/>
+the&#160;<br/>
+source bit fields&#160;and the destination&#160;<br/>
+bit position, so that the bits&#160;in the source&#160;can be&#160;<br/>copied to the bits&#160;in the destination.&#160;<br/>
+Within one I-PDU multiple&#160;instances of this&#160;<br/>container are used&#160;to specify the bit&#160;fields in that I-<br/>PDU.&#160;<br/>
+Adjacent bit fields&#160;could be&#160;merged&#160;in order to&#160;<br/>reduce the number of instances of this container.&#160;<br/>
+IPduMDestinationBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the start of the&#160;<br/>
+ER&#160;<br/>
+destination bit field for the copy. &#160;<br/>
+The resulting destination field must fit inside the I-<br/>PDU.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+33&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=34></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-34_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>6.2.1.10&#160;&#160;IPduMBitField&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+&#160;&#160;&#160;<br/>
+This&#160;<br/>
+is&#160;<br/>
+used&#160;<br/>
+to specify a contiguous range of bits&#160;<br/>
+within an I-PDU.&#160;The range is inclusive.&#160;<br/>
+IPduMEndBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the end of the&#160;bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or&#160;higher than&#160;Ipdum_StartBit.&#160;<br/>
+IPduMStartBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the start of the bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or lower than Ipdum_EndBit.&#160;<br/>
+&#160;<br/>
+<b>6.2.1.11&#160;&#160;IPduMTxPathway&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMTxPathway&#160;0...*&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Contains&#160;<br/>
+the&#160;<br/>
+configuration parameters&#160;transmitted&#160;<br/>
+I-PDUs&#160;by the IPduM module.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMTxConfirmation&#160;0...1&#160;<br/>
+IPduMTxRequest&#160;1...1&#160;<br/>
+&#160;<br/>
+<b>6.2.1.12&#160;&#160;IPduMTxConfirmation&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMTxConfirmatio&#160;0...1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+A&#160;transmit request&#160;can be confirmed by&#160;the lower&#160;<br/>
+n&#160;<br/>
+layer.&#160;This&#160;container is used&#160;to generate&#160;the&#160;<br/>associated confirmations&#160;for the static&#160;and dynamic&#160;<br/>parts of a multiplexed I-PDU. &#160;<br/>
+When&#160;an I-PDU is&#160;transmitted by the IPduM, the&#160;<br/>selector field&#160;value in that PDU needs to be stored&#160;<br/>in the IPduM so that the confirmation for&#160;the&#160;<br/>correct dynamic part can be generated.&#160;This is&#160;<br/>state internal&#160;to the IPduM at run-time. For the&#160;<br/>purposes of this container&#160;and&#160;<br/>IPduMDynamicTxConfirmation this stored&#160;state is&#160;<br/>called Stored_Selector.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+34&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=35></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-35_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMStaticTxConfir&#160;0...1&#160;REFER&#160;&#160;<br/>
+This references the I-PDU&#160;to use in the&#160;<br/>
+mationIPduRef&#160;<br/>
+ENCE&#160;<br/>
+TxConfirmation for the static part.&#160;<br/>
+This entity does not appear if there is no&#160;static&#160;part.<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMDynamicTxConfirmation&#160;1...*&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>6.2.1.13&#160;&#160;IPduMDynamicTxConfirmation&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMDynamicTxCo&#160;1...*&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+The dynamic&#160;part of an I-PDU&#160;can have more than&#160;<br/>
+nfirmation&#160;<br/>
+one I-PDU IDs for confirmations.&#160;The&#160;correct I-<br/>PDU ID for the confirmation&#160;is found from&#160;the&#160;<br/>selector field&#160;value of a previously transmitted I-<br/>PDU. It is&#160;assumed that this&#160;selector field is&#160;stored&#160;<br/>in some internal value called Stored_Selector.&#160;<br/>
+When&#160;a transmit confirmation is received&#160;the&#160;<br/>Stored_Selector is used to&#160;select an instance of&#160;<br/>IPduMDynamicTxConfirmation by matching the&#160;<br/>Stored_Selector with the IPduMSelectorValue.&#160;<br/>
+IPduMSelectorValue&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+When the selector field of the confirmed I-PDU&#160;<br/>
+ER&#160;<br/>
+matches the&#160;value in here then generate a&#160;<br/>TxConfirmation for the I-PDU referenced&#160;by&#160;<br/>IPduMDynamicTxConfirmIPduRef.&#160;<br/>
+IPduMDynamicTxCo&#160;1...1&#160;REFER&#160;&#160;<br/>
+This&#160;is&#160;the I-PDU ID to use&#160;in the outgoing&#160;<br/>
+nfirmIPduRef&#160;<br/>
+ENCE&#160;<br/>
+confirmation (confirmation for the COM I-PDU)&#160;<br/>when&#160;an incoming confirmation (for an&#160;IPduM I-<br/>PDU) is received and matches the&#160;stored&#160;<br/>Stored_Selector.&#160;<br/>
+&#160;<br/>
+<b>6.2.1.14&#160;&#160;IPduMTxRequest&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMTxRequest&#160;1...1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+This&#160;<br/>
+is&#160;<br/>
+used&#160;to specify the configuration for&#160;<br/>
+Transmit requests.&#160;<br/>
+There will one instance of this container for each I-<br/>PDU that can&#160;be requested&#160;for transmission (the&#160;<br/>outgoing&#160;I-PDUs) by the IPduM.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+35&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=36></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-36_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMIPduUnusedA&#160;0...1&#160;INTEG<br/>
+&#160;<br/>
+IPduM module fills not used&#160;areas of an&#160;I-PDU&#160;with&#160;<br/>
+reasDefault&#160;<br/>
+ER&#160;<br/>
+this&#160;bit-pattern &#160;<br/>
+If this attribute is omitted the IPduM module does&#160;<br/>not fill the I-PDU.&#160;<br/>
+IPduMInitialSelector<br/>
+1...1&#160;INTEG<br/>
+&#160;<br/>
+This value is&#160;used&#160;by the initialization function to&#160;<br/>
+Value&#160;<br/>
+ER&#160;<br/>
+set the initial value of the selector&#160;field.&#160;<br/>
+IPduMSize&#160;1...1&#160;INTEG<br/>
+&#160;<br/>
+The size of the I-PDU in bytes.&#160;The maximum size&#160;<br/>
+ER&#160;<br/>
+is limited by the underlying&#160;communication&#160;<br/>interface. 0-8&#160;for CAN and&#160;LIN 0-254 for&#160;FlexRay&#160;<br/>
+IPduMTxConfirmatio&#160;0...1&#160;<br/>
+FLOAT&#160;&#160;&#160;<br/>
+This timeout (in&#160;seconds) defines the timeout&#160;<br/>
+nTimeout&#160;<br/>
+period for monitoring the&#160;reception of the&#160;<br/>TxConfirmation.&#160;<br/>
+It is not used&#160;when&#160;an I-PDU is requested&#160;using&#160;<br/>the trigger transmit&#160;API.&#160;<br/>
+IPduMTxTriggerMod&#160;1...1&#160;ENUM<br/>
+&#160;<br/>
+Sets&#160;the transmission&#160;trigger event of the&#160;<br/>
+e&#160;<br/>
+ERATI<br/>
+multiplexed I-PDU, send immediately or&#160;at a later&#160;<br/>
+ON&#160;<br/>
+point in time.&#160;<br/>
+IPduMOutgoingPdu<br/>
+1...1&#160;REFER&#160;&#160;<br/>
+Reference to the PDU defining the outgoing I-PDU.<br/>
+Ref&#160;<br/>
+ENCE&#160;<br/>
+When the outgoing I-PDU is&#160;sent this is the I-PDU&#160;<br/>ID to give it.&#160;It&#160;is&#160;the IPduM I-PDU ID of the&#160;<br/>assembled I-PDU.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+IPduMTxDynamicPart&#160;1...*&#160;<br/>
+IPduMTxStaticPart&#160;0...1&#160;<br/>
+&#160;<br/>
+<b>6.2.1.15&#160;&#160;IPduMBitField&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+&#160;&#160;&#160;<br/>
+This&#160;<br/>
+is&#160;<br/>
+used&#160;<br/>
+to specify a contiguous range of bits&#160;<br/>
+within an I-PDU.&#160;The range is inclusive.&#160;<br/>
+IPduMEndBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the end of the&#160;bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or&#160;higher than&#160;Ipdum_StartBit.&#160;<br/>
+IPduMStartBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the start of the bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or lower than Ipdum_EndBit.&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+36&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=37></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-37_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>6.2.1.16&#160;&#160;IPduMTxDynamicPart&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMTxDynamicPa&#160;1...*&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Configuration parameters&#160;for an instance of a&#160;<br/>
+rt&#160;<br/>
+TxRequest call into the IPduM.&#160;<br/>
+When&#160;a&#160;Tx Request with the&#160;<br/>IPduMTxDynamicHandleId&#160;is received by&#160;the&#160;<br/>IPduM, the bit fields in the incoming I-PDU are&#160;<br/>packed into the outgoing I-PDU buffer and then the&#160;<br/>send&#160;mode is&#160;honored.&#160;<br/>
+This&#160;container is used by the dynamic&#160;part of a&#160;<br/>TxRequest configuration.&#160;<br/>
+Therefore, for each outgoing I-PDU there will be&#160;<br/>one instance&#160;of this container for the dynamic&#160;part.&#160;<br/>
+IPduMTxDynamicHa&#160;1...1&#160;INTEG<br/>
+&#160;<br/>
+This is&#160;an incoming handle&#160;id. When the&#160;handle of&#160;<br/>
+ndleId&#160;<br/>
+ER&#160;<br/>
+an incoming&#160;Tx Request&#160;matches this,&#160;the bits&#160;<br/>fields (see Ipdum_CopyBitField) are copied and&#160;<br/>the IpduMTxTriggerMode is honored.&#160;<br/>
+IPduMTxDynamicPd&#160;1...1&#160;REFER&#160;&#160;<br/>
+Reference to the Pdu representation in the ECU&#160;<br/>
+uRef&#160;<br/>
+ENCE&#160;<br/>
+Configuration&#160;Description exchange file to be&#160;<br/>transmitted.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMCopyBitField&#160;1...*&#160;<br/>
+&#160;<br/>
+<b>6.2.1.17&#160;&#160;IPduMCopyBitField&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMCopyBitField&#160;1...*&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Specifies&#160;<br/>
+the&#160;<br/>
+source bit fields&#160;and the destination&#160;<br/>
+bit position, so that the bits&#160;in the source&#160;can be&#160;<br/>copied to the bits&#160;in the destination.&#160;<br/>
+Within one I-PDU multiple&#160;instances of this&#160;<br/>container are used&#160;to specify the bit&#160;fields in that I-<br/>PDU.&#160;<br/>
+Adjacent bit fields&#160;could be&#160;merged&#160;in order to&#160;<br/>reduce the number of instances of this container.&#160;<br/>
+IPduMDestinationBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the start of the&#160;<br/>
+ER&#160;<br/>
+destination bit field for the copy. &#160;<br/>
+The resulting destination field must fit inside the I-<br/>PDU.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+37&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=38></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-38_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+&#160;<br/>
+<b>6.2.1.18&#160;&#160;IPduMBitField&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+&#160;&#160;&#160;<br/>
+This&#160;<br/>
+is&#160;<br/>
+used&#160;<br/>
+to specify a contiguous range of bits&#160;<br/>
+within an I-PDU.&#160;The range is inclusive.&#160;<br/>
+IPduMEndBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the end of the&#160;bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or&#160;higher than&#160;Ipdum_StartBit.&#160;<br/>
+IPduMStartBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the start of the bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or lower than Ipdum_EndBit.&#160;<br/>
+&#160;<br/>
+<b>6.2.1.19&#160;&#160;IPduMTxStaticPart&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMTxStaticPart&#160;0...1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Configuration parameters&#160;for an instance of a&#160;<br/>Tx_Request call into the IPduM.&#160;<br/>
+When&#160;a&#160;Tx Request with the&#160;<br/>IPduMTxStaticHandleId is received&#160;by the IPduM,&#160;<br/>the bit fields in the incoming&#160;I-PDU are&#160;packed into&#160;<br/>the outgoing&#160;I-PDU buffer and then the send mode&#160;<br/>is honored.&#160;<br/>
+This&#160;container is used for the static&#160;part of a&#160;<br/>TxRequest configuration.&#160;<br/>
+Therefore, for each outgoing I-PDU there will be&#160;<br/>one instance&#160;of this container for the&#160;static part if it&#160;<br/>exists.&#160;<br/>
+IPduMTxStaticHandl&#160;1...1&#160;INTEG<br/>
+&#160;<br/>
+This is&#160;an incoming handle&#160;id. When the&#160;handle of&#160;<br/>
+eId&#160;<br/>
+ER&#160;<br/>
+an incoming&#160;Tx Request&#160;matches this,&#160;the bits&#160;<br/>fields (see IPduMCopyBitField) are copied and the&#160;<br/>IPduMTxTriggerMode is&#160;honored.&#160;<br/>
+IPduMTxStaticPduR<br/>
+1...1&#160;REFER&#160;&#160;<br/>
+Reference to the Pdu representation in the ECU&#160;<br/>
+ef&#160;<br/>
+ENCE&#160;<br/>
+Configuration&#160;Description exchange file to be&#160;<br/>transmitted.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMCopyBitField&#160;1...*&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+38&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=39></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-39_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>6.2.1.20&#160;&#160;IPduMCopyBitField&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMCopyBitField&#160;1...*&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Specifies&#160;<br/>
+the&#160;<br/>
+source bit fields&#160;and the destination&#160;<br/>
+bit position, so that the bits&#160;in the source&#160;can be&#160;<br/>copied to the bits&#160;in the destination.&#160;<br/>
+Within one I-PDU multiple&#160;instances of this&#160;<br/>container are used&#160;to specify the bit&#160;fields in that I-<br/>PDU.&#160;<br/>
+Adjacent bit fields&#160;could be&#160;merged&#160;in order to&#160;<br/>reduce the number of instances of this container.&#160;<br/>
+IPduMDestinationBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the start of the&#160;<br/>
+ER&#160;<br/>
+destination bit field for the copy. &#160;<br/>
+The resulting destination field must fit inside the I-<br/>PDU.&#160;<br/>
+&#160;<br/>
+<b>Sub Container&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+&#160;<br/>
+<b>6.2.1.21&#160;&#160;IPduMBitField&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMBitField&#160;1...1&#160;<br/>
+&#160;&#160;&#160;<br/>
+This&#160;<br/>
+is&#160;<br/>
+used&#160;<br/>
+to specify a contiguous range of bits&#160;<br/>
+within an I-PDU.&#160;The range is inclusive.&#160;<br/>
+IPduMEndBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the end of the&#160;bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or&#160;higher than&#160;Ipdum_StartBit.&#160;<br/>
+IPduMStartBit&#160;1...1&#160;<br/>
+INTEG<br/>
+&#160;<br/>
+Bit position in&#160;an I-PDU of the start of the bit field.&#160;<br/>
+ER&#160;<br/>
+Value must fit inside the I-PDU. Value must be the&#160;<br/>same as&#160;or lower than Ipdum_EndBit.&#160;<br/>
+&#160;<br/>
+<b>6.2.1.22&#160;&#160;IPduMGeneral&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMGeneral&#160;1...1&#160;<br/>
+&#160;&#160;&#160;<br/>
+Contains&#160;<br/>
+the&#160;<br/>
+general configuration parameters of&#160;<br/>
+IPduMplex.&#160;<br/>
+IPduMConfiguration<br/>
+1...1&#160;<br/>
+FLOAT&#160;&#160;&#160;<br/>
+The period between successive ticks&#160;of&#160;AUTOSAR&#160;<br/>
+TimeBase&#160;<br/>
+COM in&#160;seconds.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+39&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=40></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-40_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMDevErrorDete&#160;1...1&#160;BOOLE&#160;&#160;Active/Deactivate&#160;<br/>
+the&#160;<br/>
+detection of development&#160;<br/>
+ct&#160;<br/>
+AN&#160;<br/>
+errors, for production code&#160;this&#160;parameter has&#160;to&#160;<br/>be False.&#160;<br/>
+True: error detection activated&#160;<br/>
+False: error detection deactivated&#160;<br/>
+IPduMStaticPartExis&#160;1...1&#160;BOOLE&#160;&#160;<br/>
+This is to allow optimizations in the case the IPduM&#160;<br/>
+ts&#160;<br/>
+AN&#160;<br/>
+will never be used with a static part.&#160;<br/>
+Note that this is&#160;a pre-compile option. If this&#160;is&#160;set&#160;<br/>to False then&#160;it will not be possible to add static&#160;<br/>parts after compilation.&#160;<br/>
+True:&#160;A&#160;static&#160;part may exist.&#160;<br/>
+False:&#160;A&#160;static part will never exist.&#160;<br/>
+IPduMVersionInfoAp&#160;1...1&#160;BOOLE&#160;&#160;<br/>
+Active/Deactivate the version information&#160;API.&#160;<br/>
+i&#160;<br/>
+AN&#160;<br/>
+true: version information activated&#160;<br/>
+false: version&#160;information deactivated&#160;<br/>
+IPduMUserConfigFil<br/>
+0...1&#160;STRIN<br/>
+&#160;<br/>
+Configure a file reference to a user&#160;defined&#160;<br/>
+e&#160;<br/>
+G&#160;<br/>
+configuration file.&#160;The user&#160;defined&#160;configuration&#160;<br/>file is included&#160;at the end of&#160;the generated file&#160;<br/>IpduM_Cfg.h and can be used to extend&#160;or&#160;<br/>overwrite definitions.&#160;<br/>
+IPduMPBStartAddre<br/>
+1...1&#160;INTEG<br/>
+0&#160;<br/>
+This is the start address of&#160;the memory&#160;block in&#160;<br/>
+ss&#160;<br/>
+ER&#160;<br/>
+ROM&#160;where the post build&#160;configuration data is&#160;<br/>located.&#160;<br/>
+IPduMBufferSize&#160;1...1&#160;<br/>
+INTEG<br/>
+0&#160;<br/>
+As multiplexed Pdus&#160;can be&#160;added at post-build&#160;<br/>
+ER&#160;<br/>
+time, the buffer size (RAM) must be configured&#160;at&#160;<br/>link-time.&#160;The&#160;size of the buffer depends on the&#160;<br/>current IPduM configuration and on&#160;the&#160;scalability&#160;<br/>that should be&#160;available at&#160;post-build time.&#160;<br/>
+IPduMMaxRxBuffer<br/>
+1...1&#160;INTEG<br/>
+0&#160;<br/>
+As multiplexed Pdus&#160;can be&#160;added at post-build&#160;<br/>
+Size&#160;<br/>
+ER&#160;<br/>
+time, the buffer size (RAM) must be configured&#160;at&#160;<br/>link-time.&#160;The&#160;size of the reception buffer depends&#160;<br/>on the current largest multiplex IPDU received by&#160;<br/>the IPduM and on the scalability that should be&#160;<br/>available at post-build time. (i.e if the size of the&#160;<br/>largest reception multiplex IPdu may change in&#160;<br/>future the buffer can&#160;be reserved in accordance to&#160;<br/>the expected size)&#160;<br/>
+IPduMMaxNumberO&#160;1...1&#160;INTEG<br/>
+0&#160;<br/>
+As multiplexed Pdus&#160;can be&#160;added at post-build&#160;<br/>
+fTxRequests&#160;<br/>
+ER&#160;<br/>
+time, the buffer size (RAM) must be configured&#160;at&#160;<br/>link-time.&#160;The&#160;size of the buffer depends on the&#160;<br/>number of multiplex IPdus transmitted in&#160;the&#160;<br/>current IPduM configuration and on&#160;the&#160;scalability&#160;<br/>that should be&#160;available at&#160;post-build time&#160;<br/>
+IPduMUsePduInfoTy&#160;0…1&#160;BOOLE&#160;false&#160;<br/>
+If this&#160;feature is&#160;active, PduInfoPtr instead of&#160;<br/>
+pe&#160;<br/>
+AN&#160;<br/>
+SduPtr is used&#160;for the&#160;APIs IpduM_RxIndication&#160;<br/>and IpduM_TriggerTransmit.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+40&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=41></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-41_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMDynamicDlcS<br/>
+0…1&#160;BOOLE&#160;false&#160;<br/>
+If this feature is activ,&#160;the received data&#160;length&#160;<br/>
+upport&#160;<br/>
+AN&#160;<br/>
+(PduInfoPtr-&gt;SduLength)&#160;is&#160;checked by the&#160;<br/>function IpduM_RxIndication and&#160;set by function&#160;<br/>IpduM_TriggerTransmit only completely received&#160;<br/>static or&#160;dynamic parts are processed.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>6.2.1.23&#160;&#160;IPduMplexCh&#160;</b><br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Multiplicity&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Default&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Value&#160;</b><br/>
+IPduMplexCh&#160;0...1&#160;<br/>
+&#160;&#160;&#160;<br/>
+&#160;<br/>
+ComMChannelRef&#160;0...1&#160;<br/>
+REFER&#160;&#160;<br/>
+This is&#160;needed&#160;for GENy module activation&#160;<br/>
+ENCE&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+41&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=42></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-42_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>7&#160;&#160;AUTOSAR Standard Compliance&#160;</b><br/>
+<b>7.1&#160;&#160;Deviations&#160;</b><br/>
+There are no deviations from the standard&#160;AUTOSAR requirements in the current&#160;<br/>implementation.&#160;<br/>
+<b>7.2&#160;&#160;Additions/ Extensions&#160;</b><br/>
+The current implementation&#160;incorporates 2 requirements (IPDUM155, IPDUM156) of&#160;<br/>AUTOSAR R4.0.&#160;<br/>
+<b>7.3&#160;&#160;Limitations&#160;</b><br/>
+N.A&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+42&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=43></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-43_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>8&#160;&#160;Glossary and&#160;Abbreviations&#160;</b><br/>
+<b>8.1&#160;</b><br/>
+<b>Glossary&#160;</b><br/>
+<b>Term&#160;</b><br/>
+<b>Description&#160;</b><br/>
+GENy&#160;<br/>
+Vector Configuration and&#160;Generation tool&#160;<br/>
+Table 8-1&#160;&#160;<br/>
+Glossary&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>8.2&#160;</b><br/>
+<b>Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+API&#160;Application&#160;<br/>
+Programming&#160;<br/>
+Interface&#160;<br/>
+&#160;<br/>
+AUTOSAR&#160;Automotive&#160;<br/>
+Open&#160;<br/>
+System&#160;<br/>
+Architecture&#160;<br/>
+BSW&#160;Basis&#160;<br/>
+Software&#160;<br/>
+DEM&#160;<br/>
+AUTOSAR&#160;BSW module Diagnostic Event Manager&#160;<br/>
+DET&#160;<br/>
+AUTOSAR&#160;BSW module Development Error&#160;Tracer&#160;<br/>
+ECU&#160;<br/>
+Electronic Control Unit&#160;<br/>
+HIS&#160;<br/>
+Hersteller Initiative Software&#160;<br/>
+MICROSAR&#160;<br/>
+Microcontroller Open System&#160;Architecture (the Vector&#160;AUTOSAR&#160;<br/>solution)&#160;<br/>
+SWS&#160;Software&#160;<br/>
+Specification&#160;<br/>
+Com&#160;<br/>
+AUTOSAR&#160;BSW module Com&#160;<br/>
+PduR&#160;<br/>
+AUTOSAR&#160;BSW module Pdu-Router&#160;<br/>
+IPDUM / IpduM&#160;<br/>
+AUTOSAR&#160;BSW module I-PDU&#160;Multiplexer&#160;<br/>
+EcuM&#160;<br/>
+AUTOSAR&#160;BSW module ECU&#160;Manager&#160;<br/>
+Table 8-2&#160;&#160;<br/>
+Abbreviations&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+43&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name=44></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_ASR_IpduM-44_1.png"/><br/>
+Technical Reference MICROSAR I-PDU Multiplexer &#160;<br/>
+&#160;<br/>
+<b>9&#160;&#160;Contact&#160;</b><br/>
+Visit our website for more information on&#160;<br/>&#160;<br/>&gt;&#160; &#160;News&#160;<br/>&gt;&#160; &#160;Products&#160;<br/>&gt;&#160; &#160;Demo software&#160;<br/>&gt;&#160; &#160;Support&#160;<br/>&gt;&#160; &#160;Training data&#160;<br/>&gt;&#160; &#160;Addresses&#160;<br/>&#160;<br/>
+<a href="http://www.vector-informatik.com/"><b>www.vector-informatik.com&#160;</b></a><br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.2.0&#160;<br/>
+44&#160;/ 44<br/>
+based on template&#160;version 3.6&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#2">1 Document Information</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#2">1.1 History</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#2">1.2 Reference Documents</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#7">2 Introduction</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#8">2.1 Architecture Overview</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#10">3 Functional Description</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#10">3.1 Features</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#10">3.2 Initialization</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#11">3.3 States</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#11">3.4 Main Functions</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#11">3.5 Error Handling</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#11">3.5.1 Development Error Reporting</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#12">3.5.2 Production Error Reporting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#13">4 Integration</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#13">4.1 Scope of Delivery</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#13">4.1.1 Static Files</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#13">4.1.2 Dynamic Files</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#13">4.2 Include Structure</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#13">4.3 Compiler Abstraction and Memory Mapping&#160;</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#14">4.4 Critical Sections</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#14">4.4.1 BSW Scheduler&#160;</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#15">4.4.2 Vector Standard Library</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#16">5 API Description</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#16">5.1 Services provided by IPDUM</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#16">5.1.1 IpduM_InitMemory</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#16">5.1.2 IpduM_Init</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#17">5.1.3 IpduM_RxIndication</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#17">5.1.4 IpduM_Transmit</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#18">5.1.5 IpduM_TxConfirmation&#160;</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#19">5.1.6 IpduM_TriggerTransmit</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#20">5.1.7 IpduM_MainFunction</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#20">5.1.8 IpduM_GetVersionInfo</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#20">5.2 Services used by IPDUM</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#22">6 Configuration</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#22">6.1 EcuC configuration with GENy</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#23">6.1.1 General parameters</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#24">6.1.2 Link time and Post build configuration</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#25">6.1.3 Multiplexing and De-multiplexing&#160;</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#27">6.1.4 Tx Pathway&#160;</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#28">6.1.5 Transmission Confirmations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#30">6.2 ECU Configuration parameters:</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#30">6.2.1.1 IPduMConfig</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#30">6.2.1.2 IPduMRxPathway</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#30">6.2.1.3 IPduMRxIndication</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#31">6.2.1.4 IPduMBitField</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#31">6.2.1.5 IPduMRxDynamicPart</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#32">6.2.1.6 IPduMCopyBitField</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#32">6.2.1.7 IPduMBitField</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#33">6.2.1.8 IPduMRxStaticPart</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#33">6.2.1.9 IPduMCopyBitField</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#34">6.2.1.10 IPduMBitField</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#34">6.2.1.11 IPduMTxPathway</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#34">6.2.1.12 IPduMTxConfirmation</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#35">6.2.1.13 IPduMDynamicTxConfirmation</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#35">6.2.1.14 IPduMTxRequest</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#36">6.2.1.15 IPduMBitField</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#37">6.2.1.16 IPduMTxDynamicPart</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#37">6.2.1.17 IPduMCopyBitField</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#38">6.2.1.18 IPduMBitField</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#38">6.2.1.19 IPduMTxStaticPart</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#39">6.2.1.20 IPduMCopyBitField</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#39">6.2.1.21 IPduMBitField</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#39">6.2.1.22 IPduMGeneral</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#41">6.2.1.23 IPduMplexCh</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#42">7 AUTOSAR Standard Compliance</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#42">7.1 Deviations</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#42">7.2 Additions/ Extensions</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#42">7.3 Limitations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#43">8 Glossary and Abbreviations</a>
+<ul>
+<li><a href="TechnicalReference_ASR_IpduMs.html#43">8.1 Glossary</a></li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#43">8.2 Abbreviations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_ASR_IpduMs.html#44">9 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

@@ -1,0 +1,443 @@
+---
+title: HiLoadStall_MDD
+linkTitle: HiLoadStall_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module----hiloadstall">Module -- HiLoadStall</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>The High Load Stall Thermal Management algorithm protects the system from prolonged intervals of high assist torque at near-stall conditions.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>This diagram shows all data that is shared between functions within the module.</p>
+<p>None</p>
+<h3 id="diagram-ret-hiloadstall-_per1">Diagram – Ret HiLoadStall _Per1</h3>
+<p>This diagram describes the functional characteristics and data flow of a given function.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.01679in;height:1.7762in" /></p>
+<h1 id="module-inputs-and-outputs"><br />
+Module Inputs and Outputs</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs (Global Variable Name)</th>
+<th>Module Outputs (Global Variable Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MtrVelCRF_MtrRadpS_f32</td>
+<td>AssistStallLimit_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>PreLimitForStall_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DftStallLimit_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<p>(Note: If no module specific variables are used by the design, place the text “None” in the first Variable Name cell in the table)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PrevAssistStallLimit_MtrNm_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>0</td>
+<td>8.8</td>
+<td>HILOADSTALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>ModPreLimitFiltSV_MtrNm_M_u8p24</td>
+<td>2^-24</td>
+<td>0</td>
+<td>8.8</td>
+<td>HILOADSTALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>ModPreLimit_MtrNm_D_u8p8</td>
+<td>0.00390625</td>
+<td>0</td>
+<td>8.8</td>
+<td>HILOADSTALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>FiltModPreLimit_MtrNm_D_u8p8</td>
+<td>0.00390625</td>
+<td>0</td>
+<td>8.8</td>
+<td>HILOADSTALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>StallLimit_MtrNm_D_u8p8</td>
+<td>0.00390625</td>
+<td>0</td>
+<td>8.8</td>
+<td>HILOADSTALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+</tbody>
+</table>
+<h3 class="unnumbered" id="section"></h3>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 22%" />
+<col style="width: 12%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Typedef Name</th>
+<th>Storage Type</th>
+<th>Safety Critical Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<p>(Note: If no calibrations are used by the design, place the text “None” in the first location in the table)</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_AbsMtrVelBkt_MtrRadps_f32</td>
+</tr>
+<tr class="even">
+<td>k_EOTThrmPrtLPFKn_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td>t_EOTThrmIndptTbl_MtrNm_u8p8</td>
+</tr>
+<tr class="even">
+<td>t_EOTThrmDpntTbl_MtrNm_u8p8</td>
+</tr>
+<tr class="odd">
+<td>k_EOTThrmSlwLmtStp_MtrNm_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-1"></h2>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 56%" />
+<col style="width: 25%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="note-rtnlooptime-depends-on-the-rate-of-the-periodic-function.">Note: RtnLoopTime depends on the rate of the periodic function.</h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_MTRTRQCMDHILMT_MTRNM_F32</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 13%" />
+<col style="width: 34%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-hiloadstall_init">Init: HiLoadStall_Init()</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<p>None</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-hiloadstall_per1">Per: HiLoadStall_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_HiLoadStall_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>MtrVelCRF_MtrRadpS_T_f32 = Rte_IRead_HiLoadStall_Per1_HighStallLmt _MtrVelCRF_MtrRadpS_f32()</p>
+<p>PreLimitForStall_MtrNm_T_f32 = Rte_Iread_HiLoadStall_Per1_HighStallLmt _ PreLimitForStall_MtrNm_f32()</p>
+<p>DftStallLimit_Cnt_T_lgc = Rte_Iread_HiLoadStall_Per1_HighStallLmt _DftStallLimit_Cnt_lgc()</p>
+<p>PreLimitForStall_MtrNm_T_u8p8 = FPM_FloatToFixed_m(PreLimitForStall_MtrNm_T_f32, u8p8_T)</p>
+<p>SatPreLimitForStall_MtrNm_T_u8p8 = Limit_m(PreLimitForStall_MtrNm_T_u8p8, 0U, t_EOTThrmDpntTbl_MtrNm_u8p8[0]);</p>
+<h4 id="determine-eot-thermal-limiting">Determine EOT Thermal Limiting</h4>
+<h5 id="eot-thermal-algorithm-enable">EOT Thermal Algorithm Enable</h5>
+<h5 class="unnumbered" id="section-2"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></h5>
+<h5 class="unnumbered" id="section-3"></h5>
+<h5 id="low-pass-filter">Low Pass Filter</h5>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h5 id="eot-thermal-protection-limit-table">EOT Thermal Protection Limit Table</h5>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h5 id="slew-limiting">Slew Limiting</h5>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h5 id="serial-comm-defeat-sub-function">Serial Comm Defeat Sub-Function</h5>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<h4 class="unnumbered" id="rte_iwrite_hiloadstall_per1_assiststalllimit_mtrnm_f32prevassiststalllimit_mtrnm_m_f32">Rte_IWrite_HiLoadStall_Per1_AssistStallLimit_MtrNm_f32(PrevAssistStallLimit_MtrNm_M_f32)</h4>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_HiLoadStall_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="local-functionmacro-definitions">Local Function/Macro Definitions</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<h1 id="execution-requirements"><br />
+Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Task List</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HiLoadStall _Per1</td>
+<td></td>
+<td>2ms</td>
+<td>All</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HiLoadStall_Per1()</td>
+<td>RTE_START_SEC_AP_HILOADSTALL_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-5"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>Inline functions in globalmacros.h are not unit tested.</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 60%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial release</td>
+<td>15DEC11</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Changed ranges on M variables for unsigned. Made ModPreLimitFiltSV_Cnt_M_u16 name match code.</td>
+<td>07Jan12</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Changes to correct state variable issue found during review. Updated slew limit logic and replaced local constants with use of global constants. Variable name updates and added output legal range limit.</td>
+<td>27Jan12</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Check Point added for Periodic program flow</td>
+<td>21-Sep-2012</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Added saturation to the PreLimit input described in revision 4 of the SF document. ICR 4452</td>
+<td>28-Jan-14</td>
+<td>KJS</td>
+</tr>
+</tbody>
+</table>

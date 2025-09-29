@@ -1,0 +1,351 @@
+---
+title: DigColPs_Integration_Manual
+linkTitle: DigColPs_Integration_Manual
+weight: 4
+---
+
+<p><a href="#dependencies">1 Dependencies <span>2</span></a></p>
+<p><a href="#swcs">1.1 SWCs <span>2</span></a></p>
+<p><a href="#global-functionsnon-rte-to-be-provided-to-integration-project">1.2 Global Functions(Non RTE) to be provided to Integration Project <span>2</span></a></p>
+<p><a href="#configuration">2 Configuration <span>3</span></a></p>
+<p><a href="#build-time-config">2.1 Build Time Config <span>3</span></a></p>
+<p><a href="#configuration-files-to-be-provided-by-integration-project">2.2 Configuration Files to be provided by Integration Project <span>3</span></a></p>
+<p><a href="#da-vinci-parameter-configuration-changes">2.2.1 Da Vinci Parameter Configuration Changes <span>3</span></a></p>
+<p><a href="#davinci-interrupt-configuration-changes">2.2.2 DaVinci Interrupt Configuration Changes <span>3</span></a></p>
+<p><a href="#manual-configuration-changes">2.2.3 Manual Configuration Changes <span>3</span></a></p>
+<p><a href="#integration">3 Integration <span>4</span></a></p>
+<p><a href="#required-global-data-inputs">3.1 Required Global Data Inputs <span>4</span></a></p>
+<p><a href="#required-global-data-outputs">3.2 Required Global Data Outputs <span>4</span></a></p>
+<p><a href="#specific-include-path-present">3.3 Specific Include Path present <span>4</span></a></p>
+<p><a href="#runnable-scheduling">4 Runnable Scheduling <span>5</span></a></p>
+<p><a href="#memory-mapping">5 Memory Mapping <span>6</span></a></p>
+<p><a href="#mapping">5.1 Mapping <span>6</span></a></p>
+<p><a href="#usage">5.2 Usage <span>6</span></a></p>
+<p><a href="#non-rte-nvm-blocks">5.3 Non RTE NvM Blocks <span>6</span></a></p>
+<p><a href="#rte-nvm-blocks">5.4 RTE NvM Blocks <span>6</span></a></p>
+<p><a href="#compiler-settings">6 Compiler Settings <span>6</span></a></p>
+<p><a href="#preprocessor-macro">6.1 Preprocessor MACRO <span>6</span></a></p>
+<p><a href="#optimization-settings">6.2 Optimization Settings <span>6</span></a></p>
+<p><a href="#revision-control-log">7 Revision Control Log <span>7</span></a></p>
+<h1 id="dependencies">Dependencies</h1>
+<h2 id="swcs">SWCs</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Required Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>I2cNxtr</td>
+<td>All functions</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Referencing the external components should be avoided in most cases. Only in unavoidable circumstance external components should be refered. Developer should track the references.</p>
+<h2 id="global-functionsnon-rte-to-be-provided-to-integration-project">Global Functions(Non RTE) to be provided to Integration Project</h2>
+<p>None</p>
+<h1 id="configuration">Configuration</h1>
+<h2 id="build-time-config">Build Time Config</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modules</th>
+<th>Notes</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section"></h2>
+<h2 id="configuration-files-to-be-provided-by-integration-project">Configuration Files to be provided by Integration Project</h2>
+<h3 id="da-vinci-parameter-configuration-changes">Da Vinci Parameter Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="davinci-interrupt-configuration-changes">DaVinci Interrupt Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 9%" />
+<col style="width: 38%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ISR Name</th>
+<th>VIM #</th>
+<th>Priority Dependency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-configuration-changes">Manual Configuration Changes</h3>
+<p>The following settings need to be configured in I2cNxtr_Cfg.h – a template of which can be found in the include directory of the I2cNxtr component.</p>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_COMMBUFFERSIZE_CNT_U08</td>
+<td>3</td>
+<td>I2cNxtr</td>
+</tr>
+<tr class="even">
+<td>I2c_Notification</td>
+<td>DigColPsInt_InterruptNotification</td>
+<td>I2cNxtr</td>
+</tr>
+<tr class="odd">
+<td>D_I2CREG_STRCPTR</td>
+<td>i2cREG1</td>
+<td>I2cNxtr</td>
+</tr>
+<tr class="even">
+<td>D_VCLK_HZ_F32</td>
+<td>Set to corresponding VCLK frequency, commonly 8000000.0 for a 160.0 MHz part.</td>
+<td>I2cNxtr</td>
+</tr>
+</tbody>
+</table>
+<h1 id="integration">Integration</h1>
+<h2 id="required-global-data-inputs">Required Global Data Inputs</h2>
+<p>None</p>
+<h2 id="required-global-data-outputs">Required Global Data Outputs</h2>
+<p>None</p>
+<h2 id="specific-include-path-present">Specific Include Path present</h2>
+<p>Yes</p>
+<h1 id="runnable-scheduling">Runnable Scheduling </h1>
+<p>This section specifies the required runnable scheduling.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Init</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DigColPs_Init1</td>
+<td>None</td>
+<td>RTE(Init)</td>
+</tr>
+</tbody>
+</table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DigColPs_Per1</td>
+<td>Early in 2 ms task to minimize jitter</td>
+<td>RTE (2 ms)</td>
+</tr>
+<tr class="even">
+<td>DigColPs_Per2</td>
+<td>None</td>
+<td>RTE (4 ms)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>.</strong></p>
+<h1 id="memory-mapping">Memory Mapping</h1>
+<h2 id="mapping">Mapping</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 63%" />
+<col style="width: 20%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Memory Section</th>
+<th>Contents</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DIGCOLPS_START_SEC_VAR_CLEARED_32</td>
+<td>float32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DIGCOLPS_START_SEC_VAR_CLEARED_16</td>
+<td>uint16</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DIGCOLPS_START_SEC_VAR_CLEARED_8</td>
+<td>uint8, sint8</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DIGCOLPS_START_SEC_VAR_CLEARED_BOOLEAN</td>
+<td>Boolean</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DIGCOLPS_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+<td>LPF32KSV_Str</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>* Each …START_SEC… constant is terminated by a …STOP_SEC… constant as specified in the AUTOSAR Memory Mapping requirements.</p>
+<h2 id="usage">Usage</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>RAM</th>
+<th>ROM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: ARM Cortex R4 Memory Usage</p>
+<h2 id="non-rte-nvm-blocks">Non RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h2 id="rte-nvm-blocks"> RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rte_Pim_DigColPsEOL</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h1 id="compiler-settings">Compiler Settings</h1>
+<h2 id="preprocessor-macro"> Preprocessor MACRO</h2>
+<p>None</p>
+<h2 id="optimization-settings">Optimization Settings</h2>
+<p>None</p>
+<h2 class="unnumbered" id="section-1"></h2>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 71%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Rev #</strong></th>
+<th><strong>Change Description</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Initial component creation</td>
+<td>22-Aug-13</td>
+<td>Jared</td>
+</tr>
+</tbody>
+</table>

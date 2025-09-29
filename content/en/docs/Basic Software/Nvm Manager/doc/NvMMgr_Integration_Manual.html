@@ -1,0 +1,718 @@
+---
+title: NvMMgr_Integration_Manual
+linkTitle: NvMMgr_Integration_Manual
+weight: 3
+---
+
+<h1 id="integration-manual-nvmmgr">Integration Manual –NvMMgr</h1>
+<p>Table of Contents</p>
+<p><a href="#dependencies">1 Dependencies <span>2</span></a></p>
+<p><a href="#swcs">1.1 SWCs <span>2</span></a></p>
+<p><a href="#global-functionsnon-rte-to-be-provided-to-integration-project">1.2 Functions to be provided to Integration Project <span>2</span></a></p>
+<p><a href="#configuration">2 Configuration <span>3</span></a></p>
+<p><a href="#build-time-config">2.1 Build Time Config <span>3</span></a></p>
+<p><a href="#configuration-files-to-be-provided-by-integration-project">2.2 Configuration Files to be provided by Integration Project <span>3</span></a></p>
+<p><a href="#da-vinci-parameter-configuration-changes">2.2.1 Da Vinci Config generation <span>3</span></a></p>
+<p><a href="#da-vinci-parameter-configuration-changes">2.2.2 Manual Configuration Changes <span>3</span></a></p>
+<p><a href="#integration">3 Integration <span>4</span></a></p>
+<p><a href="#required-global-data-inputs">3.1 Required Global Data Inputs <span>4</span></a></p>
+<p><a href="#_Toc357692828">3.2 Optional Global Data Inputs <span>4</span></a></p>
+<p><a href="#specific-include-path-present">3.3 Specific Include Path present <span>4</span></a></p>
+<p><a href="#runnable-scheduling">4 Runnable Scheduling <span>5</span></a></p>
+<p><a href="#memory-mapping">5 Memory Mapping <span>6</span></a></p>
+<p><a href="#mapping">5.1 Mapping <span>6</span></a></p>
+<p><a href="#usage">5.2 Usage <span>6</span></a></p>
+<p><a href="#non-rte-nvm-blocks">5.3 NvM Blocks <span>6</span></a></p>
+<p><a href="#compiler-settings">6 Compiler Settings <span>6</span></a></p>
+<p><a href="#preprocessor-macro">6.1 Preprocessor MACRO <span>6</span></a></p>
+<p><a href="#optimization-settings">6.2 Optimization Settings <span>6</span></a></p>
+<p><a href="#revision-control-log">7 Revision Control Log <span>7</span></a></p>
+<h1 id="dependencies">Dependencies</h1>
+<h2 id="swcs">SWCs</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Required Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NvM</td>
+<td>Entire BSW</td>
+</tr>
+<tr class="even">
+<td>MemIf</td>
+<td>Entire BSW</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Referencing the external components should be avoided in most cases. Only in unavoidable circumstance external components should be refered. Developer should track the references.</p>
+<h2 id="global-functionsnon-rte-to-be-provided-to-integration-project">Global Functions(Non RTE) to be provided to Integration Project</h2>
+<h3 id="feeif">FeeIf</h3>
+<p>There are differing functions provided by this module depending on how it is configured through configurator. These functions are listed below based on the generated configuration. The main idea is that if the configuration is going to require configuring trusted function calls through the O/S because of the requirement that the fee driver must execute in a privileged/trusted mode, the wrapper functions to implement the trusted functions will be provided by this module automatically. The notes indicate the intended caller of the function (be it the integrator, another BSW (O/S or MemIf), or if the function is strictly called internally by this module).</p>
+<h4 id="functions-provided-if-bc_feeif_ecustartuptrusted-std_off"> Functions provided if BC_FEEIF_ECUSTARTUPTRUSTED == STD_OFF</h4>
+<ul>
+<li><p>FeeIf_Init (for NvMMgr internal use only)</p></li>
+<li><p>TWrapC_FeeIf_Init (for integrator scheduling)</p></li>
+<li><p>TRUSTED_TWrapS_FeeIf_Init (for O/S)</p></li>
+<li><p>TWrapC_Fee_MainFunction (for integrator scheduling)</p></li>
+<li><p>TRUSTED_TWrapS_Fee_MainFunction (for O/S)</p></li>
+</ul>
+<h4 id="functions-provided-if-bc_feeif_ecustartuptrusted-std_on">Functions provided if BC_FEEIF_ECUSTARTUPTRUSTED == STD_ON</h4>
+<ul>
+<li><p>FeeIf_Init (for integrator scheduling)</p></li>
+</ul>
+<h4 id="functions-provided-if-bc_feeif_nvmtrusted-std_off">Functions provided if BC_FEEIF_NVMTRUSTED == STD_OFF</h4>
+<ul>
+<li><p>TWrapC_Fee_Read (for MemIf)</p></li>
+<li><p>TRUSTED_TWrapS_Fee_Read (for O/S)</p></li>
+<li><p>TWrapC_Fee_Write (for MemIf)</p></li>
+<li><p>TRUSTED_TWrapS_Fee_Write (for O/S)</p></li>
+<li><p>TWrapC_Fee_EraseImmediateBlock (for MemIf)</p></li>
+<li><p>TRUSTED_TWrapS_Fee_EraseImmediateBlock (for O/S)</p></li>
+<li><p>TWrapC_Fee_InvalidateBlock (for MemIf)</p></li>
+<li><p>TRUSTED_TWrapS_Fee_InvalidateBlock (for O/S)</p></li>
+<li><p>TWrapC_Fee_Cancel (for MemIf)</p></li>
+<li><p>TRUSTED_TWrapS_Fee_Cancel (for O/S)</p></li>
+<li><p>TWrapC_Fee_GetStatus (for MemIf)</p></li>
+<li><p>TRUSTED_TWrapS_Fee_GetStatus( for O/S)</p></li>
+<li><p>TWrapC_Fee_GetJobResult(for MemIf)</p></li>
+<li><p>TRUSTED_TWrapS_Fee_GetJobResult (for O/S)</p></li>
+<li><p>TWrapC_TI_Fee_SuspendResumeErase (for MemIf)</p></li>
+<li><p>TRUSTED_TWrapS_TI_Fee_SuspendResumeErase (for O/S)</p></li>
+</ul>
+<h3 id="fee-subproject">Fee Subproject</h3>
+<p>Please refer to BSW AUTOSAR specification. Integrator only responsible for scheduling Fee_MainFunction(). Other APIs are used by NvM/MemIf BSWs and FeeIf.</p>
+<h3 id="fls-subproject">Fls Subproject</h3>
+<p>APIs not typically used in integration project except by Fee BSW. Please refer to TI documentation for API descriptions.</p>
+<h1 id="configuration">Configuration</h1>
+<h2 id="build-time-config">Build Time Config</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modules</th>
+<th>Notes</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-files-to-be-provided-by-integration-project">Configuration Files to be provided by Integration Project</h2>
+<h2 class="unnumbered" id="section"></h2>
+<p>&lt;Configuration file that will generated from this components that will require Da Vinci Config generation or manual generation. Describe each parameter &gt;</p>
+<h3 id="da-vinci-parameter-configuration-changes">Da Vinci Parameter Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 55%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>/NvMMgr/NvMMrGeneral/EcuStartupApp</td>
+<td>Integrator to choose the application that the EcuStartup Init2 routine will execute from. This will allow the generator to determine the value of BC_FEEIF_ECUSTARTUPTRUSTED</td>
+<td>NvMMgr</td>
+</tr>
+<tr class="even">
+<td>/NvMMgr/NvMMrGeneral/NvMandMemIfApp</td>
+<td>Integrator to choose the application that the NvM and MemIf functions will execute from (NvM_MainFunction). This will allow the generator to determine the value of BC_FEEIF_NVMTRUSTED</td>
+<td>NvMMgr</td>
+</tr>
+<tr class="odd">
+<td>/NvM/NvmCommon/NvmPollingMode</td>
+<td>Must be set to “True” since current Fee Driver only supports Polling Mode</td>
+<td>NvM</td>
+</tr>
+<tr class="even">
+<td>/NvM/Nvm_30_CommonVendorParams/NvmKillWriteAllApi</td>
+<td>Must be set to “False” if BC_FEEIF_NVMTRUSTED == STD_OFF for current Vector NvM delivered BSW. This is required since there is a critical section that wraps around the call to the FEE driver WriteBlock API in NvM if the KillWriteAllApi is turned on. The current strategy of using trusted function calls for the FEE APIs is not allowed by the O/S within a critical section that is disabling all interrupts. If the KillWriteAllApi is required in the future, a different critical section handling strategy may need to be investigated for the NvM driver.</td>
+<td>NvM</td>
+</tr>
+<tr class="odd">
+<td>/Fee/FeeGeneral/FeeDevErrorDetect</td>
+<td>Determines if Fee makes use of DET module</td>
+<td>Fee</td>
+</tr>
+<tr class="even">
+<td>/Fee/FeeGeneral/FeeCRCEnable</td>
+<td>This should be set to “False” for Nexteer use case. If set to “True” a Fletcher checksum will be used to determine if the data to be written to FEE is the same as the data currently in FEE memory. Because different data can result in the same checksum, this opens up an opportunity for writes to be lost. Setting this to “False” will cause Fee to do a direct byte-by-byte comparison of the data instead of using the checksum.</td>
+<td>Fee</td>
+</tr>
+<tr class="odd">
+<td>/Fee/FeeGeneral/FeeWriteCounterSave</td>
+<td>This should be set to “False” for Nexteer use case. This enables writing a counter for each block to indicate how many times it was written. Currently, the Fee driver doesn’t use this data and it is not accessible through the API so overhead of writing provides no benefit currently.</td>
+<td>Fee</td>
+</tr>
+<tr class="even">
+<td>/Fee/FeeGeneral/FeeNumberOfUnconfiguredBlocksToCopy</td>
+<td>This parameter is used to tell the Fee Driver how many blocks it should support copying during a virtual sector swap that are not part of the Fee configuration. There are two main uses of this parameter. One is to allow compatibility when flashing different version of application software with differing NvM maps. Another is to allow a bootloader to have a reduced Fee configuration compared to the application (and not having to update the bootloader every time the application NvM map changes). An application should have a large enough value to support compatibility with different application versions (so it depends on how close to a final production NvM map is integrated). The closer to the final NvM map, the smaller this number can be. A bootloader should have a large value in this parameter (larger than the number of blocks expected in the application at start of production).</td>
+<td>Fee</td>
+</tr>
+<tr class="odd">
+<td>/Fee/FeeGeneral/FeeNumberOfEightByteWrites</td>
+<td>Indicates to the Fee Driver how many sets of 8 bytes are written per Fee mainfunction cycle. Typical Nexteer setting is 128 (allowing 1024 bytes of data per mainfunction loop). From timing analysis, writing this much data was still under the timing the mainfunction took when Fee was doing a virtual sector swap. It would be preferable that this parameter is at least as large as the largest size block configured.</td>
+<td>Fee</td>
+</tr>
+<tr class="even">
+<td>/Fee/FeeSectorConfiguration#</td>
+<td><p>See the following picture for typical Nexteer usage:</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.tiff" style="width:3.17376in;height:0.6612in" alt="SectorConfig.TIF" /></p></td>
+<td>Fee</td>
+</tr>
+<tr class="odd">
+<td>/Fee/FeeBlockConfiguration#</td>
+<td>Integration project specific. See notes in Integration section.</td>
+<td>Fee</td>
+</tr>
+<tr class="even">
+<td>/Fee/FeeGeneral/FeeNvmJobEndNotification</td>
+<td>Should be set to NvM_JobEndNotification, however, unused currently since Fee Driver only supports NvM in polling mode</td>
+<td>Fee</td>
+</tr>
+<tr class="odd">
+<td>/Fee/FeeGeneral/FeeNvmJobErrorNotification</td>
+<td>Should be set to NvM_JobErrorNotification, however, unused currently since Fee Driver only supports NvM in polling mode</td>
+<td>Fee</td>
+</tr>
+<tr class="even">
+<td>/Fee/FeeGeneral/FeeFrequency</td>
+<td>Set to the clock frequency (in MHz) that the uController is running at. Typical value of 160</td>
+<td>Fee</td>
+</tr>
+<tr class="odd">
+<td>/Fee/FeeGeneral/FeePollingMode</td>
+<td>Must be set to “True” since current Fee Driver only supports Polling Mode</td>
+<td>Fee</td>
+</tr>
+<tr class="even">
+<td>/Fee/FeeGeneral/FeeEnableErrorCorrection</td>
+<td>Typically set to “False” for Nexteer use – not currently used at all by the Fee Driver. Please note that single bit ECC data correction will still occur even if this setting is false.</td>
+<td>Fee</td>
+</tr>
+<tr class="odd">
+<td>/Fee/FeeTypes/FeeFlashErrCorrHandlingType</td>
+<td>Typically set to “None” for Nexteer use since critical NvM data is validated by other mechanisms. Please note that single bit ECC data correction will still occur even if this setting is false.</td>
+<td>Fee</td>
+</tr>
+<tr class="even">
+<td>/Fee/FeeGeneral/FeeNumberofEEPS</td>
+<td>Typically set to 2 for Nexteer use to enable support of two independent EEPROMs. In a bootloader it may be desired to only setup one so the bootloader doesn’t have access to the other.</td>
+<td>Fee</td>
+</tr>
+<tr class="odd">
+<td>/Fee/FeeGeneral/FeeNumberOfVirtualSectorsEEP1</td>
+<td>Typically set to 2 for Nexteer use to enable support of two independent EEPROMs. Note this is only required if there is more than one EEPROM configured (see above).</td>
+<td>Fee</td>
+</tr>
+<tr class="even">
+<td>/Fee/FeeGeneral/FeeVersionInfoApi</td>
+<td>Typically set to “False” for Nexteer usage since currently the Version number is not used</td>
+<td>Fee</td>
+</tr>
+</tbody>
+</table>
+<h3 id="davinci-interrupt-configuration-changes">DaVinci Interrupt Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 9%" />
+<col style="width: 38%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ISR Name</th>
+<th>VIM #</th>
+<th>Priority Dependency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-configuration-changes">Manual Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="integration">Integration</h1>
+<p><strong><u>General Notes and O/S Configuration for Trusted Functions:</u></strong></p>
+<p>Please note that this module currently only contains the Fee related files of the AUTOSAR memory stack. It is assumed that NvM and MemIf components are already integrated. The entire Fee and Fls modules must be configured to be run in a privileged/trusted mode on the uController. Because of this and depending on the configuration of the project being integrated into, trusted functions may be required to be setup in the O/S. The following tables show which trusted functions need to be configured in the O/S in the application that Fee and Fls will reside in. The Cd_NvMMgr_Cfg.h file that is generated by configurator will show the integration project build constant settings (BC_FEEIF_ECUSTARTUPTRUSTED, BC_FEEIF_NVMTRUSTED) that are referenced below.</p>
+<table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 40%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Trusted Function Name</th>
+<th>Passed Parameters</th>
+<th>Return Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="3">Trusted Functions to Setup In O/S if BC_FEEIF_ECUSTARTUPTRUSTED == STD_OFF</td>
+</tr>
+<tr class="even">
+<td>TWrapS_FeeIf_Init</td>
+<td><strong>void</strong></td>
+<td><strong>void</strong></td>
+</tr>
+<tr class="odd">
+<td>TWrapS_Fee_MainFunction</td>
+<td><strong>void</strong></td>
+<td><strong>void</strong></td>
+</tr>
+<tr class="even">
+<td colspan="3">Trusted Functions to Setup In O/S if BC_FEEIF_NVMTRUSTED == STD_OFF</td>
+</tr>
+<tr class="odd">
+<td>TWrapS_Fee_Read</td>
+<td><strong>uint16 BlockNumber,uint16 BlockOffset,uint8* DataBufferPtr,uint16 Length</strong></td>
+<td><strong>Std_ReturnType</strong></td>
+</tr>
+<tr class="even">
+<td>TWrapS_Fee_Write</td>
+<td><strong>uint16 BlockNumber,uint8* DataBufferPtr</strong></td>
+<td><strong>Std_ReturnType</strong></td>
+</tr>
+<tr class="odd">
+<td>TWrapS_Fee_EraseImmediateBlock</td>
+<td><strong>uint16 BlockNumber</strong></td>
+<td><strong>Std_ReturnType</strong></td>
+</tr>
+<tr class="even">
+<td>TWrapS_Fee_InvalidateBlock</td>
+<td><strong>uint16 BlockNumber</strong></td>
+<td><strong>Std_ReturnType</strong></td>
+</tr>
+<tr class="odd">
+<td>TWrapS_Fee_Cancel</td>
+<td><strong>void</strong></td>
+<td><strong>void</strong></td>
+</tr>
+<tr class="even">
+<td>TWrapS_Fee_GetStatus</td>
+<td><strong>void</strong></td>
+<td><strong>uint8<sup>Note1</sup></strong></td>
+</tr>
+<tr class="odd">
+<td>TWrapS_Fee_GetJobResult</td>
+<td><strong>void</strong></td>
+<td><strong>uint8<sup>Note1</sup></strong></td>
+</tr>
+<tr class="even">
+<td>TWrapS_TI_Fee_SuspendResumeErase</td>
+<td><strong>uint8 <sup>Note2</sup></strong></td>
+<td><strong>void</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Note1 - Please note that the actual return type of Fee_GetStatus is an enumeration of type MemIf_StatusType and the actual return type of Fee_GetJobResult is an enumeration of type MemIf_JobResultType. Due to a current limitation of the include path control of trusted functions in the O/S, the trusted functions are setup with standard uint8 return types and appropriate typecasting is used where needed. This is acceptable under the assumption that the enumerations will resolve into an underlying uint8 type on the target. This workaround can be removed from the component if in the future the O/S provides a better mechanism for header inclusion in the trusted functions.</p>
+<p>Note2 – Similar to Note1, the data type passed into the SuspendResumeErase function is an enumerated value TI_Fee_EraseCommandType. The input is type casted in the Cd_FeeIf.c function call to the correct type.</p>
+<p><strong><u><br />
+</u></strong></p>
+<p><strong><u>TI_Fee_SuspendResumeErase:</u></strong></p>
+<p>Please see the TI documentation for details on when and how to use this feature.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>--- IMPORTANT ---</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>The files for Configurator do not currently support the latest Fee driver. The integrator will need to modify the generated Fee_Cfg.h file and create a definition for FEE_TOTAL_BLOCKS_DATASETS.</p>
+<p>This value is calculated by summing the number of data sets for each NvM block. For example, if a configuration contained three NvM entries, one entry was a native block (Number of data sets = 1), one entry was a redundant block (Number of data sets = 2), and the final block was a data set with the number of sets set to 10. The value for FEE_TOTAL_BLOCKS_DATASETS would be (1) + (2) + (10) or 13.</p>
+<p>This value should be added as a #define at the end of the Fee_Cfg.h.</p>
+<p>Once the updated Configurator files have been delivered and integrated into the component baseline, this table can be removed.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong><u>Fapi_UserDefinedFunctions.c:</u></strong></p>
+<p>This file provides a function that is required for the TI flash library (FLS subproject). It is technically supposed to be user-configurable based on if special watchdog servicing code is required during the execution of the flash library functions; however, Nexteer’s typical use case does not need special handling, so an empty stub function is provided in the NvMMgr component for integration.</p>
+<p><strong><u>NvM BSW Configuration:</u></strong></p>
+<p>Please note that the current Fee driver REQUIRES NvM to be placed into “Polling Mode”. Please see NvM configuration parameter (/NvM/NvmCommon/NvmPollingMode).</p>
+<p><strong><u>Special MemMap MemIf Settings if BC_FEEIF_NVMTRUSTED == STD_OFF:</u></strong></p>
+<p>Since the Fee driver requires to be run in a privileged/trusted mode, the calls into Fee must be intercepted by the O/S and replaced by trusted function calls to put the uController into a privileged mode before executing any Fee functions. Unfortunately, the current MemIf BSW does not allow user-configurable Fee API function calls to allow this. A workaround has been developed by macro-replacing the Fee APIs with the trusted function APIs in the MemMap statement around the MemIf Fee API function pointer table. The following is a reference that can be used to apply this workaround in the integration project MemMap.h file:</p>
+<blockquote>
+<p>#ifdef MEMIF_START_SEC_CONST_32BIT</p>
+<p>#undef MEMIF_START_SEC_CONST_32BIT</p>
+<p>#include "Cd_FeeIf.h"</p>
+<p>#define START_SEC_CONST_32BIT</p>
+<p>#define Fee_Read TWrapC_Fee_Read</p>
+<p>#define Fee_Write TWrapC_Fee_Write</p>
+<p>#define Fee_EraseImmediateBlock TWrapC_Fee_EraseImmediateBlock</p>
+<p>#define Fee_InvalidateBlock TWrapC_Fee_InvalidateBlock</p>
+<p>#define Fee_Cancel TWrapC_Fee_Cancel</p>
+<p>#define Fee_GetStatus (MemIf_ApiGetJobResultType)TWrapC_Fee_GetStatus</p>
+<p>#define Fee_GetJobResult (MemIf_ApiGetJobResultType)TWrapC_Fee_GetJobResult</p>
+<p>#endif</p>
+<p>#ifdef MEMIF_STOP_SEC_CONST_32BIT</p>
+<p>#undef MEMIF_STOP_SEC_CONST_32BIT</p>
+<p>#define STOP_SEC_CONST</p>
+<p>#undef Fee_Read</p>
+<p>#undef Fee_Write</p>
+<p>#undef Fee_EraseImmediateBlock</p>
+<p>#undef Fee_InvalidateBlock</p>
+<p>#undef Fee_Cancel</p>
+<p>#undef Fee_GetStatus</p>
+<p>#undef Fee_GetJobResult</p>
+<p>#endif</p>
+</blockquote>
+<p><strong><u>Fee EEPROM strategy and Block Configuration Notes:</u></strong></p>
+<p>The Fee Driver allows configuration of two independent EEPROMs. Nexteer’s strategy for usage of these two EEPROMs is to use one (FEE0) for data that is written once or very infrequently and to use one (FEE1) for data written frequently. The following shows some general guidelines for what data should fall into each FEE:</p>
+<ul>
+<li><p>FEE0:</p>
+<ul>
+<li><p>Most data written during Nexteer or Customer Manufacturing process (cals, partnumbers)</p></li>
+<li><p>Bootloader and bootloader/application shared data</p></li>
+</ul></li>
+<li><p>FEE1:</p>
+<ul>
+<li><p>TypeH Data</p></li>
+<li><p>Learned algorithmic data</p></li>
+<li><p>DTC/NTC Fault Information</p></li>
+<li><p>Data updated every ignition cycle (e.g. Ignition Counter, EEPROM close check)</p></li>
+<li><p>Nexteer/Customer MEC</p></li>
+</ul></li>
+</ul>
+<p>In FEE0, all of the bootloader required NvM blocks should be configured starting at block number 1 and be continuously sequentially incrementing. This forces the requirement that all bootloader data must be defined correctly for the first bootloader release with Fee integrated (or else compatibility issues will have to be considered).</p>
+<p>Additionally, once a Fee block is defined in an application, it should never be removed. If the block becomes removed and is no longer needed, it should become a deprecated block. This strategy will ensure compatibility between software versions. <strong>Removal of configured blocks should be done only if software compatibility is not a concern as determined by program consensus!!</strong></p>
+<p><strong><u>CCS Global Settings:</u></strong></p>
+<p>Code Composer Studio automatically searches all project folders for .c files to be included in a build. The Fee subproject has some vector template files in the “generate” folder that have an extension of .c and .h that are encrypted and should not be part of this build. To work around this, it is suggested to globally apply a filter to exclude all folders called “generate” from the build in code composer project settings (note this approach assumes ALL generate folders do not contain files required as part of the build). This can be done in the CCS project properties “Resource Filters”.</p>
+<h2 id="required-global-data-inputs">Required Global Data Inputs</h2>
+<p>None</p>
+<h2 id="required-global-data-outputs">Required Global Data Outputs</h2>
+<p>None</p>
+<h2 id="specific-include-path-present">Specific Include Path present</h2>
+<p>Yes (including for Fee and Fls sub-projects)</p>
+<h1 id="runnable-scheduling">Runnable Scheduling </h1>
+<p>This section specifies the required runnable scheduling. It is divided showing the requirements based on the configuration of the module.</p>
+<h2 id="integrator-common-scheduling-in-all-configurations">Integrator Common Scheduling in all configurations</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 50%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fee_MainFunction</td>
+<td>Scheduled in SchM task periodically. Must be run from a trusted application. Note it is highly recommended that this function run in the lowest priority task (just above the background task) since it can take a long time to execute during virtual sector swapping.</td>
+<td>SchM 100ms typical</td>
+</tr>
+</tbody>
+</table>
+<h2 id="integrator-scheduling-if-bc_feeif_ecustartuptrusted-std_off">Integrator Scheduling if BC_FEEIF_ECUSTARTUPTRUSTED == STD_OFF</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Init</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TWrapC_FeeIf_Init</td>
+<td>Executed in EcuStartup Init2 (after O/S starts but before RTE start) prior to NvM Upload</td>
+<td>Once prior to RTE Start</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 50%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TWrapC_Fee_MainFunction</td>
+<td>In a tight loop during NvM upload process after the NvM_MainFunction (typically in Appl_WaitNvMReady())</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h2 id="integrator-scheduling-if-bc_feeif_ecustartuptrusted-std_on">Integrator Scheduling if BC_FEEIF_ECUSTARTUPTRUSTED == STD_ON</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Init</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FeeIf_Init</td>
+<td>Executed in EcuStartup_Init2 (after O/S starts but before RTE start) prior to NvM Upload</td>
+<td>Once prior to RTE Start</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 50%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fee_MainFunction</td>
+<td>In a tight loop during NvM upload process after the NvM_MainFunction (typically in Appl_WaitNvMReady())</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p><strong>.</strong></p>
+<h1 id="memory-mapping">Memory Mapping</h1>
+<h2 id="mapping">Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 24%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Memory Section</th>
+<th>Contents</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FEE_START_SEC_CODE</td>
+<td></td>
+<td>Please note that a VAR section must be opened and closed for this section for placement of function level static variables. The VAR section must be mapped to a trusted application.</td>
+</tr>
+<tr class="even">
+<td>FEE_START_SEC_CONST_UNSPECIFIED</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>FEE_START_SEC_VAR_INIT_UNSPECIFIED</td>
+<td></td>
+<td>Must be mapped to a trusted application.</td>
+</tr>
+<tr class="even">
+<td>F021_API_CortexR4_BE_V3D16.lib</td>
+<td></td>
+<td>All RAM for this library must be mapped to a trusted application.</td>
+</tr>
+</tbody>
+</table>
+<p>* Each …START_SEC… constant is terminated by a …STOP_SEC… constant as specified in the AUTOSAR Memory Mapping requirements.</p>
+<h2 id="usage">Usage</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>RAM</th>
+<th>ROM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N/A</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: ARM Cortex R4 Memory Usage</p>
+<h2 id="non-rte-nvm-blocks">Non RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h2 id="rte-nvm-blocks"> RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h1 id="compiler-settings">Compiler Settings</h1>
+<h2 id="preprocessor-macro"> Preprocessor MACRO</h2>
+<p>None</p>
+<h2 id="optimization-settings">Optimization Settings</h2>
+<p>None</p>
+<h2 class="unnumbered" id="section-1"></h2>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 71%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial version</td>
+<td>07/11/13</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Added note about running Fee_MainFunction in a very low priority task</td>
+<td>07/25/13</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Added note about KillWriteAllApi configuration setting requirement in NvM driver</td>
+<td>08/02/13</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Added information about Suspend/Resume erase APIs and also the patch that is required for Fee_Cfg.h until the new Configurator generator is integrated.</td>
+<td>11/04/14</td>
+<td>KJS</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Added FEE Single bit ECC correction</td>
+<td>12/15/14</td>
+<td>PS</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Updated FEE component and removed Nexteer FEE ECC workaround</td>
+<td>1/27/15</td>
+<td>PS</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Updated FEE component to version 03.01.00_01.23.00</td>
+<td>10/15/2015</td>
+<td>PS</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>Updated FEE component to version 03.01.00_01.23.01 for anomaly EA3#3993 correction</td>
+<td>02/10/2016</td>
+<td>KJS</td>
+</tr>
+</tbody>
+</table>

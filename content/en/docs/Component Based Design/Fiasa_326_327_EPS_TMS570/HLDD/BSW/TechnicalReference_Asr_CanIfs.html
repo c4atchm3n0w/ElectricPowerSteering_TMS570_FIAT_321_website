@@ -1,0 +1,2406 @@
+---
+title: TechnicalReference_Asr_CanIfs
+linkTitle: TechnicalReference_Asr_CanIfs
+weight: 11
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-1_1.png"/><br/>
+&#160;<br/>
+&#160;&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/><b>CAN Interface&#160;<br/></b>Technical Reference&#160;<br/>
+&#160;<br/>
+&#160;<br/>Version 2.10.01&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>
+&#160;<br/><b>Authors&#160;</b><br/>
+Thomas&#160;Arnold, Rüdiger Naas, Eugen Stripling<b>&#160;</b><br/>
+<b>Versions:&#160;</b><br/>
+2.10.01&#160;<br/>
+<b>Status:&#160;</b><br/>
+Released<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-2_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>1&#160;&#160;Document Information&#160;</b><br/>
+<b>1.1&#160;</b><br/>
+<b>History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;&#160;Remarks&#160;</b><br/>
+Thomas Arnold&#160;<br/>
+2006-06-22&#160;<br/>
+1.0&#160;<br/>
+Initial&#160;version&#160;<br/>
+Thomas&#160;Arnold&#160;<br/>
+2006-07-05&#160;<br/>
+1.1&#160;<br/>
+Minor corrections (Review)&#160;<br/>Add additional DET&#160;error codes&#160;<br/>
+Thomas&#160;Arnold&#160;<br/>
+2006-07-05&#160;<br/>
+1.2&#160;<br/>
+Add justification for possible&#160;<br/>compiler warning&#160;<br/>
+Thomas&#160;Arnold&#160;<br/>
+2006-10-30&#160;<br/>
+1.3&#160;<br/>
+Add additional features (TxFullCAN,&#160;<br/>TxPolling, …),&#160;<br/>Add GENy configuration&#160;chapter.&#160;<br/>
+Hartmut Hörner&#160;<br/>
+2007-01-04&#160;<br/>
+1.4&#160;<br/>
+Added information about supported&#160;<br/>AUTOSAR version&#160;<br/>
+Thomas&#160;Arnold&#160;<br/>
+2007-01-19&#160;<br/>
+1.5&#160;<br/>
+Add additional features (BusOff&#160;<br/>polling, Post&#160;build configuration).&#160;<br/>Changes in&#160;GENy configuration&#160;<br/>chapter.&#160;<br/>
+Thomas Arnold&#160;<br/>
+2007-06-04&#160;<br/>
+1.6&#160;<br/>
+Adapt&#160;to AUTOSAR&#160;2.1&#160;<br/>
+Thomas&#160;Arnold&#160;<br/>
+2007-07-20&#160;<br/>
+1.7&#160;<br/>
+Switch to new template /&#160;<br/>modifications for&#160;Autosar 2.1&#160;<br/>
+Thomas&#160;Arnold&#160;<br/>
+2008-03-03&#160;<br/>
+1.8&#160;<br/>
+Add Extended ID support&#160;<br/>
+Thomas Arnold&#160;<br/>
+2008-03-10&#160;<br/>
+2.0&#160;<br/>
+Adapt&#160;to AUTOSAR&#160;3&#160;<br/>
+Thomas&#160;Arnold&#160;<br/>
+2008-05-16&#160;<br/>
+2.1&#160;<br/>
+Changes due to review:&#160;<br/>
+-&#160;&#160;Add info about DLC to&#160;<br/>
+ReadRxPduData&#160;API&#160;<br/>
+- Layout&#160;<br/>
+changes&#160;<br/>
+- Remove&#160;<br/>
+Can_MainFunction&#160;<br/>
+API&#160;<br/>
+- …&#160;<br/>
+Thomas&#160;Arnold&#160;<br/>
+2008-06-11&#160;<br/>
+2.2&#160;<br/>
+Add CanIf_CanTrcv.h to chapter&#160;<br/>4.1.2&#160;<br/>
+Thomas&#160;Arnold&#160;<br/>
+2008-08-04&#160;<br/>
+2.3&#160;<br/>
+Add description of&#160;<br/>WakeUpValidation (Chapters 3.12,&#160;<br/>3.15, 6.19)&#160;<br/>Update GENy Screenshots and&#160;<br/>description&#160;(Chapter 5)&#160;<br/>
+Thomas&#160;Arnold&#160;<br/>
+2008-10-07&#160;<br/>
+2.4&#160;<br/>
+Change GENy attribute names&#160;<br/>(Chapter 5)&#160;<br/>Update include structure&#160;(Chapter&#160;<br/>4.2)&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+2&#160;/&#160;&#160;62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-3_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+Thomas Arnold&#160;<br/>
+2008-10-17&#160;<br/>
+2.5&#160;<br/>
+Add description of&#160;AUTOSAR 2.1&#160;<br/>ComM support (Chapter 3.16)&#160;<br/>
+Thomas&#160;Arnold&#160;<br/>
+2008-10-31&#160;<br/>
+2.6&#160;<br/>
+Update of figure 3-1&#160;<br/>Update GENy screenshots /&#160;<br/>attribute names (Chapter 5)&#160;<br/>Rework chapter 6&#160;API description&#160;<br/>Minor improvements&#160;<br/>
+Rüdiger Naas&#160;<br/>
+2009-06-29&#160;<br/>
+2.7&#160;<br/>
+Description&#160;Double Hash search&#160;<br/>algorithm added&#160;<br/>
+Rüdiger Naas&#160;<br/>
+2009-08-25&#160;<br/>
+2.7.1&#160;<br/>
+Limitation for&#160;API CanIf_Transmit()&#160;<br/>added&#160;<br/>
+Rüdiger Naas&#160;<br/>
+2009-09-25&#160;<br/>
+2.7.2&#160;<br/>
+Chapter Deviations/Limitations&#160;<br/>added&#160;<br/>
+Rüdiger Naas&#160;<br/>
+2009-11-23&#160;<br/>
+2.7.3&#160;<br/>
+Defines for&#160;CanIf_PduSetModeType&#160;<br/>changed&#160;<br/>Example for how to convert&#160;<br/>Upper/Lower&#160;ID to mask and code.&#160;<br/>
+Rüdiger Naas&#160;<br/>
+2010-01-11&#160;<br/>
+2.7.4&#160;<br/>
+Minor changes regarding&#160;indication&#160;<br/>function types.&#160;<br/>
+Rüdiger Naas&#160;<br/>
+2010-03-08&#160;<br/>
+2.8.0&#160;<br/>
+Dynamic transmit L-PDU handles&#160;<br/>EcuM_GeneratorCompatibilityError&#160;<br/>API added&#160;<br/>
+Rüdiger Naas&#160;<br/>
+2010-06-30&#160;<br/>
+2.9.0&#160;<br/>
+Expansion of the description for the &#160;<br/>interrupt lock mechanism&#160;<br/>Typo corrected for chapter&#160;<br/>“sleep/wakeup”&#160;<br/>Tx buffer handling expansion&#160;<br/>Postbuild parameter description&#160;<br/>changed&#160;<br/>Bit Queue support&#160;<br/>
+Rüdiger Naas&#160;<br/>
+2011-01-12&#160;<br/>
+2.10.0&#160;<br/>
+Some typos&#160;corrected at&#160;chapter&#160;<br/>“sleep/wakeup”.&#160;<br/>
+Eugen Stripling&#160;<br/>
+2011-06-30&#160;<br/>
+2.10.01&#160;&#160;DLC check against not&#160;optimized&#160;<br/>
+DLC&#160;<br/>
+Table 1-1&#160;&#160;&#160;History&#160;of the&#160;Document&#160;<br/>
+<b>1.2&#160;</b><br/>
+<b>Reference Documents&#160;</b><br/>
+<b>No.&#160;&#160;Title&#160;</b><br/>
+<b>Version&#160;</b><br/>
+[1] &#160;AUTOSAR_SWS_CAN_Interface.pdf&#160;<br/>
+3.0.1&#160;<br/>
+[2] &#160;AUTOSAR_SWS_DET.pdf&#160;<br/>
+2.2.0&#160;<br/>
+[3] &#160;AUTOSAR_SWS_DEM.pdf&#160;<br/>
+2.2.1&#160;<br/>
+[4] &#160;AUTOSAR_BasicSoftwareModules.pdf&#160;<br/>
+1.2.0&#160;<br/>
+Table 1-2&#160;&#160;&#160;References Documents&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+3&#160;/&#160;&#160;62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-4_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-4_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+<b>Please note&#160;<br/></b>We have configured the&#160;programs in accordance&#160;with your specifications in the&#160;<br/>
+&#160;&#160;questionnaire. Whereas&#160;the programs do support&#160;other configurations than the one&#160;<br/>
+specified&#160;in&#160;your questionnaire, Vector’s&#160;release&#160;of the programs delivered to your&#160;<br/>company is&#160;expressly restricted to the&#160;configuration you have&#160;specified in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+4&#160;/&#160;&#160;62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-5_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#2"><b>1</b>&#160;&#160;<b>Document Information....................................................................................................&#160;2</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#2">1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#2">History...............................................................................................................&#160;2</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#3">1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#3">Reference Documents&#160;......................................................................................&#160;3</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#10"><b>2</b>&#160;&#160;<b>Introduction&#160;...................................................................................................................&#160;10</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#10">2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#10">Architecture&#160;Overview.....................................................................................&#160;10</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#12"><b>3</b>&#160;&#160;<b>Functional Description&#160;.................................................................................................&#160;12</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#12">3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#12">Deviations regarding&#160;AUTOSAR standard......................................................&#160;12</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#12">3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#12">Feature List.....................................................................................................&#160;12</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#13">3.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#13">Initialization&#160;.....................................................................................................&#160;13</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#14">3.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#14">Transmission...................................................................................................&#160;14</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#15">3.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#15">Dynamic transmission.....................................................................................&#160;15</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#15">3.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#15">Transmit Buffer&#160;...............................................................................................&#160;15</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#16">3.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#16">Reception........................................................................................................&#160;16</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#16">3.8&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#16">Ranges&#160;...........................................................................................................&#160;16</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#17">3.9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#17">DLC check&#160;......................................................................................................&#160;17</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#18">3.9.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#18">DLC check against not&#160;optimized DLC&#160;...........................................................&#160;18</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#18">3.10&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#18">Communication Modes&#160;...................................................................................&#160;18</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#18">3.10.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#18">Controller Mode&#160;..............................................................................................&#160;18</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#18">3.10.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#18">Channel Mode&#160;................................................................................................&#160;18</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#19">3.11&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#19">Polling&#160;.............................................................................................................&#160;19</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#19">3.12&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#19">Error Notification&#160;.............................................................................................&#160;19</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#19">3.12.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#19">Development Error Detection&#160;.........................................................................&#160;19</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#23">3.12.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#23">Production Error&#160;Detection&#160;.............................................................................&#160;23</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#23">3.13&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#23">Transceiver handling.......................................................................................&#160;23</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#24">3.14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#24">Sleep / WakeUp&#160;..............................................................................................&#160;24</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#27">3.15&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#27">Bus Off............................................................................................................&#160;27</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#27">3.16&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#27">Version Info.....................................................................................................&#160;27</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#28">3.17&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#28">Services used by the CAN Interface...............................................................&#160;28</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#29">3.18&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#29">Critical Sections&#160;..............................................................................................&#160;29</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#30">3.19&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#30">AUTOSAR&#160;2.1 ComM compliance..................................................................&#160;30</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#30">3.19.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#30">API Description&#160;...............................................................................................&#160;30</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#31">3.19.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#31">Call back functions..........................................................................................&#160;31</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#31">3.19.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#31">Initialization&#160;.....................................................................................................&#160;31</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#33"><b>4</b>&#160;&#160;<b>Integration&#160;....................................................................................................................</b></a><b>.&#160;<a href="TechnicalReference_Asr_CanIfs.html#33">33</a></b>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#33">4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#33">Files and include structure..............................................................................&#160;33</a>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+5&#160;/&#160;&#160;62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-6_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#33">4.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#33">Static Files&#160;......................................................................................................&#160;33</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#33">4.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#33">Dynamic Files&#160;.................................................................................................&#160;33</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#34">4.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#34">Include Structure.............................................................................................&#160;34</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#34">4.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#34">Compiler&#160;Abstraction and Memory&#160;Mapping...................................................&#160;34</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#36"><b>5</b>&#160;&#160;<b>Configuration&#160;................................................................................................................&#160;36</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#36">5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#36">Module properties&#160;...........................................................................................&#160;36</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#36">5.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#36">Common configuration....................................................................................&#160;36</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#37">5.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#37">Post build configuration&#160;..................................................................................&#160;37</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#38">5.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#38">Miscellaneous&#160;.................................................................................................&#160;38</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#40">5.1.3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#40">Software Filter&#160;Type&#160;........................................................................................&#160;40</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#41">5.1.3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#41">Transmit Buffer&#160;...............................................................................................&#160;41</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#42">5.1.3.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#42">Callback functions...........................................................................................&#160;42</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#43">5.1.3.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#43">MICROSAR extensions&#160;..................................................................................&#160;43</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#44">5.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#44">Channel specific properties&#160;............................................................................&#160;44</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#45">5.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#45">Tx message properties&#160;...................................................................................&#160;45</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#46">5.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#46">Dynamic&#160;Tx message properties&#160;....................................................................&#160;46</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#47">5.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#47">Rx message&#160;properties...................................................................................&#160;47</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48"><b>6</b>&#160;&#160;<b>API Description&#160;.............................................................................................................&#160;48</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">Services provided by the&#160;CAN Interface.........................................................&#160;48</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">6.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">CanIf_GetVersionInfo&#160;.....................................................................................&#160;48</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">6.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">CanIf_Init&#160;........................................................................................................&#160;48</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">6.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">CanIf_InitController.........................................................................................&#160;48</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#49">6.1.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#49">CanIf_SetControllerMode&#160;...............................................................................&#160;49</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#49">6.1.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#49">CanIf_GetControllerMode...............................................................................&#160;49</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">6.1.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">CanIf_Transmit&#160;...............................................................................................&#160;50</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">6.1.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">CanIf_TxConfirmation.....................................................................................&#160;50</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">6.1.8&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">CanIf_RxIndication&#160;.........................................................................................&#160;50</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#51">6.1.9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#51">CanIf_ControllerBusOff...................................................................................&#160;51</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#51">6.1.10&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#51">CanIf_SetPduMode&#160;........................................................................................&#160;51</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#52">6.1.11&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#52">CanIf_GetPduMode&#160;........................................................................................&#160;52</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#52">6.1.12&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#52">CanIf_InitMemory&#160;...........................................................................................&#160;52</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#53">6.1.13&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#53">CanIf_CancelTxConfirmation..........................................................................&#160;53</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#53">6.1.14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#53">CanIf_SetTransceiverMode&#160;............................................................................&#160;53</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#53">6.1.15&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#53">CanIf_GetTransceiverMode............................................................................&#160;53</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#54">6.1.16&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#54">CanIf_GetTrcvWakeupReason&#160;.......................................................................&#160;54</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#54">6.1.17&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#54">CanIf_SetTransceiverWakeupMode&#160;...............................................................&#160;54</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#55">6.1.18&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#55">CanIf_CheckWakeup&#160;......................................................................................&#160;55</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#55">6.1.19&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#55">CanIf_CheckValidation....................................................................................&#160;55</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#55">6.1.20&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#55">CanIf_ResetBusOffStart..................................................................................&#160;55</a>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+6&#160;/&#160;&#160;62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-7_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#56">6.1.21&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#56">CanIf_ResetBusOffEnd...................................................................................&#160;56</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#56">6.1.22&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#56">CanIf_ConvertPduId&#160;.......................................................................................&#160;56</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#57">6.1.23&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#57">CanIf_CancelTransmit&#160;....................................................................................&#160;57</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#57">6.1.24&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#57">CanIf_CancelTxNotification&#160;............................................................................&#160;57</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#58">6.1.25&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#58">CanIf_SetDynamicTxId...................................................................................&#160;58</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#59">6.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#59">Callout Functions&#160;............................................................................................&#160;59</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#59">6.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#59">EcuM_GeneratorCompatibilityError&#160;................................................................&#160;59</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#60"><b>7</b>&#160;&#160;<b>AUTOSAR Standard&#160;Compliance.................................................................................&#160;60</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#60">7.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#60">Deviations&#160;.......................................................................................................&#160;60</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#60">7.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#60">Limitations.......................................................................................................&#160;60</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#61"><b>8</b>&#160;&#160;<b>Glossary&#160;and&#160;Abbreviations&#160;........................................................................................&#160;61</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#61">8.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#61">Glossary..........................................................................................................&#160;61</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#61">8.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#61">Abbreviations&#160;..................................................................................................&#160;61</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#62"><b>9</b>&#160;&#160;<b>Contact........................................................................................................................</b></a><b>...&#160;<a href="TechnicalReference_Asr_CanIfs.html#62">62</a></b>&#160;<br/>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+7&#160;/&#160;&#160;62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-8_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#10">Figure 2-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#10">AUTOSAR layer model&#160;...................................................................................&#160;10</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#11">Figure 2-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#11">Interfaces to&#160;adjacent modules of the CAN Interface&#160;......................................11</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#25">Figure 3-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#25">Wake up sequence (No validation)&#160;.................................................................&#160;25</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#26">Figure 3-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#26">Wake up sequence (Wakeup validation).........................................................&#160;26</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#34">Figure 4-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#34">Include structure&#160;.............................................................................................&#160;34</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#36">Figure 5-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#36">Module configuration (Common&#160;parameters, Pre-compile time)&#160;....................&#160;36</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#37">Figure 5-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#37">Module configuration (Post build parameters pre-compile time).....................&#160;37</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#38">Figure 5-3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#38">Module configuration (Miscellaneous,&#160;Pre-compile time)&#160;...............................&#160;38</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#40">Figure 5-4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#40">Software filter type configuration (Pre-compile time)&#160;......................................&#160;40</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#41">Figure 5-5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#41">Transmit buffer configuration (Pre-compile time)............................................&#160;41</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#42">Figure 5-6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#42">Call back function configuration (Link time)&#160;....................................................&#160;42</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#43">Figure 5-7&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#43">Configuration of MICROSAR extensions (Pre-compile time)&#160;.........................&#160;43</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#44">Figure 5-8&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#44">Channel specific properties&#160;............................................................................&#160;44</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#45">Figure 5-9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#45">Tx message properties&#160;...................................................................................&#160;45</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#47">Figure 5-10&#160;&#160;Rx&#160;message properties page..........................................................................&#160;47</a>&#160;<br/>&#160;<br/>
+<b>Tables&#160;<br/></b><a href="TechnicalReference_Asr_CanIfs.html#3">Table 1-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#3">History of the Document&#160;...................................................................................&#160;3</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#3">Table 1-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#3">References Documents&#160;....................................................................................&#160;3</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#13">Table 3-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#13">List of supported features&#160;...............................................................................&#160;13</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#20">Table 3-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#20">Mapping of service IDs to services&#160;.................................................................&#160;20</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#23">Table 3-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#23">Errors reported to DET&#160;...................................................................................&#160;23</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#28">Table 3-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#28">API functions used by the CAN Interface&#160;.......................................................&#160;28</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#29">Table 3-5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#29">Critical Section Codes&#160;....................................................................................&#160;29</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#30">Table 3-6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#30">Restrictions&#160;for the different lock areas...........................................................&#160;30</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#33">Table 4-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#33">Static files........................................................................................................&#160;33</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#33">Table 4-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#33">Generated files&#160;...............................................................................................&#160;33</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#35">Table 4-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#35">Compiler abstraction and memory&#160;mapping&#160;...................................................&#160;35</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#37">Table 5-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#37">Common configuration....................................................................................&#160;37</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#37">Table 5-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#37">Post build configuration&#160;..................................................................................&#160;37</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#40">Table 5-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#40">Miscellaneous configuration&#160;...........................................................................&#160;40</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#41">Table 5-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#41">Transmit buffer configuration&#160;..........................................................................&#160;41</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#43">Table 5-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#43">Callback function configuration.......................................................................&#160;43</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#44">Table 5-6&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#44">Configuration of MICROSAR extensions........................................................&#160;44</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#45">Table 5-7&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#45">Channel specific properties&#160;............................................................................&#160;45</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#46">Table 5-8&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#46">Tx message properties&#160;...................................................................................&#160;46</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#46">Table 5-9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#46">Dynamic&#160;Tx message properties&#160;....................................................................&#160;46</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#47">Table 5-10&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#47">&#160;Rx&#160;message properties..................................................................................&#160;47</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">Table 6-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">&#160;API&#160;CanIf_GetVersionInfo..............................................................................&#160;48</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">Table 6-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#48">API CanIf_Init..................................................................................................&#160;48</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#49">Table 6-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#49">API CanIf_InitController&#160;..................................................................................&#160;49</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#49">Table 6-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#49">API CanIf_SetControllerMode&#160;........................................................................&#160;49</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">Table 6-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">API CanIf_GetControllerMode&#160;........................................................................&#160;50</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">Table 6-6&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">API CanIf_Transmit.........................................................................................&#160;50</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">Table 6-7&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#50">API CanIf_TxConfirmation&#160;..............................................................................&#160;50</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#51">Table 6-8&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#51">API CanIf_RxIndication...................................................................................&#160;51</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#51">Table 6-9&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#51">API CanIf_ControllerBusOff&#160;............................................................................&#160;51</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#52">Table 6-10&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#52">API CanIf_SetPduMode..................................................................................&#160;52</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#52">Table 6-11&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#52">API CanIf_GetPduMode&#160;.................................................................................&#160;52</a>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+8&#160;/&#160;&#160;62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-9_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#52">Table 6-12&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#52">API CanIf_InitMemory.....................................................................................&#160;52</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#53">Table 6-13&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#53">API CanIf_CancelTxConfirmation...................................................................&#160;53</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#53">Table 6-14&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#53">API CanIf_SetTransceiverMode&#160;.....................................................................&#160;53</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#54">Table 6-15&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#54">API CanIf_GetTransceiverMode&#160;.....................................................................&#160;54</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#54">Table 6-16&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#54">API CanIf_GetTrcvWakeupReason&#160;................................................................&#160;54</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#54">Table 6-17&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#54">API CanIf_SetTransceiverWakeupMode&#160;........................................................&#160;54</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#55">Table 6-18&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#55">API CanIf_CheckWakeup&#160;...............................................................................&#160;55</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#55">Table 6-19&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#55">API CanIf_CheckValidation.............................................................................&#160;55</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#56">Table 6-20&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#56">API CanIf_ResetBusOffStart...........................................................................&#160;56</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#56">Table 6-21&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#56">API CanIf_ResetBusOffEnd............................................................................&#160;56</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#57">Table 6-22&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#57">API CanIf_ConvertPduId&#160;................................................................................&#160;57</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#57">Table 6-23&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#57">API CanIf_CancelTransmit&#160;.............................................................................&#160;57</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#58">Table 6-24&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#58">API CanIf_CancelTxNotification&#160;.....................................................................&#160;58</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#58">Table 6-25&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#58">API CanIf_SetDynamicTxId&#160;............................................................................&#160;58</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#59">Table 6-26&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#59">EcuM_GeneratorCompatibilityError&#160;................................................................&#160;59</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#61">Table 8-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#61">Glossary..........................................................................................................&#160;61</a>&#160;<br/>
+<a href="TechnicalReference_Asr_CanIfs.html#61">Table 8-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanIfs.html#61">Abbreviations&#160;..................................................................................................&#160;61</a>&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+9&#160;/&#160;&#160;62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-10_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-10_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>2&#160;&#160;Introduction&#160;</b><br/>
+This document describes the functionality,&#160;API and configuration&#160;of the&#160;AUTOSAR CAN&#160;<br/>Interface as specified in [1]. It is based on&#160;the&#160;AUTOSAR specification release 3.&#160;The CAN&#160;<br/>Interface is a hardware independent layer with a standardized interface to the CAN Driver&#160;<br/>and CAN&#160;Transceiver Driver layer and upper&#160;layers like PDU Router, Communication&#160;<br/>Manager and the Network Management.&#160;<br/>&#160;<br/>
+<b>Supported AUTOSAR&#160;Release<a href="TechnicalReference_Asr_CanIfs.html#10">*:&#160;</a></b><br/>
+3&#160;<br/>
+<b>Supported Configuration Variants:&#160;</b><br/>
+pre-compile, link-time, post-build&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Vendor ID:&#160;</b><br/>
+CANIF_VENDOR_ID 30&#160;<br/>
+decimal&#160;<br/>
+(= Vector-Informatik,&#160;<br/>according to&#160;HIS)&#160;<br/>
+<b>Module ID:&#160;</b><br/>
+CANIF_MODULE_ID &#160;&#160;<br/>
+60&#160;<br/>(according to ref.&#160;<a href="TechnicalReference_Asr_CanIfs.html#3">[4])&#160;</a><br/>
+* For the precise&#160;AUTOSAR Release 3.x please&#160;see&#160;the release&#160;specific&#160;documentation. &#160;<br/>&#160;<br/>
+<b>2.1&#160;</b><br/>
+<b>Architecture Overview&#160;</b><br/>
+The following figure shows where the CAN&#160;Interface is located in the&#160;AUTOSAR&#160;<br/>architecture.&#160;<br/>&#160;<br/>
+&#160;<br/>
+Figure 2-1&#160;&#160;AUTOSAR layer&#160;model&#160;<br/>
+&#160;<br/>The CAN Interface provides a standardized interface for all upper layers which require&#160;<br/>CAN communication.&#160;Therefore these upper&#160;layers have to communicate with the CAN&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+10&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-11_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+Interface which is responsible for the CAN&#160;communication.&#160;This includes transmission and&#160;<br/>reception of messages as well as state handling of the&#160;CAN controllers.&#160;<br/>&#160;<br/>&#160;<br/>The next figure shows the interfaces to&#160;adjacent modules of the CAN Interface.&#160;&#160;These&#160;<br/><a href="TechnicalReference_Asr_CanIfs.html#48">interfaces are described in chapter&#160;6.&#160;<br/></a>&#160;<br/>
+COM<br/>
+PduR<br/>
+DCM<br/>
+CanNM<br/>
+DCM<br/>
+CanSM<br/>
+DCM<br/>
+CanTP<br/>
+DCM<br/>
+EcuM<br/>
+CAN&#160;Interface<br/>
+CAN&#160;DRV<br/>
+FR<br/>
+TRCV&#160;&#160;&#160;DRV<br/>
+&#160;<br/>
+Figure 2-2&#160;&#160;Interfaces to adjacent&#160;modules of the CAN Interface&#160;<br/>
+&#160;<br/>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+11&#160;/&#160;62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-12_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>3&#160;&#160;Functional Description&#160;</b><br/>
+<b>3.1&#160;</b><br/>
+<b>Deviations regarding AUTOSAR standard&#160;</b><br/>
+Please note that the CAN Interface is tailored by Vector Informatik according to customer&#160;<br/>requirements before delivery.&#160;As a result not&#160;all features listed below might&#160;be supported&#160;<br/>by a delivered module.&#160;&#160;<br/>For deviations and extensions regarding the&#160;AUTOSAR standard [1], please see chapter 7.&#160;<br/>
+<b>3.2&#160;</b><br/>
+<b>Feature List&#160;</b><br/>
+&#160;<br/>
+<b>Available Features For This Platform:&#160;</b><br/>
+<b>Feature Naming&#160;</b><br/>
+<b>Supported&#160;</b><br/>
+<b>Short Description&#160;</b><br/>
+<b>Initialization&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+Generic Initialization&#160;<br/>
+ &#160;<br/>
+General initialization of the&#160;CAN Interface (CanIf_Init())&#160;<br/>
+Controller specific Initialization&#160;<br/>
+ &#160;<br/>
+CanIf_ControllerInit()&#160;<br/>
+<b>Communication &#160;</b><br/>
+&#160;<br/>
+Transmission&#160;<br/>
+ &#160;<br/>
+Transmission&#160;of&#160;PDUs&#160;<br/>
+Dynamic&#160;transmission&#160;<br/>
+ &#160;<br/>
+Transmission&#160;of PDUs&#160;with&#160;changeable&#160;CAN IDs&#160;<br/>
+Transmit buffer&#160;<br/>
+ &#160;<br/>
+Buffering of PDUs (send request and data) in the CAN&#160;<br/>Interface&#160;<br/>
+Cancellation of&#160;Tx PDUs&#160;<br/>
+ &#160;<br/>
+Cancellation of PDUs and&#160;requeueing. (Feature to avoid&#160;<br/>inner priority inversion)&#160;<br/>
+Transmit confirmation&#160;<br/>
+ &#160;<br/>
+Call back&#160;for successful transmission&#160;<br/>
+Reception&#160;<br/>
+ &#160;<br/>
+Reception of &#160;PDUs&#160;<br/>
+Receive indication&#160;<br/>
+ &#160;<br/>
+Call back for reception of&#160;PDUs &#160;<br/>
+DLC check&#160;<br/>
+ &#160;<br/>
+Check DLC of&#160;received PDUs against predefined values&#160;<br/>
+<b>Controller Modes&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+Sleep mode&#160;<br/>
+ &#160;<br/>
+Controller support sleep mode&#160;<br/>
+External wake up (CAN)&#160;<br/>
+ &#160;<br/>
+Support external wake up&#160;by CAN Driver&#160;<br/>
+External wake up (Transceiver)&#160;<br/>
+ &#160;<br/>
+Support external wake up&#160;by&#160;Transceiver Driver&#160;<br/>
+Wake up validation&#160;<br/>
+ &#160;<br/>
+Support wake&#160;up validation&#160;for external&#160;wake up events&#160;<br/>
+Internal wake up&#160;<br/>
+ &#160;<br/>
+Internal wake&#160;up by calling&#160;CanIf_SetControllerMode()&#160;<br/>
+Stop mode&#160;<br/>
+ &#160;<br/>
+Controller support stop mode&#160;<br/>
+BusOff&#160;detection&#160;<br/>
+ &#160;<br/>
+Handling of bus off notifications&#160;<br/>
+<b>Error Reporting</b>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+DEM&#160;<br/>
+ &#160;<br/>
+Support Diagnostic Event Manager (error notification)&#160;<br/>
+DET&#160;<br/>
+ &#160;<br/>
+Support Development Error Detection (error notification)&#160;<br/>
+<b>Mailbox objects&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+Tx BasicCAN&#160;<br/>
+ &#160;<br/>
+Standard mailbox to send&#160;CAN frames&#160;(Used by CAN&#160;<br/>Interface data&#160;queue)<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+12&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-13_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+Tx FullCAN&#160;<br/>
+ &#160;<br/>
+Separate mailbox for special&#160;Tx message used&#160;<br/>
+Rx&#160;BasicCAN&#160;<br/>
+ &#160;<br/>
+Standard mailbox to receive CAN frames&#160;(depending&#160;on&#160;<br/>hardware, FIFO or shadow&#160;buffer&#160;supported)&#160;<br/>
+Rx FullCAN&#160;<br/>
+ &#160;<br/>
+Separate mailbox for special Rx message used&#160;<br/>
+<b>Miscellaneous</b>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Transceiver handling&#160;<br/>
+ &#160;<br/>
+API for upper layers to set and read transceiver states; &#160;<br/>Interface to the&#160;Transceiver Driver&#160;<br/>
+Version API&#160;<br/>
+ &#160;<br/>
+API to read out component&#160;version&#160;<br/>
+Supported ID types&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+- Standard&#160;<br/>
+Identifiers&#160;<br/>
+ &#160;<br/>
+Support of CAN Standard&#160;(11&#160;bits) identifiers&#160;<br/>
+- Extended&#160;<br/>
+Identifiers&#160;<br/>
+ &#160;<br/>
+Support of CAN Extended&#160;(29 bits) identifiers&#160;<br/>
+- Mixed&#160;<br/>
+Identifiers&#160;<br/>
+ &#160;<br/>
+Support standard as&#160;well as extended identifiers&#160;<br/>
+Multiple CAN networks&#160;<br/>
+ &#160;<br/>
+Each CAN network has to be connected&#160;to exactly one&#160;<br/>controller&#160;<br/>
+Table 3-1&#160;&#160;&#160;List of supported&#160;features&#160;<br/>
+&#160;<br/>
+<b>3.3&#160;</b><br/>
+<b>Initialization&#160;</b><br/>
+Several functions are available to initialize&#160;the CAN Interface.&#160;The following code example&#160;<br/>shows which functions have to be called to&#160;initialize&#160;the CAN Interface and to allow&#160;<br/>transmission and reception.&#160;<br/>&#160;<br/>CanIf_InitMemory();&#160;/* Optional call which reinitializes global&#160;<br/>
+variables to set the CAN Interface back to&#160;<br/>uninitialized state. */&#160;<br/>
+(CanTrcv_xxx_InitMemory() and) CanTrcv_xxx_Init&#160;<br/>&#160;<br/>
+/* have to be called to initialize the CAN&#160;<br/>Transceiver Driver and set the CAN Transceiver&#160;<br/>
+to the preconfigured state. For some CAN&#160;<br/>Controllers it is necessary to have a recessive&#160;<br/>
+signal on the Rx Pin to be able to initialize&#160;<br/>the CAN Controller. This means the transceiver&#160;<br/>
+has to be set to “normal mode” before&#160;<br/>CanIf_Init() is called. */&#160;<br/>
+(Can_InitMemory() and )Can_Init(); &#160;<br/>&#160;<br/>
+/* have to be called before CanIf_Init is&#160;<br/>called. */&#160;<br/>
+CanIf_Init(&lt;PtrToCanIfConfiguration&gt;);&#160;&#160;<br/>&#160;<br/>
+/* Global initialization of the CAN Interface,&#160;<br/>
+all available controllers and then CAN Driver&#160;<br/>are initialized within this call. If selectable&#160;<br/>
+post build configuration is active a valid&#160;<br/>configuration has to be passed to the call of&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+13&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-14_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+CanIf_Init. In other cases the parameter will be&#160;<br/>ignored and a NULL pointer can be used */&#160;<br/>
+CanIf_SetControllerMode(0, CANIF_CS_STARTED);&#160;<br/>&#160;<br/>
+/* The controller mode for controller 0 is set&#160;<br/>to started mode. This means the CAN controller&#160;<br/>
+is initialized and ready to communicate&#160;<br/>(acknowledge of the CAN controller is&#160;<br/>
+activated). Communication is not yet possible&#160;<br/>because the CAN Interface will neither pass Tx&#160;<br/>
+PDUs from higher layers to the CAN Driver nor&#160;<br/>accept Rx PDUs from the CAN Driver. */&#160;<br/>
+CanIf_SetPduMode(0, CANIF_SET_ONLINE);&#160;<br/>&#160;<br/>
+/* The PDU mode in the CAN Interface is switched&#160;<br/>to online mode. After initialization this mode&#160;<br/>
+remains in the state CANIF_GET_OFFLINE until the&#160;<br/>CanIf_SetPduMode function is called. Now&#160;<br/>
+transmission requests will be passed from the&#160;<br/>upper layer to the CAN Driver and Rx PDUs are&#160;<br/>
+forwarded from the CAN Driver to the&#160;<br/>corresponding higher layer. */&#160;<br/>
+&#160;<br/>
+<b>3.4&#160;</b><br/>
+<b>Transmission&#160;</b><br/>
+The transmission of PDUs is&#160;only possible after the CAN Interface and&#160;CAN Driver is&#160;<br/>initialized and the CAN Interface resides&#160;in the CANIF_CS_STARTED /&#160;<br/>CANIF_GET_ONLINE or CANIF_CS_STARTED&#160;/ CANIF_GET_TX_ONLINE mode. In all&#160;<br/>other states the&#160;Tx requests are&#160;rejected by the CAN Interface.&#160;<br/>The&#160;Tx&#160;request has to be initiated by a call to the function:&#160;<br/>CanIf_Transmit(&lt;TxPduId&gt;, &lt;PduInfoPtr&gt;);&#160;<br/>The CAN Interface uses the PDU ID to acquire&#160;more information to transmit the message&#160;<br/>from the generated data.&#160;This data&#160;is&#160;used to&#160;call the CAN Driver’s&#160;Can_Write function&#160;<br/>which needs information about the PDU like&#160;ID, length, data and about&#160;the hardware&#160;<br/>transmit handle which represents the mailbox used for transmission of the PDU.&#160;<br/>&#160;<br/>After the message was successfully transmitted&#160;on the bus a confirmation function will be&#160;<br/>called by&#160;the CAN Driver either&#160;from interrupt context or in&#160;case of&#160;Tx polling from task&#160;<br/>context.&#160;This confirmation is dispatched in the CAN Interface to notify the corresponding&#160;<br/>higher layer about the transmission of the PDU. For this purpose for each PDU a call back&#160;<br/>function has to be specified at configuration time.&#160;<br/>The transmission request will be rejected by returning E_NOT_OK in the following cases:&#160;<br/>&#160;<br/>
+-&#160;&#160;The CAN Interface is not in the&#160;controller state CANIF_CS_STARTED&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+14&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-15_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+-&#160;&#160;The CAN Interface is not in the channel mode CANIF_GET_ONLINE or&#160;<br/>
+CANIF_GET_TX_ONLINE&#160;<br/>
+-&#160;&#160;The transmit buffer is not active and&#160;the corresponding mailbox used for&#160;<br/>
+transmission is occupied (BasicCAN&#160;Tx&#160;messages only).&#160;<br/>
+-&#160;&#160;An error occurred during transmission (DET&#160;or DEM will be informed)&#160;<br/>
+<b>3.5&#160;</b><br/>
+<b>&#160;Dynamic transmission&#160;</b><br/>
+The feature is activated by the global switch “Dynamic&#160;Tx Objects”.&#160;<br/>The adjustments for the dynamic objects are the&#160;same as for the static with the exception&#160;<br/>that the CAN ID and the attribute for&#160;ext./std. ID can be selected manually. &#160;<br/>For default&#160;the dynamic object has the CAN ID&#160;parameterized during configuration time&#160;<br/>until it will be&#160;change by the&#160;CanIf_SetDynamicTxId()&#160;API. If a extended ID is written&#160;<br/>
+by the &#160;API, the most significant bit must be&#160;set. &#160;<br/>The PDU IDs of the dynamic&#160;objects are represented as&#160;symbolic names for the file&#160;<br/>canif_cfg.h. &#160;<br/>
+<b>3.6&#160;</b><br/>
+<b>Transmit Buffer&#160;</b><br/>
+The CAN Interface provides&#160;a mechanism to&#160;buffer one&#160;Tx request including data for each&#160;<br/>BasicCAN PDU.&#160;This means if&#160;the BasicCAN&#160;Tx&#160;hardware objects&#160;are occupied each PDU&#160;<br/>configured to be transmitted via this hardware object can be stored in the CAN Interface&#160;<br/>until the hardware transmit&#160;object is free again. &#160;<br/>If a specific PDU is resent and the&#160;Tx buffer for this PDU is already in use, the data stored&#160;<br/>for this PDU will be overwritten in the CAN Interface to make&#160;sure the newest data will be&#160;<br/>transmitted.&#160;<br/>The entries&#160;stored in&#160;the&#160;Tx buffer will be processed from a&#160;Tx confirmation interrupt or&#160;<br/>from the CAN Driver’s&#160;Tx main function in polling mode. &#160;<br/>Within the confirmation function the list of stored PDUs&#160;in the transmit buffer will be&#160;<br/>searched for the PDU with highest priority (lowest CAN identifier) which will be the first to&#160;<br/>be removed from queue and written to the hardware by the CAN Driver.&#160;<br/>If the CAN Controller supports&#160;multiple hardware objects the&#160;Tx Buffer will be used to&#160;<br/>avoid inner&#160;priority inversion.&#160;This means if the CAN Interface passes a transmit request to&#160;<br/>the CAN Driver while all&#160;Tx&#160;hardware message objects are occupied (at least one&#160;<br/>message object is occupied by a CAN message&#160;with lower priority than the message used&#160;<br/>for the current transmit request) the CAN Driver&#160;will initiate a cancellation of the message&#160;<br/>with the lowest priority.&#160;The cancelled message will be stored in&#160;the&#160;Tx buffer if the&#160;Tx&#160;<br/>buffer is free, otherwise it&#160;will be discarded to make sure&#160;the newest data&#160;will be&#160;<br/>transmitted. A&#160;Tx&#160;hardware&#160;message object will be free due to&#160;the cancellation and allows&#160;<br/>the CAN Interface to pass the message with&#160;the highest priority to the CAN Driver.&#160;<br/>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+15&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-16_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-16_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-16_3.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>3.7&#160;</b><br/>
+<b>Reception&#160;</b><br/>
+Reception of PDUs is only possible in the state CANIF_CS_STARTED /&#160;<br/>CANIF_GET_ONLINE&#160;or CANIF_CS_STARTED&#160;/ CANIF_GET_RX_ONLINE. In all other&#160;<br/>states the PDUs received by&#160;the CAN Driver will be discarded&#160;in the CAN Interface without&#160;<br/>notification of the upper layers.&#160;<br/>The CAN Interface supports FullCAN as well&#160;as BasicCAN reception. The&#160;upper&#160;layers&#160;<br/>won’t notice any differences between these two&#160;reception types as in both cases a call&#160;<br/>back function will be called which was configured for the&#160;specified PDU in the generation&#160;<br/>tool.&#160;<br/>The upper layer will be&#160;notified about the PDU ID, the received data and depending on the&#160;<br/>used indication function about the length of the received data.&#160;The PDU IDs are zero&#160;<br/>based lists&#160;which will be distributed for each call&#160;back&#160;function.&#160;This&#160;means a specific&#160;Rx&#160;<br/>PDU ID can occur multiple times in the CAN Interface and has to be evaluated in the&#160;<br/>corresponding indication function by the higher layer.&#160;<br/>
+&#160;<br/>
+<b>Info</b>&#160;<br/>The PDU IDs of Rx messages are not unique. &#160;<br/>
+&#160;&#160;The assigned indication&#160;function and&#160;PDU ID have to be used&#160;to identify one specific&#160;Rx&#160;<br/>
+PDU.&#160;<br/>
+&#160;<br/>In case of BasicCAN reception&#160;the CAN Interface has to search&#160;through a list of all known&#160;<br/>Rx messages and compare the received ID&#160;with the ID in the Rx message list. &#160;<br/>The CAN Interface offers two&#160;different search algorithms:&#160;<br/>Linear search:&#160;The list of all Rx&#160;PDUs is searched from high priority (Low CAN Identifier)&#160;to&#160;<br/>low priority&#160;(High CAN Identifier).&#160;This algorithm is efficient for a small amount of Rx&#160;<br/>messages.&#160;<br/>Double Hash search:&#160;The Rx PDU is calculated via two special hash&#160;functions.&#160;The&#160;<br/>algorithm is very efficient&#160;for a high amount of Rx messages&#160;and always&#160;takes the same&#160;<br/>time.&#160;<br/>Binary Search:&#160;The list of Rx PDUs is split&#160;in two equal sized parts and the search is&#160;<br/>continued recursively on a list&#160;of PDUs&#160;which contains half the messages.&#160;This search&#160;<br/>algorithm terminates faster for big amounts of Rx messages than the linear search.&#160;<br/>&#160;<br/>
+<b>Caution&#160;<br/></b>The binary search algorithm cannot be used for mixed ID systems.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>3.8&#160;</b><br/>
+<b>Ranges&#160;</b><br/>
+The BasicCAN message object can be used to&#160;receive groups of&#160;Rx&#160;PDUs called ranges.&#160;<br/>A&#160;range is&#160;defined by a mask and a code which define a group of messages using the&#160;<br/>following expression: &#160;<br/>&#160;&#160;&lt;Received ID&gt; &amp; &lt;Mask&gt; == &lt;Code&gt;&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+16&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-17_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-17_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+One PDU ID&#160;is assigned to all messages in the range; this means the upper layer won’t be&#160;<br/>able to get additional message&#160;properties like CanID, … &#160;<br/>For each range an indication function can be&#160;assigned in the generation tool, which is&#160;<br/>used to notify the higher layer about&#160;the reception of a message. &#160;<br/>&#160;<br/>For the definition of ranges with upper and lower ID a conversion to Mask and Code is&#160;<br/>necessary.&#160;The example below helps you how to do this. &#160;<br/>
+<b>&#160;<br/>&#160;</b><br/>
+<b>Example&#160;<br/>for how&#160;to&#160;convert Lower ID and&#160;Upper ID into Mask and Code&#160;</b>&#160;<br/>
+&#160;&#160;Lower ID: 0x400&#160;<br/>
+Upper ID: 0x43F&#160;<br/>The Code is same as the lower ID:&#160;<br/>Code&#160;= 0x400&#160;<br/>&#160;<br/>You need the Count which is upper ID&#160;– lower ID -&gt; 0x43F – 0x400 = 0x3F&#160;<br/>The Count 0x3F makes 000 0011 1111b in 11bit binary format. For a range with&#160;<br/>extended IDs the Count needs to be&#160;29 bit wide.&#160;&#160;<br/>&#160;&#160;<br/>The Mask is calculated&#160;out of negated Count and a 11 Bit mask:&#160;<br/>Mask&#160;= ~0x3F &amp; 0x7FF&#160;= 0x7C0&#160;<br/>For extended IDs you need a 29 Bit&#160;mask:&#160;<br/>Mask&#160;= ~0x3F &amp; 0x1FFF FFFF = 0x1FFF FFC0&#160;<br/>&#160;<br/>&#160;<br/>Note:&#160;<br/>If for Count the first set bit is followed by unset bits&#160;on lower significant positions,&#160;for&#160;<br/>the calculation of the Mask these bits&#160;need to be&#160;set. For example a Count of 0xA3&#160;<br/>(1010 0011b) you need to calculate&#160;with the Count 0xFF (1111&#160;1111b). The&#160;<br/>consequence is that more IDs are received as intended.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>3.9&#160;</b><br/>
+<b>DLC check&#160;</b><br/>
+A&#160;DLC check will be executed for all received messages after they passed the search&#160;<br/>algorithm (PDU is in Rx list)&#160;or if they are defined to&#160;be received in FullCAN message&#160;<br/>objects.&#160;The DLC check has to&#160;be enabled at configuration time (only pre-compile&#160;<br/>configuration). If the DLC check&#160;has been activated at pre-compile time the DLC check&#160;<br/>can be disabled for single Rx PDUs and for r<a href="TechnicalReference_Asr_CanIfs.html#44">anges at post-build time. Refer to chapter&#160;5.2&#160;<br/>Channel specific properties and chapter&#160;</a><a href="TechnicalReference_Asr_CanIfs.html#47">5.5&#160;&#160;Rx message properties for configuration&#160;<br/></a>details.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+17&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-18_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+The DLC check will verify if the received DLC&#160;is&#160;greater or equal to the DLC specified at&#160;<br/>configuration time. If the DLC is&#160;less then&#160;the configured one a DEM Error will be raised&#160;<br/>and the reception of the PDU is abandoned. &#160;<br/>&#160;<br/>
+<b>3.9.1&#160;&#160;DLC check against not optimized DLC&#160;<br/></b>Described DLC check&#160;is usually&#160;performed against optimized DLC from database.&#160;That&#160;<br/>means that data bytes within a CAN message&#160;which are not aligned by signals are not&#160;<br/>taken into account of calculation of DLC which is used for DLC check. If this optimization is&#160;<br/>not desired this can be&#160;disabled via checkbox&#160;<i>Dlc Check Optimization</i><a href="TechnicalReference_Asr_CanIfs.html#38">&#160;(s.&#160;Figure 5-3). &#160;</a>The&#160;<br/>DLC check&#160;verifies if the DLC of a received CAN message is&#160;greater or equal to the&#160;<br/>configured DLC. If the received DLC is less&#160;than the configured one a DEM error will be&#160;<br/>raised and the reception&#160;of the PDU is abandoned.&#160;<br/>
+<b>3.10&#160;&#160;Communication Modes&#160;<br/></b>The CAN Interface knows two main&#160;types of communication modes. &#160;<br/>
+<b>3.10.1&#160;&#160;Controller Mode&#160;<br/></b>The controller mode represents the physical state of the CAN controller.&#160;The&#160;following&#160;<br/>modes are available:&#160;<br/>
+- CANIF_CS_STOPPED&#160;<br/>- CANIF_CS_STARTED&#160;<br/>- CANIF_CS_SLEEP&#160;<br/>- CANIF_CS_UNINIT&#160;<br/>
+There is no state called bus off.&#160;Bus off&#160;is treated as a transition from STARTED to&#160;<br/>STOPPED mode.&#160;All transitions have to&#160;be initiated using the&#160;API function&#160;<br/>CanIf_SetControllerMode(Network, RequestMode).&#160;The controller mode can be switched&#160;<br/>for each controller independent of the state of other controllers in the system.&#160;<br/>The state CANIF_CS_UNINIT&#160;is&#160;left&#160;after CanIf_InitController(Network) is called and can&#160;<br/>only be entered by a reset of the ECU.&#160;<br/>The modes CANIF_CS_SLEEP&#160;and CANIF_CS_STARTED can only be entered from&#160;<br/>CANIF_CS_STOPPED.&#160;This means a transition from STARTED to SLEEP&#160;and vice versa&#160;<br/>is not possible without requesting the STOPPED mode first.&#160;<br/>It is always&#160;possible to request the currently&#160;active controller mode with the&#160;API function&#160;<br/>CanIf_GetControllerMode(Network, ControllerModePtr).&#160;<br/>&#160;<br/>
+<b>3.10.2&#160;&#160;Channel Mode&#160;<br/></b>The other type of communication mode is completely processed by software (it does not&#160;<br/>represent any state of the hardware).&#160;Transitions of the channel mode are&#160;only possible if&#160;<br/>the controller mode is set to CANIF_CS_STARTED. In all other controller modes the&#160;<br/>channel mode is&#160;automatically set to CAN_GET_OFFLINE and cannot be changed by a&#160;<br/>call to CanIf_SetChannelMode.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+18&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-19_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-19_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+The following channel modes are available:&#160;<br/>
+- CANIF_GET_OFFLINE&#160;<br/>&#160;<br/>
+Rx and&#160;Tx&#160;path is switched offline&#160;<br/>
+- CANIF_GET_RX_ONLINE&#160;<br/>
+&#160;<br/>
+Rx path online,&#160;Tx&#160;path offline&#160;<br/>
+- CANIF_GET_TX_ONLINE&#160;<br/>
+&#160;<br/>
+Rx&#160;path offline, tx&#160;path online&#160;<br/>
+- CANIF_GET_ONLINE&#160;<br/>&#160;<br/>
+Rx and&#160;Tx&#160;path is switched online&#160;<br/>
+- CANIF_GET_OFFLINE_ACTIVE&#160;<br/>&#160;<br/>
+Rx and&#160;Tx&#160;path offline, confirmation is emulated by the CAN Interface&#160;<br/>
+- CANIF_GET_OFFLINE_ACTIVE_RX_ONLINE&#160;<br/>&#160;<br/>
+Rx path online,&#160;Tx&#160;path offline, confirmation is emulated be the CAN Interface&#160;<br/>
+&#160;<br/>The channel modes have to be set with the&#160;API function CanIf_SetChannelMode(channel,&#160;<br/>mode) and can be requested with the function&#160;CanIf_GetChannelMode(channel, modePtr).&#160;<br/>
+<b>3.11&#160;&#160;Polling&#160;<br/></b>The CAN Interface can process&#160;events in polling and interrupt mode.&#160;As the polling of&#160;<br/>events is executed by&#160;other layers (e.g. Can&#160;Driver,&#160;Transceiver Driver) the CAN Interface&#160;<br/>is in all cases notified by call back functions&#160;which are called in different contexts. &#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>Info</b>&#160;<br/>There is&#160;no need for changes in the configuration to run the CAN Interface in&#160;<br/>
+&#160;&#160;polling mode.&#160;<br/>
+&#160;<br/>
+<b>3.12&#160;&#160;Error Notification&#160;<br/></b>AUTOSAR specifies two mechanisms of error&#160;notification and reporting. Both mechanisms&#160;<br/>are supported by the CAN Interface and can be&#160;activated at configuration time (Pre-<br/>compile configuration).&#160;<br/>
+<b>3.12.1&#160;&#160;Development Error Detection&#160;<br/></b>Development errors are reported to DET&#160;using the service Det_ReportError().This feature&#160;<br/>is normally&#160;activated during the development phase to detect fatal errors in configuration&#160;<br/>and integration of the CAN Interface with other layers.&#160;<br/>The reported CAN Interface ID is 60.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+19&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-20_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+The reported service IDs identify&#160;the&#160;services which are described in&#160;<a href="TechnicalReference_Asr_CanIfs.html#48">6. The&#160;</a>following&#160;table&#160;<br/>presents the service IDs and the related services:&#160;<br/>
+<b>Service ID&#160;</b><br/>
+<b>Service&#160;</b><br/>
+1 CanIf_Init&#160;<br/>2 CanIf_InitController&#160;<br/>3 CanIf_SetControllerMode&#160;<br/>4 CanIf_GetControllerMode&#160;<br/>5 CanIf_Transmit&#160;<br/>6 CanIf_ReadRxPduData&#160;<br/>9 CanIf_SetPduMode&#160;<br/>10 CanIf_GetPduMode&#160;<br/>11 CanIf_GetVersionInfo&#160;<br/>13 CanIf_SetTransceiverMode&#160;<br/>14 CanIf_GetTransceiverMode&#160;<br/>15 CanIf_GetTrcvWakeupReason&#160;<br/>16 CanIf_SetTransceiverWakeupMode&#160;<br/>17 CanIf_CheckWakeup&#160;<br/>18 CanIf_CheckValidation&#160;<br/>19 CanIf_TxConfirmation&#160;<br/>20 CanIf_RxIndication&#160;<br/>21 CanIf_CancelTxConfirmation&#160;<br/>22 CanIf_ControllerBusoff&#160;<br/>250 CanIf_CancelTransmit&#160;<br/>251 CanIf_CancelTxNotification&#160;<br/>
+Table 3-2&#160;&#160;&#160;Mapping of service IDs to services&#160;<br/>
+The errors reported to DET&#160;are described in the following table:&#160;<br/>
+<b>Error Code&#160;</b><br/>
+<b>Description&#160;</b><br/>
+10&#160;<br/>
+CANIF_E_PARAM_CANID&#160;<br/>
+The error code is used&#160;if&#160;an invalid CAN identifier&#160;<br/>is passed to&#160;the CAN Interface from the CAN&#160;<br/>driver during the reception of a RxPDU.&#160;<br/>The error can be raised from:&#160;<br/>
+-&#160;&#160;<b>CanIf_RxIndication()&#160;</b><br/>
+11&#160;<br/>
+CANIF_E_PARAM_DLC&#160;<br/>
+The error will be reported by&#160;<br/>
+-&#160;&#160;<b>CanIf_RxIndication()&#160;</b><br/>
+if a DLC greater than 8 is passed to&#160;the CAN&#160;<br/>Interface during reception.&#160;<br/>
+12&#160;<br/>
+CANIF_E_PARAM_LPDU&#160;<br/>
+The error will be raised by&#160;the following functions&#160;<br/>if an unexpected PduId is passed to&#160;the function&#160;<br/>by either the CAN Driver or the higher layer.&#160;<br/>
+-&#160;&#160;<b>CanIf_Transmit()&#160;</b><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+20&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-21_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Error Code&#160;</b><br/>
+<b>Description&#160;</b><br/>
+-&#160;&#160;<b>CanIf_TxConfirmation()&#160;<br/></b>-&#160;&#160;<b>CanIf_ReadRxPduData()&#160;<br/></b>-&#160;&#160;<b>CanIf_CancelTxConfirmation()&#160;<br/></b>-&#160;&#160;<b>CanIf_CancelTransmit()&#160;<br/></b>-&#160;&#160;<b>CanIf_CancelTxNotification()&#160;</b><br/>
+The error will be raised&#160;if&#160;an incorrect&#160;PduId is&#160;<br/>calculated&#160;during reception in the function:&#160;<br/>
+-&#160;&#160;<b>CanIf_RxIndication()&#160;</b><br/>
+13&#160;<br/>
+CANIF_E_PARAM_HRH&#160;<br/>
+The error code is used&#160;in the function&#160;<br/>
+-&#160;&#160;<b>CanIf_RxIndication()&#160;</b><br/>
+If an invalid&#160;hardware receive handle is passed&#160;<br/>to the CAN Interface.&#160;<br/>
+14&#160;<br/>
+CANIF_E_PARAM_CHANNEL&#160;<br/>
+Not used.&#160;<br/>
+15&#160;<br/>
+CANIF_E_PARAM_CONTROLLER&#160;<br/>
+Used by the following functions if an&#160;invalid&#160;<br/>controller index is passed:&#160;<br/>
+-&#160;&#160;<b>CanIf_InitController()&#160;<br/></b>-&#160;&#160;<b>CanIf_SetControllerMode()&#160;<br/></b>-&#160;&#160;<b>CanIf_GetControllerMode()&#160;<br/></b>-&#160;&#160;<b>CanIf_RxIndication()&#160;<br/></b>-&#160;&#160;<b>CanIf_ControllerBusOff()&#160;<br/></b>-&#160;&#160;<b>CanIf_SetPduMode()&#160;<br/></b>-&#160;&#160;<b>CanIf_GetPduMode()&#160;<br/></b>-&#160;&#160;<b>CanIf_ResetBusOffStart()&#160;<br/></b>-&#160;&#160;<b>CanIf_ResetBusOffEnd()&#160;</b><br/>
+&#160;<br/>The following function raises the error if an&#160;<br/>invalid controller index is calculated from a wake&#160;<br/>up source:&#160;<br/>
+-&#160;&#160;<b>CanIf_CheckWakeup()&#160;<br/></b>-&#160;&#160;<b>CanIf_CheckValidation&#160;</b><br/>
+20&#160;<br/>
+CANIF_E_PARAM_POINTER&#160;<br/>
+The error is&#160;raised if a NULL&#160;pointer is passed to&#160;<br/>one of the following functions:&#160;<br/>
+-&#160;&#160;<b>CanIf_Init()&#160;<br/></b>-&#160;&#160;<b>CanIf_GetControllerMode()&#160;<br/></b>-&#160;&#160;<b>CanIf_Transmit()&#160;<br/></b>-&#160;&#160;<b>CanIf_RxIndication()&#160;<br/></b>-&#160;&#160;<b>CanIf_GetPduMode()&#160;<br/></b>-&#160;&#160;<b>CanIf_ReadRxPduData()</b>&#160;<br/>-&#160;&#160;<b>CanIf_GetVersionInfo()&#160;</b><br/>
+30&#160;<br/>
+CANIF_E_UNINIT&#160;<br/>
+The error is&#160;raised if one&#160;of the following&#160;API&#160;<br/>functions&#160;is&#160;called before the CAN Interface is&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+21&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-22_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Error Code&#160;</b><br/>
+<b>Description&#160;<br/></b>initialized:&#160;<br/>
+-&#160;&#160;<b>CanIf_InitController()&#160;<br/></b>-&#160;&#160;<b>CanIf_Transmit()&#160;<br/></b>-&#160;&#160;<b>CanIf_TxConfirmation()&#160;<br/></b>-&#160;&#160;<b>CanIf_RxIndication()&#160;<br/></b>-&#160;&#160;<b>CanIf_ControllerBusOff()&#160;<br/></b>-&#160;&#160;<b>CanIf_SetPduMode()&#160;<br/></b>-&#160;&#160;<b>CanIf_GetPduMode()&#160;<br/></b>-&#160;&#160;<b>CanIf_CancelTxConfirmation()&#160;<br/></b>-&#160;&#160;<b>CanIf_CheckWakeup()</b>&#160;<br/>-&#160;&#160;<b>CanIf_CheckValidation()</b>&#160;<br/>
+40&#160;<br/>
+CANIF_E_NOK_NOSUPPORT&#160;<br/>
+Not used.&#160;<br/>
+50&#160;<br/>
+CANIF_TRCV_E_TRANSCEIVER&#160;<br/>
+This error code notifies&#160;about an invalid&#160;<br/>transceiver index which is passed to&#160;one of the&#160;<br/>following functions:&#160;<br/>
+-&#160;&#160;<b>CanIf_SetTransceiverMode()&#160;<br/></b>-&#160;&#160;<b>CanIf_GetTransceiverMode()&#160;<br/></b>-&#160;&#160;<b>CanIf_GetTrcvWakeupReason()&#160;<br/></b>-&#160;&#160;<b>CanIf_SetTransceiverWakeupMode()</b>&#160;<br/>-&#160;&#160;<b>CanIf_Init()</b>&#160;<br/>-&#160;&#160;<b>CanIf_CheckWakeup()</b>&#160;<br/>
+60&#160;<br/>
+CANIF_TRCV_E_TRCV_NOT_STAND&#160;Not used.&#160;<br/>BY&#160;<br/>
+70&#160;<br/>
+CANIF_TRCV_E_TRCV_NOT_NORMA&#160;Not used.&#160;<br/>L&#160;<br/>
+80&#160;<br/>
+CANIF_E_INVALID_TXPDUID&#160;<br/>
+Not used (see&#160;CANIF_E_PARAM_LPDU)&#160;<br/>
+90&#160;<br/>
+CANIF_E_INVALID_RXPDUID&#160;<br/>
+Not used (see&#160;CANIF_E_PARAM_LPDU)&#160;<br/>
+Additionally defined error codes (not&#160;AUTOSAR&#160;compliant)&#160;<br/>45&#160;<br/>
+CANIF_E_CONFIG &#160; &#160; &#160; &#160; &#160; &#160; &#160;The error code CANIF_E_CONFIG is used&#160;<br/>
+to detect inconsistent&#160;data in the generated&#160;<br/>files due to misconfiguration. &#160;<br/>The error can be raised in the following&#160;<br/>functions:&#160;<br/>
+-&#160;&#160;<b>CanIf_Init()&#160;<br/></b>-&#160;&#160;<b>CanIf_RxIndication()&#160;</b><br/>
+46&#160;<br/>
+CANIF_E_FATAL &#160; &#160; &#160; &#160; &#160; &#160; &#160;&#160;The error code CANIF_E_FATAL&#160;is used to&#160;<br/>
+detect fatal errors.&#160;The DET&#160;error will be&#160;<br/>raises inside the queue handling if&#160;<br/>transmission won’t be possible any more&#160;<br/>and if a not existent&#160;Pdu mode is requested&#160;<br/>in the function&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+22&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-23_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-23_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Error Code&#160;</b><br/>
+<b>Description&#160;</b><br/>
+-&#160;&#160;<b>CanIf_SetPduMode().&#160;</b><br/>
+Table 3-3&#160;&#160;&#160;Errors reported to DET&#160;<br/>
+&#160;<br/>
+<b>Caution&#160;<br/></b>If the development error detection is&#160;disabled not&#160;only the reporting of the&#160;errors is&#160;<br/>
+&#160;&#160;suppressed&#160;but also the&#160;detection i.e. the verification of valid&#160;function parameters.&#160;<br/>
+&#160;<br/>
+<b>3.12.2&#160;&#160;Production Error Detection&#160;<br/></b>Production errors are reported to the Diagnostics Event Manger.&#160;These errors allow the&#160;<br/>ECU to continue operation.&#160;The following DEM errors are specified for the CAN Interface:&#160;<br/>&#160; CANIF_E_STOPPED&#160;<br/>
+&#160; CANIF_E_FULL_TX_BUFFER&#160;<br/>
+CANIF_E_INVALID_DLC&#160;<br/>
+The IDs of the error codes are assigned&#160;by the DEM at configuration time.&#160;<br/>CANIF_E_STOPPED is reported during CanIf_Transmit if the controller does not reside in&#160;<br/>the mode CANIF_CS_STARTED.&#160;<br/>CANIF_E_FULL_TX_BUFFER is&#160;reported if CanIf_Transmit is called for a PduId which is&#160;<br/>still buffered inside the CAN Interface. In this case&#160;the data of the queued&#160;message is&#160;<br/>overwritten and the DEM is informed. If no transmit buffer is active the DEM error will be&#160;<br/>raised if the Can_Write&#160;call returns CAN_BUSY&#160;due to an occupied hardware object.&#160;<br/>CANIF_E_INVALID_DLC is raised&#160;during reception if the DLC of the received message is&#160;<br/>smaller than the DLC specified in the database (if the DLC check is activated).&#160;<br/>&#160;<br/>
+<b>3.13&#160;&#160;Transceiver handling&#160;<br/></b>The CAN Interface provides&#160;API&#160;and call back functions to control&#160;as many transceivers as&#160;<br/>CAN controllers are available&#160;in the system.&#160;The transceiver&#160;handling has to&#160;be activated&#160;<br/>at pre-compile time.&#160;<br/>&#160;<br/>The CAN Interface provides the following functions for higher layers to control the behavior&#160;<br/>of the transceiver. &#160;<br/>
+- CanIf_SetTransceiverMode()&#160;<br/>- CanIf_GetTransceiverMode()&#160;<br/>- CanIf_GetTrcvWakeupReason()&#160;<br/>- CanIf_SetTransceiverWakeupMode()&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+23&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-24_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-24_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+The initialization of the transceiver driver itself is not executed by the CAN Interface.&#160;This&#160;<br/>means the calling layer has to make sure the&#160;transceiver driver in&#160;initialized before using&#160;<br/>the listed&#160;API functions.&#160;<br/>&#160;<br/>If more than one different transceiver is&#160;used&#160;in the system the CAN Interface provides a&#160;<br/>mapping to address the correct transceiver driver with the correct parameters.&#160;The feature&#160;<br/>“Transceiver Mapping” has to be activated to&#160;control more than one transceiver driver. &#160;<br/>It is also allowed to activate the feature&#160;“Transceiver Mapping” if only one transceiver&#160;<br/>driver is used in the system. But due to additional runtime it is&#160;suggested to deactivate this&#160;<br/>feature for this use case.&#160;<br/>&#160;<br/>The CAN Interface supports&#160;the&#160;detection of wake up events raised by a transceiver.&#160;The&#160;<br/>feature “Sleep/WakeUp&#160;API” has to be activated and a “Wakeup source” has to be&#160;<br/>configured on the channel&#160;properties page in the CAN&#160;Interface for the channel which&#160;<br/>refers to the CAN Controller physically connected to the transceiver of interest.&#160;<br/>The&#160;API CanIf_CheckWakeup() will request&#160;if a&#160;wake&#160;up event occurred on the transceiver&#160;<br/>addressed by the wakeup source passed in&#160;the parameter list of the call. &#160;<br/>The CAN Interface analyses the passed wakeup&#160;source&#160;parameter and decides if a CAN&#160;<br/>Controller or a CAN&#160;Transceiver has&#160;to be asked for a pending wake up event.&#160;<br/>For more deta<a href="TechnicalReference_Asr_CanIfs.html#24">ils refer to the chapter&#160;3.14&#160;Sleep / WakeUp.&#160;<br/></a>&#160;<br/>
+<b>3.14&#160;&#160;Sleep / WakeUp&#160;<br/></b>The CAN Interface controls the modes of the underlying CAN driver and transceiver driver.&#160;<br/>This means an&#160;API is&#160;provided to change the modes of the connected CAN transceivers&#160;<br/>and send a CAN controller to sleep. &#160;<br/>&#160;<br/>The&#160;API function CanIf_SetControllerMode has&#160;to be used to change the mode of the CAN&#160;<br/>controller while the&#160;CAN transceiver has&#160;to be controlled with the&#160;API function&#160;<br/>CanIf_SetTransceiverMode. &#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>Caution&#160;<br/></b>The CAN Interface itself&#160;does not execute any checks if&#160;the&#160;CAN Controller and CAN&#160;<br/>Transceiver are set to sleep consistently and in the correct sequence. It is up to the&#160;<br/>
+&#160;&#160;higher layer to call CanIf_SetControllerMode() and CanIf_SetTransceiverMode() in the&#160;<br/>
+correct sequence. &#160;<br/>
+&#160;<br/>&#160;<br/>Wake up events can be either raised by the CAN Controller or by the CAN&#160;Transceiver. In&#160;<br/>both cases&#160;the CAN Interface is not directly&#160;informed about state changes.&#160;This means the&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+24&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-25_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+higher layers (normally the EcuM) has to call&#160;the CAN Interfaces CanIf_CheckWakeup&#160;API&#160;<br/>function with the wakeup sources configured for CAN&#160;Transceiver or CAN Interface (1).&#160;<br/>&#160;<br/>The CAN Interface decides by analyzing the&#160;passed wakeup source if&#160;the CAN controller&#160;<br/>or a CAN&#160;Transceiver driver has to be checked for a pending wakeup (2&#160;or 2’). If the&#160;<br/>requested layer returns a pending interrupt the EcuManager is notified by the call back&#160;<br/>function EcuM_SetWakeupEvent (3).&#160;<br/>&#160;<br/>The following figure illustrates the described wake up sequence:&#160;<br/>
+EcuM&#160;<br/>
+1. CanIf_CheckWakeup &#160;<br/>
+3.EcuM_SetWakeupEvent &#160;<br/>
+&#160; &#160; &#160; (wakeupsource)&#160;<br/>
+&#160; &#160; &#160;(wakeupsource)&#160;<br/>
+CanIf&#160;<br/>
+2. Can_Cbk_CheckWakeup&#160;<br/>
+2’. CanTrcv_CB_WakeupByBus&#160;<br/>
+&#160; &#160; &#160; &#160;(controller)&#160;<br/>
+&#160; &#160; &#160; (transceiver)&#160;<br/>
+Can Driver&#160;<br/>
+Can&#160;<br/>
+Transceiver&#160;<br/>
+&#160;<br/>
+Figure 3-1&#160;&#160;Wake up sequence (No validation)&#160;<br/>
+If the feature “Wake up validation” is activated the following figure shows the sequence&#160;<br/>which has to be executed for a valid wake&#160;up. Steps 1 to 3 take place as described above.&#160;<br/>After the EcuM_SetWakeupEvent() call the CAN&#160;Interface has to be&#160;set to the state&#160;<br/>CANIF_CS_STARTED to be able to receive&#160;messages.&#160;These messages won’t be passed&#160;<br/>to upper layers by the CAN Interface as the&#160;PDUMode is&#160;still set to&#160;“Offline”.&#160;The state&#160;<br/>change which sets&#160;the CAN Interface to the started mode has to be realized by a call of&#160;<br/>the&#160;API function CanIf_SetControllerMode(controller,&#160;CANIF_CS_STARTED) (5) from the&#160;<br/>function EcuM_StartWakeupSources() (4). If the wake up was detected by the transceiver&#160;<br/>the CAN Controller has to be woken&#160;up internally.&#160;This means the call&#160;<br/>CanIf_SetControllerMode(controller,&#160;CANIF_CS_STOPPED) is&#160;necessary&#160;in (5) before the&#160;<br/>transition to started mode is executed.&#160;<br/>If the wake up is initiated by&#160;the CAN controller,&#160;the transceiver has to be&#160;set to started&#160;<br/>mode and the CAN Controller has&#160;to be set to started mode.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+25&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=26></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-26_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+If the wake up is initiated by the transceiver the CAN Controller&#160;has to be woken up&#160;<br/>internally.&#160;This means an additional call to CanIf_SetControllerMode(controller,&#160;<br/>CANIF_CS_STOPPED) has to be executed to&#160;wake up the CAN Controller before the&#160;<br/>transition to STARTED mode is&#160;initiated.&#160;(Depending&#160;on the behavior of the transceiver,&#160;<br/>the CAN Controller and the configuration there is the possibility to wake up both the CAN&#160;<br/>Controller and the&#160;Transceiver externally.)&#160;<br/>&#160;<br/>Next the EcuManager&#160;starts a time out for the wake&#160;up validation.&#160;This means if a&#160;<br/>message is received within this timeout (6) the CanIf_CheckValidation() call executed by&#160;<br/>the EcuManager (7) will result in a successful validation.&#160;The CAN Interface checks for a&#160;<br/>recent Rx event (6) which occurred after the wake up and notifies the EcuManager by&#160;<br/>calling EcuM_ValidationWakeupEvent().&#160;<br/>If there is no message reception after (5) the&#160;function CanIf_CheckValidation() calls won’t&#160;<br/>notify a successful wake up validation and the EcuManager will run into a timeout. In this&#160;<br/>case the EcuManager calls&#160;EcuM_StopWakeupSources() (8’)&#160;and the CAN Driver and&#160;<br/>CAN&#160;Transceiver have to be set to sleep mode again.&#160;<br/>&#160;<br/>
+8’.&#160;EcuM_StopWakeupSources(wakeupsource)&#160;<br/>Æ&#160;CanIf_SetcontrollerMode(controller,&#160;<br/>
+4. &#160;<br/>
+EcuM&#160;<br/>
+CANIF_CS_STOPPED)&#160;<br/>
+EcuM_StartWakeupSources(<br/>
+ÆCanIf_SetControllerMode(controller,&#160;<br/>
+wakeupsource)&#160;<br/>
+CANIF_CS_SLEEP)&#160;<br/>Æ&#160;CanIf_SetTransceiverMode(transceiver,&#160;<br/>CANIF_TRCV_MODE_STANDBY)&#160;<br/>
+7.&#160;<br/>
+8.<br/>
+CanIf_CheckValidation &#160; &#160;&#160;<br/>
+EcuM_ValidateWakeupEvent&#160;<br/>
+(wakeupsource)&#160;<br/>
+&#160; &#160; &#160;(wakeupsource)&#160;<br/>
+5. &#160;&#160;<br/>Æ&#160;CanIf_SetTransceiverMode&#160;<br/>(transceiver,&#160;<br/>
+CanIf&#160;<br/>
+CANIF_TRCV_MODE_NORMAL)&#160;<br/>[ &#160;Æ&#160;CanIf_SetControllerMode&#160;<br/>(controller,&#160;<br/>CANIF_CS_STOPPED) &#160; &#160;]&#160;<br/>Æ&#160;CanIf_SetControllerMode&#160;<br/>(controller,&#160;<br/>CANIF&#160;CS&#160;STARTED)<br/>
+6. Rx message&#160;received&#160;<br/>(not passed to upper layers&#160;yet)&#160;<br/>CanIf_RxIndication(…)&#160;<br/>
+Can Driver&#160;<br/>
+&#160;<br/>
+Figure 3-2&#160;&#160;Wake up sequence (Wakeup validation)&#160;<br/>
+During the wake up sequence as&#160;well as during the transition&#160;to sleep mode, the higher&#160;<br/>layers have to take care about the sequence&#160;of the state transitions affecting the CAN&#160;<br/>Controller (CAN Driver) and the&#160;Transceiver Driver.&#160;<br/>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+26&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=27></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-27_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>3.15&#160;&#160;Bus Off&#160;<br/></b>The CAN Interface handles bus off events notified&#160;by the CAN Driver in&#160;interrupt driven or&#160;<br/>polling systems. If a&#160;bus off event&#160;is raised the CAN Driver forwards it to the CAN Interface&#160;<br/>by calling the function CanIf_ControllerBusOff.&#160;<br/>The CAN Interface switches its internal controller state from STARTED to STOPPED and&#160;<br/>the PDU mode is set to OFFLINE.&#160;<br/>In this state no reception or transmission is&#160;possible until the CAN Interface’s controller&#160;<br/>state and as a result&#160;the CAN Controller’s&#160;bus&#160;off state is recovered by a call to the&#160;<br/>function CanIf_SetControllerMode for the&#160;affected channel by the higher layer.&#160;<br/>&#160;<br/>After the controller state is switched the bus&#160;off state is recovered. For successful&#160;<br/>reception and transmission the PDU mode&#160;has to&#160;be switched to RX_ONLINE,&#160;<br/>TX_ONLINE or ONLINE by the higher layer.&#160;<br/>&#160;<br/>
+<b>3.16&#160;&#160;Version Info&#160;<br/></b>The version of the CAN Interface module can be&#160;acquired in three different ways.&#160;The first&#160;<br/>possibility is by calling the function CanIf_GetVersionInfo.&#160;This function will return the&#160;<br/>module’s version in the structure Std_VersionInfoType which additionally includes the&#160;<br/>VendorID and the ModuleID. &#160;<br/>The second possibility is the access of version defines which are specified in the header&#160;<br/>file CanIf.h.&#160;<br/>The following defines can be evaluated to access different versions:&#160;<br/>
+AUTOSAR version:&#160;<br/>
+CANIF_AR_MAJOR_VERSION&#160;<br/>CANIF_AR_MINOR_VERSION&#160;<br/>CANIF_AR_PATCH_VERSION&#160;<br/>
+&#160;Module&#160;version:&#160;<br/>&#160; CANIF_SW_MAJOR_VERSION&#160;<br/>
+CANIF_SW_MINOR_VERSION&#160;<br/>CANIF_SW_PATCH_VERSION&#160;<br/>
+Module ID:&#160;<br/>&#160;CANIF_MODULE_ID&#160;<br/>
+&#160;Vendor&#160;ID:&#160;<br/>&#160; CANIF_VENDOR_ID&#160;<br/>&#160;<br/>There is a third possibility to at least acquire&#160;the SW version by accessing globally visible&#160;<br/>constants:&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+27&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=28></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-28_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-28_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+CanIf_MainVersion, CanIf_SubVersion, CanIf_ReleaseVersion&#160;<br/>&#160;<br/>
+<b>Info</b>&#160;<br/>The&#160;API function CanIf_GetVersionInfo is&#160;only available if enabled at compile&#160;<br/>
+&#160;&#160;time.&#160;The definitions can be accessed independent of the configuration.&#160;<br/>
+&#160;<br/>
+<b>3.17&#160;&#160;Services used by&#160;the&#160;CAN Interface&#160;<br/></b>&#160;<br/>In the following table services provided by&#160;other components which are used by the CAN&#160;<br/>Interface are listed. For details about prototype and functionality refer to the documentation&#160;<br/>of the providing component.&#160;<br/>&#160;<br/>
+<i><b>Component API&#160;</b></i><br/>
+DET&#160;<br/>
+<b>Det_ReportError</b>&#160;<br/>
+DEM&#160;<br/>
+<b>Dem_ReportErrorStatus&#160;</b><br/>
+CAN Driver&#160;<br/>
+<b>Can_InitController&#160;</b><br/>
+<b>Can_SetControllerMode&#160;</b><br/>
+<b>Can_Write&#160;</b><br/>
+Application (PDU Router,&#160;<br/>
+<b>User_TxConfirmation (*)&#160;</b><br/>
+Network management,&#160;TP)&#160;<br/>
+<b>User_RxIndication (*)&#160;</b><br/>
+Com Manager, Ecu Manager&#160;<br/>
+<b>User_ControllerBusOff (*)&#160;</b><br/>
+<b>User_SetWakeupEvent (*)&#160;</b><br/>
+<b>User_ValidationWakeupEvent (*)&#160;</b><br/>
+Interrupt locks&#160;<br/>
+<b>SchM_Enter_CanIf&#160;</b><br/>
+<b>SchM_Exit_CanIf&#160;</b><br/>
+<b>or&#160;</b><br/>
+<b>VStdNestedGlobalInterruptDisable&#160;</b><br/>
+<b>VStdNestedGlobalInterruptEnable&#160;</b><br/>
+Transceiver&#160;Driver&#160;<br/>
+<b>CanTrcv_SetOpMode&#160;</b><br/>
+<b>CanTrcv_GetOpMode&#160;</b><br/>
+<b>CanTrcv_GetBusWuReason&#160;</b><br/>
+<b>CanTrcv_SetWakeupMode&#160;</b><br/>
+<b>CanTrcv_CB_WakeupByBus&#160;</b><br/>
+MICROSAR Extension&#160;<br/>
+<b>EcuM_GeneratorCompatibilityError&#160;</b><br/>
+(optional)&#160;<br/>
+Table 3-4&#160;&#160;&#160;API functions used by&#160;the CAN Interface&#160;<br/>
+(*) &#160;names of the&#160;call back functions can be configured freely.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+28&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=29></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-29_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>3.18&#160;&#160;Critical Sections&#160;<br/></b>&#160;<br/>The&#160;AUTOSAR standard provides with the BSW&#160;Scheduler a BSW module, which handles&#160;<br/>entering and leaving critical&#160;sections. Since the BSW Scheduler&#160;is&#160;most likely&#160;not present&#160;<br/>in current architectures, the Vector CAN Interface also supports&#160;handling of critical&#160;<br/>sections via Vector Standard Library (VStdLib).&#160;<br/>The VStdLib offers the possibility of mapping&#160;the interrupt handling to OS services, or to&#160;<br/>user defined functions. In the first case interrupt handling is done by&#160;the OS, in the second&#160;<br/>case the user has to take care&#160;by providing corresponding functions.&#160;<br/>For more information about the BSW Scheduler&#160;please refer to [3]. When the BSW&#160;<br/>Scheduler is used the CAN Interface provides&#160;critical section codes that have to be&#160;<br/>mapped by&#160;the BSW Scheduler to following mechanism:&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+<b>Critical Section Define&#160;</b><br/>
+<b>Description&#160;</b><br/>
+CANIF_EXCLUSIVE_AREA_0&#160;&#160;Usage inside&#160;CanIf_SetControllerMode()&#160;<br/>
+&#160;<br/>
+Duration is&#160;short (&lt;&#160;10 instructions).&#160;<br/>
+&#160;<br/>
+Call to&#160;Can_SetControllerMode()&#160;&#160;<br/>
+CANIF_EXCLUSIVE_AREA_1&#160;&#160;Using inside&#160;CanIf_CancelTxConfirmation(),&#160;<br/>
+CanIf_CancelTransmit()&#160;<br/>
+&#160;<br/>
+Duration is&#160;short (&lt;&#160;10 instructions).&#160;<br/>
+&#160;<br/>
+No calls inside.&#160;<br/>
+CANIF_EXCLUSIVE_AREA_2&#160;&#160;Using inside&#160;CanIf_TxConfirmation()&#160;and&#160;<br/>
+CanIf_CancelTxConfirmation()&#160;<br/>
+&#160;<br/>
+Duration is medium (&lt; 50 instructions).&#160;<br/>
+&#160;<br/>
+Call to&#160;CanIf_TxQueueTreatment(),&#160;<br/>
+CanIf_TxQueueTransmit(), Can_Write(),&#160;.&#160;<br/>
+CANIF_EXCLUSIVE_AREA_3&#160;&#160;Using inside&#160;CanIf_SetPduMode()&#160;<br/>
+&#160;<br/>
+Duration is&#160;short (&lt;&#160;10 instructions).&#160;<br/>
+&#160;<br/>
+Call to&#160;CanIf_ClearQueue()&#160;<br/>
+CANIF_EXCLUSIVE_AREA_4&#160;&#160;Using inside&#160;CanIf_Transmit()&#160;<br/>
+&#160;<br/>
+Duration is medium (&lt; 50 instructions).&#160;<br/>
+&#160;<br/>
+Call to&#160;CanIf_TxQueueTreatment(),&#160;<br/>CanIf_TxQueueTransmit(), Can_Write(),&#160;<br/>
+Table 3-5&#160;&#160;Critical Section Codes&#160;<br/>
+&#160;<br/>If the exclusive areas are entered the upper layer needs to&#160;make sure that the CAN&#160;<br/>interrupts are disabled.&#160;Additionally&#160;the following table&#160;describes which&#160;API of the&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+29&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=30></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-30_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+CanInterface must not be called during&#160;the corresponding area is entered.&#160;The&#160;<br/>CanInterface API&#160;CanIf_CancelTxNotification()/ &#160;<br/>CanIf_CancelTxConfirmation()&#160;&#160;mostely is entered via the CAN interrupt. For&#160;<br/>platforms for what the confirmation for a&#160;transmit cancelation needs&#160;to be polled, the&#160;<br/>corresponding API (for example&#160;Can_MainFunction_Write())&#160;&#160;must not be called if&#160;<br/>
+the corresponding lock&#160;area is entered.&#160;<br/>&#160;<br/>
+&#160;CAN_EXCLUSIVE_&#160;<br/>
+CAN_EXCLUSIVE_&#160;<br/>
+CAN_EXCLUSIVE_&#160;<br/>
+CAN_EXCLUSIVE_&#160;<br/>
+CAN_EXCLUSIVE_&#160;<br/>
+AREA_0&#160;<br/>
+AREA_1&#160;<br/>
+AREA_2&#160;<br/>
+AREA_3&#160;<br/>
+AREA_4&#160;<br/>
+CanIf_Init&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+CanIf_InitMemory&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CanIf_CheckWakeup&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+CanIf_Transmit&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+CanIf_CancelTransmit&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+CanIf_SetControllerMode&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+CanIf_ResetBusOffStart&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+CanIf_CancelTxNotificatio/&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+CanIf_CancelTxConfirmation&#160;<br/>
+CanIf_SetPduMode&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+Table 3-6&#160;&#160;Restrictions for the different lock areas&#160;<br/>
+<b>3.19&#160;&#160;AUTOSAR 2.1 ComM compliance&#160;<br/></b>The CAN Interface implemented according to the&#160;AUTOSAR 3.0 specification is able to be&#160;<br/>used with a Communication Manager implemented according to&#160;AUTOSAR 2.1.&#160;<br/>This compatibility mode implies&#160;changes in the&#160;API of the CAN Interface as well as&#160;<br/>changes in the call back functions to other layers. Refer to the next subchapters for details.&#160;<br/>The feature&#160;AUTOSAR 2.1 ComM compliance&#160;does&#160;not implement any&#160;changes in the&#160;<br/>sleep/wake&#160;up behavior of the CAN Interface&#160;and therefore the following modules also&#160;<br/>have to be able to support a sleep/wake up&#160;behavior as specified in&#160;AUTOSAR 2.1:&#160;<br/>
+-&#160;&#160;CAN&#160;Transceiver Driver /&#160;Input Capture Unit (ICU)&#160;<br/>- CAN&#160;<br/>
+Driver&#160;<br/>
+-&#160;&#160;ECU Manager (EcuM)&#160;<br/>
+The compliance mode of the CAN Interface has to be configured at compile time. Refer to&#160;<br/><a href="TechnicalReference_Asr_CanIfs.html#36">chapter&#160;5.1&#160;Module properties.&#160;</a><br/>
+<b>3.19.1&#160;&#160;API Description&#160;<br/></b>This chapter describes the&#160;API functions if&#160;the feature “AUTOSAR&#160;2.1 ComM compliance”&#160;<br/>is activated.&#160;This description overrides the&#160;API description for the related functions in&#160;<br/><a href="TechnicalReference_Asr_CanIfs.html#48">chapter&#160;6&#160;API Description.&#160;</a>The changes in the&#160;API&#160;functions are highlighted red.&#160;<br/><b>&#160;</b><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+30&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=31></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-31_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>void</b>&#160;<b>CanIf_InitController</b>(uint8&#160;CanNetwork,&#160;CanIf_ControllerConfigType*&#160;<br/>ConfigPtr);&#160;<br/>
+&#160;<br/>
+Std_ReturnType&#160;<b>CanIf_SetControllerMode</b>(uint8&#160;CanNetwork,&#160;<br/>CanIf_ControllerModeType ControllerMode);&#160;<br/>
+&#160;<br/>
+Std_ReturnType&#160;<b>CanIf_GetControllerMode</b>(uint8&#160;CanNetwork,&#160;<br/>CanIf_ControllerModeType &#160;<b>*</b>ControllerModePtr)&#160;<br/>
+&#160;<br/>
+Std_ReturnType&#160;<b>CanIf_SetChannelMode</b>(uint8&#160;Channel,&#160;CanIf_&#160;<br/>CanIf_ChannelSetModeType ChannelRequest)&#160;<br/>
+&#160;&#160;replaces&#160;<b>CanIf_SetPduMode&#160;</b><br/>
+<b>&#160;</b><br/>
+Std_ReturnType&#160;<b>CanIf_GetChannelMode</b>(uint8&#160;Channel,&#160;CanIf_ChannelGetModeType&#160;<b>*</b>&#160;<br/>ChannelModePtr)&#160;<br/>
+replaces&#160;<b>CanIf_GetPduMode&#160;<br/></b>&#160;<br/>
+<b>StdReturnType</b>&#160;<b>CanIf_SetTransceiverMode</b>(uint8&#160;CanNetwork,&#160;<br/>CanIf_TransceiverModeType TransceiverMode)&#160;<br/>
+<b>&#160;</b><br/>
+<b>StdReturnType</b>&#160;<b>CanIf_GetTransceiverMode</b>(uint8&#160;CanNetwork,&#160;<br/>CanIf_TransceiverModeType *TransceiverModePtr)&#160;<br/>
+<b>&#160;</b><br/>
+<b>StdReturnType</b>&#160;<b>CanIf_GetTrcvWakeupReason</b>(uint8&#160;CanNetwork,&#160;<br/>CanIf_TrcvWakeupReasonType *TrcvWuReasonPtr)&#160;<br/>
+<b>&#160;</b><br/>
+<b>StdReturnType</b>&#160;<b>CanIf_GetTrcvWakeupReason</b>(uint8&#160;CanNetwork,&#160;<br/>CanIf_TrcvWakeupModeType TrcvWakeupMode)&#160;<br/>
+&#160;<br/>
+<b>3.19.2&#160;&#160;Call back functions&#160;<br/></b>The call back function used to notify a bus off to the CAN State Manager in&#160;AUTOSAR 3.0&#160;<br/>is changed to notify the ComM.&#160;The prototype is defined as follows:&#160;<br/><b>void&#160;CanSM_ControllerBusOff&#160;</b>(ComM_ChannelHandleType CanNetwork)&#160;<br/>
+&#160;<br/>
+<b>3.19.3&#160;&#160;Initialization&#160;<br/></b>According to the&#160;AUTOSAR 2.1&#160;specifications the CAN Interface is responsible for the&#160;<br/>initialization of the&#160;underlying CAN Driver and CAN&#160;Transceiver Driver.&#160;This means the&#160;<br/>functions Can_Init() and CanTrcv_Init() are called from the CAN Interface and do not have&#160;<br/>to be called from any other layer.&#160;&#160;<br/>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+31&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=32></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-32_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+CanIf_InitMemory();&#160;/* Optional call which reinitializes global&#160;<br/>
+variables to set the CAN Interface back to&#160;<br/>
+uninitialized state. */&#160;<br/>
+/* Optional calls to initialize global variables */&#160;<br/>CanTrcv_xxx_InitMemory();&#160;<br/>Can_InitMemory();&#160;<br/>&#160;<br/>CanIf_Init(&lt;PtrToCanIfConfiguration&gt;);&#160;&#160;<br/>&#160;<br/>
+/* Global initialization of the CAN Interface,&#160;<br/>
+all available controllers and then CAN Driver&#160;<br/>are initialized within this call. If selectable&#160;<br/>post build configuration is active a valid&#160;<br/>
+configuration has to be passed to the call of&#160;<br/>CanIf_Init. In other cases the parameter will be&#160;<br/>
+ignored and a NULL pointer can be used */&#160;<br/>
+CanIf_SetControllerMode(0, CANIF_CS_STARTED);&#160;<br/>&#160;<br/>
+/* The controller mode for controller 0 is set&#160;<br/>to started mode. This means the CAN controller&#160;<br/>
+is initialized and ready to communicate&#160;<br/>(acknowledge of the CAN controller is&#160;<br/>activated). Communication is not yet possible&#160;<br/>
+because the CAN Interface will neither pass Tx&#160;<br/>PDUs from higher layers to the CAN Driver nor&#160;<br/>
+accept Rx PDUs from the CAN Driver. */&#160;<br/>
+CanIf_SetChannelMode(0, CANIF_SET_ONLINE);&#160;<br/>&#160;<br/>
+/* The PDU mode in the CAN Interface is switched&#160;<br/>to online mode. After initialization this mode&#160;<br/>remains in the state CANIF_GET_OFFLINE until the&#160;<br/>
+CanIf_SetPduMode function is called. Now&#160;<br/>transmission requests will be passed from the&#160;<br/>
+upper layer to the CAN Driver and Rx PDUs are&#160;<br/>forwarded from the CAN Driver to the&#160;<br/>
+corresponding higher layer. */&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+32&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=33></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-33_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>4&#160;&#160;Integration&#160;</b><br/>
+This chapter gives necessary information&#160;for the integration of the MICROSAR Can&#160;<br/>Interface into an application environment of an ECU.&#160;<br/>
+<b>4.1&#160;</b><br/>
+<b>Files and include structure&#160;</b><br/>
+The CAN Interface consists&#160;of the following files:&#160;<br/>The delivery of the Can Interface contains&#160;the files which are described in the chapters&#160;<br/><a href="TechnicalReference_Asr_CanIfs.html#33">4.1.1 and&#160;4.1.2:&#160;</a><br/>
+<b>4.1.1&#160;&#160;Static Files&#160;</b><br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+CanIf.c Implementation&#160;<br/>CanIf.h&#160;<br/>
+Header file;&#160;has to be included by higher layers to access the&#160;API&#160;<br/>
+CanIf_cbk.h&#160;<br/>
+Header file;&#160;has to be included by underlying layers to access call back&#160;<br/>functions provided by the CAN Interface&#160;<br/>
+CanIf_Types.h&#160;&#160;Definition of&#160;types provided by the CAN Interface which have to be used by&#160;<br/>
+other layers.&#160;This file will be automatically&#160;included if CanIf.h&#160;or CanIf_cbk.h is&#160;<br/>included.&#160;<br/>
+Table 4-1&#160;&#160;&#160;Static files&#160;<br/>
+<b>4.1.2&#160;&#160;Dynamic Files&#160;<br/></b>The dynamic files are generated by the&#160;configuration tool [config tool].&#160;<br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+CanIf_cfg.h&#160;<br/>
+Generated header file (included automatically by&#160;CanIf.h and CanIf_cbk.h)&#160;&#160;&#160;<br/>
+CanIf_Lcfg.c&#160;<br/>
+Contains link time configuration data. Contains data in case&#160;of Pre-compile, Link&#160;<br/>time and post build&#160;configuration variant.&#160;<br/>
+CanIf_Pbcfg.c&#160;&#160;Contains post build&#160;configuration data. If the “Link time configuration” variant is&#160;<br/>
+used, this file is empty.&#160;<br/>
+CanIf_CanTrc&#160;Generated header file which includes the necessary header files of the&#160;<br/>v.h&#160;<br/>
+transceivers used in the&#160;system.&#160;<br/>
+Table 4-2&#160;&#160;&#160;Generated files&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+33&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=34></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-34_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-34_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>4.2&#160;&#160;Include Structure&#160;</b><br/>
+&#160;<br/>
+Figure 4-1&#160;&#160;Include structure&#160;<br/>
+<b>4.3&#160;</b><br/>
+<b>Compiler Abstraction and Memory&#160;Mapping &#160;</b><br/>
+The objects (e.g. variables, functions, constants) are declared by compiler&#160;independent&#160;<br/>definitions – the compiler abstraction definitions. Each compiler abstraction definition is&#160;<br/>assigned to a memory section.&#160;<br/>The following table contains the memory&#160;section names and the compiler abstraction&#160;<br/>definitions defined for the CAN Interface and illustrates their assignment among each&#160;<br/>other.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+34&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=35></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-35_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Compiler Abstraction</b><br/>
+<b>Definitions</b><br/>
+AR&#160;<br/>
+<b>&#160;</b><br/>
+ZEROINIT&#160;<br/>
+INIT&#160;<br/>
+NOINIT&#160;<br/>
+T&#160;<br/>
+&#160;<br/>
+S<br/>
+FG&#160;<br/>
+E<br/>
+&#160;<br/>
+R_<br/>
+R_<br/>
+R_<br/>
+N<br/>
+C<br/>
+D<br/>
+A<br/>
+A<br/>
+A<br/>
+<b>Memory&#160;Mapping&#160;</b><br/>
+V<br/>
+V<br/>
+V<br/>
+CO<br/>
+CO<br/>
+<b>Sections&#160;</b><br/>
+CANIF_<br/>
+CANIF_<br/>
+CANIF_<br/>
+CANIF_<br/>
+CANIF_PB<br/>
+CANIF_<br/>
+CANIF_APPL_CODE&#160;<br/>
+CANIF_APPL_V<br/>
+CANIF_APPL_PBCFG&#160;<br/>
+CANIF_START_SEC_CODE&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANIF_STOP_SEC_CODE&#160;<br/>CANIF_START_SEC_PBCFG&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANIF_STOP_SEC_PBCFG&#160;<br/>CANIF_START_SEC_CONST_8BIT&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANIF_STOP_SEC_CONST_8BIT&#160;<br/>CANIF_START_SEC_CONST_32BIT&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANIF_STOP_SEC_CONST_32BIT&#160;<br/>CANIF_START_SEC_CONST_UNSPECIFIED&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANIF_STOP_SEC_CONST_UNSPECIFIED&#160;<br/>CANIF_START_SEC_VAR_NOINIT_UNSPECIFIED&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANIF_STOP_SEC_VAR_NOINIT_UNSPECIFIED&#160;<br/>CANIF_START_SEC_VAR_ZERO_INIT_UNSPECIFIED&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANIF_STOP_SEC_VAR_ZERO_INIT_UNSPECIFIED&#160;<br/>CANIF_START_SEC_VAR_INIT_UNSPECIFIED&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANIF_STOP_SEC_VAR_INIT_UNSPECIFIED&#160;<br/>
+Table 4-3&#160;&#160;&#160;Compiler abstraction and memory&#160;mapping&#160;<br/>
+&#160;<br/>The Compiler&#160;Abstraction Definitions CANIF_APPL_CODE, CANIF_APPL_VAR and&#160;<br/>CANIF_APPL_PBCFG&#160;are used&#160;to address code, variables&#160;and constants which are&#160;<br/>declared by other modules and&#160;used by the CAN Interface.&#160;<br/>These definitions are not mapped by the CAN Interface but by&#160;the memory mapping&#160;<br/>realized in the CAN&#160;Driver, CAN&#160;Transceiver Driver, PDU Router, Network management,&#160;<br/>Transport Protocol Layer,&#160;ECU State Manager and the&#160;CAN State manager.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+35&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=36></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-36_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-36_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>5&#160;&#160;Configuration&#160;</b><br/>
+The CAN Interface supports&#160;pre-compile, link time and post build configuration. &#160;<br/>In case of a library delivery&#160;the features listed in table 5-1 Pre-compile configuration have&#160;<br/>to be activated or deactivated before building the library.&#160;<br/>&#160;<br/>The following chapters describe the configuration properties and&#160;the user interface of the&#160;<br/>configuration and generation tool GENy.&#160;<br/>&#160;<br/>
+<b>5.1&#160;</b><br/>
+<b>Module properties&#160;</b><br/>
+To&#160;enable the CAN Interface a channel has to&#160;be set up and a CAN Driver has to be added&#160;<br/>in the bottom left&#160;window.&#160;<br/>The screenshot shows all available channel independent options for the CAN Interface. &#160;<br/>Depending on the configuration variant some&#160;of the options won’t&#160;be available. Some&#160;<br/>options will be preconfigured and cannot be changed by the&#160;user due to the features&#160;<br/>supported by other modules (e.g. CAN Driver)&#160;<br/>&#160;<br/>
+<b>5.1.1&#160;&#160;Common configuration&#160;</b><br/>
+&#160;<br/>
+Figure 5-1&#160;&#160;Module configuration (Common&#160;parameters, Pre-compile time)&#160;<br/>
+&#160;<br/>
+<b>Common Configuration&#160;</b><br/>
+Configuration Variant&#160;<br/>
+Shows&#160;the currently active configuration class.&#160;<br/>This option will not be available to the user.&#160;<br/>Depending on the&#160;chosen&#160;configuration class&#160;<br/>some of the following option will not be available.&#160;<br/>
+Version Info&#160;API&#160;<br/>
+Enable the&#160;API function CanIf_GetVersionInfo&#160;<br/>
+Development Error Detection&#160;<br/>
+Enable the detection and reporting&#160;of development&#160;<br/>errors. (DET&#160;has to be available in the system)&#160;<br/>
+Production Error Detection&#160;<br/>
+Enables the detection and&#160;reporting of production&#160;<br/>errors. (DEM has to be&#160;available in the system)&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+36&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=37></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-37_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-37_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+User config file&#160;<br/>
+Provides the possibility to concatenate the&#160;<br/>contents of the specified file to the generated file&#160;<br/>CanIf_Cfg.h&#160;<br/>
+Table 5-1&#160;&#160;&#160;Common configuration&#160;<br/>
+&#160;<br/>
+<b>5.1.2&#160;&#160;Post build configuration&#160;</b><br/>
+&#160;<br/>
+Figure 5-2&#160;&#160;Module configuration (Post&#160;build parameters pre-compile time)&#160;<br/>
+<b>Post build configuration&#160;</b><br/>
+Max number of dynamic&#160;Tx PDUs&#160;&#160;Specify the maximum number of dynamic&#160;Tx&#160;<br/>
+PDUs in the system.&#160;The chosen value must be&#160;<br/>greater or equal to the&#160;number of dynamic&#160;Tx&#160;<br/>PDUs used during Postbuild phase.&#160;<br/>
+Module Start&#160;Address&#160;<br/>
+Specify the start address in the controller’s&#160;ROM&#160;<br/>for the generated data of the CanInterface. (used&#160;<br/>for post-build configuration only)&#160;<br/>
+Max&#160;Controller&#160;Table Size&#160;<br/>
+Specify the maximum&#160;number of controllers&#160;used&#160;<br/>in the system.&#160;The chosen value must be greater&#160;<br/>or equal to the number&#160;of currently used&#160;<br/>controllers. For post build configurations the&#160;<br/>number of controllers is not&#160;allowed to exceed this&#160;<br/>value.(used for post-build configuration only)&#160;<br/>
+Max number of&#160;Tx buffers&#160;<br/>
+Specifies the maximum number of&#160;Tx PDUs which&#160;<br/>are buffered into the&#160;Tx&#160;queue. If the transmit&#160;<br/>buffer is activated, please enter the maximimum&#160;<br/>number of expected standard&#160;Tx object&#160;PDUs&#160;<br/>(PDUs which are not located into FullCAN).&#160;<br/>
+Max number of&#160;Tx PDUs&#160;<br/>
+Specifies the maximum number of&#160;Tx PDUs of the&#160;<br/>system.&#160;This declaration is only necessary if the&#160;<br/>“Bit queue”&#160;is active. If the transmit buffer of type&#160;<br/>“Bit queue” is actived, please enter the maximum&#160;<br/>number of expected&#160;Tx object PDUs (Standard&#160;<br/>and FullCAN&#160;Tx&#160;Pdus inclusive dynamic&#160;Tx&#160;<br/>PDUs).&#160;<br/>
+Table 5-2&#160;&#160;&#160;Post build configuration&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+37&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=38></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-38_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-38_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>5.1.3&#160;&#160;Miscellaneous&#160;</b><br/>
+&#160;<br/>
+Figure 5-3&#160;&#160;Module configuration (Miscellaneous, Pre-compile time)&#160;<br/>
+&#160;<br/>
+<b>Miscellaneous&#160;<br/></b>Support extended IDs&#160;<br/>
+Enable this&#160;option if extended or mixed identifiers&#160;<br/>have to be handled by&#160;the CAN Interface.&#160;<br/>
+Wakeup Event&#160;API&#160;<br/>
+Enable/Disable wake&#160;up support. If this option is&#160;<br/>activated the CanIf_CheckWakeup function will&#160;<br/>identify wake up events raised by either the CAN&#160;<br/>Driver or the&#160;Transceiver Driver. If this feature is&#160;<br/>deactivated the CanIf_CheckWakeup function will&#160;<br/>always return E_NOT_OK.&#160;<br/>
+Wakeup Validation Notification&#160;<br/>
+Enable wake up validation support.&#160;The function&#160;<br/>CanIf_CheckValidation will be available to check&#160;<br/>for a validation of a wake up event. If this feature&#160;<br/>is deactivated the function will always return&#160;<br/>E_NOT_OK.&#160;<br/>
+DLC check&#160;<br/>
+Enables the DLC check of&#160;Rx PDUs while&#160;<br/>reception.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+38&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=39></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-39_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+Dlc Check Optimization&#160;<br/>
+Use this parameter to&#160;choose between DLC check&#160;<br/>against optimized DLC and DLC check against not&#160;<br/>optimized DLC. Optimized DLC means that only&#160;<br/>data bytes of a CAN message which are allocated&#160;<br/>by defined signals within your data base are taken&#160;<br/>into account &#160;of calculation of DLC which is used&#160;<br/>for DLC check.&#160;<br/>Not optimized DLC means that the specified DLC&#160;<br/>of a CAN message within you data base is used&#160;<br/>for DLC check independent of allocation of data&#160;<br/>bytes by signals. &#160;<br/>&#160;<br/>If enabled DLC check&#160;is performed against&#160;<br/>optimized DLC. If disabled DLC check is&#160;<br/>performed against not optimized DLC.&#160;<br/>&#160;<br/>RESTRICTION:&#160;<br/>This parameter is only editable if 'DLC Check' is&#160;<br/>enabled.&#160;<br/>
+Transmit cancellation&#160;<br/>
+Enables the cancellation of PDUs&#160;which are&#160;<br/>already passed to the CAN Driver. If a message&#160;<br/>with higher&#160;priority will&#160;be transmitted the previous&#160;<br/>message will be cancelled and re-queued in the&#160;<br/>CAN Interface (Depends on the used hardware if&#160;<br/>this feature is supported)&#160;<br/>
+Transceiver handling&#160;<br/>
+Enable/Disable the&#160;API and call back functions to&#160;<br/>interact with a transceiver&#160;driver as specified for&#160;<br/>AUTOSAR.&#160;<br/>The following functions will be available if&#160;<br/>transceiver handling is&#160;activated:&#160;<br/>- CanIf_SetTransceiverMode()&#160;<br/>- CanIf_GetTransceiverMode()&#160;<br/>- CanIf_GetTrcvWakeupReason()&#160;<br/>- CanIf_SetTransceiverWakeupMode()&#160;<br/>and the identification of&#160;wake up events raised by&#160;<br/>the transceiver using the CanIf_CheckWakeup()&#160;<br/>API. &#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+39&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=40></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-40_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-40_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+Transceiver mapping&#160;<br/>
+If this feature is enabled the CAN Interface&#160;<br/>support multiple different transceiver drivers.&#160;This&#160;<br/>means the&#160;API functions &#160;<br/>- CanIf_SetTransceiverMode()&#160;<br/>- CanIf_GetTransceiverMode()&#160;<br/>- CanIf_GetTrcvWakeupReason()&#160;<br/>- CanIf_SetTransceiverWakeupMode()&#160;<br/>convert the passed transceiver index to the correct&#160;<br/>Transceiver Driver instance.&#160;<br/>&#160;<br/>This feature can also be activated if only one&#160;<br/>transceiver driver is used in the systems (for&#160;<br/>optimized runtime it is suggested to disable this&#160;<br/>feature if only one transceiver driver is used in the&#160;<br/>system)&#160;<br/>
+Dynamic Tx&#160;Objects&#160;<br/>
+If this feature is enabled the CAN Interface&#160;<br/>supports dynamic&#160;Tx&#160;Objects. For details please&#160;<br/>look for chapter “Dynamic transmission”.&#160;<br/>
+Table 5-3&#160;&#160;&#160;Miscellaneous configuration&#160;<br/>
+<b>5.1.3.1&#160;</b><br/>
+<b>Software Filter&#160;Type&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+Figure 5-4&#160;&#160;Software filter type configuration (Pre-compile&#160;time)&#160;<br/>
+Software Filter&#160;Type&#160;<br/>
+Choose the search algorithm for the software&#160;<br/>filtering.&#160;<br/>Linear Search: very efficient for a small amount of&#160;<br/>Rx PDUs. Search time increases&#160;linearly for Rx&#160;<br/>PDUs with low priority&#160;<br/>Binary Search: nearly constant search time for all&#160;<br/>PDUs. More efficient for big amounts of Rx PDUs&#160;<br/>Double Hash: always constant search time for all&#160;<br/>PDUs<b>&#160;<br/></b>&#160;<br/>
+Calculate&#160;<br/>
+Press this button to get better&#160;results for the&#160;<br/>double hash algorithm, i.e.&#160;the amount of memory&#160;<br/>could be reduced by pressing this button&#160;<br/>repeatedly.<b>&#160;<br/></b>&#160;<br/>
+Additional Memory&#160;<br/>
+Additional memory compared to linear search&#160;<br/>algorithm. It's only an estimation.<b>&#160;<br/></b>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+40&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=41></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-41_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-41_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>5.1.3.2&#160;</b><br/>
+<b>Transmit Buffer&#160;</b><br/>
+&#160;<br/>
+Figure 5-5&#160;&#160;Transmit buffer configuration (Pre-compile time)&#160;<br/>
+&#160;<br/>
+<b>Transmit Buffer</b>&#160;<br/>
+Transmit Buffer&#160;<br/>
+Selects the type of the&#160;Tx&#160;transmit buffer. Basic&#160;<br/>CAN&#160;Tx&#160;PDUs are buffered in the CAN Interface, if&#160;<br/>the hardware is&#160;busy while the function&#160;<br/>CanIf_Transmit is called.&#160;The type “Byte queue”&#160;<br/>consumes more RAM as the type “Bit queue” but&#160;<br/>is a little bit faster. &#160;<br/>
+Used number of transmit buffers &#160;<br/>
+Shows&#160;the amount of used elements&#160;of the&#160;<br/>
+(read only)&#160;<br/>
+transmit buffer.&#160;<br/>In case of pre-compile&#160;and link-time configuration&#160;<br/>the size of the transmit buffer is equal to the size&#160;<br/>of the used elements.&#160;<br/>
+Maximum number of the transmit&#160;Shows the size of the transmit buffer in case of&#160;<br/>buffers (read only)&#160;<br/>
+post-build configurations.&#160;<br/>In post-build configurations the queue size&#160;has to&#160;<br/>be defined at link-time.&#160;For this reason elements&#160;<br/>can be reserved for changes in post-build&#160;<br/>configurations e.g. additional&#160;Tx&#160;messages /&#160;<br/>moving&#160;Tx&#160;messages from&#160;Tx FullCAN to Normal&#160;<br/>Tx. -&gt; See section “Post build configuration”&#160;<br/>configuration item “Max&#160;Tx Pdu Handle&#160;Table&#160;<br/>Size”&#160;<br/>
+Table 5-4&#160;&#160;&#160;Transmit buffer configuration&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+41&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=42></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-42_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-42_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>5.1.3.3&#160;</b><br/>
+<b>Callback functions&#160;</b><br/>
+&#160;<br/>
+Figure 5-6&#160;&#160;Call back function&#160;configuration (Link time)&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+42&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=43></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-43_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-43_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Callback functions&#160;</b><br/>
+Wakeup Notification Function&#160;<br/>
+Specify the name of a&#160;wake up notification&#160;<br/>function. (e.g. EcuM_SetWakeupEvent)&#160;<br/>
+Wakeup Validation Notification&#160;<br/>
+Specify the name of the wake up validation&#160;<br/>
+Function&#160;<br/>
+function (e.g. EcuM_ValidateWakeupEvent)&#160;<br/>
+BusOff&#160;Notification function&#160;<br/>
+Specify the name of the bus&#160;off event notification&#160;<br/>function (e.g. &#160;CanSM_ControllerBusOff)&#160;<br/>
+Tx Confirmation function&#160;<br/>
+Add a new confirmation call&#160;back function and&#160;<br/>specify a name.&#160;The assignment&#160;of messages to&#160;<br/>this function has&#160;to be done on the&#160;TxMessages&#160;<br/>properties page.&#160;<br/>
+Rx Indication function&#160;<br/>
+Add a new indication call back&#160;function.&#160;The&#160;name&#160;<br/>and the type have to be specified.&#160;The assignment&#160;<br/>of messages or ranges to&#160;one of these functions&#160;<br/>has to be done on the RxMessages properties&#160;<br/>page or on the channel specific properties page.&#160;<br/>
+Rx Indication function type&#160;<br/>
+3 types of indication functions are available:&#160;<br/>Type I Standard: &#160;<br/>&lt;RxIndication&gt;(PduIdType CanRxPduId, const uint8* CanSduPtr);&#160;&#160;&#160;<br/>
+Type II&#160;Advanced:&#160;<br/>&lt;RxIndication&gt;(PduIdType CanRxPduId,&#160;const PduInfoType* PduInfoPtr);&#160;<br/>
+Type III NmOsek: &#160;<br/>(deviation from Autosar standard.&#160;Can only be&#160;used if&#160;&#34;NmOsek&#160;<br/>RxIndication&#160;API support&#34; is&#160;enabled)&#160;<br/>&lt;RxIndication&gt;(PduIdType CanRxPduId, const uint8* CanSduPtr,&#160;<br/>Can_IdType CanId);&#160;<br/>
+Table 5-5&#160;&#160;&#160;Callback function&#160;configuration&#160;<br/>
+&#160;<br/>
+<b>5.1.3.4&#160;</b><br/>
+<b>MICROSAR extensions&#160;</b><br/>
+&#160;<br/>
+Figure 5-7&#160;&#160;Configuration of&#160;MICROSAR extensions (Pre-compile time)&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+43&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=44></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-44_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-44_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>MICROSAR Extensions&#160;</b><br/>
+Transmit Cancellation&#160;API&#160;<br/>
+Enables the&#160;API function CanIf_CancelTransmit<br/>which allows to either cancel a message from the&#160;<br/>queue or directly from&#160;the hardware object (if&#160;<br/>supported by underlying CAN Driver)&#160;<br/>
+NmOsek RxIndication support&#160;<br/>
+Non AUTOSAR&#160;conform&#160;feature. Enables a&#160;<br/>special call back function for Rx messages.&#160;<br/>
+Bus Off recovery&#160;<br/>
+Enable non&#160;AUTOSAR compliant bus off recovery&#160;<br/>functions.&#160;<br/>
+Extended State machine&#160;<br/>
+Enable a modified state machine in the CAN&#160;<br/>Interface which&#160;is not&#160;AUTOSAR compliant i.e.&#160;<br/>allows transitions from&#160;SLEEP&#160;to STARTED and&#160;<br/>STARTED to SLEEP&#160;while it&#160;permits&#160;STOP&#160;to&#160;<br/>SLEEP&#160;and SLEEP&#160;to STOP.&#160;<br/>
+AUTOSAR 2.1 ComM&#160;compliance&#160;&#160;Activate this switch to achieve&#160;compatibility for&#160;<br/>
+AUTOSAR 2.1 compliant ComM.&#160;<br/>
+Table 5-6&#160;&#160;&#160;Configuration of&#160;MICROSAR extensions&#160;<br/>
+&#160;<br/>
+<b>5.2&#160;</b><br/>
+<b>Channel specific properties&#160;</b><br/>
+&#160;<br/>
+Figure 5-8&#160;&#160;Channel specific&#160;properties&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+44&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=45></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-45_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-45_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Channel specific properties&#160;</b><br/>
+EcuM Wakeup Source ID&#160;<br/>
+For each channel a wake up source for a&#160;<br/>
+(Transceiver)&#160;<br/>
+connected transceiver can be specified. If this&#160;<br/>value is not equal to 0 the CAN Interface uses the&#160;<br/>specified wake up source to identify a wake up&#160;<br/>event raised by a transceiver.&#160;<br/>The value has to be chosen accordingly&#160;to the&#160;<br/>configuration of&#160;the Ecu Manager.&#160;<br/>
+Range Configuration&#160;<br/>
+A&#160;new range can be created by using the “Add”&#160;<br/>button.&#160;The range is defined by&#160;a value for code&#160;<br/>and a value for the mask. Messages which pass&#160;<br/>the range are calculated using the following&#160;<br/>formula:&#160;<br/>&lt;Received ID&gt; &amp; &lt;Mask&gt; == &lt;Code&gt;&#160;<br/>For each range an RxIndication function has to be&#160;<br/>chosen.&#160;The function has to be created on the&#160;<br/>module page.&#160;<br/>If extended IDs have to pass the range the&#160;<br/>“Extended IDs” checkbox has&#160;to be activated.&#160;<br/>(Only visible if the “Extended ID support” on the&#160;<br/>module page is activated)&#160;<br/>For ranges a DLC check against a data length of 8&#160;<br/>is executed.&#160;This mechanism can be&#160;avoided by&#160;<br/>checking the “Disable DLC check”&#160;feature.&#160;<br/>
+Table 5-7&#160;&#160;&#160;Channel specific&#160;properties&#160;<br/>
+&#160;<br/>
+<b>5.3&#160;</b><br/>
+<b>Tx message properties&#160;</b><br/>
+&#160;<br/>
+&#160;&#160;Figure 5-9&#160;&#160;Tx message properties&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+45&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=46></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-46_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-46_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Tx message properties&#160;</b><br/>
+Generate&#160;<br/>
+Activate if this message has to be enabled in the&#160;<br/>configuration. If this checkbox is disabled the&#160;<br/>message will not be known by the ECU.&#160;<br/>
+User&#160;Tx Confirmation Function&#160;<br/>
+Select a&#160;Tx&#160;Confirmation function from the list or&#160;<br/>the NULL_PTR if no confirmation function is&#160;<br/>desired.&#160;The name of the&#160;confirmation function&#160;<br/>has to be configured on the module page.&#160;<br/>
+Table 5-8&#160;&#160;&#160;Tx message properties&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+<b>5.4&#160;</b><br/>
+<b>Dynamic Tx message properties&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+Table 5-9&#160;&#160;Dynamic&#160;Tx message properties&#160;<br/>
+&#160;<br/>
+<b>Additional properties for dynamic Tx messages&#160;</b><br/>
+Can ID&#160;<br/>
+The CAN ID for the message which will be set&#160;<br/>after the initialisation of the CanInterface.&#160;This&#160;<br/>initial ID also defines&#160;the priority of the dynamic&#160;<br/>object.&#160;<br/>
+Extended ID&#160;<br/>
+If this flag&#160;is set, the&#160;inscribed&#160;CAN ID will be&#160;<br/>interpreted as extended&#160;ID. Never the less, during&#160;<br/>runtime the dynamic&#160;object can be overwritten&#160;<br/>with a standard CAN ID.&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+46&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=47></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-47_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-47_2.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>5.5&#160;</b><br/>
+<b>Rx message properties&#160;</b><br/>
+&#160;<br/>
+&#160;&#160;Figure 5-10&#160;&#160;Rx message properties page&#160;<br/>
+&#160;<br/>
+<b>Rx message properties&#160;</b><br/>
+Generate&#160;<br/>
+Activate if this message has to be enabled in the&#160;<br/>configuration. If this checkbox is disabled the&#160;<br/>message will not be known by the ECU.&#160;<br/>
+CanIfCanRxPduID (read only)&#160;<br/>
+Shows the PDU ID for the currently selected&#160;<br/>message which is&#160;passed to the higher layers in&#160;<br/>the parameter list of the User_RxIndication&#160;<br/>function.&#160;<br/>(This value is valid after executing the generation&#160;<br/>process)&#160;<br/>
+DLC Check&#160;(message specific)&#160;<br/>
+If the “DLC check” is activated on the module page&#160;<br/>the DLC check can be avoided for single Rx&#160;<br/>messages by un-checking the “Message specific&#160;<br/>DLC Check”&#160;check box.&#160;<br/>If the “DLC check” is&#160;deactivated on the module&#160;<br/>configuration page this check box has no effect.&#160;<br/>
+User Rx Indication Function&#160;<br/>
+Select an Rx Indication function from the list or the&#160;<br/>NULL_PTR if no indication function is desired.&#160;The&#160;<br/>name and type of the indication function has to be&#160;<br/>configured on the module page.&#160;<br/>
+Table 5-10&#160;&#160;&#160;Rx message properties&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+47&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=48></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-48_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>6&#160;&#160;API Description&#160;</b><br/>
+<b>6.1&#160;</b><br/>
+<b>Services provided by&#160;the CAN Interface&#160;</b><br/>
+<b>6.1.1&#160;&#160;CanIf_GetVersionInfo&#160;<br/>Prototype&#160;<br/>void</b>&#160;<b>CanIf_GetVersionInfo</b>( Std_VersionInfoType&#160;<b>*</b>VersionInfo );&#160;<br/><b>Parameter&#160;<br/></b>Versioninfo&#160;&#160;<br/>
+Pointer to the structure including the&#160;version information.&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>Function&#160;to acquire version information &#160;<br/><b>Particularities and Limitations&#160;<br/></b>The function is only available if enabled&#160;at compile time (CANIF_VERSION_INFO_API = STD_ON)&#160;<br/>
+Table 6-1&#160;&#160;&#160;&#160;API CanIf_GetVersionInfo&#160;<br/>
+&#160;<br/>
+<b>6.1.2&#160;&#160;CanIf_Init &#160;<br/>Prototype&#160;<br/>void</b>&#160;<b>CanIf_Init</b>(&#160;<b>const</b>&#160;CanIf_ConfigType&#160;<b>*</b>ConfigPtr )&#160;<br/><b>Parameter&#160;<br/></b>CanIf_CtrlIdx&#160;<br/>
+The index to the Init structure used for initialization. (Not supported&#160;<br/>
+&#160;<br/>
+in current implementation)&#160;<br/>
+ConfigPtr&#160;<br/>
+Pointer to the structure including configuration data.&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>This function&#160;initializes global CAN&#160;Interface variables during ECU start-up and initiates the initialization of&#160;<br/>
+the CAN Controllers.&#160;<br/>
+<b>Particularities and Limitations&#160;<br/></b>Has to be called during start-up before CAN communication. Can_Init() has to be&#160;successfully executed.&#160;<br/>
+Table 6-2&#160;&#160;&#160;API CanIf_Init&#160;<br/>
+&#160;<br/>
+<b>6.1.3&#160;&#160;CanIf_InitController&#160;<br/>Prototype&#160;<br/>void</b>&#160;<b>CanIf_InitController</b>(uint8 Controller, uint8 ConfigurationIndex)&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+48&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=49></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-49_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Parameter&#160;<br/></b>Controller &#160;<br/>
+The Controller to be initialized.&#160;<br/>
+ConfigurationIndex&#160;<br/>
+Not supported parameter&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>This function&#160;initializes&#160;the&#160;transmit buffer for the specified controller and calls the&#160;initialisation function&#160;for&#160;<br/>
+the corresponding controller&#160;of the CAN&#160;driver.&#160;<br/>
+<b>Particularities and Limitations&#160;<br/></b>Has to be called during start-up before CAN communication.&#160;<br/>
+Table 6-3&#160;&#160;&#160;API CanIf_InitController&#160;<br/>
+&#160;<br/>
+<b>6.1.4&#160;&#160;CanIf_SetControllerMode&#160;<br/>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanIf_SetControllerMode</b>(uint8 Controller,&#160;<br/>CanIf_ControllerModeType ControllerMode)&#160;<br/><b>Parameter&#160;<br/></b>Controller &#160;<br/>
+The Controller to change&#160;mode.&#160;<br/>
+ControllerMode&#160;<br/>
+Mode request.&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns whether the state transition&#160;was successful.&#160;<br/>
+<b>Functional Description&#160;<br/></b>Request the mode of the specified channel. Supported&#160;modes: CANIF_CS_SLEEP, CANIF_CS_STOPPED,&#160;<br/>
+CANIF_CS_STARTED&#160;<br/>
+<b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized.&#160;<br/>
+Table 6-4&#160;&#160;&#160;API CanIf_SetControllerMode&#160;<br/>
+&#160;<br/>
+<b>6.1.5&#160;&#160;CanIf_GetControllerMode&#160;<br/>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanIf_GetControllerMode</b>(uint8 Controller,&#160;<br/>CanIf_ControllerModeType &#160;<b>*</b>ControllerModePtr)&#160;<br/><b>Parameter&#160;<br/></b>Controller &#160;<br/>
+Request mode of specified Controller.&#160;<br/>
+ControllerModePtr&#160;&#160;<br/>
+Pointer to data type the information is stored in.&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns whether the state request was successful.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+49&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=50></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-50_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Functional Description&#160;<br/></b>Acquire the current controller&#160;mode&#160;of the specified&#160;channel&#160;<br/><b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized.&#160;<br/>
+Table 6-5&#160;&#160;&#160;API CanIf_GetControllerMode&#160;<br/>
+&#160;<br/>
+<b>6.1.6&#160;&#160;CanIf_Transmit&#160;<br/>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanIf_Transmit</b>(PduIdType CanTxPduId,&#160;<b>const</b>&#160;PduInfoType&#160;<br/>
+<b>*</b>PduInfoPtr)&#160;<br/><b>Parameter&#160;<br/></b>CanTxPduId&#160;<br/>
+Handle of the&#160;Tx PDU&#160;which will be transmitted.&#160;<br/>
+PduIndoPtr&#160;<br/>
+Pointer to a struct containing the properties of the&#160;Tx PDU.&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns if the transmit request was accepted.&#160;<br/>
+<b>Functional Description&#160;<br/></b>Requests&#160;the&#160;transmission&#160;of the specified&#160;Tx PDU.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+-&#160;<br/>
+CAN Interface has to be initialized&#160;<br/>
+-&#160;<br/>
+Must not be&#160;called re-entrant&#160;<br/>
+Table 6-6&#160;&#160;&#160;API CanIf_Transmit&#160;<br/>
+&#160;<br/>
+<b>6.1.7&#160;&#160;CanIf_TxConfirmation&#160;<br/>Prototype&#160;<br/>void</b>&#160;<b>CanIf_TxConfirmation</b>(PduIdType CanTxPduId)&#160;<br/><b>Parameter&#160;<br/></b>CanTxPduId&#160;<br/>
+ID of the successfully transmitted PDU.&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+- &#160;<br/>
+<b>Functional Description&#160;<br/></b>Confirms the&#160;successful transmission of a&#160;Tx PDU &#160;<br/><b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized.&#160;<br/>
+Table 6-7&#160;&#160;&#160;API CanIf_TxConfirmation&#160;<br/>
+<b>6.1.8&#160;&#160;CanIf_RxIndication&#160;<br/>Prototype&#160;<br/>void</b>&#160;<b>CanIf_RxIndication</b>(uint8 Hrh, Can_IdType CanId, uint8 CanDlc,&#160;<b>const</b>&#160;uint8&#160;<br/><b>*</b>CanSduPtr)&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+50&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=51></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-51_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Parameter&#160;<br/></b>Hrh&#160;<br/>
+Hardware handle the PDU was received in.&#160;<br/>
+CanId&#160;<br/>
+CAN identifier of the received PDU.&#160;<br/>
+CanDlc&#160;<br/>
+Data length code of the received PDU.&#160;<br/>
+CanSduPtr&#160;<br/>
+Pointer to hardware or temporary buffer containing the data of the&#160;<br/>received PDU.&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+- &#160;<br/>
+<b>Functional Description&#160;<br/></b>The CAN Driver notifies the CAN Interface about a received&#160;Rx PDU.&#160;<br/><b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized.&#160;<br/>
+Table 6-8&#160;&#160;&#160;API CanIf_RxIndication&#160;<br/>
+&#160;<br/>
+<b>6.1.9&#160;&#160;CanIf_ControllerBusOff&#160;<br/>Prototype&#160;<br/>void</b>&#160;<b>CanIf_ControllerBusOff</b>(uint8 Controller)&#160;<br/><b>Parameter&#160;<br/></b>Controller&#160;<br/>
+Affected controller.&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+- &#160;<br/>
+<b>Functional Description&#160;<br/></b>Indicates a BusOff&#160;for the&#160;specified&#160;controller to the CAN Interface. &#160;<br/><b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized.&#160;<br/>
+Table 6-9&#160;&#160;&#160;API CanIf_ControllerBusOff&#160;<br/>
+&#160;<br/>
+<b>6.1.10&#160;&#160;CanIf_SetPduMode&#160;<br/>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanIf_SetPduMode</b>(uint8 Controller, CanIf_PduSetModeType&#160;<br/>PduModeRequest)&#160;<br/><b>Parameter&#160;<br/></b>Controller &#160;<br/>
+Controller which will be&#160;affected by the new Pdu mode.&#160;<br/>
+PduModeRequest&#160;<br/>
+Requested Pdu mode&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns whether the state request was successful. &#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+51&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=52></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-52_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Functional Description&#160;<br/></b>Change mode for specified controller.&#160;Possible&#160;states&#160;are:&#160; &#160;<br/>&#160;&#160;CANIF_SET_OFFLINE,&#160;<br/>&#160;&#160;CANIF_SET_RX_OFFLINE,&#160;<br/>&#160;&#160;CANIF_SET_RX_ONLINE,&#160;<br/>&#160;&#160;CANIF_SET_TX_OFFLINE,&#160;<br/>&#160;&#160;CANIF_SET_TX_ONLINE,&#160;<br/>&#160;&#160;CANIF_SET_ONLINE,&#160;<br/>&#160;&#160;CANIF_SET_TX_OFFLINE_ACTIVE&#160;<br/><b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized. Controller has to be in state CANIF_CS_STARTED.&#160;<br/>
+Table 6-10&#160;API CanIf_SetPduMode&#160;<br/>
+&#160;<br/>
+<b>6.1.11&#160;&#160;CanIf_GetPduMode&#160;<br/>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanIf_GetPduMode</b>(uint8 Controller, CanIf_PduGetModeType &#160;<b>*</b>&#160;<br/>PduModePtr)&#160;<br/><b>Parameter&#160;<br/></b>Controller &#160;<br/>
+Request mode of the specified Controller.&#160;<br/>
+PduModePtr&#160;<br/>
+Pointer to a data buffer the current&#160;mode will be stored in.&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns whether the request of the&#160;current state&#160;was successful. &#160;<br/>
+<b>Functional Description&#160;<br/></b>Request the current mode&#160;of the specified controller..&#160;<br/><b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized.&#160;<br/>
+Table 6-11&#160;&#160;API CanIf_GetPduMode&#160;<br/>
+&#160;<br/>
+<b>6.1.12&#160;&#160;CanIf_InitMemory&#160;<br/>Prototype&#160;<br/>void</b>&#160;<b>CanIf_InitMemory</b>(<b>void</b>)&#160;<br/><b>Parameter&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+- &#160;<br/>
+<b>Functional Description&#160;<br/></b>Initializes&#160;global RAM variables, which&#160;have to available before any call to the CanIf&#160;API.&#160;<br/><b>Particularities and Limitations&#160;<br/></b>May only be called once before CanIf_Init().&#160;<br/>
+Table 6-12&#160;API CanIf_InitMemory&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+52&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=53></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-53_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>6.1.13&#160;&#160;CanIf_CancelTxConfirmation&#160;<br/>Prototype&#160;<br/>void</b>&#160;<b>CanIf_CancelTxconfirmation</b>(const Can_PduType *PduInfoPtr)&#160;<br/><b>Parameter&#160;<br/></b>PduInfoPtr&#160;<br/>
+Contains information about cancelled PDU&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+- &#160;<br/>
+<b>Functional Description&#160;<br/></b>Called by the CAN Driver to&#160;notify the CAN Interface about a cancelled PDU which has to be&#160;re-queued.&#160;<br/><b>Particularities and Limitations&#160;<br/></b>only available&#160;if CANIF_TRANSMIT_CANCELLATION = STD_ON&#160;is set.&#160;<br/>
+Table 6-13&#160;API CanIf_CancelTxConfirmation&#160;<br/>
+&#160;<br/>
+<b>6.1.14&#160;&#160;CanIf_SetTransceiverMode&#160;<br/>Prototype&#160;<br/>StdReturnType</b>&#160;<b>CanIf_SetTransceiverMode</b>(uint8 Transceiver,&#160;<br/>CanIf_TransceiverModeType TransceiverMode)&#160;<br/><b>Parameter&#160;<br/></b>Transceiver &#160;<br/>
+Address the&#160;transceiver&#160;by a transceiver index.&#160;<br/>
+TransceiverMode&#160;<br/>
+Requested mode transition&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns whether the state transition&#160;was successful.&#160;<br/>
+<b>Functional Description&#160;<br/></b>Called by an upper layer to&#160;set the transceiver to another mode.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+<b>&#160;</b><br/>
+Only available if transceiver handling is&#160;activated at configuration time. (CANIF_TRCV_HANDLING =&#160;<br/>STD_ON)&#160;<br/>
+Table 6-14&#160;API CanIf_SetTransceiverMode&#160;<br/>
+&#160;<br/>
+<b>6.1.15&#160;&#160;CanIf_GetTransceiverMode&#160;<br/>Prototype&#160;<br/>StdReturnType</b>&#160;<b>CanIf_GetTransceiverMode</b>(uint8 Transceiver,&#160;<br/>CanIf_TransceiverModeType *TransceiverModePtr)&#160;<br/><b>Parameter&#160;<br/></b>Transceiver &#160;<br/>
+Address the&#160;transceiver&#160;by a transceiver index.&#160;<br/>
+TransceiverModePtr&#160;<br/>
+Pointer to a buffer where current transceiver mode can be stored in.&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns whether the request of the&#160;current transceiver mode was&#160;<br/>successful.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+53&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=54></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-54_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Functional Description&#160;<br/></b>Called by an upper layer to&#160;request the current mode&#160;of the transceiver.&#160;<br/><b>Particularities and Limitations&#160;<br/></b>Only available if transceiver handling&#160;is activated&#160;at configuration time. (CANIF_TRCV_HANDLING =&#160;<br/>STD_ON)&#160;<br/>
+Table 6-15&#160;API CanIf_GetTransceiverMode&#160;<br/>
+&#160;<br/>
+<b>6.1.16&#160;&#160;CanIf_GetTrcvWakeupReason&#160;<br/>Prototype&#160;<br/>StdReturnType</b>&#160;<b>CanIf_GetTrcvWakeupReason</b>(uint8 Transceiver,&#160;<br/>CanIf_TrcvWakeupReasonType *TrcvWuReasonPtr)&#160;<br/><b>Parameter&#160;<br/></b>Transceiver &#160;<br/>
+Address the&#160;transceiver&#160;by a transceiver index.&#160;<br/>
+TrcvWuReasonPtr&#160;<br/>
+Pointer to a buffer where the transceiver’s&#160;wake up reason can be&#160;<br/>stored in.&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns whether the request of the&#160;wake up reason was successful.&#160;<br/>
+<b>Functional Description&#160;<br/></b>Called by an upper layer to&#160;request the&#160;wake up reason stored in the transceiver.&#160;<br/><b>Particularities and Limitations&#160;<br/></b>Only available if transceiver handling is&#160;activated at configuration time. (CANIF_TRCV_HANDLING =&#160;<br/>STD_ON)&#160;<br/>
+Table 6-16&#160;API CanIf_GetTrcvWakeupReason&#160;<br/>
+&#160;<br/>
+<b>6.1.17&#160;&#160;CanIf_SetTransceiverWakeupMode&#160;<br/>Prototype&#160;<br/>StdReturnType</b>&#160;<b>CanIf_GetTrcvWakeupReason</b>(uint8 Transceiver,&#160;<br/>CanIf_TrcvWakeupModeType TrcvWakeupMode)&#160;<br/><b>Parameter&#160;<br/></b>Transceiver &#160;<br/>
+Address the&#160;transceiver&#160;by a transceiver index.&#160;<br/>
+TrcvWakeupModeType&#160;<br/>
+Enable, disable or clear&#160;notification for wake up events.&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns whether the requested mode was set successfully.&#160;<br/>
+<b>Functional Description&#160;<br/></b>Called by an upper layer to&#160;enable, disable or clear&#160;the wake up event notification of the transceiver.&#160;<br/><b>Particularities and Limitations&#160;<br/></b>Only available if transceiver handling is&#160;activated at configuration time. (CANIF_TRCV_HANDLING =&#160;<br/>STD_ON)&#160;<br/>
+Table 6-17&#160;API CanIf_SetTransceiverWakeupMode&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+54&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=55></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-55_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>6.1.18&#160;&#160;CanIf_CheckWakeup&#160;<br/>Prototype&#160;<br/>Std_ReturnType CanIf_CheckWakeup</b>(EcuM_WakeupSourceType WakeupSource)&#160;<br/><b>Parameter&#160;<br/></b>WakeupSource&#160;<br/>
+Wakeup source which identifies the&#160;possible wakeup source&#160;<br/>(Transceiver / CAN Controller)&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns whether the received wakeup source was valid and&#160;the&#160;<br/>function could be executed correctly. &#160;<br/>
+<b>Functional Description&#160;<br/></b>Called by an upper layer to&#160;check if a transceiver or&#160;CAN controller recently raised a wakeup.&#160;<br/>If a wakeup&#160;was detected from either transceiver&#160;or&#160;CAN Controller the EcuM call&#160;back function&#160;<br/>
+EcuM_SetWakeupEvent is called from the function’s context.&#160;<br/>
+<b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized.&#160;<br/>
+Table 6-18&#160;API CanIf_CheckWakeup&#160;<br/>
+&#160;<br/>
+<b>6.1.19&#160;&#160;CanIf_CheckValidation&#160;<br/>Prototype&#160;<br/>Std_ReturnType CanIf_CheckValidation</b>(EcuM_WakeupSourceType WakeupSource)&#160;<br/><b>Parameter&#160;<br/></b>WakeupSource&#160;<br/>
+Wakeup source which identifies the&#160;possible wakeup source&#160;<br/>(Transceiver / CAN Controller)&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns whether the requested mode was set successfully. &#160;<br/>
+<b>Functional Description&#160;<br/></b>Called by an upper layer to&#160;check if a first Rx message&#160;was&#160;received&#160;after a wake&#160;up occurred from one of&#160;<br/>
+the supported&#160;sources.&#160;<br/>
+If a message&#160;was received&#160;between the&#160;call of CanIf_CheckWakeup and CanIf_CheckValidation the&#160;<br/>
+configurable&#160;EcuM call back function EcuM_ValidationWakeupEvent is called from the context of&#160;this&#160;<br/>function.&#160;<br/>
+<b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized.&#160;<br/>CanIf_CheckWakeup has to be called before and a wake up&#160;event has to be detected.&#160;<br/>CANInterface&#160;has to be set to CANIF_CS_STARTED&#160;mode before&#160;a validation is possible.&#160;<br/>
+Table 6-19&#160;API CanIf_CheckValidation&#160;<br/>
+&#160;<br/>
+<b>6.1.20&#160;&#160;CanIf_ResetBusOffStart&#160;<br/>Prototype&#160;<br/>void CanIf_ResetBusOffStart</b>(uint8 Controller)&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+55&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=56></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-56_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Parameter&#160;<br/></b>Controller&#160;<br/>
+Recover bus off for the&#160;specified&#160;controller&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+- &#160;<br/>
+<b>Functional Description&#160;<br/></b>Initiates the bus off recovery for a specified channel.&#160;<br/>A&#160;call to CanIf_ResetBusOffEnd has&#160;to follow on task&#160;level.&#160;<br/><b>Particularities and Limitations&#160;<br/></b>Non-Autosar&#160;compliant&#160;API function which has to be enabled&#160;by defining&#160;<br/>
+CANIF_BUSOFF_RECOVERY_API =&#160;STD_ON&#160;<br/>
+Table 6-20&#160;API CanIf_ResetBusOffStart&#160;<br/>
+&#160;<br/>
+<b>6.1.21&#160;&#160;CanIf_ResetBusOffEnd&#160;<br/>Prototype&#160;<br/>void CanIf_ResetBusOffEnd</b>(uint8 Controller)&#160;<br/><b>Parameter&#160;<br/></b>Controller&#160;<br/>
+Recover bus off for the&#160;specified&#160;controller&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+- &#160;<br/>
+<b>Functional Description&#160;<br/></b>Finishes the&#160;bus off recovery for a specified channel.&#160;<br/>A&#160;call to CanIf_ResetBusOffStart has to be executed&#160;before.&#160;<br/><b>Particularities and Limitations&#160;<br/></b>Non-Autosar&#160;compliant&#160;API function which has to be enabled&#160;by defining&#160;<br/>
+CANIF_BUSOFF_RECOVERY_API =&#160;STD_ON&#160;<br/>
+The function has to be&#160;called on task level.&#160;<br/>
+Table 6-21&#160;API CanIf_ResetBusOffEnd&#160;<br/>
+&#160;<br/>
+<b>6.1.22&#160;&#160;CanIf_ConvertPduId&#160;<br/>Prototype&#160;<br/>Std_ReturnType CanIf_ConvertPduId</b>(PduIdType PbPduId, PduIdType* PduId)&#160;<br/><b>Parameter&#160;<br/></b>PbPduId&#160;<br/>
+Convert the&#160;Pdu specified by PbPduId&#160;<br/>
+PduId&#160;<br/>
+Pointer to a buffer to store converted PduId.&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns whether the requested PduID was successfully converted.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+56&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=57></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-57_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Functional Description&#160;<br/></b>Finishes the&#160;bus off recovery for a specified channel.&#160;<br/>A&#160;call to CanIf_ResetBusOffStart has to be executed&#160;before.&#160;<br/><b>Particularities and Limitations&#160;<br/></b>Non-Autosar&#160;compliant&#160;API function which cannot be activated by the user&#160;<br/>
+(CANIF_SUPPORT_NONPB_API =&#160;STD_ON)&#160;<br/>
+Table 6-22&#160;API CanIf_ConvertPduId&#160;<br/>
+&#160;<br/>&#160;<br/>
+<b>6.1.23&#160;&#160;CanIf_CancelTransmit&#160;<br/>Prototype&#160;<br/>void</b>&#160;<b>CanIf_CancelTransmit&#160;</b>(PduIdType CanTxPduId)&#160;<br/><b>Parameter&#160;<br/></b>CanTxPduId&#160;&#160;<br/>
+PduId of the message which has to&#160;be cancelled&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+- &#160;<br/>
+<b>Functional Description&#160;<br/></b>Initiate a cancellation / suppression of&#160;the confirmation&#160;of a&#160;Tx message.&#160;<br/><b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized.&#160;<br/>Non-Autosar&#160;compliant&#160;API function which has to&#160;be enabled&#160;by defining CANIF_CANCEL_SUPPORT_API&#160;<br/>
+= STD_ON&#160;<br/>
+Table 6-23&#160;API CanIf_CancelTransmit&#160;<br/>
+&#160;<br/>
+<b>6.1.24&#160;&#160;CanIf_CancelTxNotification&#160;<br/>Prototype&#160;<br/>void</b>&#160;<b>CanIf_CancelTxNotification&#160;</b>(PduIdType PduId, CanIf_CancelResultType&#160;<br/>IsCancelled)&#160;<br/><b>Parameter&#160;<br/></b>PduId &#160;<br/>
+Id of the&#160;Tx message which was cancelled&#160;<br/>
+IsCancelled&#160;<br/>
+Parameter currently not evaluated.&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+- &#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+57&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=58></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-58_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>Functional Description&#160;<br/></b>Called by the CAN Driver to&#160;notify about a cancelled&#160;message. No&#160;confirmation&#160;will be raised for this&#160;<br/>
+message.&#160;<br/>
+<b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized.&#160;<br/>Non-Autosar&#160;compliant&#160;API function which has to&#160;be enabled&#160;by defining CANIF_CANCEL_SUPPORT_API&#160;<br/>
+= STD_ON&#160;<br/>
+Table 6-24&#160;API CanIf_CancelTxNotification&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+<b>6.1.25&#160;&#160;CanIf_SetDynamicTxId&#160;<br/>Prototype&#160;<br/>void CanIf_SetDynamicTxId</b>(PduIdType CanTxPduId, Can_IdType CanId)&#160;<br/><b>Parameter&#160;<br/></b>CanTxPduId&#160;<br/>
+PDU ID of the&#160;Tx message&#160;<br/>
+CanId&#160;<br/>
+CAN ID of the messageParameter &#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+- &#160;<br/>
+<b>Functional Description&#160;<br/></b>Called by the application to&#160;set the CAN&#160;Id of the corresponding&#160;Tx PDU.&#160;<br/><b>Particularities and Limitations&#160;<br/></b>CAN Interface has to be initialized.&#160;<br/>Must not be interrupted by&#160;a call of CanIf_Transmit() for the same&#160;Tx PDU.&#160;<br/>
+Table 6-25&#160;API CanIf_SetDynamicTxId&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+58&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=59></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-59_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>6.2&#160;</b><br/>
+<b>Callout Functions&#160;</b><br/>
+<b>6.2.1&#160;&#160;EcuM_GeneratorCompatibilityError&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>EcuM_GeneratorCompatibilityError</b>(uint16 &#160;CanIfModuleId,&#160;<br/>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; uint8 &#160; &#160;CanIfInstanceId )&#160;<br/><b>Parameter&#160;<br/></b>CanTpModuleId&#160;<br/>
+Contains&#160;the CANIF_MODULE_ID&#160;(60)&#160;as defined by&#160;AUTOSAR.&#160;<br/>
+CanTpInstanceId&#160;<br/>
+For the CanIf only one instance is available, so this value is always&#160;zero.&#160;<br/>
+<b>Return code&#160;<br/></b>None&#160;<br/>
+&#160;<br/>
+<b>Functional Description&#160;<br/></b>Called once by&#160;the CanIf during the initialization phase&#160;to indicate&#160;one of the following&#160;possible errors:&#160;<br/>
+-&#160;<br/>
+Abort initialization as generator is&#160;not compatible,&#160;<br/>
+-&#160;<br/>
+Abort initialization as&#160;current configuration is&#160;not compatible with the pre-compile&#160;configuration&#160;<br/>
+-&#160;<br/>
+Abort initialization as&#160;current configuration is&#160;not compatible with the link-time&#160;configuration&#160;<br/>
+<b>Particularities and Limitations&#160;<br/></b>None&#160;<br/>
+Call Context&#160;<br/>
+&#160;&#160;This function&#160;is either&#160;called in the CanIf_ChangeParameterRequest callers&#160;context or from the CanIf&#160;<br/>
+main function in task&#160;context.&#160;<br/>
+Table 6-26&#160;EcuM_GeneratorCompatibilityError&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+59&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=60></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-60_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>7&#160;&#160;AUTOSAR Standard Compliance&#160;</b><br/>
+Following restrictions apply to the&#160;current CAN_IF implementation.&#160;<br/>
+<b>7.1&#160;</b><br/>
+<b>Deviations&#160;</b><br/>
+The API&#160;CanIf_Transmit()&#160;must&#160;not be called re-entrant.&#160;<br/>
+<b>7.2&#160;&#160;Limitations&#160;<br/></b>Dynamic transmit L-PDUs are buffered based on&#160;the initial assigned&#160;CAN ID&#160;and not on&#160;<br/>the CAN ID assigned by the&#160;API&#160;CanIf_SetDynamicTxId().&#160;<br/>&#160;<br/>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+60&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=61></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-61_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>8&#160;&#160;Glossary and&#160;Abbreviations&#160;</b><br/>
+<b>8.1&#160;</b><br/>
+<b>Glossary&#160;</b><br/>
+<b>Term&#160;</b><br/>
+<b>Description&#160;</b><br/>
+EAD&#160;<br/>
+Embedded&#160;Architecture&#160;Designer; generation tool for MICROSAR&#160;<br/>components&#160;<br/>
+GENy&#160;<br/>
+Generation tool for CANbedded and&#160;MICROSAR components&#160;<br/>
+Table 8-1&#160;&#160;&#160;Glossary&#160;<br/>
+&#160;<br/>
+<b>8.2&#160;</b><br/>
+<b>Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+API Application&#160;<br/>
+Programming&#160;<br/>
+Interface&#160;<br/>
+&#160;<br/>
+AUTOSAR Automotive&#160;<br/>
+Open&#160;<br/>
+System&#160;<br/>
+Architecture&#160;<br/>
+BSW Basis&#160;<br/>
+Software&#160;<br/>
+CANSM&#160;<br/>
+CAN State Manager&#160;<br/>
+COMM Communication&#160;<br/>
+Manager&#160;<br/>
+DEM Diagnostic&#160;<br/>
+Event&#160;<br/>
+Manager&#160;<br/>
+DET Development&#160;<br/>
+Error&#160;<br/>
+Tracer&#160;<br/>
+DLC&#160;<br/>
+Data&#160;Length Code&#160;<br/>
+EAD Embedded&#160;<br/>
+Architecture&#160;<br/>
+Designer&#160;<br/>
+ECU&#160;<br/>
+Electronic Control Unit&#160;<br/>
+ECUM&#160;<br/>
+ECU State Manager&#160;<br/>
+HRH&#160;<br/>
+Hardware Receive Handle&#160;<br/>
+HTH Hardware&#160;<br/>
+Transmit&#160;<br/>
+Handle&#160;<br/>
+ISR&#160;<br/>
+Interrupt Service Routine&#160;<br/>
+MICROSAR&#160;<br/>
+Microcontroller Open System&#160;Architecture (the Vector&#160;AUTOSAR&#160;<br/>solution)&#160;<br/>
+PDU&#160;<br/>
+Protocol Data&#160;Unit&#160;<br/>
+SDU&#160;<br/>
+Service Data&#160;Unit&#160;<br/>
+SRS&#160;<br/>
+Software Requirement Specification&#160;<br/>
+SWC Software&#160;<br/>
+Component&#160;<br/>
+SWS Software&#160;<br/>
+Specification&#160;<br/>
+Table 8-2&#160;&#160;&#160;Abbreviations&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+61&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name=62></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanIf-62_1.png"/><br/>
+Technical Reference CAN Interface &#160;<br/>
+&#160;<br/>
+<b>9&#160;&#160;Contact&#160;</b><br/>
+Visit our website for more information on&#160;<br/>&#160;<br/>&gt;&#160; &#160;News&#160;<br/>&gt;&#160; &#160;Products&#160;<br/>&gt;&#160; &#160;Demo software&#160;<br/>&gt;&#160; &#160;Support&#160;<br/>&gt;&#160; &#160;Training data&#160;<br/>&gt;&#160; &#160;Addresses&#160;<br/>&#160;<br/><b>www.vector-informatik.com&#160;</b><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 2.10.01&#160;<br/>
+62&#160;/ 62<br/>
+based on template&#160;version 2.10.0&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#2">1 Document Information</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#2">1.1 History</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#3">1.2 Reference Documents</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#10">2 Introduction</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#10">2.1 Architecture Overview</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#12">3 Functional Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#12">3.1 Deviations regarding AUTOSAR standard</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#12">3.2 Feature List</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#13">3.3 Initialization</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#14">3.4 Transmission</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#15">3.5 &#160;Dynamic transmission</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#15">3.6 Transmit Buffer</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#16">3.7 Reception</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#16">3.8 Ranges</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#17">3.9 DLC check</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#18">3.9.1 DLC check against not optimized DLC</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#18">3.10 Communication Modes</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#18">3.10.1 Controller Mode</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#18">3.10.2 Channel Mode</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#19">3.11 Polling</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#19">3.12 Error Notification</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#19">3.12.1 Development Error Detection</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#23">3.12.2 Production Error Detection</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#23">3.13 Transceiver handling</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#24">3.14 Sleep / WakeUp</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#27">3.15 Bus Off</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#27">3.16 Version Info</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#28">3.17 Services used by the CAN Interface</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#29">3.18 Critical Sections</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#30">3.19 AUTOSAR 2.1 ComM compliance</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#30">3.19.1 API Description</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#31">3.19.2 Call back functions</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#31">3.19.3 Initialization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#33">4 Integration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#33">4.1 Files and include structure</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#33">4.1.1 Static Files</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#33">4.1.2 Dynamic Files</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#34">4.2 Include Structure</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#34">4.3 Compiler Abstraction and Memory Mapping&#160;</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#36">5 Configuration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#36">5.1 Module properties</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#36">5.1.1 Common configuration</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#37">5.1.2 Post build configuration</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#38">5.1.3 Miscellaneous</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#40">5.1.3.1 Software Filter Type</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#41">5.1.3.2 Transmit Buffer</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#42">5.1.3.3 Callback functions</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#43">5.1.3.4 MICROSAR extensions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#44">5.2 Channel specific properties</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#45">5.3 Tx message properties</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#46">5.4 Dynamic Tx message properties</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#47">5.5 Rx message properties</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#48">6 API Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#48">6.1 Services provided by the CAN Interface</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#48">6.1.1 CanIf_GetVersionInfo</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#48">6.1.2 CanIf_Init&#160;</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#48">6.1.3 CanIf_InitController</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#49">6.1.4 CanIf_SetControllerMode</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#49">6.1.5 CanIf_GetControllerMode</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#50">6.1.6 CanIf_Transmit</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#50">6.1.7 CanIf_TxConfirmation</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#50">6.1.8 CanIf_RxIndication</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#51">6.1.9 CanIf_ControllerBusOff</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#51">6.1.10 CanIf_SetPduMode</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#52">6.1.11 CanIf_GetPduMode</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#52">6.1.12 CanIf_InitMemory</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#53">6.1.13 CanIf_CancelTxConfirmation</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#53">6.1.14 CanIf_SetTransceiverMode</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#53">6.1.15 CanIf_GetTransceiverMode</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#54">6.1.16 CanIf_GetTrcvWakeupReason</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#54">6.1.17 CanIf_SetTransceiverWakeupMode</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#55">6.1.18 CanIf_CheckWakeup</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#55">6.1.19 CanIf_CheckValidation</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#55">6.1.20 CanIf_ResetBusOffStart</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#56">6.1.21 CanIf_ResetBusOffEnd</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#56">6.1.22 CanIf_ConvertPduId</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#57">6.1.23 CanIf_CancelTransmit</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#57">6.1.24 CanIf_CancelTxNotification</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#58">6.1.25 CanIf_SetDynamicTxId</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#59">6.2 Callout Functions</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#59">6.2.1 EcuM_GeneratorCompatibilityError</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#60">7 AUTOSAR Standard Compliance</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#60">7.1 Deviations</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#60">7.2 Limitations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#61">8 Glossary and Abbreviations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanIfs.html#61">8.1 Glossary</a></li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#61">8.2 Abbreviations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanIfs.html#62">9 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

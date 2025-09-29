@@ -1,0 +1,671 @@
+---
+title: Return_MDD
+linkTitle: Return_MDD
+weight: 3
+---
+
+<h1 class="unnumbered" id="module----return">Module -- Return</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This function uses the Absolute Hand Wheel position, Hand Wheel Torque, Hand Wheel Velocity and Vehicle Speed to derive the desired Return Torque command.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:3.05208in;height:3.99097in" /></p>
+<p>None</p>
+<h3 id="diagram-_l5_per">Diagram – _L5_Per</h3>
+<p>This diagram describes the functional characteristics and data flow of a given function.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h1 id="module-inputs-and-outputs"><br />
+Module Inputs and Outputs</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs (Global Variable Name)</th>
+<th>Module Outputs (Global Variable Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HandwheelVel_HwRadpS_f32</td>
+<td>ReturnCmd_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>HandwheelAuthority_Uls_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>HandwheelPosition_HwDeg_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>HwTorque_HwNm_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VehicleSpeed_Kph_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SrlComSvcDft_Cnt_b32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>ReturnDDFactor_Uls_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PAReturnSclFct_Uls_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Return Offset_HwDeg_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>AssistMechTempEst_DegC_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DefeatReturnSvc_Cnt_lgc</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<p>(Note: If no module specific variables are used by the design, place the text “None” in the first Variable Name cell in the table)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CurrentOffset_HwDeg_M_f32</td>
+<td>Single Precision Float</td>
+<td>0</td>
+<td>20</td>
+<td>RETURN_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CrntHandWheelAthScl_Uls_M_f32</td>
+<td>Single Precision Float</td>
+<td>0</td>
+<td>1</td>
+<td>RETURN_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>HwPosReturnCmd _MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>0</td>
+<td>0.5</td>
+<td>RETURN_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>HwTrqReturnScl_Uls _D_f32</td>
+<td>Single Precision Float</td>
+<td>0</td>
+<td>1</td>
+<td>RETURN_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>HwVelReturnScl_Uls _D_f32</td>
+<td>Single Precision Float</td>
+<td>0</td>
+<td>50</td>
+<td>RETURN_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>TempReturnScl_Uls_D_f32</td>
+<td>Single Precision Float</td>
+<td>0</td>
+<td>10</td>
+<td>RETURN_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPosReturn_HwDeg_D_u12p4</td>
+<td>0.0625</td>
+<td>0</td>
+<td>1640</td>
+<td>RETURN_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>SgnHwPosReturn_HwDeg_D_f32</td>
+<td>Single Precision Float</td>
+<td>-1</td>
+<td>1</td>
+<td>RETURN_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>RtrnBasicReturn_MtrNm_D_f32</td>
+<td>SinglePrecisionFloating point</td>
+<td>-10</td>
+<td>10</td>
+<td>RETURN_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 22%" />
+<col style="width: 12%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Typedef Name</th>
+<th>Storage Type</th>
+<th>Safety Critical Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<p>(Note: If no calibrations are used by the design, place the text “None” in the first location in the table)</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>t_ReturnVSpdTblBS_Kph_u9p7</td>
+</tr>
+<tr class="even">
+<td>t2_ReturnPosTblXM_HwDeg_u12p4</td>
+</tr>
+<tr class="odd">
+<td>t2_ReturnPosTblYM_MtrNm_u5p11</td>
+</tr>
+<tr class="even">
+<td>t2_ReturnSclTrqTblXM_HwNm_T_u8p8</td>
+</tr>
+<tr class="odd">
+<td>t2_ReturnSclTrqTblYM_Uls_u8p8</td>
+</tr>
+<tr class="even">
+<td>t2_ReturnSclVelTblXM_HwRadpS_T_u7p9</td>
+</tr>
+<tr class="odd">
+<td>t2_ReturnSclVelTblYM_Uls_u8p8</td>
+</tr>
+<tr class="even">
+<td>k_RtnOffsetSlew_HwDegpS_f32</td>
+</tr>
+<tr class="odd">
+<td>k_RtnOffsetRange_HWDeg_f32</td>
+</tr>
+<tr class="even">
+<td>t_ReturnTempScaleXTbl_DegC_s11p4</td>
+</tr>
+<tr class="odd">
+<td>t_ReturnTempScaleSclYTbl_Uls_u8p8</td>
+</tr>
+<tr class="even">
+<td>t_HWAuthRetScl_X_Uls_u8p8</td>
+</tr>
+<tr class="odd">
+<td>t_HWAuth RetScl_Y_Uls_u9p7</td>
+</tr>
+<tr class="even">
+<td>k_RtnHWAuthSlew_UlspS_f32</td>
+</tr>
+<tr class="odd">
+<td>k_RtnLimit_MtrNm_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 56%" />
+<col style="width: 25%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="note-rtnlooptime-depends-on-the-rate-of-the-periodic-function.">Note: RtnLoopTime depends on the rate of the periodic function.</h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BC_RETURN_FAULTINJECTIONPOINT</td>
+</tr>
+<tr class="even">
+<td>STD_ON</td>
+</tr>
+<tr class="odd">
+<td>FLTINJ_RETURN</td>
+</tr>
+<tr class="even">
+<td>D_2MS_SEC_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 13%" />
+<col style="width: 34%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-_l5_init">Init: _L5_Init()</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<p>None</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-_l5_per">Per: _L5_Per</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_Return_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>HwVel_HwRadpS_T_f32 = Rte_IRead_Return_Per1_HandwheelVel_HwRadpS_f32 ()</p>
+<p>FinHwPosAuth_Uls_T_f32 = Rte_IRead_Return_Per1_HandwheelAuthority_Uls_f32 ()</p>
+<p>FinHwPos_HwDeg_T_f32 = Rte_IRead_Return_Per1_HandwheelPosition_HwDeg_f32 ()</p>
+<p>HwTrq_HwNm_T_f32 = Rte_IRead_Return_Per1_HwTorque_HwNm_f32 ()</p>
+<p>DrvDynSclFct_Uls_T_f32 = Rte_IRead_Return_Per1_ReturnDDFactor_Uls_f32()</p>
+<p>PrkAstSclFct_Uls_T_f32 = Rte_IRead_Return_Per1_PAReturnSclFct_Uls_f32 ()</p>
+<p>AssistMechTempEst_T_DegC_f32 = Rte_IRead_Return_Per1_AssistMechTempEst_DegC_f32()</p>
+<p>ReturnOffset_HwDeg_T_f32 = Rte_IRead_Return_Per1_ReturnOffset_HwDeg_f32()</p>
+<p>VehSpd_Kph_T_f32 = Rte_IRead_Return_Per1_VehSpd_Kph_f32 ()</p>
+<p>DiagStsHwPosDis_Cnt_T_lgc = Rte_IRead_Return_Per1_ DiagStsHwPosDis_Cnt_lgc ()</p>
+<p>DefeatReturnSvc_Cnt_T_lgc = Rte_IRead_Return_Per1_DefeatReturnSvc_Cnt_lgc()</p>
+<p>VehSpd_Kph_T_u9p7 = FPM_FloatToFixed_m(VehSpd_Kph_T_f32, u9p7_T)FinHwPosAuth_Uls_T_u8p8 = FPM_FloatToFixed_m(FinHwPosAuth_Uls_T_f32, u8p8_T)</p>
+<p>FinHwPos_HwDeg_T_s11p4 = FPM_FloatToFixed_m(FinHwPos_HwDeg_T_f32, s11p4_T)</p>
+<p>HwTrq_HwNm_T_s7p8 = FPM_FloatToFixed_m(HwTrq_HwNm_T_f32, s7p8_T)</p>
+<p>HwVel_HwRadpS_T_s6p9 = FPM_FloatToFixed_m(HwVel_HwRadpS_T_f32, s6p9_T)</p>
+<p>AssistMechTempEst_DegC_T_s11p4 = FPM_FloatToFixed_m(AssistMechTempEst_DegC_f32, s11p4_T)</p>
+<p>Local Variables:</p>
+<p>HwVel_HwRadpS_T_f32</p>
+<p>FinHwPosAuth_Uls_T_f32</p>
+<p>FinHwPos_HwDeg_T_f32</p>
+<p>HwTrq_HwNm_T_f32</p>
+<p>VehSpd_Kph_T_f32</p>
+<p>VehSpd_Kph_T_u9p7</p>
+<p>FinHwPos_HwDeg_T_s11p4</p>
+<p>HwTrq_HwNm_T_s7p8</p>
+<p>HwVel_HwRadpS_T_s6p9</p>
+<p>HwPosReturnCmd_MtrNm_T_u5p11</p>
+<p>HwPosReturnCmd_MtrNm_T_f32</p>
+<p>HwTrqReturnScl_Uls_T_u8p8</p>
+<p>HwTrqReturnScl_Uls_T_f32</p>
+<p>HwVelReturnScl_Uls_T_u8p8</p>
+<p>HwVelReturnScl_Uls_T_f32</p>
+<p>ReturnCmd_MtrNm_T_f32</p>
+<p>DrvDynSclFct_Uls_T_f32</p>
+<p>PrkAstSclFct_Uls_T_f32</p>
+<p>AssistMechTempEst_T_DegC_f32</p>
+<p>ReturnOffset_HwDeg_T_f32</p>
+<p>FinHwPosAuth_Uls_T_u8p8</p>
+<p>AssistMechTempEst_DegC_T_s11p4</p>
+<p>TempReturnScl_Uls_T_u8p8</p>
+<p>TempReturnScl_Uls_f32</p>
+<p>ScaledReturn_MtrNm_f32</p>
+<p>HandWheelAthScl_Pct_T_u10p6</p>
+<p>CrntHandWheelAthScl_Uls_f32</p>
+<p>OffsetDiff_HwDeg_T_u9p7</p>
+<p>OffsetDiff_HwDeg_T_u10p6</p>
+<p>HandWheelAthScl_Uls_T_u10p6</p>
+<p>DiagStsHwPosDis_Cnt_T_lgc</p>
+<p>EOLRtnRange_MtrNm_T_f32</p>
+<p>HwPosReturnCmd_MtrNm_T_f32</p>
+<p>CurrentOffset_HwDeg_T_s11p4</p>
+<p>HandWheelAthScl_Uls_T_f32</p>
+<p>DefeatReturnSvc_Cnt_T_lgc</p>
+<h4 id="determine-return-command">Determine Return Command</h4>
+<h5 id="section"></h5>
+<h5 class="unnumbered" id="input-conditioning">Input Conditioning</h5>
+<h5 class="unnumbered" id="section-1"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></h5>
+<h5 class="unnumbered" id="section-2"></h5>
+<h5 id="hand-wheel-position-return-command">Hand Wheel Position Return Command</h5>
+<p>The return command is determined as a function of Hand Wheel Position and Vehicle Speed.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h5 id="hand-wheel-torque-return-multiplier">Hand Wheel Torque Return Multiplier</h5>
+<p>The return command is scaled between 0 and 100 percent as a function of Hand Wheel Torque and Vehicle Speed.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h5 id="hand-wheel-velocity-return-multiplier">Hand Wheel Velocity Return Multiplier</h5>
+<p>The return command is scaled between 0 and 100 percent as a function of Hand Wheel Velocity and Vehicle Speed.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h5 id="calculate-temperature-dependant-return-multiplier">Calculate Temperature Dependant Return Multiplier</h5>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<h5 class="unnumbered" id="return-scale">Return Scale</h5>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<h5 id="calculate-return-torque">Calculate Return Torque</h5>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_IWrite_Return_Per1_ReturnCmd_MtrNm_f32(ReturnCmd_MtrNm_T_f32)</p>
+<p>HwPosReturnCmd_MtrNm_D_f32 = HwPosReturnCmd_MtrNm_T_f32</p>
+<p>HwTrqReturnScl_Uls_D_f32 = HwTrqReturnScl_Uls_T_f32</p>
+<p>HwVelReturnScl_Uls_D_f32 = HwVelReturnScl_Uls_T_f32</p>
+<p>TempReturnScl_Uls_D_f32 = TempReturnScl_Uls_f32</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_Return_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="local-functionmacro-definitions">Local Function/Macro Definitions</h2>
+<p>None</p>
+<h1 id="execution-requirements"><br />
+Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Task List</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>_L5_Per()</td>
+<td></td>
+<td>2ms</td>
+<td>All</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>_L5_Per()</td>
+<td>RTE_AP_RETURN_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 61%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Item #</strong></th>
+<th><strong>Rev #</strong></th>
+<th><strong>Change Description</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author Initials</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1.0</td>
+<td>Initial release</td>
+<td>16MAY11</td>
+<td>SAH</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>2</td>
+<td>Apply scale factors from driving-dynamics and parking-assist. Replace computed handwheel velocity with global input.</td>
+<td>01-Jun-11</td>
+<td>YY</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>3</td>
+<td>Updated for FDD #SF-02</td>
+<td>17_Nov_11</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>4</td>
+<td>Fixed Macro Names</td>
+<td>29 Nov11</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>5</td>
+<td>Version 5 did not get checked in properly – so changes were lost and are in version 6</td>
+<td>03Dec2011</td>
+<td>SMW</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>6</td>
+<td>Updated calibration sign for temperature (need to be signed) and also update global input reads to match latest component template</td>
+<td>05Dec11</td>
+<td>SMW</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8</td>
+<td>Updated Globals based on UTP issue</td>
+<td>07Dec11</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9</td>
+<td>Corrected display variable assignments</td>
+<td>21Dec11</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10</td>
+<td>Changed ReturnRange to float32 from Uint16</td>
+<td>04PR12</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>11</td>
+<td>Added FLTINJ and some updates as per SF02 Ver004</td>
+<td>10May12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>12</td>
+<td>Anom 3317 fix for RateLimiter scaling issue</td>
+<td>16 May 12</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>13</td>
+<td>Move EOLRtnRange_MtrNm_f32 from EEPROM to flash, adding k_RtnLimit_MtrNm_f32CR5873</td>
+<td>20July12</td>
+<td>BDO</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>14</td>
+<td>Added checkpoints and memmap software segment is updated for static variables </td>
+<td>23-Sep-2012</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>15</td>
+<td>Corrected anomaly 4893</td>
+<td>27-Apr-13</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>16</td>
+<td>Updated to SF-02 V 006</td>
+<td>23-May-13</td>
+<td>SP</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,1502 @@
+---
+title: Diagnostics_Manager_Core_MDD
+linkTitle: Diagnostics_Manager_Core_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module----diagnostics-manager-core">Module -- Diagnostics Manager Core</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram </h2>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">MEC_Cnt_enum</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">MfgDiagInhibit_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">SystemState_Mode</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Datatype</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Multiplicity</th>
+<th><p>Software Segment</p>
+<p>{Data Type}</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NTCStrgArray_Cnt_str</td>
+<td>NTCStrgArray</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>1:1</td>
+<td>DIAGMGR_START_SEC_VAR_SAVED_ZONEHGS_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>NTCBlackBoxData_Cnt_str</td>
+<td>NTCBlkBoxData</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>1:1</td>
+<td>DIAGMGR_START_SEC_VAR_SAVED_ZONEHGS_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>DEMEventActive_Cnt_M_lgc[D_NUMOFDEMEVENTS_CNT_U08+1]</td>
+<td>Boolean</td>
+<td>N/A</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>1:1</td>
+<td>DIAGMGR_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>ResetNTCFlag_Cnt_M_u08</td>
+<td>Refer *</td>
+<td>Refer *</td>
+<td>Refer *</td>
+<td>Refer *</td>
+<td>Refer *</td>
+<td>Refer *</td>
+</tr>
+<tr class="odd">
+<td>DiagMgr_NTCInfo#_Cnt_M_str</td>
+<td>Refer *</td>
+<td>Refer *</td>
+<td>Refer *</td>
+<td>Refer *</td>
+<td>Refer *</td>
+<td>Refer *</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NTCStrgArray</td>
+<td></td>
+<td>NTCStrg</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>NTCBlkBoxData</td>
+<td></td>
+<td>NTCBlkBoxType</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td rowspan="10">typedef struct { } NTCBlkBoxType</td>
+<td>NTC_Cnt_u08</td>
+<td>Uint8</td>
+<td>1</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td>Param_Cnt_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td>SystemState_Cnt_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>VehSpd_Kph_u8p0</td>
+<td>Uint8</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td>BlkBoxCfgData1</td>
+<td>Uint32</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td>BlkBoxCfgData2</td>
+<td>Uint32</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td>BlkBoxCfgData3</td>
+<td>Uint32</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td>HwTrq_HwNm_s4p11</td>
+<td>Sint16</td>
+<td>-10</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td>MtrTrq_MtrNm_s4p11</td>
+<td>Sint16</td>
+<td>-8.8</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td>IgnCtr_Cnt_u16</td>
+<td>Uint16</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td rowspan="5">typedef struct { } NTCStrg</td>
+<td>NTC</td>
+<td>NTCNumber</td>
+<td>0</td>
+<td>511</td>
+</tr>
+<tr class="even">
+<td>Status</td>
+<td>uint8</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td>AgingCounter</td>
+<td>uint8</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td>Status</td>
+<td>uint8</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td>AgingCounter</td>
+<td>uint8</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_FltRspTbl_Cnt_str[]</td>
+</tr>
+<tr class="even">
+<td>k_FltRmpRate_UlspmS_f32[]</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section"></h2>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_FLTRSPNTCACTIVEBIT_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x00800000</td>
+</tr>
+<tr class="even">
+<td>D_FLTRSPRECOVERABLEBIT_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x00400000</td>
+</tr>
+<tr class="odd">
+<td>D_FLTRSPHWASBSYSTMFLTBIT_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x00200000</td>
+</tr>
+<tr class="even">
+<td>D_FLTRSPDEFVEHSPDBIT_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x00100000</td>
+</tr>
+<tr class="odd">
+<td>D_FLTRSPDEFTEMPBIT_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x00080000</td>
+</tr>
+<tr class="even">
+<td>D_FLTRSPSCOMHWANOTVALIDBIT_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x00040000</td>
+</tr>
+<tr class="odd">
+<td>D_FLTRSPWIRDISABLEBIT_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x00008000</td>
+</tr>
+<tr class="even">
+<td>D_FLTRSPPWRCYCLTCHBIT_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x00000010</td>
+</tr>
+<tr class="odd">
+<td>D_FLTRSPNTCINHIBITNOTOPERATEBIT_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x00000020</td>
+</tr>
+<tr class="even">
+<td>D_FLTRSPNTCINHIBITRUNBIT_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x00000040</td>
+</tr>
+<tr class="odd">
+<td>D_FLTRSPRAMPBITS_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x0000000F</td>
+</tr>
+<tr class="even">
+<td>D_FLTRSPBLKBOXBITS_CNT_B32</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>0x00003800</td>
+</tr>
+<tr class="odd">
+<td>D_BLKBOXBITOFFSET_CNT_U08</td>
+<td>N/A</td>
+<td>Counts</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td>D_RAMPNONE_CNT_U8</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x0F</td>
+</tr>
+<tr class="odd">
+<td>D_RAMPF2_CNT_U8</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x0E</td>
+</tr>
+<tr class="even">
+<td>D_RAMPF1_CNT_U8</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x0D</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>D_DIAGRMPRTLOLMT_ULSPMS_F32</td>
+<td>Single precision float</td>
+<td>Uls/mS</td>
+<td>0.0001</td>
+</tr>
+<tr class="odd">
+<td>D_DIAGRMPRTHILMT_ULSPMS_F32</td>
+<td>Single precision float</td>
+<td>Uls/mS</td>
+<td>0.5</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_NTCACTIVEBITS_CNT_B8</td>
+</tr>
+</tbody>
+</table>
+<h3 class="unnumbered" id="section-1"></h3>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 11%" />
+<col style="width: 48%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T_NTCMapTbl#_Cnt_enum[SIZE]</td>
+<td>N/A</td>
+<td>Refer *</td>
+<td>AP_DIAGMGR_CONST</td>
+</tr>
+<tr class="even">
+<td>T_DiagMgrNtcAppInfoMap_Cnt_Str[SIZE]</td>
+<td>N/A</td>
+<td>Refer *</td>
+<td>AP_DIAGMGR_CONST</td>
+</tr>
+<tr class="odd">
+<td>T_DiagMgrNtcInfoPtr_Cnt_Str[SIZE]</td>
+<td>N/A</td>
+<td>Refer *</td>
+<td>AP_DIAGMGR_CONST</td>
+</tr>
+</tbody>
+</table>
+<p>Note: “ Refer *” - Refer to Diagnostics_Manager_GeneratedCfg_MDD</p>
+<p>Note Size and elements of Table constants varies across projects. Check project configuration files Under UTP/ Contract folder for data.</p>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>TableSize_m()</p></li>
+<li></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+</ol>
+<h2 id="function-mapping">Function Mapping</h2>
+<ol type="1">
+<li><p>DiagMgr_ReportDet(errorId) ↔︎ Det_ReportError(0,0,0,errorId)</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="diagnostic-manager-initialization">Diagnostic Manager Initialization</h3>
+<p>Note: *doc in below table is Diagnostics_Manager_GeneratedCfg_MDD</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 44%" />
+<col style="width: 17%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DiagMgr_Init_Core</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>NTCInfo_Cnt_T_str[SIZE]</td>
+<td colspan="3">Refer Range of DiagMgr_NTCInfo#_Cnt_M_str[SIZE] in *doc</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>NumElements_Cnt_T_u08</td>
+<td colspan="3">Refer Range of DIAGMGR_EVENTNUM_# in *doc</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>CurrentAppIdx_Cnt_T_u08</td>
+<td colspan="3">Refer Range of DIAGMGR_APID_# in *doc</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>DiagMgrInitComp_Ptr_T_lgc</td>
+<td colspan="3">Refer Range of DiagMgrInitComp#_Cnt_M_lgc</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>NTCInfoQueue_Cnt_T_str[5]</td>
+<td colspan="3">Refer Range of NTCInfoQueue#_Cnt_M_str[SIZE] in *doc</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>NTCQueueIndex_Ptr_T_u08</td>
+<td colspan="3">Refer Range of NTCQueueIndex#_Cnt_M_u08 in *doc</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DiagSts_Cnt_T_b16[SIZE]</td>
+<td colspan="3">Refer Range of DiagSts#_Cnt_M_b16[SIZE] in *doc</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>ActiveRmpRate_UlspmS_T_f32[SIZE]</td>
+<td colspan="3">Refer Range of ActiveRmpRate#_UlspmS_M_f32[SIZE] in *doc</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>ActDiagSts_Ptr_T_u08</td>
+<td colspan="3">Refer Range of ActDiagSts#_Cnt_M_u08 in *doc</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>none</td>
+<td></td>
+<td colspan="2"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<h3 id="diagnostic-manager-periodic-code">Diagnostic Manager Periodic Code</h3>
+<p>Note: *doc in below table is Diagnostics_Manager_GeneratedCfg_MDD</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 33%" />
+<col style="width: 29%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DiagMgr_Per_Core</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>NTCInfo_Cnt_T_str[SIZE]</td>
+<td colspan="3">Refer Range of DiagMgr_NTCInfo#_Cnt_M_str[SIZE] in *doc</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>NumElements_Cnt_T_u08</td>
+<td colspan="3">Refer Range of DIAGMGR_EVENTNUM_# in *doc</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DiagSts_Cnt_T_b16[SIZE]</td>
+<td colspan="3">Refer Range of DiagSts#_Cnt_M_b16[SIZE] in *doc</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>ActiveRmpRate_UlspmS_T_f32[SIZE]</td>
+<td colspan="3">Refer Range of ActiveRmpRate#_UlspmS_M_f32[SIZE] in *doc</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>ActDiagStsIdx_Ptr_T_u08</td>
+<td colspan="3">Refer Range of ActDiagSts#_Cnt_M_u08 in *doc</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>T_NTCMapTbl_Cnt_enum[SIZE]</td>
+<td colspan="3">Refer range of T_NTCMapTbl#_Cnt_enum[SIZE] in *doc</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>PrevResetNTCFlag_Ptr_T_u08</td>
+<td colspan="3">Refer Range of ResetNTCFlag#_Cnt_M_u08 in *doc</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>none</td>
+<td></td>
+<td colspan="2"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h3 id="diagnostic-manager-transition-core">Diagnostic Manager Transition Core</h3>
+<p>Note: *doc in below table is Diagnostics_Manager_GeneratedCfg_MDD</p>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 32%" />
+<col style="width: 19%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DiagMgr_Trns_Core</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>NTCInfo_Cnt_T_str[SIZE]</td>
+<td colspan="3">Refer Range of DiagMgr_NTCInfo#_Cnt_M_str[SIZE] in *doc</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>NumElements_Cnt_T_u08</td>
+<td colspan="3">Refer Range of DIAGMGR_EVENTNUM_# in *doc</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>T_NTCMapTbl_Cnt_enum[79]</td>
+<td colspan="3">Refer range of T_NTCMapTbl#_Cnt_enum[SIZE] in *doc</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>none</td>
+<td></td>
+<td colspan="2"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-2">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h3 id="diagnostic-manager-get-ntc-failed">Diagnostic Manager Get NTC Failed</h3>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 29%" />
+<col style="width: 30%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>NxtrDiagMgr_GetNTCFailed_Core</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>NTC_Cnt_T_enum</td>
+<td>NTCNumber</td>
+<td>0</td>
+<td>511</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>NTCFailed_Ptr_T_lgc</td>
+<td>const boolean pointer</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>RetVal</td>
+<td>Std_ReturnType</td>
+<td>E_NOT_OK</td>
+<td>E_OK</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-3">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h3 id="diagnostic-manager-get-ntc-active">Diagnostic Manager Get NTC Active</h3>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 34%" />
+<col style="width: 26%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>NxtrDiagMgr_GetNTCActive_Core</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>NTC_Cnt_T_enum</td>
+<td>NTCNumber</td>
+<td>0</td>
+<td>511</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>NTCActive_Ptr_T_lgc</td>
+<td>const boolean pointer</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>RetVal</td>
+<td>Std_ReturnType</td>
+<td>E_NOT_OK</td>
+<td>E_OK</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-4">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h3 id="diagnostic-manager-get-ntc-status">Diagnostic Manager Get NTC Status</h3>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 35%" />
+<col style="width: 17%" />
+<col style="width: 15%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>NxtrDiagMgr_GetNTCStatus_Core</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>NTC_Cnt_T_enum</td>
+<td>NTCNumber</td>
+<td>0</td>
+<td>511</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Status_Ptr_T_u08</td>
+<td>const boolean pointer</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>RetVal</td>
+<td>Std_ReturnType</td>
+<td colspan="2"><p>E_OK</p>
+<p>E_NOT_OK</p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-5">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h3 id="diagnostic-manager-set-ntc-status">Diagnostic Manager Set NTC Status</h3>
+<p>Note: *doc in below table is Diagnostics_Manager_GeneratedCfg_MDD</p>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 35%" />
+<col style="width: 17%" />
+<col style="width: 15%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>NxtrDiagMgr_SetNTCStatus_Core</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>NTC_Cnt_T_enum</td>
+<td>NTCNumber</td>
+<td>0</td>
+<td>511</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Param_Cnt_T_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Status_Cnt_T_enum</td>
+<td>NxtrDiagMgrStatus</td>
+<td colspan="2"><p>NTC_STATUS_PASSED</p>
+<p>NTC_STATUS_FAILED</p>
+<p>NTC_STATUS_PREPASSED</p>
+<p>NTC_STATUS_PREFAILED</p></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>NTCInfo_Cnt_T_str[79]</td>
+<td colspan="3">Refer Range of DiagMgr_NTCInfo#_Cnt_M_str[SIZE] in *doc</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DiagSts_Cnt_T_b16[2]</td>
+<td colspan="3">Refer Range of DiagSts#_Cnt_M_b16[SIZE] in *doc</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>ActiveRmpRate_Cnt_T_f32[2]</td>
+<td colspan="3">Refer Range of ActiveRmpRate#_UlspmS_M_f32[SIZE] in *doc</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>ActDiagSts_Ptr_T_u08</td>
+<td colspan="3">Refer Range of ActDiagSts#_Cnt_M_u08 in *doc</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>RetVal</td>
+<td>Std_ReturnType</td>
+<td colspan="2"><p>E_OK</p>
+<p>E_NOT_OK</p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-6">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<h3 id="diagnostic-manager-report-ntc-status">Diagnostic Manager Report NTC Status</h3>
+<blockquote>
+<p>Note: *doc in below table is Diagnostics_Manager_GeneratedCfg_MDD</p>
+</blockquote>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 35%" />
+<col style="width: 17%" />
+<col style="width: 15%" />
+<col style="width: 17%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>NxtrDiagMgr_ReportNTCStatus_Core</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>NTC_Cnt_T_enum</td>
+<td>NTCNumber</td>
+<td>0</td>
+<td>511</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Param_Cnt_T_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Status_Cnt_T_enum</td>
+<td>NxtrDiagMgrStatus</td>
+<td colspan="2"><p>NTC_STATUS_PASSED</p>
+<p>NTC_STATUS_FAILED</p>
+<p>NTC_STATUS_PREPASSED</p>
+<p>NTC_STATUS_PREFAILED</p></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>NTCInfoQueue_Cnt_T_str [5]</td>
+<td colspan="3">Refer Range of NTCInfoQueue#_Cnt_M_str[SIZE] in *doc</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>NTCQueueIndex_Ptr_T_u08</td>
+<td colspan="3">Refer Range of NTCQueueIndex#_Cnt_M_u08 in *doc</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td>Std_ReturnType</td>
+<td colspan="2">E_OK</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-7">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="set-bits">Set Bits</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 40%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SetBits_u8</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Data</td>
+<td>const uint8 pointer</td>
+<td>0</td>
+<td>255</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BitMask</td>
+<td>uint8</td>
+<td>0</td>
+<td>255</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-8">Description</h4>
+<p>*Data |= BitMask</p>
+<h3 id="clear-bits">Clear Bits</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 40%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ClrBits_u8</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Data</td>
+<td>const uint8 pointer</td>
+<td>0</td>
+<td>255</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BitMask</td>
+<td>uint8</td>
+<td>0</td>
+<td>255</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-9">Description</h4>
+<p>*Data &amp;= ~BitMask</p>
+<h3 id="read-bit">Read Bit</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 40%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ReadBit_u8</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Data</td>
+<td>uint8</td>
+<td>0</td>
+<td>255</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BitMask</td>
+<td>uint8</td>
+<td>0</td>
+<td>255</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>(anonymous)</td>
+<td>boolean</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-10">Description</h4>
+<p>IF 0 = (Data &amp; BitMask) THEN</p>
+<p>return FALSE</p>
+<p>ELSE</p>
+<p>return TRUE</p>
+<p>ENDIF</p>
+<h3 id="set-bits-1">Set Bits</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 40%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SetBits_u16</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Data</td>
+<td>const uint16 pointer</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BitMask</td>
+<td>uint16</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-11">Description</h4>
+<p>*Data |= BitMask</p>
+<h3 id="read-bit-1">Read Bit</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 40%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ReadBit_u32</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Data</td>
+<td>uint32</td>
+<td>0x000000</td>
+<td>0xFFFFFF</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>BitMask</td>
+<td>uint32</td>
+<td>0x000000</td>
+<td>0xFFFFFF</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>(anonymous)</td>
+<td>boolean</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-12">Description</h4>
+<p>IF 0 = (Data &amp; BitMask) THEN</p>
+<p>return FALSE</p>
+<p>ELSE</p>
+<p>return TRUE</p>
+<p>ENDIF</p>
+<h3 id="process-diagnostic-status">Process Diagnostic Status</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 26%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ProcessDiagSts</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>FltRsp_Cnt_T_u32</td>
+<td>Uint32</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>DiagSts_Ptr_T_b16</td>
+<td>const uint16 pointer</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-13">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<h3 id="process-ramp-response">Process Ramp Response</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 26%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ProcessRampResponse</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>FltRsp_Cnt_T_u32</td>
+<td>Uint32</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>ActiveRmpRate_Ptr_T_f32</td>
+<td>Const float32 pointer</td>
+<td>0.0001</td>
+<td>0.5</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DiagSts_Ptr_T_b16</td>
+<td>Const uint16 pointer</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-14">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></p>
+<h3 id="failed-check-and-processing">Failed Check and Processing</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 31%" />
+<col style="width: 26%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>FailedCheckAndProcessing</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>NTCInfo_Ptr_T_str</td>
+<td>const uint16 NTCInfo_Str</td>
+<td>See section 3.1.1</td>
+<td>See section 3.1.1</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>DiagSts_Ptr_T_b16</td>
+<td>const uint16 pointer</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>MaxRampRate_Ptr_T_f32</td>
+<td>Const float32 pointer</td>
+<td>0.0001</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>NTC_Cnt_T_enum</td>
+<td>NTCNumber</td>
+<td>0</td>
+<td>511</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-15">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<table>
+<colgroup>
+<col style="width: 54%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions-1">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions-1">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions-1">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="global-and-local-functions">Global and Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FailedCheckAndProcessing</td>
+<td>AP_DIAGMGR_CODE</td>
+</tr>
+<tr class="even">
+<td>ProcessRampResponse</td>
+<td>AP_DIAGMGR_CODE</td>
+</tr>
+<tr class="odd">
+<td>ProcessDiagSts</td>
+<td>AP_DIAGMGR_CODE</td>
+</tr>
+<tr class="even">
+<td>SetBits_u8</td>
+<td>AP_DIAGMGR_CODE</td>
+</tr>
+<tr class="odd">
+<td>ClrBits_u8</td>
+<td>AP_DIAGMGR_CODE</td>
+</tr>
+<tr class="even">
+<td>ReadBit_u8</td>
+<td>AP_DIAGMGR_CODE</td>
+</tr>
+<tr class="odd">
+<td>ReadBit_u32</td>
+<td>AP_DIAGMGR_CODE</td>
+</tr>
+<tr class="even">
+<td>SetBits_u16</td>
+<td>AP_DIAGMGR_CODE</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>(Item #1)</p></li>
+</ol>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 61%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial MDD version</td>
+<td>14-Feb-13</td>
+<td>VK</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>MDD catch up to match latest SRC Ver 4</td>
+<td>24- June- 13</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Updates/cleanup while adding latch active diagnostic</td>
+<td>5-OCT-13</td>
+<td>Jared</td>
+</tr>
+</tbody>
+</table>

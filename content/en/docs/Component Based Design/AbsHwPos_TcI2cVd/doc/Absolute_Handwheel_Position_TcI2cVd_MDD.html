@@ -1,0 +1,1194 @@
+---
+title: Absolute_Handwheel_Position_TcI2cVd_MDD
+linkTitle: Absolute_Handwheel_Position_TcI2cVd_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module----absolute-handwheel-position-tci2cvd">Module -- Absolute Handwheel Position TcI2cVd</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>The Absolute Hand Wheel Position Function is responsible for determining the steering wheel hand wheel position using either a Turns Counter estimate of motor position during key off and sensorless learnt internal hw position (for eg. Sensorless Vehicle Dynamics, Stored Last Position, Travel Exclusuin, etc) or I2C digital hw position sensor and sensorless learnt internal hw position.</p>
+<h1 id="figures">Figures</h1>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:3.30069in;height:2.82222in" /></p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">CumMechMtrPosCRF_Deg_f32</td>
+<td>HandwheelPosition_HwDeg_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">AlignedCumMechMtrPosCRF_Deg_f32</td>
+<td>HandwheelAuthority_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">TurnsCntrValidity_Cnt_u08</td>
+<td>RelHwPos_HwDeg_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">I2CHwAbsPos_HwDeg_f32</td>
+<td>HwPosSource_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2">I2CHwAbsPosValid_Cnt_lgc</td>
+<td>SrlComHwPos_HwDeg_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">SensorlessHwPos_HwDeg_f32</td>
+<td>SrlComHwPosStatus_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2">SensorlessAuthority_Uls_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">ComplError_HwDeg_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">DiagStatusHwPosReducedPerf_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">ManufMode_Cnt_enum</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AbsHwPos_HwPosState_Cnt_M_enum</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_HandwheelPositionLPF_M_str.SV_Uls_f32</td>
+<td>Single precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_HandwheelPositionLPF_M_str.K_Uls_f32</td>
+<td>Single precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_SrlComHwPosStatus_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_VehCntrValid_Cnt_M_lgc</td>
+<td>n/a</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_VehCntrOfstLearn_Cnt_M_lgc</td>
+<td>n/a</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_HwAtoMtrAFltAcc_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_HwPosSource_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_VehCntrOffset_HwDeg_M_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_AlignedHwPos_HwDeg_M_f32</td>
+<td>Single precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_AlignedCumMtrPos_HwDeg_M_f32</td>
+<td>Single precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_PrevHandwheelPosition_HwDeg_M_f32</td>
+<td>Single precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_HandwheelAuthority_Uls_M_f32</td>
+<td>Single precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_TempHwPos_HwDeg_M_f32</td>
+<td>Single precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_SrlComHwPos_HwDeg_M_f32</td>
+<td>Single precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_TargetHwAuthority_Uls_M_f32</td>
+<td>Single precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_RelHwPos_HwDeg_M_f32</td>
+<td>Single precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_MtrToHwAOfstLearnt_Cnt_M_lgc</td>
+<td>n/a</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_MtrtoHwAOfst_HwDeg_M_f32</td>
+<td>Single precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>ABSHWPOS_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 39%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HwPosStateType</td>
+<td><p>HWPOS_STATE_INIT</p>
+<p>HWPOS_STATE_SENSORINVALID</p>
+<p>HWPOS_STATE_SENSORVALID</p>
+<p>HWPOS_STATE_INPUTINVALID</p></td>
+<td><p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p></td>
+<td><p>8</p>
+<p>4</p>
+<p>2</p>
+<p>14</p></td>
+<td><p>8</p>
+<p>4</p>
+<p>2</p>
+<p>14</p></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_GearRatio_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_UseTurnsCntr_Cnt_lgc</td>
+</tr>
+<tr class="odd">
+<td>k_HwPosAuthorityStep_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_HwPosOutputLPFCoeffFc_Hz_f32</td>
+</tr>
+<tr class="odd">
+<td>k_HwPosOutputLPFError_HwDeg_f32</td>
+</tr>
+<tr class="even">
+<td>k_TurnsCntrAuthority_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_I2CHwAuthority_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_VdAuthority_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MaxVehCntrOffDiff_HwDeg_f32</td>
+</tr>
+<tr class="even">
+<td>k_KinmIntDiagMaxRackLimit_HwDeg_f32</td>
+</tr>
+<tr class="odd">
+<td>k_HWAtoMtrADiffLimit_HwDeg_f32</td>
+</tr>
+<tr class="even">
+<td>k_HwAtoMtrAError_str</td>
+</tr>
+<tr class="odd">
+<td>k_VehCntrOffValidLimit_HwDeg_f32</td>
+</tr>
+<tr class="even">
+<td>k_MinSensorlessAuthority_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MaxSensorlessAuthority_Uls_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 26%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_HWPOSMAX_HWDEG_F32</td>
+<td>Single Precision Float</td>
+<td>HwDeg</td>
+<td>1600</td>
+</tr>
+<tr class="even">
+<td>D_RELHWPOSMAX_HWDEG_F32</td>
+<td>Single Precision Float</td>
+<td>HwDeg</td>
+<td>3200</td>
+</tr>
+<tr class="odd">
+<td>D_INVALIDOFFSET_HWDEG_F32</td>
+<td>Single Precision Float</td>
+<td>HwDeg</td>
+<td>65535</td>
+</tr>
+<tr class="even">
+<td>D_NOAUTHORITY_ULS_F32</td>
+<td>Single Precision Float</td>
+<td>Uls</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>D_MAXAUTHORITY_ULS_F32</td>
+<td>Single Precision Float</td>
+<td>Uls</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>D_SRCUNKNOWN_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>65534</td>
+</tr>
+<tr class="odd">
+<td>D_SRCTURNSCNTR_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>D_SRCI2CSENSOR_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>D_SRCSENSORLESS_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>D_HWPOSSTATUSFAULT_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0xFFFF</td>
+</tr>
+<tr class="odd">
+<td>D_HWPOSSTATUSUNKNOWN_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0xFFFE</td>
+</tr>
+<tr class="even">
+<td>D_HWPOSSTATUSVALID_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x5555</td>
+</tr>
+<tr class="odd">
+<td>D_TCVCOMPUTING_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>D_TCVVALID_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>100</td>
+</tr>
+<tr class="odd">
+<td>D_TCVINVALID_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>255</td>
+</tr>
+<tr class="even">
+<td>D_TRIMPERFORMED_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0xAAAA</td>
+</tr>
+<tr class="odd">
+<td>D_TRIMNOTPERFORMED_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_2MS_SEC_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>This is for lookup tables (arrays) with fixed values, same name as other tables.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>LPF_KUpdate_f32_m</p></li>
+<li><p>LPF_OpUpdate_f32_m</p></li>
+<li><p>Abs_f32_m</p></li>
+<li><p>Limit_m</p></li>
+<li><p>DiagPStep_m</p></li>
+<li><p>DiagNStep_m</p></li>
+<li><p>DiagFailed_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>Rte_Pim_EOLVehCntrOffset()-&gt;EOLVehCntrOffset_HwDeg_f32</p></li>
+<li><p>Rte_Pim_EOLVehCntrOffset()-&gt;EOLHwPosTrimPerformed_Cnt_u16</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="trim-not-performed-diagnostic">Trim Not Performed Diagnostic</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 15%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>TrimNotPerfDiag</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>ManufMode_Cnt_T_enum</td>
+<td>ManufModeType</td>
+<td>0</td>
+<td>2</td>
+<td>n/a</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>n/a</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rte_InitValue_AlignedCumMechMtrPosCRF_Deg_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_ComplError_HwDeg_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_CumMechMtrPosCRF_Deg_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_DiagStatusHwPosReducedPerf_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_HandwheelAuthority_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_HandwheelPosition_HwDeg_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_HwPosSource_Cnt_u16</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_I2CHwAbsPos_HwDeg_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_I2CHwAbsPosValid_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_ManufMode_Cnt_enum</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_RelHwPos_HwDeg_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_SrlComHwPos_HwDeg_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_SrlComHwPosStatus_Cnt_u16</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_TurnsCntrValidity_Cnt_u08</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_ SensorlessAuthority _Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_ SensorlessHwPos _HwDeg_f32</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-abshwpos_init">Init: AbsHwPos_Init</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>ManufMode_Cnt_T_enum = Rte_IRead_AbsHwPos_Init1_ManufMode_Cnt_enum()</p>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_IWrite_AbsHwPos_Init1_SrlComHwPosStatus_Cnt_u16 (AbsHwPos_SrlComHwPosStatus_Cnt_M_u16)</p>
+<p>Rte_IWrite_AbsHwPos_Init1_HwPosSource_Cnt_u16 (AbsHwPos_HwPosSource_Cnt_M_u16)</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-abshwpos_per1">Per: AbsHwPos_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>AbsHwPos_Per1 function does the RelHwPos output, and the remaining functionality that runs at 2ms is done in AbsHwPos_Per2. The 2ms is split into two periodics so that the Vehicle Dynamics 2ms periodic can be called in between them, since the two components each use output(s) from the other.</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_AbsHwPos_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>AlignedCumMechMtrPosCRF_Deg_T_f32 = Rte_IRead_AbsHwPos_Per1_AlignedCumMechMtrPosCRF_Deg_f32()</p>
+<p>ComplError_HwDeg_T_f32 = Rte_IRead_AbsHwPos_Per1_ComplError_HwDeg_f32()</p>
+<p>CumMechMtrPosCRF_Deg_T_f32 = Rte_IRead_AbsHwPos_Per1_CumMechMtrPosCRF_Deg_f32()</p>
+<h4 id="scale-and-compensate-mtr-pos-signals-used-in-calculation">Scale and Compensate Mtr Pos Signals used in Calculation</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_IWrite_AbsHwPos_Per1_RelHwPos_HwDeg_f32(RelHwPosLimited_HwDeg_T_f32)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_AbsHwPos_Per1_CP1_CheckpointReached()</p>
+<h3 id="per-abshwpos_per2">Per: AbsHwPos_Per2</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>Initial implementation used SetRamBlockStatus in place of WriteBlock to minimize writes to EEPROM, however, Aparna made it clear that all writes to EOLVehCntrOffset_HwDeg_f32 must happen immediately and not at power down thus necessitating the WriteBlock call.</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>Rte_Call_AbsHwPos_Per2_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-2">Store Module Inputs to Local copies</h4>
+<p>DiagStatusHwPosReducedPerf_Cnt_T_lgc = Rte_IRead_AbsHwPos_Per2_DiagStatusHwPosReducedPerf_Cnt_lgc()</p>
+<p>I2CHwAbsPosValid_Cnt_T_lgc = Rte_IRead_AbsHwPos_Per2_I2CHwAbsPosValid_Cnt_lgc()</p>
+<p>I2CHwAbsPos_HwDeg_T_f32 = Rte_IRead_AbsHwPos_Per2_I2CHwAbsPos_HwDeg_f32()</p>
+<p>TurnsCntrValidity_Cnt_T_u08 = Rte_IRead_AbsHwPos_Per2_TurnsCntrValidity_Cnt_u08()</p>
+<p>SnsrlessAuthority_Uls_T_f32 = Rte_IRead_AbsHwPos_Per2_SensorlessAuthority_Uls_f32()</p>
+<p>SnsrlessHwPos_HwDeg_T_f32 = Rte_IRead_AbsHwPos_Per2_SensorlessHwPos_HwDeg_f32()</p>
+<p>ManufMode_Cnt_T_enum = Rte_IRead_AbsHwPos_Per2_ManufMode_Cnt_enum()</p>
+<h4 id="determine-which-state-sub-function-to-use">Determine Which State Sub-function to Use</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h4 id="input-invalid-state">Input Invalid State</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<h4 id="init-state">Init State</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<h4 id="sensor-valid-state">Sensor Valid State</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<h4 id="sensor-invalid-state">Sensor Invalid State</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<h4 id="calculate-and-update-vehcntr_offset-in-eeprom">Calculate and Update VehCntr_Offset in EEPROM</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<h4 id="output-smoothing-low-pass-filter">Output Smoothing Low Pass Filter</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-2">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_IWrite_AbsHwPos_Per2_HandwheelAuthority_Uls_f32(HandwheelAuthorityLimited_Uls_T_f32)</p>
+<p>Rte_IWrite_AbsHwPos_Per2_HandwheelPosition_HwDeg_f32(HandwheelPosition_HwDeg_T_f32)</p>
+<p>Rte_IWrite_AbsHwPos_Per2_HwPosSource_Cnt_u16(AbsHwPos_HwPosSource_Cnt_M_u16)</p>
+<p>Rte_IWrite_AbsHwPos_Per2_SrlComHwPosStatus_Cnt_u16(AbsHwPos_SrlComHwPosStatus_Cnt_M_u16)</p>
+<p>Rte_IWrite_AbsHwPos_Per2_SrlComHwPos_HwDeg_f32(SrlComHwPosLimited_HwDeg_T_f32)</p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>Rte_Call_AbsHwPos_Per2_CP1_CheckpointReached()</p>
+<h3 id="per-abshwpos_per3"><br />
+Per: AbsHwPos_Per3</h3>
+<h4 id="design-rationale-3">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-2">Program Flow Start</h4>
+<p>Rte_Call_AbsHwPos_Per3_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-3">Store Module Inputs to Local copies</h4>
+<p>I2CHwAbsPosValid_Cnt_T_lgc = Rte_IRead_AbsHwPos_Per3_I2CHwAbsPosValid_Cnt_lgc()</p>
+<p>I2CHwAbsPos_HwDeg_T_f32 = Rte_IRead_AbsHwPos_Per3_I2CHwAbsPos_HwDeg_f32()</p>
+<h4 id="hwa-to-motor-angle-correlation-diagnostic"> HWA to Motor Angle Correlation Diagnostic</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-3">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-2">Program Flow End</h4>
+<p>Rte_Call_AbsHwPos_Per3_CP1_CheckpointReached()</p>
+<h3 id="per-abshwpos_per4">Per: AbsHwPos_Per4</h3>
+<h4 id="design-rationale-4">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-3">Program Flow Start</h4>
+<p>Rte_Call_AbsHwPos_Per4_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-4">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="kinematic-integrity-diagnostic"> Kinematic Integrity Diagnostic</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-4">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-3">Program Flow End</h4>
+<p>Rte_Call_AbsHwPos_Per4_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions"><br />
+Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions"><br />
+Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions"><br />
+Serial Communication Functions</h2>
+<h3 id="scomm-abshwpos_scom_custclrtrim">SComm: AbsHwPos_SCom_CustClrTrim</h3>
+<h3 class="unnumbered" id="section-1"></h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 15%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>AbsHwPos_SCom_CustClrTrim</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>n/a</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-5">Design Rationale</h4>
+<p>For clarity and to protect against possible changes to MECCounter definition, using ManufMode_Cnt_Enum which is an enumeration value derived from the MECCounter, instead of using MECCounter directly as in the FDD.</p>
+<h4 id="program-flow-start-4">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-5">Store Module Inputs to Local copies</h4>
+<p>Rte_Read_ManufMode_Cnt_enum(&amp;ManufMode_Cnt_T_enum)</p>
+<h4 id="customer-clear-trim-service">Customer Clear Trim Service</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image15.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-5">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-4">Program Flow End</h4>
+<p>None</p>
+<h3 id="scomm-abshwpos_scom_custsettrim">SComm: AbsHwPos_SCom_CustSetTrim</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 15%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>AbsHwPos_SCom_CustSetTrim</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td>Std_ReturnType</td>
+<td>0</td>
+<td>34</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-6">Design Rationale</h4>
+<p>For clarity and to protect against possible changes to MECCounter definition, using ManufMode_Cnt_Enum which is an enumeration value derived from the MECCounter, instead of using MECCounter directly as in the FDD.</p>
+<h4 id="program-flow-start-5">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-6">Store Module Inputs to Local copies</h4>
+<p>RespCode_Cnt_T_u08 = 0</p>
+<p>Rte_Read_ManufMode_Cnt_enum(&amp;ManufMode_Cnt_T_enum)</p>
+<p>Rte_Read_TurnsCntrValidity_Cnt_u08(&amp;TurnsCntrValidity_Cnt_T_u08)</p>
+<h4 id="customer-set-trim-service">Customer Set Trim Service</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image16.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-6">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-5">Program Flow End</h4>
+<p>None</p>
+<h3 id="scomm-abshwpos_scom_nxtcleartrim">SComm: AbsHwPos_SCom_NxtClearTrim</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 15%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>AbsHwPos_SCom_NxtClearTrim</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>n/a</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-7">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-6">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-7">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="nexteer-clear-trim-service"> Nexteer Clear Trim Service</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image17.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-7">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-6">Program Flow End</h4>
+<p>None</p>
+<h3 id="scomm-abshwpos_scom_nxtsettrim">SComm: AbsHwPos_SCom_NxtSetTrim ()</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 15%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>AbsHwPos_SCom_NxtSetTrim</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Offset_HwDeg_T_f32</td>
+<td>Float</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>n/a</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td>Std_ReturnType</td>
+<td>0</td>
+<td>49</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-8">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-7">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-8">Store Module Inputs to Local copies</h4>
+<p>RespCode_Cnt_T_u08 = 0</p>
+<p>Rte_Read_TurnsCntrValidity_Cnt_u08(&amp;TurnsCntrValidity_Cnt_T_u08)</p>
+<h4 id="nexteer-set-trim-service">Nexteer Set Trim Service</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image18.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-8">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-7">Program Flow End</h4>
+<p>None</p>
+<h2 id="section-2"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AbsHwPos_Init1</td>
+<td>On Init</td>
+<td>Cold Init</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_Per1</td>
+<td>2 ms</td>
+<td>All</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_Per2</td>
+<td>2 ms</td>
+<td>All</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_Per3</td>
+<td>4 ms</td>
+<td>All</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_Per4</td>
+<td>10 ms</td>
+<td>All</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AbsHwPos_SCom_CustClrTrim</td>
+<td>EPS_DiagSrvcs_ISO</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_SCom_CustSetTrim</td>
+<td>EPS_DiagSrvcs_ISO</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_SCom_NxtClearTrim</td>
+<td>EPS_DiagSrvcs_ISO</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_SCom_NxtSetTrim</td>
+<td>EPS_DiagSrvcs_ISO</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AbsHwPos_Init1</td>
+<td>RTE_START_SEC_AP_ABSHWPOS_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_Per1</td>
+<td>RTE_START_SEC_AP_ABSHWPOS_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_Per2</td>
+<td>RTE_START_SEC_AP_ABSHWPOS_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_Per3</td>
+<td>RTE_START_SEC_AP_ABSHWPOS_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_Per4</td>
+<td>RTE_START_SEC_AP_ABSHWPOS_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_SCom_CustClrTrim</td>
+<td>RTE_START_SEC_AP_ABSHWPOS_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_SCom_CustSetTrim</td>
+<td>RTE_START_SEC_AP_ABSHWPOS_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>AbsHwPos_SCom_NxtClearTrim</td>
+<td>RTE_START_SEC_AP_ABSHWPOS_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>AbsHwPos_SCom_NxtSetTrim</td>
+<td>RTE_START_SEC_AP_ABSHWPOS_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-4"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-5"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions in GlobalMacro.h are not unit tested</p></li>
+<li><p>Because NVM updates are made from a periodic function, it is possible that the previous write will still be pending when a new write is desired. When this happens, the new NVM write is not performed.</p></li>
+</ol>
+<h1 class="unnumbered" id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 68%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial component creation w/ FDD v002</td>
+<td>21-Jun-13</td>
+<td>Jared</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Updated port interface types to match StdDef</td>
+<td>7-Aug-13</td>
+<td>Jared</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Unit test range corrections</td>
+<td>5-Sep-13</td>
+<td>Jared</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Updated embedded constant values and EOLHwPosTrimPerformed logic to fix anomaly 5641 and 5643. Replaced module level variable ranges with references to Data Dictionary. Added limiting on global outputs. Updated to show that the previous AbsHwPos_Per1 function has now been split into two functions, AbsHwPos_Per1 and AbsHwPos_Per2, which also caused the renaming of AbsHwPos_Per2 and AbsHwPos_Per3 to AbsHwPos_Per3 and AbsHwPos_Per4, respectively.</td>
+<td>22-Sep-13</td>
+<td>KMC</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Updated component diagram to match current component; changed name TurnsCounterValidity to TurnsCntrValidity to match FDD; added Design Rationale regarding use of ManufMode instead of MECCounter; changed names of module level variables to meet naming conventions; updated flowcharts to show checks for NVM writes pending; added note in design limitations about periodic NVM writes; minor flowchart and text corrections; updated “sensor invalid” state logic for fix of anomaly 5864; added periodic and cold init processing of “trim not performed” diagnostic for fix of anomaly 5863.</td>
+<td>25-Nov-13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>A#6439 fix – Change in Section 6.3.2.8 flow chart and 6.3.2.9 flow chart where &lt;FLT_EPSILON hase been replaced by &gt;= FLT_EPSILON in both charts.</td>
+<td>04/17/2014</td>
+<td>LK</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Anomaly Fix – Anom# 6633 – Modified the Flow Chart for “Trim Not Performed Diagnostic”</td>
+<td>05/01/2014</td>
+<td>SB</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>Update NTC 0x75 algorithm per ES-056 v6</td>
+<td>07/01/2014</td>
+<td>BWL</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>Updated per ES-5G AbsHwPos_TcI2cVd rev 006 FDD - Renamed the inputs VD_HwPos and VD_Authority to Snsrless_HwPos and Snsrless_Authority; Added new calibrations to replace existing calibrations shared with SF-42 and make them ES 5G specific – k_Min_SensorlessAuthority and k_Max_SensorlessAuthority</td>
+<td>08/22/2014</td>
+<td>SB</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>Unit Testing Finding Fixes</td>
+<td>09/01/2014</td>
+<td>KPIT-PM</td>
+</tr>
+</tbody>
+</table>

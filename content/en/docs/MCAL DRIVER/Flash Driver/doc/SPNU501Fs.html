@@ -1,0 +1,2543 @@
+---
+title: SPNU501Fs
+linkTitle: SPNU501Fs
+weight: 17
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><b>F021&#160;Flash&#160;API</b><br/>
+<b>Version&#160;2.01.00</b><br/>
+<b>Reference&#160;Guide</b><br/>
+Literature&#160;Number:&#160;SPNU501F<br/>
+December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<hr/>
+<a name=2></a><i><b>Contents</b></i><br/>
+<b>1</b><br/>
+<b>Introduction</b>.........................................................................................................................&#160;<a href="SPNU501Fs.html#4"><b>4</b></a><br/>
+1.1<br/>
+Reference&#160;Material&#160;.......................................................................................................&#160;<a href="SPNU501Fs.html#4">4</a><br/>
+1.2<br/>
+Function&#160;Listing&#160;Format&#160;.................................................................................................&#160;<a href="SPNU501Fs.html#4">4</a><br/>
+<b>2</b><br/>
+<b>F021&#160;Flash&#160;API&#160;Overview&#160;</b>......................................................................................................&#160;<a href="SPNU501Fs.html#6"><b>6</b></a><br/>
+2.1<br/>
+Introduction................................................................................................................&#160;<a href="SPNU501Fs.html#6">6</a><br/>
+2.2<br/>
+API&#160;Overview&#160;.............................................................................................................&#160;<a href="SPNU501Fs.html#6">6</a><br/>
+2.3<br/>
+Using&#160;API..................................................................................................................&#160;<a href="SPNU501Fs.html#7">7</a><br/>
+<b>3</b><br/>
+<b>API&#160;Functions&#160;</b>....................................................................................................................&#160;<a href="SPNU501Fs.html#10"><b>10</b></a><br/>
+3.1<br/>
+Flash&#160;State&#160;Machine&#160;Functions&#160;.......................................................................................&#160;<a href="SPNU501Fs.html#10">10</a><br/>
+3.2<br/>
+Asynchronous&#160;Functions&#160;..............................................................................................&#160;<a href="SPNU501Fs.html#16">16</a><br/>
+3.3<br/>
+Program&#160;Functions&#160;.....................................................................................................&#160;<a href="SPNU501Fs.html#18">18</a><br/>
+3.4<br/>
+Read&#160;Functions&#160;.........................................................................................................&#160;<a href="SPNU501Fs.html#20">20</a><br/>
+3.5<br/>
+Informational&#160;Functions&#160;................................................................................................&#160;<a href="SPNU501Fs.html#29">29</a><br/>
+3.6<br/>
+Utility&#160;Functions&#160;.........................................................................................................&#160;<a href="SPNU501Fs.html#32">32</a><br/>
+3.7<br/>
+User&#160;Definable&#160;Functions..............................................................................................&#160;<a href="SPNU501Fs.html#33">33</a><br/>
+<b>4</b><br/>
+<b>API&#160;Macros&#160;</b>........................................................................................................................&#160;<a href="SPNU501Fs.html#34"><b>34</b></a><br/>
+4.1<br/>
+FAPI_CHECK_FSM_READY_BUSY&#160;................................................................................&#160;<a href="SPNU501Fs.html#34">34</a><br/>
+4.2<br/>
+FAPI_CLEAR_FSM_DONE_EVENT.................................................................................&#160;<a href="SPNU501Fs.html#34">34</a><br/>
+4.3<br/>
+FAPI_GET_FSM_STATUS&#160;............................................................................................&#160;<a href="SPNU501Fs.html#35">35</a><br/>
+4.4<br/>
+FAPI_SUSPEND_FSM&#160;................................................................................................&#160;<a href="SPNU501Fs.html#36">36</a><br/>
+4.5<br/>
+FAPI_WRITE_EWAIT&#160;..................................................................................................&#160;<a href="SPNU501Fs.html#37">37</a><br/>
+4.6<br/>
+FAPI_WRITE_LOCKED_FSM_REGISTER&#160;.........................................................................&#160;<a href="SPNU501Fs.html#37">37</a><br/>
+<b>5</b><br/>
+<b>Recommended&#160;FSM&#160;Flows&#160;</b>..................................................................................................&#160;<a href="SPNU501Fs.html#37"><b>37</b></a><br/>
+5.1<br/>
+New&#160;Devices&#160;From&#160;Factory&#160;...........................................................................................&#160;<a href="SPNU501Fs.html#37">37</a><br/>
+5.2<br/>
+Recommended&#160;Erase&#160;Flows&#160;..........................................................................................&#160;<a href="SPNU501Fs.html#38">38</a><br/>
+5.3<br/>
+Recommended&#160;Program&#160;Flow&#160;........................................................................................&#160;<a href="SPNU501Fs.html#40">40</a><br/>
+<b>Appendix&#160;A&#160;Flash&#160;State&#160;Machine&#160;Commands</b>.................................................................................&#160;<a href="SPNU501Fs.html#41"><b>41</b></a><br/>
+A.1<br/>
+Flash&#160;State&#160;Machine&#160;Commands....................................................................................&#160;<a href="SPNU501Fs.html#41">41</a><br/>
+<b>Appendix&#160;B&#160;Typedefs&#160;and&#160;Enumerations</b>.......................................................................................&#160;<a href="SPNU501Fs.html#42"><b>42</b></a><br/>
+B.1<br/>
+Type&#160;Definitions&#160;.......................................................................................................&#160;<a href="SPNU501Fs.html#42">42</a><br/>
+B.2<br/>
+Enumerations&#160;..........................................................................................................&#160;<a href="SPNU501Fs.html#42">42</a><br/>
+<b>Appendix&#160;C&#160;Flash&#160;Validation&#160;Procedure&#160;</b>........................................................................................&#160;<a href="SPNU501Fs.html#47"><b>47</b></a><br/>
+<b>Appendix&#160;D&#160;Parallel&#160;Signature&#160;Analysis&#160;(PSA)&#160;algorithm</b>.................................................................&#160;<a href="SPNU501Fs.html#48"><b>48</b></a><br/>
+<b>Appendix&#160;E&#160;Revision&#160;History&#160;</b>.......................................................................................................&#160;<a href="SPNU501Fs.html#49"><b>49</b></a><br/>
+2<br/>
+<i>Table&#160;of&#160;Contents</i><br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=3></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<b>List&#160;of&#160;Figures</b><br/>
+1<br/>
+FMSTAT&#160;Register&#160;..........................................................................................................&#160;<a href="SPNU501Fs.html#35">35</a><br/>
+2<br/>
+Recommended&#160;Sector&#160;Erase&#160;Flow.......................................................................................&#160;<a href="SPNU501Fs.html#38">38</a><br/>
+3<br/>
+Recommended&#160;Bank&#160;Erase&#160;Flow&#160;........................................................................................&#160;<a href="SPNU501Fs.html#39">39</a><br/>
+4<br/>
+Recommended&#160;Program&#160;Flow&#160;............................................................................................&#160;<a href="SPNU501Fs.html#40">40</a><br/>
+<b>List&#160;of&#160;Tables</b><br/>
+1<br/>
+Summary&#160;of&#160;Flash&#160;State&#160;Machine&#160;Functions.............................................................................&#160;<a href="SPNU501Fs.html#6">6</a><br/>
+2<br/>
+Summary&#160;of&#160;Asynchronous&#160;Command&#160;Functions&#160;.......................................................................&#160;<a href="SPNU501Fs.html#6">6</a><br/>
+3<br/>
+Summary&#160;of&#160;Program&#160;Functions&#160;...........................................................................................&#160;<a href="SPNU501Fs.html#6">6</a><br/>
+4<br/>
+Summary&#160;of&#160;Read&#160;Functions&#160;...............................................................................................&#160;<a href="SPNU501Fs.html#7">7</a><br/>
+5<br/>
+Summary&#160;of&#160;Information&#160;Functions&#160;........................................................................................&#160;<a href="SPNU501Fs.html#7">7</a><br/>
+6<br/>
+Summary&#160;of&#160;User&#160;Defined&#160;Functions......................................................................................&#160;<a href="SPNU501Fs.html#7">7</a><br/>
+7<br/>
+Summary&#160;of&#160;Utility&#160;Functions...............................................................................................&#160;<a href="SPNU501Fs.html#7">7</a><br/>
+8<br/>
+FMSTAT&#160;Register&#160;Field&#160;Descriptions&#160;....................................................................................&#160;<a href="SPNU501Fs.html#35">35</a><br/>
+9<br/>
+Flash&#160;State&#160;Machine&#160;Commands&#160;........................................................................................&#160;<a href="SPNU501Fs.html#41">41</a><br/>
+10<br/>
+API&#160;Version&#160;History&#160;........................................................................................................&#160;<a href="SPNU501Fs.html#49">49</a><br/>
+11<br/>
+Document&#160;Revision&#160;History&#160;...............................................................................................&#160;<a href="SPNU501Fs.html#50">50</a><br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<i>List&#160;of&#160;Figures</i><br/>
+3<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=4></a><i>Reference&#160;Guide</i><br/>
+<i>SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014</i><br/>
+<b>1</b><br/>
+<b>Introduction</b><br/>
+<b>Background</b><br/>
+This&#160;reference&#160;guide&#160;provides&#160;a&#160;detailed&#160;description&#160;of&#160;Texas&#160;Instruments'&#160;F021&#160;Flash&#160;API&#160;functions&#160;that<br/>can&#160;be&#160;used&#160;to&#160;erase,&#160;program&#160;and&#160;verify&#160;F021&#160;Flash&#160;on&#160;TI&#160;devices.<br/>
+<i><b>1.1</b></i><br/>
+<i><b>Reference&#160;Material</b></i><br/>
+Use&#160;this&#160;guide&#160;in&#160;conjunction&#160;with&#160;the&#160;<i>F021&#160;Flash&#160;Module&#160;</i>chapter&#160;in&#160;the&#160;device-specific&#160;technical<br/>reference&#160;manual&#160;and&#160;data&#160;sheet&#160;that&#160;is&#160;being&#160;used.&#160;For&#160;additional&#160;options&#160;for&#160;programming&#160;and&#160;erasing<br/>the&#160;Flash,&#160;see&#160;the&#160;<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage&#160;</i><a href="http://www.ti.com/lit/pdf/SPNA148">(SPNA148</a>).<br/>
+<i><b>1.2</b></i><br/>
+<i><b>Function&#160;Listing&#160;Format</b></i><br/>
+This&#160;is&#160;the&#160;general&#160;format&#160;of&#160;an&#160;entry&#160;for&#160;a&#160;function,&#160;compiler&#160;intrinsic,&#160;or&#160;macro.<br/>
+A&#160;short&#160;description&#160;of&#160;what&#160;function&#160;<b>function_name()&#160;</b>does.<br/>
+<b>Synopsis</b><br/>
+Provides&#160;a&#160;prototype&#160;for&#160;function&#160;<b>function_name()</b>.<br/>
+&lt;return_type&gt;&#160;function_name(<br/>
+&lt;type_1&gt;&#160;parameter_1,<br/>
+&lt;type_2&gt;&#160;parameter_2,<br/>
+&lt;type_n&gt;&#160;parameter_n<br/>
+)<br/>
+<b>Parameters</b><br/>
+<i>parameter_1&#160;[in]</i><br/>
+Pointer&#160;to&#160;x<br/>
+<i>parameter_2&#160;[out]</i><br/>
+Handle&#160;for&#160;y<br/>
+<i>parameter_n&#160;[in/out]</i><br/>
+Pointer&#160;to&#160;z<br/>
+Parameter&#160;passing&#160;is&#160;categorized&#160;as&#160;follows:<br/>
+•<br/>
+<i>In&#160;</i>—&#160;Means&#160;the&#160;function&#160;uses&#160;one&#160;or&#160;more&#160;values&#160;in&#160;the&#160;parameter&#160;that&#160;you&#160;give&#160;it&#160;without&#160;storing&#160;any<br/>changes.<br/>
+•<br/>
+<i>Out&#160;</i>—&#160;Means&#160;the&#160;function&#160;saves&#160;one&#160;or&#160;more&#160;of&#160;the&#160;values&#160;in&#160;the&#160;parameter&#160;that&#160;you&#160;give&#160;it.&#160;You&#160;can<br/>examine&#160;the&#160;saved&#160;values&#160;to&#160;find&#160;out&#160;useful&#160;information&#160;about&#160;your&#160;application.<br/>
+•<br/>
+<i>In/out&#160;</i>—&#160;Means&#160;the&#160;function&#160;changes&#160;one&#160;or&#160;more&#160;of&#160;the&#160;values&#160;in&#160;the&#160;parameter&#160;that&#160;you&#160;give&#160;it&#160;and<br/>saves&#160;the&#160;result.&#160;You&#160;can&#160;examine&#160;the&#160;saved&#160;values&#160;to&#160;find&#160;out&#160;useful&#160;information&#160;about&#160;your<br/>application.<br/>
+<b>Description</b><br/>
+Describes&#160;the&#160;function&#160;<i>function_name()</i>.&#160;This&#160;section&#160;also&#160;describes&#160;any&#160;special&#160;characteristics&#160;or<br/>restrictions&#160;that&#160;might&#160;apply:<br/>
+•<br/>
+Function&#160;blocks&#160;or&#160;might&#160;block&#160;under&#160;certain&#160;conditions<br/>
+•<br/>
+Function&#160;has&#160;pre-conditions&#160;that&#160;might&#160;not&#160;be&#160;obvious<br/>
+•<br/>
+Function&#160;has&#160;restrictions&#160;or&#160;special&#160;behavior<br/>
+All&#160;trademarks&#160;are&#160;the&#160;property&#160;of&#160;their&#160;respective&#160;owners.<br/>
+4<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=5></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Introduction</i><br/>
+<b>Return&#160;Value</b><br/>
+Specifies&#160;any&#160;value&#160;or&#160;values&#160;returned&#160;by&#160;function&#160;<i>function_name()</i>.<br/>
+<b>See&#160;Also</b><br/>
+Lists&#160;other&#160;functions&#160;or&#160;data&#160;types&#160;related&#160;to&#160;function&#160;<i>function_name()</i>.<br/>
+<b>Example</b><br/>
+Provides&#160;an&#160;example&#160;(or&#160;a&#160;reference&#160;to&#160;an&#160;example)&#160;that&#160;illustrates&#160;the&#160;use&#160;of&#160;function&#160;<i>function_name()</i>.<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+5<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=6></a><i>F021&#160;Flash&#160;API&#160;Overview</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>2</b><br/>
+<b>F021&#160;Flash&#160;API&#160;Overview</b><br/>
+<i><b>2.1</b></i><br/>
+<i><b>Introduction</b></i><br/>
+The&#160;F021&#160;Flash&#160;API&#160;is&#160;a&#160;library&#160;of&#160;routines&#160;that&#160;when&#160;called&#160;with&#160;the&#160;proper&#160;parameters&#160;in&#160;the&#160;proper<br/>sequence,&#160;erases,&#160;programs,&#160;or&#160;verifies&#160;Flash&#160;memory&#160;on&#160;Texas&#160;Instruments&#160;microcontrollers&#160;using&#160;the<br/>F021&#160;(65nm)&#160;process.&#160;On&#160;ARM&#160;Cortex&#160;devices,&#160;these&#160;routines&#160;must&#160;be&#160;run&#160;in&#160;a&#160;<i>privileged&#160;mode&#160;</i>(a&#160;mode<br/>other&#160;than&#160;user)&#160;to&#160;allow&#160;access&#160;to&#160;the&#160;Flash&#160;memory&#160;controller&#160;registers.&#160;The&#160;API&#160;verifies&#160;for&#160;the&#160;selected<br/>bank,&#160;that&#160;the&#160;appropriate&#160;RWAIT&#160;or&#160;EWAIT&#160;value&#160;is&#160;set&#160;for&#160;the&#160;specified&#160;system&#160;frequency.<br/>
+<i><b>2.2</b></i><br/>
+<i><b>API&#160;Overview</b></i><br/>
+<b>Table&#160;1.&#160;Summary&#160;of&#160;Flash&#160;State&#160;Machine&#160;Functions</b><br/>
+<b>API&#160;Function</b><br/>
+<b>Description</b><br/>
+Fapi_disableAutoEccCalculation()(1)<br/>
+Disables&#160;auto&#160;generation&#160;of&#160;ECC&#160;when&#160;data&#160;is&#160;written&#160;into&#160;an&#160;FWPWRITEx<br/>register.<br/>
+Fapi_disableBanksForOtpWrite()<br/>
+Disables&#160;all&#160;banks&#160;from&#160;programming&#160;customer&#160;OTP<br/>
+Fapi_disableFsmDoneEvent()<br/>
+Disables&#160;the&#160;generation&#160;of&#160;an&#160;FSM_Done&#160;event&#160;at&#160;the&#160;end&#160;of&#160;a&#160;program&#160;or&#160;erase<br/>operation.<br/>
+Fapi_enableAutoEccCalculation()(1)<br/>
+Enables&#160;auto&#160;generation&#160;of&#160;ECC&#160;when&#160;data&#160;is&#160;written&#160;into&#160;an&#160;FWPWRITEx&#160;register.<br/>
+Fapi_enableBanksForOtpWrite()<br/>
+Enables&#160;banks&#160;to&#160;allow&#160;programming&#160;of&#160;customer&#160;OTP<br/>
+Fapi_enableEepromBankSectors()<br/>
+Enables&#160;the&#160;sectors&#160;in&#160;EEPROM&#160;bank&#160;for&#160;program&#160;and&#160;erase&#160;operations<br/>
+Fapi_enableFsmDoneEvent()<br/>
+Enables&#160;the&#160;generation&#160;of&#160;an&#160;FSM_Done&#160;event&#160;at&#160;the&#160;end&#160;of&#160;a&#160;program&#160;or&#160;erase<br/>operation.<br/>
+Fapi_enableMainBankSectors()<br/>
+Enables&#160;the&#160;sectors&#160;in&#160;Main&#160;banks&#160;for&#160;program&#160;and&#160;erase&#160;operations<br/>
+Fapi_initializeFlashBanks()<br/>
+Required&#160;Bank&#160;initialization&#160;before&#160;any&#160;erase,&#160;program,&#160;or&#160;verify&#160;API&#160;function.<br/>
+Fapi_isAddressEcc()<br/>
+Determines&#160;if&#160;address&#160;falls&#160;in&#160;Flash&#160;memory&#160;controller&#160;ECC&#160;ranges<br/>
+Fapi_remapEccAddress()<br/>
+Remaps&#160;an&#160;ECC&#160;address&#160;to&#160;corresponding&#160;main&#160;address<br/>
+Fapi_remapMainAddress()<br/>
+Remaps&#160;an&#160;Main&#160;address&#160;to&#160;corresponding&#160;ECC&#160;address<br/>
+Fapi_setActiveFlashBank()<br/>
+Sets&#160;the&#160;active&#160;bank&#160;for&#160;a&#160;erase&#160;or&#160;program&#160;command<br/>
+(1)<br/>
+This&#160;function&#160;is&#160;only&#160;available&#160;on&#160;devices&#160;with&#160;the&#160;L2FMC&#160;Flash&#160;Controller.<br/>
+<b>Table&#160;2.&#160;Summary&#160;of&#160;Asynchronous&#160;Command&#160;Functions</b><br/>
+<b>API&#160;Function</b><br/>
+<b>Description</b><br/>
+Fapi_issueAsyncCommand()<br/>
+Issues&#160;a&#160;command&#160;to&#160;FSM&#160;for&#160;operations&#160;that&#160;do&#160;not&#160;require&#160;an&#160;address<br/>
+Fapi_issueAsyncCommandWithAddress()<br/>
+Issues&#160;a&#160;command&#160;to&#160;FSM&#160;for&#160;operations&#160;that&#160;require&#160;an&#160;address<br/>
+<b>Table&#160;3.&#160;Summary&#160;of&#160;Program&#160;Functions</b><br/>
+<b>API&#160;Function</b><br/>
+<b>Description</b><br/>
+Sets&#160;up&#160;the&#160;required&#160;registers&#160;for&#160;programming&#160;and&#160;issues&#160;the&#160;command&#160;to&#160;the<br/>
+Fapi_issueProgrammingCommand()<br/>
+FSM<br/>
+Fapi_issueProgrammingCommandForEccAdd<br/>
+Remaps&#160;an&#160;ECC&#160;address&#160;to&#160;the&#160;main&#160;data&#160;space&#160;and&#160;then&#160;call<br/>
+ress()<br/>
+Fapi_issueProgrammingCommand()<br/>
+6<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=7></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>F021&#160;Flash&#160;API&#160;Overview</i><br/>
+<b>Table&#160;4.&#160;Summary&#160;of&#160;Read&#160;Functions</b><br/>
+<b>API&#160;Function</b><br/>
+<b>Description</b><br/>
+Fapi_doVerify()<br/>
+Verifies&#160;specified&#160;Flash&#160;memory&#160;range&#160;against&#160;supplied&#160;values<br/>
+Fapi_doVerifyByByte()<br/>
+Verifies&#160;specified&#160;Flash&#160;memory&#160;range&#160;against&#160;supplied&#160;values&#160;by&#160;byte<br/>
+Fapi_doBlankCheck()(1)<br/>
+Verifies&#160;specified&#160;Flash&#160;memory&#160;range&#160;against&#160;erased&#160;state<br/>
+Fapi_doBlankCheckByByte()(1)<br/>
+Verifies&#160;specified&#160;Flash&#160;memory&#160;range&#160;against&#160;erased&#160;state&#160;by&#160;byte<br/>
+Fapi_doMarginRead()<br/>
+Reads&#160;a&#160;specified&#160;Flash&#160;memory&#160;range&#160;using&#160;the&#160;specified&#160;read-margin&#160;mode<br/>
+Fapi_doMarginReadByByte()<br/>
+Reads&#160;a&#160;specified&#160;Flash&#160;memory&#160;range&#160;using&#160;the&#160;specified&#160;read-margin&#160;mode&#160;by<br/>byte<br/>
+Fapi_doPsaVerify()<br/>
+Verifies&#160;a&#160;specified&#160;Flash&#160;memory&#160;range&#160;against&#160;the&#160;supplied&#160;PSA&#160;value<br/>
+Fapi_calculatePsa()<br/>
+Calculates&#160;a&#160;PSA&#160;value&#160;for&#160;the&#160;specified&#160;Flash&#160;memory&#160;range<br/>
+Fapi_flushPipeline()<br/>
+Flushes&#160;the&#160;pipeline&#160;buffers&#160;in&#160;the&#160;Flash&#160;memory&#160;controller<br/>
+(1)<br/>
+On&#160;devices&#160;using&#160;L2FMC&#160;memory&#160;controller,&#160;ECC&#160;may&#160;not&#160;be&#160;disabled&#160;for&#160;Banks&#160;0&#160;-&#160;6&#160;and&#160;therefore&#160;performing&#160;a&#160;blank&#160;check<br/>with&#160;the&#160;Flash&#160;API&#160;functions&#160;are&#160;not&#160;supported.<br/>
+<b>Table&#160;5.&#160;Summary&#160;of&#160;Information&#160;Functions</b><br/>
+<b>API&#160;Function</b><br/>
+<b>Description</b><br/>
+Fapi_getLibraryInfo()<br/>
+Returns&#160;the&#160;information&#160;specific&#160;to&#160;the&#160;compiled&#160;version&#160;of&#160;the&#160;API&#160;library<br/>
+Fapi_getDeviceInfo()<br/>
+Returns&#160;the&#160;information&#160;specific&#160;to&#160;the&#160;device&#160;the&#160;API&#160;library&#160;is&#160;being&#160;executed&#160;on<br/>
+Fapi_getBankSectors()<br/>
+Returns&#160;the&#160;sector&#160;information&#160;for&#160;a&#160;bank<br/>
+<b>Table&#160;6.&#160;Summary&#160;of&#160;User&#160;Defined&#160;Functions</b><br/>
+<b>API&#160;Function</b><br/>
+<b>Description</b><br/>
+Fapi_serviceWatchdogTimer()<br/>
+User&#160;modifiable&#160;function&#160;to&#160;service&#160;watchdog&#160;timer<br/>
+<b>Table&#160;7.&#160;Summary&#160;of&#160;Utility&#160;Functions</b><br/>
+<b>API&#160;Function</b><br/>
+<b>Description</b><br/>
+Fapi_calculateFletcherChecksum()<br/>
+Function&#160;calculates&#160;a&#160;Fletcher&#160;checksum&#160;for&#160;the&#160;memory&#160;range&#160;specified<br/>
+Fapi_calculateEcc()<br/>
+Calculates&#160;the&#160;ECC&#160;for&#160;the&#160;supplied&#160;address&#160;and&#160;64-bit&#160;word<br/>
+Fapi_waitDelay()(1)<br/>
+Creates&#160;a&#160;delay<br/>
+(1)<br/>
+This&#160;function&#160;is&#160;deprecated&#160;and&#160;should&#160;not&#160;be&#160;used&#160;in&#160;new&#160;projects<br/>
+<i><b>2.3</b></i><br/>
+<i><b>Using&#160;API</b></i><br/>
+This&#160;section&#160;describes&#160;how&#160;to&#160;use&#160;the&#160;various&#160;API&#160;functions&#160;and&#160;any&#160;relevant&#160;flows.<br/>
+<b>2.3.1</b><br/>
+<b>Initialization&#160;Flow</b><br/>
+For&#160;proper&#160;initialization&#160;of&#160;the&#160;device&#160;prior&#160;to&#160;any&#160;Flash&#160;operations,&#160;see&#160;the&#160;device-specific&#160;initialization<br/>document.&#160;Additionally,&#160;<i>all&#160;API&#160;functions&#160;require&#160;execution&#160;in&#160;privilege&#160;mode</i>.<br/>
+<i><b>2.3.1.1</b></i><br/>
+<i><b>Before&#160;Using&#160;Any&#160;Erase,&#160;Program&#160;or&#160;Read&#160;Flash&#160;API&#160;Function</b></i><br/>
+Before&#160;using&#160;any&#160;<i>asynchronous&#160;command&#160;<a href="SPNU501Fs.html#6">Table&#160;2&#160;</a></i>,&#160;<i>program&#160;<a href="SPNU501Fs.html#6">Table&#160;3&#160;</a></i>or&#160;<i>read&#160;<a href="SPNU501Fs.html#7">Table&#160;4&#160;</a></i>functions,&#160;the<br/>function&#160;<i>Fapi_initializeFlashBanks()&#160;</i>must&#160;be&#160;called&#160;to&#160;correctly&#160;initialize&#160;the&#160;Flash&#160;Memory&#160;controller.<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+7<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=8></a><i>F021&#160;Flash&#160;API&#160;Overview</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<i><b>2.3.1.2</b></i><br/>
+<i><b>Bank&#160;Setup</b></i><br/>
+Before&#160;performing&#160;a&#160;Flash&#160;erase&#160;or&#160;program&#160;operation&#160;for&#160;the&#160;first&#160;time&#160;or&#160;on&#160;a&#160;different&#160;Bank&#160;than&#160;is&#160;the<br/>current&#160;active&#160;Bank,&#160;the&#160;function&#160;<i>Fapi_setActiveFlashBank()&#160;</i>must&#160;be&#160;called.&#160;Additionally,<br/><i>Fapi_enableMainBankSectors()&#160;</i>(for&#160;banks&#160;0-6)&#160;or&#160;<i>Fapi_enableEepromBankSectors()&#160;</i>(for&#160;bank&#160;7)&#160;must&#160;be<br/>called&#160;before&#160;the&#160;first&#160;sector&#160;erase&#160;or&#160;program&#160;operation&#160;and&#160;always&#160;before&#160;a&#160;bank&#160;erase&#160;operation.<br/>
+<i><b>2.3.1.3</b></i><br/>
+<i><b>On&#160;System&#160;Frequency&#160;Change</b></i><br/>
+If&#160;the&#160;System&#160;operating&#160;frequency&#160;(HCLK)&#160;is&#160;changed&#160;after&#160;the&#160;initial&#160;call&#160;to&#160;<i>Fapi_initializeFlashBanks()</i>,<br/>this&#160;function&#160;along&#160;with&#160;<i>Fapi_setActiveFlashBank()&#160;</i>must&#160;be&#160;called&#160;again&#160;before&#160;any&#160;<i>asynchronous<br/>command&#160;<a href="SPNU501Fs.html#6">Table&#160;2&#160;</a></i>,&#160;<i>program&#160;<a href="SPNU501Fs.html#6">Table&#160;3&#160;</a></i>or&#160;<i>read&#160;<a href="SPNU501Fs.html#7">Table&#160;4&#160;</a></i>function.&#160;This&#160;will&#160;update&#160;the&#160;Flash&#160;Memory<br/>controller&#160;to&#160;the&#160;new&#160;system&#160;frequency.<br/>
+<b>2.3.2</b><br/>
+<b>Flash&#160;Addressing</b><br/>
+For&#160;program&#160;and&#160;erase&#160;operations&#160;on&#160;Bank&#160;0&#160;to&#160;Bank&#160;6,&#160;the&#160;API&#160;and&#160;the&#160;FMC&#160;requires&#160;the&#160;standard&#160;Flash<br/>memory&#160;map&#160;where&#160;Bank&#160;0,&#160;Sector&#160;0&#160;begins&#160;at&#160;address&#160;0.&#160;For&#160;the&#160;read&#160;functions&#160;on&#160;the&#160;Flash&#160;memory&#160;in<br/>Bank&#160;0&#160;to&#160;Bank&#160;6,&#160;they&#160;need&#160;either&#160;current&#160;address&#160;mapping&#160;(Flash&#160;addresses&#160;starting&#160;at&#160;either&#160;0&#160;{Power<br/>On&#160;State}&#160;or&#160;0x0800_0000&#160;{RAM-Flash&#160;swap)&#160;or&#160;mirrored&#160;addresses&#160;starting&#160;at&#160;0x2000_0000.<br/>
+<b>2.3.3</b><br/>
+<b>Building&#160;With&#160;the&#160;API</b><br/>
+The&#160;macro&#160;<i>_L2FMC&#160;</i>must&#160;be&#160;defined&#160;before&#160;the&#160;inclusion&#160;of&#160;the&#160;header&#160;file&#160;F021.h&#160;on&#160;devices&#160;with&#160;the<br/>L2FMC&#160;Flash&#160;controller.<br/>
+#define&#160;_L2FMC<br/>
+<i><b>2.3.3.1</b></i><br/>
+<i><b>Object&#160;Library&#160;Files</b></i><br/>
+All&#160;ARM&#160;Cortex&#160;Flash&#160;API&#160;object&#160;files&#160;are&#160;distributed&#160;in&#160;the&#160;ARM&#160;standard&#160;EABI&#160;ELF&#160;object&#160;format.&#160;For&#160;the<br/>CortexR4/R5&#160;cores,&#160;the&#160;library&#160;files&#160;are&#160;built&#160;using&#160;Thumb2&#160;mode.<br/>
+<i><b>2.3.3.2</b></i><br/>
+<i><b>Distribution&#160;Files</b></i><br/>
+The&#160;following&#160;API&#160;files&#160;are&#160;distributed&#160;with&#160;the&#160;installer:<br/>
+•<br/>
+Library&#160;Files&#160;-&#160;<i>(All&#160;library&#160;files&#160;were&#160;built&#160;using&#160;TI's&#160;code&#160;generation&#160;tools&#160;for&#160;ARM&#160;v5.1.3&#160;with&#160;the<br/>following&#160;compile&#160;options:&#160;-mv7R4&#160;--abi=eabi&#160;--strict_ansi&#160;-g&#160;-O3&#160;--symdebug:dwarf_version=3&#160;--<br/>diag_warning=225&#160;--gen_func_subsections=on&#160;--enum_type=packed&#160;--code_state=16&#160;)</i><br/>
+–<br/>
+F021_API_CortexR4_BE.lib&#160;–&#160;This&#160;is&#160;the&#160;Flash&#160;API&#160;object&#160;file&#160;for&#160;Cortex&#160;R4&#160;Big&#160;Endian&#160;devices.<br/>
+–<br/>
+F021_API_CortexR4_BE_v3D16.lib&#160;–&#160;This&#160;is&#160;the&#160;Flash&#160;API&#160;object&#160;file&#160;for&#160;Cortex&#160;R4&#160;Big&#160;Endian<br/>devices&#160;that&#160;are&#160;using&#160;floating&#160;point&#160;unit.&#160;<i>(In&#160;addition&#160;to&#160;the&#160;general&#160;build&#160;options,&#160;this&#160;library&#160;was<br/>built&#160;using&#160;:&#160;--float_support=VFPv3D16)</i><br/>
+–<br/>
+F021_API_CortexR4_BE_L2FMC.lib&#160;–&#160;This&#160;is&#160;the&#160;Flash&#160;API&#160;object&#160;file&#160;for&#160;Cortex&#160;R4&#160;Big&#160;Endian<br/>devices&#160;using&#160;the&#160;L2FMC&#160;memory&#160;controller.<br/>
+–<br/>
+F021_API_CortexR4_LE.lib&#160;–&#160;This&#160;is&#160;the&#160;Flash&#160;API&#160;object&#160;file&#160;for&#160;Cortex&#160;R4&#160;Little&#160;Endian&#160;devices.<br/><i>(In&#160;addition&#160;to&#160;the&#160;general&#160;build&#160;options,&#160;this&#160;library&#160;was&#160;built&#160;using&#160;:&#160;-me)</i><br/>
+–<br/>
+F021_API_CortexR4_LE_v3D16.lib&#160;–&#160;This&#160;is&#160;the&#160;Flash&#160;API&#160;object&#160;file&#160;for&#160;Cortex&#160;R4&#160;Little&#160;Endian<br/>devices&#160;that&#160;are&#160;using&#160;floating&#160;point&#160;unit.&#160;<i>(In&#160;addition&#160;to&#160;the&#160;general&#160;build&#160;options,&#160;this&#160;library&#160;was<br/>built&#160;using&#160;:&#160;-me&#160;--float_support=VFPv3D16)</i><br/>
+–<br/>
+F021_API_CortexR4_LE_L2FMC.lib&#160;–&#160;This&#160;is&#160;the&#160;Flash&#160;API&#160;object&#160;file&#160;for&#160;Cortex&#160;R4&#160;Little&#160;Endian<br/>devices&#160;using&#160;the&#160;L2FMC&#160;memory&#160;controller.<br/>
+–<br/>
+F021_API_CortexR4_BE_L2FMC_v3D16.lib&#160;–&#160;This&#160;is&#160;the&#160;Flash&#160;API&#160;object&#160;file&#160;for&#160;Cortex&#160;R4/R5&#160;Big<br/>Endian&#160;devices&#160;using&#160;the&#160;L2FMC&#160;memory&#160;controller&#160;and&#160;float&#160;point&#160;unit.&#160;<i>(In&#160;addition&#160;to&#160;the&#160;general<br/>build&#160;options,&#160;this&#160;library&#160;was&#160;built&#160;using&#160;:&#160;--float_support=VFPv3D16)</i><br/>
+–<br/>
+F021_API_CortexR4_LE_L2FMCv3D16.lib&#160;–&#160;This&#160;is&#160;the&#160;Flash&#160;API&#160;object&#160;file&#160;for&#160;Cortex&#160;R4/R5&#160;Little<br/>Endian&#160;devices&#160;using&#160;the&#160;L2FMC&#160;memory&#160;controller&#160;and&#160;float&#160;point&#160;unit.&#160;<i>(In&#160;addition&#160;to&#160;the&#160;general<br/>build&#160;options,&#160;this&#160;library&#160;was&#160;built&#160;using&#160;:&#160;-me&#160;--float_support=VFPv3D16)</i><br/>
+8<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=9></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>F021&#160;Flash&#160;API&#160;Overview</i><br/>
+•<br/>
+Source&#160;Files<br/>
+–<br/>
+Fapi_UserDefinedFunctions.c&#160;–&#160;This&#160;is&#160;file&#160;that&#160;contains&#160;the&#160;user&#160;definable&#160;functions.<br/>
+•<br/>
+Include&#160;Files<br/>
+–<br/>
+F021.h&#160;–&#160;This&#160;is&#160;the&#160;master&#160;include&#160;file&#160;and&#160;includes&#160;all&#160;other&#160;include&#160;files.&#160;This&#160;should&#160;be&#160;the&#160;only<br/>include&#160;file&#160;added&#160;to&#160;the&#160;users's&#160;code.<br/>
+•<br/>
+The&#160;following&#160;include&#160;files&#160;should&#160;not&#160;be&#160;included&#160;directly&#160;by&#160;the&#160;user’s&#160;code,&#160;but&#160;are&#160;listed&#160;here&#160;for<br/>user&#160;reference:<br/>
+–<br/>
+Compatibility.h&#160;-&#160;A&#160;set&#160;of&#160;macros&#160;to&#160;be&#160;used&#160;for&#160;backwards&#160;compatibility&#160;for&#160;1.x.x&#160;versions&#160;of&#160;the<br/>API.<br/>
+–<br/>
+Constants.h&#160;–&#160;Constant&#160;definitions&#160;used&#160;by&#160;the&#160;API.<br/>
+–<br/>
+FapiFunctions.h&#160;-&#160;Contains&#160;all&#160;the&#160;Fapi&#160;function&#160;prototypes.<br/>
+–<br/>
+Helpers.h&#160;–&#160;Set&#160;of&#160;helper&#160;defines<br/>
+–<br/>
+Registers.h&#160;–&#160;Definitions&#160;common&#160;to&#160;all&#160;register&#160;implementations&#160;and&#160;includes&#160;the&#160;appropriate<br/>register&#160;include&#160;file&#160;for&#160;the&#160;selected&#160;device&#160;type.<br/>
+–<br/>
+Registers_FMC_BE.h&#160;–&#160;Big&#160;Endian&#160;Flash&#160;memory&#160;controller&#160;registers&#160;structure&#160;for&#160;TMS570/RM4<br/>devices.<br/>
+–<br/>
+Registers_FMC_LE.h&#160;–&#160;Little&#160;Endian&#160;Flash&#160;memory&#160;controller&#160;registers&#160;structure&#160;for&#160;TMS570/RM4<br/>devices.<br/>
+–<br/>
+Types.h&#160;–&#160;Contains&#160;all&#160;the&#160;enumerations&#160;and&#160;structures&#160;used&#160;by&#160;the&#160;API<br/>
+–<br/>
+Below&#160;are&#160;a&#160;set&#160;of&#160;compiler&#160;specific&#160;support&#160;header&#160;files:<br/>
+•<br/>
+CGT.ARM.h&#160;-&#160;Contains&#160;a&#160;set&#160;of&#160;definitions&#160;used&#160;by&#160;the&#160;ARM&#160;compiler<br/>
+•<br/>
+CGT.CCS.h&#160;-&#160;Contains&#160;a&#160;set&#160;of&#160;definitions&#160;used&#160;by&#160;the&#160;TI&#160;CCS&#160;compiler<br/>
+•<br/>
+CGT.gcc.h&#160;-&#160;Contains&#160;a&#160;set&#160;of&#160;definitions&#160;used&#160;by&#160;the&#160;gcc&#160;compiler<br/>
+•<br/>
+CGT.GHS.h&#160;-&#160;Contains&#160;a&#160;set&#160;of&#160;definitions&#160;used&#160;by&#160;the&#160;GreenHills&#160;compiler<br/>
+•<br/>
+CGT.IAR.h&#160;-&#160;Contains&#160;a&#160;set&#160;of&#160;definitions&#160;used&#160;by&#160;the&#160;IAR&#160;EWARM&#160;compiler<br/>
+•<br/>
+Library&#160;information&#160;files<br/>
+–<br/>
+build_information.txt&#160;-&#160;This&#160;file&#160;contains&#160;function&#160;callgraphs,&#160;worst&#160;case&#160;stack&#160;usage&#160;for&#160;each<br/>function,&#160;function&#160;size&#160;in&#160;bytes&#160;and&#160;MD5&#160;and&#160;SHA1&#160;checksums&#160;for&#160;all&#160;files&#160;delivered&#160;in&#160;the&#160;installer<br/>package.<br/>
+–<br/>
+License_Agreement.pdf&#160;-&#160;This&#160;file&#160;contains&#160;the&#160;libraries&#160;license&#160;agreement.<br/>
+–<br/>
+readme.txt&#160;-&#160;This&#160;file&#160;contains&#160;build&#160;specific&#160;information.<br/>
+–<br/>
+Release_Notes.pdf&#160;-&#160;This&#160;file&#160;contains&#160;release&#160;specific&#160;information.<br/>
+–<br/>
+<a href="http://www.ti.com/lit/pdf/SPNA148">spna148.pdf&#160;</a>-&#160;This&#160;is&#160;the&#160;application&#160;note,&#160;Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage.<br/>
+–<br/>
+spnu501e.pdf&#160;-&#160;This&#160;file.<br/>
+–<br/>
+spnz210.pdf&#160;-&#160;This&#160;is&#160;the&#160;library&#160;errata&#160;document.<br/>
+<b>2.3.4</b><br/>
+<b>Executing&#160;API&#160;From&#160;Flash</b><br/>
+<b>NOTE:</b><br/>
+The&#160;F021&#160;Flash&#160;API&#160;library&#160;cannot&#160;be&#160;executed&#160;from&#160;the&#160;same&#160;bank&#160;as&#160;the&#160;active&#160;bank<br/>
+selected&#160;for&#160;the&#160;API&#160;commands&#160;to&#160;operate&#160;on.&#160;On&#160;single&#160;bank&#160;devices,&#160;the&#160;F021&#160;Flash&#160;API<br/>must&#160;be&#160;executed&#160;from&#160;RAM.<br/>
+<b>2.3.5</b><br/>
+<b>Memory&#160;Regions&#160;Required&#160;to&#160;be&#160;Readable</b><br/>
+<b>NOTE:</b><br/>
+The&#160;F021&#160;Flash&#160;API&#160;library&#160;must&#160;be&#160;able&#160;to&#160;read&#160;from&#160;addresses&#160;0x000,&#160;0x100,&#160;0x200,<br/>
+0x300,&#160;and&#160;the&#160;TI&#160;OTP&#160;region,&#160;0xF008_0000&#160;-&#160;0xF00B_0000,&#160;for&#160;the&#160;API&#160;to&#160;operate<br/>correctly.<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+9<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=10></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>3</b><br/>
+<b>API&#160;Functions</b><br/>
+<i><b>3.1</b></i><br/>
+<i><b>Flash&#160;State&#160;Machine&#160;Functions</b></i><br/>
+<b>3.1.1</b><br/>
+<b>Fapi_disableAutoEccCalculation()</b><br/>
+Disables&#160;auto&#160;generation&#160;of&#160;ECC&#160;on&#160;L2FMC&#160;devices<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_disableAutoEccCalculation(void)<br/>
+<b>Parameters</b><br/>
+None<br/>
+<b>Description</b><br/>
+<b>NOTE:</b><br/>
+This&#160;function&#160;is&#160;only&#160;available&#160;on&#160;devices&#160;using&#160;the&#160;L2FMC&#160;Flash&#160;Memory&#160;Controller.<br/>
+This&#160;function&#160;disables&#160;the&#160;auto&#160;generation&#160;of&#160;ECC&#160;when&#160;data&#160;is&#160;written&#160;to&#160;the&#160;FWPWRITEx&#160;registers&#160;on<br/>L2FMC&#160;devices.&#160;The&#160;use&#160;of&#160;this&#160;function&#160;is&#160;primarily&#160;intended&#160;for&#160;those&#160;users&#160;writing&#160;their&#160;own<br/>programming&#160;functions&#160;based&#160;on&#160;the&#160;application&#160;note,&#160;<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage<br/></i>(<a href="http://www.ti.com/lit/pdf/SPNA148">SPNA148).&#160;</a>The&#160;function&#160;<i>Fapi_issueProgrammingCommand()&#160;</i><a href="SPNU501Fs.html#17">Section&#160;3.2.2&#160;</a>will&#160;automatically&#160;set&#160;this&#160;bit<br/>depending&#160;on&#160;the&#160;programming&#160;mode&#160;used&#160;(enabled&#160;for&#160;Fapi_AutoEccGeneration,&#160;disabled&#160;for&#160;all&#160;other<br/>modes)&#160;and&#160;will&#160;stay&#160;that&#160;way&#160;when&#160;this&#160;function&#160;returns.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<i>Fapi_Status_Success&#160;</i>(success)<br/>
+<b>3.1.2</b><br/>
+<b>Fapi_disableBanksForOtpWrite()</b><br/>
+Disables&#160;ability&#160;to&#160;program&#160;the&#160;Customer&#160;OTP&#160;on&#160;all&#160;Flash&#160;Banks.<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_disableBanksForOtpWrite(void)<br/>
+<b>Parameters</b><br/>
+None<br/>
+<b>Description</b><br/>
+This&#160;function&#160;sets&#160;<i>OTPPRODIS&#160;</i>field&#160;in&#160;the&#160;<i>FBAC&#160;</i>register&#160;to&#160;disable&#160;the&#160;ability&#160;to&#160;program&#160;the&#160;Customer<br/>OTP&#160;for&#160;all&#160;banks.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+10<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=11></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<b>3.1.3</b><br/>
+<b>Fapi_disableFsmDoneEvent()</b><br/>
+Disables&#160;generation&#160;of&#160;the&#160;FSM_DONE&#160;event.<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_disableFsmDoneEvent(void)<br/>
+<b>Parameters</b><br/>
+None<br/>
+<b>Description</b><br/>
+This&#160;function&#160;disables&#160;the&#160;generation&#160;of&#160;the&#160;FSM_DONE&#160;event.&#160;For&#160;more&#160;information&#160;on&#160;the&#160;FSM_DONE<br/>event,&#160;see&#160;the&#160;device-specific&#160;technical&#160;reference&#160;manual.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+<b>3.1.4</b><br/>
+<b>Fapi_enableAutoEccCalculation()</b><br/>
+Enables&#160;auto&#160;generation&#160;of&#160;ECC&#160;on&#160;L2FMC&#160;devices<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_enableAutoEccCalculation(void)<br/>
+<b>Parameters</b><br/>
+None<br/>
+<b>Description</b><br/>
+<b>NOTE:</b><br/>
+This&#160;function&#160;is&#160;only&#160;available&#160;on&#160;devices&#160;using&#160;the&#160;L2FMC&#160;Flash&#160;Memory&#160;Controller.<br/>
+This&#160;function&#160;enables&#160;the&#160;auto&#160;generation&#160;of&#160;ECC&#160;when&#160;data&#160;is&#160;written&#160;to&#160;the&#160;FWPWRITEx&#160;registers&#160;on<br/>L2FMC&#160;devices.&#160;The&#160;use&#160;of&#160;this&#160;function&#160;is&#160;primarily&#160;intended&#160;for&#160;those&#160;users&#160;writing&#160;their&#160;own<br/>programming&#160;functions&#160;based&#160;on&#160;<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage&#160;</i>(<a href="http://www.ti.com/lit/pdf/SPNA148">SPNA148</a>).&#160;The<br/>function&#160;<i>Fapi_issueProgrammingCommand()&#160;</i><a href="SPNU501Fs.html#17">Section&#160;3.2.2&#160;</a>will&#160;automatically&#160;set&#160;this&#160;bit&#160;depending&#160;on&#160;the<br/>programming&#160;mode&#160;used&#160;(enabled&#160;for&#160;Fapi_AutoEccGeneration,&#160;disabled&#160;for&#160;all&#160;other&#160;modes)&#160;and&#160;will&#160;stay<br/>that&#160;way&#160;when&#160;this&#160;function&#160;returns.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+11<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=12></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>3.1.5</b><br/>
+<b>Fapi_enableBanksForOtpWrite()</b><br/>
+Enables&#160;ability&#160;to&#160;program&#160;the&#160;Customer&#160;OTP&#160;region&#160;for&#160;the&#160;specified&#160;banks<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_enableBanksForOtpWrite(<br/>
+uint8_t&#160;<i><b>u8Banks</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>u8Banks&#160;[in]</i><br/>
+Bit&#160;mask&#160;indicating&#160;each&#160;bank&#160;to&#160;be&#160;enabled&#160;for&#160;OTP&#160;programming<br/>
+<b>Description</b><br/>
+This&#160;function&#160;sets&#160;up&#160;the&#160;<i>OTPPRODIS&#160;</i>field&#160;in&#160;the&#160;<i>FBAC&#160;</i>register&#160;to&#160;enable&#160;the&#160;ability&#160;to&#160;program&#160;Customer<br/>OTP&#160;for&#160;the&#160;banks&#160;specified&#160;in&#160;the&#160;bitfield&#160;mask&#160;u8Banks.&#160;The&#160;bitfield&#160;mask&#160;has&#160;Bank&#160;0&#160;as&#160;bit&#160;1&#160;up&#160;to<br/>Bank&#160;7&#160;as&#160;bit&#160;7.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+<b>3.1.6</b><br/>
+<b>Fapi_enableEepromBankSectors()</b><br/>
+Sets&#160;up&#160;the&#160;sectors&#160;available&#160;on&#160;EEPROM&#160;banks&#160;for&#160;erase&#160;and&#160;programming<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_enableEepromBankSectors(<br/>
+uint32_t&#160;<i><b>u32SectorsEnables_31_0</b></i>,<br/>
+uint32_t&#160;<i><b>u32SectorsEnables_63_32</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>u32SectorsEnables_31_0&#160;[in]</i><br/>
+Bit&#160;mask&#160;indicating&#160;which&#160;of&#160;sectors&#160;0-31&#160;are&#160;enabled&#160;for&#160;erase&#160;and<br/>programming.<br/>
+<i>u32SectorsEnables_63_32&#160;[in]</i><br/>
+Bit&#160;mask&#160;indicating&#160;which&#160;of&#160;sectors&#160;32-63&#160;are&#160;enabled&#160;for&#160;erase&#160;and<br/>programming.<br/>
+<b>Description</b><br/>
+This&#160;function&#160;sets&#160;up&#160;the&#160;sectors&#160;in&#160;the&#160;EEPROM&#160;banks&#160;that&#160;are&#160;available&#160;for&#160;erase&#160;and&#160;programming<br/>operations.&#160;This&#160;function&#160;must&#160;be&#160;called&#160;with&#160;the&#160;EEPROM&#160;bank&#160;(Flash&#160;Bank&#160;7)&#160;as&#160;the&#160;active&#160;bank.<br/>Additionally,&#160;the&#160;function&#160;must&#160;be&#160;called&#160;once&#160;before&#160;performing&#160;program&#160;and&#160;sector&#160;erase&#160;operations&#160;and<br/>always&#160;before&#160;a&#160;bank&#160;erase&#160;operation.&#160;Each&#160;bit&#160;refers&#160;to&#160;a&#160;single&#160;sector&#160;with&#160;Sector&#160;0&#160;is&#160;bit&#160;0&#160;in<br/>u32SectorEnables_31_0&#160;to&#160;Sector&#160;31&#160;is&#160;bit&#160;31&#160;in&#160;u32SectorEnables_31_0&#160;and&#160;Sector&#160;32&#160;is&#160;bit&#160;0&#160;in<br/>u32SectorEnables_63_32&#160;to&#160;Sector&#160;63&#160;is&#160;bit&#160;31&#160;in&#160;u32SectorEnables_63_32.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+12<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=13></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<b>3.1.7</b><br/>
+<b>Fapi_enableFsmDoneEvent()</b><br/>
+Enables&#160;the&#160;generation&#160;of&#160;the&#160;FSM_DONE&#160;event<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_enableBanksForOtpWrite(void)<br/>
+<b>Parameters</b><br/>
+None<br/>
+<b>Description</b><br/>
+This&#160;function&#160;enables&#160;the&#160;generation&#160;of&#160;the&#160;FSM_DONE&#160;event.&#160;This&#160;event&#160;is&#160;generated&#160;when&#160;the&#160;FSM<br/>finishes&#160;a&#160;program&#160;or&#160;erase&#160;operation.&#160;The&#160;FSM_DONE&#160;event&#160;flag&#160;resides&#160;in&#160;the&#160;FEDACSTATUS&#160;register<br/>at&#160;bit&#160;24.&#160;For&#160;a&#160;complete&#160;description&#160;of&#160;the&#160;FEDACSTATUS&#160;register&#160;and&#160;FSM_DONE&#160;event,&#160;see&#160;the&#160;<i>F021<br/>Flash&#160;Module&#160;</i>chapter&#160;in&#160;the&#160;device-specific&#160;technical&#160;reference&#160;manual.&#160;This&#160;FSM_DONE&#160;flag&#160;must&#160;be<br/>cleared&#160;by&#160;writing&#160;a&#160;one&#160;to&#160;this&#160;bit&#160;in&#160;order&#160;for&#160;the&#160;event&#160;signal&#160;to&#160;stop.&#160;There&#160;is&#160;a&#160;helper&#160;macro<br/>CLEAR_FSM_DONE_EVENT&#160;defined&#160;to&#160;accomplish&#160;this.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+<b>3.1.8</b><br/>
+<b>Fapi_enableMainBankSectors()</b><br/>
+Sets&#160;up&#160;the&#160;sectors&#160;available&#160;on&#160;non-EEPROM&#160;banks&#160;for&#160;erase&#160;and&#160;programming<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_enableMainBankSectors(<br/>
+uint16_t&#160;<i><b>u16SectorsEnables</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>u16SectorsEnables&#160;[in]</i><br/>
+Bit&#160;mask&#160;indicating&#160;which&#160;of&#160;sectors&#160;0-15&#160;are&#160;enabled&#160;for&#160;erase&#160;and<br/>programming.<br/>
+<b>Description</b><br/>
+This&#160;function&#160;sets&#160;up&#160;the&#160;sectors&#160;in&#160;the&#160;non-EEPROM&#160;banks&#160;that&#160;are&#160;available&#160;for&#160;erase&#160;and&#160;programming<br/>operations.&#160;This&#160;function&#160;must&#160;be&#160;called&#160;with&#160;the&#160;bank&#160;intended&#160;for&#160;the&#160;erase&#160;or&#160;program&#160;operation&#160;as&#160;the<br/>active&#160;bank.&#160;Additionally,&#160;the&#160;function&#160;must&#160;be&#160;called&#160;once&#160;before&#160;performing&#160;program&#160;and&#160;sector&#160;erase<br/>operations&#160;and&#160;always&#160;before&#160;a&#160;bank&#160;erase&#160;operation.&#160;Each&#160;bit&#160;refers&#160;to&#160;a&#160;single&#160;sector&#160;where&#160;Sector&#160;0&#160;is<br/>bit&#160;0&#160;to&#160;Sector&#160;15&#160;is&#160;bit&#160;15&#160;in&#160;u16SectorEnables.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+13<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=14></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>3.1.9</b><br/>
+<b>Fapi_isAddressEcc()</b><br/>
+Indicates&#160;if&#160;an&#160;address&#160;is&#160;in&#160;the&#160;Flash&#160;Memory&#160;Controller&#160;ECC&#160;space<br/>
+<b>Synopsis</b><br/>
+boolean_t&#160;Fapi_isAddressEcc(<br/>
+uint32_t&#160;<i><b>u32Address</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>u32Address&#160;[in]</i><br/>
+Address&#160;to&#160;determine&#160;if&#160;it&#160;lies&#160;in&#160;ECC&#160;address&#160;space<br/>
+<b>Description</b><br/>
+This&#160;function&#160;returns&#160;True&#160;if&#160;the&#160;address&#160;in&#160;u32Address&#160;is&#160;in&#160;ECC&#160;address&#160;space&#160;or&#160;False&#160;if&#160;it&#160;is&#160;not.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>false&#160;</b>(Address&#160;is&#160;not&#160;in&#160;ECC&#160;address&#160;space)<br/>
+•<br/>
+<b>true&#160;</b>(Address&#160;is&#160;in&#160;ECC&#160;address&#160;space)<br/>
+<b>3.1.10</b><br/>
+<b>Fapi_initializeFlashBanks()</b><br/>
+Initializes&#160;the&#160;Flash&#160;Banks&#160;for&#160;API&#160;operations<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_initializeFlashBanks(<br/>
+uint32_t&#160;<i><b>u32HclkFrequency</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>u32HclkFrequency&#160;[in]</i><br/>
+System&#160;clock&#160;frequency&#160;in&#160;MHz.&#160;The&#160;value&#160;should&#160;be&#160;rounded&#160;up&#160;to<br/>the&#160;next&#160;integer.&#160;For&#160;example,&#160;if&#160;the&#160;system&#160;clock&#160;frequency&#160;is<br/>133.3MHz,&#160;then&#160;the&#160;u32HclkFrequency&#160;value&#160;should&#160;be&#160;134.<br/>
+<b>Description</b><br/>
+This&#160;function&#160;is&#160;required&#160;to&#160;initialize&#160;the&#160;Flash&#160;Banks&#160;before&#160;using&#160;any&#160;<i>asynchronous&#160;command&#160;<a href="SPNU501Fs.html#6">Table&#160;2&#160;</a></i>,<br/><i>program&#160;<a href="SPNU501Fs.html#6">Table&#160;3&#160;</a></i>or&#160;<i>read&#160;<a href="SPNU501Fs.html#7">Table&#160;4&#160;</a></i>functions.&#160;This&#160;function&#160;must&#160;also&#160;be&#160;called&#160;if&#160;the&#160;system&#160;frequency&#160;is<br/>changed&#160;and/or&#160;RWAIT/EWAIT&#160;values&#160;are&#160;changed.<br/>
+<b>NOTE:</b><br/>
+This&#160;function&#160;requires&#160;that&#160;Bank&#160;7&#160;be&#160;enabled&#160;and&#160;powered.&#160;Once&#160;this&#160;function&#160;has<br/>
+completed,&#160;Bank&#160;7&#160;may&#160;be&#160;disabled&#160;and&#160;powered&#160;off.<br/>
+RWAIT&#160;and&#160;EWAIT&#160;register&#160;values&#160;must&#160;be&#160;set&#160;before&#160;calling&#160;this&#160;function.&#160;There&#160;is&#160;a&#160;helper<br/>macro&#160;FAPI_WRITE_EWAIT(_mEwait)&#160;is&#160;provided&#160;to&#160;make&#160;writing&#160;the&#160;EWAIT&#160;value&#160;easier<br/>due&#160;to&#160;the&#160;need&#160;for&#160;the&#160;EEPROM_CONFIG&#160;register&#160;to&#160;be&#160;unlocked&#160;before&#160;you&#160;can&#160;write&#160;the<br/>EWAIT&#160;value.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_InvalidHclkValue&#160;</b>(failure:&#160;System&#160;clock&#160;does&#160;not&#160;match&#160;specified&#160;wait&#160;value)<br/>
+•<br/>
+<b>Fapi_Error_OtpChecksumMismatch&#160;</b>(failure:&#160;Calculated&#160;TI&#160;OTP&#160;checksum&#160;does&#160;not&#160;match&#160;value&#160;in<br/>TI&#160;OTP)<br/>
+14<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=15></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<b>3.1.11</b><br/>
+<b>Fapi_remapEccAddress()</b><br/>
+Takes&#160;ECC&#160;address&#160;and&#160;remaps&#160;it&#160;to&#160;main&#160;address&#160;space<br/>
+<b>Synopsis</b><br/>
+uint32_t&#160;Fapi_remapEccAddress(<br/>
+uint32_t&#160;<i><b>u32EccAddress</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>u32EccAddress&#160;[in]</i><br/>
+ECC&#160;address&#160;to&#160;remap<br/>
+<b>Description</b><br/>
+This&#160;function&#160;returns&#160;the&#160;main&#160;Flash&#160;address&#160;for&#160;the&#160;given&#160;ECC&#160;Flash&#160;address&#160;passed&#160;in&#160;u32EccAddress.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>32-bit&#160;Main&#160;Flash&#160;Address</b><br/>
+<b>3.1.12</b><br/>
+<b>Fapi_remapMainAddress()</b><br/>
+Takes&#160;Flash&#160;Main&#160;address&#160;and&#160;remaps&#160;it&#160;to&#160;its&#160;corresponding&#160;ECC&#160;address<br/>
+<b>Synopsis</b><br/>
+uint32_t&#160;Fapi_remapMainAddress(<br/>
+uint32_t&#160;<i><b>u32MainAddress</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>u32MainAddress&#160;[in]</i><br/>
+Main&#160;address&#160;to&#160;remap<br/>
+<b>Description</b><br/>
+This&#160;function&#160;returns&#160;the&#160;ECC&#160;Flash&#160;address&#160;for&#160;the&#160;given&#160;Main&#160;Flash&#160;address&#160;passed&#160;in<br/>u32MainAddress.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>32-bit&#160;ECC&#160;Flash&#160;Address</b><br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+15<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=16></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>3.1.13</b><br/>
+<b>Fapi_setActiveFlashBank()</b><br/>
+Sets&#160;the&#160;active&#160;Flash&#160;Bank<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_setActiveFlashBank(<br/>
+Fapi_FlashBankType&#160;<i><b>oNewFlashBank</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>oNewFlashBank&#160;[in]</i><br/>
+Bank&#160;number&#160;to&#160;set&#160;as&#160;active<br/>
+<b>Description</b><br/>
+This&#160;function&#160;sets&#160;the&#160;active&#160;bank&#160;(passed&#160;in&#160;oNewFlashBank)&#160;for&#160;any&#160;Flash&#160;operation&#160;issued&#160;after&#160;calling<br/>this&#160;function.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_InvalidBank&#160;</b>(failure:&#160;Bank&#160;specified&#160;does&#160;not&#160;exist&#160;on&#160;device)<br/>
+<i><b>3.2</b></i><br/>
+<i><b>Asynchronous&#160;Functions</b></i><br/>
+<b>3.2.1</b><br/>
+<b>Fapi_issueAsyncCommand()</b><br/>
+Issues&#160;a&#160;command&#160;to&#160;the&#160;Flash&#160;State&#160;Machine&#160;that&#160;only&#160;requires&#160;a&#160;command<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_issueAsyncCommand(<br/>
+Fapi_FlashStateCommandsType&#160;<i><b>oCommand</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>oCommand&#160;[in]</i><br/>
+Command&#160;to&#160;issue&#160;to&#160;the&#160;FSM<br/>
+<b>Description</b><br/>
+This&#160;function&#160;issues&#160;a&#160;command&#160;to&#160;the&#160;Flash&#160;State&#160;Machine&#160;for&#160;commands&#160;not&#160;requiring&#160;any&#160;additional<br/>information.&#160;Typical&#160;commands&#160;are&#160;Clear&#160;Status,&#160;Program&#160;Resume,&#160;Erase&#160;Resume&#160;and&#160;Clear_More.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_InvalidCommand&#160;</b>(failure:&#160;Command&#160;specified&#160;requires&#160;an&#160;address&#160;to&#160;be&#160;specified)<br/>
+16<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=17></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<b>3.2.2</b><br/>
+<b>Fapi_issueAsyncCommandWithAddress()</b><br/>
+Issues&#160;a&#160;command&#160;to&#160;the&#160;Flash&#160;State&#160;Machine&#160;with&#160;an&#160;address<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_issueAsyncCommandWithAddress(<br/>
+Fapi_FlashStateCommandsType&#160;<i><b>oCommand</b></i>,<br/>
+uint32_t&#160;*<i><b>pu32StartAddress</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>oCommand&#160;[in]</i><br/>
+Command&#160;to&#160;issue&#160;to&#160;the&#160;FSM<br/>
+<i>pu32StartAddress&#160;[in]</i><br/>
+Address&#160;for&#160;needed&#160;for&#160;Flash&#160;State&#160;Machine&#160;operation<br/>
+<b>Description</b><br/>
+This&#160;function&#160;issues&#160;a&#160;command&#160;to&#160;the&#160;Flash&#160;State&#160;Machine&#160;for&#160;commands&#160;requiring&#160;an&#160;address&#160;to<br/>function&#160;correctly.&#160;Primary&#160;commands&#160;used&#160;with&#160;function&#160;are&#160;Erase&#160;Sector&#160;and&#160;Erase&#160;Bank.<br/>
+<b>NOTE:</b><br/>
+Reading&#160;a&#160;Flash&#160;memory&#160;location&#160;from&#160;the&#160;bank&#160;that&#160;an&#160;erase&#160;command&#160;(sector&#160;or&#160;bank)&#160;is<br/>
+currently&#160;being&#160;performed&#160;will&#160;stall&#160;the&#160;CPU&#160;until&#160;the&#160;erase&#160;command&#160;finishes&#160;and&#160;the<br/>FMSTAT&#160;register&#160;indicates&#160;the&#160;FSM&#160;is&#160;not&#160;busy.<br/>
+The&#160;Bank&#160;Erase&#160;command&#160;is&#160;not&#160;a&#160;suspendable&#160;operation.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_InvalidCommand&#160;</b>(failure:&#160;Command&#160;specified&#160;does&#160;not&#160;require&#160;an&#160;address&#160;to&#160;be<br/>specified&#160;or&#160;is&#160;a&#160;program&#160;command)<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+17<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=18></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<i><b>3.3</b></i><br/>
+<i><b>Program&#160;Functions</b></i><br/>
+<b>3.3.1</b><br/>
+<b>Fapi_issueProgrammingCommand()</b><br/>
+Sets&#160;up&#160;data&#160;and&#160;issues&#160;program&#160;command&#160;to&#160;valid&#160;Flash&#160;memory&#160;addresses<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_issueProgrammingCommand(<br/>
+uint32_t&#160;<i><b>*pu32StartAddress</b></i>,<br/>
+uint8_t<br/>
+<i><b>*pu8DataBuffer</b></i>,<br/>
+uint8_t<br/>
+<i><b>u8DataBufferSizeInBytes</b></i>,<br/>
+uint8_t<br/>
+<i><b>*pu8EccBuffer</b></i>,<br/>
+uint8_t<br/>
+<i><b>u8EccBufferSizeInBytes</b></i>,<br/>
+Fapi_FlashProgrammingCommandType&#160;<i><b>oMode</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>pu32StartAddress&#160;[in]</i><br/>
+start&#160;address&#160;in&#160;Flash&#160;for&#160;the&#160;data&#160;and&#160;ECC&#160;to&#160;be&#160;programmed<br/>
+<i>pu8DataBuffer&#160;[in]</i><br/>
+pointer&#160;to&#160;the&#160;Data&#160;buffer&#160;address<br/>
+<i>u8DataBufferSizeInBytes&#160;[in]</i><br/>
+number&#160;of&#160;bytes&#160;in&#160;the&#160;Data&#160;buffer<br/>
+<i>pu8EccBuffer&#160;[in]</i><br/>
+pointer&#160;to&#160;the&#160;ECC&#160;buffer&#160;address<br/>
+<i>u8EccBufferSizeInBytes&#160;[in]</i><br/>
+number&#160;of&#160;bytes&#160;in&#160;the&#160;ECC&#160;buffer<br/>
+<i>oMode&#160;[in]</i><br/>
+Indicates&#160;the&#160;programming&#160;mode&#160;to&#160;use:<br/>
+Fapi_DataOnly<br/>
+Programs&#160;only&#160;the&#160;data&#160;buffer<br/>
+Fapi_AutoEccGeneration<br/>
+Programs&#160;the&#160;data&#160;buffer&#160;and<br/>auto&#160;generates&#160;and&#160;programs&#160;the<br/>ECC.<br/>
+Fapi_DataAndEcc<br/>
+Programs&#160;both&#160;the&#160;data&#160;and&#160;ECC<br/>buffers<br/>
+Fapi_EccOnly<br/>
+Programs&#160;only&#160;the&#160;ECC&#160;buffer<br/>
+<b>Description</b><br/>
+This&#160;function&#160;sets&#160;up&#160;the&#160;programming&#160;registers&#160;of&#160;the&#160;Flash&#160;State&#160;Machine&#160;based&#160;on&#160;the&#160;supplied<br/>parameters.&#160;It&#160;offers&#160;four&#160;different&#160;programming&#160;modes&#160;to&#160;the&#160;user&#160;and&#160;handles&#160;multiple&#160;bank&#160;widths<br/>automatically.<br/>
+<b>Programming&#160;modes:</b><br/>
+<i>Fapi_DataOnly&#160;</i>–&#160;This&#160;mode&#160;will&#160;only&#160;program&#160;the&#160;data&#160;portion&#160;in&#160;Flash&#160;at&#160;the&#160;address&#160;specified.&#160;It&#160;can<br/>program&#160;from&#160;1&#160;byte&#160;up&#160;to&#160;the&#160;bank&#160;width&#160;(8,16,32)&#160;bytes&#160;based&#160;on&#160;the&#160;bank&#160;architecture.&#160;The&#160;supplied<br/>starting&#160;address&#160;to&#160;program&#160;at&#160;plus&#160;the&#160;data&#160;buffer&#160;length&#160;cannot&#160;exceed&#160;the&#160;bank&#160;data&#160;width.&#160;(Ex.<br/>Programming&#160;14&#160;bytes&#160;on&#160;a&#160;16&#160;byte&#160;wide&#160;bank&#160;starting&#160;at&#160;address&#160;0x4&#160;is&#160;not&#160;allowed.)<br/>
+<i>Fapi_AutoGeneration&#160;</i>–&#160;This&#160;will&#160;program&#160;the&#160;supplied&#160;data&#160;portion&#160;in&#160;Flash&#160;along&#160;with&#160;automatically<br/>generated&#160;ECC.&#160;ECC&#160;is&#160;calculated&#160;on&#160;64-bit&#160;aligned&#160;addresses&#160;up&#160;to&#160;the&#160;data&#160;width&#160;of&#160;the&#160;bank.&#160;Data&#160;not<br/>supplied&#160;is&#160;treated&#160;as&#160;0xFF.&#160;For&#160;example,&#160;on&#160;a&#160;device&#160;with&#160;a&#160;144-bit&#160;wide&#160;bank&#160;width,&#160;if&#160;data&#160;is&#160;written<br/>only&#160;to&#160;bytes&#160;0x0-0x7&#160;(or&#160;0x8-0xF),&#160;then&#160;the&#160;ECC&#160;will&#160;only&#160;be&#160;calculated&#160;for&#160;those&#160;64&#160;bits.&#160;If&#160;the&#160;data<br/>supplied&#160;crosses&#160;a&#160;64-bit&#160;boundary,&#160;ECC&#160;will&#160;be&#160;calculated&#160;for&#160;both&#160;64-bit&#160;words.&#160;For&#160;example,&#160;on&#160;a<br/>device&#160;with&#160;a&#160;144-bit&#160;wide&#160;bank&#160;width,&#160;data&#160;is&#160;written&#160;to&#160;bytes&#160;0x4&#160;-&#160;0xB,&#160;the&#160;2&#160;bytes&#160;of&#160;ECC&#160;data&#160;will&#160;be<br/>calculated.&#160;The&#160;data&#160;restrictions&#160;for&#160;Fapi_DataOnly&#160;also&#160;exist&#160;for&#160;this&#160;option.<br/>
+<i>Fapi_DataAndEcc&#160;</i>–&#160;This&#160;will&#160;program&#160;both&#160;the&#160;supplied&#160;data&#160;and&#160;ECC&#160;in&#160;Flash&#160;at&#160;the&#160;address&#160;specified.<br/>The&#160;data&#160;supplied&#160;must&#160;be&#160;aligned&#160;on&#160;a&#160;64-bit&#160;word&#160;and&#160;the&#160;length&#160;of&#160;data&#160;must&#160;correlate&#160;to&#160;the&#160;supplied<br/>ECC.&#160;(For&#160;example,&#160;data&#160;buffer&#160;length&#160;is&#160;8&#160;bytes,&#160;the&#160;ECC&#160;buffer&#160;must&#160;be&#160;1&#160;byte).<br/>
+<i>Fapi_EccOnly&#160;</i>–&#160;This&#160;mode&#160;will&#160;only&#160;program&#160;the&#160;ECC&#160;portion&#160;in&#160;Flash&#160;at&#160;the&#160;address&#160;specified.&#160;It&#160;can<br/>program&#160;from&#160;1&#160;byte&#160;up&#160;to&#160;the&#160;bank&#160;ECC&#160;width&#160;(1,&#160;2,&#160;4)&#160;bytes&#160;based&#160;on&#160;the&#160;bank&#160;architecture.&#160;The<br/>supplied&#160;starting&#160;address&#160;to&#160;program&#160;at&#160;plus&#160;the&#160;ECC&#160;buffer&#160;length&#160;cannot&#160;exceed&#160;the&#160;bank&#160;ECC&#160;width<br/>(programming&#160;3&#160;bytes&#160;on&#160;a&#160;2&#160;byte&#160;ECC&#160;wide&#160;bank&#160;starting&#160;at&#160;address&#160;0x0&#160;is&#160;not&#160;allowed).<br/>
+18<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=19></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<b>NOTE:</b><br/>
+Reading&#160;a&#160;Flash&#160;memory&#160;location&#160;from&#160;the&#160;bank&#160;that&#160;an&#160;program&#160;command&#160;is&#160;currently<br/>
+being&#160;performed&#160;will&#160;stall&#160;the&#160;CPU&#160;until&#160;the&#160;program&#160;command&#160;finishes&#160;and&#160;the&#160;FMSTAT<br/>register&#160;indicates&#160;the&#160;FSM&#160;is&#160;not&#160;busy.<br/>
+The&#160;length&#160;of&#160;pu8DataBuffer&#160;and&#160;pu8EccBuffer&#160;cannot&#160;exceed&#160;the&#160;bank&#160;width&#160;of&#160;the&#160;current<br/>active&#160;bank.&#160;For&#160;bank&#160;width&#160;information,&#160;see&#160;the&#160;<i>F021&#160;Flash&#160;Module&#160;</i>chapter&#160;in&#160;the&#160;device-<br/>specific&#160;technical&#160;reference&#160;manual.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_AsyncIncorrectDataBufferLength&#160;</b>(failure:&#160;Data&#160;buffer&#160;size&#160;specified&#160;exceeds&#160;Data&#160;bank<br/>width)<br/>
+•<br/>
+<b>Fapi_Error_AsyncIncorrectEccBufferLength&#160;</b>(failure:&#160;ECC&#160;buffer&#160;size&#160;specified&#160;exceeds&#160;ECC&#160;bank<br/>width)<br/>
+•<br/>
+<b>Fapi_Error_AsyncDataEccBufferLengthMismatch&#160;</b>(failure:&#160;Data&#160;buffer&#160;size&#160;either&#160;is&#160;not&#160;64-bit<br/>aligned&#160;or&#160;Data&#160;length&#160;exceeds&#160;amount&#160;ECC&#160;supplied)<br/>
+<b>3.3.2</b><br/>
+<b>Fapi_issueProgrammingCommandForEccAddress()</b><br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_issueProgrammingCommandForEccAddress(<br/>
+uint32_t&#160;<i><b>*pu32StartAddress</b></i>,<br/>
+uint8_t<br/>
+<i><b>*pu8EccBuffer</b></i>,<br/>
+uint8_t<br/>
+<i><b>u8EccBufferSizeInBytes</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>pu32StartAddress&#160;[in]</i><br/>
+ECC&#160;start&#160;address&#160;in&#160;Flash&#160;for&#160;the&#160;ECC&#160;to&#160;be&#160;programmed<br/>
+<i>pu8EccBuffer&#160;[in]</i><br/>
+pointer&#160;to&#160;the&#160;ECC&#160;buffer&#160;address<br/>
+<i>u8EccBufferSizeInBytes&#160;[in]</i><br/>
+number&#160;of&#160;bytes&#160;in&#160;the&#160;ECC&#160;buffer<br/>
+<b>Description</b><br/>
+This&#160;function&#160;will&#160;remap&#160;an&#160;address&#160;in&#160;the&#160;ECC&#160;memory&#160;space&#160;to&#160;the&#160;corresponding&#160;data&#160;address&#160;space<br/>and&#160;then&#160;call&#160;Fapi_issueProgrammingCommand()&#160;to&#160;program&#160;the&#160;supplied&#160;ECC&#160;data.&#160;The&#160;same<br/>limitations&#160;for&#160;Fapi_issueProgrammingCommand()&#160;using&#160;Fapi_EccOnly&#160;mode&#160;applies&#160;to&#160;this&#160;function.<br/>
+<b>NOTE:</b><br/>
+Reading&#160;a&#160;Flash&#160;memory&#160;location&#160;from&#160;the&#160;bank&#160;that&#160;a&#160;program&#160;command&#160;is&#160;currently&#160;being<br/>
+performed&#160;will&#160;stall&#160;the&#160;CPU&#160;until&#160;the&#160;program&#160;command&#160;finishes&#160;and&#160;the&#160;FMSTAT&#160;register<br/>indicates&#160;the&#160;FSM&#160;is&#160;not&#160;busy.<br/>
+The&#160;length&#160;of&#160;pu8EccBuffer&#160;cannot&#160;exceed&#160;the&#160;bank&#160;width&#160;of&#160;the&#160;current&#160;active&#160;bank.&#160;For<br/>bank&#160;width&#160;information,&#160;see&#160;the&#160;<i>F021&#160;Flash&#160;Module&#160;</i>chapter&#160;in&#160;the&#160;device-specific&#160;technical<br/>reference&#160;manual.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_AsyncIncorrectEccBufferLength&#160;</b>(failure:&#160;Data&#160;buffer&#160;size&#160;specified&#160;exceeds&#160;ECC&#160;bank<br/>width)<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+19<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=20></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<i><b>3.4</b></i><br/>
+<i><b>Read&#160;Functions</b></i><br/>
+The&#160;read&#160;functions&#160;do&#160;not&#160;combine&#160;main&#160;and&#160;ECC&#160;ranges.&#160;Because&#160;this,&#160;if&#160;you&#160;need&#160;a&#160;read&#160;operation<br/>performed&#160;on&#160;the&#160;data&#160;and&#160;corresponding&#160;ECC,&#160;you&#160;must&#160;call&#160;the&#160;function&#160;for&#160;both.&#160;For&#160;example,&#160;if&#160;you<br/>have&#160;erased&#160;Bank&#160;0,&#160;Sector&#160;0,&#160;you&#160;would&#160;need&#160;to&#160;perform&#160;a&#160;blank&#160;check&#160;on&#160;Sector&#160;0&#160;main&#160;address&#160;range<br/>and&#160;ECC&#160;address&#160;range.<br/>
+<b>3.4.1</b><br/>
+<b>Fapi_doBlankCheck()</b><br/>
+Verifies&#160;region&#160;specified&#160;is&#160;erased&#160;value<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_doBlankCheck(<br/>
+uint32_t&#160;<i><b>*pu32StartAddress</b></i>,<br/>
+uint32_t<br/>
+<i><b>u32Length</b></i>,<br/>
+Fapi_FlashStatusWordType&#160;<i><b>*poFlashStatusWord</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>pu32StartAddress&#160;[in]</i><br/>
+start&#160;address&#160;for&#160;region&#160;to&#160;blank&#160;check<br/>
+<i>u32Length&#160;[in]</i><br/>
+length&#160;of&#160;region&#160;in&#160;32-bit&#160;words&#160;to&#160;blank&#160;check<br/>
+<i>poFlashStatusWord&#160;[out]</i><br/>
+returns&#160;the&#160;status&#160;of&#160;the&#160;operation&#160;if&#160;result&#160;is&#160;not<br/>Fapi_Status_Success<br/>
+-&gt;au32StatusWord[0]<br/>
+address&#160;of&#160;first&#160;non-blank&#160;location<br/>
+-&gt;au32StatusWord[1]<br/>
+data&#160;read&#160;at&#160;first&#160;non-blank&#160;location<br/>
+-&gt;au32StatusWord[2]<br/>
+value&#160;of&#160;compare&#160;data&#160;(always&#160;0xFFFFFFFF)<br/>
+-&gt;au32StatusWord[3]<br/>
+indicates&#160;read&#160;mode&#160;that&#160;failed&#160;blank&#160;check<br/>
+<b>Description</b><br/>
+This&#160;function&#160;checks&#160;the&#160;device&#160;for&#160;blank&#160;(erase&#160;state)&#160;starting&#160;at&#160;the&#160;specified&#160;address&#160;for&#160;the&#160;length&#160;of<br/>32-bit&#160;words&#160;specified.&#160;If&#160;a&#160;non-blank&#160;location&#160;is&#160;found,&#160;these&#160;results&#160;will&#160;be&#160;returned&#160;in&#160;the<br/>poFlashStatusWord&#160;parameter.&#160;This&#160;will&#160;use&#160;read&#160;margin&#160;1&#160;mode&#160;for&#160;this&#160;check.&#160;As&#160;the&#160;erase&#160;state&#160;of&#160;the<br/>Flash&#160;is&#160;not&#160;a&#160;valid&#160;ECC&#160;condition,&#160;on&#160;Banks&#160;0&#160;-&#160;6&#160;ECC&#160;correction&#160;at&#160;a&#160;minimum&#160;must&#160;be&#160;disabled.&#160;On<br/>Bank&#160;7,&#160;ECC&#160;can&#160;either&#160;be&#160;temporarily&#160;disabled&#160;by&#160;writing&#160;0101&#160;to&#160;the&#160;EE_EDACEN&#160;bits&#160;or&#160;setting&#160;the<br/>EE_ALL1_OK&#160;bit&#160;EE_CTRL1&#160;register.<br/>
+This&#160;function&#160;assumes&#160;the&#160;value&#160;passed&#160;in&#160;<i>pu32StartAddress&#160;</i>is&#160;a&#160;32bit&#160;aligned&#160;address.<br/>
+<b>NOTE:</b><br/>
+On&#160;devices&#160;using&#160;L2FMC&#160;memory&#160;controller,&#160;ECC&#160;may&#160;not&#160;be&#160;disabled&#160;for&#160;Banks&#160;0&#160;-&#160;6&#160;and<br/>
+therefore&#160;performing&#160;a&#160;blank&#160;check&#160;with&#160;the&#160;Flash&#160;API&#160;functions&#160;are&#160;not&#160;supported.<br/>
+<b>Restrictions</b><br/>
+The&#160;region&#160;being&#160;blank&#160;checked&#160;cannot&#160;cross&#160;bank&#160;address&#160;boundary.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_Fail&#160;</b>(failure:&#160;region&#160;specified&#160;is&#160;not&#160;blank)<br/>
+20<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=21></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<b>3.4.2</b><br/>
+<b>Fapi_doBlankCheckByByte()</b><br/>
+Verifies&#160;region&#160;specified&#160;is&#160;erased&#160;value&#160;by&#160;byte<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_doBlankCheckByByte(<br/>
+uint8_t&#160;<i><b>*pu8StartAddress</b></i>,<br/>
+uint32_t<br/>
+<i><b>u32Length</b></i>,<br/>
+Fapi_FlashStatusWordType&#160;<i><b>*poFlashStatusWord</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>pu8StartAddress&#160;[in]</i><br/>
+start&#160;address&#160;for&#160;region&#160;to&#160;blank&#160;check<br/>
+<i>u32Length&#160;[in]</i><br/>
+length&#160;of&#160;region&#160;in&#160;32-bit&#160;words&#160;to&#160;blank&#160;check<br/>
+<i>poFlashStatusWord&#160;[out]</i><br/>
+returns&#160;the&#160;status&#160;of&#160;the&#160;operation&#160;if&#160;result&#160;is&#160;not<br/>Fapi_Status_Success<br/>
+-&gt;au32StatusWord[0]<br/>
+address&#160;of&#160;first&#160;non-blank&#160;location<br/>
+-&gt;au32StatusWord[1]<br/>
+data&#160;read&#160;at&#160;first&#160;non-blank&#160;location<br/>
+-&gt;au32StatusWord[2]<br/>
+value&#160;of&#160;compare&#160;data&#160;(always&#160;0xFF)<br/>
+-&gt;au32StatusWord[3]<br/>
+indicates&#160;read&#160;mode&#160;that&#160;failed&#160;blank&#160;check<br/>
+<b>Description</b><br/>
+This&#160;function&#160;checks&#160;the&#160;device&#160;for&#160;blank&#160;(erase&#160;state)&#160;starting&#160;at&#160;the&#160;specified&#160;address&#160;for&#160;the&#160;length&#160;of&#160;8-<br/>bit&#160;words&#160;specified.&#160;If&#160;a&#160;non-blank&#160;location&#160;is&#160;found,&#160;these&#160;results&#160;will&#160;be&#160;returned&#160;in&#160;the<br/>poFlashStatusWord&#160;parameter.&#160;This&#160;will&#160;use&#160;read&#160;margin&#160;1&#160;mode&#160;for&#160;this&#160;check.&#160;As&#160;the&#160;erase&#160;state&#160;of&#160;the<br/>Flash&#160;is&#160;not&#160;a&#160;valid&#160;ECC&#160;condition,&#160;on&#160;Banks&#160;0&#160;-&#160;6&#160;ECC&#160;correction&#160;at&#160;a&#160;minimum&#160;must&#160;be&#160;disabled.&#160;On<br/>Bank&#160;7,&#160;ECC&#160;can&#160;either&#160;be&#160;temporarily&#160;disabled&#160;by&#160;writing&#160;0101&#160;to&#160;the&#160;EE_EDACEN&#160;bits&#160;or&#160;setting&#160;the<br/>EE_ALL1_OK&#160;bit&#160;EE_CTRL1&#160;register.<br/>
+<b>NOTE:</b><br/>
+On&#160;devices&#160;using&#160;L2FMC&#160;memory&#160;controller,&#160;ECC&#160;may&#160;not&#160;be&#160;disabled&#160;for&#160;Banks&#160;0&#160;-&#160;6&#160;and<br/>
+therefore&#160;performing&#160;a&#160;blank&#160;check&#160;with&#160;the&#160;Flash&#160;API&#160;functions&#160;are&#160;not&#160;supported.<br/>
+<b>Restrictions</b><br/>
+The&#160;region&#160;being&#160;blank&#160;checked&#160;cannot&#160;cross&#160;bank&#160;address&#160;boundary.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_Fail&#160;</b>(failure:&#160;region&#160;specified&#160;is&#160;not&#160;blank)<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+21<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=22></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>3.4.3</b><br/>
+<b>Fapi_doVerify()</b><br/>
+Verifies&#160;region&#160;specified&#160;against&#160;supplied&#160;data<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_doVerify(<br/>
+uint32_t&#160;<i><b>*pu32StartAddress</b></i>,<br/>
+uint32_t<br/>
+<i><b>u32Length</b></i>,<br/>
+uint32_t&#160;<i><b>*pu32CheckValueBuffer</b></i>,<br/>
+Fapi_FlashStatusWordType&#160;<i><b>*poFlashStatusWord</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>pu32StartAddress&#160;[in]</i><br/>
+start&#160;address&#160;for&#160;region&#160;to&#160;verify<br/>
+<i>u32Length&#160;[in]</i><br/>
+length&#160;of&#160;region&#160;in&#160;32-bit&#160;words&#160;to&#160;verify<br/>
+<i>pu32CheckValueBuffer</i><br/>
+address&#160;of&#160;buffer&#160;to&#160;verify&#160;region&#160;against<br/>
+<i>[in]</i><br/>
+<i>poFlashStatusWord&#160;[out]</i><br/>
+returns&#160;the&#160;status&#160;of&#160;the&#160;operation&#160;if&#160;result&#160;is&#160;not<br/>Fapi_Status_Success<br/>
+-&gt;au32StatusWord[0]<br/>
+address&#160;of&#160;first&#160;verify&#160;failure&#160;location<br/>
+-&gt;au32StatusWord[1]<br/>
+data&#160;read&#160;at&#160;first&#160;verify&#160;failure&#160;location<br/>
+-&gt;au32StatusWord[2]<br/>
+value&#160;of&#160;compare&#160;data<br/>
+-&gt;au32StatusWord[3]<br/>
+indicates&#160;read&#160;mode&#160;that&#160;failed&#160;verify<br/>
+<b>Description</b><br/>
+This&#160;function&#160;verifies&#160;the&#160;device&#160;against&#160;the&#160;supplied&#160;data&#160;starting&#160;at&#160;the&#160;specified&#160;address&#160;for&#160;the&#160;length&#160;of<br/>32-bit&#160;words&#160;specified.&#160;If&#160;a&#160;location&#160;fails&#160;to&#160;compare,&#160;these&#160;results&#160;will&#160;be&#160;returned&#160;in&#160;the<br/>poFlashStatusWord&#160;parameter.&#160;This&#160;will&#160;use&#160;normal&#160;read,&#160;read&#160;margin&#160;0&#160;and&#160;read&#160;margin&#160;1&#160;modes&#160;for<br/>verifying&#160;the&#160;data.<br/>
+This&#160;function&#160;assumes&#160;the&#160;value&#160;passed&#160;in&#160;<i>pu32StartAddress&#160;</i>is&#160;a&#160;32bit&#160;aligned&#160;address.<br/>
+<b>Restrictions</b><br/>
+The&#160;region&#160;being&#160;verified&#160;cannot&#160;cross&#160;bank&#160;address&#160;boundary.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_Fail&#160;</b>(failure:&#160;region&#160;specified&#160;does&#160;not&#160;match&#160;supplied&#160;data)<br/>
+22<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=23></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<b>3.4.4</b><br/>
+<b>Fapi_doVerifyByByte()</b><br/>
+Verifies&#160;region&#160;specified&#160;against&#160;supplied&#160;data&#160;by&#160;byte<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_doVerifyByByte(<br/>
+uint8_t&#160;<i><b>*pu8StartAddress</b></i>,<br/>
+uint32_t<br/>
+<i><b>u32Length</b></i>,<br/>
+uint8_t&#160;<i><b>*pu8CheckValueBuffer</b></i>,<br/>
+Fapi_FlashStatusWordType&#160;<i><b>*poFlashStatusWord</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>pu8StartAddress&#160;[in]</i><br/>
+start&#160;address&#160;for&#160;region&#160;to&#160;verify&#160;by&#160;byte<br/>
+<i>u32Length&#160;[in]</i><br/>
+length&#160;of&#160;region&#160;in&#160;8-bit&#160;words&#160;to&#160;verify<br/>
+<i>pu8CheckValueBuffer</i><br/>
+address&#160;of&#160;buffer&#160;to&#160;verify&#160;region&#160;against&#160;by&#160;byte<br/>
+<i>[in]</i><br/>
+<i>poFlashStatusWord&#160;[out]</i><br/>
+returns&#160;the&#160;status&#160;of&#160;the&#160;operation&#160;if&#160;result&#160;is&#160;not<br/>Fapi_Status_Success<br/>
+-&gt;au32StatusWord[0]<br/>
+address&#160;of&#160;first&#160;verify&#160;failure&#160;location<br/>
+-&gt;au32StatusWord[1]<br/>
+data&#160;read&#160;at&#160;first&#160;verify&#160;failure&#160;location<br/>
+-&gt;au32StatusWord[2]<br/>
+value&#160;of&#160;compare&#160;data<br/>
+-&gt;au32StatusWord[3]<br/>
+indicates&#160;read&#160;mode&#160;that&#160;failed&#160;verify<br/>
+<b>Description</b><br/>
+This&#160;function&#160;verifies&#160;the&#160;device&#160;against&#160;the&#160;supplied&#160;data&#160;by&#160;the&#160;byte&#160;starting&#160;at&#160;the&#160;specified&#160;address&#160;for<br/>the&#160;length&#160;of&#160;8-bit&#160;words&#160;specified.&#160;If&#160;a&#160;location&#160;fails&#160;to&#160;compare,&#160;these&#160;results&#160;will&#160;be&#160;returned&#160;in&#160;the<br/>poFlashStatusWord&#160;parameter.&#160;This&#160;will&#160;use&#160;normal&#160;read,&#160;read&#160;margin&#160;0&#160;and&#160;read&#160;margin&#160;1&#160;modes<br/>checking&#160;for&#160;verifying&#160;the&#160;data.<br/>
+<b>Restrictions</b><br/>
+The&#160;region&#160;being&#160;verified&#160;cannot&#160;cross&#160;bank&#160;address&#160;boundary.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_Fail&#160;</b>(failure:&#160;region&#160;specified&#160;does&#160;not&#160;match&#160;supplied&#160;data)<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+23<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=24></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>3.4.5</b><br/>
+<b>Fapi_doPsaVerify()</b><br/>
+Verifies&#160;region&#160;specified&#160;against&#160;specified&#160;PSA&#160;value<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_doPsaVerify(<br/>
+uint32_t&#160;<i><b>*pu32StartAddress</b></i>,<br/>
+uint32_t<br/>
+<i><b>u32Length</b></i>,<br/>
+uint32_t<br/>
+<i><b>u32PsaValue</b></i>,<br/>
+Fapi_FlashStatusWordType&#160;<i><b>*poFlashStatusWord</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>pu32StartAddress&#160;[in]</i><br/>
+start&#160;address&#160;for&#160;region&#160;to&#160;verify&#160;PSA&#160;value<br/>
+<i>u32Length&#160;[in]</i><br/>
+length&#160;of&#160;region&#160;in&#160;32-bit&#160;words&#160;to&#160;verify&#160;PSA&#160;value<br/>
+<i>u32PsaValue&#160;[in]</i><br/>
+PSA&#160;value&#160;to&#160;compare&#160;region&#160;against<br/>
+<i>poFlashStatusWord&#160;[out]</i><br/>
+returns&#160;the&#160;status&#160;of&#160;the&#160;operation&#160;if&#160;result&#160;is&#160;not<br/>Fapi_Status_Success<br/>
+-&gt;au32StatusWord[0]<br/>
+Actual&#160;PSA&#160;for&#160;read-margin&#160;0<br/>
+-&gt;au32StatusWord[1]<br/>
+Actual&#160;PSA&#160;for&#160;read-margin&#160;1<br/>
+-&gt;au32StatusWord[2]<br/>
+Actual&#160;PSA&#160;for&#160;normal&#160;read<br/>
+<b>Description</b><br/>
+This&#160;function&#160;verifies&#160;the&#160;device&#160;against&#160;the&#160;supplied&#160;PSA&#160;value&#160;starting&#160;at&#160;the&#160;specified&#160;address&#160;for&#160;the<br/>length&#160;of&#160;32-bit&#160;words&#160;specified.&#160;The&#160;calculated&#160;PSA&#160;values&#160;for&#160;all&#160;3&#160;margin&#160;modes&#160;are&#160;returned&#160;in&#160;the<br/>poFlashStatusWord&#160;parameter.<br/>
+This&#160;function&#160;assumes&#160;the&#160;value&#160;passed&#160;in&#160;<i>pu32StartAddress&#160;</i>is&#160;a&#160;32bit&#160;aligned&#160;address.<br/>
+<b>Restrictions</b><br/>
+The&#160;region&#160;being&#160;verified&#160;checked&#160;cannot&#160;cross&#160;bank&#160;address&#160;boundary.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_Fail&#160;</b>(failure:&#160;region&#160;specified&#160;does&#160;not&#160;match&#160;supplied&#160;data)<br/>
+24<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=25></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<b>3.4.6</b><br/>
+<b>Fapi_calculatePsa()</b><br/>
+Calculates&#160;the&#160;PSA&#160;for&#160;a&#160;specified&#160;region<br/>
+<b>Synopsis</b><br/>
+uint32_t&#160;Fapi_calculatePsa(<br/>
+uint32_t&#160;<i><b>*pu32StartAddress</b></i>,<br/>
+uint32_t<br/>
+<i><b>u32Length</b></i>,<br/>
+uint32_t<br/>
+<i><b>u32PsaSeed</b></i>,<br/>
+Fapi_FlashReadMarginModeType&#160;<i><b>oReadMode</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>pu32StartAddress&#160;[in]</i><br/>
+start&#160;address&#160;for&#160;region&#160;to&#160;calculate&#160;PSA&#160;value<br/>
+<i>u32Length&#160;[in]</i><br/>
+length&#160;of&#160;region&#160;in&#160;32-bit&#160;words&#160;to&#160;calculate&#160;PSA&#160;value<br/>
+<i>u32PsaSeed&#160;[in]</i><br/>
+seed&#160;value&#160;for&#160;PSA&#160;calculation<br/>
+<i>oReadMode&#160;[in]</i><br/>
+indicates&#160;which&#160;margin&#160;mode&#160;(normal,&#160;RM0,&#160;RM1)&#160;to&#160;use<br/>
+<b>Description</b><br/>
+This&#160;function&#160;calculates&#160;the&#160;PSA&#160;value&#160;for&#160;the&#160;region&#160;specified&#160;starting&#160;at&#160;pu32StartAddress&#160;for&#160;u32Length<br/>32-bit&#160;words&#160;using&#160;u32PsaSeed&#160;value&#160;in&#160;the&#160;margin&#160;mode&#160;specified.<br/>
+This&#160;function&#160;assumes&#160;the&#160;value&#160;passed&#160;in&#160;<i>pu32StartAddress&#160;</i>is&#160;a&#160;32bit&#160;aligned&#160;address.<br/>
+<b>Restrictions</b><br/>
+The&#160;region&#160;that&#160;the&#160;PSA&#160;is&#160;being&#160;calculated&#160;must&#160;be&#160;32-bit&#160;aligned.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_InvalidReadMode&#160;</b>(failure:&#160;read&#160;mode&#160;specified&#160;is&#160;not&#160;valid)<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+25<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=26></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>3.4.7</b><br/>
+<b>Fapi_doMarginRead()</b><br/>
+Reads&#160;a&#160;region&#160;of&#160;Flash&#160;Memory&#160;using&#160;specified&#160;margin&#160;mode<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_doMarginRead(<br/>
+uint32_t&#160;<i><b>*pu32StartAddress</b></i>,<br/>
+uint32_t&#160;<i><b>*pu32ReadBuffer</b></i>,<br/>
+uint32_t<br/>
+<i><b>u32Length</b></i>,<br/>
+Fapi_FlashReadMarginModeType&#160;<i><b>oReadMode</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>pu32StartAddress&#160;[in]</i><br/>
+start&#160;address&#160;for&#160;region&#160;to&#160;read<br/>
+<i>pu32ReadBuffer&#160;[out]</i><br/>
+address&#160;of&#160;buffer&#160;to&#160;return&#160;read&#160;data<br/>
+<i>u32Length&#160;[in]</i><br/>
+length&#160;of&#160;region&#160;in&#160;32-bit&#160;words&#160;to&#160;read<br/>
+<i>oReadMode&#160;[in]</i><br/>
+indicates&#160;which&#160;margin&#160;mode&#160;(normal,&#160;RM0,&#160;RM1)&#160;to&#160;use<br/>
+<b>Description</b><br/>
+This&#160;function&#160;reads&#160;the&#160;region&#160;specified&#160;starting&#160;at&#160;pu32StartAddress&#160;for&#160;u32Length&#160;32-bit&#160;words&#160;using<br/>pu32ReadBuffer&#160;to&#160;store&#160;the&#160;read&#160;values.<br/>
+This&#160;function&#160;assumes&#160;the&#160;value&#160;passed&#160;in&#160;<i>pu32StartAddress&#160;</i>is&#160;a&#160;32bit&#160;aligned&#160;address.<br/>
+<b>NOTE:</b><br/>
+The&#160;region&#160;that&#160;is&#160;being&#160;read&#160;cannot&#160;cross&#160;bank&#160;address&#160;boundary.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_InvalidReadMode&#160;</b>(failure:&#160;read&#160;mode&#160;specified&#160;is&#160;not&#160;valid)<br/>
+•<br/>
+<b>Fapi_Error_NullPointer&#160;</b>(failure:&#160;pu32ReadBuffer&#160;is&#160;a&#160;NULL&#160;pointer)<br/>
+26<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=27></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<b>3.4.8</b><br/>
+<b>Fapi_doMarginReadByByte()</b><br/>
+Reads&#160;a&#160;region&#160;of&#160;Flash&#160;Memory&#160;using&#160;specified&#160;margin&#160;mode&#160;by&#160;byte<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_doMarginReadByByte(<br/>
+uint8_t&#160;<i><b>*pu8StartAddress</b></i>,<br/>
+uint8_t&#160;<i><b>*pu8ReadBuffer</b></i>,<br/>
+uint32_t<br/>
+<i><b>u32Length</b></i>,<br/>
+Fapi_FlashReadMarginModeType&#160;<i><b>oReadMode</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>pu8StartAddress&#160;[in]</i><br/>
+start&#160;address&#160;for&#160;region&#160;to&#160;read&#160;by&#160;byte<br/>
+<i>pu8ReadBuffer&#160;[out]</i><br/>
+address&#160;of&#160;buffer&#160;to&#160;return&#160;read&#160;data&#160;by&#160;byte&#160;u32<br/>
+<i>Length&#160;[in]</i><br/>
+length&#160;of&#160;region&#160;in&#160;32-bit&#160;words&#160;to&#160;read<br/>
+<i>oReadMode&#160;[in]</i><br/>
+indicates&#160;which&#160;margin&#160;mode&#160;(normal,&#160;RM0,&#160;RM1)&#160;to&#160;use<br/>
+<b>Description</b><br/>
+This&#160;function&#160;reads&#160;the&#160;region&#160;specified&#160;starting&#160;at&#160;pu8StartAddress&#160;for&#160;u32Length&#160;8-bit&#160;words&#160;using<br/>pu8ReadBuffer&#160;to&#160;store&#160;the&#160;read&#160;values.<br/>
+<b>Restrictions</b><br/>
+The&#160;region&#160;that&#160;is&#160;being&#160;read&#160;cannot&#160;cross&#160;bank&#160;address&#160;boundary.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_InvalidReadMode&#160;</b>(failure:&#160;read&#160;mode&#160;specified&#160;is&#160;not&#160;valid)<br/>
+•<br/>
+<b>Fapi_Error_NullPointer&#160;</b>(failure:&#160;pu8ReadBuffer&#160;is&#160;a&#160;NULL&#160;pointer)<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+27<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=28></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>3.4.9</b><br/>
+<b>Fapi_flushPipeline()</b><br/>
+Flushes&#160;the&#160;FMC&#160;pipeline&#160;buffers<br/>
+<b>Synopsis</b><br/>
+void&#160;Fapi_flushPipeline(void)<br/>
+<b>Parameters</b><br/>
+None<br/>
+<b>Description</b><br/>
+This&#160;function&#160;flushes&#160;the&#160;FMC&#160;pipeline&#160;buffers.<br/>
+<b>NOTE:</b><br/>
+The&#160;pipeline&#160;must&#160;be&#160;flushed&#160;before&#160;the&#160;first&#160;non-API&#160;Flash&#160;read&#160;after&#160;an&#160;operation&#160;that<br/>
+modifies&#160;the&#160;Flash&#160;contents&#160;(Erasing&#160;and&#160;Programming).<br/>
+This&#160;function&#160;makes&#160;the&#160;assumption&#160;that&#160;is&#160;can&#160;read&#160;from&#160;Flash&#160;Addresses&#160;0,&#160;0x100,&#160;0x200,<br/>0x300.<br/>
+If&#160;the&#160;Flash&#160;and&#160;RAM&#160;memory&#160;regions&#160;are&#160;swapped,&#160;you&#160;will&#160;need&#160;to&#160;do&#160;2&#160;dummy&#160;reads&#160;128<br/>bytes&#160;apart&#160;from&#160;the&#160;remapped&#160;Flash&#160;memory&#160;addresses&#160;after&#160;an&#160;operation&#160;that&#160;modifies&#160;the<br/>Flash&#160;contents&#160;(Erasing&#160;and&#160;Programming)&#160;before&#160;performing&#160;any&#160;API&#160;read&#160;functions.<br/>
+<b>Return&#160;Value</b><br/>
+None<br/>
+28<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=29></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<i><b>3.5</b></i><br/>
+<i><b>Informational&#160;Functions</b></i><br/>
+<b>3.5.1</b><br/>
+<b>Fapi_getLibraryInfo()</b><br/>
+Returns&#160;information&#160;about&#160;this&#160;compile&#160;of&#160;the&#160;Flash&#160;API<br/>
+<b>Synopsis</b><br/>
+Fapi_LibraryInfoType&#160;Fapi_getLibraryInfo(void)<br/>
+<b>Parameters</b><br/>
+<i>None</i><br/>
+<b>Description</b><br/>
+This&#160;function&#160;returns&#160;information&#160;specific&#160;to&#160;the&#160;compile&#160;of&#160;the&#160;Flash&#160;API&#160;library.&#160;The&#160;information&#160;is<br/>returned&#160;in&#160;a&#160;struct&#160;Fapi_LibraryInfoType.&#160;The&#160;members&#160;are&#160;as&#160;follows:<br/>
+•<br/>
+u8ApiMajorVersion&#160;–&#160;Major&#160;version&#160;number&#160;of&#160;this&#160;compile&#160;of&#160;the&#160;API<br/>
+•<br/>
+u8ApiMinorVersion&#160;–&#160;Minor&#160;version&#160;number&#160;of&#160;this&#160;compile&#160;of&#160;the&#160;API<br/>
+•<br/>
+u8ApiRevision&#160;–&#160;Revision&#160;version&#160;number&#160;of&#160;this&#160;compile&#160;of&#160;the&#160;API<br/>
+•<br/>
+oApiProductionStatus&#160;–&#160;Production&#160;status&#160;of&#160;this&#160;compile&#160;<i>(Alpha_Internal,&#160;Alpha,&#160;Beta_Internal,&#160;Beta,<br/>Production)</i><br/>
+•<br/>
+u32ApiBuildNumber&#160;–&#160;Build&#160;number&#160;of&#160;this&#160;compile.&#160;Used&#160;to&#160;differentiate&#160;between&#160;different&#160;alpha&#160;and<br/>beta&#160;builds<br/>
+•<br/>
+u8ApiTechnologyType&#160;–&#160;Indicates&#160;the&#160;Flash&#160;technology&#160;supported&#160;by&#160;the&#160;API.&#160;F021&#160;is&#160;tech&#160;type&#160;of<br/>0x04<br/>
+•<br/>
+u8ApiTechnologyRevision&#160;–&#160;Indicates&#160;the&#160;revision&#160;of&#160;the&#160;Technology&#160;supported&#160;by&#160;the&#160;API<br/>
+•<br/>
+u8ApiEndianness&#160;–&#160;Indicates&#160;if&#160;this&#160;compile&#160;of&#160;the&#160;API&#160;is&#160;for&#160;Big&#160;Endian&#160;or&#160;Little&#160;Endian&#160;memory<br/>
+•<br/>
+u32ApiCompilerVersion&#160;–&#160;Version&#160;number&#160;of&#160;the&#160;Code&#160;Composer&#160;Studio&#160;code&#160;generation&#160;tools&#160;used&#160;to<br/>compile&#160;the&#160;API<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_LibraryInfoType&#160;</b>(gives&#160;the&#160;information&#160;retrieved&#160;about&#160;this&#160;compile&#160;of&#160;the&#160;API)<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+29<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=30></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>3.5.2</b><br/>
+<b>Fapi_getDeviceInfo()</b><br/>
+Returns&#160;information&#160;about&#160;specific&#160;to&#160;device&#160;code&#160;is&#160;being&#160;executed&#160;on<br/>
+<b>Synopsis</b><br/>
+Fapi_DeviceInfoType&#160;Fapi_getDeviceInfo(void)<br/>
+<b>Parameters</b><br/>
+<i>None</i><br/>
+<b>Description</b><br/>
+This&#160;function&#160;returns&#160;information&#160;about&#160;the&#160;specific&#160;device&#160;the&#160;Flash&#160;API&#160;library&#160;is&#160;being&#160;executed&#160;on.&#160;The<br/>information&#160;is&#160;returned&#160;in&#160;a&#160;struct&#160;Fapi_DeviceInfoType.&#160;The&#160;members&#160;are&#160;as&#160;follows:<br/>
+•<br/>
+u16NumberOfBanks&#160;–&#160;Number&#160;of&#160;banks&#160;on&#160;the&#160;device<br/>
+•<br/>
+u16DevicePackage&#160;–&#160;Device&#160;package&#160;pin&#160;count<br/>
+•<br/>
+u16DeviceMemorySize&#160;–&#160;Device&#160;memory&#160;size<br/>
+•<br/>
+u32AsicId&#160;–&#160;Device&#160;ASIC&#160;id<br/>
+•<br/>
+u32LotNumber&#160;–&#160;Device&#160;lot&#160;number<br/>
+•<br/>
+u16FlowCheck&#160;–&#160;Device&#160;Flow&#160;check<br/>
+•<br/>
+u16WaferNumber&#160;–&#160;Device&#160;wafer&#160;number<br/>
+•<br/>
+u16WaferXCoordinate&#160;–&#160;Device&#160;wafer&#160;X&#160;coordinate<br/>
+•<br/>
+u16WaferYCoordinate&#160;–&#160;Device&#160;wafer&#160;Y&#160;coordinate<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_DeviceInfoType&#160;</b>(gives&#160;the&#160;information&#160;retrieved&#160;about&#160;this&#160;compile&#160;of&#160;the&#160;API)<br/>
+30<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=31></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<b>3.5.3</b><br/>
+<b>Fapi_getBankSectors()</b><br/>
+Returns&#160;the&#160;sector&#160;information&#160;for&#160;the&#160;requested&#160;bank<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_getBankSectors(<br/>
+Fapi_FlashBankType&#160;<i><b>oBank</b></i>,<br/>
+Fapi_FlashBankSectorsType&#160;<i><b>*poFlashBankSectors</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>oBank&#160;[in]</i><br/>
+Bank&#160;to&#160;get&#160;information&#160;on<br/>
+<i>poFlashBankSectors&#160;[out]</i><br/>
+Returned&#160;structure&#160;with&#160;the&#160;bank&#160;information<br/>
+<b>Description</b><br/>
+This&#160;function&#160;returns&#160;information&#160;about&#160;the&#160;bank&#160;starting&#160;address,&#160;number&#160;of&#160;sectors,&#160;sector&#160;sizes&#160;in<br/>kilobytes,&#160;and&#160;bank&#160;technology&#160;type.&#160;The&#160;information&#160;is&#160;returned&#160;in&#160;a&#160;struct&#160;Fapi_FlashBankSectorsType.<br/>The&#160;members&#160;are&#160;as&#160;follows:<br/>
+•<br/>
+oFlashBankTech&#160;–&#160;Indicates&#160;if&#160;bank&#160;is&#160;an&#160;FLEP,&#160;FLEE&#160;or&#160;FLES&#160;bank&#160;type<br/>
+•<br/>
+u32NumberOfSectors&#160;–&#160;Indicates&#160;the&#160;number&#160;of&#160;sectors&#160;in&#160;the&#160;bank<br/>
+•<br/>
+u32BankStartAddress&#160;–&#160;Starting&#160;address&#160;of&#160;the&#160;bank<br/>
+•<br/>
+au16SectorSizes[]&#160;–&#160;An&#160;array&#160;of&#160;sectors&#160;sizes&#160;for&#160;each&#160;sector&#160;in&#160;the&#160;bank&#160;(<i>As&#160;all&#160;sectors&#160;on&#160;FLEE<br/>banks&#160;are&#160;the&#160;same&#160;size,&#160;only&#160;au16SectorSizes[0]&#160;is&#160;returned&#160;with&#160;a&#160;sector&#160;size</i>)<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+•<br/>
+<b>Fapi_Error_FeatureNotAvailable&#160;</b>(failure:&#160;Not&#160;all&#160;devices&#160;have&#160;this&#160;support&#160;in&#160;the&#160;Flash&#160;Memory<br/>Controller)<br/>
+•<br/>
+<b>Fapi_Error_InvalidBank&#160;</b>(failure:&#160;Bank&#160;does&#160;not&#160;exist&#160;on&#160;this&#160;device)<br/>
+•<br/>
+<b>Fapi_Error_NullPointer&#160;</b>(failure:&#160;poFlashBankSectors&#160;is&#160;a&#160;NULL&#160;pointer)<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+31<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=32></a><i>API&#160;Functions</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<i><b>3.6</b></i><br/>
+<i><b>Utility&#160;Functions</b></i><br/>
+<b>3.6.1</b><br/>
+<b>Fapi_calculateFletcherChecksum()</b><br/>
+Calculates&#160;the&#160;Fletcher&#160;checksum&#160;from&#160;the&#160;given&#160;address&#160;and&#160;length<br/>
+<b>Synopsis</b><br/>
+uint32_t&#160;Fapi_calculateFletcherChecksum(<br/>
+uint16_t&#160;<i><b>*pu16Data</b></i>,<br/>
+uint16_t&#160;<i><b>u16Length</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>pu16Data&#160;[in]</i><br/>
+Address&#160;to&#160;start&#160;calculating&#160;the&#160;checksum&#160;from<br/>
+<i>u16Length&#160;[in]</i><br/>
+Number&#160;of&#160;16-bit&#160;words&#160;to&#160;use&#160;in&#160;calculation<br/>
+<b>Description</b><br/>
+This&#160;function&#160;generates&#160;a&#160;32-bit&#160;Fletcher&#160;checksum&#160;starting&#160;at&#160;the&#160;supplied&#160;address&#160;for&#160;the&#160;number&#160;of&#160;16-<br/>bit&#160;words&#160;specified.<br/>
+This&#160;function&#160;assumes&#160;the&#160;value&#160;passed&#160;in&#160;<i>pu16Data&#160;</i>is&#160;a&#160;16bit&#160;aligned&#160;address.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+•&#160;32-bit&#160;Fletcher&#160;Checksum&#160;value<br/>
+<b>3.6.2</b><br/>
+<b>Fapi_calculateEcc()</b><br/>
+Calculates&#160;the&#160;ECC&#160;for&#160;a&#160;64-bit&#160;value<br/>
+<b>Synopsis</b><br/>
+uint8_t&#160;Fapi_calculateEcc(<br/>
+uint32_t&#160;<i><b>u32Address</b></i>,<br/>
+uint64&#160;<i><b>u64Data</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>u32Address&#160;[in]</i><br/>
+Address&#160;of&#160;the&#160;64-bit&#160;value&#160;to&#160;calculate&#160;the&#160;ECC<br/>
+<i>u64Data&#160;[in]</i><br/>
+64-bit&#160;value&#160;to&#160;calculate&#160;ECC&#160;on<br/>
+<b>Description</b><br/>
+This&#160;function&#160;will&#160;calculate&#160;the&#160;ECC&#160;for&#160;a&#160;64-bit&#160;aligned&#160;word&#160;including&#160;address&#160;if&#160;device&#160;supports&#160;address<br/>in&#160;ECC&#160;calculation.<br/>
+This&#160;function&#160;assumes&#160;the&#160;value&#160;passed&#160;in&#160;<i>u32Address&#160;</i>is&#160;a&#160;64bit&#160;aligned&#160;address.<br/>
+<b>NOTE:</b><br/>
+As&#160;of&#160;version&#160;1.51.0&#160;of&#160;the&#160;API,&#160;this&#160;function&#160;expects&#160;the&#160;value&#160;in&#160;u64Data&#160;to&#160;be&#160;in&#160;the<br/>
+natural&#160;Endianness&#160;of&#160;the&#160;system&#160;the&#160;function&#160;is&#160;being&#160;called&#160;on.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+8-bit&#160;calculated&#160;ECC<br/>
+32<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=33></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Functions</i><br/>
+<b>3.6.3</b><br/>
+<b>Fapi_waitDelay()&#160;--&#160;Deprecated</b><br/>
+Generates&#160;a&#160;delay&#160;roughly&#160;proportional&#160;to&#160;the&#160;value&#160;passed.&#160;The&#160;delay&#160;is&#160;created&#160;with&#160;a&#160;simple&#160;software<br/>loop.&#160;The&#160;time&#160;is&#160;not&#160;adjusted&#160;to&#160;account&#160;for&#160;operating&#160;frequency,&#160;CPU&#160;type&#160;or&#160;memory&#160;access&#160;time.&#160;This<br/>function&#160;will&#160;not&#160;be&#160;supported&#160;in&#160;future&#160;versions&#160;of&#160;this&#160;API.<br/>
+<b>Synopsis</b><br/>
+uint8_t&#160;Fapi_waitDelay(<br/>
+uint32_t&#160;<i><b>u32WaitDelay</b></i>)<br/>
+<b>Parameters</b><br/>
+<i>u32WaitDelay&#160;[in]</i><br/>
+Number&#160;of&#160;arbitrary&#160;units&#160;to&#160;delay<br/>
+<b>Description</b><br/>
+This&#160;function&#160;will&#160;generate&#160;a&#160;wait&#160;for&#160;a&#160;time&#160;rougnly&#160;proportional&#160;to&#160;the&#160;value&#160;of&#160;u32WaitDelay.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+<i><b>3.7</b></i><br/>
+<i><b>User&#160;Definable&#160;Functions</b></i><br/>
+These&#160;callback&#160;functions&#160;are&#160;distributed&#160;in&#160;the&#160;file&#160;Fapi_UserDefinedFunctions.c&#160;and&#160;used&#160;by&#160;the&#160;<i>read<br/><a href="SPNU501Fs.html#7">Table&#160;4&#160;</a></i>functions.&#160;These&#160;are&#160;the&#160;base&#160;functions&#160;called&#160;by&#160;the&#160;API&#160;and&#160;can&#160;be&#160;modified&#160;to&#160;meet&#160;the&#160;user’s<br/>need&#160;for&#160;these&#160;operations.&#160;This&#160;file&#160;must&#160;be&#160;compiled&#160;with&#160;the&#160;user’s&#160;code.<br/>
+<b>3.7.1</b><br/>
+<b>Fapi_serviceWatchdogTimer()</b><br/>
+Services&#160;the&#160;watchdog&#160;timer<br/>
+<b>Synopsis</b><br/>
+Fapi_StatusType&#160;Fapi_serviceWatchdogTimer(void)<br/>
+<b>Parameters</b><br/>
+<i>None</i><br/>
+<b>Description</b><br/>
+This&#160;function&#160;allows&#160;the&#160;user&#160;to&#160;service&#160;their&#160;watchdog&#160;timer&#160;in&#160;the&#160;<i>read&#160;<a href="SPNU501Fs.html#7">Table&#160;4&#160;</a></i>functions.&#160;It&#160;is&#160;called<br/>when&#160;the&#160;address&#160;being&#160;read&#160;crosses&#160;the&#160;256&#160;byte&#160;aligned&#160;address&#160;boundaries.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_Success&#160;</b>(success)<br/>
+<b>Sample&#160;Implementation</b><br/>
+#include&#160;“F021.h”<br/>
+Fapi_StatusType&#160;Fapi_serviceWatchdogTimer(void)<br/>
+{<br/>
+/*&#160;User&#160;to&#160;add&#160;their&#160;own&#160;watchdog&#160;servicing&#160;code&#160;here&#160;*/<br/>
+return(Fapi_Status_Success);<br/>
+}<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+33<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=34></a><i>API&#160;Macros</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>4</b><br/>
+<b>API&#160;Macros</b><br/>
+The&#160;API&#160;includes&#160;a&#160;set&#160;of&#160;helper&#160;macros&#160;that&#160;may&#160;be&#160;used&#160;by&#160;the&#160;developer.<br/>
+<i><b>4.1</b></i><br/>
+<i><b>FAPI_CHECK_FSM_READY_BUSY</b></i><br/>
+Returns&#160;state&#160;of&#160;FSM.<br/>
+<b>Synopsis</b><br/>
+#define&#160;FAPI_CHECK_FSM_READY_BUSY&#160;(FLASH_CONTROL_REGISTER-<br/>
+&gt;FmStat.FMSTAT_BITS.BUSY&#160;?&#160;Fapi_Status_FsmBusy&#160;:&#160;Fapi_Status_FsmReady)<br/>
+<b>Parameters</b><br/>
+None<br/>
+<b>Description</b><br/>
+This&#160;macro&#160;returns&#160;the&#160;state&#160;of&#160;the&#160;FSM.<br/>
+<b>Return&#160;Value</b><br/>
+•<br/>
+<b>Fapi_Status_FsmReady&#160;</b>(FSM&#160;is&#160;ready&#160;to&#160;accept&#160;a&#160;new&#160;command)<br/>
+•<br/>
+<b>Fapi_Status_FsmBusy&#160;</b>(FSM&#160;is&#160;busy&#160;and&#160;may&#160;only&#160;accept&#160;a&#160;suspend&#160;command&#160;if&#160;operation&#160;is<br/>program&#160;or&#160;erase&#160;sector)<br/>
+<i><b>4.2</b></i><br/>
+<i><b>FAPI_CLEAR_FSM_DONE_EVENT</b></i><br/>
+Helper&#160;macro&#160;to&#160;clear&#160;FSM_DONE&#160;event<br/>
+<b>Synopsis</b><br/>
+#define&#160;FAPI_CLEAR_FSM_DONE_EVENT&#160;(FLASH_CONTROL_REGISTER-<br/>
+&gt;FedAcStatus.FEDACSTATUS_BITS.FSM_DONE&#160;=&#160;1U)<br/>
+<b>Parameters</b><br/>
+None<br/>
+<b>Description</b><br/>
+This&#160;macro&#160;writes&#160;a&#160;1&#160;to&#160;the&#160;FSM_DONE&#160;bit&#160;in&#160;the&#160;FEDACSTATUS&#160;register&#160;to&#160;clear&#160;the&#160;FSM_DONE<br/>event.<br/>
+<b>Return&#160;Value</b><br/>
+None<br/>
+34<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=35></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Macros</i><br/>
+<i><b>4.3</b></i><br/>
+<i><b>FAPI_GET_FSM_STATUS</b></i><br/>
+Returns&#160;the&#160;value&#160;of&#160;the&#160;FMSTAT&#160;register<br/>
+<b>Synopsis</b><br/>
+#define&#160;GET_FSM_STATUS&#160;(FLASH_CONTROL_REGISTER-&gt;FmStat.u32Register)<br/>
+<b>Parameters</b><br/>
+None<br/>
+<b>Description</b><br/>
+This&#160;macro&#160;is&#160;used&#160;to&#160;get&#160;the&#160;value&#160;of&#160;the&#160;FMSTAT&#160;register.<br/>
+<b>FMSTAT&#160;Register&#160;Value</b><br/>
+<b>Figure&#160;1.&#160;FMSTAT&#160;Register</b><br/>
+31<br/>
+24<br/>
+Reserved<br/>
+23<br/>
+16<br/>
+Reserved<br/>
+15<br/>
+14<br/>
+13<br/>
+12<br/>
+11<br/>
+10<br/>
+9<br/>
+8<br/>
+Reserved<br/>
+ILA<br/>
+Reserved<br/>
+PGV<br/>
+Reserved<br/>
+EV<br/>
+Reserved<br/>
+BUSY<br/>
+7<br/>
+6<br/>
+5<br/>
+4<br/>
+3<br/>
+2<br/>
+1<br/>
+0<br/>
+ERS<br/>
+PGM<br/>
+INV-DAT<br/>
+CSTAT<br/>
+VOLTSTAT<br/>
+ESUSP<br/>
+PSUSP<br/>
+SLOCK<br/>
+<b>Table&#160;8.&#160;FMSTAT&#160;Register&#160;Field&#160;Descriptions</b><br/>
+<b>Bit</b><br/>
+<b>Field</b><br/>
+<b>Description</b><br/>
+15<br/>
+Reserved<br/>
+Read&#160;returns&#160;0.&#160;Writes&#160;have&#160;no&#160;effect.<br/>
+Illegal&#160;Address<br/>
+14<br/>
+ILA<br/>
+When&#160;set,&#160;indicates&#160;that&#160;an&#160;illegal&#160;address&#160;is&#160;detected.&#160;Three&#160;conditions&#160;can&#160;set&#160;illegal&#160;address<br/>ﬂags.<br/>
+•&#160;Writing&#160;to&#160;a&#160;hole&#160;(un-implemented&#160;logical&#160;address&#160;space)&#160;within&#160;a&#160;Flash&#160;bank.<br/>
+•&#160;Writing&#160;to&#160;an&#160;address&#160;location&#160;to&#160;an&#160;un-implemented&#160;Flash&#160;space.<br/>
+•&#160;Input&#160;address&#160;for&#160;write&#160;is&#160;decoded&#160;to&#160;select&#160;a&#160;different&#160;bank&#160;from&#160;the&#160;bank&#160;ID&#160;register.<br/>
+•&#160;The&#160;address&#160;range&#160;does&#160;not&#160;match&#160;the&#160;type&#160;of&#160;FSM&#160;command.&#160;For&#160;example,&#160;the&#160;erase_sector<br/>
+and&#160;erase_OTP&#160;commands&#160;must&#160;match&#160;the&#160;address&#160;regions.<br/>
+•&#160;TI-OTP&#160;address&#160;selected&#160;but&#160;CMD_EN&#160;in&#160;FSM_ST_MACHINE&#160;is&#160;not&#160;set.<br/>
+13<br/>
+Reserved<br/>
+Read&#160;returns&#160;0.&#160;Writes&#160;have&#160;no&#160;effect.<br/>
+Program&#160;verify&#160;When&#160;set,&#160;indicates&#160;that&#160;a&#160;word&#160;is&#160;not&#160;successfully&#160;programmed&#160;after&#160;the&#160;maximum<br/>
+12<br/>
+PGV<br/>
+allowed&#160;number&#160;of&#160;program&#160;pulses&#160;are&#160;given&#160;for&#160;program&#160;operation.<br/>
+11<br/>
+Reserved<br/>
+Read&#160;returns&#160;0.&#160;Writes&#160;have&#160;no&#160;effect.<br/>
+Erase&#160;verify&#160;When&#160;set,&#160;indicates&#160;that&#160;a&#160;sector&#160;is&#160;not&#160;successfully&#160;erased&#160;after&#160;the&#160;maximum<br/>
+10<br/>
+EV<br/>
+allowed&#160;number&#160;of&#160;erase&#160;pulses&#160;are&#160;given&#160;for&#160;erase&#160;operation.&#160;During&#160;Erase&#160;verify&#160;command,&#160;this<br/>ﬂag&#160;is&#160;set&#160;immediately&#160;if&#160;a&#160;bit&#160;is&#160;found&#160;to&#160;be&#160;0.<br/>
+9<br/>
+Reserved<br/>
+Read&#160;returns&#160;0.&#160;Writes&#160;have&#160;no&#160;effect.<br/>
+8<br/>
+BUSY<br/>
+When&#160;set,&#160;this&#160;bit&#160;indicates&#160;that&#160;a&#160;program,&#160;erase,&#160;or&#160;suspend&#160;operation&#160;is&#160;being&#160;processed.<br/>
+Erase&#160;Active.&#160;When&#160;set,&#160;this&#160;bit&#160;indicates&#160;that&#160;the&#160;Flash&#160;module&#160;is&#160;actively&#160;performing&#160;an&#160;erase<br/>
+7<br/>
+ERS<br/>
+operation.&#160;This&#160;bit&#160;is&#160;set&#160;when&#160;erasing&#160;starts&#160;and&#160;is&#160;cleared&#160;when&#160;erasing&#160;is&#160;complete.&#160;It&#160;is&#160;also<br/>cleared&#160;when&#160;the&#160;erase&#160;is&#160;suspended&#160;and&#160;set&#160;when&#160;the&#160;erase&#160;resumes.<br/>
+Program&#160;Active.&#160;When&#160;set,&#160;this&#160;bit&#160;indicates&#160;that&#160;the&#160;Flash&#160;module&#160;is&#160;currently&#160;performing&#160;a<br/>program&#160;operation.&#160;This&#160;bit&#160;is&#160;set&#160;when&#160;programming&#160;starts&#160;and&#160;is&#160;cleared&#160;when&#160;programming&#160;is<br/>
+6<br/>
+PGM<br/>
+complete.&#160;It&#160;is&#160;also&#160;cleared&#160;when&#160;programming&#160;is&#160;suspended&#160;and&#160;set&#160;when&#160;programming&#160;is<br/>resumes.<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+35<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=36></a><i>API&#160;Macros</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>Table&#160;8.&#160;FMSTAT&#160;Register&#160;Field&#160;Descriptions&#160;(continued)</b><br/>
+<b>Bit</b><br/>
+<b>Field</b><br/>
+<b>Description</b><br/>
+Invalid&#160;Data.&#160;When&#160;set,&#160;this&#160;bit&#160;indicates&#160;that&#160;the&#160;user&#160;attempted&#160;to&#160;program&#160;a&#160;“1”&#160;where&#160;a&#160;“0”&#160;was<br/>
+5<br/>
+INVDAT<br/>
+already&#160;present.&#160;This&#160;bit&#160;is&#160;cleared&#160;by&#160;the&#160;Clear&#160;Status&#160;command.<br/>
+Command&#160;Status.&#160;Once&#160;the&#160;FSM&#160;starts&#160;any&#160;failure&#160;will&#160;set&#160;this&#160;bit.&#160;When&#160;set,&#160;this&#160;bit&#160;informs&#160;the<br/>host&#160;that&#160;the&#160;program,&#160;erase,&#160;or&#160;validate&#160;sector&#160;command&#160;failed&#160;and&#160;the&#160;command&#160;was&#160;stopped.<br/>
+4<br/>
+CSTAT<br/>
+This&#160;bit&#160;is&#160;cleared&#160;by&#160;the&#160;Clear&#160;Status&#160;command.&#160;For&#160;some&#160;errors,&#160;this&#160;will&#160;be&#160;the&#160;only&#160;indication&#160;of<br/>an&#160;FSM&#160;error&#160;because&#160;the&#160;cause&#160;does&#160;not&#160;fall&#160;within&#160;the&#160;other&#160;error&#160;bit&#160;types.<br/>
+Core&#160;Voltage&#160;Status.&#160;When&#160;set,&#160;this&#160;bit&#160;indicates&#160;that&#160;the&#160;core&#160;voltage&#160;generator&#160;of&#160;the&#160;pump&#160;power<br/>
+3<br/>
+VOLTSTAT<br/>
+supply&#160;dipped&#160;below&#160;the&#160;lower&#160;limit&#160;allowable&#160;during&#160;a&#160;program&#160;or&#160;erase&#160;operation.&#160;This&#160;bit&#160;is<br/>cleared&#160;by&#160;the&#160;Clear&#160;Status&#160;command.&#160;Version&#160;3.0.9,&#160;3.1.0&#160;Preliminary&#160;Flash&#160;Registers<br/>
+Erase&#160;Suspend.&#160;When&#160;set,&#160;this&#160;bit&#160;indicates&#160;that&#160;the&#160;Flash&#160;module&#160;has&#160;received&#160;and&#160;processed&#160;an<br/>
+2<br/>
+ESUSP<br/>
+erase&#160;suspend&#160;operation.&#160;This&#160;bit&#160;remains&#160;set&#160;until&#160;the&#160;erase&#160;resume&#160;command&#160;has&#160;been&#160;issued&#160;or<br/>until&#160;the&#160;Clear_More&#160;command&#160;is&#160;run.<br/>
+Program&#160;Suspend.&#160;When&#160;set,&#160;this&#160;bit&#160;indicates&#160;that&#160;the&#160;Flash&#160;module&#160;has&#160;received&#160;and&#160;processed<br/>
+1<br/>
+PSUSP<br/>
+a&#160;program&#160;suspend&#160;operation.&#160;This&#160;bit&#160;remains&#160;set&#160;until&#160;the&#160;program&#160;resume&#160;command&#160;has&#160;been<br/>issued&#160;or&#160;until&#160;the&#160;Clear_More&#160;command&#160;is&#160;run.<br/>
+Sector&#160;Lock&#160;Status.&#160;When&#160;set,&#160;this&#160;bit&#160;indicates&#160;that&#160;the&#160;operation&#160;was&#160;halted&#160;because&#160;the&#160;target<br/>
+0<br/>
+SLOCK<br/>
+sector&#160;was&#160;locked&#160;for&#160;erasing&#160;and&#160;the&#160;programming&#160;either&#160;by&#160;the&#160;sector&#160;protect&#160;bit&#160;or&#160;by&#160;OTP&#160;write<br/>protection&#160;disable&#160;bits.&#160;This&#160;bit&#160;is&#160;cleared&#160;by&#160;the&#160;Clear&#160;Status&#160;command.<br/>
+No&#160;SLOCK&#160;FSM&#160;error&#160;will&#160;occur&#160;if&#160;all&#160;sectors&#160;in&#160;a&#160;bank&#160;erase&#160;operation&#160;are&#160;set&#160;to&#160;1.&#160;All&#160;the&#160;sectors<br/>will&#160;be&#160;checked&#160;but&#160;no&#160;LOCK&#160;will&#160;be&#160;set&#160;if&#160;no&#160;operation&#160;occurs&#160;due&#160;to&#160;the&#160;SECT_ERASED&#160;bits<br/>being&#160;set&#160;to&#160;all&#160;ones.&#160;A&#160;SLOCK&#160;error&#160;will&#160;occur&#160;if&#160;attempting&#160;to&#160;do&#160;a&#160;sector&#160;erase&#160;with&#160;either&#160;BSE&#160;is<br/>cleared&#160;or&#160;SECT_ERASED&#160;is&#160;set.&#160;For&#160;FLEE&#160;Flash&#160;banks&#160;over&#160;16&#160;sectors,&#160;the&#160;BSE&#160;register&#160;must<br/>be&#160;set&#160;to&#160;all&#160;ones&#160;for&#160;a&#160;bank&#160;or&#160;sector&#160;erase.<br/>
+<i><b>4.4</b></i><br/>
+<i><b>FAPI_SUSPEND_FSM</b></i><br/>
+Issues&#160;FSM&#160;suspend&#160;command<br/>
+<b>Synopsis</b><br/>
+#define&#160;FAPI_SUSPEND_FSM<br/>
+(FAPI_WRITE_LOCKED_FSM_REGISTER(FLASH_CONTROL_REGISTER-<br/>
+&gt;FsmExecute.FSM_EXECUTE_BITS.SUSPEND_NOW,&#160;0x5U))<br/>
+<b>Parameters</b><br/>
+None<br/>
+<b>Description</b><br/>
+This&#160;macro&#160;will&#160;issue&#160;a&#160;FSM&#160;suspend&#160;command.&#160;Only&#160;program&#160;and&#160;erase&#160;sector&#160;operations&#160;are&#160;valid<br/>suspendable&#160;operations.<br/>
+<b>Return&#160;Value</b><br/>
+None<br/>
+36<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=37></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>API&#160;Macros</i><br/>
+<i><b>4.5</b></i><br/>
+<i><b>FAPI_WRITE_EWAIT</b></i><br/>
+Helper&#160;macro&#160;to&#160;write&#160;EWAIT&#160;value<br/>
+<b>Synopsis</b><br/>
+#define&#160;FAPI_WRITE_EWAIT(_mEwait)&#160;(FAPI_WRITE_LOCKED_FSM_REGISTER(FLASH_CONTROL_REGISTER-<br/>
+&gt;EepromConfig.EEPROM_CONFIG_BITS.EWAIT,_mEwait))<br/>
+<b>Parameters</b><br/>
+<i>_mEwait&#160;[in]</i><br/>
+EWAIT&#160;value&#160;to&#160;be&#160;written<br/>
+<b>Description</b><br/>
+This&#160;macro&#160;writes&#160;_mEwait&#160;to&#160;the&#160;EWAIT&#160;bits&#160;in&#160;the&#160;EEPROM_CONFIG&#160;register.<br/>
+<b>Return&#160;Value</b><br/>
+None<br/>
+<i><b>4.6</b></i><br/>
+<i><b>FAPI_WRITE_LOCKED_FSM_REGISTER</b></i><br/>
+Allow&#160;easy&#160;writing&#160;to&#160;Flash&#160;Memory&#160;Controller&#160;registers&#160;that&#160;need&#160;to&#160;be&#160;unlocked&#160;first.<br/>
+<b>Synopsis</b><br/>
+#define&#160;FAPI_WRITE_LOCKED_FSM_REGISTER(mRegister,mValue)<br/>
+\<br/>
+do&#160;{<br/>
+\<br/>
+Fapi_GlobalInit.m_poFlashControlRegisters-&gt;FsmWrEna.FSM_WR_ENA_BITS.WR_ENA<br/>
+=&#160;0x5U;&#160;\<br/>
+mRegister&#160;=&#160;mValue;<br/>
+\<br/>
+Fapi_GlobalInit.m_poFlashControlRegisters-&gt;FsmWrEna.FSM_WR_ENA_BITS.WR_ENA<br/>
+=&#160;0x2U;&#160;\<br/>
+}while(0)<br/>
+<b>Parameters</b><br/>
+<i>mRegister&#160;[in]</i><br/>
+Address&#160;or&#160;bitfield&#160;of&#160;the&#160;locked&#160;register&#160;to&#160;be&#160;written&#160;to<br/>
+<i>mValue&#160;[in]</i><br/>
+Value&#160;to&#160;be&#160;written&#160;to&#160;the&#160;locked&#160;register<br/>
+<b>Description</b><br/>
+This&#160;function&#160;sets&#160;up&#160;the&#160;sectors&#160;in&#160;the&#160;non&#160;EEPROM&#160;banks&#160;that&#160;are&#160;available&#160;for&#160;erase&#160;and&#160;programming<br/>operations.<br/>
+<b>Return&#160;Value</b><br/>
+<i>None</i><br/>
+<b>5</b><br/>
+<b>Recommended&#160;FSM&#160;Flows</b><br/>
+<i><b>5.1</b></i><br/>
+<i><b>New&#160;Devices&#160;From&#160;Factory</b></i><br/>
+Devices&#160;are&#160;shipped&#160;erased&#160;from&#160;the&#160;Factory.&#160;It&#160;is&#160;recommended,&#160;but&#160;not&#160;required&#160;to&#160;do&#160;a&#160;blank&#160;check&#160;on<br/>devices&#160;received&#160;to&#160;verify&#160;that&#160;they&#160;are&#160;erased.<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+37<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=38></a><i>Recommended&#160;FSM&#160;Flows</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<i><b>5.2</b></i><br/>
+<i><b>Recommended&#160;Erase&#160;Flows</b></i><br/>
+<a href="SPNU501Fs.html#38">Figure&#160;2&#160;</a>and&#160;<a href="SPNU501Fs.html#39">Figure&#160;3&#160;</a>describe&#160;the&#160;flow&#160;for&#160;erasing&#160;a&#160;sector(s)&#160;or&#160;bank(s)&#160;on&#160;a&#160;device.&#160;For&#160;further<br/>information,&#160;see&#160;<a href="SPNU501Fs.html#17">Section&#160;3.2.2</a>.<br/>
+Start<br/>
+Call&#160;<br/>
+<i><b>Fapi_issueAsyncCommandWithAddress()</b></i>&#160;<br/>
+Using&#160;<i>Fapi_EraseSector</i>&#160;command<br/>
+Properly&#160;Initialized&#160;Device<br/>
+Call&#160;<br/>
+<i><b>Fapi_initializeFlashBanks()</b></i><br/>
+No<br/>
+<i>Execute&#160;other&#160;</i><br/>
+<b>CHECK_FSM_READY_BUSY<i>&#160;</i></b><br/>
+<i>code&#160;as&#160;</i><br/>
+!=&#160;<i>Fapi_Status_FsmBusy</i><br/>
+<i>needed</i><br/>
+Call&#160;<br/>
+<i><b>Fapi_setActiveFlashBank()</b></i>&#160;<br/>
+for&#160;current&#160;bank<br/>
+Yes<br/>
+Call&#160;either&#160;<br/>
+<i><b>Fapi_enableMainBankSectors()</b></i>&#160;or&#160;<br/>
+<i><b>Fapi_enableEepromBankSectors()&#160;</b></i><br/>
+No<br/>
+appropriate&#160;for&#160;current&#160;bank<br/>
+<b>GET_FSM_STATUS</b>&#160;<br/>
+DUT&#160;fails&#160;Program<br/>
+==&#160;0<br/>
+Yes<br/>
+Yes<br/>
+<b>CHECK_FSM_READY_BUSY<i>&#160;</i></b><br/>
+<i><b>=</b></i>=&#160;<i>Fapi_Status_FsmReady</i><br/>
+No<br/>
+Another&#160;Sector&#160;to&#160;Erase?<br/>
+Done<br/>
+No<br/>
+Yes<br/>
+No<br/>
+Is&#160;Sector&#160;in&#160;a&#160;different&#160;<br/>
+bank?<br/>
+Yes<br/>
+<b>Figure&#160;2.&#160;Recommended&#160;Sector&#160;Erase&#160;Flow</b><br/>
+38<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=39></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Recommended&#160;FSM&#160;Flows</i><br/>
+Start<br/>
+Call&#160;<br/>
+<i><b>Fapi_issueAsyncCommandWithAddress()</b></i>&#160;<br/>
+Using&#160;<i>Fapi_EraseBank</i>&#160;command<br/>
+Properly&#160;Initialized&#160;Device<br/>
+Call&#160;<br/>
+<i><b>Fapi_initializeFlashBanks()</b></i><br/>
+No<br/>
+<i>Execute&#160;other&#160;</i><br/>
+<b>CHECK_FSM_READY_BUSY<i>&#160;</i></b><br/>
+<i>code&#160;as&#160;</i><br/>
+!=&#160;<i>Fapi_Status_FsmBusy</i><br/>
+<i>needed</i><br/>
+Call&#160;<br/>
+<i><b>Fapi_setActiveFlashBank()</b></i>&#160;<br/>
+for&#160;current&#160;bank<br/>
+Yes<br/>
+Call&#160;either&#160;<br/>
+<i><b>Fapi_enableMainBankSectors()</b></i>&#160;or&#160;<br/>
+<i><b>Fapi_enableEepromBankSectors()&#160;</b></i><br/>
+No<br/>
+appropriate&#160;for&#160;current&#160;bank<br/>
+<b>GET_FSM_STATUS</b>&#160;<br/>
+DUT&#160;fails&#160;Program<br/>
+==&#160;0<br/>
+Yes<br/>
+Yes<br/>
+<b>CHECK_FSM_READY_BUSY<i>&#160;</i></b><br/>
+<i><b>=</b></i>=&#160;<i>Fapi_Status_FsmReady</i><br/>
+Yes<br/>
+Another&#160;Bank&#160;to&#160;Erase?<br/>
+No<br/>
+No<br/>
+Done<br/>
+<b>Figure&#160;3.&#160;Recommended&#160;Bank&#160;Erase&#160;Flow</b><br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+39<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=40></a><i>Recommended&#160;FSM&#160;Flows</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<i><b>5.3</b></i><br/>
+<i><b>Recommended&#160;Program&#160;Flow</b></i><br/>
+<a href="SPNU501Fs.html#40">Figure&#160;4&#160;</a>describes&#160;the&#160;flow&#160;for&#160;programming&#160;a&#160;device.&#160;This&#160;flow&#160;assumes&#160;the&#160;user&#160;has&#160;already&#160;erased&#160;all<br/>affected&#160;sectors&#160;or&#160;banks&#160;following&#160;the&#160;Recommended&#160;Erase&#160;Flow&#160;(see&#160;<a href="SPNU501Fs.html#38">Section&#160;5.2</a>).&#160;For&#160;further<br/>information,&#160;see&#160;<a href="SPNU501Fs.html#18">Section&#160;3.3.1</a>.<br/>
+Start<br/>
+Call&#160;<i><b>Fapi_issueProgrammingCommand()</b></i>&#160;<br/>
+Supplying&#160;address,&#160;data&#160;and&#160;mode&#160;<br/>
+Properly&#160;Initialized&#160;Device<br/>
+No<br/>
+Call&#160;<br/>
+<i>Execute&#160;other&#160;</i><br/>
+<b>CHECK_FSM_READY_BUSY<i>&#160;</i></b><br/>
+<i><b>Fapi_initializeFlashBanks()</b></i><br/>
+<i>code&#160;as&#160;</i><br/>
+!=&#160;<i>Fapi_Status_FsmBusy</i><br/>
+<i>needed</i><br/>
+Call&#160;<br/>
+Yes<br/>
+<i><b>Fapi_setActiveFlashBank()</b></i>&#160;<br/>
+for&#160;current&#160;bank<br/>
+No<br/>
+Call&#160;either&#160;<br/>
+<b>GET_FSM_STATUS</b>&#160;<br/>
+DUT&#160;fails&#160;Program<br/>
+<i><b>Fapi_enableMainBankSectors()</b></i>&#160;or&#160;<br/>
+==&#160;0<br/>
+<i><b>Fapi_enableEepromBankSectors()&#160;</b></i><br/>
+appropriate&#160;for&#160;current&#160;bank<br/>
+Yes<br/>
+Yes<br/>
+<b>CHECK_FSM_READY_BUSY<i>&#160;</i></b><br/>
+No<br/>
+<i><b>=</b></i>=&#160;<i>Fapi_Status_FsmReady</i><br/>
+More&#160;data&#160;to&#160;program?<br/>
+Done<br/>
+No<br/>
+Yes<br/>
+Is&#160;data&#160;in&#160;same&#160;bank?<br/>
+No<br/>
+<b>Figure&#160;4.&#160;Recommended&#160;Program&#160;Flow</b><br/>
+40<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=41></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<b>Appendix&#160;A&#160;Flash&#160;State&#160;Machine&#160;Commands</b><br/>
+<i><b>A.1</b></i><br/>
+<i><b>Flash&#160;State&#160;Machine&#160;Commands</b></i><br/>
+<b>Table&#160;9.&#160;Flash&#160;State&#160;Machine&#160;Commands</b><br/>
+<b>Command</b><br/>
+<b>Description</b><br/>
+<b>Enumeration&#160;Type</b><br/>
+<b>API&#160;Call(s)</b><br/>
+Program<br/>
+Used&#160;to&#160;program&#160;data&#160;to<br/>
+Fapi_ProgramData<br/>
+<a href="SPNU501Fs.html#19">Fapi_issueProgrammingCommandForEccAddress()</a><br/>
+Data<br/>
+any&#160;valid&#160;Flash&#160;address<br/>
+Used&#160;to&#160;erase&#160;a&#160;Flash<br/>
+Erase&#160;Sector&#160;sector&#160;located&#160;by&#160;the<br/>
+Fapi_EraseSector<br/>
+specified&#160;address<br/>
+<a href="SPNU501Fs.html#17">Fapi_issueAsyncCommandWithAddress()</a><br/>
+Used&#160;to&#160;erase&#160;a&#160;Flash&#160;bank<br/>
+Erase&#160;Bank<br/>
+located&#160;by&#160;the&#160;specified<br/>
+Fapi_EraseBank<br/>
+address<br/>
+Clear&#160;Status<br/>
+Clears&#160;the&#160;status&#160;register<br/>
+Fapi_ClearStatus<br/>
+<a href="SPNU501Fs.html#16">Fapi_issueAsyncCommand()</a><br/>
+Program<br/>
+Resumes&#160;a&#160;suspended<br/>
+Fapi_ProgramResume<br/>
+<a href="SPNU501Fs.html#16">Fapi_issueAsyncCommand()</a><br/>
+Resume<br/>
+programming&#160;operation<br/>
+Erase<br/>
+Resumes&#160;a&#160;suspended<br/>
+Fapi_EraseResume<br/>
+<a href="SPNU501Fs.html#16">Fapi_issueAsyncCommand()</a><br/>
+Resume<br/>
+erase&#160;operation<br/>
+Clear&#160;More<br/>
+Clears&#160;the&#160;status&#160;register<br/>
+Fapi_ClearMore<br/>
+<a href="SPNU501Fs.html#16">Fapi_issueAsyncCommand()</a><br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<i>Flash&#160;State&#160;Machine&#160;Commands</i><br/>
+41<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=42></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<b>Appendix&#160;B&#160;Typedefs&#160;and&#160;Enumerations</b><br/>
+<i><b>B.1</b></i><br/>
+<i><b>Type&#160;Definitions</b></i><br/>
+typedef&#160;unsigned&#160;char&#160;boolean_t;<br/>
+<i><b>B.2</b></i><br/>
+<i><b>Enumerations</b></i><br/>
+<b>B.2.1</b><br/>
+<b>Fapi_CpuSelectorType</b><br/>
+This&#160;is&#160;used&#160;to&#160;indicate&#160;which&#160;CPU&#160;is&#160;being&#160;used.<br/>
+typedef&#160;enum<br/>
+{<br/>
+Fapi_MasterCpu,<br/>
+Fapi_SlaveCpu0<br/>
+}&#160;ATTRIBUTE_PACKED&#160;Fapi_CpuSelectorType;<br/>
+<b>B.2.2</b><br/>
+<b>Fapi_CpuType</b><br/>
+This&#160;is&#160;used&#160;to&#160;indicate&#160;what&#160;type&#160;of&#160;Cpu&#160;is&#160;being&#160;used.<br/>
+typedef&#160;enum<br/>
+{<br/>
+ARM7&#160;=&#160;0U,<br/>
+/*&#160;ARM7&#160;core,&#160;Legacy&#160;placeholder&#160;*/<br/>
+M3<br/>
+=&#160;1U,<br/>
+/*&#160;ARM&#160;Cortex&#160;M3&#160;core&#160;*/<br/>
+R4<br/>
+=&#160;2U,<br/>
+/*&#160;ARM&#160;Cortex&#160;R4&#160;core&#160;without&#160;ECC&#160;logic&#160;*/<br/>
+R4F<br/>
+=&#160;3U,<br/>
+/*&#160;ARM&#160;Cortex&#160;R4,&#160;R4F,&#160;and&#160;R5&#160;cores&#160;with&#160;ECC&#160;logic*/<br/>
+C28<br/>
+=&#160;4U,<br/>
+/*&#160;TI&#160;C28x&#160;core&#160;*/<br/>
+Undefined1&#160;=&#160;5U,<br/>
+/*&#160;To&#160;Be&#160;Determined.<br/>
+Future&#160;core&#160;placeholder&#160;*/<br/>
+Undefined2&#160;=&#160;6U,<br/>
+/*&#160;To&#160;Be&#160;Determined.<br/>
+Future&#160;core&#160;placeholder&#160;*/<br/>
+Undefined3&#160;=&#160;7U<br/>
+/*&#160;To&#160;Be&#160;Determined.<br/>
+Future&#160;core&#160;placeholder&#160;*/<br/>
+}<br/>
+ATTRIBUTE_PACKED&#160;Fapi_CpuType;<br/>
+<b>B.2.3</b><br/>
+<b>Fapi_FamilyType</b><br/>
+This&#160;is&#160;used&#160;to&#160;indicate&#160;what&#160;type&#160;of&#160;Family&#160;is&#160;being&#160;used.<br/>
+typedef&#160;enum<br/>
+{<br/>
+Family_FMC<br/>
+=&#160;0x00,<br/>
+Family_L2FMC<br/>
+=&#160;0x10,<br/>
+Family_Sonata<br/>
+=&#160;0x20,<br/>
+Family_Stellaris&#160;=&#160;0x30,<br/>
+Family_Future<br/>
+=&#160;0x40<br/>
+}&#160;ATTRIBUTE_PACKED&#160;Fapi_FamilyType;<br/>
+42<br/>
+<i>Typedefs&#160;and&#160;Enumerations</i><br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=43></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Enumerations</i><br/>
+<b>B.2.4</b><br/>
+<b>Fapi_AddressMemoryType</b><br/>
+This&#160;is&#160;used&#160;to&#160;indicate&#160;what&#160;type&#160;of&#160;Address&#160;is&#160;being&#160;used.<br/>
+typedef&#160;enum<br/>
+{<br/>
+Fapi_Flash,<br/>
+Fapi_FlashEcc,<br/>
+Fapi_Otp,<br/>
+Fapi_OtpEcc,<br/>
+Fapi_Undefined<br/>
+}<br/>
+ATTRIBUTE_PACKED&#160;Fapi_AddressMemoryType;<br/>
+<b>B.2.5</b><br/>
+<b>Fapi_FlashProgrammingCommandsType</b><br/>
+This&#160;contains&#160;all&#160;the&#160;possible&#160;modes&#160;used&#160;in&#160;the&#160;Fapi_IssueAsyncProgrammingCommand().<br/>
+typedef&#160;enum<br/>
+{<br/>
+Fapi_AutoEccGeneration,&#160;/*&#160;This&#160;is&#160;the&#160;default&#160;mode&#160;for&#160;the&#160;command&#160;and&#160;will&#160;auto&#160;generate<br/>
+the&#160;ecc&#160;for&#160;the&#160;provided&#160;data&#160;buffer&#160;*/<br/>
+Fapi_DataOnly,<br/>
+/*&#160;Command&#160;will&#160;only&#160;process&#160;the&#160;data&#160;buffer&#160;*/<br/>
+Fapi_EccOnly,<br/>
+/*&#160;Command&#160;will&#160;only&#160;process&#160;the&#160;ecc&#160;buffer&#160;*/<br/>
+Fapi_DataAndEcc<br/>
+/*&#160;Command&#160;will&#160;process&#160;data&#160;and&#160;ecc&#160;buffers&#160;*/<br/>
+}<br/>
+ATTRIBUTE_PACKED&#160;Fapi_FlashProgrammingCommandsType;<br/>
+<b>B.2.6</b><br/>
+<b>Fapi_FlashBankType</b><br/>
+This&#160;is&#160;used&#160;to&#160;indicate&#160;which&#160;Flash&#160;bank&#160;is&#160;being&#160;used.<br/>
+typedef&#160;enum<br/>
+{<br/>
+Fapi_FlashBank0=0,<br/>
+Fapi_FlashBank1=1,<br/>
+Fapi_FlashBank2=2,<br/>
+Fapi_FlashBank3=3,<br/>
+Fapi_FlashBank4=4,<br/>
+Fapi_FlashBank5=5,<br/>
+Fapi_FlashBank6=6,<br/>
+Fapi_FlashBank7=7<br/>
+}<br/>
+ATTRIBUTE_PACKED&#160;Fapi_FlashBankType;<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<i>Typedefs&#160;and&#160;Enumerations</i><br/>
+43<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=44></a><i>Enumerations</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>B.2.7</b><br/>
+<b>Fapi_FlashBankTechType</b><br/>
+This&#160;is&#160;used&#160;to&#160;indicate&#160;what&#160;F021&#160;Bank&#160;Technology&#160;the&#160;bank&#160;is.<br/>
+typedef&#160;enum<br/>
+{<br/>
+Fapi_FLEP=0,<br/>
+Fapi_FLEE=1,<br/>
+Fapi_FLES=2,<br/>
+Fapi_FLHV=3<br/>
+}<br/>
+ATTRIBUTE_PACKED&#160;Fapi_FlashBankTechType;<br/>
+<b>B.2.8</b><br/>
+<b>Fapi_FlashSectorType</b><br/>
+This&#160;is&#160;used&#160;to&#160;indicate&#160;which&#160;Flash&#160;sector&#160;is&#160;being&#160;used.<br/>
+typedef&#160;enum<br/>
+{<br/>
+Fapi_FlashSector0,<br/>
+Fapi_FlashSector1,<br/>
+Fapi_FlashSector2,<br/>
+Fapi_FlashSector3,<br/>
+Fapi_FlashSector4,<br/>
+Fapi_FlashSector5,<br/>
+Fapi_FlashSector6,<br/>
+Fapi_FlashSector7,<br/>
+Fapi_FlashSector8,<br/>
+Fapi_FlashSector9,<br/>
+Fapi_FlashSector10,<br/>
+Fapi_FlashSector11,<br/>
+Fapi_FlashSector12,<br/>
+Fapi_FlashSector13,<br/>
+Fapi_FlashSector14,<br/>
+Fapi_FlashSector15,<br/>
+Fapi_FlashSector16,<br/>
+Fapi_FlashSector17,<br/>
+Fapi_FlashSector18,<br/>
+Fapi_FlashSector19,<br/>
+Fapi_FlashSector20,<br/>
+Fapi_FlashSector21,<br/>
+Fapi_FlashSector22,<br/>
+Fapi_FlashSector23,<br/>
+Fapi_FlashSector24,<br/>
+Fapi_FlashSector25,<br/>
+Fapi_FlashSector26,<br/>
+Fapi_FlashSector27,<br/>
+Fapi_FlashSector28,<br/>
+Fapi_FlashSector29,<br/>
+Fapi_FlashSector30,<br/>
+Fapi_FlashSector31,<br/>
+Fapi_FlashSector32,<br/>
+Fapi_FlashSector33,<br/>
+Fapi_FlashSector34,<br/>
+Fapi_FlashSector35,<br/>
+Fapi_FlashSector36,<br/>
+Fapi_FlashSector37,<br/>
+Fapi_FlashSector38,<br/>
+Fapi_FlashSector39,<br/>
+Fapi_FlashSector40,<br/>
+Fapi_FlashSector41,<br/>
+Fapi_FlashSector42,<br/>
+44<br/>
+<i>Typedefs&#160;and&#160;Enumerations</i><br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=45></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Enumerations</i><br/>
+Fapi_FlashSector43,<br/>
+Fapi_FlashSector44,<br/>
+Fapi_FlashSector45,<br/>
+Fapi_FlashSector46,<br/>
+Fapi_FlashSector47,<br/>
+Fapi_FlashSector48,<br/>
+Fapi_FlashSector49,<br/>
+Fapi_FlashSector50,<br/>
+Fapi_FlashSector51,<br/>
+Fapi_FlashSector52,<br/>
+Fapi_FlashSector53,<br/>
+Fapi_FlashSector54,<br/>
+Fapi_FlashSector55,<br/>
+Fapi_FlashSector56,<br/>
+Fapi_FlashSector57,<br/>
+Fapi_FlashSector58,<br/>
+Fapi_FlashSector59,<br/>
+Fapi_FlashSector60,<br/>
+Fapi_FlashSector61,<br/>
+Fapi_FlashSector62,<br/>
+Fapi_FlashSector63<br/>
+}<br/>
+ATTRIBUTE_PACKED&#160;Fapi_FlashSectorType;<br/>
+<b>B.2.9</b><br/>
+<b>Fapi_FlashStateCommandsType</b><br/>
+This&#160;contains&#160;all&#160;the&#160;possible&#160;Flash&#160;State&#160;Machine&#160;commands.<br/>
+typedef&#160;enum<br/>
+{<br/>
+Fapi_ProgramData<br/>
+=&#160;0x0002,<br/>
+Fapi_EraseSector<br/>
+=&#160;0x0006,<br/>
+Fapi_EraseBank<br/>
+=&#160;0x0008,<br/>
+Fapi_ValidateSector&#160;=&#160;0x000E,<br/>
+Fapi_ClearStatus<br/>
+=&#160;0x0010,<br/>
+Fapi_ProgramResume<br/>
+=&#160;0x0014,<br/>
+Fapi_EraseResume<br/>
+=&#160;0x0016,<br/>
+Fapi_ClearMore<br/>
+=&#160;0x0018<br/>
+}<br/>
+ATTRIBUTE_PACKED&#160;Fapi_FlashStateCommandsType;<br/>
+<b>B.2.10</b><br/>
+<b>Fapi_FlashReadMarginModeType</b><br/>
+This&#160;contains&#160;all&#160;the&#160;possible&#160;Flash&#160;State&#160;Machine&#160;commands.<br/>
+typedef&#160;enum<br/>
+{<br/>
+Fapi_NormalRead&#160;=&#160;0x0,<br/>
+Fapi_RM0<br/>
+=&#160;0x1,<br/>
+Fapi_RM1<br/>
+=&#160;0x2<br/>
+}<br/>
+ATTRIBUTE_PACKED&#160;Fapi_FlashReadMarginModeType;<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<i>Typedefs&#160;and&#160;Enumerations</i><br/>
+45<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=46></a><i>Enumerations</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>B.2.11</b><br/>
+<b>Fapi_StatusType</b><br/>
+This&#160;is&#160;the&#160;master&#160;type&#160;containing&#160;all&#160;possible&#160;returned&#160;status&#160;codes.<br/>
+typedef&#160;enum<br/>
+{<br/>
+Fapi_Status_Success=0,<br/>
+/*&#160;Function&#160;completed&#160;successfully&#160;*/<br/>
+Fapi_Status_FsmBusy,<br/>
+/*&#160;FSM&#160;is&#160;Busy&#160;*/<br/>
+Fapi_Status_FsmReady,<br/>
+/*&#160;FSM&#160;is&#160;Ready&#160;*/<br/>
+Fapi_Error_Fail,<br/>
+/*&#160;Generic&#160;Function&#160;Fail&#160;code&#160;*/<br/>
+Fapi_Error_NullPointer,<br/>
+/*&#160;One&#160;of&#160;the&#160;pointer&#160;parameters&#160;is&#160;a&#160;null&#160;pointer&#160;*/<br/>
+Fapi_Error_InvalidCommand,<br/>
+/*&#160;Command&#160;used&#160;is&#160;invalid&#160;for&#160;the&#160;function&#160;called&#160;*/<br/>
+Fapi_Error_InvalidEccAddress,<br/>
+/*&#160;Returned&#160;if&#160;the&#160;ECC&#160;Address&#160;given&#160;to&#160;a&#160;function&#160;is<br/>
+invalid&#160;for&#160;that&#160;function&#160;*/<br/>
+Fapi_Error_OtpChecksumMismatch,<br/>
+/*&#160;Returned&#160;if&#160;OTP&#160;checksum&#160;does&#160;not&#160;match&#160;expected&#160;value&#160;*/<br/>
+Fapi_Error_InvalidHclkValue,<br/>
+/*&#160;Returned&#160;if&#160;FClk&#160;is&#160;above&#160;max&#160;FClk&#160;value&#160;-<br/>
+FClk&#160;is&#160;a&#160;calculated&#160;from&#160;HClk&#160;and<br/>
+RWAIT/EWAIT&#160;*/<br/>
+Fapi_Error_InvalidBank,<br/>
+/*&#160;Returned&#160;if&#160;the&#160;specified&#160;bank&#160;does&#160;not&#160;exist&#160;*/<br/>
+Fapi_Error_InvalidAddress,<br/>
+/*&#160;Returned&#160;if&#160;the&#160;specified&#160;Address&#160;does&#160;not&#160;exist&#160;in<br/>
+Flash&#160;or&#160;OTP&#160;*/<br/>
+Fapi_Error_InvalidReadMode,<br/>
+/*&#160;Returned&#160;if&#160;the&#160;specified&#160;read&#160;mode&#160;does&#160;not&#160;exist&#160;*/<br/>
+Fapi_Error_AsyncIncorrectDataBufferLength,<br/>
+/*&#160;Returned&#160;if&#160;Data&#160;buffer&#160;size&#160;specified<br/>
+exceeds&#160;Data&#160;bank&#160;width&#160;*/<br/>
+Fapi_Error_AsyncIncorrectEccBufferLength,<br/>
+/*&#160;Returned&#160;if&#160;ECC&#160;buffer&#160;size&#160;specified<br/>
+exceeds&#160;ECC&#160;bank&#160;width&#160;*/<br/>
+Fapi_Error_AsyncDataEccBufferLengthMismatch,&#160;/*&#160;Returned&#160;if&#160;Data&#160;buffer&#160;size&#160;either&#160;is&#160;not<br/>
+64bit&#160;aligned&#160;or&#160;Data<br/>
+length&#160;exceeds&#160;amount&#160;ECC&#160;supplied&#160;*/<br/>
+Fapi_Error_FeatureNotAvailable<br/>
+/*&#160;FMC&#160;feature&#160;is&#160;not&#160;available&#160;on&#160;this&#160;device&#160;*/<br/>
+}<br/>
+ATTRIBUTE_PACKED&#160;Fapi_StatusType;<br/>
+<b>B.2.12</b><br/>
+<b>Fapi_ApiProductionStatusType</b><br/>
+This&#160;lists&#160;the&#160;different&#160;production&#160;status&#160;values&#160;possible&#160;for&#160;the&#160;API.<br/>
+typedef&#160;enum<br/>
+{<br/>
+Alpha_Internal,<br/>
+/*&#160;For&#160;internal&#160;TI&#160;use&#160;only.<br/>
+Not&#160;intended&#160;to&#160;be&#160;used&#160;by&#160;customers<br/>
+*/<br/>
+Alpha,<br/>
+/*&#160;Early&#160;Engineering&#160;release.<br/>
+May&#160;not&#160;be&#160;functionally&#160;complete&#160;*/<br/>
+Beta_Internal,<br/>
+/*&#160;For&#160;internal&#160;TI&#160;use&#160;only.<br/>
+Not&#160;intended&#160;to&#160;be&#160;used&#160;by&#160;customers<br/>
+*/<br/>
+Beta,<br/>
+/*&#160;Functionally&#160;complete,&#160;to&#160;be&#160;used&#160;for&#160;testing&#160;and&#160;validation&#160;*/<br/>
+Production<br/>
+/*&#160;Fully&#160;validated,&#160;functionally&#160;complete,&#160;ready&#160;for&#160;production&#160;use<br/>
+*/<br/>
+}<br/>
+ATTRIBUTE_PACKED&#160;Fapi_ApiProductionStatusType;<br/>
+46<br/>
+<i>Typedefs&#160;and&#160;Enumerations</i><br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=47></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<b>Appendix&#160;C&#160;Flash&#160;Validation&#160;Procedure</b><br/>
+TI&#160;distributes&#160;the&#160;F021&#160;Flash&#160;API&#160;as&#160;pre-compiled&#160;object&#160;libraries&#160;which&#160;has&#160;been&#160;fully&#160;qualified&#160;for&#160;use&#160;on<br/>Hercules&#160;devices.&#160;This&#160;ensures&#160;that&#160;the&#160;object&#160;code&#160;for&#160;programming&#160;will&#160;be&#160;the&#160;same&#160;as&#160;was&#160;qualified&#160;by<br/>TI.&#160;However&#160;it&#160;might&#160;be&#160;still&#160;possible&#160;that&#160;the&#160;application&#160;program&#160;does&#160;not&#160;use&#160;the&#160;API&#160;functions&#160;correctly<br/>by&#160;either&#160;passing&#160;incorrect&#160;values&#160;or&#160;using&#160;the&#160;API&#160;functions&#160;in&#160;a&#160;manner&#160;not&#160;in&#160;accordance&#160;with&#160;the&#160;API<br/>documentation.&#160;In&#160;order&#160;to&#160;ensure&#160;proper&#160;usage&#160;of&#160;the&#160;Flash&#160;API,&#160;the&#160;in&#160;application&#160;and&#160;3rd&#160;programming<br/>tools&#160;must&#160;be&#160;validated.<br/>
+1.&#160;Erase&#160;and&#160;program&#160;at&#160;least&#160;4&#160;devices&#160;with&#160;customer's&#160;object&#160;code&#160;using&#160;the&#160;method&#160;selected&#160;by&#160;the<br/>
+customer&#160;for&#160;programming.<br/>
+2.&#160;Using&#160;the&#160;TI&#160;profiling&#160;tool&#160;(contact&#160;local&#160;TI&#160;representative&#160;to&#160;obtain),&#160;generate&#160;profiles&#160;for&#160;each&#160;device<br/>
+programmed&#160;in&#160;1.<br/>
+3.&#160;Erase&#160;and&#160;program&#160;these&#160;devices&#160;again&#160;using&#160;the&#160;same&#160;data&#160;pattern&#160;used&#160;in&#160;step&#160;1&#160;with&#160;the&#160;TI&#160;tool,<br/>
+UniFlash.<br/>
+4.&#160;Repeat&#160;step&#160;2&#160;on&#160;the&#160;devices&#160;programmed&#160;with&#160;UniFlash.<br/>
+The&#160;profiles&#160;generated&#160;in&#160;steps&#160;2&#160;and&#160;4&#160;should&#160;correlate&#160;within&#160;100mV&#160;or&#160;18&#160;indices&#160;on&#160;the&#160;0's&#160;Vt&#160;and&#160;be<br/>within&#160;3&#160;indices&#160;on&#160;the&#160;1's&#160;BCC.<br/>
+<b>NOTE:</b><br/>
+It&#160;is&#160;also&#160;highly&#160;recommended&#160;that&#160;the&#160;F021&#160;Flash&#160;API&#160;usage&#160;be&#160;thouroughly&#160;reviewed&#160;by<br/>
+someone&#160;who&#160;was&#160;not&#160;involved&#160;with&#160;writing&#160;the&#160;code&#160;for&#160;Flash&#160;usage.<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<i>Flash&#160;Validation&#160;Procedure</i><br/>
+47<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=48></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<b>Appendix&#160;D&#160;Parallel&#160;Signature&#160;Analysis&#160;(PSA)&#160;algorithm</b><br/>
+The&#160;functions&#160;<a href="SPNU501Fs.html#25">Section&#160;3.4.6&#160;</a>and&#160;<a href="SPNU501Fs.html#24">Section&#160;3.4.5&#160;</a>make&#160;use&#160;of&#160;the&#160;Parallel&#160;Signature&#160;Analysis&#160;(PSA)&#160;algoritm.<br/>Those&#160;functions&#160;are&#160;typically&#160;used&#160;to&#160;verify&#160;a&#160;particular&#160;pattern&#160;is&#160;programmed&#160;in&#160;the&#160;Flash&#160;Memory<br/>without&#160;transferring&#160;the&#160;complete&#160;data&#160;pattern.&#160;The&#160;PSA&#160;signature&#160;is&#160;based&#160;on&#160;this&#160;primative&#160;polynomial:<br/>f(X)&#160;=&#160;1&#160;+&#160;X&#160;+&#160;X2&#160;+&#160;X22&#160;+&#160;X31<br/>
+uint32_t&#160;calculatePSA&#160;(uint32_t*&#160;pu32StartAddress,<br/>
+uint32_t<br/>
+u32Length,<br/>
+/*&#160;Number&#160;of&#160;32bit&#160;words&#160;*/<br/>
+uint32_t<br/>
+u32InitialSeed)<br/>
+{<br/>
+uint32_t&#160;u32Seed,&#160;u32SeedTemp;<br/>
+u32Seed&#160;=&#160;u32InitialSeed;<br/>
+while(u32Length--)<br/>
+{<br/>
+u32SeedTemp&#160;=&#160;(u32Seed&#160;&lt;&lt;&#160;1)^*(pu32StartAddress++);<br/>
+if(u32Seed&#160;&amp;&#160;0x80000000)<br/>
+{<br/>
+u32SeedTemp&#160;^=&#160;0x00400007;<br/>
+/*&#160;XOR&#160;the&#160;seed&#160;value&#160;with&#160;mask&#160;*/<br/>
+}<br/>
+u32Seed&#160;=&#160;u32SeedTemp;<br/>
+}<br/>
+return&#160;u32Seed;<br/>
+}<br/>
+48<br/>
+<i>Parallel&#160;Signature&#160;Analysis&#160;(PSA)&#160;algorithm</i><br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=49></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<b>Appendix&#160;E&#160;Revision&#160;History</b><br/>
+<a href="SPNU501Fs.html#49">Table&#160;10&#160;</a>lists&#160;the&#160;API&#160;versions.<br/>
+<b>Table&#160;10.&#160;API&#160;Version&#160;History</b><br/>
+<b>Version</b><br/>
+<b>Additions/Modifications/Deletions</b><br/>
+1.00.0<br/>
+Initial&#160;Revision<br/>
+1.00.1<br/>
+Added&#160;missing&#160;extern&#160;reference&#160;for&#160;Fapi_getBankSectors()<br/>
+•&#160;Added&#160;support&#160;for&#160;Concerto&#160;devices.<br/>
+•&#160;Corrected&#160;issue&#160;with&#160;with&#160;Fapi_doBlankCheck()&#160;and&#160;Fapi_doVerify&#160;that&#160;could&#160;cause&#160;an&#160;illegal&#160;address<br/>
+1.50.0<br/>
+abort.<br/>
+•&#160;Added&#160;ECC&#160;read&#160;support&#160;for&#160;72-bit&#160;wide&#160;FLEE&#160;banks<br/>
+•&#160;SDOCM00086276&#160;-&#160;Changed&#160;the&#160;u64Data&#160;parameter&#160;passed&#160;to&#160;Fapi_calculateEcc()&#160;to&#160;be&#160;consistent<br/>
+behavior&#160;on&#160;Big&#160;and&#160;Little&#160;Endian&#160;Systems.<br/>
+•&#160;SDOCM00087304&#160;-&#160;Updated&#160;Fapi_doBlankCheck&#160;to&#160;use&#160;Read&#160;Margin&#160;mode&#160;0&#160;only.<br/>
+•&#160;SDOCM00086404&#160;-&#160;Added&#160;macro&#160;FAPI_WRITE_LOCKED_FSM_REGISTER()&#160;to&#160;allow&#160;easier&#160;writes&#160;to<br/>
+locked&#160;register&#160;in&#160;the&#160;Flash&#160;Memory&#160;Controller.<br/>
+•&#160;SDOCM00086405&#160;-&#160;Changed&#160;the&#160;functions&#160;Fapi_setupEepromSectorEnable()&#160;and<br/>
+Fapi_setupBankSectorEnable()&#160;in&#160;Fapi_UserDefinedFunctions.c&#160;to&#160;use&#160;the&#160;macro<br/>
+1.51.0<br/>
+FAPI_WRITE_LOCKED_FSM_REGISTER()&#160;as&#160;the&#160;register&#160;that&#160;were&#160;being&#160;written&#160;to&#160;are&#160;locked<br/>register&#160;in&#160;the&#160;Flash&#160;Memory&#160;Controller.<br/>
+•&#160;SDOCM00086402&#160;-&#160;Corrected&#160;the&#160;issue&#160;in&#160;Fapi_doMarginRead()&#160;that&#160;did&#160;not&#160;return&#160;all&#160;the&#160;requested<br/>
+data&#160;in&#160;the&#160;ECC&#160;memory&#160;regions.<br/>
+•&#160;SDOCM00088256&#160;-&#160;Changed&#160;the&#160;check&#160;that&#160;insures&#160;max&#160;FCLK&#160;value&#160;for&#160;the&#160;device&#160;is&#160;not&#160;exceeded<br/>
+from&#160;a&#160;defined&#160;constant&#160;in&#160;the&#160;API&#160;to&#160;a&#160;check&#160;from&#160;the&#160;device&#160;OTP&#160;value.<br/>
+•&#160;SDOCM00087302&#160;-&#160;Updated&#160;the&#160;structures&#160;in&#160;Types.h&#160;to&#160;support&#160;linking&#160;in&#160;gcc&#160;toolchain.<br/>
+•&#160;Replaced&#160;the&#160;user&#160;defined&#160;callback&#160;functions&#160;Fapi_setupEepromSectorEnable()&#160;and<br/>
+Fapi_setupBankSectorEnable()&#160;with&#160;the&#160;functions&#160;Fapi_enableEepromBankSectors()&#160;and<br/>Fapi_enableMainBankSectors.<br/>
+•&#160;Deprecated&#160;the&#160;function&#160;Fapi_waitDelay().<br/>
+•&#160;Removed&#160;the&#160;header&#160;files&#160;F021_FMC_BE.h&#160;and&#160;F021_FMC_LE.h&#160;as&#160;F021.h&#160;has&#160;been&#160;updated&#160;to<br/>
+automatically&#160;determine&#160;compile&#160;endianness.<br/>
+•&#160;Replaced&#160;the&#160;Fapi_initializeAPI()&#160;function&#160;with&#160;Fapi_initializeFlashBanks().&#160;With&#160;this&#160;change,&#160;all&#160;global<br/>
+variables&#160;have&#160;been&#160;removed&#160;from&#160;the&#160;API.<br/>
+•&#160;Added&#160;the&#160;Compatibility.h&#160;header&#160;file.&#160;This&#160;file&#160;contains&#160;some&#160;backwards&#160;compatibility&#160;macros&#160;to&#160;work<br/>
+with&#160;projects&#160;that&#160;were&#160;previously&#160;built&#160;with&#160;v1.51&#160;of&#160;the&#160;API.&#160;The&#160;list&#160;of&#160;functions&#160;and&#160;global&#160;variables<br/>with&#160;compatibility&#160;defines&#160;are:<br/>
+2.00.00<br/>
+–<br/>
+Fapi_initializeAPI()<br/>
+–<br/>
+Fapi_getFsmStatus()<br/>
+–<br/>
+Fapi_issueFsmSuspendCommand()<br/>
+–<br/>
+Fapi_writeEwaitValue(mEwait)<br/>
+–<br/>
+Fapi_checkFsmForReady()<br/>
+–<br/>
+Fapi_GlobalInit.m_poFlashControlRegisters<br/>
+•&#160;Fapi_getBankSectors()&#160;was&#160;updated&#160;to&#160;return&#160;sector&#160;sizes&#160;in&#160;kilobytes&#160;and&#160;to&#160;support&#160;256kB&#160;sectors,<br/>
+au8SectorSizes&#160;which&#160;was&#160;an&#160;array&#160;uint8_t&#160;was&#160;changed&#160;to&#160;an&#160;array&#160;of&#160;uint16_t&#160;and&#160;renamed<br/>au16SectorSizes.<br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<i>Revision&#160;History</i><br/>
+49<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=50></a><i>Appendix&#160;E</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>Table&#160;10.&#160;API&#160;Version&#160;History&#160;(continued)</b><br/>
+<b>Version</b><br/>
+<b>Additions/Modifications/Deletions</b><br/>
+•&#160;Added&#160;Fapi_remapMainAddress()&#160;to&#160;give&#160;an&#160;easy&#160;method&#160;to&#160;determine&#160;ECC&#160;address&#160;for&#160;a&#160;main&#160;flash<br/>
+address<br/>
+•&#160;Removed&#160;unused&#160;status'&#160;from&#160;Fapi_StatusType<br/>
+–<br/>
+Fapi_Status_AsyncBusy<br/>
+–<br/>
+Fapi_Status_AsyncComplete<br/>
+–<br/>
+Fapi_Error_StateMachineTimeout<br/>
+2.00.00<br/>
+–<br/>
+Fapi_Error_InvalidDelayValue<br/>
+–<br/>
+Fapi_Error_InvalidCpu<br/>
+•&#160;Removed&#160;the&#160;listing&#160;of&#160;structures.&#160;Please&#160;refer&#160;to&#160;the&#160;installed&#160;F021&#160;Flash&#160;API&#160;headers&#160;files&#160;for&#160;these.<br/>
+•&#160;Changed&#160;from&#160;the&#160;use&#160;of&#160;defined&#160;typedefs&#160;uint64,&#160;uint32,&#160;uint16,&#160;and&#160;uint8&#160;to&#160;the&#160;standard&#160;definitions&#160;in<br/>
+stdint.h,&#160;uint64_t,&#160;uint32_t,&#160;uint16_t,&#160;and&#160;uint8_t.&#160;Also&#160;changed&#160;boolean&#160;to&#160;boolean_t<br/>
+•&#160;Added&#160;#if&#160;defined&#160;guardbanding&#160;around&#160;the&#160;defines&#160;in&#160;Types.h&#160;that&#160;can&#160;conflict&#160;with&#160;Autosar<br/>
+Platform_Types.h&#160;defines.<br/>
+•&#160;Added&#160;appendix&#160;describing&#160;the&#160;PSA&#160;calculation<br/>
+•&#160;Corrected&#160;the&#160;function&#160;description&#160;for&#160;Fapi_enableMainBanks().<br/>
+2.00.01<br/>
+•&#160;Added&#160;additional&#160;files&#160;that&#160;are&#160;distributed&#160;with&#160;the&#160;library.<br/>
+•&#160;Added&#160;additional&#160;library&#160;files&#160;for&#160;L2FMC&#160;with&#160;floating&#160;point&#160;support.<br/>
+•&#160;SDOCM00102756&#160;-&#160;Remove&#160;FLOCK&#160;register&#160;from&#160;register&#160;include&#160;file.<br/>
+2.01.00<br/>
+•&#160;SDOCM00103134&#160;-&#160;Sector&#160;size&#160;returned&#160;for&#160;FLEE&#160;banks&#160;by&#160;Fapi_getBankSectors()&#160;is&#160;double&#160;the<br/>
+actual&#160;size.<br/>
+<a href="SPNU501Fs.html#50">Table&#160;11&#160;</a>lists&#160;the&#160;API&#160;changes&#160;made&#160;since&#160;the&#160;previous&#160;revision&#160;of&#160;this&#160;document.<br/>
+<b>Table&#160;11.&#160;Document&#160;Revision&#160;History</b><br/>
+<b>Reference</b><br/>
+<b>Additions/Modifications/Deletions</b><br/>
+-<br/>
+Initial&#160;revision<br/>
+A<br/>
+Updated&#160;for&#160;v1.50.0<br/>
+B<br/>
+Updated&#160;the&#160;example&#160;code&#160;for&#160;Fapi_issueProgrammingCommand()<br/>
+C<br/>
+Updated&#160;for&#160;v1.51.0<br/>
+D<br/>
+Updated&#160;for&#160;v2.00.00<br/>
+E<br/>
+Updated&#160;for&#160;v2.00.01<br/>
+•&#160;Added&#160;the&#160;Validation&#160;procedure<br/>
+F<br/>
+•&#160;Corrected&#160;the&#160;register&#160;field&#160;name&#160;to&#160;disable&#160;ECC&#160;on&#160;bank&#160;7&#160;before&#160;calling&#160;a&#160;Blank&#160;Check&#160;function.<br/>
+G<br/>
+Updated&#160;for&#160;v2.01.00<br/>
+50<br/>
+<i>Revision&#160;History</i><br/>
+SPNU501F&#160;–&#160;December&#160;2012&#160;–&#160;Revised&#160;May&#160;2014<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNU501F"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012–2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=51></a><b>IMPORTANT&#160;NOTICE</b><br/>
+Texas&#160;Instruments&#160;Incorporated&#160;and&#160;its&#160;subsidiaries&#160;(TI)&#160;reserve&#160;the&#160;right&#160;to&#160;make&#160;corrections,&#160;enhancements,&#160;improvements&#160;and&#160;other<br/>changes&#160;to&#160;its&#160;semiconductor&#160;products&#160;and&#160;services&#160;per&#160;JESD46,&#160;latest&#160;issue,&#160;and&#160;to&#160;discontinue&#160;any&#160;product&#160;or&#160;service&#160;per&#160;JESD48,&#160;latest<br/>issue.&#160;Buyers&#160;should&#160;obtain&#160;the&#160;latest&#160;relevant&#160;information&#160;before&#160;placing&#160;orders&#160;and&#160;should&#160;verify&#160;that&#160;such&#160;information&#160;is&#160;current&#160;and<br/>complete.&#160;All&#160;semiconductor&#160;products&#160;(also&#160;referred&#160;to&#160;herein&#160;as&#160;“components”)&#160;are&#160;sold&#160;subject&#160;to&#160;TI’s&#160;terms&#160;and&#160;conditions&#160;of&#160;sale<br/>supplied&#160;at&#160;the&#160;time&#160;of&#160;order&#160;acknowledgment.<br/>
+TI&#160;warrants&#160;performance&#160;of&#160;its&#160;components&#160;to&#160;the&#160;specifications&#160;applicable&#160;at&#160;the&#160;time&#160;of&#160;sale,&#160;in&#160;accordance&#160;with&#160;the&#160;warranty&#160;in&#160;TI’s&#160;terms<br/>and&#160;conditions&#160;of&#160;sale&#160;of&#160;semiconductor&#160;products.&#160;Testing&#160;and&#160;other&#160;quality&#160;control&#160;techniques&#160;are&#160;used&#160;to&#160;the&#160;extent&#160;TI&#160;deems&#160;necessary<br/>to&#160;support&#160;this&#160;warranty.&#160;Except&#160;where&#160;mandated&#160;by&#160;applicable&#160;law,&#160;testing&#160;of&#160;all&#160;parameters&#160;of&#160;each&#160;component&#160;is&#160;not&#160;necessarily<br/>performed.<br/>
+TI&#160;assumes&#160;no&#160;liability&#160;for&#160;applications&#160;assistance&#160;or&#160;the&#160;design&#160;of&#160;Buyers’&#160;products.&#160;Buyers&#160;are&#160;responsible&#160;for&#160;their&#160;products&#160;and<br/>applications&#160;using&#160;TI&#160;components.&#160;To&#160;minimize&#160;the&#160;risks&#160;associated&#160;with&#160;Buyers’&#160;products&#160;and&#160;applications,&#160;Buyers&#160;should&#160;provide<br/>adequate&#160;design&#160;and&#160;operating&#160;safeguards.<br/>
+TI&#160;does&#160;not&#160;warrant&#160;or&#160;represent&#160;that&#160;any&#160;license,&#160;either&#160;express&#160;or&#160;implied,&#160;is&#160;granted&#160;under&#160;any&#160;patent&#160;right,&#160;copyright,&#160;mask&#160;work&#160;right,&#160;or<br/>other&#160;intellectual&#160;property&#160;right&#160;relating&#160;to&#160;any&#160;combination,&#160;machine,&#160;or&#160;process&#160;in&#160;which&#160;TI&#160;components&#160;or&#160;services&#160;are&#160;used.&#160;Information<br/>published&#160;by&#160;TI&#160;regarding&#160;third-party&#160;products&#160;or&#160;services&#160;does&#160;not&#160;constitute&#160;a&#160;license&#160;to&#160;use&#160;such&#160;products&#160;or&#160;services&#160;or&#160;a&#160;warranty&#160;or<br/>endorsement&#160;thereof.&#160;Use&#160;of&#160;such&#160;information&#160;may&#160;require&#160;a&#160;license&#160;from&#160;a&#160;third&#160;party&#160;under&#160;the&#160;patents&#160;or&#160;other&#160;intellectual&#160;property&#160;of&#160;the<br/>third&#160;party,&#160;or&#160;a&#160;license&#160;from&#160;TI&#160;under&#160;the&#160;patents&#160;or&#160;other&#160;intellectual&#160;property&#160;of&#160;TI.<br/>
+Reproduction&#160;of&#160;significant&#160;portions&#160;of&#160;TI&#160;information&#160;in&#160;TI&#160;data&#160;books&#160;or&#160;data&#160;sheets&#160;is&#160;permissible&#160;only&#160;if&#160;reproduction&#160;is&#160;without&#160;alteration<br/>and&#160;is&#160;accompanied&#160;by&#160;all&#160;associated&#160;warranties,&#160;conditions,&#160;limitations,&#160;and&#160;notices.&#160;TI&#160;is&#160;not&#160;responsible&#160;or&#160;liable&#160;for&#160;such&#160;altered<br/>documentation.&#160;Information&#160;of&#160;third&#160;parties&#160;may&#160;be&#160;subject&#160;to&#160;additional&#160;restrictions.<br/>
+Resale&#160;of&#160;TI&#160;components&#160;or&#160;services&#160;with&#160;statements&#160;different&#160;from&#160;or&#160;beyond&#160;the&#160;parameters&#160;stated&#160;by&#160;TI&#160;for&#160;that&#160;component&#160;or&#160;service<br/>voids&#160;all&#160;express&#160;and&#160;any&#160;implied&#160;warranties&#160;for&#160;the&#160;associated&#160;TI&#160;component&#160;or&#160;service&#160;and&#160;is&#160;an&#160;unfair&#160;and&#160;deceptive&#160;business&#160;practice.<br/>TI&#160;is&#160;not&#160;responsible&#160;or&#160;liable&#160;for&#160;any&#160;such&#160;statements.<br/>
+Buyer&#160;acknowledges&#160;and&#160;agrees&#160;that&#160;it&#160;is&#160;solely&#160;responsible&#160;for&#160;compliance&#160;with&#160;all&#160;legal,&#160;regulatory&#160;and&#160;safety-related&#160;requirements<br/>concerning&#160;its&#160;products,&#160;and&#160;any&#160;use&#160;of&#160;TI&#160;components&#160;in&#160;its&#160;applications,&#160;notwithstanding&#160;any&#160;applications-related&#160;information&#160;or&#160;support<br/>that&#160;may&#160;be&#160;provided&#160;by&#160;TI.&#160;Buyer&#160;represents&#160;and&#160;agrees&#160;that&#160;it&#160;has&#160;all&#160;the&#160;necessary&#160;expertise&#160;to&#160;create&#160;and&#160;implement&#160;safeguards&#160;which<br/>anticipate&#160;dangerous&#160;consequences&#160;of&#160;failures,&#160;monitor&#160;failures&#160;and&#160;their&#160;consequences,&#160;lessen&#160;the&#160;likelihood&#160;of&#160;failures&#160;that&#160;might&#160;cause<br/>harm&#160;and&#160;take&#160;appropriate&#160;remedial&#160;actions.&#160;Buyer&#160;will&#160;fully&#160;indemnify&#160;TI&#160;and&#160;its&#160;representatives&#160;against&#160;any&#160;damages&#160;arising&#160;out&#160;of&#160;the&#160;use<br/>of&#160;any&#160;TI&#160;components&#160;in&#160;safety-critical&#160;applications.<br/>
+In&#160;some&#160;cases,&#160;TI&#160;components&#160;may&#160;be&#160;promoted&#160;specifically&#160;to&#160;facilitate&#160;safety-related&#160;applications.&#160;With&#160;such&#160;components,&#160;TI’s&#160;goal&#160;is&#160;to<br/>help&#160;enable&#160;customers&#160;to&#160;design&#160;and&#160;create&#160;their&#160;own&#160;end-product&#160;solutions&#160;that&#160;meet&#160;applicable&#160;functional&#160;safety&#160;standards&#160;and<br/>requirements.&#160;Nonetheless,&#160;such&#160;components&#160;are&#160;subject&#160;to&#160;these&#160;terms.<br/>
+No&#160;TI&#160;components&#160;are&#160;authorized&#160;for&#160;use&#160;in&#160;FDA&#160;Class&#160;III&#160;(or&#160;similar&#160;life-critical&#160;medical&#160;equipment)&#160;unless&#160;authorized&#160;officers&#160;of&#160;the&#160;parties<br/>have&#160;executed&#160;a&#160;special&#160;agreement&#160;specifically&#160;governing&#160;such&#160;use.<br/>
+Only&#160;those&#160;TI&#160;components&#160;which&#160;TI&#160;has&#160;specifically&#160;designated&#160;as&#160;military&#160;grade&#160;or&#160;“enhanced&#160;plastic”&#160;are&#160;designed&#160;and&#160;intended&#160;for&#160;use&#160;in<br/>military/aerospace&#160;applications&#160;or&#160;environments.&#160;Buyer&#160;acknowledges&#160;and&#160;agrees&#160;that&#160;any&#160;military&#160;or&#160;aerospace&#160;use&#160;of&#160;TI&#160;components<br/>which&#160;have&#160;<i><b>not&#160;</b></i>been&#160;so&#160;designated&#160;is&#160;solely&#160;at&#160;the&#160;Buyer's&#160;risk,&#160;and&#160;that&#160;Buyer&#160;is&#160;solely&#160;responsible&#160;for&#160;compliance&#160;with&#160;all&#160;legal&#160;and<br/>regulatory&#160;requirements&#160;in&#160;connection&#160;with&#160;such&#160;use.<br/>
+TI&#160;has&#160;specifically&#160;designated&#160;certain&#160;components&#160;as&#160;meeting&#160;ISO/TS16949&#160;requirements,&#160;mainly&#160;for&#160;automotive&#160;use.&#160;In&#160;any&#160;case&#160;of&#160;use&#160;of<br/>non-designated&#160;products,&#160;TI&#160;will&#160;not&#160;be&#160;responsible&#160;for&#160;any&#160;failure&#160;to&#160;meet&#160;ISO/TS16949.<br/>
+<b>Products</b><br/>
+<b>Applications</b><br/>
+Audio<br/>
+<a href="http://www.ti.com/audio">www.ti.com/audio</a><br/>
+Automotive&#160;and&#160;Transportation<br/>
+<a href="http://www.ti.com/automotive">www.ti.com/automotive</a><br/>
+Amplifiers<br/>
+<a href="http://amplifier.ti.com">amplifier.ti.com</a><br/>
+Communications&#160;and&#160;Telecom<br/>
+<a href="http://www.ti.com/communications">www.ti.com/communications</a><br/>
+Data&#160;Converters<br/>
+<a href="http://dataconverter.ti.com">dataconverter.ti.com</a><br/>
+Computers&#160;and&#160;Peripherals<br/>
+<a href="http://www.ti.com/computers">www.ti.com/computers</a><br/>
+DLP®&#160;Products<br/>
+<a href="http://www.dlp.com">www.dlp.com</a><br/>
+Consumer&#160;Electronics<br/>
+<a href="http://www.ti.com/consumer-apps">www.ti.com/consumer-apps</a><br/>
+DSP<br/>
+<a href="http://dsp.ti.com">dsp.ti.com</a><br/>
+Energy&#160;and&#160;Lighting<br/>
+<a href="http://www.ti.com/energy">www.ti.com/energy</a><br/>
+Clocks&#160;and&#160;Timers<br/>
+<a href="http://www.ti.com/clocks">www.ti.com/clocks</a><br/>
+Industrial<br/>
+<a href="http://www.ti.com/industrial">www.ti.com/industrial</a><br/>
+Interface<br/>
+<a href="http://interface.ti.com">interface.ti.com</a><br/>
+Medical<br/>
+<a href="http://www.ti.com/medical">www.ti.com/medical</a><br/>
+Logic<br/>
+<a href="http://logic.ti.com">logic.ti.com</a><br/>
+Security<br/>
+<a href="http://www.ti.com/security">www.ti.com/security</a><br/>
+Power&#160;Mgmt<br/>
+<a href="http://power.ti.com">power.ti.com</a><br/>
+Space,&#160;Avionics&#160;and&#160;Defense<br/>
+<a href="http://www.ti.com/space-avionics-defense">www.ti.com/space-avionics-defense</a><br/>
+Microcontrollers<br/>
+<a href="http://microcontroller.ti.com">microcontroller.ti.com</a><br/>
+Video&#160;and&#160;Imaging<br/>
+<a href="http://www.ti.com/video">www.ti.com/video</a><br/>
+RFID<br/>
+<a href="http://www.ti-rfid.com">www.ti-rfid.com</a><br/>
+OMAP&#160;Applications&#160;Processors<br/>
+<a href="http://www.ti.com/omap">www.ti.com/omap</a><br/>
+<b>TI&#160;E2E&#160;Community</b><br/>
+<a href="http://e2e.ti.com">e2e.ti.com</a><br/>
+Wireless&#160;Connectivity<br/>
+<a href="http://www.ti.com/wirelessconnectivity">www.ti.com/wirelessconnectivity</a><br/>
+Mailing&#160;Address:&#160;Texas&#160;Instruments,&#160;Post&#160;Office&#160;Box&#160;655303,&#160;Dallas,&#160;Texas&#160;75265<br/>
+Copyright&#160;©&#160;2014,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="SPNU501Fs.html#1">F021 Flash API</a>
+<ul>
+<li><a href="SPNU501Fs.html#2">Table of Contents</a></li>
+<li><a href="SPNU501Fs.html#4">1 Introduction</a>
+<ul>
+<li><a href="SPNU501Fs.html#4">1.1 Reference Material</a></li>
+<li><a href="SPNU501Fs.html#4">1.2 Function Listing Format</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#6">2 F021 Flash API Overview</a>
+<ul>
+<li><a href="SPNU501Fs.html#6">2.1 Introduction</a></li>
+<li><a href="SPNU501Fs.html#6">2.2 API Overview</a></li>
+<li><a href="SPNU501Fs.html#7">2.3 Using API</a>
+<ul>
+<li><a href="SPNU501Fs.html#7">2.3.1 Initialization Flow</a>
+<ul>
+<li><a href="SPNU501Fs.html#7">2.3.1.1 Before Using Any Erase, Program or Read Flash API Function</a></li>
+<li><a href="SPNU501Fs.html#8">2.3.1.2 Bank Setup</a></li>
+<li><a href="SPNU501Fs.html#8">2.3.1.3 On System Frequency Change</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#8">2.3.2 Flash Addressing</a></li>
+<li><a href="SPNU501Fs.html#8">2.3.3 Building With the API</a>
+<ul>
+<li><a href="SPNU501Fs.html#8">2.3.3.1 Object Library Files</a></li>
+<li><a href="SPNU501Fs.html#8">2.3.3.2 Distribution Files</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#9">2.3.4 Executing API From Flash</a></li>
+<li><a href="SPNU501Fs.html#9">2.3.5 Memory Regions Required to be Readable</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#10">3 API Functions</a>
+<ul>
+<li><a href="SPNU501Fs.html#10">3.1 Flash State Machine Functions</a>
+<ul>
+<li><a href="SPNU501Fs.html#10">3.1.1 Fapi_disableAutoEccCalculation()</a></li>
+<li><a href="SPNU501Fs.html#10">3.1.2 Fapi_disableBanksForOtpWrite()</a></li>
+<li><a href="SPNU501Fs.html#11">3.1.3 Fapi_disableFsmDoneEvent()</a></li>
+<li><a href="SPNU501Fs.html#11">3.1.4 Fapi_enableAutoEccCalculation()</a></li>
+<li><a href="SPNU501Fs.html#12">3.1.5 Fapi_enableBanksForOtpWrite()</a></li>
+<li><a href="SPNU501Fs.html#12">3.1.6 Fapi_enableEepromBankSectors()</a></li>
+<li><a href="SPNU501Fs.html#13">3.1.7 Fapi_enableFsmDoneEvent()</a></li>
+<li><a href="SPNU501Fs.html#13">3.1.8 Fapi_enableMainBankSectors()</a></li>
+<li><a href="SPNU501Fs.html#14">3.1.9 Fapi_isAddressEcc()</a></li>
+<li><a href="SPNU501Fs.html#14">3.1.10 Fapi_initializeFlashBanks()</a></li>
+<li><a href="SPNU501Fs.html#15">3.1.11 Fapi_remapEccAddress()</a></li>
+<li><a href="SPNU501Fs.html#15">3.1.12 Fapi_remapMainAddress()</a></li>
+<li><a href="SPNU501Fs.html#16">3.1.13 Fapi_setActiveFlashBank()</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#16">3.2 Asynchronous Functions</a>
+<ul>
+<li><a href="SPNU501Fs.html#16">3.2.1 Fapi_issueAsyncCommand()</a></li>
+<li><a href="SPNU501Fs.html#17">3.2.2 Fapi_issueAsyncCommandWithAddress()</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#18">3.3 Program Functions</a>
+<ul>
+<li><a href="SPNU501Fs.html#18">3.3.1 Fapi_issueProgrammingCommand()</a></li>
+<li><a href="SPNU501Fs.html#19">3.3.2 Fapi_issueProgrammingCommandForEccAddress()</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#20">3.4 Read Functions</a>
+<ul>
+<li><a href="SPNU501Fs.html#20">3.4.1 Fapi_doBlankCheck()</a></li>
+<li><a href="SPNU501Fs.html#21">3.4.2 Fapi_doBlankCheckByByte()</a></li>
+<li><a href="SPNU501Fs.html#22">3.4.3 Fapi_doVerify()</a></li>
+<li><a href="SPNU501Fs.html#23">3.4.4 Fapi_doVerifyByByte()</a></li>
+<li><a href="SPNU501Fs.html#24">3.4.5 Fapi_doPsaVerify()</a></li>
+<li><a href="SPNU501Fs.html#25">3.4.6 Fapi_calculatePsa()</a></li>
+<li><a href="SPNU501Fs.html#26">3.4.7 Fapi_doMarginRead()</a></li>
+<li><a href="SPNU501Fs.html#27">3.4.8 Fapi_doMarginReadByByte()</a></li>
+<li><a href="SPNU501Fs.html#28">3.4.9 Fapi_flushPipeline()</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#29">3.5 Informational Functions</a>
+<ul>
+<li><a href="SPNU501Fs.html#29">3.5.1 Fapi_getLibraryInfo()</a></li>
+<li><a href="SPNU501Fs.html#30">3.5.2 Fapi_getDeviceInfo()</a></li>
+<li><a href="SPNU501Fs.html#31">3.5.3 Fapi_getBankSectors()</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#32">3.6 Utility Functions</a>
+<ul>
+<li><a href="SPNU501Fs.html#32">3.6.1 Fapi_calculateFletcherChecksum()</a></li>
+<li><a href="SPNU501Fs.html#32">3.6.2 Fapi_calculateEcc()</a></li>
+<li><a href="SPNU501Fs.html#33">3.6.3 Fapi_waitDelay() -- Deprecated</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#33">3.7 User Definable Functions</a>
+<ul>
+<li><a href="SPNU501Fs.html#33">3.7.1 Fapi_serviceWatchdogTimer()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#34">4 API Macros</a>
+<ul>
+<li><a href="SPNU501Fs.html#34">4.1 FAPI_CHECK_FSM_READY_BUSY</a></li>
+<li><a href="SPNU501Fs.html#34">4.2 FAPI_CLEAR_FSM_DONE_EVENT</a></li>
+<li><a href="SPNU501Fs.html#35">4.3 FAPI_GET_FSM_STATUS</a></li>
+<li><a href="SPNU501Fs.html#36">4.4 FAPI_SUSPEND_FSM</a></li>
+<li><a href="SPNU501Fs.html#37">4.5 FAPI_WRITE_EWAIT</a></li>
+<li><a href="SPNU501Fs.html#37">4.6 FAPI_WRITE_LOCKED_FSM_REGISTER</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#37">5 Recommended FSM Flows</a>
+<ul>
+<li><a href="SPNU501Fs.html#37">5.1 New Devices From Factory</a></li>
+<li><a href="SPNU501Fs.html#38">5.2 Recommended Erase Flows</a></li>
+<li><a href="SPNU501Fs.html#40">5.3 Recommended Program Flow</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#41">Appendix A Flash State Machine Commands</a>
+<ul>
+<li><a href="SPNU501Fs.html#41">A.1 Flash State Machine Commands</a></li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#42">Appendix B Typedefs and Enumerations</a>
+<ul>
+<li><a href="SPNU501Fs.html#42">B.1 Type Definitions</a></li>
+<li><a href="SPNU501Fs.html#42">B.2 Enumerations</a>
+<ul>
+<li><a href="SPNU501Fs.html#42">B.2.1 Fapi_CpuSelectorType</a></li>
+<li><a href="SPNU501Fs.html#42">B.2.2 Fapi_CpuType</a></li>
+<li><a href="SPNU501Fs.html#42">B.2.3 Fapi_FamilyType</a></li>
+<li><a href="SPNU501Fs.html#43">B.2.4 Fapi_AddressMemoryType</a></li>
+<li><a href="SPNU501Fs.html#43">B.2.5 Fapi_FlashProgrammingCommandsType</a></li>
+<li><a href="SPNU501Fs.html#43">B.2.6 Fapi_FlashBankType</a></li>
+<li><a href="SPNU501Fs.html#44">B.2.7 Fapi_FlashBankTechType</a></li>
+<li><a href="SPNU501Fs.html#44">B.2.8 Fapi_FlashSectorType</a></li>
+<li><a href="SPNU501Fs.html#45">B.2.9 Fapi_FlashStateCommandsType</a></li>
+<li><a href="SPNU501Fs.html#45">B.2.10 Fapi_FlashReadMarginModeType</a></li>
+<li><a href="SPNU501Fs.html#46">B.2.11 Fapi_StatusType</a></li>
+<li><a href="SPNU501Fs.html#46">B.2.12 Fapi_ApiProductionStatusType</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="SPNU501Fs.html#47">Appendix C Flash Validation Procedure</a></li>
+<li><a href="SPNU501Fs.html#48">Appendix D Parallel Signature Analysis (PSA) algorithm</a></li>
+<li><a href="SPNU501Fs.html#49">Appendix E Revision History</a></li>
+</ul>
+</li>
+</ul>
+<hr/>
+</body>
+</html>

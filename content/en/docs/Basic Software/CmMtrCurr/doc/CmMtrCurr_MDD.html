@@ -1,0 +1,1605 @@
+---
+title: CmMtrCurr_MDD
+linkTitle: CmMtrCurr_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module----cmmtrcurr">Module -- CmMtrCurr</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>The Current Measurement function is responsible for measuring the motor phase currents used as feedback by the Motor Control FDD. Two motor phase currents are measured using a shunt resistor and a differential amplifier circuitry, and along with the motor position are transformed into direct (D) and quadrature (Q) axes currents using the combined Clarke/Park transform</p>
+<p>UNIT Test Notes:</p>
+<p>Unit test should be done with enabling one of the six predefned macro MTRCURRPHASEBC, MTRCURRPHASECB, MTRCRRPHASECA, MTRCURRPHASEAB, MTRCURRPHASEAC, MTRCURRPHASEBA. Hence it should have six UTP results (one for each Macro enabled).</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component diagram</h2>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">ADCMtrCurr1_Volt_f32</td>
+<td>MtrCurrQax_Amps_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">ADCMtrCurr2_Volt_f32</td>
+<td>MtrCurrDax_Amps_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">MtrVel_MtrRadpS_f32</td>
+<td>CurrentGainSvc_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2">FiltCntrlTemp_DegC_f32</td>
+<td>ComOffset_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2">MtrCurrAngle_Rev_f32</td>
+<td>ElecPosDelayComp_Rad_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">VehSpd_Kph_f32</td>
+<td>CorrMtrCurrPosition_Rev_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">VhSpdValid_Cnt_lgc</td>
+<td>MtrCurrK1_Amps_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">Vecu_Volt_f32</td>
+<td>MtrCurrK2_Amps_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">MtrCurr1TempOffset_Volt_f32</td>
+<td>MtrCurr1_Volts_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">MtrCurr2TempOffset_Volt_f32</td>
+<td>MtrCurr2_Volts_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">Phs1Curr_Cnt_u16</td>
+<td>MtrCurrQax_Amps_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">Phs2Curr_Cnt_u16</td>
+<td>MtrCurrDax_Amps_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">MtrElecPol_Cnt_s08</td>
+<td>CurrentGainSvc_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2">DCPhsBComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">DCPhsCComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">DCPhsCComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">DCPhsBComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">DCPhsAComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">DCPhsBComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">DCPhsBComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">DCPhsAComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">DCPhsAComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">DCPhsCComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">DCPhsCComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">DCPhsAComp_Cnt_u16</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">ADC2OffsetComp_Cnt_u8p8</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CmMtrCurr_CorrMtrCurr1_Amp_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_CorrMtrCurr2_Amp_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_CurrVectPosition_Rev_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_VectPosCosTheta_Uls_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_VectPosSinTheta_Uls_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_CurrCorrDiag_Amp_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_FiltCurrCorrDiag_Amp_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_ CurrentGainSvc_Cnt_M_lgc</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_CurrCorrDiagKSV_M_str</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>CurrCorrDiagKSV_M_str.SV_Uls_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>CurrCorrDiagKSV_M_str.K_Uls_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_MtrCurr1LpFltrSV_Volt_M_u3p29</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_MtrCurr2LpFltrSV_Volt_M_u3p29</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_FiltMtrCurr1_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_FiltMtrCurr2_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_MtrCurr1SumHi_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_MtrCurr2SumHi_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_MtrCurr1SumLo_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_MtrCurr2SumLo_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_MtrCurr1SumZero_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_MtrCurr2SumZero_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_VecuSum_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_MtrCurr1OffsetHi_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_MtrCurr2OffsetHi_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_MtrCurr1OffsetLo_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_MtrCurr2OffsetLo_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_MtrCurr1OffsetZero_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_MtrCurr2OffsetZero_Volt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_MtrCurrValCmd_VoltCnt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_MtrCurr1OffDelta_VoltpVoltCnt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_MtrCurr2OffDelta_VoltpVoltCnt_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_CurrOffAvgCounter_Cnt_M_u16</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_CurrOffState_Uls_M_enum</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_CurroffProcessFlag_M_enum</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_CurrOffTrimFlag_Cnt_M_lgc</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_MtrCurr1Offset_Volt_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_MtrCurr2Offset_Volt_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_CorrMtrCurr1_Amp_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_CorrMtrCurr2_Amp_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>CMMTRCURR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CurrTempOffsetType</td>
+<td>CurrTempOffsetX_DegC_s10p5</td>
+<td>CurrTempOffsetTblType</td>
+<td>-50</td>
+<td>150</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>CurrOffsetY1_Volts_s4p11</td>
+<td>CurrTempOffsetTblType</td>
+<td>-0.026</td>
+<td>0.026</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>CurrOffsetY2_Volts_s4p11</td>
+<td>CurrTempOffsetTblType</td>
+<td>-0.026</td>
+<td>0.026</td>
+</tr>
+<tr class="even">
+<td>PhaseCurrCal_DataType</td>
+<td>EOLMtrCurrVcalCmd_VoltCnts_f32</td>
+<td>float</td>
+<td>0</td>
+<td>80000</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>EOLPhscurr1Gain_AmpspVolt_f32</td>
+<td>float</td>
+<td>20</td>
+<td>125</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>EOLMtrCurr2OffsetDiff_Volts_f32</td>
+<td>float</td>
+<td>1.0</td>
+<td>3.0</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>EOLMtrCurr1OffsetDiff_Volts_f32</td>
+<td>float</td>
+<td>1.0</td>
+<td>3.0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>EOLMtrCurr1OffsetLo_Volts_f32</td>
+<td>float</td>
+<td>1.0</td>
+<td>3.0</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>EOLMtrCurr2OffsetLo_Volts_f32</td>
+<td>float</td>
+<td>1.0</td>
+<td>3.0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>EOLPhscurr2Gain_AmpspVolt_f32</td>
+<td>float</td>
+<td>20</td>
+<td>125</td>
+</tr>
+<tr class="odd">
+<td>CurrTempOffsetTblType[16]</td>
+<td></td>
+<td>Sint16</td>
+<td>Full</td>
+<td>Full</td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_CurrCorrErrFiltFc_Hz_f32</td>
+</tr>
+<tr class="even">
+<td>k_CurrCorrErrThresh_Amps_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MtrPosComputDelay_Sec_f32</td>
+</tr>
+<tr class="even">
+<td>k_MtrCurrEOLMinOffset_Volts_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MtrCurrEOLMaxOffset_Volts_f32</td>
+</tr>
+<tr class="even">
+<td>k_MtrCurrEOLMinGain_AmpspVolts_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MtrCurrEOLMaxGain_AmpspVolts_f32</td>
+</tr>
+<tr class="even">
+<td>k_CurrGainNumerator_Amps_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MaxCurrOffMtrVel_RadpS_f32</td>
+</tr>
+<tr class="even">
+<td>k_CurrOffGainKn_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td>k_CurrCorrErrFiltFc_Hz_f32</td>
+</tr>
+<tr class="even">
+<td>k_CurrCorrErrThresh_Amps_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MtrPosComputDelay_Sec_f32</td>
+</tr>
+<tr class="even">
+<td>k_MtrCurrOffLoComOff_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td>k_CurrOffNoofAvg_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td>k_NoofPoles_Uls_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_ADCREF_VOLT_F32</td>
+<td>Single Precision float</td>
+<td>Volt</td>
+<td>5.0F</td>
+</tr>
+<tr class="even">
+<td>D_ADCFULLSCALE_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>4095U</td>
+</tr>
+<tr class="odd">
+<td>D_SCALERADTOCNTS_ULS_F32</td>
+<td>Single Precision float</td>
+<td>Uls</td>
+<td>10430.3783505F</td>
+</tr>
+<tr class="even">
+<td>D_REVWITHROUND_ULS_F32</td>
+<td>Single Precision float</td>
+<td>Uls</td>
+<td>65536.5F</td>
+</tr>
+<tr class="odd">
+<td>D_ROUND_ULS_F32</td>
+<td>Single Precision float</td>
+<td>Uls</td>
+<td>0.5F</td>
+</tr>
+<tr class="even">
+<td>D_ADCCOMPOFFSAMPLESIZE_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>256u</td>
+</tr>
+<tr class="odd">
+<td>D_SCALE_VOLTSPERCOUNT_F32</td>
+<td>Single Precision float</td>
+<td>VoltspSec</td>
+<td>(D_ADCREF_VOLT_F32/((float32)D_ADCFULLSCALE_CNT_U16 * (float32) D_ADCCOMPOFFSAMPLESIZE_CNT_U16))</td>
+</tr>
+<tr class="even">
+<td>D_CNVRTP29TOP13_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>16U</td>
+</tr>
+<tr class="odd">
+<td>D_30DEGREES_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>5461U</td>
+</tr>
+<tr class="even">
+<td>D_ONEDIVSQRT3_F32</td>
+<td>Single Precision float</td>
+<td>Cnt</td>
+<td>0.57735F</td>
+</tr>
+<tr class="odd">
+<td>D_POSITIVEONE_CNT_S8</td>
+<td>1</td>
+<td>Cnt</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>D_CURRDQMAX_AMP_F32</td>
+<td>Single Precision float</td>
+<td>Amp</td>
+<td>220</td>
+</tr>
+<tr class="odd">
+<td>D_MTRCURROFFHICOMOFF_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>4000U</td>
+</tr>
+<tr class="even">
+<td>D_MTRCURROFFLOCOMOFF_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>500U</td>
+</tr>
+<tr class="odd">
+<td>D_CURROFFNOOFAVG_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>64U</td>
+</tr>
+<tr class="even">
+<td>D_MTRCURROFFZEROCOMOFF_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0U</td>
+</tr>
+<tr class="odd">
+<td>D_MINVCALCMD_CNT_F32</td>
+<td>Single Precision float</td>
+<td>Cnt</td>
+<td>17500.0F</td>
+</tr>
+<tr class="even">
+<td>D_ONEHALF_ULS_F32</td>
+<td>Single Precision float</td>
+<td>Uls</td>
+<td>0.5F</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_2PI_ULS_F32</td>
+</tr>
+<tr class="even">
+<td>D_FALSE_CNT_LGC</td>
+</tr>
+<tr class="odd">
+<td>D_VECUMIN_VOLTS_F32</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td>D_ZERO_CNT_U16</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_CNT_U32</td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td>D_2MS_SEC_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>Cosf</p></li>
+<li><p>Sinf</p></li>
+<li><p>Limit_m</p></li>
+<li><p>Abs_f32_m</p></li>
+<li><p>TableSize_m</p></li>
+<li><p>FPM_FloatToFixed_m</p></li>
+<li><p>FPM_FixedToFloat_m</p></li>
+<li><p>IntplVarXY_s16_s16Xs16Y_Cnt</p></li>
+<li><p>LPF_SvUpdate_u16InFixKTrunc_m</p></li>
+<li><p>LPF_OpUpdate_u16InFixKTrunc_m</p></li>
+<li><p>LPF_SvUpdate_s16InFixKTrunc_m</p></li>
+<li><p>LPF_OpUpdate_s16InFixKTrunc_m</p></li>
+<li><p>LPF_KUpdate_f32_m</p></li>
+<li><p>LPF_OpUpdate_f32_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>CmMtrCurr_Read_MRFMtrVel_MtrRadpS_f32</p></li>
+<li><p>CmMtrCurr_Read_Vecu_Volt_f32</p></li>
+<li><p>CmMtrCurr_Read_Phs1Curr_Cnt_u16</p></li>
+<li><p>CmMtrCurr_Read_Phs2Curr_Cnt_u16</p></li>
+<li><p>CmMtrCurr_Read_DCPhsAComp_Cnt_u16</p></li>
+<li><p>CmMtrCurr_Read_DCPhsBComp_Cnt_u16</p></li>
+<li><p>CmMtrCurr_Read_DCPhsCComp_Cnt_u16</p></li>
+<li><p>CmMtrCurr_Read_MtrCurr1TempOffset_Volt_f32</p></li>
+<li><p>CmMtrCurr_Read_MtrCurr2TempOffset_Volt_f32</p></li>
+<li><p>CmMtrCurr_Read_MtrElecPol_Cnt_s08</p></li>
+<li><p>CmMtrCurr_Read_MtrPosElec_Rev_u0p16</p></li>
+<li><p>CmMtrCurr_Write_ElecPosDelayComp_Rad_f32</p></li>
+<li><p>CmMtrCurr_Write_MtrCurrQax_Amp_f32</p></li>
+<li><p>CmMtrCurr_Write_MtrCurrDax_Amp_f32</p></li>
+<li><p>CmMtrCurr_Write_CorrMtrPosElec_Rev_f32</p></li>
+<li><p>CmMtrCurr_Write_MtrCurrK1_Amps_f32</p></li>
+<li><p>CmMtrCurr_Write_MtrCurrK2_Amps_f32</p></li>
+<li><p>CmMtrCurr_Write_MtrCurr1_Volts_f32</p></li>
+<li><p>CmMtrCurr_Write_MtrCurr2_Volts_f32</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>None</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rte_InitValue_Vecu_Volt_f32</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-cmmtrcurr_init">Init: CmMtrCurr_Init</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<h2 class="unnumbered" id="if-rte_pim_shcurrcal-eolmtrcurrvcalcmd_voltcnts_f32-d_minvcalcmd_cnt_f32">IF ((Rte_Pim_ShCurrCal()-&gt;EOLMtrCurrVcalCmd_VoltCnts_f32) &gt;= D_MINVCALCMD_CNT_F32)</h2>
+<h2 class="unnumbered" id="section-1"></h2>
+<p>CmMtrCurr_MtrCurr1OffDelta_VoltpVoltCnt_M_f32 = ((Rte_Pim_ShCurrCal()-&gt;EOLMtrCurr1OffsetDiff_Volts_f32) / (Rte_Pim_ShCurrCal()-&gt;EOLMtrCurrVcalCmd_VoltCnts_f32))</p>
+<p>CmMtrCurr_MtrCurr2OffDelta_VoltpVoltCnt_M_f32 = ((Rte_Pim_ShCurrCal()-&gt;EOLMtrCurr2OffsetDiff_Volts_f32) / (Rte_Pim_ShCurrCal()-&gt;EOLMtrCurrVcalCmd_VoltCnts_f32))</p>
+<h2 class="unnumbered" id="else">ELSE</h2>
+<h2 class="unnumbered" id="cmmtrcurr_mtrcurr1offdelta_voltpvoltcnt_m_f32-d_zero_uls_f32">CmMtrCurr_MtrCurr1OffDelta_VoltpVoltCnt_M_f32 = D_ZERO_ULS_F32</h2>
+<h2 class="unnumbered" id="cmmtrcurr_mtrcurr2offdelta_voltpvoltcnt_m_f32-d_zero_uls_f32">CmMtrCurr_MtrCurr2OffDelta_VoltpVoltCnt_M_f32 = D_ZERO_ULS_F32</h2>
+<h2 class="unnumbered" id="end">END</h2>
+<h2 class="unnumbered" id="section-2"></h2>
+<p>LPF_KUpdate_f32_m(k_CurrCorrErrFiltFc_Hz_f32, D_2MS_SEC_F32, &amp;CmMtrCurr_CurrCorrDiagKSV_M_str)</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-cmmtrcurr_per1">Per: CmMtrCurr_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_CmMtrCurr_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p><em>FiltCntrlTemp_DegC_T_f32=Rte_IRead_CmMtrCurr_Per1_FiltCntrlTemp_DegC_f32()</em></p>
+<h4 id="processing">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_Iwrite_CmMtrCurr_Per1_MtrCurr1TempOffset_Volt_f32(MtrCurr1TempOffset_Volts_T_f32)</p>
+<p>Rte_Iwrite_CmMtrCurr_Per1_MtrCurr2TempOffset_Volt_f32(MtrCurr2TempOffset_Volts_T_f32)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_CmMtrCurr_Per1_CP1_CheckpointReached()</p>
+<h3 id="per-cmmtrcurr_per2">Per: CmMtrCurr_Per2</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>Rte_Call_CmMtrCurr_Per2_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>MtrCurrAlpha_Rev_T_f32=Rte_Iread_CmMtrCurr_Per2_MtrCurrAngle_ Rev_f32()</p>
+<p>CorrMtrPosElec_Rev_T_f32=Rte_Iread_CmMtrCurr_Per2_CorrMtrCurrPosition_Rev_f32()</p>
+<p>MtrCurrK1_Amps_T_f32=Rte_Iread_CmMtrCurr_Per2_MtrCurrK1_Amp_f32()</p>
+<p>MtrCurrK2_Amps_T_f32=Rte_Iread_CmMtrCurr_Per2_MtrCurrK2_Amp_f32()</p>
+<p>ADCMtrCurr1_Volts_T_f32=Rte_Iread_CmMtrCurr_Per2_ADCMtrCurr1_Volts_f32()</p>
+<p>ADCMtrCurr2_Volts_T_f32=Rte_Iread_CmMtrCurr_Per2_ADCMtrCurr2_Volts_f32()</p>
+<h4 id="processing-1">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>Rte_Call_CmMtrCurr_Per2_CP1_CheckpointReached()</p>
+<h3 id="per-cmmtrcurr_per3">Per: CmMtrCurr_Per3</h3>
+<h4 id="design-rationale-3">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-2">Program Flow Start</h4>
+<p>Rte_Call_CmMtrCurr_Per3_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-2">Store Module Inputs to Local copies</h4>
+<p>ADCMtrCurr1_Volts_T_f32=Rte_Iread_CmMtrCurr_Per3_ADCMtrCurr1_Volts_f32()</p>
+<p>ADCMtrCurr2_Volts_T_f32=Rte_Iread_CmMtrCurr_Per3_ADCMtrCurr2_Volts_f32()</p>
+<p>Vecu_Volt_T_f32=Rte_Iread_CmMtrCurr_Per3_Vecu_Volt_f32()</p>
+<p>MtrVel_MtrRadpS_T_f32 = Rte_Iread_CmMtrCurr_Per3_MtrVel_MtrRadpS_f32()</p>
+<p>VehSpd_Kph_T_f32= Rte_Iread_CmMtrCurr_Per3_VehSpd_Kph_f32()</p>
+<p>VhSpdValid_Cnt_T_lgc= Rte_Iread_CmMtrCurr_Per3_VhSpdValid_Cnt_lgc()</p>
+<p>SrlComSvcDft_Cnt_T_b32=Rte_Iread_CmMtrCurr_Per3_SrlComSvcDft_Cnt_b32()</p>
+<p>CurroffProcessFlag_T_enum = CmMtrCurr_CurroffProcessFlag_M_enum</p>
+<h4 id="processing-2">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /> <img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /><br />
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-2">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_Iwrite_CmMtrCurr_Per3_ComOffset_Cnt_u16(ComOffset_Cnt_T_u16)</p>
+<h4 id="program-flow-end-2">Program Flow End</h4>
+<p>Rte_Call_CmMtrCurr_Per3_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<h3 id="currdqper1">CurrDQPer1</h3>
+<h4 id="design-rationale-4">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-3">Program Flow Start</h4>
+<p>N/A</p>
+<h4 id="store-module-inputs-to-local-copies-3">Store Module Inputs to Local Copies</h4>
+<p>CmMtrCurr_Read_MRFMtrVel_MtrRadpS_f32(&amp;MRFMtrVel_MtrRadpS_T_f32)</p>
+<p>CmMtrCurr_Read_Vecu_Volt_f32(&amp;Vecu_Volt_T_f32)</p>
+<p>CmMtrCurr_Read_Phs1Curr_Cnt_u16(&amp;Phs1Curr_Cnt_T_u16)</p>
+<p>CmMtrCurr_Read_Phs2Curr_Cnt_u16(&amp;Phs2Curr_Cnt_T_u16)</p>
+<p>CmMtrCurr_Read_MtrCurr1TempOffset_Volt_f32(&amp;MtrCurr1TempOffset_Volt_T_f32)</p>
+<p>CmMtrCurr_Read_MtrCurr2TempOffset_Volt_f32(&amp;MtrCurr2TempOffset_Volt_T_f32)</p>
+<p>CmMtrCurr_Read_MtrElecPol_Cnt_s08(&amp;MtrElecPol_Cnt_T_s08)</p>
+<p>CmMtrCurr_Read_MtrPosElec_Rev_u0p16(&amp;MtrPosElec_Rev_T_u0p16)</p>
+<p>CmMtrCurr_Read_ADC2OffsetComp_Cnt_u8p8(&amp;ADC2OffsetComp_Cnt_T_u8p8)</p>
+<p>Phs1Curr_Volts_T_f32 = D_ZERO_ULS_F32</p>
+<p>Phs2Curr_Volts_T_f32 = D_ZERO_ULS_F32</p>
+<h4 id="processing-3">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image15.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image16.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image17.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image18.emf" /> <img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image19.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image20.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-3">Store Local copy of outputs into Module Outputs</h4>
+<p>CmMtrCurr_Write_ElecPosDelayComp_Rad_f32(ElecPosDelayComp_Rad_T_f32)</p>
+<p>CmMtrCurr_Write_MtrCurrQax_Amp_f32(MtrCurrFinalQax_Amps_T_f32)</p>
+<p>CmMtrCurr_Write_MtrCurrDax_Amp_f32(MtrCurrFinalDax_Amps_T_f32)</p>
+<p>CmMtrCurr_Write_CorrMtrPosElec_Rev_f32(CorrMtrPosElec_Rev_T_f32)</p>
+<p>CmMtrCurr_Write_MtrCurrK1_Amps_f32(MtrCurrK1_Amps_T_f32)</p>
+<p>CmMtrCurr_Write_MtrCurrK2_Amps_f32(MtrCurrK2_Amps_T_f32)</p>
+<p>CmMtrCurr_Write_MtrCurr1_Volts_f32(Phs1Curr_Volts_T_f32)</p>
+<p>CmMtrCurr_Write_MtrCurr2_Volts_f32(Phs2Curr_Volts_T_f32)</p>
+<h4 id="program-flow-end-3">Program Flow End</h4>
+<p>N/A</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<h3 id="scomm-cmmtrcurrtempoffset_scom_get">Scomm: CmMtrCurrTempOffset_Scom_Get</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 39%" />
+<col style="width: 19%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td><h3 id="cmmtrcurrtempoffset_scom_get" class="unnumbered">CmMtrCurrTempOffset_Scom_Get</h3></td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>CurrTempOffCal</td>
+<td>CurrTempOffsetType *</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>void</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-5">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-4">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-4">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="processing-4">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image21.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-4">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-4">Program Flow End</h4>
+<p>None</p>
+<h3 id="scomm-cmmtrcurrtempoffset_scom_set">Scomm: CmMtrCurrTempOffset_Scom_Set</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 39%" />
+<col style="width: 19%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CmMtrCurrTempOffset_Scom_Set</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>CurrTempOffCal</td>
+<td>CurrTempOffsetType *</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>void</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-6">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-5">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-5">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="processing-5">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image22.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-5">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-5">Program Flow End</h4>
+<p>None</p>
+<h3 id="scomm-cmmtrcurr_scom_calgain">Scomm: CmMtrCurr_Scom_CalGain</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 15%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CmMtrCurr_Scom_CalGain</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>RetrunValue</td>
+<td>Std_ReturnType</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-7">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-6">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-6">Store Module Inputs to Local copies</h4>
+<p>Rte_Read_MtrVel_MtrRadpS_f32(&amp;MtrVel_MtrRadpS_T_f32)</p>
+<p>Rte_Read_VehSpd_Kph_f32(&amp;VehSpd_Kph_T_f32)</p>
+<p>Rte_Read_VhSpdValid_Cnt_lgc(&amp;VhSpdValid_T_Cnt_lgc)</p>
+<h4 id="processing-6">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image23.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-6">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-6">Program Flow End</h4>
+<p>None</p>
+<h3 id="scomm-cmmtrcurr_scom_caloffset">Scomm: CmMtrCurr_Scom_CalOffset</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 15%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CmMtrCurr_Scom_CalOffset</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>RetrunValue</td>
+<td>Std_ReturnType</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-8">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-7">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-7">Store Module Inputs to Local copies</h4>
+<p>Rte_Read_MtrVel_MtrRadpS_f32(&amp;MtrVel_MtrRadpS_T_f32)</p>
+<p>Rte_Read_VehSpd_Kph_f32(&amp;VehSpd_Kph_T_f32)</p>
+<p>Rte_Read_VhSpdValid_Cnt_lgc(&amp;VhSpdValid_T_Cnt_lgc)</p>
+<h4 id="processing-7">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image24.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-7">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_Write_CurrentGainSvc_Cnt_lgc(CmMtrCurr_CurrentGainSvc_Cnt_M_lgc)</p>
+<h4 id="program-flow-end-7">Program Flow End</h4>
+<p>None</p>
+<h3 id="scomm-cmmtrcurr_scom_mtrcurroffreadstatus">Scomm: CmMtrCurr_Scom_MtrCurrOffReadStatus</h3>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 41%" />
+<col style="width: 20%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CmMtrCurr_Scom_MtrCurrOffReadStatus</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>CurrOffStatus</td>
+<td>MtrCurrOffProcessFlag *</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>void</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-9">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-8">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-8">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="processing-8">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image25.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-8">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-8">Program Flow End</h4>
+<p>None</p>
+<h3 id="scomm-cmmtrcurr_scom_readmtrcurrcals">Scomm: CmMtrCurr_Scom_ReadMtrCurrCals</h3>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 39%" />
+<col style="width: 22%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CmMtrCurr_Scom_ReadMtrCurrCals</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>ShCurrCalPtr</td>
+<td>PhaseCurrCal_DataType *</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>void</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-10">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-9">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-9">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="processing-9">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image26.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-9">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-9">Program Flow End</h4>
+<p>None</p>
+<h3 id="scomm-cmmtrcurr_scom_setmtrcurrcals">Scomm: CmMtrCurr_Scom_SetMtrCurrCals</h3>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 38%" />
+<col style="width: 22%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CmMtrCurr_Scom_SetMtrCurrCals</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>ShCurrCalPtr</td>
+<td>PhaseCurrCal_DataType *</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>void</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-11">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-10">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-10">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="processing-10">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image27.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-10">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-10">Program Flow End</h4>
+<p>None</p>
+<h2 id="section-3"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CmMtrCurr_Init</td>
+<td>On Init</td>
+<td>Init</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_Per1</td>
+<td>100ms</td>
+<td>All</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_Per2</td>
+<td>2ms</td>
+<td>Operate</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_Per3</td>
+<td>2ms</td>
+<td>Operate</td>
+</tr>
+<tr class="odd">
+<td>CurrDQPer1</td>
+<td>125us (MtrCtrl ISR)</td>
+<td>All</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CmMtrCurr_Scom_CalGain</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_Scom_CalOffset</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_Scom_MtrCurrOffReadStatus</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_Scom_ReadMtrCurrCals</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_Scom_SetMtrCurrCals</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CmMtrCurrTempOffset_Scom_Get</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurrTempOffset_Scom_Set</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CmMtrCurr_Init</td>
+<td>RTE_START_SEC_SA_CMMTRCURR_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_Per1</td>
+<td>RTE_START_SEC_SA_CMMTRCURR_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_Per2</td>
+<td>RTE_START_SEC_SA_CMMTRCURR_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_Per3</td>
+<td>RTE_START_SEC_SA_CMMTRCURR_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>CurrDQPer1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_Scom_CalGain</td>
+<td>RTE_START_SEC_SA_CMMTRCURR_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_Scom_CalOffset</td>
+<td>RTE_START_SEC_SA_CMMTRCURR_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_Scom_MtrCurrOffReadStatus</td>
+<td>RTE_START_SEC_SA_CMMTRCURR_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurr_Scom_ReadMtrCurrCals</td>
+<td>RTE_START_SEC_SA_CMMTRCURR_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurr_Scom_SetMtrCurrCals</td>
+<td>RTE_START_SEC_SA_CMMTRCURR_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>CmMtrCurrTempOffset_Scom_Get</td>
+<td>RTE_START_SEC_SA_CMMTRCURR_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>CmMtrCurrTempOffset_Scom_Set</td>
+<td>RTE_START_SEC_SA_CMMTRCURR_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-5"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-6"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions defined in GlobalMacro.h are not unit tested.</p></li>
+<li><p>ADC component outputs the ADC calibration compensation which is in turn used by Current Measurement to correct its offset volt . This is implementation done across two components. The measured currents from ADC conversion from counts to volts is done in this component instead of ADC component as described by the FDD</p></li>
+<li></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 68%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1.0</td>
+<td>Initial Version (FDD 01 C Ver 005)</td>
+<td>01-Dec-12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>2.0</td>
+<td>Configured global read/write macros for global data (anomaly 4696)</td>
+<td>23-Mar-13</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>3.0</td>
+<td>Fixes for Anamoly 5561 and A5566 added</td>
+<td>4-Sep-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>4.0</td>
+<td>Updated to FDD 01C Ver 006</td>
+<td>07-Oct-13</td>
+<td>VK</td>
+</tr>
+<tr class="even">
+<td>5.0</td>
+<td>Anomaly 5967 and 5873</td>
+<td>06-Nov-13</td>
+<td>SP</td>
+</tr>
+<tr class="odd">
+<td>6.0</td>
+<td>Range corrections for ‘MtrCurr1OffDelta_VoltpVoltCnts_M_f32’ and ‘MtrCurr2OffDelta_VoltpVoltCnts_M_f32’</td>
+<td>9-Nov-13</td>
+<td>SR</td>
+</tr>
+<tr class="even">
+<td>7.0</td>
+<td>Changed CurrCorrDiag filtering from fixed point to floating point to achieve specified range and resolution – CR 10895</td>
+<td>20-Nov-13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>8.0</td>
+<td>Updated for FDD 01C v007</td>
+<td>20-Apr-14</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>9.0</td>
+<td>Updated for FDD 01C v008</td>
+<td>27-June-14</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>10.0</td>
+<td>Updated for FDD 01C v009</td>
+<td>20-May-16</td>
+<td>NS</td>
+</tr>
+<tr class="even">
+<td>11.0</td>
+<td>Updated for FDD 01C v010</td>
+<td>24-May-16</td>
+<td>NS</td>
+</tr>
+</tbody>
+</table>

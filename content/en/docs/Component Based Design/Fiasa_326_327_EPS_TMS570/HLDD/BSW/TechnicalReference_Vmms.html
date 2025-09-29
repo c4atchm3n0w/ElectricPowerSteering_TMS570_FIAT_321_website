@@ -1,0 +1,1069 @@
+---
+title: TechnicalReference_Vmms
+linkTitle: TechnicalReference_Vmms
+weight: 123
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-1_1.png"/><br/>
+&#160;<br/>
+&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/><b>Vehicle Mode Management&#160;<br/></b>Technical Reference&#160;<br/>&#160;<br/>VMM&#160;<br/>Version 1.06.00&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+Authors&#160;<br/>
+Thomas Kuhl, Markus Schwarz&#160;<br/>
+Status&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-2_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>1&#160;&#160;Document Information&#160;</b><br/>
+<b>1.1&#160;&#160;History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;</b><br/>
+<b>Remarks&#160;</b><br/>
+Thomas Petrus&#160;<br/>
+2008-06-02&#160;<br/>
+1.0&#160;<br/>
+Initial Version&#160;<br/>
+Thomas Kuhl&#160;<br/>
+2008-10-17&#160;<br/>
+1.1&#160;<br/>
+Update configuration chapter&#160;<br/>
+Thomas Kuhl&#160;<br/>
+2008-11-28&#160;<br/>
+1.2&#160;<br/>
+Update configuration chapter&#160;<br/>
+Updated Chapter 7.4&#160;<br/>
+Add function&#160;description:&#160;<br/><a href="TechnicalReference_Vmms.html#22">Vmm_BusSm_EnableRecepti<br/>onDM&#160;</a><br/>
+Add function&#160;description:&#160;<br/>
+<a href="TechnicalReference_Vmms.html#23">Vmm_BusSm_DisableRecept<br/>ionDM&#160;</a><br/>
+Thomas Kuhl&#160;<br/>
+2009-03-16&#160;<br/>
+1.3&#160;<br/>
+Add chapter 4.3 ECU Passive&#160;<br/>Handling&#160;<br/>
+Add API&#160;<br/>Vmm_Dcm_SetPassiveMode&#160;<br/>
+Update chapter “System&#160;<br/>configuration”&#160;<br/>
+Thomas Kuhl&#160;<br/>
+2009-08-10&#160;<br/>
+1.4&#160;<br/>
+<a href="TechnicalReference_Vmms.html#13">add chapter&#160;5.4</a>&#160;<a href="TechnicalReference_Vmms.html#13">Critical code&#160;<br/>sections&#160;</a><br/>
+Thomas Kuhl&#160;<br/>
+2009-11-16&#160;<br/>
+1.5&#160;<br/>
+ESCAN00038948&#160;<br/>
+Thomas Kuhl&#160;<br/>
+2010-04-29&#160;<br/>
+1.05.01&#160;<br/>
+ESCAN00040934&#160;<br/>
+Thomas Kuhl&#160;<br/>
+2010-08-10&#160;<br/>
+1.05.02&#160;<br/>
+ESCAN00044654&#160;<br/>
+Thomas Kuhl&#160;<br/>
+2011-02-10&#160;<br/>
+1.06.00&#160;<br/>
+Extend description of&#160;<br/>Vmm_Init&#160;<br/>
+Table 1-1&#160;&#160;&#160;History&#160;of the&#160;Document&#160;<br/>
+<b>1.2&#160;&#160;Reference Documents&#160;</b><br/>
+<b>No.&#160;</b><br/>
+<b>Title&#160;</b><br/>
+<b>Version&#160;</b><br/>
+[1] &#160;<br/>
+AUTOSAR_BasicSoftwareModules.pdf&#160;<br/>
+V1.0.0&#160;<br/>
+[2] &#160;<br/>
+AUTOSAR_SWS_DET.pdf&#160;<br/>
+V2.2.0&#160;<br/>
+[3]&#160;&#160;&#160;<br/>
+AN-ISC-8-1118 MICROSAR BSW&#160;Compatibility Check&#160;<br/>
+V1.0.0&#160;<br/>
+Table 1-2&#160;&#160;&#160;Reference Documents&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+2&#160;/&#160;&#160;27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-3_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-3_2.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Please note&#160;<br/></b>We have configured the&#160;programs in accordance&#160;with your specifications in the&#160;<br/>
+&#160;&#160;questionnaire. Whereas&#160;the programs do support&#160;other configurations than the one&#160;<br/>
+specified&#160;in&#160;your questionnaire, Vector’s&#160;release&#160;of the programs delivered to your&#160;<br/>company is&#160;expressly restricted to the&#160;configuration you have&#160;specified in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+3&#160;/&#160;&#160;27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-4_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_Vmms.html#2"><b>1</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#2"><b>Document Information....................................................................................................&#160;2</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#2">1.1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#2">History...............................................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#2">1.2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#2">Reference Documents&#160;......................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#6"><b>2</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#6"><b>Component History.........................................................................................................&#160;6</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#7"><b>3</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#7"><b>Introduction&#160;.....................................................................................................................&#160;7</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#8"><b>4</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#8"><b>Functional Description&#160;...................................................................................................&#160;8</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#8">4.1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#8">Handling of&#160;communication requests&#160;from BusSM&#160;...........................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#8">4.2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#8">Control of communication status by DCM.........................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#8">4.2.1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#8">Nm Handling&#160;.....................................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#8">4.2.2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#8">Com Handling&#160;...................................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#9">4.3&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#9">Control of ECU Passive&#160;Mode&#160;..........................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#9">4.4&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#9">Error Handling...................................................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#9">4.4.1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#9">Development Error Reporting&#160;...........................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11"><b>5</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11"><b>Integration&#160;.....................................................................................................................&#160;11</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11">5.1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11">Scope of Delivery.............................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11">5.1.1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11">Static Files&#160;.......................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11">5.1.2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11">Dynamic Files&#160;..................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#12">5.2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#12">Include Structure.............................................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#12">5.3&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#12">Compiler&#160;Abstraction and Memory&#160;Mapping&#160;...................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#13">5.4&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#13">Critical code&#160;sections&#160;......................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#14"><b>6</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#14"><b>Configuration&#160;................................................................................................................&#160;14</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#14">6.1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#14">Activation of the VMM&#160;.....................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#14">6.2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#14">System Configuration&#160;.....................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#15">6.3&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#15">Channel Configuration&#160;....................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#16">6.4&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#16">Nm Configuration&#160;............................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#17"><b>7</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#17"><b>API Description&#160;.............................................................................................................&#160;17</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#17">7.1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#17">Vmm_InitMemory............................................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#18">7.2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#18">Vmm_Init.........................................................................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#19">7.3&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#19">Vmm_Dcm_CommunicationControl&#160;...............................................................&#160;19&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#20">7.4&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#20">Vmm_BusSm_IpduGroupStart&#160;.......................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#21">7.5&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#21">Vmm_BusSm_IpduGroupStop........................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#22">7.6&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#22">Vmm_BusSm_EnableReceptionDM&#160;...............................................................&#160;22&#160;</a><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+4&#160;/&#160;&#160;27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-5_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Vmms.html#23">7.7&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#23">Vmm_BusSm_DisableReceptionDM&#160;..............................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#23">7.8&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#23">Vmm_Dcm_SetPassiveMode&#160;.........................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#24">7.9&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#24">Callback Functions&#160;.........................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#24">7.10&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#24">Service Ports&#160;..................................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#24">7.11&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#24">Services used by Vmm&#160;...................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#25"><b>8</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#25"><b>Limitations&#160;.....................................................................................................................&#160;25</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#25">8.1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#25">Nm Passive&#160;mode support..............................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#26"><b>9</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#26"><b>Abbreviations&#160;................................................................................................................&#160;26</b>&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#26">9.1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#26">Abbreviations&#160;..................................................................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#27"><b>10</b>&#160;&#160;<b>Contact...........................................................................................................................&#160;27</b>&#160;<br/></a>&#160;<br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_Vmms.html#12">Figure&#160;&#160;5-1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#12">Include structure&#160;.............................................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#14">Figure&#160;&#160;6-1&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#14">VMM Activation&#160;...............................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#14">Figure&#160;&#160;6-2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#14">System Configuration&#160;.....................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#15">Figure&#160;&#160;6-3&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#15">Channel Configuration&#160;....................................................................................&#160;15&#160;</a><br/>
+<b>&#160;</b><br/>
+<b>Tables&#160;</b><br/>
+<a href="TechnicalReference_Vmms.html#2">Table&#160;&#160;1-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#2">History of the Document&#160;...................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#2">Table&#160;&#160;1-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#2">Reference Documents&#160;......................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#6">Table&#160;&#160;2-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#6">Component history............................................................................................&#160;6&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#9">Table&#160;&#160;4-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#9">Mapping of service IDs to services&#160;...................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#10">Table&#160;&#160;4-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#10">Errors reported to DET&#160;...................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11">Table&#160;&#160;5-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11">Static files.........................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11">Table&#160;&#160;5-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#11">Generated files&#160;................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#13">Table&#160;&#160;5-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#13">Complier&#160;Abstraction and Memory&#160;Mapping&#160;...................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#15">Table&#160;&#160;6-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#15">System Configuration&#160;.....................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#16">Table&#160;&#160;6-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#16">Channel Configuration&#160;....................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#17">Table&#160;&#160;7-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#17">Vmm_InitMemory............................................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#18">Table&#160;&#160;7-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#18">Vmm_Init.........................................................................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#19">Table&#160;&#160;7-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#19">Vmm_Dcm_CommunicationControl&#160;...............................................................&#160;19&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#20">Table&#160;&#160;7-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#20">ComM_BusSm_IpduGroupStart&#160;.....................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#21">Table&#160;&#160;7-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#21">Vmm_BusSm_IpduGroupStop........................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#22">Table&#160;&#160;7-6&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#22">Vmm_BusSm_EnableReceptionDM&#160;...............................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#23">Table&#160;&#160;7-7&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#23">Vmm_BusSm_DisableReceptionDM&#160;..............................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#23">Table&#160;&#160;7-8&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#23">Vmm_Dcm_SetPassiveMode&#160;.........................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#24">Table&#160;&#160;7-9&#160;&#160;</a><br/>
+<a href="TechnicalReference_Vmms.html#24">Services used by the Vmm&#160;.............................................................................&#160;24&#160;</a><br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+5&#160;/&#160;&#160;27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-6_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>2&#160;&#160;Component History&#160;</b><br/>
+The component history gives&#160;an overview over the important milestones that&#160;are&#160;<br/>supported in the different versions of the component. &#160;<br/>
+<b>Component Version&#160;&#160;New&#160;Features&#160;</b><br/>
+1.00.00&#160;Initial&#160;<br/>
+Version&#160;<br/>
+Table 2-1&#160;&#160;&#160;Component history&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+6&#160;/&#160;&#160;27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-7_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>3&#160;&#160;Introduction&#160;</b><br/>
+This document describes the Vehicle Mode&#160;Management (VMM) of the common software&#160;<br/>components. It describes the features, the&#160;API, integration hints and the configuration.&#160;<br/>
+<b>Supported Configuration Variants:&#160;</b><br/>
+pre-compile, link-time&#160;<br/>
+<b>Vendor ID:&#160;</b><br/>
+VMM_VENDOR_ID&#160;30&#160;<br/>
+decimal&#160;<br/>
+(= Vector-Informatik,&#160;<br/>according to&#160;HIS)&#160;<br/>
+<b>Module ID:&#160;</b><br/>
+VMM_MODULE_ID &#160;&#160;<br/>
+226 decimal&#160;<br/>
+(according to ref[1])&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+7&#160;/&#160;&#160;27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-8_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>4&#160;&#160;Functional Description&#160;</b><br/>
+The VMM is responsible to &#160;<br/>
+&#160;&#160;allow/inhibit I-PDU start/stop requests from BusSM&#160;<br/>
+&#160;&#160;start/stop its own I-PDU groups&#160;<br/>
+depending on the communication status that is set by the diagnostic component (DCM) via&#160;<br/>the diagnostic service called “communication control”.&#160;<br/>
+Additionally&#160;the Vmm is responsible to provide the ECU passive mode to the configured&#160;<br/>BusSM. &#160;<br/>
+&#160;<br/>
+<b>4.1&#160;&#160;Handling of communication requests from BusSM&#160;</b><br/>
+The VMM handles the I-PDU start/stop requests from the BusSM:&#160;<br/>
+&#160;&#160;If no VMM is used on a channel, each I-PDU start/stop request is directly forwarded to&#160;<br/>
+the Com.&#160;<br/>
+&#160;&#160;If a VMM is used and&#160;Tx/Rx is&#160;not inhibited by&#160;DCM request, the I-PDU start/stop&#160;<br/>
+request is directly forwarded to the Com. &#160;<br/>
+&#160;&#160;If&#160;a VMM is used and&#160;Tx/Rx is&#160;inhibited by DCM request, the I-PDU start/stop request is&#160;<br/>
+stored within the VMM.&#160;<br/>
+<b>4.2&#160;&#160;Control of communication status by&#160;DCM&#160;</b><br/>
+The DCM uses&#160;API Vmm_Dcm_CommunicationControl() to set the communication status&#160;<br/>for a given (or all) networks. &#160;<br/>
+The communication status can be set&#160;for Nm- and/or Com-related messages. &#160;<br/>
+The&#160;Tx&#160;and Rx behavior can be controlled separately.&#160;<br/>
+<b>4.2.1&#160;</b><br/>
+<b>Nm Handling&#160;</b><br/>
+If Vmm_Dcm_CommunicationControl() addresses the Nm (by parameter&#160;<br/>VMM_MSG_TYPE_NM or VMM_MSG_TYPE_ALL), the Nm for the given channel is&#160;<br/>enabled/disabled depending on the requested&#160;Tx state.&#160;<br/>
+<b>4.2.2&#160;</b><br/>
+<b>Com Handling&#160;</b><br/>
+If Vmm_Dcm_CommunicationControl() addresses the Com&#160;(by parameter&#160;<br/>VMM_MSG_TYPE_COM or VMM_MSG_TYPE_ALL), the&#160;Tx/Rx I-PDUs are&#160;<br/>started/stopped.&#160;<br/>
+&#160;<br/>
+<b>Handling of I-PDUs of VMM&#160;</b><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+8&#160;/&#160;&#160;27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-9_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+These I-PDUs are used to enable necessary&#160;communication while&#160;normal communication&#160;<br/>itself is blocked by DCM request.&#160;The I-PDU&#160;groups can be configured for each channel of&#160;<br/>the VMM.&#160;<br/>
+&#160;&#160;If&#160;Tx/Rx gets started by DCM, the configured&#160;Tx/Rx I-PDUs of VMM are stopped.&#160;<br/>
+&#160;&#160;If&#160;Tx/Rx gets stopped by DCM, the configured&#160;Tx/Rx I-PDUs of VMM are started.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Handling of I-PDUs of BusSM&#160;</b><br/>
+&#160;&#160;If&#160;Tx/Rx&#160;gets&#160;started&#160;by DCM, the&#160;Tx/Rx I-PDUs of BusSM are started if they are&#160;<br/>
+currently requested by the BusSM.&#160;<br/>
+&#160;&#160;If&#160;Tx/Rx gets stopped by DCM, the&#160;Tx/Rx I-PDUs of BusSM are&#160;stopped if they are&#160;<br/>
+currently not requested by the BusSM.&#160;<br/>
+&#160;<br/>
+<b>4.3&#160;&#160;Control of ECU Passive Mode &#160;</b><br/>
+The Vmm is informed by the DCM about the&#160;ECU passive mode and&#160;the Vmm distributes&#160;<br/>this mode to the configured BusSM (FrSM and CanSM).&#160;<br/>
+&#160;<br/>
+<b>4.4&#160;&#160;Error Handling&#160;</b><br/>
+<b>4.4.1&#160;</b><br/>
+<b>Development Error Reporting&#160;</b><br/>
+By default, development errors are reported to the DET&#160;using the service&#160;<br/>Det_ReportError()&#160;as specified in [2], if development error reporting is&#160;enabled&#160;(i.e.&#160;<br/>pre-compile parameter VMM_DEV_ERROR_DETECT==STD_ON).&#160;<br/>
+If another module is used for development error reporting, the function prototype for&#160;<br/>reporting the error can be configured by the integrator, but must have the same signature&#160;<br/>as the service&#160;Det_ReportError().&#160;<br/>
+The reported VMM ID&#160;is 226.&#160;<br/>
+The reported service IDs identify&#160;the&#160;services which are described in&#160;<a href="TechnicalReference_Vmms.html#17">7. The&#160;</a>following&#160;table&#160;<br/>presents the service IDs and the related services:&#160;<br/>
+<b>Service ID&#160;</b><br/>
+<b>Service&#160;</b><br/>
+0x01&#160;Vmm_Dcm_CommunicationControl&#160;<br/>
+0x02&#160;Vmm_BusSmIpduGroupStart&#160;<br/>
+0x03&#160;Vmm_BusSmIpduGroupStop&#160;<br/>
+Table 4-1&#160;&#160;&#160;Mapping of service IDs to services&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+9&#160;/&#160;&#160;27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-10_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+The errors reported to DET&#160;are described in the following table:&#160;<br/>
+<b>Error Code&#160;</b><br/>
+<b>Description&#160;</b><br/>
+0x10&#160;<br/>
+VMM_E_UNINIT&#160;<br/>
+There are VMM services used without initialization of&#160;<br/>the VMM&#160;via&#160;Vmm_Init()&#160;<br/>
+Table 4-2&#160;&#160;&#160;Errors reported to DET&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+10&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-11_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>5&#160;&#160;Integration&#160;</b><br/>
+<b>5.1&#160;&#160;Scope of Delivery&#160;</b><br/>
+The delivery of the VMM contains the files&#160;which are described in the chapters&#160;<a href="TechnicalReference_Vmms.html#11">5.1.1&#160;and&#160;<br/>5.1.2</a>:&#160;<br/>
+<b>5.1.1&#160;</b><br/>
+<b>Static Files&#160;</b><br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Vmm.c&#160;<br/>
+This is the source file of&#160;the VMM. It&#160;contains the&#160;implementation of the main&#160;<br/>functionality&#160;<br/>
+Vmm.h&#160;<br/>
+This is the header file of&#160;the VMM,&#160;which is the interface for upper layers to the&#160;<br/>services of the VMM.&#160;<br/>
+Vmm_Types.h&#160;&#160;Header File which includes VMM specific data types.&#160;<br/>
+Vmm_BusSM.h&#160;&#160;Header File for interface&#160;to BusSM.&#160;<br/>
+Vmm_Dcm.h&#160;<br/>
+Header File for interface&#160;to Dcm.&#160;<br/>
+Vmm.lib&#160;<br/>
+This is the library of the VMM. (optional)&#160;<br/>
+Table 5-1&#160;&#160;&#160;Static files&#160;<br/>
+&#160;<br/>
+<b>5.1.2&#160;</b><br/>
+<b>Dynamic Files&#160;</b><br/>
+The dynamic files are generated by&#160;the configuration tool GENy.&#160;<br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Vmm_Lcfg.c&#160;&#160;This is the link time configuration source file. It&#160;contains all link time configuration&#160;<br/>
+settings.&#160;<br/>
+Vmm_cfg.h&#160;&#160;This is the VMM configuration header&#160;file.&#160;<br/>
+Table 5-2&#160;&#160;&#160;Generated files&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+11&#160;/&#160;27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-12_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>5.2&#160;&#160;Include Structure&#160;</b><br/>
+<b>obj&#160;ect&#160;Header&#160;File&#160;Structure</b><br/>
+<b>Com.h</b><br/>
+<b>SchM_Vmm.h</b><br/>
+<b>Vmm_BusSM.h</b><br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+<b>Det.h</b><br/>
+<b>Vmm.c</b><br/>
+<b>Vmm_Dcm.h</b><br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+<b>Vmm_Types.h</b><br/>
+<b>Vmm.h</b><br/>
+<b>ComM_Lcfg.c</b><br/>
+<b>Nm.h</b><br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+<b>Vmm_cfg.h</b><br/>
+<b>Com.h</b><br/>
+&#160;<br/>
+&#160;<br/>
+Figure 5-1&#160;&#160;Include structure&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>5.3&#160;&#160;Compiler Abstraction and Memory&#160;Mapping &#160;</b><br/>
+The objects (e.g. variables, functions, constants) are declared by compiler&#160;independent&#160;<br/>definitions – the compiler abstraction definitions. Each compiler abstraction definition is&#160;<br/>assigned to a memory section.&#160;<br/>
+The following table contains the memory&#160;section names and the compiler abstraction&#160;<br/>definitions that are used by the VMM. It&#160;illustrates their assignment&#160;among each other.&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+12&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-13_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>Compiler Abstraction</b><br/>
+<b>Definitions</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Memory&#160;Mapping&#160;</b><br/>
+NIT&#160;<br/>
+<b>Sections&#160;</b><br/>
+RO_I<br/>
+T&#160;<br/>
+&#160;<br/>
+E<br/>
+NOINIT&#160;<br/>
+Z<br/>
+R&#160;<br/>
+R_<br/>
+R_<br/>
+A<br/>
+A<br/>
+A<br/>
+VMM_CONS<br/>
+VMM_CODE<br/>
+VMM_V<br/>
+VMM_V<br/>
+VMM_V<br/>
+VMM_START_SEC_CONST_8BIT&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+VMM_STOP_SEC_CONST_8BIT&#160;<br/>
+VMM_START_SEC_CONST_32BIT&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+VMM_STOP_SEC_CONST_32BIT&#160;<br/>
+VMM_START_SEC_CONST_UNSPECIFIED&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+VMM_STOP_SEC_CONST_UNSPECIFIED&#160;<br/>
+VMM_START_SEC_CODE&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+VMM_STOP_SEC_CODE&#160;<br/>
+VMM_START_SEC_VAR_NOINIT_8BIT&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+VMM_STOP_SEC_VAR_NOINIT_8BIT&#160;<br/>
+VMM_START_SEC_VAR_ ZERO_INIT_UNSPECIFIED&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+VMM_STOP_SEC_VAR_ ZERO_INIT_UNSPECIFIED&#160;<br/>
+Table 5-3&#160;&#160;&#160;Complier&#160;Abstraction and Memory&#160;Mapping&#160;<br/>
+<b>5.4&#160;&#160;Critical code sections&#160;</b><br/>
+The VMM has the following defined critical code section: &#160;<br/>
+&#160;&#160;VMM_EXCLUSIVE_AREA_0: must lock interrupts&#160;if VMM could be interrupted by any of&#160;<br/>
+the following task functions:&#160;<br/>
+o&#160;DCM_MainFunction()&#160;<br/>
+o&#160;CanSM_MainFunction()&#160;<br/>
+o&#160;FrSM_MainFunction()&#160;<br/>
+&#160;&#160;It is recommended to use&#160;AUTOSAR OS&#160;‘Resources’&#160;for these exclusive areas to&#160;<br/>&#160;&#160;prevent priority inversions and dead-locks.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+13&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-14_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-14_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-14_3.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>6&#160;&#160;Configuration&#160;</b><br/>
+The VMM component can be configured with the configuration tool GENy.&#160;<br/>
+<b>6.1&#160;&#160;Activation of the VMM&#160;</b><br/>
+&#160;<br/>
+Figure 6-1&#160;&#160;VMM&#160;Activation&#160;<br/>
+&#160;<br/>
+The VMM must be activated in&#160;the system configuration view.&#160;<br/>
+&#160;<br/>
+<b>6.2&#160;&#160;System Configuration&#160;</b><br/>
+&#160;<br/>
+Figure 6-2&#160;&#160;System Configuration&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+14&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-15_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-15_2.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Configuration attributes&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Short description&#160;</b><br/>
+General Settings&#160;<br/>
+Configuration&#160;Variant&#160;<br/>
+&#160;&#160;Variant 1 (Pre-<br/>
+Specify the supported configuration variant.&#160;<br/>
+compile&#160;<br/>Configuration)&#160;<br/>
+&#160;&#160;Variant 2 (Link-<br/>time Configuration)&#160;<br/>
+Dev&#160;Error Detect&#160;<br/>
+&#160;&#160;On&#160;<br/>
+If 'Development Error&#160;Detection' is enabled, all&#160;<br/>
+<br/>
+development errors are reported to the&#160;<br/>
+&#160;&#160;Off&#160;<br/>
+Development&#160;Error Tracer&#160;(DET). &#160;<br/>
+&#160;<br/>
+Note: In general, the development error&#160;detection&#160;<br/>is recommended during pre-test phase. It is not&#160;<br/>recommended to enable the development error&#160;<br/>detection in production&#160;code due to increased&#160;<br/>runtime and&#160;ROM needs.&#160;<br/>
+ECU Passive&#160;Mode&#160;<br/>
+&#160;&#160;On&#160;<br/>
+Enable/Disable ECU Passive Mode Handling &#160;<br/>
+&#160;&#160;Off&#160;<br/>
+Table 6-1&#160;&#160;&#160;System Configuration&#160;<br/>
+&#160;<br/>
+<b>6.3&#160;&#160;Channel Configuration&#160;</b><br/>
+&#160;<br/>
+Figure 6-3&#160;&#160;Channel Configuration&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+15&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-16_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>Configuration attributes&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Short description&#160;</b><br/>
+General Settings&#160;<br/>
+Tx Pdu Group&#160;<br/>
+&#160;&#160;Value&#160;<br/>
+This value defines the Tx I-PDU group handle of&#160;<br/>Com signals&#160;which must be send during&#160;the&#160;<br/>communication control phase.&#160;<br/>
+Rx Pdu Group&#160;<br/>
+&#160;&#160;Value&#160;<br/>
+This value defines the Rx I-PDU group handle of&#160;<br/>Com signals&#160;which must be received during the&#160;<br/>communication control phase.&#160;<br/>
+Table 6-2&#160;&#160;&#160;Channel Configuration&#160;<br/>
+&#160;<br/>
+<b>6.4&#160;&#160;Nm Configuration&#160;</b><br/>
+For usage of a Nm channel the following features&#160;has be enabled inside the Nm&#160;<br/>configurations:&#160;<br/>
+&#160;&#160;Nm ‘Com Control Enabled’&#160;has to be enabled &#160;<br/>
+&#160;&#160;CanNm ‘Com Control Enabled’&#160;has to be enabled.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+16&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-17_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-17_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-17_3.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>7&#160;&#160;API Description&#160;</b><br/>
+<b>7.1&#160;&#160;Vmm_InitMemory&#160;</b><br/>
+<b>Vmm_InitMemory</b><br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+void&#160;<b>Vmm_InitMemory</b>( void )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+-&#160;<br/>
+&#160;<br/>
+<b>Return code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Pre-Initialize the VMM.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;Must be&#160;called before Vmm_Init() during&#160;the initialization phase.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;-&#160;<br/>
+Table 7-1&#160;&#160;&#160;Vmm_InitMemory&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+17&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-18_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>7.2&#160;&#160;Vmm_Init&#160;</b><br/>
+<b>Vmm_Init</b><br/>
+<b>Prototype&#160;</b><br/>
+<b>“Multiple Identity&#160;Configuration”&#160;disabled:&#160;</b><br/>
+void&#160;<b>Vmm_Init</b>( void )&#160;<br/>
+<b>“Multiple Identity&#160;Configuration”&#160;enabled:&#160;</b><br/>
+void&#160;<b>Vmm_Init</b>( const Vmm_ConfigSetType ConfigPtr )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+ConfigPtr&#160;<br/>
+Pointer to the VMM configuration&#160;that shall be used.&#160;There is one&#160;<br/>configuration for each identity.&#160;The configurations are stored in&#160;<br/>Vmm_Lcfg.c (variables&#160;of type Vmm_ConfigSetType).&#160;<br/>Note:&#160;The pointer is&#160;only&#160;used for use case “Multiple Identity&#160;<br/>Configuration”.&#160;<br/>
+<b>Return code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Initialize the&#160;VMM.&#160;<br/>
+For “Multiple Identity Configurations”, the Vmm is initialized&#160;with a pointer to the configuration for the&#160;<br/>identity that shall be used.&#160;&#160;<br/>
+Each identity&#160;configuration contains&#160;the channels that&#160;are active in&#160;this configuration. I.e the VMM performs&#160;<br/>only actions for channels&#160;which are configured for the active identity.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;Must be&#160;called during the initialization phase.&#160;<br/>
+&#160;&#160;Interrupts must be disabled&#160;during initialization.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;-&#160;<br/>
+Table 7-2&#160;&#160;&#160;Vmm_Init&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+18&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-19_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-19_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-19_3.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>7.3&#160;&#160;Vmm_Dcm_CommunicationControl&#160;</b><br/>
+<b>Vmm_Dcm_CommunicationControl</b><br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+Std_ReturnType&#160;<b>Vmm_Dcm_CommunicationControl&#160;</b>(&#160;<br/>NetworkHandleType Channel, Vmm_MsgType msgType, boolean&#160;<br/>rxState, boolean txState )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+Channel&#160;<br/>
+Network Handle&#160;<br/>
+Note: If channel is set to 0xFF, all channels are addressed.&#160;<br/>
+msgType&#160;<br/>
+&#160;&#160;VMM_MSG_TYPE_NM, only NM is&#160;affected&#160;<br/>
+&#160;<br/>
+&#160;&#160;VMM_MSG_TYPE_COM,&#160;only Com is&#160;affected&#160;<br/>
+&#160;&#160;VMM_MSG_TYPE_ALL, Nm and&#160;Com&#160;are affected&#160;<br/>
+rxState&#160;<br/>
+&#160;&#160;TRUE, &#160;enable Rx path&#160;<br/>
+&#160;<br/>
+&#160;&#160;FALSE, disable Rx path&#160;<br/>
+txState&#160;<br/>
+&#160;&#160;TRUE, &#160;enable&#160;Tx path&#160;<br/>
+&#160;&#160;FALSE, disable&#160;Tx path&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+&#160;&#160;API accepted&#160;<br/>
+E_NOT_OK&#160;<br/>
+&#160;&#160;VMM is not initialized&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This function&#160;is called from&#160;the DCM and is used to&#160;switch off/on the communication in conjunction to the&#160;<br/>given parameter.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;-&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;Task and Interrupt context&#160;<br/>
+Table 7-3&#160;&#160;&#160;Vmm_Dcm_CommunicationControl&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+19&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-20_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>7.4&#160;&#160;Vmm_BusSm_IpduGroupStart&#160;</b><br/>
+<b>Vmm_BusSm_IpduGroupStart</b><br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+void&#160;<b>Vmm_BusSm_IpduGroupStart&#160;</b>(NetworkHandleType Channel,&#160;<br/>Com_PduGroupIdType IpduGroupId, boolean Initialize)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+Channel &#160;<br/>
+network handle&#160;<br/>
+IpduGroupId &#160;&#160;<br/>
+BusSm I-PDU Group ID&#160;<br/>
+Initialize&#160;<br/>
+&#160;&#160;TRUE, &#160;start with Com default values&#160;<br/>
+&#160;&#160;FALSE, start&#160;not with Com&#160;default values&#160;<br/>
+<b>Return code&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This function&#160;is called from&#160;the bus station&#160;manager.&#160;It is used to start an I-PDU&#160;group.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;-&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;Task and Interrupt context&#160;<br/>
+Table 7-4&#160;&#160;&#160;ComM_BusSm_IpduGroupStart&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+20&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-21_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>7.5&#160;&#160;Vmm_BusSm_IpduGroupStop&#160;</b><br/>
+<b>Vmm_BusSm_IpduGroupStop</b><br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+void&#160;<b>Vmm_BusSm_IpduGroupStop</b>&#160;(NetworkHandleType Channel,&#160;<br/>Com_PduGroupIdType IpduGroupId )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+Channel&#160;<br/>
+network handle&#160;<br/>
+&#160;<br/>
+IpduGroupId&#160;<br/>
+BusSM I-PDU Group ID&#160;<br/>
+&#160;<br/>
+<b>Return code&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This function&#160;is called from&#160;the bus station&#160;manager.&#160;It is used to stop an I-PDU&#160;group.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;-&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;Task and Interrupt context&#160;<br/>
+Table 7-5&#160;&#160;&#160;Vmm_BusSm_IpduGroupStop&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+21&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-22_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>7.6&#160;&#160;Vmm_BusSm_EnableReceptionDM&#160;</b><br/>
+<b>Vmm_BusSm_EnableReceptionDM</b><br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+void&#160;<b>Vmm_BusSm_EnableReceptionDM</b>&#160;(NetworkHandleType&#160;<br/>Channel, Com_PduGroupIdType IpduGroupId )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+Channel&#160;<br/>
+network handle&#160;<br/>
+&#160;<br/>
+IpduGroupId&#160;<br/>
+BusSM I-PDU Group ID&#160;<br/>
+&#160;<br/>
+<b>Return code&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This function&#160;is called from&#160;the bus station manager.&#160;It is used to enable the deadline monitoring for the&#160;<br/>given I-PDU group.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;-&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;Task and Interrupt context&#160;<br/>
+Table 7-6&#160;&#160;&#160;Vmm_BusSm_EnableReceptionDM&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+22&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-23_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-23_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-23_3.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>7.7&#160;&#160;Vmm_BusSm_DisableReceptionDM&#160;</b><br/>
+<b>Vmm_BusSm_DisableReceptionDM</b><br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+void&#160;<b>Vmm_BusSm_DisableReceptionDM</b>&#160;(NetworkHandleType&#160;<br/>Channel, Com_PduGroupIdType IpduGroupId )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+Channel&#160;<br/>
+network handle&#160;<br/>
+&#160;<br/>
+IpduGroupId&#160;<br/>
+BusSM I-PDU Group ID&#160;<br/>
+&#160;<br/>
+<b>Return code&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This function&#160;is called from&#160;the bus station manager.&#160;It is used to disable the deadline monitoring for the&#160;<br/>given I-PDU group.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;-&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;Task and Interrupt context&#160;<br/>
+Table 7-7&#160;&#160;&#160;Vmm_BusSm_DisableReceptionDM&#160;<br/>
+<b>7.8&#160;&#160;Vmm_Dcm_SetPassiveMode&#160;</b><br/>
+<b>Vmm_Dcm_SetPassiveMode</b><br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+Std_ReturnType&#160;<b>Vmm_Dcm_PassiveMode</b>(boolean passiveState )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+passiveState&#160;<br/>
+&#160;&#160;TRUE, &#160;enable the ECU&#160;passive mode&#160;<br/>
+&#160;&#160;FALSE, disable the ECU passive mode&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+&#160;&#160;API accepted&#160;<br/>
+E_NOT_OK&#160;<br/>
+&#160;&#160;VMM is not initialized&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This function&#160;is called from&#160;the DCM and is used&#160;to enable/disable&#160;the ECU passive mode inside the&#160;<br/>BusSM.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;-&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;Task and Interrupt context&#160;<br/>
+Table 7-8&#160;&#160;&#160;Vmm_Dcm_SetPassiveMode&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+23&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-24_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>7.9&#160;&#160;Callback Functions&#160;</b><br/>
+The VMM does not have any callback functions.&#160;<br/>
+<b>7.10&#160;&#160;Service Ports &#160;</b><br/>
+There are currently no service ports.&#160;<br/>
+&#160;<br/>
+<b>7.11&#160;&#160;Services used by&#160;Vmm&#160;</b><br/>
+In the following table services provided by&#160;other components, which are used by the Vmm&#160;<br/>are listed. For details&#160;about prototype and functionality refer to&#160;the documentation of the&#160;<br/>providing component.&#160;<br/>
+<b>Component&#160;</b><br/>
+<b>API&#160;</b><br/>
+DET&#160;Det_ReportError&#160;<br/>
+Com&#160;Com_IpduGroupStop&#160;<br/>
+Com&#160;Com_IpduGroupStart&#160;<br/>
+Com&#160;Com_EnableReceptionDM&#160;<br/>
+Com&#160;Com_DisableReceptionDM&#160;<br/>
+NmIf&#160;Nm_EnableCommunication&#160;<br/>
+NmIf&#160;Nm_DisableCommunication&#160;<br/>
+NmOsek&#160;TalkNM&#160;<br/>
+NmOsek&#160;SilentNM&#160;<br/>
+EcuM&#160;EcuM_GeneratorCompatibilityError&#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Vmms.html#2">refer to&#160;[3]&#160;</a><br/>
+Table 7-9&#160;&#160;&#160;Services used by the Vmm&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+24&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-25_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>8&#160;&#160;Limitations&#160;</b><br/>
+<b>8.1&#160;&#160;Nm Passive mode support&#160;</b><br/>
+The Vmm does not support configurations&#160;with the enabled feature “Passive Mode” inside&#160;<br/>the AUTOSAR&#160;Nm.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+25&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=26></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-26_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>9&#160;&#160;Abbreviations&#160;</b><br/>
+<b>9.1&#160;&#160;Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+VMM&#160;<br/>
+Vehicle Mode Management&#160;<br/>
+Com&#160;<br/>
+BSW module in&#160;AUTOSAR providing signal based communication.&#160;<br/>
+ComM&#160;AUTOSAR&#160;<br/>
+Communication&#160;<br/>
+Manager&#160;<br/>
+EcuM&#160;AUTOSAR&#160;<br/>
+Ecu&#160;<br/>
+Manager&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+26&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=27></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Vmm-27_1.png"/><br/>
+Technical Reference Vehicle Mode Management &#160;<br/>
+&#160;<br/>
+<b>10&#160;&#160;Contact&#160;</b><br/>
+Visit our website for more information on&#160;<br/>&#160;<br/>&gt;&#160; &#160;News&#160;<br/>&gt;&#160; &#160;Products&#160;<br/>&gt;&#160; &#160;Demo software&#160;<br/>&gt;&#160; &#160;Support&#160;<br/>&gt;&#160; &#160;Training data&#160;<br/>&gt;&#160; &#160;Addresses&#160;<br/>&#160;<br/><b>www.vector-informatik.com&#160;<br/></b>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+27&#160;/ 27<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_Vmms.html#2">1 Document Information</a>
+<ul>
+<li><a href="TechnicalReference_Vmms.html#2">1.1 History</a></li>
+<li><a href="TechnicalReference_Vmms.html#2">1.2 Reference Documents</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Vmms.html#6">2 Component History</a></li>
+<li><a href="TechnicalReference_Vmms.html#7">3 Introduction</a></li>
+<li><a href="TechnicalReference_Vmms.html#8">4 Functional Description</a>
+<ul>
+<li><a href="TechnicalReference_Vmms.html#8">4.1 Handling of communication requests from BusSM</a></li>
+<li><a href="TechnicalReference_Vmms.html#8">4.2 Control of communication status by DCM</a>
+<ul>
+<li><a href="TechnicalReference_Vmms.html#8">4.2.1 Nm Handling</a></li>
+<li><a href="TechnicalReference_Vmms.html#8">4.2.2 Com Handling</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Vmms.html#9">4.3 Control of ECU Passive Mode&#160;</a></li>
+<li><a href="TechnicalReference_Vmms.html#9">4.4 Error Handling</a>
+<ul>
+<li><a href="TechnicalReference_Vmms.html#9">4.4.1 Development Error Reporting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Vmms.html#11">5 Integration</a>
+<ul>
+<li><a href="TechnicalReference_Vmms.html#11">5.1 Scope of Delivery</a>
+<ul>
+<li><a href="TechnicalReference_Vmms.html#11">5.1.1 Static Files</a></li>
+<li><a href="TechnicalReference_Vmms.html#11">5.1.2 Dynamic Files</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Vmms.html#12">5.2 Include Structure</a></li>
+<li><a href="TechnicalReference_Vmms.html#12">5.3 Compiler Abstraction and Memory Mapping&#160;</a></li>
+<li><a href="TechnicalReference_Vmms.html#13">5.4 Critical code sections</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Vmms.html#14">6 Configuration</a>
+<ul>
+<li><a href="TechnicalReference_Vmms.html#14">6.1 Activation of the VMM</a></li>
+<li><a href="TechnicalReference_Vmms.html#14">6.2 System Configuration</a></li>
+<li><a href="TechnicalReference_Vmms.html#15">6.3 Channel Configuration</a></li>
+<li><a href="TechnicalReference_Vmms.html#16">6.4 Nm Configuration</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Vmms.html#17">7 API Description</a>
+<ul>
+<li><a href="TechnicalReference_Vmms.html#17">7.1 Vmm_InitMemory</a></li>
+<li><a href="TechnicalReference_Vmms.html#18">7.2 Vmm_Init</a></li>
+<li><a href="TechnicalReference_Vmms.html#19">7.3 Vmm_Dcm_CommunicationControl</a></li>
+<li><a href="TechnicalReference_Vmms.html#20">7.4 Vmm_BusSm_IpduGroupStart</a></li>
+<li><a href="TechnicalReference_Vmms.html#21">7.5 Vmm_BusSm_IpduGroupStop</a></li>
+<li><a href="TechnicalReference_Vmms.html#22">7.6 Vmm_BusSm_EnableReceptionDM</a></li>
+<li><a href="TechnicalReference_Vmms.html#23">7.7 Vmm_BusSm_DisableReceptionDM</a></li>
+<li><a href="TechnicalReference_Vmms.html#23">7.8 Vmm_Dcm_SetPassiveMode</a></li>
+<li><a href="TechnicalReference_Vmms.html#24">7.9 Callback Functions</a></li>
+<li><a href="TechnicalReference_Vmms.html#24">7.10 Service Ports&#160;</a></li>
+<li><a href="TechnicalReference_Vmms.html#24">7.11 Services used by Vmm</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Vmms.html#25">8 Limitations</a>
+<ul>
+<li><a href="TechnicalReference_Vmms.html#25">8.1 Nm Passive mode support</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Vmms.html#26">9 Abbreviations</a>
+<ul>
+<li><a href="TechnicalReference_Vmms.html#26">9.1 Abbreviations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Vmms.html#27">10 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

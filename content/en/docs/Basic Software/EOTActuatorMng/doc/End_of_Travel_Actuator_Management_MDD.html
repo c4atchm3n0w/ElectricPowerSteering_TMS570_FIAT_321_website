@@ -1,0 +1,1582 @@
+---
+title: End_of_Travel_Actuator_Management_MDD
+linkTitle: End_of_Travel_Actuator_Management_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module---">Module -- </h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>The end of travel actuator management limit reduces the level of assist from the motor as the steering system approaches the mechanical end of stop of the system.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-component">Diagram – Component </h2>
+<h2 class="unnumbered" id="section"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.jpg" style="width:2.5913in;height:3.58009in" /></h2>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>N/A</p>
+<h3 id="diagram-function-_per1">Diagram – Function (_Per1)</h3>
+<p>Note: The state control block needs to be evaluated prior to completing the End of Travel (Soft End Stops) block. More information contained within the MDD.</p>
+<h1 class="unnumbered" id="section-1"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></h1>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">HwTorque_HwNm_f32</td>
+<td>AssistEOTLimit_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">CwEOT_HwDeg_f32</td>
+<td>AssistEOTGain_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">CcwEOT_HwDeg_f32</td>
+<td>AssistEOTDamping_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">CwFound_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">CcwFound_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">HandWheelPos_HwDeg_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">HandWheelAuth_Uls_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">CRFMotorVel_MtrRadpS_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">VehicleSpeed_Kph_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">PreLimitTorque_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">EOTDisable_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">OutputRampMultLtd</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EOTActuatorMng_EOTImpactPos_HwDeg_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td>EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>EOTActuatorMng_PrevEOTGain_Uls_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td>EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>EOTActuatorMng_FiltHWTrqSV_HwNm_M_s7p24</td>
+<td>p<sup>-24</sup></td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td>EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>EOTActuatorMng_SESState_Uls_M_enum</td>
+<td>Enum (see typedef table)</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td>EOTACTUATORMNG_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>EOTActuatorMng_FiltEOTGainSV_HwNm_M_u1p31</td>
+<td>p<sup>-31</sup></td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td>EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>EOTActuatorMng_Damping_MtrNm_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td>EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>EOTActuatorMng_OutputRampMultLtd_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td>EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>typedef enum _sesState {} sesState_T;</td>
+<td>DISABLED</td>
+<td>Uls</td>
+<td colspan="2">0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>ENTERING</td>
+<td>Uls</td>
+<td colspan="2">1</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>NORMAL</td>
+<td>Uls</td>
+<td colspan="2">2</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>EXITING</td>
+<td>Uls</td>
+<td colspan="2">3</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-display-variables">Module Display Variables</h2>
+<p>This section identifies the name, range and resolutions for display specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 0%" />
+<col style="width: 24%" />
+<col style="width: 0%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th colspan="2"><p>Legal Range</p>
+<p>(max)</p></th>
+<th colspan="2">Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EOTActuatorMng_EOTDet_Cnt_D_lgc</td>
+<td>Boolean</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td colspan="2">EOTACTUATORMNG_START_SEC_VAR_CLEARED_BOOLEAN</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>EOTActuatorMng_EOTImpact_HwDeg_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td colspan="2">see data dictionary</td>
+<td colspan="2">EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>EOTActuatorMng_LimitPosition_HwDeg_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td colspan="2">see data dictionary</td>
+<td colspan="2">EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>EOTActuatorMng_EOTEnterGain_Uls_D_f32`</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td colspan="2">see data dictionary</td>
+<td colspan="2">EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>EOTActuatorMng_EOTExitgain_Uls_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td colspan="2">see data dictionary</td>
+<td colspan="2">EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>EOTActuatorMng_EOTGain_Uls_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td colspan="2">see data dictionary</td>
+<td colspan="2">EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>EOTActuatorMng_FiltEOTGain_Uls_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td colspan="2">see data dictionary</td>
+<td colspan="2">EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>EOTActuatorMng_EOTDamping_MtrNm_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td colspan="2">see data dictionary</td>
+<td colspan="2">EOTACTUATORMNG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_SoftStopEOTEnable_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td>k_EOTDefltPosition_HwDeg_u12p4</td>
+</tr>
+<tr class="odd">
+<td>t_SpdIptTblXTbl_HwDeg_u12p4[2]</td>
+</tr>
+<tr class="even">
+<td>t_SpdIptTblYTbl_MtrRadpS_u12p4[2]</td>
+</tr>
+<tr class="odd">
+<td>k_SpdIptScale_MtrNmpRadpS_u4p12</td>
+</tr>
+<tr class="even">
+<td>k_PosRampStep_HwDeg_u12p4</td>
+</tr>
+<tr class="odd">
+<td>k_MinRackTrvl_HwDeg_u12p4</td>
+</tr>
+<tr class="even">
+<td>k_MaxRackTrvl_HwDeg_u12p4</td>
+</tr>
+<tr class="odd">
+<td>t2_EOTEnterGainX_HwDeg_u12p4[4][4]</td>
+</tr>
+<tr class="even">
+<td>t2_EOTEnterGainY_Uls_u1p15[4][4]</td>
+</tr>
+<tr class="odd">
+<td>t_EOTEnterGainVspd_Kph_u9p7[4]</td>
+</tr>
+<tr class="even">
+<td>k_EOTStateHwTrqLPFKn_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td>k_EOTDeltaTrqThrsh_HwNm_u9p7</td>
+</tr>
+<tr class="even">
+<td>t_TrqTableX_HwNm_u8p8[2]</td>
+</tr>
+<tr class="odd">
+<td>k_EOTEnterLPFKn_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td>k_EOTExitLPFKn_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td>t2_EOTPosDepDmpTblX_HwDeg_u12p4[4][2]</td>
+</tr>
+<tr class="even">
+<td>t2_EOTPosDepDmpTblY_MtrNmpRadpS_u0p16[4][2]</td>
+</tr>
+<tr class="odd">
+<td>t2_EOTExPosDepDmpTblY_MtrNmpRadps_u0p16[4][2]</td>
+</tr>
+<tr class="even">
+<td>t_EOTDmpVspd_Kph_u9p7[4]</td>
+</tr>
+<tr class="odd">
+<td>k_EOTImpSpdEn_Kph_u9p7</td>
+</tr>
+<tr class="even">
+<td>k_EOTOriginalImpactandSoftEnd_Cnt_lgc</td>
+</tr>
+<tr class="odd">
+<td>k_EOTPosDepDempFinalSlew_MtrNmpS_T_f32</td>
+</tr>
+<tr class="even">
+<td>k_EOTActiveRegionBypassMaxThresh_Uls_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-2"></h2>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_HWPOSAUTHHILMT_ULS_F32</td>
+<td>Single Precision Floating Point</td>
+<td>Uls</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td>D_ONE_ULS_U16</td>
+<td>uint16</td>
+<td>Uls</td>
+<td>1U</td>
+</tr>
+<tr class="odd">
+<td>D_MINUSONE_ULS_S16</td>
+<td>sint16</td>
+<td>Uls</td>
+<td>-1U</td>
+</tr>
+<tr class="even">
+<td>D_MINUSONE_ULS_F32</td>
+<td>Single Precision Floating Point</td>
+<td>Uls</td>
+<td>-1.0</td>
+</tr>
+<tr class="odd">
+<td>D_2MSLPFKN5HZ_CNT_U16</td>
+<td>uint16</td>
+<td>Cnt</td>
+<td>3991</td>
+</tr>
+<tr class="even">
+<td>D_SESSTATE_PRI1_ULS_U16</td>
+<td>uint16</td>
+<td>Uls</td>
+<td>0x01</td>
+</tr>
+<tr class="odd">
+<td>D_SESSTATE_PRI2_ULS_U16</td>
+<td>uint16</td>
+<td>Uls</td>
+<td>0x02</td>
+</tr>
+<tr class="even">
+<td>D_SESSTATE_PRI3_ULS_U16</td>
+<td>uint16</td>
+<td>Uls</td>
+<td>0x04</td>
+</tr>
+<tr class="odd">
+<td>D_SESSTATE_PRI4_ULS_U16</td>
+<td>uint16</td>
+<td>Uls</td>
+<td>0x08</td>
+</tr>
+<tr class="even">
+<td>D_EOTDAMPHILMT_MTRNM_F32</td>
+<td>Single Precision Floating Point</td>
+<td>MtrNm</td>
+<td>8.8</td>
+</tr>
+<tr class="odd">
+<td>D_EOTDAMPLOLMT_MTRNM_F32</td>
+<td>Single Precision Floating Point</td>
+<td>MtrNm</td>
+<td>-8.8</td>
+</tr>
+<tr class="even">
+<td>D_EOTGAINHILMT_ULS_F32</td>
+<td>Single Precision Floating Point</td>
+<td>Uls</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td>D_EOTGAINLOLMT_ULS_F32</td>
+<td>Single Precision Floating Point</td>
+<td>Uls</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td>D_EOTHILMT_MTRNM_F32</td>
+<td>Single Precision Floating Point</td>
+<td>MtrNm</td>
+<td>8.8</td>
+</tr>
+<tr class="odd">
+<td>D_EOTLOLMT_MTRNM_F32</td>
+<td>Single Precision Floating Point</td>
+<td>MtrNm</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_MTRTRQCMDHILMT_MTRNM_F32</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td>D_2MS_SEC_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>t_TrqTblY_Uls_u2p14</td>
+<td>U2p14_T</td>
+<td>0, 1</td>
+<td>AUTOMATIC</td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>Abs_f32_m</p></li>
+<li><p>S ign_f32_m</p></li>
+<li><p>Abs_s16_m</p></li>
+<li><p>FPM_FixedToFloat_m</p></li>
+<li><p>FPM_FloatToFixed_m</p></li>
+<li><p>IntplVarXY_u16_u16Xu16Y_Cnt</p></li>
+<li><p>LPF_SvUpdate_s16InFixKTrunc_m</p></li>
+<li><p>LPF_OpUpdate_s16InFixKTrunc_m</p></li>
+<li><p>Max_m</p></li>
+<li><p>BilinearXMYM_u16_u16XMu16YM_Cnt</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>N/A</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>N/A</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="eot-determination">EOT Determination</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>EOTDetermination</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>CwFound_Cnt_T_lgc</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>CcwFound_Cnt_T_lgc</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>EOTDet_Cnt_T_lgc</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h3 id="end-of-travel-impact-original">End of Travel Impact (Original)</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>EOTOrigImpact</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>CwEOT_HwDeg_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1440.11</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>CcwEOT_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>HandWheelAuth_Uls_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>MotorVel_MtrRadpS_T_f32</td>
+<td>float32</td>
+<td>-1350.0</td>
+<td>1350.0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>HandWheelPos_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>1440.11</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>511.9921875</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>AssistEOTLimit_MtrNm_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>8.8</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h3 id="end-of-travel-impact-soft-stops-determine-limit-position">End of Travel Impact (Soft Stops) – Determine Limit Position</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SES_DetLmtPos</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>CwEOT_HwDeg_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1440.11</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>CcwEOT_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>HandWheelPos_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>1440.11</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>LimitPos_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>1440.11</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-2">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<h3 id="end-of-travel-impact-soft-stops-calculate-exit-gain-value">End of Travel Impact (Soft Stops) – Calculate Exit Gain Value</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SES_CalcExitGain</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>HwTorque_HwNm_T_f32</td>
+<td>float32</td>
+<td>-10.0</td>
+<td>10.0</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>PrevEOTGain_Uls_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>HandWheelPos_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>1440.11</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>* FiltHwTrqPtr_HwNm_T_f32</td>
+<td>float32</td>
+<td>-10.0</td>
+<td>10.0</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>LimitPos_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>1440.11</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-3">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<h3 id="end-of-travel-impact-soft-stops-calculate-enter-gain-value">End of Travel Impact (Soft Stops) – Calculate Enter Gain Value</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SES_CalcEnterGain</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>HandWheelPos_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>1440.11</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>LimitPosition_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>1440.11</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>511.9921875</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>EOTEnterGain_Uls_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-4">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<h3 id="end-of-travel-impact-soft-stops-calculate-eot-gain-value">End of Travel Impact (Soft Stops) – Calculate EOT Gain Value</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SES_CalcEOTGain</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>EOTEnterGain_Uls_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>EOTExitGain_Uls_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>EOTGain_Uls_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-5">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<h3 id="end-of-travel-impact-soft-stops-low-pass-filter">End of Travel Impact (Soft Stops) – Low Pass Filter</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SES_FiltEOTGain</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>EOTGain_Uls_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>FiltEOTGain_Uls_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-6">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></p>
+<h3 id="end-of-travel-impact-soft-stops-calculate-eot-damping-value">End of Travel Impact (Soft Stops) – Calculate EOT Damping Value</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SES_CalcEOTDamp</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>CwEOT_HwDeg_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1440.11</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>CcwEOT_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>511.9921875</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>HandWheelPos_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>1440.11</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>MotorVel_MtrRadpS_T_f32</td>
+<td>float32</td>
+<td>-1118</td>
+<td>1118</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>EOTDamping_MtrNm_T_f32</td>
+<td>float32</td>
+<td>-20.25</td>
+<td>20.25</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-7">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.emf" /></p>
+<h3 id="end-of-travel-impact-soft-stops-soft-stop-state-control">End of Travel Impact (Soft Stops) – Soft Stop State Control</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 45%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SES_StateCtrl</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>FiltHwTrq_HwNm_T_f32</td>
+<td>float32</td>
+<td>-10.0</td>
+<td>10.0</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>LimitPosition_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>1440.11</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>HandWheelPos_HwDeg_T_f32</td>
+<td>float32</td>
+<td>-1440.11</td>
+<td>1440.11</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>HandWheelAuth_Uls_T_f32</td>
+<td>float32</td>
+<td>0.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>511.9921875</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>EOTDet_Cnt_T_lgc</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>EOTDisable_Cnt_T_lgc</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-8">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image15.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image16.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 56%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rte_InitValue_AssistEOTDamping_MtrNm_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_AssistEOTGain_Uls_f32</td>
+<td>1.0F</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_AssistEOTLimit_MtrNm_f32</td>
+<td>8.8F</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_CcwEOT_HwDeg_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_CcwFound_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_CwEOT_HwDeg_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_CwFound_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_HandWheelAuth_Uls_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_HandWheelPos_HwDeg_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_HwTorque_HwNm_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_MotorVel_MtrRadpS_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_PreLimitTorque_MtrNm_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_VehicleSpeed_Kph_f32</td>
+<td>0.0F</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_EOTDisable_Cnt_lgc</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>N/A</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-_per1">Per: _Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>N/A</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<h4 id="rte_call_eotactuatormng_per1_cp0_checkpointreachedstore-module-inputs-to-local-copies">Rte_Call_EOTActuatorMng_Per1_CP0_CheckpointReached()Store Module Inputs to Local copies</h4>
+<table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Local Copy</th>
+<th>Module Input</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HwTorque_HwNm_T_f32</td>
+<td>Rte_IRead_EOTActuatorMng_Per1_HwTorque_HwNm_f32()</td>
+</tr>
+<tr class="even">
+<td>CwEOT_HwDeg_T_f32</td>
+<td>Rte_IRead_EOTActuatorMng_Per1_CwEOT_HwDeg_f32()</td>
+</tr>
+<tr class="odd">
+<td>CcwEOT_HwDeg_T_f32</td>
+<td>Rte_IRead_EOTActuatorMng_Per1_CcwEOT_HwDeg_f32()</td>
+</tr>
+<tr class="even">
+<td>CwFound_Cnt_ T_lgc</td>
+<td>Rte_IRead_EOTActuatorMng_Per1_CwFound_Cnt_lgc()</td>
+</tr>
+<tr class="odd">
+<td>CcwFound_Cnt_ T_lgc</td>
+<td>Rte_IRead_EOTActuatorMng_Per1_CcwFound_Cnt_lgc()</td>
+</tr>
+<tr class="even">
+<td>HandWheelPos_HwDeg_T_f32</td>
+<td>Rte_IRead_EOTActuatorMng_Per1_HandWheelPos_HwDeg_f32()</td>
+</tr>
+<tr class="odd">
+<td>HandWheelAuth_Uls_T_f32</td>
+<td>Rte_IRead_EOTActuatorMng_Per1_HandWheelAuth_Uls_f32()</td>
+</tr>
+<tr class="even">
+<td>MotorVel_MtrRadpS_T_f32</td>
+<td>Rte_IRead_EOTActuatorMng_Per1_MotorVel_MtrRadpS_f32()</td>
+</tr>
+<tr class="odd">
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>Rte_IRead_EOTActuatorMng_Per1_VehicleSpeed_Kph_f32()</td>
+</tr>
+<tr class="even">
+<td>EOTDisable_Cnt_T_lgc</td>
+<td>Rte_IRead_EOTActuatorMng_Per1_EOTDisable_Cnt_lgc()</td>
+</tr>
+<tr class="odd">
+<td>EOTActuatorMng_OutputRampMultLtd_M_f32</td>
+<td>Rte_IRead_EOTActuatorMng_Per1_OutputRampMultLtd_Uls_f32()</td>
+</tr>
+</tbody>
+</table>
+<h4 id="processing-of-function"> (Processing of function)………</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image17.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Local Copy</th>
+<th>Module Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AssistEOTLimit_MtrNm_T_f32</td>
+<td>Rte_IWrite_EOTActuatorMng_Per1_AssistEOTLimit_MtrNm_f32()</td>
+</tr>
+<tr class="even">
+<td>AssistEOTGain_Uls_T_f32</td>
+<td>Rte_IWrite_EOTActuatorMng_Per1_AssistEOTGain_Uls_f32()</td>
+</tr>
+<tr class="odd">
+<td>AssistEOTDamping_MtrNm_T_f32</td>
+<td>Rte_IWrite_EOTActuatorMng_Per1_AssistEOTDamping_MtrNm_f32()</td>
+</tr>
+</tbody>
+</table>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_EOTActuatorMng_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>N/A</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>N/A</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>N/A</p>
+<h2 id="section-4"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EOTActuatorMng_Per1</td>
+<td>2ms</td>
+<td>ALL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N/A</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-5"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N/A</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-6"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EOTDetermination</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="even">
+<td>EOTOrigImpact</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="odd">
+<td>SES_DetLmtPos</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="even">
+<td>SES_CalcExitGain</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="odd">
+<td>SES_StateCtrl</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="even">
+<td>SES_CalcEnterGain</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="odd">
+<td>SES_CalcEOTGain</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="even">
+<td>SES_FiltEOTGain</td>
+<td>AUTOMATIC</td>
+</tr>
+<tr class="odd">
+<td>SES_CalcEOTDamp</td>
+<td>AUTOMATIC</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-7"></h1>
+<h1 id="filter-analysis-design"><br />
+Filter Analysis / Design</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image18.emf" /></td>
+<td>Filter analysis for all the LPF filters called in this MDD. Analysis contains high/low cutoff frequencies with max output.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions defined in globalmacro.h are not unit tested.</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial Release</td>
+<td>06-Dec-11</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Added limitation with globalmacro.h known limitations</td>
+<td>06-Dec-11</td>
+<td>KJS</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3</td>
+<td>Changed units designator of k_EOTStateHwTrqLPFKn_Uls_u16 to Cnt</td>
+<td>12-Dec-11</td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4</td>
+<td>Corrected assist EOT limit macro call.</td>
+<td>14-Dec-11</td>
+<td>KJS</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5</td>
+<td>Updated ranges for CcwEOT and CwEOT.</td>
+<td>22-Dec-11</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6</td>
+<td>Anomaly 3003 and 3039</td>
+<td>17-Mar-12</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7</td>
+<td>Updated incorrect indexing on tables (removed constant and replaced with TableSize macro)</td>
+<td>19-Mar-12</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8</td>
+<td>Anomaly 3076 update to FDD fixes</td>
+<td>22-Mar-12</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9</td>
+<td>Changed t_TrqTblY_Uls_u16p0 to t_TrqTblY_Uls_u1p15 anomaly 3146</td>
+<td>01-May_12</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10</td>
+<td>Changed t_TrqTblY_Uls_u1p15 to t_TrqTblY_Uls_u2p14 anomaly 3146</td>
+<td>01-May_12</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>11</td>
+<td>Changes for anomaly 3330 and update on units for embedded constants</td>
+<td>23-May-12</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>12</td>
+<td>Updated range on VehicleSpeed and EOTDamping per unit testing finds</td>
+<td>12-Jun-12</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>13</td>
+<td>Add defeat service per FDD v006</td>
+<td>13-Sept-12</td>
+<td>BWL</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>14</td>
+<td>Added watchdog checkpints</td>
+<td>20-Sept-12</td>
+<td>BWL</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>15</td>
+<td>Added Memmap statements</td>
+<td>25 Sep12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>16</td>
+<td>Changes in “End Of Travel Impact(Original)” for anomaly 3938</td>
+<td>22 Oct 12</td>
+<td>Srikanth</td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td>16.1.1</td>
+<td>MDD/Src mismatch fixes</td>
+<td>13-Feb-13</td>
+<td>VK</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td>16.1.2</td>
+<td>Version update as file mistakenly got checkedin without showing 16.1.1 changes</td>
+<td>20-Mar-13</td>
+<td>VK</td>
+</tr>
+<tr class="even">
+<td>19</td>
+<td>17</td>
+<td>Anomaly 4269 correction in SES_CalcEnterGain()</td>
+<td>18-Jan-13</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>20</td>
+<td>18</td>
+<td>Merging v16.12 and v17 of the MDD</td>
+<td>20-Mar-13</td>
+<td>VK</td>
+</tr>
+<tr class="even">
+<td>21</td>
+<td>19</td>
+<td>Increased resolution of t2_EOTPosDepDmpTblY_ and t2_EOTExPosDepDmpTblY per FDD SF18 v7</td>
+<td>26-Apr-13</td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>22</td>
+<td>20</td>
+<td>Corrected range of MotorVEl input to EOTOrigIMpact() and SES_CalcEOTDamp()</td>
+<td>29-Apr-13</td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>23</td>
+<td>21</td>
+<td>Changes in “End Of Travel Impact(Original)” for anomaly 5251</td>
+<td>25-Jul-13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>24</td>
+<td>22</td>
+<td>Update range of return value from SES_CalcEOTDamp(); change module variable and display variable ranges to refer to data dictionary</td>
+<td>12-Aug-13</td>
+<td>KMC</td>
+</tr>
+<tr class="even">
+<td>25</td>
+<td>23</td>
+<td>Updated to v8 and v9 of FDD SF18</td>
+<td>24-Jan-14</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>26</td>
+<td>24</td>
+<td>Unit Testing Finding Fix.</td>
+<td>12-Feb-14</td>
+<td>KPIT-SW</td>
+</tr>
+<tr class="even">
+<td>27</td>
+<td>25</td>
+<td>Updated to v10 of FDD SF18</td>
+<td>28-May-15</td>
+<td>KJS</td>
+</tr>
+</tbody>
+</table>

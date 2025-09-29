@@ -1,0 +1,190 @@
+---
+title: Release_Notess
+linkTitle: Release_Notess
+weight: 9
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fls/doc/Release_Notes-1_1.jpg"/><br/>
+&#160;<br/>
+<b>F021&#160;Flash&#160;API&#160;v2.01.00&#160;</b><br/>
+<b>Release&#160;Notes&#160;</b><br/>
+<b>May&#160;20,&#160;2014&#160;</b><br/>
+&#160;<br/>&#160;<br/>
+<i><b>The&#160;Texas&#160;Instruments'&#160;F021&#160;Flash&#160;API&#160;provides&#160;functions&#160;that&#160;can&#160;be&#160;used&#160;to&#160;erase,&#160;program&#160;and&#160;<br/>verify&#160;F021&#160;Flash on&#160;TI Hercules&#160;65nm&#160;devices.&#160;</b></i><br/>
+<i><b>&#160;</b></i><br/>
+<i><b>The version&#160;2.x.x&#160;series&#160;of&#160;the Flash&#160;API is&#160;the first&#160;series&#160;to&#160;follow&#160;ISO26262&#160;development&#160;flow.&#160;</b></i><br/>
+<i><b>&#160;</b></i><br/>
+<i><b>&#160;</b></i><br/>
+<b>TABLE&#160;OF&#160;CONTENTS&#160;</b><br/>
+&#160;<br/>
+<b>1</b>&#160;<br/>
+<b>New&#160;In&#160;This&#160;Release&#160;.....................................................................................&#160;2</b>&#160;<br/>
+<b>2</b>&#160;<br/>
+<b>Release&#160;Contents..........................................................................................&#160;4</b>&#160;<br/>
+<b>3</b>&#160;<br/>
+<b>Fixed&#160;In&#160;This&#160;Release&#160;...................................................................................&#160;5</b>&#160;<br/>
+<b>4</b>&#160;<br/>
+<b>Known&#160;Issues&#160;...............................................................................................&#160;5</b>&#160;<br/>
+&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>F021 Flash&#160;API&#160;v2.01.00&#160;Release&#160;Notes&#160;</b><br/>
+<b>Page&#160;1&#160;of&#160;5&#160;</b><br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fls/doc/Release_Notes-2_1.jpg"/><br/>
+&#160;<br/>
+<b>1</b>&#160;<br/>
+<b>New&#160;In This&#160;Release&#160;<br/></b>v2.01.00&#160;<br/>o&#160;&#160;No&#160;new features&#160;in&#160;this&#160;release&#160;&#160;<br/>&#160;<br/>v2.00.01&#160;<br/>o&#160;&#160;No&#160;new features&#160;in&#160;this&#160;release&#160;&#160;<br/>
+&#160;<br/>
+v2.00.00&#160;<br/>
+o&#160;&#160;Replaced&#160;the&#160;user&#160;defined&#160;callback&#160;functions&#160;Fapi_setupEepromSectorEnable()&#160;<br/>
+and&#160;Fapi_setupBankSectorEnable()&#160;with&#160;the&#160;functions&#160;<br/>Fapi_enableEepromBankSectors()&#160;and&#160;Fapi_enableMainBankSectors.&#160;<br/>
+o&#160;&#160;Deprecated&#160;the&#160;function&#160;Fapi_waitDelay().&#160;<br/>
+o&#160;&#160;Removed&#160;the&#160;header&#160;files&#160;F021_FMC_BE.h&#160;and&#160;F021_FMC_LE.h&#160;as&#160;F021.h&#160;has&#160;<br/>
+been&#160;updated&#160;to&#160;automatically&#160;determine&#160;compile&#160;endianness.&#160;<br/>
+o&#160;&#160;Replaced&#160;the&#160;Fapi_initializeAPI()&#160;function&#160;with&#160;Fapi_initializeFlashBanks().&#160;<br/>
+With&#160;this&#160;change,&#160;all&#160;global&#160;variables&#160;have&#160;been&#160;removed&#160;from the&#160;API.&#160;<br/>
+o&#160;&#160;Added&#160;the&#160;Compatibility.h&#160;header&#160;file.&#160;This&#160;file&#160;contains&#160;some&#160;backwards&#160;<br/>
+compatibility&#160;macros&#160;to&#160;work&#160;with&#160;projects&#160;that&#160;were&#160;previously&#160;built&#160;with&#160;<br/>v1.51&#160;of&#160;the&#160;API.&#160;The&#160;list of&#160;functions&#160;and&#160;global&#160;variables&#160;2.00.00 with&#160;<br/>compatibility&#160;defines&#160;are:&#160;<br/>
+•&#160;&#160;Fapi_initializeAPI()&#160;<br/>•&#160;&#160;Fapi_getFsmStatus()&#160;<br/>•&#160;&#160;Fapi_issueFsmSuspendCommand()&#160;<br/>•&#160;&#160;Fapi_writeEwaitValue(mEwait)&#160;<br/>•&#160;&#160;Fapi_checkFsmForReady()&#160;<br/>•&#160;&#160;Fapi_GlobalInit.m_poFlashControlRegisters&#160;<br/>
+o&#160;&#160;Fapi_getBankSectors()&#160;was updated&#160;to&#160;return&#160;sector&#160;sizes&#160;in&#160;kilobytes&#160;and&#160;to&#160;<br/>
+support&#160;256kB&#160;sectors,&#160;au8SectorSizes&#160;which was an&#160;array&#160;uint8_t&#160;was&#160;<br/>changed&#160;to&#160;an&#160;array&#160;of&#160;uint16_t&#160;and&#160;renamed&#160;au16SectorSizes.&#160;<br/>
+o&#160;&#160;Added&#160;Fapi_remapMainAddress()&#160;to&#160;give&#160;an&#160;easy&#160;method&#160;to&#160;determine&#160;ECC&#160;<br/>
+address&#160;for&#160;a&#160;main&#160;flash&#160;address.&#160;<br/>
+o&#160;&#160;Removed&#160;unused&#160;status'&#160;from Fapi_StatusType&#160;<br/>
+•&#160;&#160;Fapi_Status_AsyncBusy&#160;<br/>•&#160;&#160;Fapi_Status_AsyncComplete&#160;<br/>•&#160;&#160;Fapi_Error_StateMachineTimeout&#160;<br/>•&#160;&#160;Fapi_Error_InvalidDelayValue&#160;<br/>•&#160;&#160;Fapi_Error_InvalidCpu&#160;<br/>
+o&#160;&#160;Removed&#160;the&#160;listing&#160;of&#160;structures.&#160;Please&#160;refer&#160;to&#160;the&#160;installed&#160;F021&#160;Flash&#160;API&#160;<br/>
+headers&#160;files&#160;for&#160;these.&#160;<br/>
+&#160;<br/>
+<b>F021 Flash&#160;API&#160;v2.01.00&#160;Release&#160;Notes&#160;</b><br/>
+<b>Page&#160;2&#160;of&#160;5&#160;</b><br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fls/doc/Release_Notes-3_1.jpg"/><br/>
+&#160;<br/>
+o&#160;&#160;Changed&#160;from the&#160;use&#160;of&#160;defined&#160;typedefs&#160;uint64, uint32,&#160;uint16,&#160;and&#160;uint8 to&#160;<br/>
+the&#160;standard&#160;definitions&#160;in&#160;stdint.h,&#160;uint64_t,&#160;uint32_t,&#160;uint16_t,&#160;and&#160;uint8_t.&#160;<br/>Also&#160;changed&#160;boolean&#160;to&#160;boolean_t&#160;<br/>
+o&#160;&#160;Added&#160;#if&#160;defined&#160;guardbanding&#160;around&#160;the&#160;defines&#160;in&#160;Types.h&#160;that&#160;can&#160;<br/>
+conflict with&#160;Autosar&#160;Platform_Types.h&#160;defines.&#160;<br/>
+o&#160;&#160;Added&#160;appendix&#160;to&#160;reference&#160;guide&#160;describing&#160;the&#160;PSA&#160;calculation&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>F021 Flash&#160;API&#160;v2.01.00&#160;Release&#160;Notes&#160;</b><br/>
+<b>Page&#160;3&#160;of&#160;5&#160;</b><br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fls/doc/Release_Notes-4_1.jpg"/><br/>
+&#160;<br/>
+<b>2</b>&#160;<br/>
+<b>Release&#160;Contents&#160;<br/>The&#160;following&#160;API&#160;files&#160;are&#160;distributed&#160;with&#160;the&#160;installer:&#160;</b><br/>
+&#160;&#160;Library&#160;Files&#160;-&#160;<i>(All&#160;library&#160;files&#160;were built using&#160;TI's&#160;code generation&#160;tools&#160;for&#160;ARM&#160;v5.1.3&#160;with&#160;the&#160;</i><br/>
+<i>following&#160;compile options:&#160;-mv7R4&#160;--abi=eabi&#160;--strict_ansi&#160;-g&#160;-O3&#160;--symdebug:dwarf_version=3&#160;--<br/>diag_warning=225&#160;--gen_func_subsections=on&#160;--enum_type=packed&#160;--code_state=16&#160;)&#160;</i><br/>
+o&#160;&#160;F021_API_CortexR4_BE.lib&#160;–&#160;This&#160;is&#160;the Flash API&#160;object file for Cortex&#160;R4&#160;Big Endian&#160;<br/>
+devices.&#160;<br/>
+o&#160;&#160;F021_API_CortexR4_BE_v3D16.lib&#160;–&#160;This&#160;is&#160;the Flash&#160;API&#160;object file for Cortex&#160;R4 Big&#160;<br/>
+Endian&#160;devices&#160;that&#160;are&#160;using&#160;floating point&#160;unit.&#160;<i>(In addition&#160;to&#160;the&#160;general&#160;build&#160;options,&#160;<br/>this&#160;library&#160;was&#160;built&#160;using :&#160;--float_support=VFPv3D16)&#160;</i><br/>
+o&#160;&#160;F021_API_CortexR4_BE_L2FMC.lib&#160;–&#160;This&#160;is&#160;the Flash API object file for Cortex&#160;R4 Big&#160;<br/>
+Endian&#160;devices&#160;using the L2FMC memory&#160;controller.&#160;<i>&#160;</i><br/>
+o&#160;&#160;F021_API_CortexR4_LE.lib&#160;–&#160;This&#160;is&#160;the Flash API&#160;object file for Cortex&#160;R4&#160;Little&#160;Endian&#160;<br/>
+devices.&#160;<i>(In&#160;addition&#160;to&#160;the&#160;general&#160;build&#160;options,&#160;this&#160;library&#160;was&#160;built&#160;using :&#160;-me)&#160;</i><br/>
+o&#160;&#160;F021_API_CortexR4_LE_v3D16.lib&#160;–&#160;This&#160;is&#160;the Flash&#160;API&#160;object file for Cortex&#160;R4 Little&#160;<br/>
+Endian&#160;devices&#160;that&#160;are&#160;using&#160;floating point&#160;unit.&#160;<i>(In addition&#160;to&#160;the&#160;general&#160;build&#160;options,&#160;<br/>this&#160;library&#160;was&#160;built&#160;using :&#160;-me&#160;--float_support=VFPv3D16)&#160;</i><br/>
+o&#160;&#160;F021_API_CortexR4_LE_L2FMC.lib&#160;–&#160;This&#160;is&#160;the Flash API object file for Cortex&#160;R4 Little&#160;<br/>
+Endian&#160;devices&#160;using the L2FMC memory&#160;controller.&#160;<br/>
+o&#160;&#160;F021_API_CortexR4_BE_L2FMC_v3D16.lib&#160;–&#160;This&#160;is&#160;the&#160;Flash API&#160;object file&#160;for Cortex&#160;<br/>
+R4/R5&#160;Big&#160;Endian&#160;devices&#160;using&#160;the&#160;L2FMC memory&#160;controller&#160;and&#160;floating&#160;point&#160;unit.&#160;<i>&#160;<br/>(In&#160;addition&#160;to&#160;the&#160;general&#160;build options, this&#160;library&#160;was&#160;built&#160;using&#160;:&#160;&#160;<br/>&#160;--float_support=VFPv3D16).&#160;</i><br/>
+o&#160;&#160;F021_API_CortexR4_LE_L2FMC_v3D16.lib&#160;–&#160;This&#160;is&#160;the&#160;Flash API&#160;object file&#160;for Cortex&#160;<br/>
+R4/R5&#160;Little&#160;Endian&#160;devices&#160;using&#160;the&#160;L2FMC&#160;memory&#160;controller&#160;and floating point&#160;unit.&#160;<i>&#160;<br/>(In&#160;addition&#160;to&#160;the&#160;general&#160;build options, this&#160;library&#160;was&#160;built&#160;using&#160;:&#160;-me&#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;<br/>--float_support=VFPv3D16).&#160;<br/></i>&#160;<br/>
+&#160;&#160;Source Files&#160;<br/>
+o&#160;&#160;Fapi_UserDefinedFunctions.c&#160;–&#160;This&#160;is&#160;file that&#160;contains&#160;the&#160;user definable functions.&#160;<br/>
+&#160;&#160;Include Files&#160;<br/>
+o&#160;&#160;F021.h&#160;–&#160;This&#160;is&#160;the&#160;master include file and&#160;includes&#160;all&#160;other&#160;include&#160;files. This&#160;should be&#160;<br/>
+the&#160;only&#160;include&#160;file added to the&#160;users's&#160;code.&#160;<br/>
+The&#160;following&#160;include files&#160;should not&#160;be included&#160;directly&#160;by&#160;the&#160;user’s&#160;code,&#160;but&#160;are listed&#160;here&#160;<br/>for&#160;user reference:&#160;<br/>
+o&#160;&#160;Compatibility.h&#160;-&#160;A&#160;set of&#160;macros&#160;to&#160;be&#160;used&#160;for backwards&#160;compatibility&#160;for 1.x.x&#160;versions&#160;<br/>
+of&#160;the&#160;API.&#160;<br/>
+o&#160;&#160;Constants.h&#160;–&#160;Constant&#160;definitions&#160;used&#160;by&#160;the&#160;API.&#160;<br/>o&#160;&#160;FapiFunctions.h&#160;-&#160;Contains&#160;all&#160;the&#160;Fapi&#160;function&#160;prototypes.&#160;<br/>o&#160;&#160;Helpers.h&#160;–&#160;Set&#160;of&#160;helper&#160;defines&#160;<br/>o&#160;&#160;Registers.h&#160;–&#160;Definitions&#160;common&#160;to&#160;all&#160;register implementations&#160;and&#160;includes&#160;the&#160;<br/>
+appropriate&#160;register include&#160;file for the&#160;selected device&#160;type.&#160;<br/>
+&#160;&#160;Registers_FMC_BE.h&#160;–&#160;Big&#160;Endian Flash memory&#160;controller registers&#160;structure&#160;<br/>
+for&#160;TMS570/RM4&#160;devices.&#160;<br/>
+&#160;&#160;Registers_FMC_LE.h&#160;–&#160;Little Endian&#160;Flash memory&#160;controller registers&#160;structure&#160;<br/>
+for&#160;TMS570/RM4&#160;devices.&#160;<br/>
+o&#160;&#160;Types.h&#160;–&#160;Contains&#160;all&#160;the&#160;enumerations&#160;and&#160;structures&#160;used&#160;by&#160;the API&#160;<br/>
+Below&#160;are a&#160;set&#160;of&#160;compiler specific&#160;support&#160;header&#160;files:&#160;<br/>
+o&#160;&#160;CGT.ARM.h&#160;-&#160;Contains&#160;a&#160;set&#160;of&#160;definitions&#160;used&#160;by&#160;the&#160;ARM&#160;compiler&#160;<br/>o&#160;&#160;CGT.CCS.h&#160;-&#160;Contains&#160;a&#160;set&#160;of&#160;definitions&#160;used&#160;by&#160;the&#160;TI CCS&#160;compiler&#160;<br/>o&#160;&#160;CGT.gcc.h&#160;-&#160;Contains&#160;a&#160;set&#160;of&#160;definitions&#160;used&#160;by&#160;the&#160;gcc&#160;compiler&#160;<br/>o&#160;&#160;CGT.GHS.h&#160;-&#160;Contains&#160;a set&#160;of&#160;definitions&#160;used&#160;by&#160;the&#160;GreenHills&#160;compiler&#160;<br/>o&#160;&#160;CGT.IAR.h&#160;-&#160;Contains&#160;a&#160;set&#160;of&#160;definitions&#160;used&#160;by&#160;the&#160;IAR&#160;EWARM compiler&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>F021 Flash&#160;API&#160;v2.01.00&#160;Release&#160;Notes&#160;</b><br/>
+<b>Page&#160;4&#160;of&#160;5&#160;</b><br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fls/doc/Release_Notes-5_1.jpg"/><br/>
+&#160;<br/>
+&#160;&#160;Library&#160;information&#160;files&#160;<br/>
+o&#160;&#160;build_information.txt&#160;-&#160;This&#160;file contains&#160;function&#160;callgraphs,&#160;worst case stack&#160;usage for&#160;<br/>
+each&#160;function,&#160;function&#160;size&#160;in&#160;bytes&#160;and MD5 and&#160;SHA1 checksums&#160;for all&#160;files&#160;delivered&#160;<br/>in the&#160;installer&#160;package.&#160;&#160;<br/>
+o&#160;&#160;License_Agreement.pdf&#160;-&#160;This&#160;is&#160;library’s&#160;license agreement.&#160;<br/>o&#160;&#160;readme.txt&#160;-&#160;This&#160;file&#160;contains&#160;release&#160;specific&#160;information.&#160;&#160;<br/>
+o&#160;&#160;Release_Notes.pdf&#160;-&#160;This&#160;file.&#160;<br/>
+o&#160;&#160;spna148.pdf-&#160;This&#160;is&#160;the&#160;application&#160;note,&#160;Advanced&#160;F021&#160;Flash&#160;API&#160;<br/>
+Erase/Program&#160;Usage.&#160;<br/>
+o&#160;&#160;spnu501.pdf&#160;–&#160;This&#160;is&#160;the&#160;reference&#160;guide&#160;for&#160;the&#160;library.&#160;<br/>
+o&#160;&#160;spnz210.pdf&#160;-&#160;This&#160;is&#160;the&#160;library&#160;errata document.&#160;<br/>
+&#160;<br/>
+<b>3</b>&#160;<br/>
+<b>Fixed&#160;In This&#160;Release&#160;<br/>v2.01.00&#160;</b><br/>
+&#160;<br/>
+<b>Reference&#160;&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>SDOCM00102756&#160;</b><br/>
+Remove&#160;FLOCK&#160;register&#160;from&#160;register&#160;include&#160;files&#160;<br/>
+<b>SDOCM00103134&#160;</b><br/>
+Sector&#160;size&#160;returned&#160;for&#160;FLEE&#160;banks&#160;by&#160;Fapi_getBankSectors()&#160;is&#160;<br/>double&#160;the&#160;actual&#160;size&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>v2.00.01&#160;</b><br/>
+<b>Reference&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>SDOCM00102084&#160;</b><br/>
+Typo&#160;in&#160;CGT.CCS.H&#160;in&#160;GNU&#160;attribute&#160;check&#160;<br/>
+<b>SDOCM00102399&#160;</b><br/>
+Restored&#160;FEDACSDIS&#160;and&#160;FEDACSDIS2&#160;definitions&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>v2.00.00&#160;</b><br/>
+<b>Reference&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>SDOCM00094147&#160;&#160;</b>Incorrect&#160;read&#160;in&#160;Verify&#160;functions&#160;in&#160;ECC regions&#160;on&#160;LE&#160;devices&#160;<br/>
+<b>4</b>&#160;<br/>
+<b>Known&#160;Issues&#160;<br/></b>None&#160;Known.&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>F021 Flash&#160;API&#160;v2.01.00&#160;Release&#160;Notes&#160;</b><br/>
+<b>Page&#160;5&#160;of&#160;5&#160;</b><br/>
+<hr/>
+</body>
+</html>

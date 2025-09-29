@@ -1,0 +1,681 @@
+---
+title: ePWM_1_MDD
+linkTitle: ePWM_1_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module">Module – </h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module implements functionality with respect to ES-34B ePWM. This module implements the ePWM-related register initialization and the motor control and ADC SOCA configuration update subfunctions.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">PWMPeriod_Cnt_u16</td>
+<td>ePWM1CMPA_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td colspan="2">DCPhsAComp_Cnt_u16</td>
+<td>ePWM1CMPB_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2">DCPhsBComp_Cnt_u16</td>
+<td>ePWM2CMPA_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td colspan="2">DCPhsCComp_Cnt_u16</td>
+<td>ePWM2CMPB_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2">ePWM4CMPB_Cnt_u16</td>
+<td>ePWM3CMPA_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>ePWM3CMPB_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>ePWM4CMPA_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>ePWM4CMPB_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 21%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_ADCTrig1Offset_Cnt_s16</td>
+</tr>
+<tr class="even">
+<td><p>k_PwmDeadBand_Cnt_u16</p>
+<p>k_PwmRelay_Cnt_u16</p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_DUTYCYCLESHIFT_CNT_U16</td>
+<td>1</td>
+<td>535U</td>
+<td>535U</td>
+<td>535U</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>ePWM_Read_PWMPeriod_u16</p></li>
+<li><p>ePWM_Read_DCPhsAComp_u16</p></li>
+<li><p>ePWM_Read_DCPhsBComp_u16</p></li>
+<li><p>ePWM_Read_DCPhsCComp_u16</p></li>
+<li><p>ePWM_Write_ePWM1CMPA_Cnt_u16</p></li>
+<li><p>ePWM_Write_ePWM1CMPB_Cnt_u16</p></li>
+<li><p>ePWM_Write_ePWM2CMPA_Cnt_u16</p></li>
+<li><p>ePWM_Write_ePWM2CMPB_Cnt_u16</p></li>
+<li><p>ePWM_Write_ePWM3CMPA_Cnt_u16</p></li>
+<li><p>ePWM_Write_ePWM3CMPB_Cnt_u16</p></li>
+<li><p>ePWM_Write_ePWM4CMPA_Cnt_u16</p></li>
+<li><p>ePWM_Write_ePWM4CMPB_Cnt_u16</p></li>
+<li></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="global-functions-1">Global Functions #1</h3>
+<p>(For detailed info regarding values assigned to registers refer Reference Pdf attached below)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ePWM_Init1</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><strong><u>EPWM1</u></strong></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<p><strong><u>EPWM2</u></strong></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<p><strong><u>EPWM3</u></strong></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<p><strong><u>EPWM4</u></strong></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<p><strong><u>EPWM7</u></strong></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h3 id="global-functions-2">Global Functions #2</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ePWM_Per1</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>PWM Period computed by Pwm_Cdd is read and adjusted. Adjusted value is used for computations of the motor control PWM CMPA and CMPB values, and for the ADC SOCA update (ePWM4CMPA).</p>
+<p>ADC SOCB update is done in the 2ms loop (see integration manual) then value (ePWM4CMPB) is read by this function and written to the appropriate buffer.</p>
+<p>This function is called by the motor control ISR and so data cannot be transferred via the RTE; therefore data is read and written via macros and global variables.</p>
+<p>Due to timing constraints of the motor control ISR processing, outputs are not limited to their defined ranges before writing.</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>ePWM_Read_PWMPeriod_u16(&amp;PWMPeriod_Cnt_T_u16)</p>
+<p>ePWM_Read_DCPhsAComp_u16(&amp;DCPhsAComp_Cnt_T_u16)</p>
+<p>ePWM_Read_DCPhsBComp_u16(&amp;DCPhsBComp_Cnt_T_u16)</p>
+<p>ePWM_Read_DCPhsCComp_u16(&amp;DCPhsCComp_Cnt_T_u16)</p>
+<p>ePWM_Read_ePWM4CMPB_Cnt_u16(&amp;ePWM4CMPB_Cnt_T_u16)</p>
+<h4 id="processing">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs"> Store Local copy of outputs into Module Outputs</h4>
+<p>ePWM_Write_ePWM1CMPA_Cnt_u16(ePWM1CompA_Cnt_T_u16);</p>
+<p>ePWM_Write_ePWM1CMPB_Cnt_u16(ePWM1CompB_Cnt_T_u16);</p>
+<p>ePWM_Write_ePWM2CMPA_Cnt_u16(ePWM2CompA_Cnt_T_u16);</p>
+<p>ePWM_Write_ePWM2CMPB_Cnt_u16(ePWM2CompB_Cnt_T_u16);</p>
+<p>ePWM_Write_ePWM3CMPA_Cnt_u16(ePWM3CompA_Cnt_T_u16);</p>
+<p>ePWM_Write_ePWM3CMPB_Cnt_u16(ePWM3CompB_Cnt_T_u16);</p>
+<p>ePWM_Write_ePWM4CMPA_Cnt_u16((uint16)(((sint16)halfPWMPeriod_Cnt_T_u16) - k_ADCTrig1Offset_Cnt_s16 - D_DUTYCYCLESHIFT_CNT_U16));</p>
+<p>ePWM_Write_ePWM4CMPB_Cnt_u16(ePWM4CMPB_Cnt_T_u16);</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="local-macro-1">Local Macro #1</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ePWM_DisableOutputs</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p>Disables the motor control EPWM outputs; forces A and B outputs low on all three motor control ePWMs (ePWM1, ePWM2, ePWM3) (Refer the included register reference for more details of register)</p>
+<p>ePWM1-&gt;AQCSFRC = 5U</p>
+<p>ePWM1-&gt;DBCTL &amp;= 0xFFFFFFFCU</p>
+<p>ePWM2-&gt;AQCSFRC = 5U</p>
+<p>ePWM2-&gt;DBCTL &amp;= 0xFFFFFFFCU</p>
+<p>ePWM3-&gt;AQCSFRC = 5U</p>
+<p>ePWM3-&gt;DBCTL &amp;= 0xFFFFFFFCU</p>
+<h3 id="local-macro-2">Local Macro #2</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ePWM_EnableOutputs</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-2">Description</h4>
+<p>Enables the motor control EPWM outputs; allows A and B outputs to be driven high/low as configured in register initialization (core initialization subfunction) and using the CMPA and CMPB values computed in the motor control configuration subfunction. (Refer the included register reference for more details of register)</p>
+<p>ePWM1-&gt;AQCSFRC = 0U;</p>
+<p>ePWM1-&gt;DBCTL |= 3U;</p>
+<p>ePWM2-&gt;AQCSFRC = 0U;</p>
+<p>ePWM2-&gt;DBCTL |= 3U;</p>
+<p>ePWM3-&gt;AQCSFRC = 0U;</p>
+<p>ePWM3-&gt;DBCTL |= 3U;</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init">Init: </h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>This component does not have an RTE Init function, however ePWM pin mux settings are configured in the integration project and initialized in (patched) generated code. See the integration manual.</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<p>None</p>
+<h4 id="initialize-epwm-direction-register">Initialize EPWM Direction Register</h4>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="transition-functions">Transition Functions</h2>
+<p>None</p>
+<h2 id="section-1"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-rates-for-sub-modules-called-by-the-subroutine">Execution Rates for sub-modules called by the Subroutine</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Global Function Name</th>
+<th>Calling Frequency</th>
+<th>Function in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ePWM_Init1</td>
+<td>On Event</td>
+<td>ECU start up</td>
+</tr>
+<tr class="even">
+<td>ePWM_Per1</td>
+<td>On Event</td>
+<td>Motor Control ISR subroutine</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ePWM_Init1</td>
+<td>EPWM_START_SEC_CODE</td>
+</tr>
+<tr class="even">
+<td>ePWM_Per1</td>
+<td>EPWM_START_SEC_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>QAC for the generated files not corrected.</p></li>
+<li></li>
+<li><p>In the FDD DataDictionary full range is used for the signals ‘PWMDutyCycleA_Cnts’, ‘PWMDutyCycleB_Cnts’ and ‘PWMDutyCycleC_Cnts’ which is not correct. Corrected range (i.e. 0 to 6000 given by the FDD author) is used in the software DataDictionary.</p></li>
+<li><p>In the FDD DataDictionary the max value used for signal ’PWM_Period ‘ is not correct. Corrected max value (i.e. 6000 given by the FDD author) is uded in the software DataDictionary.</p></li>
+<li><p>Unit test consideration: Don’t use any combination of the input signals where the value of ‘PWMDutyCycleA_Cnts’/’PWMDutyCycleB_Cnts’/’ PWMDutyCycleC_Cnts’ is greater than the signal ‘PWM_Period’.</p></li>
+</ol>
+<h1 class="unnumbered" id="section-5"></h1>
+<h1 id="reference"> Reference </h1>
+<p>Register Reference</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 68%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1.0</td>
+<td>Initial Version ( FDD 34B) –Shutdown Mech not included</td>
+<td>18-Feb-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Anomaly 4605 – changed active state of ePWM modules 1-3</td>
+<td>11-Mar-13</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Updated to FDD 34B v003</td>
+<td>18-Jun-13</td>
+<td>OT/Selva</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Updated to FDD 34B v005</td>
+<td>07-Apr-14</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Updated to ES-34B v008</td>
+<td>25-Jan-15</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Updated to ES-34B v009</td>
+<td>25-Nov-15</td>
+<td>Rijvi</td>
+</tr>
+</tbody>
+</table>

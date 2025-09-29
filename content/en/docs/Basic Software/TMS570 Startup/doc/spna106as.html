@@ -1,0 +1,871 @@
+---
+title: spna106as
+linkTitle: spna106as
+weight: 7
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><i>Application&#160;Report</i><br/>
+<i>SPNA106A&#160;</i>–&#160;<i>January&#160;2012</i><br/>
+<i><b>Initialization&#160;of&#160;Hercules</b></i>™&#160;<i><b>ARM</b></i>®&#160;<i><b>Cortex</b></i>™<i><b>-R4F</b></i><br/>
+<i><b>Microcontrollers</b></i><br/>
+<i>Sunil&#160;Oak</i>........................................................................................................................................<br/>
+<b>ABSTRACT</b><br/>
+This&#160;application&#160;report&#160;provides&#160;a&#160;brief&#160;overview&#160;and&#160;initialization&#160;procedure&#160;of&#160;the&#160;TMS570LS31x&#160;series<br/>and&#160;the&#160;RM4x&#160;series&#160;of&#160;microcontrollers&#160;in&#160;the&#160;Hercules&#160;family.&#160;&#34;Hercules&#160;MCU&#34;&#160;will&#160;be&#160;used&#160;henceforth&#160;in<br/>this&#160;document&#160;to&#160;refer&#160;to&#160;any&#160;part&#160;in&#160;these&#160;series&#160;of&#160;microcontrollers.<br/>
+The&#160;document&#160;also&#160;shows&#160;code&#160;fragments&#160;from&#160;source&#160;files&#160;that&#160;are&#160;generated&#160;using&#160;the&#160;HALCoGen&#160;tool.<br/>All&#160;code&#160;constructs&#160;used&#160;in&#160;this&#160;document&#160;are&#160;defined&#160;in&#160;header&#160;files&#160;also&#160;generated&#160;by&#160;the&#160;same&#160;utility.<br/>
+Project&#160;collateral&#160;and&#160;source&#160;code&#160;discussed&#160;in&#160;this&#160;application&#160;report&#160;can&#160;be&#160;downloaded&#160;from&#160;the<br/>following&#160;URL:&#160;<a href="http://www.ti.com/lit/zip/spna106">http://www.ti.com/lit/zip/spna106.</a><br/>
+<b>Contents</b><br/>
+1<br/>
+Block&#160;Diagram&#160;...............................................................................................................&#160;<a href="spna106as.html#2">2</a><br/>
+2<br/>
+Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers&#160;......................................................&#160;<a href="spna106as.html#3">3</a><br/>
+3<br/>
+References&#160;.................................................................................................................&#160;<a href="spna106as.html#15">15</a><br/>
+<b>List&#160;of&#160;Figures</b><br/>
+1<br/>
+Device&#160;Block&#160;Diagram&#160;......................................................................................................&#160;<a href="spna106as.html#2">2</a><br/>
+2<br/>
+Color&#160;Legend&#160;for&#160;Block&#160;Diagram&#160;..........................................................................................&#160;<a href="spna106as.html#2">2</a><br/>
+3<br/>
+FMPLL&#160;Block&#160;Diagram&#160;.....................................................................................................&#160;<a href="spna106as.html#6">6</a><br/>
+4<br/>
+VIM&#160;Interrupt&#160;Address&#160;Memory&#160;Map&#160;....................................................................................&#160;<a href="spna106as.html#14">14</a><br/>
+<b>List&#160;of&#160;Tables</b><br/>
+1<br/>
+Clock&#160;Sources&#160;on&#160;Hercules&#160;Microcontrollers&#160;............................................................................&#160;<a href="spna106as.html#7">7</a><br/>
+2<br/>
+Clock&#160;Domains&#160;on&#160;Hercules&#160;Microcontrollers..........................................................................&#160;<a href="spna106as.html#10">10</a><br/>
+Hercules&#160;is&#160;a&#160;trademark&#160;of&#160;Texas&#160;Instruments.<br/>Cortex&#160;is&#160;a&#160;trademark&#160;of&#160;ARM&#160;Limited.<br/>ARM&#160;is&#160;a&#160;registered&#160;trademark&#160;of&#160;ARM&#160;Limited.<br/>All&#160;other&#160;trademarks&#160;are&#160;the&#160;property&#160;of&#160;their&#160;respective&#160;owners.<br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+1<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=2></a><i>Block&#160;Diagram</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>1</b><br/>
+<b>Block&#160;Diagram</b><br/>
+<a href="spna106as.html#2">Section&#160;1&#160;</a>shows&#160;a&#160;high-level&#160;block&#160;diagram&#160;of&#160;the&#160;superset&#160;TMS570LS31x&#160;microcontroller.&#160;For&#160;the&#160;actual<br/>block&#160;diagram&#160;relevant&#160;for&#160;any&#160;derivative&#160;of&#160;the&#160;TMS570LS&#160;series&#160;or&#160;for&#160;the&#160;RM4x&#160;series&#160;of<br/>microcontrollers,&#160;see&#160;the&#160;device-specific&#160;data&#160;sheet.<br/>
+3M<br/>
+64K<br/>
+256K<br/>
+ETM-R4<br/>
+RTP<br/>
+Flash<br/>
+64K<br/>
+RAM<br/>
+(CPU&#160;Trace)<br/>
+(RAM&#160;Trace)<br/>
+with<br/>
+64K<br/>
+with<br/>
+ECC<br/>
+ECC<br/>
+64K<br/>
+Dual Cortex-R4F<br/>
+DMA<br/>
+POM<br/>
+DMM<br/>
+HTU1<br/>
+FTU<br/>
+HTU2<br/>
+EMAC<br/>
+CPUs in Lockstep<br/>
+Switched Centrol Resource<br/>
+Switched Centrol Resource<br/>
+Switched Centrol Resource<br/>
+Main Cross Bar:&#160;Arbitration and :Prioritization Control<br/>
+64 KB Flash<br/>
+CRC<br/>
+Switched Central Resource<br/>
+Peripheral Central Resource Bridge<br/>
+for EEPROM<br/>
+Emulation<br/>
+with ECC<br/>
+EMIF<br/>
+MibADC1<br/>
+MibADC2<br/>
+DCAN1<br/>
+DCAN2<br/>
+DCAN3<br/>
+EMAC<br/>
+Slave<br/>
+N2HET1<br/>
+I2C<br/>
+SCI<br/>
+LIN<br/>
+MibSPIx<br/>
+SPI2<br/>
+N2HET2<br/>
+FlexRay<br/>
+GIO<br/>
+SPI4<br/>
+<b>Figure&#160;1.&#160;Device&#160;Block&#160;Diagram</b><br/>
+The&#160;block&#160;diagram&#160;includes&#160;a&#160;color-coded&#160;representation&#160;of&#160;the&#160;individual&#160;core-power&#160;domains<br/>implemented&#160;on&#160;the&#160;microcontroller&#160;(see&#160;<a href="spna106as.html#2">Figure&#160;2).&#160;</a>These&#160;power&#160;domains&#160;can&#160;be&#160;individually&#160;turned&#160;ON&#160;or<br/>OFF&#160;during&#160;initialization&#160;as&#160;per&#160;the&#160;application&#160;requirements.<br/>
+Core/RAM<br/>
+Core<br/>
+RAM<br/>
+always on<br/>
+#1<br/>
+#2<br/>
+#1<br/>
+#3<br/>
+#2<br/>
+#4<br/>
+#3<br/>
+#5<br/>
+<b>Figure&#160;2.&#160;Color&#160;Legend&#160;for&#160;Block&#160;Diagram</b><br/>
+2<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=3></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+<b>2</b><br/>
+<b>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</b><br/>
+A&#160;basic&#160;sequence&#160;for&#160;initialization&#160;and&#160;configuration&#160;of&#160;the&#160;key&#160;features&#160;on&#160;a&#160;Hercules&#160;MCU&#160;is&#160;summarized<br/>below&#160;and&#160;many&#160;steps&#160;are&#160;detailed&#160;in&#160;the&#160;following&#160;sections.&#160;The&#160;source&#160;code&#160;example&#160;accompanying&#160;this<br/>application&#160;report&#160;demonstrates&#160;many&#160;of&#160;the&#160;suggested&#160;steps.&#160;Some&#160;parts&#160;of&#160;the&#160;initialization&#160;sequence<br/>are&#160;not&#160;mandatory.&#160;Applications&#160;that&#160;are&#160;non-safety-critical&#160;can&#160;choose&#160;to&#160;not&#160;use&#160;the&#160;error&#160;correction<br/>coding&#160;(ECC)&#160;feature&#160;for&#160;Flash&#160;and&#160;RAM&#160;accesses,&#160;for&#160;example.&#160;Each&#160;application&#160;must&#160;also&#160;have&#160;its<br/>specific&#160;exception&#160;handling&#160;scheme:&#160;reset&#160;handler,&#160;abort&#160;handler,&#160;etc.&#160;The&#160;code&#160;generated&#160;using<br/>HALCoGen&#160;includes&#160;template&#160;handling&#160;routines&#160;for&#160;each&#160;exception.&#160;These&#160;routines&#160;need&#160;to&#160;be&#160;modified&#160;as<br/>required&#160;by&#160;the&#160;application.<br/>
+1.&#160;Enable&#160;the&#160;floating-point&#160;unit&#160;(FPU)&#160;inside&#160;the&#160;Cortex-R4F&#160;CPU&#160;(<a href="spna106as.html#5">Section&#160;2.1).</a><br/>
+2.&#160;Initialize&#160;the&#160;CPU&#160;registers&#160;and&#160;FPU&#160;registers,&#160;including&#160;stack&#160;pointers&#160;(<a href="spna106as.html#5">Section&#160;2.2</a>).<br/>
+3.&#160;Enable&#160;the&#160;flash&#160;interface&#160;module's&#160;response&#160;to&#160;an&#160;ECC&#160;error&#160;indicated&#160;by&#160;the&#160;CPU&#160;on&#160;accesses&#160;to<br/>
+flash&#160;(<a href="spna106as.html#5">Section&#160;2.3).</a><br/>
+4.&#160;Enable&#160;the&#160;CPU's&#160;Event&#160;Bus&#160;export&#160;mechanism&#160;(<a href="spna106as.html#5">Section&#160;2.4</a>).<br/>
+5.&#160;Enable&#160;the&#160;CPU's&#160;Single-Error-Correction&#160;Double-Error-Detection&#160;(SECDED)&#160;logic&#160;for&#160;accesses&#160;to<br/>
+Flash&#160;memory&#160;(CPU's&#160;ATCM&#160;interface)&#160;(<a href="spna106as.html#6">Section&#160;2.5</a>).<br/>
+6.&#160;Handle&#160;the&#160;cause&#160;of&#160;reset&#160;to&#160;determine&#160;whether&#160;or&#160;not&#160;to&#160;continue&#160;with&#160;the&#160;start-up&#160;sequence<br/>
+<a href="spna106as.html#6">(Section&#160;2.6)</a><br/>
+7.&#160;Check&#160;if&#160;any&#160;ESM&#160;group3&#160;error&#160;was&#160;indicated&#160;during&#160;power-up.&#160;If&#160;any&#160;ESM&#160;group3&#160;error&#160;occurred<br/>
+during&#160;the&#160;power-up,&#160;it&#160;is&#160;not&#160;safe&#160;to&#160;continue&#160;code&#160;execution&#160;and&#160;the&#160;microcontroller&#160;initialization<br/>process&#160;can&#160;be&#160;stopped&#160;at&#160;this&#160;point.&#160;The&#160;subsequent&#160;steps&#160;in&#160;this&#160;sequence&#160;assume&#160;that&#160;there&#160;was<br/>no&#160;ESM&#160;group3&#160;error&#160;during&#160;power-up.<br/>
+8.&#160;Configure&#160;PLL&#160;control&#160;registers&#160;with&#160;the&#160;largest&#160;value&#160;for&#160;the&#160;last-stage&#160;of&#160;the&#160;dividers&#160;(R-dividers)<br/>
+<a href="spna106as.html#6">(Section&#160;2.7).</a><br/>
+9.&#160;Enable&#160;the&#160;Phased-Locked&#160;Loops&#160;(PLLs)&#160;(<a href="spna106as.html#7">Section&#160;2.8).</a><br/>
+10.&#160;Run&#160;the&#160;eFuse&#160;controller&#160;start-up&#160;checks&#160;and&#160;start&#160;the&#160;self-test&#160;on&#160;the&#160;eFuse&#160;controller&#160;SECDED&#160;logic<br/>
+<a href="spna106as.html#8">(Section&#160;2.9).</a><br/>
+11.&#160;Release&#160;the&#160;peripherals&#160;from&#160;reset&#160;and&#160;enable&#160;clocks&#160;to&#160;all&#160;peripherals&#160;(<a href="spna106as.html#8">Section&#160;2.10</a>).<br/>
+12.&#160;Set&#160;up&#160;the&#160;device-level&#160;multiplexing&#160;options&#160;as&#160;well&#160;as&#160;the&#160;input/output&#160;(I/O)&#160;multiplexing.<br/>
+13.&#160;Wait&#160;for&#160;the&#160;eFuse&#160;controller&#160;ECC&#160;logic&#160;self-test&#160;to&#160;complete&#160;and&#160;check&#160;the&#160;results.<br/>
+14.&#160;Set&#160;up&#160;Flash&#160;module&#160;for&#160;the&#160;required&#160;wait&#160;states&#160;and&#160;pipelined&#160;mode&#160;<a href="spna106as.html#8">(Section&#160;2.11).</a><br/>
+15.&#160;Set&#160;up&#160;Flash&#160;bank&#160;and&#160;pump&#160;power&#160;modes&#160;<a href="spna106as.html#9">(Section&#160;2.12).</a><br/>
+16.&#160;Trim&#160;the&#160;LPO&#160;(<a href="spna106as.html#9">Section&#160;2.13</a>).<br/>
+17.&#160;Run&#160;the&#160;self-test&#160;on&#160;the&#160;SECDED&#160;logic&#160;embedded&#160;inside&#160;the&#160;Flash&#160;module&#160;(<a href="spna106as.html#10">Section&#160;2.14).</a><br/>
+18.&#160;Wait&#160;for&#160;main&#160;PLL&#160;output&#160;to&#160;become&#160;valid.<br/>
+19.&#160;Map&#160;the&#160;device&#160;clock&#160;domains&#160;to&#160;the&#160;desired&#160;clock&#160;sources&#160;(<a href="spna106as.html#10">Section&#160;2.15).</a><br/>
+20.&#160;Reduce&#160;the&#160;values&#160;of&#160;the&#160;R-dividers&#160;in&#160;steps&#160;to&#160;attain&#160;the&#160;target&#160;PLL&#160;output&#160;frequency&#160;for&#160;both&#160;PLL1<br/>
+and&#160;PLL2.<br/>
+21.&#160;Run&#160;a&#160;diagnostic&#160;check&#160;on&#160;the&#160;CPU&#160;self-test&#160;controller&#160;(<a href="spna106as.html#11">Section&#160;2.16).&#160;</a>A&#160;CPU&#160;reset&#160;is&#160;asserted&#160;upon<br/>
+completion&#160;of&#160;the&#160;CPU&#160;self-test.&#160;Therefore,&#160;the&#160;initialization&#160;steps&#160;leading&#160;up&#160;to&#160;the&#160;reset&#160;handler&#160;will<br/>be&#160;repeated.<br/>
+22.&#160;Run&#160;the&#160;built-in&#160;self-test&#160;for&#160;the&#160;CPU&#160;(LBIST)&#160;<a href="spna106as.html#11">(Section&#160;2.17).&#160;</a>A&#160;CPU&#160;reset&#160;is&#160;asserted&#160;upon&#160;completion<br/>
+of&#160;the&#160;CPU&#160;self-test.&#160;Therefore,&#160;the&#160;initialization&#160;steps&#160;leading&#160;up&#160;to&#160;the&#160;reset&#160;handler&#160;will&#160;be&#160;repeated.<br/>
+23.&#160;Run&#160;a&#160;diagnostic&#160;check&#160;on&#160;the&#160;CPU&#160;compare&#160;module&#160;(CCM-R4F)&#160;<a href="spna106as.html#12">(Section&#160;2.18).</a><br/>
+24.&#160;Run&#160;a&#160;diagnostic&#160;check&#160;on&#160;the&#160;memory&#160;self-test&#160;controller&#160;<a href="spna106as.html#12">(Section&#160;2.19).</a><br/>
+25.&#160;Start&#160;a&#160;self-test&#160;on&#160;the&#160;CPU&#160;RAM&#160;using&#160;the&#160;programmable&#160;built-in&#160;self-test&#160;(PBIST)&#160;controller&#160;and&#160;wait<br/>
+for&#160;this&#160;self-test&#160;to&#160;complete&#160;and&#160;pass&#160;<a href="spna106as.html#12">(Section&#160;2.20</a>).<br/>
+26.&#160;Initialize&#160;the&#160;CPU&#160;RAM&#160;using&#160;the&#160;system&#160;module&#160;hardware&#160;initialization&#160;mechanism&#160;so&#160;that&#160;the&#160;ECC<br/>
+region&#160;for&#160;the&#160;CPU&#160;RAM&#160;is&#160;also&#160;initialized&#160;(<a href="spna106as.html#12">Section&#160;2.21</a>).<br/>
+27.&#160;Enable&#160;the&#160;CPU's&#160;Single-Error-Correction&#160;Double-Error-Detection&#160;(SECDED)&#160;logic&#160;for&#160;accesses&#160;to<br/>
+CPU&#160;RAM&#160;memory&#160;(CPU's&#160;B0TCM&#160;and&#160;B1TCM&#160;interfaces)&#160;<a href="spna106as.html#12">(Section&#160;2.22</a>).<br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+3<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=4></a><i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+28.&#160;Start&#160;a&#160;self-test&#160;on&#160;all&#160;on-chip&#160;dual-port&#160;SRAMs&#160;using&#160;the&#160;PBIST&#160;controller&#160;(<a href="spna106as.html#12">Section&#160;2.23</a>).<br/>
+29.&#160;Run&#160;the&#160;self-test&#160;on&#160;the&#160;CPU's&#160;SECDED&#160;logic&#160;for&#160;accesses&#160;to&#160;main&#160;data&#160;RAM&#160;(B0TCM&#160;and&#160;B1TCM)<br/>
+<a href="spna106as.html#12">(Section&#160;2.24</a>).<br/>
+30.&#160;Run&#160;the&#160;self-test&#160;on&#160;the&#160;CPU's&#160;SECDED&#160;logic&#160;for&#160;accesses&#160;to&#160;the&#160;main&#160;Flash&#160;memory&#160;(ATCM)<br/>
+<a href="spna106as.html#12">(Section&#160;2.25</a>).<br/>
+31.&#160;Wait&#160;for&#160;self-test&#160;to&#160;complete&#160;and&#160;pass&#160;on&#160;all&#160;on-chip&#160;dual-port&#160;SRAMs.<br/>
+32.&#160;Start&#160;a&#160;self-test&#160;on&#160;all&#160;on-chip&#160;single-port&#160;SRAMs&#160;excluding&#160;the&#160;CPU&#160;RAM&#160;using&#160;the&#160;PBIST&#160;controller<br/>
+<a href="spna106as.html#13">(Section&#160;2.26</a>).<br/>
+33.&#160;Wait&#160;for&#160;self-test&#160;to&#160;complete&#160;and&#160;pass&#160;on&#160;all&#160;on-chip&#160;single-port&#160;SRAMs.<br/>
+34.&#160;Start&#160;auto-initialization&#160;for&#160;all&#160;other&#160;on-chip&#160;SRAMs&#160;(<a href="spna106as.html#13">Section&#160;2.27).</a><br/>
+35.&#160;Check&#160;if&#160;the&#160;auto-initialization&#160;process&#160;for&#160;all&#160;RAMs&#160;is&#160;completed;&#160;wait&#160;here&#160;if&#160;it&#160;has&#160;not&#160;completed.<br/>
+36.&#160;Check&#160;the&#160;parity&#160;error&#160;detection&#160;mechanism&#160;for&#160;all&#160;peripheral&#160;memories&#160;(<a href="spna106as.html#13">Section&#160;2.28</a>).<br/>
+37.&#160;Enable&#160;the&#160;CPU’s&#160;dedicated&#160;vectored&#160;interrupt&#160;controller&#160;(VIC)&#160;port&#160;(<a href="spna106as.html#13">Section&#160;2.29).</a><br/>
+38.&#160;Program&#160;all&#160;interrupt&#160;service&#160;routine&#160;addresses&#160;in&#160;the&#160;vectored&#160;interrupt&#160;manager&#160;(VIM)&#160;memory<br/>
+<a href="spna106as.html#13">(Section&#160;2.30</a>).<br/>
+39.&#160;Configure&#160;IRQ&#160;/&#160;FIQ&#160;interrupt&#160;priorities&#160;for&#160;all&#160;interrupt&#160;channels&#160;<a href="spna106as.html#14">(Section&#160;2.30.1).</a><br/>
+40.&#160;Enable&#160;the&#160;desired&#160;interrupts&#160;(IRQ&#160;and/or&#160;FIQ)&#160;inside&#160;the&#160;CPU&#160;<a href="spna106as.html#14">(Section&#160;2.31</a>).<br/>
+41.&#160;Enable&#160;the&#160;desired&#160;interrupts&#160;in&#160;the&#160;VIM&#160;control&#160;registers&#160;(<a href="spna106as.html#14">Section&#160;2.30.2).</a><br/>
+42.&#160;Set&#160;up&#160;the&#160;application&#160;responses&#160;to&#160;inputs&#160;to&#160;the&#160;error&#160;signaling&#160;module&#160;(ESM)&#160;<a href="spna106as.html#14">(Section&#160;2.32).</a><br/>
+43.&#160;Initialize&#160;copy&#160;table,&#160;global&#160;variables,&#160;and&#160;constructors&#160;<a href="spna106as.html#14">(Section&#160;2.33).</a><br/>
+44.&#160;Verify&#160;that&#160;the&#160;dual-clock-comparator&#160;(DCC)&#160;module&#160;can&#160;actually&#160;detect&#160;and&#160;flag&#160;a&#160;frequency&#160;error.<br/>
+45.&#160;Configure&#160;the&#160;DCC&#160;module&#160;to&#160;continuously&#160;monitor&#160;the&#160;PLL&#160;output.<br/>
+46.&#160;Verify&#160;that&#160;a&#160;memory&#160;protection&#160;unit&#160;(MPU)&#160;violation&#160;for&#160;all&#160;bus&#160;masters&#160;is&#160;flagged&#160;as&#160;an&#160;error&#160;to&#160;the<br/>
+ESM.<br/>
+47.&#160;Run&#160;a&#160;background&#160;check&#160;on&#160;entire&#160;Flash&#160;using&#160;CRC&#160;and&#160;DMA.<br/>
+48.&#160;Run&#160;the&#160;offset&#160;error&#160;calibration&#160;routine&#160;for&#160;the&#160;ADC.<br/>
+49.&#160;Run&#160;a&#160;self-test&#160;on&#160;the&#160;analog-to-digital&#160;converter&#160;(ADC)&#160;analog&#160;input&#160;channels.<br/>
+50.&#160;Check&#160;I/O&#160;loop-back&#160;for&#160;all&#160;peripherals.<br/>
+51.&#160;Set&#160;up&#160;the&#160;MPU&#160;for&#160;the&#160;bus&#160;masters.<br/>
+52.&#160;Set&#160;up&#160;the&#160;digital&#160;windowed&#160;watchdog&#160;(DWWD)&#160;module&#160;service&#160;window&#160;size&#160;and&#160;the&#160;module&#160;response<br/>
+on&#160;a&#160;violation&#160;(reset&#160;or&#160;NMI).<br/>
+53.&#160;Configure&#160;the&#160;N2HET1-to-N2HET2&#160;monitoring&#160;functionality.<br/>
+54.&#160;Configure&#160;desired&#160;access&#160;permissions&#160;for&#160;peripherals&#160;using&#160;the&#160;Peripheral&#160;Central&#160;Resource&#160;(PCR)<br/>
+controller&#160;registers.<br/>
+55.&#160;Configure&#160;external&#160;safety&#160;companion,&#160;e.g.,&#160;TI&#160;TPS6538x,&#160;for&#160;online&#160;diagnostic&#160;operation.<br/>
+56.&#160;Set&#160;up&#160;the&#160;real-time&#160;interrupt&#160;(RTI)&#160;module&#160;for&#160;generating&#160;periodic&#160;interrupts&#160;as&#160;required&#160;by&#160;the<br/>
+application.<br/>
+57.&#160;Call&#160;the&#160;main&#160;application&#160;<a href="spna106as.html#15">(Section&#160;2.35).</a><br/>
+4<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=5></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+<i><b>2.1</b></i><br/>
+<i><b>Enable&#160;Floating-Point&#160;Coprocessor&#160;(FPU)</b></i><br/>
+The&#160;floating-point&#160;coprocessor&#160;is&#160;disabled&#160;upon&#160;a&#160;CPU&#160;reset&#160;and&#160;must&#160;be&#160;enabled&#160;if&#160;the&#160;application<br/>requires&#160;floating-point&#160;calculations.&#160;If&#160;a&#160;floating-point&#160;instruction&#160;is&#160;executed&#160;with&#160;the&#160;FPU&#160;disabled,&#160;an<br/>undefined&#160;instruction&#160;exception&#160;is&#160;generated.<br/>
+<i><b>2.2</b></i><br/>
+<i><b>Initialize&#160;Cortex-R4F&#160;Registers</b></i><br/>
+The&#160;Hercules&#160;series&#160;of&#160;microcontrollers&#160;include&#160;dual&#160;Cortex-R4F&#160;CPUs&#160;running&#160;in&#160;a&#160;lock-step&#160;operation<br/>mode.&#160;A&#160;core&#160;compare&#160;module&#160;(CCM-R4)&#160;compares&#160;the&#160;output&#160;signals&#160;from&#160;each&#160;R4F&#160;CPU.&#160;Any<br/>difference&#160;in&#160;the&#160;two&#160;CPUs’&#160;outputs&#160;is&#160;flagged&#160;as&#160;a&#160;fault&#160;of&#160;a&#160;high-severity&#160;level.&#160;The&#160;CPU&#160;internal<br/>registers&#160;are&#160;not&#160;guaranteed&#160;to&#160;power&#160;up&#160;in&#160;the&#160;same&#160;state&#160;for&#160;both&#160;the&#160;CPUs.&#160;The&#160;CPU&#160;pushes&#160;the<br/>internal&#160;registers&#160;on&#160;to&#160;the&#160;stack&#160;on&#160;a&#160;function&#160;call,&#160;which&#160;could&#160;lead&#160;to&#160;the&#160;detection&#160;of&#160;a&#160;core&#160;compare<br/>error.&#160;Therefore,&#160;the&#160;CPU&#160;internal&#160;core&#160;registers&#160;need&#160;to&#160;be&#160;initialized&#160;to&#160;a&#160;predefined&#160;state&#160;before&#160;any<br/>function&#160;call&#160;is&#160;made.<br/>
+The&#160;CPU’s&#160;call-return&#160;stack&#160;consists&#160;of&#160;a&#160;4-entry&#160;circular&#160;buffer.&#160;When&#160;the&#160;CPU&#160;pre-fetch&#160;unit&#160;(PFU)<br/>detects&#160;a&#160;taken&#160;procedure&#160;call&#160;instruction,&#160;the&#160;PFU&#160;pushes&#160;the&#160;return&#160;address&#160;onto&#160;the&#160;call-return&#160;stack.<br/>The&#160;instructions&#160;that&#160;the&#160;PFU&#160;recognizes&#160;as&#160;procedure&#160;calls&#160;are,&#160;in&#160;both&#160;the&#160;ARM&#160;and&#160;Thumb&#160;instruction<br/>sets:<br/>
+→&#160;BL&#160;immediate<br/>→&#160;BLX&#160;immediate<br/>→&#160;BLX&#160;Rm<br/>
+When&#160;the&#160;return&#160;stack&#160;detects&#160;a&#160;taken&#160;return&#160;instruction,&#160;the&#160;PFU&#160;issues&#160;an&#160;instruction&#160;fetch&#160;from&#160;the<br/>location&#160;at&#160;the&#160;top&#160;of&#160;the&#160;return&#160;stack,&#160;and&#160;pops&#160;the&#160;return&#160;stack.&#160;The&#160;instructions&#160;that&#160;the&#160;PFU&#160;recognizes<br/>as&#160;procedure&#160;returns&#160;are,&#160;in&#160;both&#160;the&#160;ARM&#160;and&#160;Thumb&#160;instruction&#160;sets:<br/>
+→&#160;LDMIA&#160;Rn{!},&#160;{..,pc}<br/>→&#160;POP&#160;{..,pc}<br/>→&#160;LDMIB&#160;Rn{!},&#160;{..,pc}<br/>→&#160;LDMDA&#160;Rn{!},&#160;{..,pc}<br/>→&#160;LDMDB&#160;Rn{!},&#160;{..,pc}<br/>→&#160;LDR&#160;pc,&#160;[sp],&#160;#4<br/>→&#160;BX&#160;Rm<br/>
+<i><b>2.3</b></i><br/>
+<i><b>Enable&#160;Response&#160;to&#160;ECC&#160;Errors&#160;in&#160;Flash&#160;Interface&#160;Module</b></i><br/>
+The&#160;Flash&#160;module&#160;has&#160;a&#160;Flash&#160;Error&#160;Detection&#160;and&#160;Correction&#160;Control&#160;Register&#160;1&#160;(FEDACCTRL1)&#160;at<br/>address&#160;0xFFF87008.&#160;This&#160;register&#160;controls&#160;the&#160;ECC&#160;functionality&#160;implemented&#160;inside&#160;the&#160;Flash&#160;module,<br/>including&#160;support&#160;for&#160;the&#160;SECDED&#160;logic&#160;inside&#160;the&#160;Cortex-R4F&#160;CPU.&#160;The&#160;bits&#160;3–0&#160;of&#160;this&#160;register&#160;make&#160;up<br/>the&#160;EDACEN&#160;field.&#160;EDACEN&#160;is&#160;configured&#160;to&#160;0x5&#160;by&#160;default.&#160;The&#160;application&#160;must&#160;configure&#160;EDACEN&#160;to<br/>0xA&#160;in&#160;order&#160;to&#160;enable&#160;the&#160;flash&#160;module's&#160;support&#160;for&#160;the&#160;CPU's&#160;SECDED&#160;logic.<br/>
+<i><b>2.4</b></i><br/>
+<i><b>Enable&#160;the&#160;Cortex-R4F&#160;CPU</b></i>’<i><b>s&#160;Event&#160;Signaling&#160;Mechanism</b></i><br/>
+The&#160;Cortex-R4F&#160;CPU&#160;has&#160;a&#160;dedicated&#160;event&#160;bus&#160;that&#160;is&#160;used&#160;to&#160;indicate&#160;that&#160;an&#160;event&#160;had&#160;occurred.&#160;This<br/>event&#160;signaling&#160;is&#160;disabled&#160;upon&#160;reset&#160;and&#160;must&#160;be&#160;enabled.&#160;The&#160;Flash&#160;module&#160;and&#160;the&#160;RAM&#160;module<br/>interfaces&#160;capture&#160;the&#160;ECC&#160;error&#160;events&#160;signaled&#160;by&#160;the&#160;CPU.&#160;This&#160;allows&#160;the&#160;application&#160;to&#160;further&#160;debug<br/>the&#160;exact&#160;address,&#160;which&#160;caused&#160;the&#160;ECC&#160;error.<br/>
+The&#160;CPU&#160;event&#160;signaling&#160;can&#160;be&#160;enabled&#160;by&#160;clearing&#160;the&#160;“X”&#160;bit&#160;of&#160;the&#160;performance&#160;monitoring&#160;unit’s<br/>“Performance&#160;monitor&#160;control&#160;register,&#160;c9”.<br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+5<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=6></a><i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<i><b>2.5</b></i><br/>
+<i><b>Enable&#160;the&#160;Cortex-R4F&#160;CPU</b></i>’<i><b>s&#160;ECC&#160;Checking&#160;for&#160;ATCM&#160;Interface</b></i><br/>
+The&#160;CPU&#160;has&#160;internal&#160;ECC&#160;logic&#160;that&#160;protects&#160;all&#160;CPU&#160;accesses&#160;to&#160;the&#160;ATCM&#160;(Flash)&#160;interface.&#160;This&#160;logic<br/>is&#160;not&#160;used&#160;by&#160;default&#160;and&#160;must&#160;be&#160;enabled&#160;by&#160;setting&#160;the&#160;ATCMPCEN&#160;bit&#160;of&#160;the&#160;System&#160;control<br/>coprocessor’s&#160;Auxiliary&#160;control&#160;register,&#160;c1.<br/>
+<i><b>2.6</b></i><br/>
+<i><b>Handle&#160;the&#160;Cause&#160;of&#160;Reset</b></i><br/>
+Each&#160;application&#160;has&#160;different&#160;levels&#160;of&#160;tolerance&#160;for&#160;different&#160;reset&#160;conditions.&#160;A&#160;typical&#160;reset&#160;handler&#160;is<br/>presented&#160;in&#160;the&#160;accompanying&#160;example&#160;code&#160;project,&#160;which&#160;identifies&#160;all&#160;the&#160;causes&#160;of&#160;a&#160;reset&#160;condition<br/>on&#160;the&#160;Hercules&#160;MCUs.<br/>
+<i><b>2.7</b></i><br/>
+<i><b>Configure&#160;PLLs</b></i><br/>
+The&#160;Hercules&#160;microcontrollers&#160;contain&#160;a&#160;frequency-modulated&#160;phase-locked&#160;loop&#160;(FMPLL)&#160;macro&#160;that<br/>allows&#160;the&#160;input&#160;oscillator&#160;frequency&#160;to&#160;be&#160;multiplied&#160;to&#160;a&#160;higher&#160;frequency&#160;than&#160;can&#160;be&#160;conveniently<br/>achieved&#160;with&#160;an&#160;external&#160;resonator&#160;or&#160;crystal.&#160;Additionally,&#160;the&#160;FMPLL&#160;allows&#160;the&#160;flexibility&#160;to&#160;generate<br/>many&#160;different&#160;frequency&#160;options&#160;from&#160;a&#160;fixed&#160;crystal&#160;or&#160;resonator.<br/>
+The&#160;FMPLL&#160;allows&#160;the&#160;application&#160;to&#160;superimpose&#160;a&#160;“modulation&#160;frequency”&#160;signal&#160;on&#160;the&#160;selected&#160;base<br/>frequency&#160;signal&#160;output&#160;from&#160;the&#160;FMPLL.&#160;This&#160;reduces&#160;the&#160;electromagnetic&#160;energy&#160;of&#160;the&#160;output&#160;signal&#160;by<br/>spreading&#160;it&#160;across&#160;a&#160;controlled&#160;frequency&#160;range&#160;around&#160;the&#160;base&#160;frequency.&#160;This&#160;mode&#160;is&#160;disabled&#160;by<br/>default,&#160;and&#160;the&#160;application&#160;can&#160;enable&#160;it&#160;in&#160;applications&#160;sensitive&#160;to&#160;noise&#160;emissions.<br/>
+The&#160;Hercules&#160;microcontrollers&#160;also&#160;contain&#160;a&#160;second&#160;non-modulating&#160;PLL&#160;macro.&#160;This&#160;PLL#2&#160;can&#160;be<br/>independently&#160;configured&#160;to&#160;generate&#160;a&#160;second&#160;high-frequency&#160;clock&#160;source&#160;for&#160;specific&#160;uses,&#160;e.g.,<br/>FlexRay&#160;communication&#160;clock&#160;source&#160;of&#160;80&#160;MHz.<br/>
+<b>2.7.1</b><br/>
+<b>FMPLL&#160;Block&#160;Diagram</b><br/>
+<a href="spna106as.html#6">Figure&#160;3&#160;</a>shows&#160;a&#160;high-level&#160;block&#160;diagram&#160;of&#160;the&#160;FMPLL&#160;macro.<br/>
+OSCIN<br/>
+/NR<br/>
+INTCLK<br/>
+VCOCLK<br/>
+/OD<br/>
+post_ODCLK<br/>
+/R<br/>
+PLLCLK<br/>
+PLL<br/>
+/1 to /64<br/>
+/1 to /8<br/>
+/1 to /32<br/>
+f<br/>
+= (f<br/>
+/ NR) * NF / (OD * R)<br/>
+PLLCLK<br/>
+OSCIN<br/>
+/NF<br/>
+/1 to /256<br/>
+OSCIN<br/>
+INTCLK2<br/>
+VCOCLK2<br/>
+post_ODCLK2<br/>
+PLL2CLK<br/>
+/NR2<br/>
+/OD2<br/>
+/R2<br/>
+PLL#2<br/>
+/1 to /64<br/>
+/1 to /8<br/>
+/1 to /32<br/>
+f<br/>
+= (f<br/>
+/ NR2) * NF2 / (OD2 * R2)<br/>
+PLL2CLK<br/>
+OSCIN<br/>
+/NF2<br/>
+/1 to /256<br/>
+<b>Figure&#160;3.&#160;FMPLL&#160;Block&#160;Diagram</b><br/>
+The&#160;parameters&#160;f<br/>
+,&#160;f<br/>
+and&#160;f<br/>
+are&#160;data&#160;sheet&#160;specifications.&#160;To&#160;identify&#160;the&#160;min/max&#160;limits&#160;on<br/>
+OSCIN<br/>
+post_ODCLK<br/>
+HCLK<br/>
+these&#160;frequencies,&#160;see&#160;the&#160;device-specific&#160;data&#160;sheet.<br/>
+<b>NOTE:</b><br/>
+The&#160;FMPLL&#160;takes&#160;(127&#160;+&#160;1024*NR)&#160;oscillator&#160;cycles&#160;to&#160;acquire&#160;lock&#160;to&#160;the&#160;target&#160;frequency,<br/>
+hence&#160;it&#160;is&#160;recommended&#160;to&#160;configure&#160;the&#160;FMPLL(s)&#160;and&#160;enable&#160;them&#160;as&#160;soon&#160;as&#160;possible&#160;in<br/>the&#160;device&#160;initialization.<br/>
+6<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=7></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+<b>2.7.2</b><br/>
+<b>FMPLL&#160;Configuration</b><br/>
+PLL1&#160;is&#160;configured&#160;using&#160;two&#160;control&#160;registers,&#160;PLL&#160;Control&#160;1&#160;Register&#160;(PLLCTL1)&#160;and&#160;PLL&#160;Control&#160;2<br/>Register&#160;(PLLCTL2),&#160;located&#160;within&#160;the&#160;System&#160;module&#160;on&#160;the&#160;Hercules&#160;microcontrollers.<br/>
+PLL2&#160;is&#160;configured&#160;using&#160;a&#160;single&#160;PLL&#160;Control&#160;3&#160;Register&#160;(PLLCTL3)&#160;in&#160;the&#160;System&#160;module.<br/>
+<i><b>2.8</b></i><br/>
+<i><b>Enable&#160;Clock&#160;Sources</b></i><br/>
+<b>2.8.1</b><br/>
+<b>Available&#160;Clock&#160;Sources&#160;on&#160;Hercules&#160;Microcontrollers</b><br/>
+The&#160;Hercules&#160;microcontrollers&#160;support&#160;seven&#160;different&#160;clock&#160;sources,&#160;as&#160;listed&#160;in&#160;<a href="spna106as.html#7">Table&#160;1</a>.<br/>
+<b>Table&#160;1.&#160;Clock&#160;Sources&#160;on&#160;Hercules&#160;Microcontrollers</b><br/>
+<b>Clock</b><br/>
+<b>Source</b><br/>
+<b>Number</b><br/>
+<b>Clock&#160;Source&#160;Name</b><br/>
+<b>Description</b><br/>
+This&#160;is&#160;the&#160;primary&#160;oscillator,&#160;typically&#160;driven&#160;by&#160;an&#160;external&#160;resonator&#160;or&#160;crystal.&#160;This<br/>
+0<br/>
+OSCIN<br/>
+is&#160;the&#160;only&#160;available&#160;input&#160;to&#160;the&#160;FMPLL&#160;and&#160;the&#160;FMPLL2&#160;macros.&#160;The&#160;OSCIN<br/>frequency&#160;must&#160;be&#160;between&#160;5&#160;MHz&#160;and&#160;20&#160;MHz.<br/>
+This&#160;is&#160;the&#160;output&#160;of&#160;the&#160;FMPLL,&#160;which&#160;is&#160;generated&#160;using&#160;the&#160;OSCIN&#160;as&#160;the&#160;input<br/>clock.&#160;The&#160;FMPLL&#160;output&#160;clock&#160;frequency&#160;must&#160;not&#160;exceed&#160;the&#160;maximum&#160;device<br/>
+1<br/>
+FMPLL#1&#160;output<br/>
+frequency&#160;specified&#160;in&#160;the&#160;device-specific&#160;data&#160;sheet.&#160;The&#160;FMPLL&#160;features&#160;a<br/>modulation&#160;mode&#160;where&#160;a&#160;modulation&#160;frequency&#160;is&#160;superimposed&#160;on&#160;the&#160;FMPLL<br/>output&#160;signal.<br/>
+No&#160;clock&#160;signal&#160;is&#160;connected&#160;to&#160;source&#160;#2.&#160;This&#160;clock&#160;source&#160;must&#160;not&#160;be&#160;enabled&#160;or<br/>
+2<br/>
+Not&#160;implemented<br/>
+chosen&#160;for&#160;any&#160;clock&#160;domain.<br/>
+External&#160;clock&#160;input&#160;#1.&#160;This&#160;clock&#160;source&#160;must&#160;only&#160;be&#160;enabled&#160;if&#160;there&#160;is&#160;an&#160;actual<br/>
+3<br/>
+EXTCLKIN1<br/>
+external&#160;clock&#160;source&#160;connected&#160;to&#160;the&#160;identified&#160;device&#160;terminal&#160;for&#160;EXTCLKIN1.&#160;For<br/>more&#160;information,&#160;see&#160;the&#160;device-specific&#160;data&#160;sheet.<br/>
+This&#160;is&#160;the&#160;low-frequency&#160;output&#160;of&#160;the&#160;internal&#160;reference&#160;oscillator.&#160;The&#160;LF&#160;LPO&#160;is<br/>
+4<br/>
+LF&#160;LPO<br/>
+typically&#160;an&#160;80&#160;KHz&#160;signal,&#160;and&#160;is&#160;generally&#160;used&#160;for&#160;low-power&#160;mode&#160;use&#160;cases.<br/>
+This&#160;is&#160;the&#160;high-frequency&#160;output&#160;of&#160;the&#160;internal&#160;reference&#160;oscillator.&#160;The&#160;HF&#160;LPO&#160;is<br/>
+5<br/>
+HF&#160;LPO<br/>
+typically&#160;a&#160;10&#160;MHz&#160;signal,&#160;and&#160;is&#160;used&#160;as&#160;a&#160;reference&#160;clock&#160;for&#160;monitoring&#160;the&#160;main<br/>oscillator.<br/>
+This&#160;is&#160;the&#160;output&#160;of&#160;the&#160;secondary&#160;FMPLL,&#160;which&#160;is&#160;generated&#160;using&#160;the&#160;OSCIN&#160;as<br/>
+6<br/>
+FMPLL#2&#160;output<br/>
+the&#160;input&#160;clock.&#160;The&#160;FMPLL&#160;output&#160;clock&#160;frequency&#160;must&#160;not&#160;exceed&#160;the&#160;maximum<br/>device&#160;frequency&#160;specified&#160;in&#160;the&#160;device-specific&#160;data&#160;sheet.<br/>
+External&#160;clock&#160;input&#160;#2.&#160;This&#160;clock&#160;source&#160;must&#160;only&#160;be&#160;enabled&#160;if&#160;there&#160;is&#160;an&#160;actual<br/>
+7<br/>
+EXTCLKIN2<br/>
+external&#160;clock&#160;source&#160;connected&#160;to&#160;the&#160;identified&#160;device&#160;terminal&#160;for&#160;EXTCLKIN2.&#160;For<br/>more&#160;information,&#160;see&#160;the&#160;device-specific&#160;data&#160;sheet.<br/>
+<b>2.8.2</b><br/>
+<b>Control&#160;Registers&#160;for&#160;Enabling&#160;and&#160;Disabling&#160;Clock&#160;Sources</b><br/>
+There&#160;are&#160;seven&#160;available&#160;clock&#160;sources&#160;on&#160;the&#160;Hercules&#160;microcontrollers:<br/>
+•<br/>
+Clock&#160;sources&#160;0,&#160;4&#160;and&#160;5&#160;are&#160;enabled,&#160;while&#160;clock&#160;sources&#160;1,&#160;3,&#160;6&#160;and&#160;7&#160;are&#160;disabled&#160;upon&#160;any&#160;system<br/>reset.<br/>
+•<br/>
+Clock&#160;source&#160;2&#160;is&#160;not&#160;implemented&#160;and&#160;must&#160;not&#160;be&#160;enabled&#160;in&#160;the&#160;application.<br/>
+•<br/>
+Each&#160;bit&#160;of&#160;the&#160;system&#160;module&#160;Clock&#160;Source&#160;Disable&#160;Register&#160;(CSDIS)&#160;controls&#160;the&#160;clock&#160;source&#160;of&#160;the<br/>same&#160;number:&#160;bit&#160;0&#160;controls&#160;clock&#160;source&#160;0,&#160;bit&#160;1&#160;controls&#160;clock&#160;source&#160;1,&#160;and&#160;so&#160;on.<br/>
+•<br/>
+There&#160;are&#160;also&#160;dedicated&#160;Clock&#160;Source&#160;Disable&#160;Set&#160;(CSDISSET)&#160;and&#160;Clock&#160;Source&#160;Disable&#160;Clear<br/>(CSDISCLR)&#160;registers&#160;to&#160;allow&#160;the&#160;application&#160;to&#160;avoid&#160;using&#160;read-modify-write&#160;operations.<br/>
+•<br/>
+Setting&#160;any&#160;bit&#160;commands,&#160;the&#160;corresponding&#160;clock&#160;source&#160;to&#160;be&#160;disabled.<br/>
+–&#160;The&#160;clock&#160;source&#160;can&#160;only&#160;be&#160;disabled&#160;once&#160;there&#160;is&#160;no&#160;clock&#160;domain&#160;or&#160;secondary&#160;clock&#160;source<br/>
+(FMPLL,&#160;FMPLL#2)&#160;using&#160;the&#160;clock&#160;source&#160;to&#160;be&#160;disabled.<br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+7<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=8></a><i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>2.8.3</b><br/>
+<b>Example&#160;Clock&#160;Source&#160;Configuration</b><br/>
+systemREG1-&gt;CSDISCLR&#160;=&#160;0x00000000U<br/>
+|&#160;0x00000001U<br/>
+//&#160;Enable&#160;clock&#160;source&#160;0<br/>
+|&#160;0x00000002U<br/>
+//&#160;Enable&#160;clock&#160;source&#160;1<br/>
+|&#160;0x00000010U<br/>
+//&#160;Enable&#160;clock&#160;source&#160;4<br/>
+|&#160;0x00000020U<br/>
+//&#160;Enable&#160;clock&#160;source&#160;5<br/>
+|&#160;0x00000040U;<br/>
+//&#160;Enable&#160;clock&#160;source&#160;6<br/>
+The&#160;above&#160;configuration&#160;enables&#160;clock&#160;sources&#160;0,&#160;1,&#160;4,&#160;5,&#160;and&#160;6.<br/>
+Of&#160;the&#160;clock&#160;sources&#160;that&#160;are&#160;enabled,&#160;number&#160;0,&#160;4&#160;and&#160;5&#160;are&#160;enabled&#160;by&#160;default&#160;and&#160;will&#160;have&#160;become<br/>valid&#160;by&#160;the&#160;time&#160;the&#160;processor&#160;is&#160;released&#160;from&#160;reset&#160;upon&#160;a&#160;power-up.&#160;These&#160;are&#160;the&#160;main&#160;oscillator&#160;and<br/>the&#160;two&#160;outputs&#160;from&#160;the&#160;internal&#160;reference&#160;oscillator.<br/>
+Clock&#160;source&#160;1&#160;and&#160;6&#160;are&#160;the&#160;two&#160;PLL&#160;outputs.&#160;The&#160;FMPLL&#160;as&#160;well&#160;as&#160;the&#160;FMPLL#2&#160;have&#160;a&#160;defined<br/>start-up&#160;time,&#160;and&#160;their&#160;outputs&#160;are&#160;not&#160;available&#160;for&#160;use&#160;until&#160;this&#160;time.&#160;The&#160;application&#160;must&#160;wait&#160;for&#160;the<br/>valid&#160;status&#160;flags&#160;for&#160;these&#160;clock&#160;sources&#160;to&#160;be&#160;set&#160;before&#160;using&#160;the&#160;PLL&#160;outputs&#160;for&#160;any&#160;clock&#160;domain.&#160;The<br/>example&#160;initialization&#160;sequence&#160;makes&#160;use&#160;of&#160;this&#160;PLL&#160;lock&#160;time&#160;to&#160;perform&#160;all&#160;initialization&#160;actions&#160;that<br/>don'e&#160;have&#160;to&#160;be&#160;done&#160;at&#160;the&#160;maximum&#160;operating&#160;frequency&#160;chosen&#160;for&#160;the&#160;application.<br/>
+<i><b>2.9</b></i><br/>
+<i><b>Run&#160;Self-Test&#160;on&#160;the&#160;eFuse&#160;Controller&#160;SECDED&#160;Logic</b></i><br/>
+Electrically&#160;programmable&#160;fuses&#160;(eFuses)&#160;are&#160;used&#160;to&#160;configure&#160;the&#160;part&#160;after&#160;de-assertion&#160;of&#160;power-on<br/>reset&#160;(nPORRST).&#160;The&#160;eFuse&#160;values&#160;are&#160;read&#160;and&#160;loaded&#160;into&#160;internal&#160;registers&#160;as&#160;part&#160;of&#160;the<br/>power-on-reset&#160;sequence.&#160;This&#160;is&#160;called&#160;the&#160;eFuse&#160;autoload.&#160;The&#160;eFuse&#160;values&#160;are&#160;protected&#160;with<br/>single-bit&#160;error-correction,&#160;double-bit&#160;error-detection&#160;(SECDED)&#160;codes.&#160;These&#160;fuses&#160;are&#160;programmed<br/>during&#160;the&#160;initial&#160;factory&#160;test&#160;of&#160;the&#160;device.&#160;The&#160;eFuse&#160;controller&#160;is&#160;designed&#160;so&#160;that&#160;the&#160;state&#160;of&#160;the&#160;eFuses<br/>cannot&#160;be&#160;changed&#160;once&#160;the&#160;device&#160;is&#160;packaged.<br/>
+For&#160;safety&#160;critical&#160;systems,&#160;it&#160;is&#160;important&#160;for&#160;the&#160;application&#160;to&#160;check&#160;the&#160;status&#160;of&#160;the&#160;eFuse&#160;controller<br/>after&#160;a&#160;device&#160;reset.&#160;For&#160;more&#160;details&#160;on&#160;eFuse&#160;controller&#160;errors&#160;and&#160;the&#160;application&#160;sequence&#160;to&#160;check&#160;for<br/>these&#160;errors,&#160;see&#160;the&#160;<i>eFuse&#160;Controller&#160;</i>chapter&#160;of&#160;the&#160;device-specific&#160;technical&#160;reference&#160;manual.<br/>
+<i><b>2.10&#160;Release&#160;Reset&#160;and&#160;Clocks&#160;to&#160;Peripherals</b></i><br/>
+The&#160;peripherals&#160;are&#160;kept&#160;under&#160;reset,&#160;and&#160;need&#160;to&#160;be&#160;explicitly&#160;brought&#160;out&#160;of&#160;reset&#160;by&#160;the&#160;application.&#160;This<br/>can&#160;be&#160;done&#160;by&#160;setting&#160;the&#160;peripheral&#160;enable&#160;(PENA)&#160;bit&#160;of&#160;the&#160;Clock&#160;Control&#160;Register&#160;(CLKCNTL).<br/>
+The&#160;clocks&#160;to&#160;the&#160;peripheral&#160;modules&#160;are&#160;also&#160;disabled&#160;upon&#160;any&#160;system&#160;reset&#160;and&#160;need&#160;to&#160;be&#160;explicitly<br/>enabled&#160;by&#160;the&#160;application.&#160;This&#160;can&#160;be&#160;done&#160;by&#160;setting&#160;the&#160;bits&#160;corresponding&#160;to&#160;the&#160;peripheral&#160;select<br/>quadrant&#160;occupied&#160;by&#160;the&#160;peripheral&#160;module&#160;in&#160;the&#160;Peripheral&#160;Central&#160;Resource&#160;(PCR)&#160;Control&#160;Registers<br/>for&#160;clearing&#160;the&#160;power&#160;down&#160;states&#160;of&#160;peripheral&#160;modules&#160;(Peripheral&#160;Power-Down&#160;Clear&#160;Register&#160;[0:3]<br/>(PSPWRDWNCLRx)).&#160;For&#160;information&#160;on&#160;the&#160;peripheral&#160;select&#160;quadrants&#160;for&#160;each&#160;peripheral,&#160;see&#160;the<br/>device-specific&#160;data&#160;sheet.<br/>
+<i><b>2.11&#160;Configure&#160;Flash&#160;Access</b></i><br/>
+The&#160;Flash&#160;memory&#160;on&#160;the&#160;Hercules&#160;series&#160;microcontrollers&#160;is&#160;a&#160;non-volatile&#160;electrically&#160;erasable&#160;and<br/>programmable&#160;memory.<br/>
+The&#160;Hercules&#160;microcontrollers&#160;contain&#160;a&#160;digital&#160;module&#160;that&#160;manages&#160;all&#160;accesses&#160;to&#160;the&#160;Flash&#160;memory.&#160;A<br/>Flash&#160;access&#160;can&#160;be&#160;completed&#160;without&#160;any&#160;wait&#160;states&#160;required&#160;for&#160;bus&#160;master&#160;clock&#160;speeds&#160;up&#160;to&#160;45<br/>MHz.&#160;If&#160;the&#160;bus&#160;clock&#160;is&#160;faster&#160;than&#160;45&#160;MHz,&#160;then&#160;any&#160;Flash&#160;access&#160;requires&#160;the&#160;appropriate&#160;number&#160;of<br/>wait&#160;states&#160;depending&#160;on&#160;the&#160;bus&#160;clock&#160;speed.&#160;The&#160;Hercules&#160;series&#160;microcontrollers&#160;support&#160;clock&#160;speeds<br/>up&#160;to&#160;180&#160;MHz.&#160;For&#160;the&#160;actual&#160;maximum&#160;allowed&#160;speed&#160;and&#160;the&#160;number&#160;of&#160;corresponding&#160;address&#160;and<br/>data&#160;wait&#160;states,&#160;see&#160;the&#160;device-specific&#160;data&#160;sheet.<br/>
+Suppose&#160;that&#160;the&#160;application&#160;requires&#160;a&#160;CPU&#160;clock&#160;speed&#160;of&#160;180&#160;MHz.&#160;This&#160;requires&#160;1&#160;address&#160;wait&#160;state<br/>and&#160;3&#160;data&#160;wait&#160;states&#160;for&#160;any&#160;access&#160;to&#160;the&#160;Flash&#160;memory.&#160;These&#160;wait&#160;states&#160;need&#160;to&#160;be&#160;configured&#160;in&#160;the<br/>Flash&#160;module&#160;registers.<br/>
+8<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=9></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+The&#160;Flash&#160;module&#160;also&#160;features&#160;a&#160;pipelined&#160;mode&#160;of&#160;operation.&#160;When&#160;this&#160;mode&#160;is&#160;enabled,&#160;the&#160;module<br/>reads&#160;128&#160;bits&#160;from&#160;the&#160;Flash&#160;memory&#160;and&#160;holds&#160;them&#160;in&#160;buffers&#160;that&#160;the&#160;CPU&#160;can&#160;read&#160;from&#160;without&#160;any<br/>wait&#160;state.&#160;The&#160;CPU&#160;can&#160;read&#160;32&#160;or&#160;64&#160;bits&#160;of&#160;instructions&#160;or&#160;data&#160;from&#160;the&#160;pipeline&#160;buffers.<br/>
+The&#160;Flash&#160;Read&#160;Control&#160;Register&#160;(FRDCNTL)&#160;inside&#160;the&#160;Flash&#160;module&#160;controls&#160;the&#160;wait&#160;states&#160;and&#160;the<br/>pipeline&#160;mode.<br/>
+The&#160;Hercules&#160;MCUs&#160;also&#160;have&#160;a&#160;separate&#160;Flash&#160;bank&#160;(bank&#160;#7)&#160;that&#160;is&#160;dedicated&#160;for&#160;data&#160;storage.&#160;This<br/>bank&#160;can&#160;be&#160;used&#160;to&#160;emulate&#160;an&#160;EEPROM.&#160;Accesses&#160;to&#160;this&#160;Flash&#160;bank&#160;are&#160;configured&#160;via&#160;a&#160;separate<br/>EEPROM&#160;Emulation&#160;Configuration&#160;Register&#160;(EEPROM_CONFIG)&#160;in&#160;the&#160;Flash&#160;module.&#160;A&#160;write&#160;operation<br/>to&#160;the&#160;EEPROM_CONFIG&#160;register&#160;must&#160;first&#160;be&#160;enabled&#160;by&#160;configuring&#160;the&#160;Flash&#160;State&#160;Machine&#160;Write<br/>Enable&#160;Control&#160;Register&#160;(FSM_WR_ENA).<br/>
+Once&#160;the&#160;access&#160;to&#160;the&#160;FSM&#160;control&#160;registers&#160;is&#160;enabled,&#160;the&#160;read&#160;access&#160;to&#160;the&#160;Flash&#160;bank&#160;7&#160;can&#160;be<br/>configured.<br/>
+<i><b>2.12&#160;Configure&#160;Flash&#160;Bank&#160;and&#160;Pump&#160;Power&#160;Modes</b></i><br/>
+The&#160;Flash&#160;banks&#160;and&#160;pump&#160;used&#160;on&#160;the&#160;Hercules&#160;series&#160;microcontrollers&#160;support&#160;three&#160;different&#160;operating<br/>modes&#160;to&#160;optimize&#160;power&#160;consumption.<br/>
+•<br/>
+Active&#160;mode<br/>
+–&#160;Flash&#160;bank&#160;sense&#160;amplifiers&#160;and&#160;sense&#160;reference&#160;are&#160;enabled<br/>
+–&#160;All&#160;circuits&#160;of&#160;Flash&#160;charge&#160;pump&#160;are&#160;enabled<br/>
+•<br/>
+Standby&#160;mode&#160;(only&#160;for&#160;Flash&#160;banks)<br/>
+–&#160;Flash&#160;bank&#160;sense&#160;reference&#160;is&#160;enabled&#160;but&#160;sense&#160;amplifiers&#160;are&#160;disabled<br/>
+•<br/>
+Sleep&#160;Mode<br/>
+–&#160;Flash&#160;bank&#160;sense&#160;amplifiers&#160;and&#160;sense&#160;reference&#160;are&#160;disabled<br/>
+–&#160;All&#160;circuits&#160;of&#160;Flash&#160;charge&#160;pump&#160;are&#160;disabled<br/>
+The&#160;Flash&#160;banks&#160;and&#160;charge&#160;pump&#160;are&#160;in&#160;the&#160;active&#160;state&#160;by&#160;default&#160;and&#160;after&#160;any&#160;system&#160;reset.&#160;The&#160;Flash<br/>module&#160;allows&#160;the&#160;application&#160;to&#160;configure&#160;“fall&#160;back”&#160;power&#160;states&#160;for&#160;the&#160;Flash&#160;banks&#160;and&#160;charge&#160;pump.<br/>The&#160;Flash&#160;banks&#160;and&#160;pump&#160;automatically&#160;switch&#160;the&#160;power&#160;mode&#160;to&#160;the&#160;selected&#160;fall&#160;back&#160;state&#160;when<br/>there&#160;is&#160;no&#160;access&#160;to&#160;the&#160;Flash&#160;banks&#160;detected&#160;within&#160;a&#160;user-configurable&#160;time.<br/>
+The&#160;Flash&#160;module&#160;also&#160;contains&#160;special&#160;timers&#160;to&#160;automatically&#160;sequence&#160;the&#160;Flash&#160;banks&#160;and&#160;pump<br/>between&#160;the&#160;active&#160;and&#160;the&#160;selected&#160;fall-back&#160;states.&#160;A&#160;read&#160;access&#160;to&#160;any&#160;Flash&#160;bank&#160;that&#160;is&#160;in&#160;a<br/>non-active&#160;power&#160;state&#160;“wakes&#160;up”&#160;both&#160;the&#160;selected&#160;bank&#160;and&#160;the&#160;charge&#160;pump&#160;to&#160;active&#160;power&#160;state.<br/>Programming&#160;and&#160;erase&#160;operations&#160;are&#160;only&#160;allowed&#160;on&#160;banks&#160;in&#160;active&#160;state.<br/>
+The&#160;Flash&#160;Bank&#160;Access&#160;Control&#160;Register&#160;(FBAC)&#160;controls&#160;the&#160;Flash&#160;banks’&#160;power&#160;states.<br/>
+The&#160;Flash&#160;Pump&#160;Access&#160;Control&#160;Registers&#160;(FPAC1,&#160;FPAC2)&#160;control&#160;the&#160;Flash&#160;pump's&#160;power&#160;states.<br/>
+<i><b>2.13&#160;Configure&#160;Oscillator&#160;Monitor</b></i><br/>
+The&#160;HF&#160;LPO&#160;clock&#160;source&#160;is&#160;used&#160;as&#160;a&#160;reference&#160;clock&#160;for&#160;monitoring&#160;the&#160;main&#160;oscillator.&#160;A&#160;failure&#160;is<br/>detected&#160;if&#160;the&#160;oscillator&#160;frequency&#160;falls&#160;outside&#160;the&#160;range:&#160;{f<br/>
+/&#160;4,&#160;f<br/>
+*4}.<br/>
+HFLPO<br/>
+HFLPO<br/>
+The&#160;HF&#160;LPO&#160;frequency&#160;varies&#160;significantly&#160;over&#160;process&#160;corners&#160;as&#160;well&#160;as&#160;with&#160;changes&#160;in&#160;the&#160;core<br/>supply&#160;(VCC)&#160;and&#160;temperature.&#160;The&#160;Hercules&#160;microcontrollers&#160;allow&#160;the&#160;application&#160;to&#160;trim&#160;the&#160;HF&#160;LPO<br/>such&#160;that&#160;the&#160;application&#160;can&#160;choose&#160;the&#160;operating&#160;frequency&#160;point&#160;of&#160;the&#160;HF&#160;LPO.&#160;This&#160;in&#160;turn&#160;determines<br/>the&#160;valid&#160;range&#160;of&#160;oscillator&#160;frequency.<br/>
+During&#160;device&#160;test,&#160;a&#160;trim&#160;value&#160;is&#160;written&#160;into&#160;the&#160;one-time&#160;programmable&#160;section&#160;of&#160;the&#160;Flash&#160;memory<br/>(OTP),&#160;address&#160;0xF008_01B4.&#160;Bits&#160;31:16&#160;of&#160;this&#160;OTP&#160;word&#160;contain&#160;a&#160;16-bit&#160;value&#160;that&#160;may&#160;be<br/>programmed&#160;into&#160;Low&#160;Power&#160;Oscillator&#160;Monitor&#160;Control&#160;Register&#160;(LPOMONCTL)&#160;in&#160;order&#160;to&#160;initialize&#160;the<br/>trim&#160;for&#160;HF&#160;LPO.<br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+9<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=10></a><i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+Alternatively,&#160;the&#160;application&#160;can&#160;use&#160;the&#160;dual-clock&#160;compare&#160;(DCC)&#160;module&#160;to&#160;determine&#160;the&#160;trim&#160;setting<br/>for&#160;the&#160;HF&#160;LPO.&#160;The&#160;DCC&#160;module&#160;allows&#160;for&#160;comparison&#160;of&#160;two&#160;clock&#160;frequencies.&#160;Once&#160;the&#160;HF&#160;LPO&#160;is<br/>determined&#160;to&#160;be&#160;in-range&#160;with&#160;the&#160;initial&#160;HFTRIM&#160;setting&#160;from&#160;the&#160;OTP,&#160;the&#160;crystal&#160;oscillator&#160;may&#160;be&#160;used<br/>as&#160;a&#160;reference&#160;against&#160;which&#160;the&#160;HF&#160;LPO&#160;and&#160;LF&#160;LPO&#160;may&#160;be&#160;further&#160;adjusted.&#160;For&#160;more&#160;details,&#160;see&#160;the<br/>device-specific&#160;technical&#160;reference&#160;manual.<br/>
+<i><b>2.14&#160;Run&#160;Self-Test&#160;on&#160;the&#160;Flash&#160;Module&#160;SECDED&#160;Logic</b></i><br/>
+The&#160;Flash&#160;module&#160;reads&#160;the&#160;“reset&#160;configuration&#160;vector”&#160;from&#160;address&#160;0xF0080140&#160;in&#160;the&#160;TI&#160;OTP&#160;region&#160;of<br/>Flash&#160;bank&#160;0.&#160;This&#160;is&#160;a&#160;64-bit&#160;value&#160;that&#160;is&#160;used&#160;to&#160;configure&#160;the&#160;device&#160;power&#160;domains,&#160;etc.&#160;The&#160;Flash<br/>module&#160;has&#160;built-in&#160;SECDED&#160;logic&#160;to&#160;correct&#160;any&#160;single-bit&#160;error&#160;in&#160;this&#160;vector&#160;or&#160;detect&#160;and&#160;flag&#160;and<br/>double-bit&#160;error&#160;in&#160;this&#160;vector.&#160;If&#160;a&#160;double-bit&#160;error&#160;is&#160;detected&#160;during&#160;this&#160;read&#160;from&#160;the&#160;OTP,&#160;an&#160;ESM<br/>group3&#160;error&#160;condition&#160;is&#160;flagged&#160;and&#160;the&#160;nERROR&#160;signal&#160;is&#160;asserted&#160;low.&#160;If&#160;a&#160;single-bit&#160;error&#160;is&#160;detected<br/>during&#160;the&#160;read&#160;from&#160;the&#160;OTP,&#160;this&#160;error&#160;is&#160;corrected&#160;by&#160;the&#160;SECDED&#160;logic&#160;–&#160;no&#160;flag&#160;is&#160;set&#160;and&#160;no&#160;error<br/>signal&#160;is&#160;sent&#160;to&#160;the&#160;ESM.<br/>
+There&#160;are&#160;dedicated&#160;locations&#160;within&#160;the&#160;TI&#160;OTP&#160;sector&#160;of&#160;Flash&#160;bank&#160;0&#160;that&#160;are&#160;programmed&#160;to&#160;have<br/>single-bit&#160;and&#160;double-bit&#160;errors.&#160;Specifically,&#160;a&#160;32-bit&#160;or&#160;64-bit&#160;read&#160;from&#160;the&#160;address&#160;0xF00803F0&#160;results<br/>in&#160;a&#160;single-bit&#160;error&#160;indication,&#160;and&#160;a&#160;32-bit&#160;or&#160;64-bit&#160;read&#160;from&#160;the&#160;address&#160;0xF00803F8&#160;results&#160;in&#160;a<br/>double-bit&#160;error&#160;indication.&#160;These&#160;locations&#160;can&#160;be&#160;read&#160;by&#160;the&#160;application&#160;to&#160;ensure&#160;that&#160;the&#160;Flash<br/>interface&#160;module&#160;is&#160;capable&#160;of&#160;detecting&#160;single-bit&#160;and&#160;double-bit&#160;errors&#160;upon&#160;reads&#160;from&#160;the&#160;OTP.<br/>
+<i><b>2.15&#160;Clock&#160;Domains</b></i><br/>
+All&#160;further&#160;initializatio&#160;steps&#160;are&#160;now&#160;required&#160;to&#160;be&#160;performed&#160;at&#160;the&#160;max&#160;operating&#160;frequency&#160;for&#160;the<br/>application.&#160;The&#160;application&#160;must&#160;now&#160;wait&#160;for&#160;the&#160;PLLs&#160;to&#160;lock&#160;to&#160;their&#160;target&#160;frequencies,&#160;and&#160;then&#160;map<br/>the&#160;device&#160;clock&#160;domains&#160;to&#160;the&#160;desired&#160;clock&#160;sources.&#160;There&#160;are&#160;multiple&#160;clock&#160;domains&#160;on&#160;the&#160;Hercules<br/>microcontrollers&#160;to&#160;ease&#160;the&#160;configuration&#160;and&#160;controllability&#160;of&#160;the&#160;different&#160;modules&#160;using&#160;these&#160;clock<br/>domains&#160;(see&#160;<a href="spna106as.html#10">Table&#160;2</a>).<br/>
+<b>Table&#160;2.&#160;Clock&#160;Domains&#160;on&#160;Hercules&#160;Microcontrollers</b><br/>
+<b>Domain&#160;Name</b><br/>
+<b>Clock&#160;Name</b><br/>
+<b>Comments</b><br/>
+GCLK&#160;controls&#160;all&#160;the&#160;CPU&#160;sub-systems,&#160;including&#160;the&#160;floating&#160;point<br/>
+CPU&#160;clock&#160;domain<br/>
+GCLK<br/>
+unit&#160;(FPU),&#160;and&#160;the&#160;memory&#160;protection&#160;unit&#160;(MPU)<br/>
+HCLK&#160;shares&#160;the&#160;same&#160;clock&#160;source&#160;as&#160;GCLK,&#160;and&#160;is&#160;always&#160;the<br/>
+System&#160;bus&#160;clock&#160;domain<br/>
+HCLK<br/>
+same&#160;frequency&#160;as&#160;HCLK.<br/>
+VCLK_sys&#160;is&#160;used&#160;for&#160;the&#160;system&#160;modules&#160;such&#160;as&#160;VIM,&#160;ESM,&#160;SYS,<br/>
+System&#160;peripheral&#160;clock&#160;domain<br/>
+VCLK_sys<br/>
+etc.&#160;VCLK_sys&#160;is&#160;divided&#160;down&#160;from&#160;HCLK&#160;by&#160;a&#160;programmable<br/>divider&#160;from&#160;1&#160;to&#160;16.<br/>
+VCLK&#160;is&#160;the&#160;primary&#160;peripheral&#160;clock,&#160;and&#160;is&#160;synchronous&#160;with<br/>VCLK_sys.&#160;VCLK2&#160;is&#160;a&#160;secondary&#160;peripheral&#160;clock&#160;and&#160;is&#160;reserved<br/>for&#160;use&#160;by&#160;the&#160;enhanced&#160;timer&#160;module&#160;(NHET)&#160;and&#160;the&#160;associated<br/>transfer&#160;unit&#160;(HTU).&#160;VCLK2&#160;is&#160;also&#160;divided&#160;down&#160;from&#160;HCLK&#160;by&#160;a<br/>
+Peripheral&#160;clock&#160;domains<br/>
+VCLK,&#160;VCLK2,&#160;VCLK3<br/>
+programmable&#160;divider&#160;from&#160;1&#160;to&#160;16.&#160;f<br/>
+must&#160;be&#160;an&#160;integer&#160;multiple<br/>
+HCLK<br/>
+of&#160;f<br/>
+,&#160;f<br/>
+must&#160;be&#160;an&#160;integer&#160;multiple&#160;of&#160;f<br/>
+.&#160;VCLK3&#160;is&#160;also<br/>
+VCLK2<br/>
+VCLK2<br/>
+VCLK<br/>
+divided&#160;down&#160;from&#160;HCLK&#160;by&#160;a&#160;programmable&#160;divider&#160;from&#160;1&#160;to&#160;16,<br/>and&#160;is&#160;used&#160;for&#160;the&#160;Ethernet&#160;and&#160;EMIF&#160;modules&#160;on&#160;the&#160;TMS570LS3x<br/>microcontrollers.<br/>
+These&#160;clock&#160;domains&#160;are&#160;reserved&#160;for&#160;use&#160;by&#160;special&#160;communication<br/>modules&#160;that&#160;have&#160;strict&#160;jitter&#160;constraints.&#160;The&#160;protocols&#160;for&#160;these<br/>
+VCLKA1,&#160;VCLKA2,&#160;and&#160;communication&#160;modules&#160;(e.g.,&#160;CAN,&#160;FlexRay,&#160;Ethernet)&#160;do&#160;not&#160;allow<br/>
+Asynchronous&#160;clock&#160;domains<br/>
+VCLKA4<br/>
+modulated&#160;clocks&#160;to&#160;be&#160;used&#160;for&#160;the&#160;baud&#160;rate&#160;generation.&#160;The<br/>asynchronous&#160;clocks&#160;allow&#160;the&#160;clock&#160;sources&#160;for&#160;the&#160;baud&#160;clocks&#160;to<br/>be&#160;decoupled&#160;from&#160;the&#160;GCLK,&#160;HCLK&#160;and&#160;VCLKx&#160;clock&#160;domains.<br/>
+This&#160;clock&#160;is&#160;used&#160;for&#160;generating&#160;the&#160;periodic&#160;interrupts&#160;by&#160;the&#160;RTI<br/>
+Real-time&#160;Interrupt&#160;clock&#160;domains<br/>
+RTI1CLK<br/>
+module.<br/>
+10<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=11></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+<b>2.15.1</b><br/>
+<b>Mapping&#160;Clock&#160;Domains&#160;to&#160;Clock&#160;Sources</b><br/>
+The&#160;system&#160;module&#160;on&#160;the&#160;Hercules&#160;microcontrollers&#160;contains&#160;registers&#160;that&#160;allow&#160;the&#160;clock&#160;domains&#160;to&#160;be<br/>mapped&#160;to&#160;any&#160;of&#160;the&#160;available&#160;clock&#160;sources.<br/>
+The&#160;clock&#160;source&#160;for&#160;the&#160;GCLK,&#160;HCLK&#160;,&#160;and&#160;VCLKx&#160;domains&#160;is&#160;selected&#160;by&#160;the&#160;GCLK,&#160;HCLK,&#160;VCLK,&#160;and<br/>VCLK2&#160;Source&#160;Register&#160;(GHVSRC).<br/>
+The&#160;clock&#160;sources&#160;for&#160;the&#160;VCLKA1&#160;and&#160;VCLKA2&#160;domains&#160;are&#160;selected&#160;via&#160;the&#160;Peripheral&#160;Asynchronous<br/>Clock&#160;Source&#160;Register&#160;(VCLKASRC).<br/>
+The&#160;clock&#160;sources&#160;for&#160;the&#160;VCLKA3&#160;and&#160;VCLKA4&#160;domains&#160;are&#160;selected&#160;via&#160;the&#160;Peripheral&#160;Asynchronous<br/>Clock&#160;Configuration&#160;1&#160;Register&#160;(VCLKACON1).<br/>
+The&#160;clock&#160;source&#160;for&#160;the&#160;RTI1CLK&#160;domain&#160;is&#160;selected&#160;via&#160;the&#160;RTI&#160;Clock&#160;Source&#160;Register&#160;(RCLKSRC).<br/>
+<b>2.15.2</b><br/>
+<b>Example&#160;Clock&#160;Domain&#160;Mapping</b><br/>
+systemREG1-&gt;GHVSRC<br/>
+=&#160;(0U&#160;&lt;&lt;&#160;24U)<br/>
+//&#160;Use&#160;main&#160;oscillator&#160;as&#160;wake&#160;up&#160;source&#160;for&#160;GHV&#160;CLK<br/>
+|&#160;(0U&#160;&lt;&lt;&#160;16U)<br/>
+//&#160;Use&#160;main&#160;oscillator&#160;for&#160;HV&#160;CLK&#160;when&#160;GCLK&#160;is&#160;off<br/>
+|&#160;(1U);<br/>
+//&#160;Use&#160;FMPLL&#160;as&#160;current&#160;source&#160;for&#160;GHV&#160;CLK<br/>
+systemREG1-&gt;VCLKASRC&#160;=&#160;(6U&#160;&lt;&lt;&#160;8U)<br/>
+//&#160;Use&#160;second&#160;PLL&#160;output&#160;for&#160;FlexRay&#160;bit&#160;timing<br/>
+|&#160;(0U);<br/>
+//&#160;Use&#160;main&#160;oscillator&#160;for&#160;DCANx&#160;bit&#160;timings<br/>
+systemREG1-&gt;RCLKSRC<br/>
+=&#160;(1U&#160;&lt;&lt;&#160;8U)<br/>
+//&#160;Set&#160;the&#160;RTI1CLK&#160;divider&#160;to&#160;divide-by-2<br/>
+|&#160;(0U);<br/>
+//&#160;Use&#160;FMPLL&#160;as&#160;source&#160;for&#160;RTI1CLK<br/>
+<b>2.15.3</b><br/>
+<b>Configuring&#160;VCLK&#160;,&#160;VCLK2&#160;and&#160;VCLK3&#160;Frequencies</b><br/>
+The&#160;VCLK&#160;and&#160;VCLK2&#160;clock&#160;signals&#160;are&#160;divided&#160;down&#160;from&#160;the&#160;HCLK&#160;clock&#160;signal.&#160;These&#160;are&#160;independent<br/>dividers&#160;that&#160;can&#160;be&#160;configured&#160;via&#160;the&#160;system&#160;module&#160;clock&#160;control&#160;register&#160;(CLKCNTL).<br/>
+<b>NOTE:</b><br/>
+•<br/>
+VCLK2&#160;frequency&#160;must&#160;also&#160;be&#160;an&#160;integer&#160;multiple&#160;of&#160;VCLK&#160;frequency.<br/>
+•<br/>
+There&#160;must&#160;be&#160;some&#160;delay&#160;between&#160;configuring&#160;the&#160;divide&#160;ratios&#160;for&#160;VCLK2&#160;and&#160;VCLK.<br/>
+The&#160;VCLK3&#160;clock&#160;signal&#160;is&#160;also&#160;divided&#160;down&#160;from&#160;the&#160;HCLK&#160;clock&#160;signal.&#160;This&#160;divider&#160;is&#160;in&#160;the&#160;Clock<br/>Control&#160;Register&#160;2&#160;(CLK2CNTL).<br/>
+<i><b>2.16&#160;Run&#160;a&#160;Diagnostic&#160;Check&#160;on&#160;CPU&#160;Self-Test&#160;Controller&#160;(STC)</b></i><br/>
+This&#160;involves&#160;running&#160;one&#160;CPU&#160;self-test&#160;interval&#160;in&#160;STC&#160;check&#160;mode.&#160;The&#160;STC&#160;self-check&#160;mode&#160;causes&#160;a<br/>stuck-at-0&#160;fault&#160;to&#160;be&#160;introduced&#160;inside&#160;one&#160;of&#160;the&#160;two&#160;CPUs&#160;for&#160;there&#160;to&#160;be&#160;an&#160;STC&#160;failure.&#160;If&#160;no&#160;STC<br/>failure&#160;is&#160;indicated,&#160;this&#160;would&#160;mean&#160;that&#160;the&#160;STC&#160;is&#160;not&#160;capable&#160;of&#160;detecting&#160;a&#160;fault&#160;inside&#160;the&#160;CPU,&#160;and<br/>device&#160;operation&#160;is&#160;not&#160;reliable.&#160;For&#160;information&#160;on&#160;the&#160;configuration&#160;and&#160;execution&#160;of&#160;the&#160;STC&#160;self-test,<br/>see&#160;the&#160;device-specific&#160;technical&#160;reference&#160;manual.&#160;The&#160;CPU&#160;will&#160;be&#160;reset&#160;once&#160;the&#160;STC&#160;self-test&#160;is<br/>completed.&#160;The&#160;reset&#160;handler&#160;routine&#160;can&#160;resume&#160;the&#160;device&#160;initialization&#160;from&#160;the&#160;next&#160;step&#160;in&#160;the<br/>sequence.<br/>
+<i><b>2.17&#160;Run&#160;CPU&#160;Self-Test&#160;(LBIST)</b></i><br/>
+For&#160;information&#160;on&#160;the&#160;configuration&#160;and&#160;execution&#160;of&#160;the&#160;CPU&#160;self-test,&#160;see&#160;the&#160;device-specific&#160;technical<br/>reference&#160;manual.&#160;The&#160;CPU&#160;will&#160;be&#160;reset&#160;once&#160;the&#160;self-test&#160;is&#160;completed.&#160;The&#160;reset&#160;handler&#160;routine&#160;can<br/>resume&#160;the&#160;device&#160;initialization&#160;from&#160;the&#160;next&#160;step&#160;in&#160;the&#160;sequence.<br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+11<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=12></a><i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<i><b>2.18&#160;Run&#160;a&#160;Diagnostic&#160;Check&#160;on&#160;the&#160;CPU&#160;Compare&#160;Module&#160;(CCM-R4F)</b></i><br/>
+The&#160;CCM-R4F&#160;compares&#160;the&#160;dual&#160;Cortex-R4F&#160;CPU&#160;outputs&#160;on&#160;each&#160;CPU&#160;clock&#160;cycle.&#160;Any&#160;mismatch&#160;is<br/>indicated&#160;as&#160;an&#160;ESM&#160;group2&#160;error.&#160;This&#160;ensures&#160;that&#160;the&#160;two&#160;CPUs&#160;are&#160;indeed&#160;operating&#160;in&#160;a&#160;lock-step<br/>mode.&#160;The&#160;CCM-R4F&#160;module&#160;also&#160;allows&#160;the&#160;application&#160;to&#160;test&#160;the&#160;different&#160;error&#160;conditions&#160;using&#160;built-in<br/>self-test&#160;routines.&#160;For&#160;information&#160;on&#160;how&#160;to&#160;configure&#160;the&#160;CCM-R4F&#160;in&#160;a&#160;self-test&#160;mode,&#160;see&#160;the<br/>device-specific&#160;technical&#160;reference&#160;manual.<br/>
+<i><b>2.19&#160;Run&#160;a&#160;Diagnostic&#160;Check&#160;on&#160;the&#160;Programmable&#160;Built-In&#160;Self-Test&#160;(PBIST)&#160;Controller</b></i><br/>
+The&#160;PBIST&#160;engine&#160;is&#160;used&#160;to&#160;run&#160;memory&#160;test&#160;routines&#160;on&#160;all&#160;on-chip&#160;memories.&#160;It&#160;is&#160;critical&#160;for&#160;the<br/>application&#160;to&#160;rely&#160;on&#160;this&#160;engine&#160;being&#160;able&#160;to&#160;detect&#160;and&#160;report&#160;a&#160;memory&#160;fault&#160;condition.&#160;Therefore&#160;it&#160;is<br/>necessary&#160;for&#160;the&#160;application&#160;to&#160;test&#160;this&#160;error&#160;detection&#160;and&#160;reporting&#160;mechanism&#160;before&#160;actually&#160;using&#160;it<br/>to&#160;test&#160;the&#160;on-chip&#160;memories.&#160;This&#160;is&#160;done&#160;by&#160;choosing&#160;to&#160;run&#160;a&#160;RAM&#160;test&#160;routine&#160;on&#160;a&#160;ROM&#160;memory.&#160;This<br/>test&#160;must&#160;generate&#160;a&#160;memory&#160;test&#160;failure.&#160;The&#160;application&#160;can&#160;look&#160;for&#160;the&#160;error&#160;flag&#160;to&#160;ensure&#160;that&#160;the<br/>PBIST&#160;controller&#160;can&#160;indeed&#160;detect&#160;and&#160;report&#160;a&#160;memory&#160;test&#160;failure.&#160;For&#160;information&#160;on&#160;how&#160;to&#160;configure<br/>the&#160;PBIST&#160;controller&#160;for&#160;executing&#160;specific&#160;memory&#160;test&#160;algorithms&#160;on&#160;selected&#160;on-cip&#160;memories,&#160;see&#160;the<br/>device-specific&#160;technical&#160;reference&#160;manual&#160;.<br/>
+<i><b>2.20&#160;Start&#160;a&#160;Self-Test&#160;on&#160;the&#160;CPU&#160;RAM&#160;Using&#160;the&#160;PBIST&#160;Controller</b></i><br/>
+The&#160;CPU&#160;RAM&#160;is&#160;tested&#160;first,&#160;so&#160;that&#160;the&#160;application&#160;can&#160;continue&#160;to&#160;execute&#160;while&#160;other&#160;memories&#160;are<br/>being&#160;tested&#160;later.&#160;For&#160;information&#160;on&#160;configuring&#160;the&#160;PBIST&#160;controller,&#160;see&#160;the&#160;device-specific&#160;technical<br/>reference&#160;manual.<br/>
+<i><b>2.21&#160;Initialize&#160;the&#160;CPU&#160;RAM</b></i><br/>
+The&#160;system&#160;module&#160;hardware&#160;for&#160;auto-initialization&#160;of&#160;on-chip&#160;memories&#160;also&#160;initializes&#160;the&#160;associated<br/>ECC&#160;or&#160;parity&#160;locations.&#160;This&#160;mechanism&#160;is&#160;now&#160;used&#160;to&#160;initialize&#160;the&#160;CPU&#160;RAM.&#160;This&#160;process&#160;clears&#160;the<br/>CPU&#160;RAM&#160;to&#160;all&#160;zeros&#160;and&#160;also&#160;programs&#160;the&#160;corresponding&#160;ECC&#160;locations.<br/>
+<i><b>2.22&#160;Enable&#160;the&#160;Cortex-R4F&#160;CPU</b></i>’<i><b>s&#160;ECC&#160;Checking&#160;for&#160;BxTCM&#160;Interface</b></i><br/>
+The&#160;CPU&#160;has&#160;internal&#160;ECC&#160;logic&#160;that&#160;protects&#160;all&#160;CPU&#160;accesses&#160;to&#160;the&#160;BTCM&#160;(RAM)&#160;interfaces.&#160;This&#160;logic<br/>is&#160;not&#160;used&#160;by&#160;default&#160;and&#160;must&#160;be&#160;enabled&#160;by&#160;setting&#160;the&#160;B1TCMPCEN&#160;and&#160;B0TCMPCEN&#160;bits&#160;of&#160;the<br/>System&#160;control&#160;coprocessor’s&#160;Auxiliary&#160;control&#160;register,&#160;c1.<br/>
+<i><b>2.23&#160;Start&#160;a&#160;Self-Test&#160;on&#160;All&#160;Dual-Port&#160;Memories</b></i>’&#160;<i><b>Using&#160;the&#160;PBIST&#160;Controller</b></i><br/>
+Separate&#160;algorithms&#160;are&#160;used&#160;for&#160;testing&#160;single-port&#160;versus&#160;dual-port&#160;on-chip&#160;SRAMs.&#160;For&#160;information&#160;on<br/>executing&#160;the&#160;self-test&#160;on&#160;the&#160;on-chip&#160;memories&#160;using&#160;the&#160;programmable&#160;BIST&#160;(PBIST)&#160;engine,&#160;see&#160;the<br/>device-specific&#160;technical&#160;reference&#160;manual.<br/>
+<i><b>2.24&#160;Run&#160;a&#160;Self-Test&#160;on&#160;CPU</b></i>'<i><b>s&#160;ECC&#160;Logic&#160;for&#160;Accesses&#160;to&#160;TCRAM</b></i><br/>
+The&#160;CPU&#160;TCRAM&#160;was&#160;initialized&#160;earlier,&#160;so&#160;that&#160;all&#160;TCRAM&#160;is&#160;cleared&#160;to&#160;zeros&#160;and&#160;the&#160;corresponding<br/>correct&#160;ECC&#160;locations&#160;are&#160;programmed.&#160;The&#160;test&#160;of&#160;the&#160;CPU's&#160;ECC&#160;logic&#160;for&#160;accesses&#160;to&#160;TCRAM&#160;involves<br/>corrupting&#160;the&#160;ECC&#160;locations&#160;to&#160;create&#160;single-bit&#160;and&#160;two-bit&#160;ECC&#160;errors.&#160;For&#160;the&#160;sequence&#160;to&#160;test&#160;the<br/>CPU's&#160;ECC&#160;logic&#160;for&#160;accesses&#160;to&#160;TCRAM,&#160;see&#160;the&#160;device-specific&#160;technical&#160;reference&#160;manual&#160;or&#160;the<br/>initialization&#160;example&#160;project.&#160;Note&#160;that&#160;reading&#160;from&#160;a&#160;TCRAM&#160;location&#160;with&#160;a&#160;double-bit&#160;ECC&#160;error<br/>causes&#160;the&#160;CPU&#160;to&#160;take&#160;a&#160;data&#160;abort&#160;exception.&#160;The&#160;initialization&#160;example&#160;project&#160;also&#160;includes&#160;an<br/>example&#160;data&#160;abort&#160;handler.<br/>
+<i><b>2.25&#160;Run&#160;a&#160;Self-Test&#160;on&#160;CPU</b></i>'<i><b>s&#160;ECC&#160;Logic&#160;for&#160;Accesses&#160;to&#160;Program&#160;Flash</b></i><br/>
+The&#160;Flash&#160;interface&#160;module&#160;supports&#160;a&#160;diagnostic&#160;mode&#160;(mode&#160;7)&#160;that&#160;allows&#160;the&#160;application&#160;to&#160;test&#160;the<br/>CPU's&#160;ECC&#160;logic&#160;for&#160;accesses&#160;to&#160;program&#160;Flash.&#160;For&#160;the&#160;sequence&#160;to&#160;test&#160;the&#160;CPU's&#160;ECC&#160;logic&#160;for<br/>accesses&#160;to&#160;program&#160;Flash,&#160;see&#160;the&#160;device-specific&#160;technical&#160;reference&#160;manual&#160;or&#160;the&#160;initialization<br/>example&#160;project.&#160;Note&#160;that&#160;reading&#160;from&#160;a&#160;program&#160;Flash&#160;location&#160;with&#160;a&#160;double-bit&#160;ECC&#160;error&#160;causes&#160;the<br/>CPU&#160;to&#160;take&#160;a&#160;data&#160;abort&#160;exception.&#160;The&#160;initialization&#160;example&#160;project&#160;also&#160;includes&#160;an&#160;example&#160;data&#160;abort<br/>handler.<br/>
+12<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=13></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+<i><b>2.26&#160;Start&#160;a&#160;Self-Test&#160;on&#160;All&#160;Single-Port&#160;Memories</b></i>’&#160;<i><b>Using&#160;the&#160;PBIST&#160;Controller</b></i><br/>
+The&#160;CPU&#160;RAM&#160;can&#160;be&#160;excluded&#160;from&#160;this&#160;testing&#160;as&#160;it&#160;has&#160;already&#160;been&#160;verified&#160;before.&#160;For&#160;information&#160;on<br/>executing&#160;the&#160;self-test&#160;on&#160;the&#160;on-chip&#160;memories&#160;using&#160;the&#160;programmable&#160;BIST&#160;(PBIST)&#160;engine,&#160;see&#160;the<br/>device-specific&#160;technical&#160;reference&#160;manual.<br/>
+<i><b>2.27&#160;On-Chip&#160;SRAM&#160;Auto-Initialization</b></i><br/>
+The&#160;system&#160;module&#160;on&#160;the&#160;Hercules&#160;microcontroller&#160;allows&#160;all&#160;on-chip&#160;SRAMs&#160;to&#160;be&#160;initialized&#160;in&#160;hardware.<br/>This&#160;is&#160;especially&#160;essential&#160;since&#160;all&#160;the&#160;on-chip&#160;memories&#160;support&#160;some&#160;form&#160;of&#160;error&#160;detection.&#160;The&#160;CPU<br/>data&#160;RAM&#160;supports&#160;ECC&#160;while&#160;the&#160;peripheral&#160;memories&#160;support&#160;parity&#160;error&#160;detection.&#160;The<br/>auto-initialization&#160;mechanism&#160;also&#160;initializes&#160;the&#160;ECC&#160;or&#160;parity&#160;memories,&#160;as&#160;required.<br/>
+<i><b>2.28&#160;Run&#160;a&#160;Self-Test&#160;on&#160;All&#160;Peripheral&#160;RAMs</b></i>'&#160;<i><b>Parity&#160;Protection&#160;Mechanism</b></i><br/>
+Accesses&#160;to&#160;most&#160;peripheral&#160;RAMs&#160;on&#160;this&#160;microcontroller&#160;are&#160;protected&#160;by&#160;parity&#160;error&#160;detection.&#160;Each&#160;of<br/>the&#160;peripherals&#160;with&#160;the&#160;parity&#160;error&#160;detection&#160;for&#160;its&#160;associated&#160;memory&#160;also&#160;includes&#160;a&#160;self-test&#160;mode&#160;to<br/>ensure&#160;that&#160;it&#160;is&#160;indeed&#160;capable&#160;of&#160;detecting&#160;and&#160;reporting&#160;a&#160;parity&#160;error&#160;on&#160;an&#160;access&#160;to&#160;the&#160;peripheral<br/>RAM.&#160;These&#160;self-test&#160;mechanisms&#160;can&#160;be&#160;used&#160;by&#160;the&#160;application&#160;before&#160;enabling&#160;use&#160;of&#160;the&#160;concerned<br/>peripheral.<br/>
+<i><b>2.29&#160;Enable&#160;the&#160;Cortex-R4F&#160;CPU</b></i>’<i><b>s&#160;Vectored&#160;Interrupt&#160;Controller&#160;(VIC)&#160;Port</b></i><br/>
+The&#160;CPU&#160;has&#160;a&#160;dedicated&#160;port&#160;that&#160;enables&#160;the&#160;VIM&#160;module&#160;to&#160;supply&#160;the&#160;address&#160;of&#160;an&#160;interrupt&#160;service<br/>routine&#160;along&#160;with&#160;the&#160;interrupt&#160;(IRQ)&#160;signal.&#160;This&#160;provides&#160;faster&#160;entry&#160;into&#160;the&#160;interrupt&#160;service&#160;routine<br/>versus&#160;the&#160;CPU&#160;having&#160;to&#160;decode&#160;the&#160;pending&#160;interrupts&#160;and&#160;identify&#160;the&#160;highest&#160;priority&#160;interrupt&#160;to&#160;be<br/>serviced&#160;first.<br/>
+The&#160;VIC&#160;port&#160;is&#160;disabled&#160;upon&#160;any&#160;CPU&#160;reset&#160;and&#160;must&#160;be&#160;enabled&#160;by&#160;the&#160;application.&#160;The&#160;VIC&#160;is&#160;enabled<br/>by&#160;setting&#160;the&#160;VE&#160;bit&#160;in&#160;the&#160;CPU’s&#160;System&#160;Control&#160;Register&#160;(SYS).<br/>
+<i><b>2.30&#160;Vectored&#160;Interrupt&#160;Manager&#160;(VIM)&#160;Configuration</b></i><br/>
+The&#160;VIM&#160;module&#160;on&#160;the&#160;Hercules&#160;microcontrollers&#160;supports&#160;flexible&#160;mapping&#160;of&#160;interrupt&#160;request&#160;channels<br/>and&#160;the&#160;interrupt&#160;generating&#160;sources.&#160;The&#160;default&#160;mapping&#160;between&#160;the&#160;channel&#160;number&#160;and&#160;the<br/>interrupting&#160;module&#160;is&#160;defined&#160;in&#160;the&#160;device-specific&#160;data&#160;sheet.&#160;The&#160;interrupt&#160;channel&#160;number&#160;also&#160;defines<br/>the&#160;inherent&#160;priority&#160;between&#160;the&#160;channels,&#160;with&#160;the&#160;lower&#160;numbered&#160;channel&#160;having&#160;the&#160;higher&#160;priority.<br/>That&#160;is,&#160;the&#160;priority&#160;decreases&#160;in&#160;the&#160;following&#160;order:&#160;channel&#160;0&#160;→&#160;channel&#160;1&#160;→&#160;channel&#160;2&#160;→&#160;…&#160;channel<br/>95.<br/>
+For&#160;this&#160;application&#160;report,&#160;assume&#160;that&#160;the&#160;application&#160;prefers&#160;to&#160;keep&#160;the&#160;default&#160;priority&#160;order&#160;between<br/>the&#160;channels.&#160;For&#160;details&#160;on&#160;the&#160;control&#160;registers&#160;for&#160;changing&#160;the&#160;mapping&#160;between&#160;interrupt&#160;channels<br/>and&#160;sources,&#160;see&#160;the&#160;device-specific&#160;technical&#160;reference&#160;manual.<br/>
+The&#160;VIM&#160;module&#160;contains&#160;a&#160;memory&#160;that&#160;holds&#160;the&#160;starting&#160;addresses&#160;of&#160;the&#160;interrupt&#160;service&#160;routines&#160;for<br/>each&#160;interrupt&#160;enabled&#160;in&#160;the&#160;application.&#160;This&#160;memory&#160;starts&#160;at&#160;base&#160;address&#160;0xFFF82000&#160;on&#160;the<br/>Hercules&#160;microcontrollers.&#160;It&#160;is&#160;organized&#160;in&#160;97&#160;words&#160;of&#160;32&#160;bits.&#160;The&#160;VIM&#160;address&#160;memory&#160;map&#160;is&#160;shown<br/>in&#160;<a href="spna106as.html#14">Figure&#160;4.</a><br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+13<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=14></a><i>Standard&#160;Initialization&#160;Sequence&#160;for&#160;Hercules&#160;Microcontrollers</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+Interrupt vector table address space<br/>
+0xFFF82000<br/>
+Phantom Vector<br/>
+0xFFF82004<br/>
+Channel 0 Vector<br/>
+0xFFF82008<br/>
+Channel 1 Vector<br/>
+0xFFF82178<br/>
+Channel 93 Vector<br/>
+0xFFF8217C<br/>
+Channel 94 Vector<br/>
+<b>Figure&#160;4.&#160;VIM&#160;Interrupt&#160;Address&#160;Memory&#160;Map</b><br/>
+<b>2.30.1</b><br/>
+<b>Configure&#160;Interrupts&#160;to&#160;be&#160;Fast&#160;Interrupts&#160;or&#160;Normal&#160;Interrupts</b><br/>
+Each&#160;interrupt&#160;request&#160;to&#160;the&#160;VIM&#160;can&#160;be&#160;configured&#160;to&#160;be&#160;forwarded&#160;to&#160;the&#160;CPU&#160;as&#160;a&#160;fast&#160;interupt&#160;request<br/>(FIQ)&#160;or&#160;a&#160;normal&#160;interrupt&#160;request&#160;(IRQ).&#160;The&#160;FIQ/IRQ&#160;Program&#160;Control&#160;Registers&#160;(FIRQPRx)&#160;allow&#160;this<br/>selection.<br/>
+Interrupt&#160;requests&#160;0&#160;and&#160;1&#160;are&#160;always&#160;FIQ.&#160;All&#160;others&#160;are&#160;IRQ&#160;interrupts&#160;by&#160;default.<br/>
+<b>NOTE:</b><br/>
+An&#160;interrupt&#160;request&#160;mapped&#160;to&#160;FIQ&#160;cannot&#160;use&#160;the&#160;CPU’s&#160;VIC&#160;port.<br/>
+<b>2.30.2</b><br/>
+<b>Enabling&#160;and&#160;Disabling&#160;Interrupts</b><br/>
+Each&#160;interrupt&#160;request&#160;can&#160;be&#160;enabled&#160;or&#160;disabled&#160;using&#160;the&#160;Interrupt&#160;Enable&#160;Set&#160;(REQENASETx)&#160;and<br/>Interrupt&#160;Enable&#160;Clear&#160;(REQENACLRx)&#160;registers.&#160;The&#160;interrupt&#160;requests&#160;0&#160;and&#160;1&#160;are&#160;always&#160;enabled&#160;and<br/>cannot&#160;be&#160;disabled.&#160;When&#160;an&#160;interrupt&#160;is&#160;disabled,&#160;it&#160;does&#160;not&#160;prevent&#160;the&#160;interrupt&#160;flag&#160;to&#160;get&#160;set&#160;when&#160;the<br/>interrupt&#160;condition&#160;is&#160;generated&#160;but&#160;no&#160;IRQ&#160;or&#160;FIR&#160;exception&#160;is&#160;generated&#160;for&#160;the&#160;Cortex-R4F&#160;CPU.<br/>
+<i><b>2.31&#160;Enable&#160;Interrupts&#160;in&#160;the&#160;Cortex-R4F&#160;CPU</b></i><br/>
+Interrupts&#160;(IRQ&#160;and&#160;FIQ)&#160;are&#160;disabled&#160;inside&#160;the&#160;Cortex-R4F&#160;CPU&#160;by&#160;default&#160;and&#160;after&#160;a&#160;CPU&#160;reset.&#160;The<br/>normal&#160;interrupt&#160;can&#160;be&#160;enabled&#160;by&#160;clearing&#160;the&#160;&#34;I&#34;&#160;bit&#160;of&#160;the&#160;Current&#160;Program&#160;Status&#160;Register&#160;(CPSR)<br/>inside&#160;the&#160;Cortex-R4F&#160;CPU,&#160;while&#160;the&#160;fast&#160;interrupt&#160;(FIQ)&#160;can&#160;be&#160;enabled&#160;by&#160;clearing&#160;the&#160;&#34;F&#34;&#160;bit&#160;of&#160;the<br/>CPSR.<br/>
+<i><b>2.32&#160;Setup&#160;the&#160;Error&#160;Signaling&#160;Module&#160;(ESM)&#160;Responses&#160;to&#160;Group1&#160;Errors</b></i><br/>
+The&#160;ESM&#160;allows&#160;the&#160;application&#160;to&#160;choose&#160;the&#160;module&#160;response&#160;to&#160;errors&#160;in&#160;the&#160;Group1&#160;classification.<br/>These&#160;are&#160;errors&#160;of&#160;the&#160;lowest&#160;severity&#160;and&#160;can&#160;be&#160;handled&#160;by&#160;the&#160;application&#160;by&#160;generating&#160;an&#160;interrupt&#160;to<br/>the&#160;CPU.&#160;The&#160;ESM&#160;also&#160;offers&#160;the&#160;capability&#160;to&#160;indicate&#160;any&#160;group1&#160;errors&#160;on&#160;the&#160;external&#160;nERROR&#160;pin.<br/>
+<i><b>2.33&#160;Additional&#160;Initializations&#160;Required&#160;by&#160;Compiler</b></i><br/>
+If&#160;the&#160;source&#160;program&#160;is&#160;written&#160;using&#160;C&#160;or&#160;C++,&#160;the&#160;TI&#160;compiler&#160;requires&#160;the&#160;creation&#160;of&#160;the&#160;C/C++<br/>run-time&#160;environment.&#160;This&#160;includes:<br/>
+•<br/>
+Initialization&#160;of&#160;copy&#160;table,&#160;if&#160;required<br/>
+14<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=15></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>References</i><br/>
+•<br/>
+Initialization&#160;of&#160;global&#160;and&#160;static&#160;variables&#160;defines&#160;in&#160;C/C++<br/>
+•<br/>
+Initialization&#160;of&#160;global&#160;constructors<br/>
+•<br/>
+Make&#160;a&#160;function&#160;call&#160;to&#160;branch&#160;to&#160;the&#160;main&#160;application<br/>
+These&#160;requirements&#160;could&#160;be&#160;different&#160;for&#160;each&#160;compiler.&#160;The&#160;compiler&#160;reference&#160;manual&#160;must&#160;be&#160;referred<br/>to&#160;identify&#160;the&#160;specific&#160;requirements&#160;for&#160;the&#160;compiler&#160;being&#160;used.<br/>
+<i><b>2.34&#160;Other&#160;Initialization&#160;Steps&#160;Not&#160;Described&#160;in&#160;this&#160;Document</b></i><br/>
+The&#160;following&#160;is&#160;an&#160;additional&#160;list&#160;of&#160;operations&#160;that&#160;an&#160;application&#160;can&#160;perform&#160;during&#160;the&#160;device<br/>initialization.<br/>
+•<br/>
+Verify&#160;that&#160;the&#160;DCC&#160;module&#160;can&#160;detect&#160;and&#160;report&#160;a&#160;frequency&#160;mismatch&#160;error.<br/>
+•<br/>
+Configure&#160;the&#160;DCC&#160;module&#160;to&#160;continuously&#160;monitor&#160;the&#160;PLL&#160;output&#160;frequency.<br/>
+•<br/>
+Several&#160;bus&#160;masters&#160;on&#160;this&#160;microcontroller&#160;include&#160;their&#160;own&#160;memory&#160;protection&#160;units&#160;to&#160;protect<br/>against&#160;accesses&#160;to&#160;certain&#160;parts&#160;of&#160;the&#160;memory&#160;map.&#160;It&#160;is&#160;recommended&#160;to&#160;ensure&#160;that&#160;violations&#160;of<br/>these&#160;MPU&#160;restrictions&#160;are&#160;detected&#160;and&#160;flagged&#160;as&#160;ESM&#160;errors.<br/>
+•<br/>
+Configure&#160;the&#160;MPU&#160;for&#160;each&#160;bus&#160;masters.<br/>
+•<br/>
+Run&#160;a&#160;background&#160;check&#160;on&#160;the&#160;program&#160;Flash&#160;memory&#160;using&#160;CRC&#160;and&#160;DMA.<br/>
+•<br/>
+Calibrate&#160;the&#160;embedded&#160;ADC&#160;module&#160;for&#160;any&#160;offset&#160;error.<br/>
+•<br/>
+Run&#160;a&#160;self-test&#160;on&#160;all&#160;ADC&#160;inputs&#160;to&#160;ensure&#160;that&#160;they&#160;are&#160;not&#160;open&#160;or&#160;shorted&#160;to&#160;power&#160;or&#160;ground.<br/>
+•<br/>
+Run&#160;an&#160;I/O&#160;loop-back&#160;check&#160;on&#160;all&#160;peripheral&#160;signals.<br/>
+•<br/>
+Configure&#160;the&#160;windowed&#160;watchdog&#160;module&#160;service&#160;window&#160;size&#160;as&#160;well&#160;as&#160;the&#160;module&#160;response&#160;to&#160;a<br/>window&#160;violation.<br/>
+•<br/>
+Configure&#160;the&#160;N2HET1/N2HET2&#160;monitoring&#160;capability.<br/>
+•<br/>
+Setup&#160;the&#160;RTI&#160;module&#160;to&#160;generate&#160;periodic&#160;interrupts&#160;as&#160;necessary.<br/>
+•<br/>
+Configure&#160;desired&#160;access&#160;permissions&#160;for&#160;peripherals&#160;using&#160;the&#160;PCR&#160;registers.<br/>
+•<br/>
+Configure&#160;any&#160;external&#160;safety&#160;companion&#160;chip,&#160;e.g.,&#160;TI&#160;TPS6538x,&#160;for&#160;online&#160;diagnostic&#160;operation.<br/>
+<i><b>2.35&#160;Call&#160;the&#160;Main&#160;Application</b></i><br/>
+This&#160;is&#160;a&#160;normal&#160;function&#160;call&#160;when&#160;using&#160;C/C++.&#160;It&#160;could&#160;be&#160;a&#160;branch&#160;or&#160;branch-link&#160;to&#160;the&#160;name&#160;of&#160;the<br/>routine&#160;that&#160;executes&#160;the&#160;application.<br/>
+For&#160;example:<br/>
+main();<br/>
+exit();<br/>
+<b>3</b><br/>
+<b>References</b><br/>
+•<br/>
+<i>TMS570LSxxx7&#160;16/32-Bit&#160;Risc&#160;Flash&#160;Microcontroller&#160;Data&#160;Sheet&#160;</i>(<a href="http://www.ti.com/lit/pdf/SPNS162">SPNS162)</a><br/>
+•<br/>
+<i>TMS570LSxxx5&#160;16/32-Bit&#160;Risc&#160;Flash&#160;Microcontroller&#160;Data&#160;Sheet&#160;</i>(<a href="http://www.ti.com/lit/pdf/SPNS164">SPNS164)</a><br/>
+•<br/>
+<i>TMS570LSxxx4&#160;16/32-Bit&#160;Risc&#160;Flash&#160;Microcontroller&#160;Data&#160;Sheet&#160;</i>(<a href="http://www.ti.com/lit/pdf/SPNS165">SPNS165)</a><br/>
+•<br/>
+<i>RM48Lx50&#160;16/32-Bit&#160;Risc&#160;Flash&#160;Microcontroller&#160;Data&#160;Sheet&#160;</i>(<a href="http://www.ti.com/lit/pdf/SPNS174">SPNS174</a>)<br/>
+•<br/>
+<i>RM48Lx40&#160;16/32-Bit&#160;Risc&#160;Flash&#160;Microcontroller&#160;Data&#160;Sheet&#160;</i><a href="http://www.ti.com/lit/pdf/SPNS175">(SPNS175</a>)<br/>
+•<br/>
+<i>RM48Lx30&#160;16/32-Bit&#160;Risc&#160;Flash&#160;Microcontroller&#160;Data&#160;Sheet&#160;</i><a href="http://www.ti.com/lit/pdf/SPNS176">(SPNS176</a>)<br/>
+•<br/>
+<i>TMS570LS31/21&#160;16/32-Bit&#160;RISC&#160;Flash&#160;Microcontroller&#160;Technical&#160;Reference&#160;Manual&#160;</i>(<a href="http://www.ti.com/lit/pdf/SPNU499">SPNU499)</a><br/>
+•<br/>
+<i>RM48&#160;16/32-Bit&#160;RISC&#160;Flash&#160;Microcontroller&#160;Technical&#160;Reference&#160;Manual&#160;</i>(<a href="http://www.ti.com/lit/pdf/SPNU503">SPNU503)</a><br/>
+SPNA106A&#160;–&#160;January&#160;2012<br/>
+<i>Initialization&#160;of&#160;Hercules</i>™&#160;<i>ARM</i>®&#160;<i>Cortex</i>™<i>-R4F&#160;Microcontrollers</i><br/>
+15<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA106A"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=16></a><b>IMPORTANT&#160;NOTICE</b><br/>
+Texas&#160;Instruments&#160;Incorporated&#160;and&#160;its&#160;subsidiaries&#160;(TI)&#160;reserve&#160;the&#160;right&#160;to&#160;make&#160;corrections,&#160;modifications,&#160;enhancements,&#160;improvements,<br/>and&#160;other&#160;changes&#160;to&#160;its&#160;products&#160;and&#160;services&#160;at&#160;any&#160;time&#160;and&#160;to&#160;discontinue&#160;any&#160;product&#160;or&#160;service&#160;without&#160;notice.&#160;Customers&#160;should<br/>obtain&#160;the&#160;latest&#160;relevant&#160;information&#160;before&#160;placing&#160;orders&#160;and&#160;should&#160;verify&#160;that&#160;such&#160;information&#160;is&#160;current&#160;and&#160;complete.&#160;All&#160;products&#160;are<br/>sold&#160;subject&#160;to&#160;TI’s&#160;terms&#160;and&#160;conditions&#160;of&#160;sale&#160;supplied&#160;at&#160;the&#160;time&#160;of&#160;order&#160;acknowledgment.<br/>
+TI&#160;warrants&#160;performance&#160;of&#160;its&#160;hardware&#160;products&#160;to&#160;the&#160;specifications&#160;applicable&#160;at&#160;the&#160;time&#160;of&#160;sale&#160;in&#160;accordance&#160;with&#160;TI’s&#160;standard<br/>warranty.&#160;Testing&#160;and&#160;other&#160;quality&#160;control&#160;techniques&#160;are&#160;used&#160;to&#160;the&#160;extent&#160;TI&#160;deems&#160;necessary&#160;to&#160;support&#160;this&#160;warranty.&#160;Except&#160;where<br/>mandated&#160;by&#160;government&#160;requirements,&#160;testing&#160;of&#160;all&#160;parameters&#160;of&#160;each&#160;product&#160;is&#160;not&#160;necessarily&#160;performed.<br/>
+TI&#160;assumes&#160;no&#160;liability&#160;for&#160;applications&#160;assistance&#160;or&#160;customer&#160;product&#160;design.&#160;Customers&#160;are&#160;responsible&#160;for&#160;their&#160;products&#160;and<br/>applications&#160;using&#160;TI&#160;components.&#160;To&#160;minimize&#160;the&#160;risks&#160;associated&#160;with&#160;customer&#160;products&#160;and&#160;applications,&#160;customers&#160;should&#160;provide<br/>adequate&#160;design&#160;and&#160;operating&#160;safeguards.<br/>
+TI&#160;does&#160;not&#160;warrant&#160;or&#160;represent&#160;that&#160;any&#160;license,&#160;either&#160;express&#160;or&#160;implied,&#160;is&#160;granted&#160;under&#160;any&#160;TI&#160;patent&#160;right,&#160;copyright,&#160;mask&#160;work&#160;right,<br/>or&#160;other&#160;TI&#160;intellectual&#160;property&#160;right&#160;relating&#160;to&#160;any&#160;combination,&#160;machine,&#160;or&#160;process&#160;in&#160;which&#160;TI&#160;products&#160;or&#160;services&#160;are&#160;used.&#160;Information<br/>published&#160;by&#160;TI&#160;regarding&#160;third-party&#160;products&#160;or&#160;services&#160;does&#160;not&#160;constitute&#160;a&#160;license&#160;from&#160;TI&#160;to&#160;use&#160;such&#160;products&#160;or&#160;services&#160;or&#160;a<br/>warranty&#160;or&#160;endorsement&#160;thereof.&#160;Use&#160;of&#160;such&#160;information&#160;may&#160;require&#160;a&#160;license&#160;from&#160;a&#160;third&#160;party&#160;under&#160;the&#160;patents&#160;or&#160;other&#160;intellectual<br/>property&#160;of&#160;the&#160;third&#160;party,&#160;or&#160;a&#160;license&#160;from&#160;TI&#160;under&#160;the&#160;patents&#160;or&#160;other&#160;intellectual&#160;property&#160;of&#160;TI.<br/>
+Reproduction&#160;of&#160;TI&#160;information&#160;in&#160;TI&#160;data&#160;books&#160;or&#160;data&#160;sheets&#160;is&#160;permissible&#160;only&#160;if&#160;reproduction&#160;is&#160;without&#160;alteration&#160;and&#160;is&#160;accompanied<br/>by&#160;all&#160;associated&#160;warranties,&#160;conditions,&#160;limitations,&#160;and&#160;notices.&#160;Reproduction&#160;of&#160;this&#160;information&#160;with&#160;alteration&#160;is&#160;an&#160;unfair&#160;and&#160;deceptive<br/>business&#160;practice.&#160;TI&#160;is&#160;not&#160;responsible&#160;or&#160;liable&#160;for&#160;such&#160;altered&#160;documentation.&#160;Information&#160;of&#160;third&#160;parties&#160;may&#160;be&#160;subject&#160;to&#160;additional<br/>restrictions.<br/>
+Resale&#160;of&#160;TI&#160;products&#160;or&#160;services&#160;with&#160;statements&#160;different&#160;from&#160;or&#160;beyond&#160;the&#160;parameters&#160;stated&#160;by&#160;TI&#160;for&#160;that&#160;product&#160;or&#160;service&#160;voids&#160;all<br/>express&#160;and&#160;any&#160;implied&#160;warranties&#160;for&#160;the&#160;associated&#160;TI&#160;product&#160;or&#160;service&#160;and&#160;is&#160;an&#160;unfair&#160;and&#160;deceptive&#160;business&#160;practice.&#160;TI&#160;is&#160;not<br/>responsible&#160;or&#160;liable&#160;for&#160;any&#160;such&#160;statements.<br/>
+TI&#160;products&#160;are&#160;not&#160;authorized&#160;for&#160;use&#160;in&#160;safety-critical&#160;applications&#160;(such&#160;as&#160;life&#160;support)&#160;where&#160;a&#160;failure&#160;of&#160;the&#160;TI&#160;product&#160;would&#160;reasonably<br/>be&#160;expected&#160;to&#160;cause&#160;severe&#160;personal&#160;injury&#160;or&#160;death,&#160;unless&#160;officers&#160;of&#160;the&#160;parties&#160;have&#160;executed&#160;an&#160;agreement&#160;specifically&#160;governing<br/>such&#160;use.&#160;Buyers&#160;represent&#160;that&#160;they&#160;have&#160;all&#160;necessary&#160;expertise&#160;in&#160;the&#160;safety&#160;and&#160;regulatory&#160;ramifications&#160;of&#160;their&#160;applications,&#160;and<br/>acknowledge&#160;and&#160;agree&#160;that&#160;they&#160;are&#160;solely&#160;responsible&#160;for&#160;all&#160;legal,&#160;regulatory&#160;and&#160;safety-related&#160;requirements&#160;concerning&#160;their&#160;products<br/>and&#160;any&#160;use&#160;of&#160;TI&#160;products&#160;in&#160;such&#160;safety-critical&#160;applications,&#160;notwithstanding&#160;any&#160;applications-related&#160;information&#160;or&#160;support&#160;that&#160;may&#160;be<br/>provided&#160;by&#160;TI.&#160;Further,&#160;Buyers&#160;must&#160;fully&#160;indemnify&#160;TI&#160;and&#160;its&#160;representatives&#160;against&#160;any&#160;damages&#160;arising&#160;out&#160;of&#160;the&#160;use&#160;of&#160;TI&#160;products&#160;in<br/>such&#160;safety-critical&#160;applications.<br/>
+TI&#160;products&#160;are&#160;neither&#160;designed&#160;nor&#160;intended&#160;for&#160;use&#160;in&#160;military/aerospace&#160;applications&#160;or&#160;environments&#160;unless&#160;the&#160;TI&#160;products&#160;are<br/>specifically&#160;designated&#160;by&#160;TI&#160;as&#160;military-grade&#160;or&#160;&#34;enhanced&#160;plastic.&#34;&#160;Only&#160;products&#160;designated&#160;by&#160;TI&#160;as&#160;military-grade&#160;meet&#160;military<br/>specifications.&#160;Buyers&#160;acknowledge&#160;and&#160;agree&#160;that&#160;any&#160;such&#160;use&#160;of&#160;TI&#160;products&#160;which&#160;TI&#160;has&#160;not&#160;designated&#160;as&#160;military-grade&#160;is&#160;solely&#160;at<br/>the&#160;Buyer's&#160;risk,&#160;and&#160;that&#160;they&#160;are&#160;solely&#160;responsible&#160;for&#160;compliance&#160;with&#160;all&#160;legal&#160;and&#160;regulatory&#160;requirements&#160;in&#160;connection&#160;with&#160;such&#160;use.<br/>
+TI&#160;products&#160;are&#160;neither&#160;designed&#160;nor&#160;intended&#160;for&#160;use&#160;in&#160;automotive&#160;applications&#160;or&#160;environments&#160;unless&#160;the&#160;specific&#160;TI&#160;products&#160;are<br/>designated&#160;by&#160;TI&#160;as&#160;compliant&#160;with&#160;ISO/TS&#160;16949&#160;requirements.&#160;Buyers&#160;acknowledge&#160;and&#160;agree&#160;that,&#160;if&#160;they&#160;use&#160;any&#160;non-designated<br/>products&#160;in&#160;automotive&#160;applications,&#160;TI&#160;will&#160;not&#160;be&#160;responsible&#160;for&#160;any&#160;failure&#160;to&#160;meet&#160;such&#160;requirements.<br/>
+Following&#160;are&#160;URLs&#160;where&#160;you&#160;can&#160;obtain&#160;information&#160;on&#160;other&#160;Texas&#160;Instruments&#160;products&#160;and&#160;application&#160;solutions:<br/>
+<b>Products</b><br/>
+<b>Applications</b><br/>
+Audio<br/>
+<a href="http://www.ti.com/audio">www.ti.com/audio</a><br/>
+Automotive&#160;and&#160;Transportation&#160;<a href="http://www.ti.com/automotive">www.ti.com/automotive</a><br/>
+Amplifiers<br/>
+<a href="http://amplifier.ti.com">amplifier.ti.com</a><br/>
+Communications&#160;and&#160;Telecom<br/>
+<a href="http://www.ti.com/communications">www.ti.com/communications</a><br/>
+Data&#160;Converters<br/>
+<a href="http://dataconverter.ti.com">dataconverter.ti.com</a><br/>
+Computers&#160;and&#160;Peripherals<br/>
+<a href="http://www.ti.com/computers">www.ti.com/computers</a><br/>
+DLP®&#160;Products<br/>
+<a href="http://www.dlp.com">www.dlp.com</a><br/>
+Consumer&#160;Electronics<br/>
+<a href="http://www.ti.com/consumer-apps">www.ti.com/consumer-apps</a><br/>
+DSP<br/>
+<a href="http://dsp.ti.com">dsp.ti.com</a><br/>
+Energy&#160;and&#160;Lighting<br/>
+<a href="http://www.ti.com/energy">www.ti.com/energy</a><br/>
+Clocks&#160;and&#160;Timers<br/>
+<a href="http://www.ti.com/clocks">www.ti.com/clocks</a><br/>
+Industrial<br/>
+<a href="http://www.ti.com/industrial">www.ti.com/industrial</a><br/>
+Interface<br/>
+<a href="http://interface.ti.com">interface.ti.com</a><br/>
+Medical<br/>
+<a href="http://www.ti.com/medical">www.ti.com/medical</a><br/>
+Logic<br/>
+<a href="http://logic.ti.com">logic.ti.com</a><br/>
+Security<br/>
+<a href="http://www.ti.com/security">www.ti.com/security</a><br/>
+Power&#160;Mgmt<br/>
+<a href="http://power.ti.com">power.ti.com</a><br/>
+Space,&#160;Avionics&#160;and&#160;Defense<br/>
+<a href="http://www.ti.com/space-avionics-defense">www.ti.com/space-avionics-defense</a><br/>
+Microcontrollers<br/>
+<a href="http://microcontroller.ti.com">microcontroller.ti.com</a><br/>
+Video&#160;and&#160;Imaging<br/>
+<a href="http://www.ti.com/video">www.ti.com/video</a><br/>
+RFID<br/>
+<a href="http://www.ti-rfid.com">www.ti-rfid.com</a><br/>
+OMAP&#160;Mobile&#160;Processors<br/>
+<a href="http://www.ti.com/omap">www.ti.com/omap</a><br/>
+Wireless&#160;Connectivity<br/>
+<a href="http://www.ti.com/wirelessconnectivity">www.ti.com/wirelessconnectivity</a><br/>
+<b>TI&#160;E2E&#160;Community&#160;Home&#160;Page</b><br/>
+<a href="http://e2e.ti.com">e2e.ti.com</a><br/>
+Mailing&#160;Address:&#160;Texas&#160;Instruments,&#160;Post&#160;Office&#160;Box&#160;655303,&#160;Dallas,&#160;Texas&#160;75265<br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="spna106as.html#1">Initialization of Hercules ARM Cortex-R4F Microcontrollers</a>
+<ul>
+<li><a href="spna106as.html#2">1 Block Diagram</a></li>
+<li><a href="spna106as.html#3">2 Standard Initialization Sequence for Hercules Microcontrollers</a>
+<ul>
+<li><a href="spna106as.html#5">2.1 Enable Floating-Point Coprocessor (FPU)</a></li>
+<li><a href="spna106as.html#5">2.2 Initialize Cortex-R4F Registers</a></li>
+<li><a href="spna106as.html#5">2.3 Enable Response to ECC Errors in Flash Interface Module</a></li>
+<li><a href="spna106as.html#5">2.4 Enable the Cortex-R4F CPU’s Event Signaling Mechanism</a></li>
+<li><a href="spna106as.html#6">2.5 Enable the Cortex-R4F CPU’s ECC Checking for ATCM Interface</a></li>
+<li><a href="spna106as.html#6">2.6 Handle the Cause of Reset</a></li>
+<li><a href="spna106as.html#6">2.7 Configure PLLs</a>
+<ul>
+<li><a href="spna106as.html#6">2.7.1 FMPLL Block Diagram</a></li>
+<li><a href="spna106as.html#7">2.7.2 FMPLL Configuration</a></li>
+</ul>
+</li>
+<li><a href="spna106as.html#7">2.8 Enable Clock Sources</a>
+<ul>
+<li><a href="spna106as.html#7">2.8.1 Available Clock Sources on Hercules Microcontrollers</a></li>
+<li><a href="spna106as.html#7">2.8.2 Control Registers for Enabling and Disabling Clock Sources</a></li>
+<li><a href="spna106as.html#8">2.8.3 Example Clock Source Configuration</a></li>
+</ul>
+</li>
+<li><a href="spna106as.html#8">2.9 Run Self-Test on the eFuse Controller SECDED Logic</a></li>
+<li><a href="spna106as.html#8">2.10 Release Reset and Clocks to Peripherals</a></li>
+<li><a href="spna106as.html#8">2.11 Configure Flash Access</a></li>
+<li><a href="spna106as.html#9">2.12 Configure Flash Bank and Pump Power Modes</a></li>
+<li><a href="spna106as.html#9">2.13 Configure Oscillator Monitor</a></li>
+<li><a href="spna106as.html#10">2.14 Run Self-Test on the Flash Module SECDED Logic</a></li>
+<li><a href="spna106as.html#10">2.15 Clock Domains</a>
+<ul>
+<li><a href="spna106as.html#11">2.15.1 Mapping Clock Domains to Clock Sources</a></li>
+<li><a href="spna106as.html#11">2.15.2 Example Clock Domain Mapping</a></li>
+<li><a href="spna106as.html#11">2.15.3 Configuring VCLK , VCLK2 and VCLK3 Frequencies</a></li>
+</ul>
+</li>
+<li><a href="spna106as.html#11">2.16 Run a Diagnostic Check on CPU Self-Test Controller (STC)</a></li>
+<li><a href="spna106as.html#11">2.17 Run CPU Self-Test (LBIST)</a></li>
+<li><a href="spna106as.html#12">2.18 Run a Diagnostic Check on the CPU Compare Module (CCM-R4F)</a></li>
+<li><a href="spna106as.html#12">2.19 Run a Diagnostic Check on the Programmable Built-In Self-Test (PBIST) Controller</a></li>
+<li><a href="spna106as.html#12">2.20 Start a Self-Test on the CPU RAM Using the PBIST Controller</a></li>
+<li><a href="spna106as.html#12">2.21 Initialize the CPU RAM</a></li>
+<li><a href="spna106as.html#12">2.22 Enable the Cortex-R4F CPU’s ECC Checking for BxTCM Interface</a></li>
+<li><a href="spna106as.html#12">2.23 Start a Self-Test on All Dual-Port Memories’ Using the PBIST Controller</a></li>
+<li><a href="spna106as.html#12">2.24 Run a Self-Test on CPU's ECC Logic for Accesses to TCRAM</a></li>
+<li><a href="spna106as.html#12">2.25 Run a Self-Test on CPU's ECC Logic for Accesses to Program Flash</a></li>
+<li><a href="spna106as.html#13">2.26 Start a Self-Test on All Single-Port Memories’ Using the PBIST Controller</a></li>
+<li><a href="spna106as.html#13">2.27 On-Chip SRAM Auto-Initialization</a></li>
+<li><a href="spna106as.html#13">2.28 Run a Self-Test on All Peripheral RAMs' Parity Protection Mechanism</a></li>
+<li><a href="spna106as.html#13">2.29 Enable the Cortex-R4F CPU’s Vectored Interrupt Controller (VIC) Port</a></li>
+<li><a href="spna106as.html#13">2.30 Vectored Interrupt Manager (VIM) Configuration</a>
+<ul>
+<li><a href="spna106as.html#14">2.30.1 Configure Interrupts to be Fast Interrupts or Normal Interrupts</a></li>
+<li><a href="spna106as.html#14">2.30.2 Enabling and Disabling Interrupts</a></li>
+</ul>
+</li>
+<li><a href="spna106as.html#14">2.31 Enable Interrupts in the Cortex-R4F CPU</a></li>
+<li><a href="spna106as.html#14">2.32 Setup the Error Signaling Module (ESM) Responses to Group1 Errors</a></li>
+<li><a href="spna106as.html#14">2.33 Additional Initializations Required by Compiler</a></li>
+<li><a href="spna106as.html#15">2.34 Other Initialization Steps Not Described in this Document</a></li>
+<li><a href="spna106as.html#15">2.35 Call the Main Application</a></li>
+</ul>
+</li>
+<li><a href="spna106as.html#15">3 References</a></li>
+</ul>
+</li>
+</ul>
+<hr/>
+</body>
+</html>

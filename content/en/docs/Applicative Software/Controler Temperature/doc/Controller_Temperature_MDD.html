@@ -1,0 +1,565 @@
+---
+title: Controller_Temperature_MDD
+linkTitle: Controller_Temperature_MDD
+weight: 2
+---
+
+<h1 class="unnumbered" id="module----controller-temperature">Module -- Controller Temperature</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module monitors the controller’s temperature sensor output, filters that output, and checks whether the output is within a lower and upper limit.</p>
+<h1 id="figures">Figures</h1>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.51042in;height:1.58333in" /></p>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>This diagram shows all data that is shared between functions within the module.</p>
+<h1 id="module-inputs-and-outputs"><br />
+Module Inputs and Outputs</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs (Global Variable Name)</th>
+<th>Module Outputs (Global Variable Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DiagStsTempRdPrf_Cnt_lgc</td>
+<td>FiltMeasTemp_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>TemperatureADC_Volt_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>AmbTemp_DegC_f32</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<p>(Note: If no module specific variables are used by the design, place the text “None” in the first Variable Name cell in the table)</p>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CtrlTemp_CtrlTempSV_M_str</td>
+<td>LPF32KSV_Str</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td>CTRLTEMP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>CtrlTemp_CtrlTempSV_M_str .K_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>CtrlTemp_CtrlTempSV_M_str .SV_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>CtrlTemp_CtrlTemp_DegC_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td>CTRLTEMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>CtrlTemp_CtrlTempErrorAcc_Cnt_M_u16</td>
+<td>1</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td>CTRLTEMP_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>CtrlTemp_CtrlTempFiltOut_DegC_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see data dictionary</td>
+<td>see data dictionary</td>
+<td>CTRLTEMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 class="unnumbered" id="section"></h3>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 22%" />
+<col style="width: 12%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Typedef Name</th>
+<th>Storage Type</th>
+<th>Safety Critical Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<p>(Note: If no calibrations are used by the design, place the text “None” in the first location in the table)</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_TempSnsrFiltDft_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td>k_TempSnsrLPFKn_Hz_f32</td>
+</tr>
+<tr class="odd">
+<td>k_TempSnsrDefVal_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>k_TempSensDiag_Cnt_str</td>
+</tr>
+<tr class="odd">
+<td>k_TempSensLowLimit_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>k_TempSensHighLimit_DegC_f32</td>
+</tr>
+<tr class="odd">
+<td>k_TempSnsrScaling_DegpVolt_f32</td>
+</tr>
+<tr class="even">
+<td>k_TempSnsrOffset_Volts_f32</td>
+</tr>
+<tr class="odd">
+<td>k_CustDiagAmbLowThresh_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>k_CustDiagAmbLowEnable_Cnt_lgc</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 56%" />
+<col style="width: 25%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_CTRLTEMPLOLMT_DEGC_F32</td>
+<td>Single Precision Floating Point</td>
+<td>-50.0</td>
+</tr>
+<tr class="even">
+<td>D_CTRLTEMPHILMT_DEGC_F32</td>
+<td>Single Precision Floating Point</td>
+<td>150.0</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="note-rtnlooptime-depends-on-the-rate-of-the-periodic-function.">Note: RtnLoopTime depends on the rate of the periodic function.</h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_2MS_SEC_F32</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td>D_FALSE_CNT_LGC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 13%" />
+<col style="width: 34%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>LPF_Init_f32_m</p></li>
+<li><p>LPF_OpUpdate_f32_m ()</p></li>
+<li><p>Limit_m()</p></li>
+<li><p>DiagPStep_m</p></li>
+<li><p>DiagNStep_m</p></li>
+<li><p>DiagFailed_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<p>The data hiding functions / macros used in this module are identified below,</p>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-ctrltemp_-init1">Init: CtrlTemp_ Init1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<h4 id="module-internal">Module Internal </h4>
+<p>TempADC_Volts_T_f32 = Rte_IRead_CtrlTemp_Init1_TemperatureADC_Volt_f32()</p>
+<p>CtrlTemp_DegC_T_f32 = (TempADC_Volts_T_f32 – k_TempSnsrOffset_Volts_f32) * k_TempSnsrScaling_DegpVolt_f32</p>
+<p>CtrlTemp_CtrlTemp_DegC_M_f32 = Limit_m(CtrlTemp_DegC_T_f32, D_CTRLTEMPLOLMT_DEGC_F32, D_CTRLTEMPHILMT_DEGC_F32)</p>
+<p>CtrlLPF_Init_f32_m(CtrlTemp_CtrlTemp_DegC_M_f32, k_TempSnsrLPFKn_Hz_f32, D_2MS_SEC_F32, &amp; CtrlTemp_CtrlTempSV_M_str)</p>
+<p>Rte_IWrite_CtrlTemp_Init1_FiltMeasTemp_DegC_f32 (CtrlTemp_CtrlTemp_DegC_M_f32)</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-ctrltemp_per1">Per: CtrlTemp_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<h4 id="rte_call_ctrltemp_per1_cp0_checkpointreached">Rte_Call_CtrlTemp_Per1_CP0_CheckpointReached()</h4>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>DiagStsTempRdPrf_Cnt_T_lgc = Rte_Iread_CtrlTemp_Per1_DiagStsTempRdPrf_Cnt_lgc();</p>
+<p>TempADC_Volts_T_f32 = Rte_Iread_CtrlTemp_Per1_TemperatureADC_Volt_f32()</p>
+<p>CtrlTemp_DegC_T_f32 = (TempADC_Volts_T_f32 – k_TempSnsrOffset_Volts_f32) * k_TempSnsrScaling_DegpVolt_f32</p>
+<h4 id="processing-of-function">(Processing of function)………</h4>
+<h5 id="calculate-temperature">Calculate Temperature<br />
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></h5>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>CtrlTemp_DegC_T_f32 = <strong>Limit_m</strong>(<em>CtrlTemp_DegC_T_f32</em>, D_CTRLTEMPLOLMT_DEGC_F32, D_CTRLTEMPHILMT_DEGC_F32);</p>
+<p><strong>Rte_Iwrite_CtrlTemp_Per1_FiltMeasTemp_DegC_f32</strong> (CtrlTemp_DegC_T_f32 );</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_CtrlTemp_Per1_CP1_CheckpointReached()</p>
+<h3 id="per-ctrltemp_per2">Per: CtrlTemp_Per2</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<h4 id="rte_call_ctrltemp_per2_cp0_checkpointreached">Rte_Call_CtrlTemp_Per2_CP0_CheckpointReached()</h4>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<h4 id="processing-of-function-1">(Processing of function)………</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>Rte_Call_CtrlTemp_Per2_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="local-functionmacro-definitions">Local Function/Macro Definitions</h2>
+<p>None</p>
+<h1 id="execution-requirements"><br />
+Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 24%" />
+<col style="width: 24%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Task List</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CtrlTemp_Init1()</td>
+<td></td>
+<td>Once</td>
+<td>Once after RTE is started</td>
+</tr>
+<tr class="even">
+<td>CtrlTemp_Per1()</td>
+<td></td>
+<td>2ms</td>
+<td>All</td>
+</tr>
+<tr class="odd">
+<td>CtrlTemp_Per2()</td>
+<td></td>
+<td>100ms</td>
+<td>All</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-1"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CtrlTem_Init1()</td>
+<td>RTE_SA_CTRLTEMP_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>CtrlTem_Per1()</td>
+<td>RTE_SA_CTRLTEMP_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>CtrlTem_Per2()</td>
+<td>RTE_SA_CTRLTEMP_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 61%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial release</td>
+<td>18MAY11</td>
+<td>SAH</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Added Reduced Performace temperature selecture per #SF-6 001</td>
+<td>02DEC11</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Anomaly 2995 Limits not set correctly</td>
+<td>29FEB12</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Anomaly 2994 use CntrlTemp_DegC_T_f32 temporary variable internal to the Per1 function</td>
+<td>03MAR12</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Updated component to FDD SF-06 revision 4</td>
+<td>16May12</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6.0</td>
+<td>Updated floating point filter structure with K and SV ranges</td>
+<td>12Jun12</td>
+<td>KJS</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7.0</td>
+<td>Anomaly 3505 Use output from LPF for diagnostics.</td>
+<td>23Aug12</td>
+<td>Srikanth</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8.0</td>
+<td>Added watchdog checkpoints.</td>
+<td>16 Sept 12</td>
+<td>BWL</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9.0</td>
+<td>Added “Variables” missing from Module internal variable and their software segment</td>
+<td>18 sep 12</td>
+<td>SSK</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10.0</td>
+<td>Changed local constants to calibration to facilate the use of different temperature sensors.</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>11.0</td>
+<td>Corrected naming conventions of new conversion calibrations.</td>
+<td>08Nov12</td>
+<td>LN</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>12.0</td>
+<td>Corrected anomaly 4541</td>
+<td>06Apr13</td>
+<td>KJS</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>13.0</td>
+<td>Changed conditions on diagnostic per FDD SF—06 ver007; updated module and display variable names per naming conventions; updated temporary variable names for clarity; added missing section 5 and updated numbering on remaining sections</td>
+<td>17-Sep-13</td>
+<td>KMC</td>
+</tr>
+</tbody>
+</table>

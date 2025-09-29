@@ -1,0 +1,1154 @@
+---
+title: Interpolation_Design_MDD
+linkTitle: Interpolation_Design_MDD
+weight: 4
+---
+
+<p><a href="#variable-x-variable-y-2d-table-lookup-function-with-interpolation">1 Variable X Variable Y 2D Table Lookup function (with interpolation) 2</a></p>
+<p><a href="#requirement">1.1 Requirement 2</a></p>
+<p><a href="#implementation">1.2 Implementation: 2</a></p>
+<p><a href="#unsigned-x-unsigned-y">1.2.1 Unsigned X, Unsigned Y 4</a></p>
+<p><a href="#signed-x-unsigned-y">1.2.2 Signed X, Unsigned Y 5</a></p>
+<p><a href="#signed-x-signed-y">1.2.3 Signed X, Signed Y 7</a></p>
+<p><a href="#unsigned-x-signed-y">1.2.4 Unsigned X, Signed Y 8</a></p>
+<p><a href="#fixed-x-variable-y-2d-table-lookup-function-with-interpolation">2 Fixed X Variable Y 2D Table Lookup function (with interpolation) 11</a></p>
+<p><a href="#requirement-1">2.1 Requirement 11</a></p>
+<p><a href="#implementation-1">2.2 Implementation: 11</a></p>
+<p><a href="#unsigned-x-unsigned-y-1">2.2.1 Unsigned X, Unsigned Y 11</a></p>
+<p><a href="#signed-x-unsigned-y-1">2.2.2 Signed X, Unsigned Y 13</a></p>
+<p><a href="#signed-x-signed-y-1">2.2.3 Signed X, Signed Y 14</a></p>
+<p><a href="#unsigned-x-signed-y-1">2.2.4 Unsigned X, Signed Y 16</a></p>
+<p><a href="#single-x-multiple-y-bilinear-interpolation">3 Single X Multiple Y (Bilinear Interpolation) 17</a></p>
+<p><a href="#implementation-2">3.1 Implementation: 17</a></p>
+<p><a href="#syntax-bilinearxym_s16_u16xs16ym_cnt-bs-input-bstbl-bsize-xtbl-ymtbl-xsize">3.1.1 Syntax: BilinearXYM_s16_u16Xs16YM_Cnt (BS, input, *BSTbl, BSize, *XTbl, *YMTbl, Xsize) 17</a></p>
+<p><a href="#syntax-bilinearxym_u16_u16xu16ym_cntbs-input-bstbl-bssize-xtbl-ymtbl-xsize">3.1.2 Syntax: BilinearXYM_u16_u16Xu16YM_Cnt(BS, input, *BSTbl, BSsize, *XTbl, *YMTbl, Xsize) 20</a></p>
+<p><a href="#syntax-bilinearxym_s16_s16xs16ym_cnt-bs-input-bstbl-bsize-xtbl-ymtbl-xsize">3.1.3 Syntax: BilinearXYM_s16_s16Xs16YM_Cnt (BS, input, *BSTbl, BSize, *XTbl, *YMTbl, Xsize) 23</a></p>
+<p><a href="#syntax-bilinearxym_u16_s16xu16ym_cntbs-input-bstbl-bssize-xtbl-ymtbl-xsize">3.1.4 Syntax: BilinearXYM_u16_s16Xu16YM_Cnt(BS, input, *BSTbl, BSsize, *XTbl, *YMTbl, Xsize) 26</a></p>
+<p><a href="#multiple-x-multiple-y-bilinear-interpolation">4 Multiple X Multiple Y (Bilinear Interpolation) 29</a></p>
+<p><a href="#implementation-3">4.1 Implementation 29</a></p>
+<p><a href="#syntax-bilinearxmym_u16_u16xmu16ym_cnt-bs-input-bstbl-bssize-xmtbl-ymtbl-xsize">4.1.1 Syntax: BilinearXMYM_u16_u16XMu16YM_Cnt( BS, input, *BSTbl, BSsize, *XMTbl, *YMTbl, Xsize) 29</a></p>
+<p><a href="#syntax-bilinearxmym_s16_u16xms16ym_cntbs-input-bstbl-bssize-xmtbl-ymtbl-xsize">4.1.2 Syntax: BilinearXMYM_s16_u16XMs16YM_Cnt(BS, input, *BSTbl, BSsize, *XMTbl, *YMTbl, Xsize) 32</a></p>
+<p><a href="#syntax-bilinearxmym_u16_s16xmu16ym_cnt-bs-input-bstbl-bssize-xmtbl-ymtbl-xsize">4.1.3 Syntax: BilinearXMYM_u16_s16XMu16YM_Cnt( BS, input, *BSTbl, BSsize, *XMTbl, *YMTbl, Xsize) 40</a></p>
+<p><a href="#unittesting-range-linear-and-bilinear-interpolation">5 UnitTesting Range: Linear and Bilinear Interpolation 44</a></p>
+<p><a href="#revision-control-log">6 Revision Control Log 44</a></p>
+<h1 id="variable-x-variable-y-2d-table-lookup-function-with-interpolation">Variable X Variable Y 2D Table Lookup function (with interpolation)</h1>
+<h2 id="requirement">Requirement</h2>
+<p>The Variable X Variable Y 2D table has the Variable X as the input (independent variable) and the Variable Y as the output (dependent variable). The lookup function with interpolation is used to interpolate the values of Y corresponding to the input value for X. This is implemented using the straight-line equation as given below:</p>
+<p><span class="math display">$$y = (\frac{y_{n + 1} - y_{n}}{x_{n + 1} - x_{n}}) \ast (x - x_{n}) + y_{n}$$</span></p>
+<p>where,</p>
+<p>n = index into the independent and dependent variable tables</p>
+<p>n+1 = next consecutive index into the tables.</p>
+<p>(y<sub>n+1</sub> - y<sub>n</sub>) = interval in the dependent table within which the interpolated output is calculated.</p>
+<p>(x<sub>n+1</sub> - x<sub>n</sub>) = interval in the independent table within which the input lies.</p>
+<p>y = interpolated output (dependent variable)</p>
+<p>x = input (independent variable)</p>
+<p>Note that y<sub>n+1</sub> &lt; y<sub>n</sub> or y<sub>n+1</sub> &gt; y<sub>n</sub>, for negative or positive slopes and x<sub>n+1</sub> &gt; x<sub>n</sub>.</p>
+<p>The index n and n+1, are determined using Straight-Forward Search method. Using the indices, the values of x<sub>n+1</sub>, x<sub>n</sub>, y<sub>n+1</sub> and y<sub>n</sub> are determined.</p>
+<p>The difference (y<sub>n+1</sub> - y<sub>n</sub>) is held in a signed variable to ensure that the interpolation can handle both positive and negative slopes.</p>
+<p>The Variable X VariableY interpolation function is defined as a function with the input x value and table name passed as parameters. The function will return the interpolated output y as its output.</p>
+<h2 id="implementation">Implementation:</h2>
+<p>Note: Straight Forward Search method is used for calculating the index n.</p>
+<h3 id="unsigned-x-unsigned-y">Unsigned X, Unsigned Y</h3>
+<p>Syntax : IntplVarXY_u16_u16Xu16Y_Cnt ( *TableX, *TableY, Size, input)</p>
+<p>Arguments:</p>
+<blockquote>
+<p>1) TableX: - The Variable X 2D table (independent table)</p>
+<p>2) TableY: - The Variable Y 2D table (dependent table)</p>
+<p>3) Size: - Size of the table</p>
+<p>4) input: - The input to the table</p>
+</blockquote>
+<p>output: The output from the table.</p>
+<p><strong>Pseudo Code :</strong></p>
+<p>UINT16 input, output, Size</p>
+<p>UINT16 index = 0</p>
+<p>SINT16 tmpout2, sOutput</p>
+<p>SINT32 diffY, diffX, diffXinput, tmpout1</p>
+<p>const UINT16 TableX = [ x1, x2, x3, x4, x5,….. ]</p>
+<p>const UINT16 TableY = [ y1, y2, y3, y4, y5,….. ]</p>
+<p>/* Check for Range */</p>
+<p>if ( input &lt;= TableX[0] )</p>
+<p>return TableY[0]</p>
+<p>else if ( input &gt;= TableX[size-1] )</p>
+<p>return TableY[size-1]</p>
+<p>endif</p>
+<p>/* In range. Get Index */</p>
+<p>while ( TableX[index + 1] &lt; input )</p>
+<p>index = index + 1</p>
+<p>endwhile</p>
+<p>/* Interpolate and get the output */</p>
+<p>diffY = TableY[index+1] - TableY[index]</p>
+<p>diffX = TableX[index+1] - TableX[index]</p>
+<p>diffXinput = input - TableX[index]</p>
+<p>/* Product in 32 bit */</p>
+<p>tmpout1 = diffY* diffXinput</p>
+<p>/* Check if Divide by zero */</p>
+<p>if (diffX == 0)</p>
+<p>tmpout2 = 0</p>
+<p>else</p>
+<p>/* Here, the lower 16 bits are assigned to tmpout2 */</p>
+<p>tmpout2 = tmpout1 / diffX</p>
+<p>endif</p>
+<p>output = tmpout2 + TableY[index]</p>
+<p>return output</p>
+<p>end</p>
+<h3 id="signed-x-unsigned-y">Signed X, Unsigned Y</h3>
+<p>Syntax : IntplVarXY_u16_s16Xu16Y_Cnt (*TableX, *TableY, Size, input)</p>
+<p>Arguments:</p>
+<blockquote>
+<p>1) TableX: - The Variable X 2D table (independent table)</p>
+<p>2) TableY: - The Variable Y 2D table (dependent table)</p>
+<p>3) Size: - Size of the table</p>
+<p>4) input: - The input to the table</p>
+</blockquote>
+<p>output: The output from the table.</p>
+<p><strong>Pseudo Code :</strong></p>
+<p>SINT16 input</p>
+<p>UINT16 output, Size</p>
+<p>UINT16 index = 0</p>
+<p>SINT16 tmpout2, sOutput</p>
+<p>SINT32 diffY, diffX, diffXinput, tmpout1</p>
+<p>const SINT16 TableX = [ x1, x2, x3, x4, x5,….. ]</p>
+<p>const UINT16 TableY = [ y1, y2, y3, y4, y5,….. ]</p>
+<p>/* Check for Range */</p>
+<p>if ( input &lt;= TableX[0] )</p>
+<p>return TableY[0]</p>
+<p>else if ( input &gt;= TableX[size-1] )</p>
+<p>return TableY[size-1]</p>
+<p>endif</p>
+<p>/* In range. Get Index */</p>
+<p>while ( TableX[index + 1] &lt; input )</p>
+<p>index = index + 1</p>
+<p>endwhile</p>
+<p>/* Interpolate and get the output */</p>
+<p>diffY = TableY[index+1] - TableY[index]</p>
+<p>diffX = TableX[index+1] - TableX[index]</p>
+<p>diffXinput = input - TableX[index]</p>
+<p>/* Product in 32 bit */</p>
+<p>tmpout1 = diffY * diffXinput</p>
+<p>/* Check if Divide by zero */</p>
+<p>if (diffX == 0)</p>
+<p>tmpout2 = 0</p>
+<p>else</p>
+<p>/* Here, the lower 16 bits are assigned to tmpout2 */</p>
+<p>tmpout2 = tmpout1 / diffX</p>
+<p>endif</p>
+<p>output = tmpout2 + TableY[index]</p>
+<p>return output</p>
+<p>end</p>
+<h3 id="signed-x-signed-y">Signed X, Signed Y</h3>
+<p>Syntax : IntplVarXY_s16_s16Xs16Y_Cnt (*TableX, *TableY, Size, input)</p>
+<p>Arguments:</p>
+<blockquote>
+<p>1) TableX: - The Variable X 2D table (independent table)</p>
+<p>2) TableY: - The Variable Y 2D table (dependent table)</p>
+<p>3) Size: - Size of the table</p>
+<p>4) input: - The input to the table</p>
+</blockquote>
+<p>output: The output from the table.</p>
+<p><strong>Pseudo Code :</strong></p>
+<p>SINT16 input, output</p>
+<p>UINT16 Size</p>
+<p>UINT16 index = 0</p>
+<p>SINT16 tmpout2</p>
+<p>SINT32 diffY, diffX, diffXinput, tmpout1</p>
+<p>const SINT16 TableX = [ x1, x2, x3, x4, x5,….. ]</p>
+<p>const SINT16 TableY = [ y1, y2, y3, y4, y5,….. ]</p>
+<p>/* Check for Range */</p>
+<p>if ( input &lt;= TableX[0] )</p>
+<p>return TableY[0]</p>
+<p>else if ( input &gt;= TableX[size-1] )</p>
+<p>return TableY[size-1]</p>
+<p>endif</p>
+<p>/* In range. Get Index */</p>
+<p>while ( TableX[index + 1] &lt; input )</p>
+<p>index = index + 1</p>
+<p>endwhile</p>
+<p>/* Interpolate and get the output */</p>
+<p>diffY = TableY[index+1] - TableY[index]</p>
+<p>diffX = TableX[index+1] - TableX[index]</p>
+<p>diffXinput = input - TableX[index]</p>
+<p>/* Product in 32 bit */</p>
+<p>tmpout1 = diffY * diffXinput</p>
+<p>/* Check if Divide by zero */</p>
+<p>if (diffX == 0)</p>
+<p>tmpout2 = 0</p>
+<p>else</p>
+<p>/* Here, the lower 16 bits are assigned to tmpout2 */</p>
+<p>tmpout2 = tmpout1 / diffX</p>
+<p>endif</p>
+<p>output = tmpout2 + TableY[index]</p>
+<p>return output</p>
+<p>end</p>
+<h3 id="unsigned-x-signed-y">Unsigned X, Signed Y</h3>
+<p>Syntax : IntplVarXY_s16_u16Xs16Y_Cnt (*TableX, *TableY, Size, input)</p>
+<p>Arguments:</p>
+<blockquote>
+<p>1) TableX: - The Variable X 2D table (independent table)</p>
+<p>2) TableY: - The Variable Y 2D table (dependent table)</p>
+<p>3) Size: - Size of the table</p>
+<p>4) input: - The input to the table</p>
+</blockquote>
+<p>output: The output from the table.</p>
+<p><strong>Pseudo Code :</strong></p>
+<p>UINT16 input, Size</p>
+<p>SINT16 output</p>
+<p>UINT16 index = 0</p>
+<p>SINT16 tmpout2</p>
+<p>SINT32 diffY, diffX, diffXinput, tmpout1</p>
+<p>const UINT16 TableX = [ x1, x2, x3, x4, x5,….. ]</p>
+<p>const SINT16 TableY = [ y1, y2, y3, y4, y5,….. ]</p>
+<p>/* Check for Range */</p>
+<p>if ( input &lt;= TableX[0] )</p>
+<p>return TableY[0]</p>
+<p>else if ( input &gt;= TableX[size-1] )</p>
+<p>return TableY[size-1]</p>
+<p>endif</p>
+<p>/* In range. Get Index */</p>
+<p>while ( TableX[index + 1] &lt; input )</p>
+<p>index = index + 1</p>
+<p>endwhile</p>
+<p>/* Interpolate and get the output */</p>
+<p>diffY = TableY[index+1] - TableY[index]</p>
+<p>diffX = TableX[index+1] - TableX[index]</p>
+<p>diffXinput = input - TableX[index]</p>
+<p>/* Product in 32 bit */</p>
+<p>tmpout1 = diffY * diffXinput</p>
+<p>/* Check if Divide by zero */</p>
+<p>if (diffX == 0)</p>
+<p>tmpout2 = 0</p>
+<p>else</p>
+<p>/* Here, the lower 16 bits are assigned to tmpout2 */</p>
+<p>tmpout2 = tmpout1 / diffX</p>
+<p>endif</p>
+<p>output = tmpout2 + TableY[index]</p>
+<p>return output</p>
+<p>end</p>
+<h1 id="fixed-x-variable-y-2d-table-lookup-function-with-interpolation">Fixed X Variable Y 2D Table Lookup function (with interpolation)</h1>
+<h2 id="requirement-1">Requirement</h2>
+<p>The Fixed X Variable Y 2D table has the Fixed X as the input (independent variable) and the Variable Y (dependent variable) as the output. The interpolation function is used to interpolate the values of Y corresponding to the input value for X. It is assumed that the independent axis (X) will always start from 0. This is implemented using the straight-line equation as given below:</p>
+<p><span class="math display">$$y = (\frac{y_{n + 1} - y_{n}}{\Delta x}) \ast (x - x_{n}) + y_{n}$$</span></p>
+<p>where,</p>
+<p>n = index into the Table</p>
+<p>(y<sub>n+1</sub> - y<sub>n</sub>) = interval in the dependent table within which the interpolated output is calculated.</p>
+<p>∆x = fixed X interval within which the input lies.</p>
+<p>y = interpolated output</p>
+<p>x = input</p>
+<p>Determine the value of n, i.e the index into the table, n = truncate ( x / ∆x ). Using this index n, determine the values of x<sub>n</sub>, y<sub>n</sub> and y<sub>n+1</sub>. The output y can then be calculated based on the straight line given above.</p>
+<h2 id="implementation-1">Implementation:</h2>
+<h3 id="unsigned-x-unsigned-y-1">Unsigned X, Unsigned Y</h3>
+<p>Syntax : IntplFxdX_u16_u16Xu16Y_Cnt (DeltaX, *TableY, Size, input)</p>
+<p>Arguments:</p>
+<blockquote>
+<p>1. DeltaX: - The Fixed X interval</p>
+<p>2. TableY: - The Variable Y 2D table (dependent table)</p>
+<p>3. Size: - Size of the table</p>
+<p>4. input: - The input to the table</p>
+</blockquote>
+<p>output: The output from the table.</p>
+<p><strong>Pseudo Code :</strong></p>
+<p>UINT16 input, output, Size</p>
+<p>UINT16 index = 0</p>
+<p>SINT16 tmpout2, sOutput</p>
+<p>SINT32 diffY, diffXinput, tmpout1</p>
+<p>const UINT16 TableY = [ y1, y2, y3, y4, y5,….. ]</p>
+<p>if (DeltaX == 0)</p>
+<p>/* Cannot do interpolation. Return Y0 */</p>
+<p>return TableY[0]</p>
+<p>endif</p>
+<p>/* Check for Range */</p>
+<p>if ( input &lt;= 0 )</p>
+<p>return TableY[0]</p>
+<p>else if ( input &gt;= DeltaX * (size-1) )</p>
+<p>return TableY[size-1]</p>
+<p>endif</p>
+<p>/* In range. Get Index */</p>
+<p>index = truncate (input / DeltaX)</p>
+<p>/* Interpolate and get the output */</p>
+<p>diffY = TableY[index+1] - TableY[index]</p>
+<p>diffXinput = input - DeltaX * index</p>
+<p>/* Product in 32 bit */</p>
+<p>tmpout1 = diffY * diffXinput</p>
+<p>/* Here, the lower 16 bits are assigned to tmpout2 */</p>
+<p>tmpout2 = tmpout1 / DeltaX</p>
+<p>output = tmpout2 + TableY[index]</p>
+<p>return output</p>
+<p>end</p>
+<h3 id="signed-x-unsigned-y-1">Signed X, Unsigned Y</h3>
+<p>Syntax : IntplFxdX_u16_s16Xu16Y_Cnt (DeltaX, *TableY, Size, input)</p>
+<p>Arguments:</p>
+<blockquote>
+<p>1. DeltaX: - The Fixed X interval</p>
+<p>2. TableY: - The Variable Y 2D table (dependent table)</p>
+<p>3. Size: - Size of the table</p>
+<p>4. input: - The input to the table</p>
+</blockquote>
+<p>output: The output from the table.</p>
+<p><strong>Pseudo Code :</strong></p>
+<p>SINT16 input</p>
+<p>UINT16 output, Size</p>
+<p>UINT16 index = 0</p>
+<p>SINT16 tmpout2, sOutput</p>
+<p>SINT32 diffY, diffXinput , tmpout1</p>
+<p>const UINT16 TableY = [ y1, y2, y3, y4, y5,….. ]</p>
+<p>if (DeltaX == 0)</p>
+<p>/* Cannot do interpolation. Return Y0 */</p>
+<p>return TableY[0]</p>
+<p>endif</p>
+<p>/* Check for Range */</p>
+<p>if ( input &lt;= 0 )</p>
+<p>return TableY[0]</p>
+<p>else if ( input &gt;= DeltaX * (size-1) )</p>
+<p>return TableY[size-1]</p>
+<p>endif</p>
+<p>/* In range. Get Index */</p>
+<p>index = truncate (input / DeltaX)</p>
+<p>/* Interpolate and get the output */</p>
+<p>diffY = TableY[index+1] - TableY[index]</p>
+<p>diffXinput = input - DeltaX * index</p>
+<p>/* Product in 32 bit */</p>
+<p>tmpout1 = diffY * diffXinput</p>
+<p>/* Here, the lower 16 bits are assigned to tmpout2 */</p>
+<p>tmpout2 = tmpout1 / DeltaX</p>
+<p>output = tmpout2 + TableY[index]</p>
+<p>return output</p>
+<p>end</p>
+<h3 id="signed-x-signed-y-1">Signed X, Signed Y</h3>
+<p>Syntax: IntplFxdX_s16_s16Xs16Y_Cnt (DeltaX, *TableY, Size, input)</p>
+<p>Arguments:</p>
+<blockquote>
+<p>1. DeltaX: - The Fixed X interval</p>
+<p>2. TableY: - The Variable Y 2D table (dependent table)</p>
+<p>3. Size: - Size of the table</p>
+<p>4. input: - The input to the table</p>
+</blockquote>
+<p>output: The output from the table.</p>
+<p><strong>Pseudo Code :</strong></p>
+<p>SINT16 input, output</p>
+<p>UINT16 Size</p>
+<p>UINT16 index = 0</p>
+<p>SINT16 tmpout2</p>
+<p>SINT32 diffY, diffXinput , tmpout1</p>
+<p>const SINT16 TableY = [ y1, y2, y3, y4, y5,….. ]</p>
+<p>if (DeltaX == 0)</p>
+<p>/* Cannot do interpolation. Return Y0 */</p>
+<p>return TableY[0]</p>
+<p>endif</p>
+<p>/* Check for Range */</p>
+<p>if ( input &lt;= 0 )</p>
+<p>return TableY[0]</p>
+<p>else if ( input &gt;= DeltaX * (size-1) )</p>
+<p>return TableY[size-1]</p>
+<p>endif</p>
+<p>/* In range. Get Index */</p>
+<p>index = truncate (input / DeltaX)</p>
+<p>/* Interpolate and get the output */</p>
+<p>diffY = TableY[index+1] - TableY[index]</p>
+<p>diffXinput = input - DeltaX * index</p>
+<p>/* Product in 32 bit */</p>
+<p>tmpout1 = diffY * diffXinput</p>
+<p>/* Here, the lower 16 bits are assigned to tmpout2 */</p>
+<p>tmpout2 = tmpout1 / DeltaX</p>
+<p>output = tmpout2 + TableY[index]</p>
+<p>return output</p>
+<p>end</p>
+<h3 id="unsigned-x-signed-y-1">Unsigned X, Signed Y</h3>
+<p>Syntax: IntplFxdX_s16_u16Xs16Y_Cnt (DeltaX, *TableY, Size, input)</p>
+<p>Arguments:</p>
+<blockquote>
+<p>1. DeltaX: - The Fixed X interval</p>
+<p>2. TableY: - The Variable Y 2D table (dependent table)</p>
+<p>3. Size: - Size of the table</p>
+<p>4. input: - The input to the table</p>
+</blockquote>
+<p>output: The output from the table.</p>
+<p><strong>Pseudo Code :</strong></p>
+<p>UINT16 input, Size</p>
+<p>SINT16 output</p>
+<p>UINT16 index = 0</p>
+<p>SINT16 tmpout2</p>
+<p>SINT32 diffY, diffXinput, tmpout1</p>
+<p>const SINT16 TableY = [ y1, y2, y3, y4, y5,….. ]</p>
+<p>if (DeltaX == 0)</p>
+<p>/* Cannot do interpolation. Return Y0 */</p>
+<p>return TableY[0]</p>
+<p>endif</p>
+<p>/* Check for Range */</p>
+<p>if ( input &lt;= 0 )</p>
+<p>return TableY[0]</p>
+<p>else if ( input &gt;= DeltaX * (size-1) )</p>
+<p>return TableY[size-1]</p>
+<p>endif</p>
+<p>/* In range. Get Index */</p>
+<p>index = truncate (input / DeltaX)</p>
+<p>/* Interpolate and get the output */</p>
+<p>diffY = TableY[index+1] - TableY[index]</p>
+<p>diffXinput = input - DeltaX * index</p>
+<p>/* Product in 32 bit */</p>
+<p>tmpout1 = diffY * diffXinput</p>
+<p>/* Here, the lower 16 bits are assigned to tmpout2 */</p>
+<p>tmpout2 = tmpout1 / DeltaX</p>
+<p>output = tmpout2 + TableY[index]</p>
+<p>return output</p>
+<p>end</p>
+<h1 id="single-x-multiple-y-bilinear-interpolation">Single X Multiple Y (Bilinear Interpolation)</h1>
+<h2 id="implementation-2">Implementation:</h2>
+<h3 id="syntax-bilinearxym_s16_u16xs16ym_cnt-bs-input-bstbl-bsize-xtbl-ymtbl-xsize">Syntax: BilinearXYM_s16_u16Xs16YM_Cnt (BS, input, *BSTbl, BSize, *XTbl, *YMTbl, Xsize)</h3>
+<p>Arguments:</p>
+<ol type="1">
+<li><p>BS:- Bilinear Selector</p></li>
+<li><p>Input:-The input to the table</p></li>
+<li><p>BSTbl:- Bilinear Selector Table 2D</p></li>
+<li><p>BSize:- Bilinear Selector Table Size</p></li>
+<li><p>XTbl:- Table X 2D</p></li>
+<li><p>YMTbl:- Table Y with MxN dimension</p></li>
+<li><p>Xsize:- Size of XTbl</p></li>
+</ol>
+<p>Output:- The output from the table</p>
+<p><strong>Pseudo Code:</strong></p>
+<blockquote>
+<p>UINT16 BSindex, Xindex</p>
+<p>UINT16 ArrayIndex1, ArrayIndex2, ArrayIndex3, ArrayIndex4</p>
+<p>SINT32 BSinputDiff, XInputDiff</p>
+<p>FLOAT32 Numerator_f32, Denominator_f32, Output_f32</p>
+<p>SINT16 Output_s16</p>
+<p>Const UINT16 BSTbl = [z1,z2,z3,z4,…..]</p>
+<p>Const UINT16 XTbl = [x1,x2,x3,x4,…...]</p>
+<p>Const SINT16 YMTbl[mxn] = [(y1,y2,y3…),(y4,y5,y6….),….]</p>
+<p><strong>If</strong> (BS &lt;= BSTbl[0])</p>
+<p>BSindex = 0</p>
+<p>BS = BSTbl[0]</p>
+</blockquote>
+<p><strong>Else if</strong> (BS &gt;= BSTbl[BSize-1])</p>
+<p>BSindex = BSsize -2</p>
+<p>BS = BSTbl[BSsize -1]</p>
+<p><strong>While</strong> ((BSTbl[BSindex] = = BSTbl[BSindex + 1] &amp;&amp; (BSindex &gt; 0)))</p>
+<p>BSindex = BSindex - 1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Else</strong></p>
+<p>BSindex = 0</p>
+<p><strong>While</strong> ( BSTbl[BSindex +1] &lt; BS)</p>
+<p>BSindex = BSindex + 1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (input &lt;= XTbl[0])</p>
+<p>Xindex = 0</p>
+<p>Input = XTbl[0]</p>
+<p><strong>Else if</strong> (input &gt;= XTbl[XSize – 1])</p>
+<p>Xindex = Xsize – 2</p>
+<p>Input = XTbl[Xsize -1]</p>
+<p><strong>Else</strong></p>
+<p>Xindex = 0</p>
+<p><strong>While</strong> ( XTbl[Xindex +1] &lt; input)</p>
+<p>Xindex = Xindex+1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p>ArrayIndex1 = (BSindex * Xsize) + Xindex</p>
+<p>ArrayIndex2 = (BSindex * Xsize) + Xindex + 1</p>
+<p>ArrayIndex3 = ((BSindex + 1) * Xsize) + Xindex</p>
+<p>ArrayIndex4 = ((BSindex + 1) * Xsize) + Xindex + 1</p>
+<p>BSInputDiff = BS – BSTbl[BSindex]</p>
+<p>XInputDiff = input – XTbl[Xindex]</p>
+<blockquote>
+<p><strong>Numerator_f32</strong> = ( YMTbl[ArrayIndex2] – YMTbl[ArrayIndex1]) * ((BSTbl[BSindex+1] – BSTbl[BSindex]) * XInputDiff) +</p>
+</blockquote>
+<p>(YMTbl[ArrayIndex3] – YMTbl[ArrayIndex1]) *</p>
+<p>(BSInputDiff * (XTbl[Xindex+1] – XTbl[Xindex])) +</p>
+<p>(XInputDiff * BSInputDiff ) *</p>
+<blockquote>
+<p>((YMTbl[ArrayIndex4]) – (YMTbl[ArrayIndex3]) – (YMTbl[ArrayIndex2] – YMTbl[ArrayIndex1]))</p>
+<p><strong>Denominator_f32</strong> = (BSTbl[BSindex +1] – BSTbl[BSindex]) * (XTbl[Xindex+1] – XTbl[Xindex])</p>
+</blockquote>
+<p><strong>If</strong> (Denominator_f32 &lt;= FLT_EPSILON)</p>
+<p>Output_f32 = YMTbl[ArrayIndex1]</p>
+<p><strong>Else</strong></p>
+<p>Output_f32 = YMTbl[ArrayIndex1] + Numerator_f32 / Denominator_f32</p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (Output_f32 &gt;= 0)</p>
+<p>Output_f32 = Output_f32 + 0.5</p>
+<p><strong>Else</strong></p>
+<p>Output_f32 =Output_f32 – 0.5</p>
+<p><strong>Endif</strong></p>
+<p>/*Float to SINT16 typecast*/</p>
+<p>Output_s16 = Output_f32</p>
+<p>return Output_s16</p>
+<p>End</p>
+<h3 id="syntax-bilinearxym_u16_u16xu16ym_cntbs-input-bstbl-bssize-xtbl-ymtbl-xsize">Syntax: BilinearXYM_u16_u16Xu16YM_Cnt(BS, input, *BSTbl, BSsize, *XTbl, *YMTbl, Xsize)</h3>
+<p>Arguments</p>
+<ol type="1">
+<li><p>BS:- Bilinear Selector</p></li>
+<li><p>input:-The input to the table</p></li>
+<li><p>BSTbl:- Bilinear Selector Table 2D</p></li>
+<li><p>BSize:- Bilinear Selector Table Size</p></li>
+<li><p>XTbl:- Table X 2D</p></li>
+<li><p>YMTbl:- Table Y with MxN dimension</p></li>
+<li><p>Xsize:- Size of XTbl</p></li>
+</ol>
+<p>Output:- The output from the table</p>
+<p>Pseudo Code:</p>
+<blockquote>
+<p>UINT16 BSindex, Xindex</p>
+<p>UINT16 ArrayIndex1, ArrayIndex2, ArrayIndex3, ArrayIndex4</p>
+<p>SINT32 BSInputDiff, XInputDiff</p>
+<p>FLOAT32 Numerator_f32, Denominator_f32</p>
+<p>UINT16 Output_u16</p>
+</blockquote>
+<p>Const UINT16 BSTbl = [z1,z2,z3,z4,…..]</p>
+<p>Const UINT16 XTbl = [x1,x2,x3,x4,…...]</p>
+<p>Const UINT16 YMTbl[mxn] = [(y1,y2,y3…),(y4,y5,y6….),….]</p>
+<blockquote>
+<p><strong>If</strong> (BS &lt;= BSTbl[0])</p>
+<p>BSindex = 0</p>
+<p>BS = BSTbl[0]</p>
+<p><strong>Else if</strong> (BS &gt;= BSTbl[BSsize – 1])</p>
+<p>BSindex = BSsize -2</p>
+<p>BS = BSTbl [ BSsize – 1]</p>
+<p><strong>While</strong> (( BSTbl [BSindex] == BSTbl [ BSindex+1] &amp;&amp; (BSindex &gt; 0)))</p>
+<p>BSindex = BSindex – 1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Else</strong></p>
+<p>BSindex = 0</p>
+<p><strong>While</strong> (BSTbl[BSindex +1]&lt;BS)</p>
+<p>BSindex = BSindex +1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (input &lt;= XTbl[0])</p>
+<p>Xindex = 0</p>
+<p>Input = XTbl[0]</p>
+<p><strong>Else if</strong> (input &gt;= XTbl[XSize -1])</p>
+<p>Xindex = Xsize -2</p>
+<p>input = XTbl[Xsize -1]</p>
+</blockquote>
+<p><strong>Else</strong></p>
+<p>Xindex = 0</p>
+<p><strong>While</strong> ( XTbl[Xindex + 1] &lt; input)</p>
+<p>Xindex= Xindex + 1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p>ArrayIndex1 = (BSindex * Xsize) + Xindex</p>
+<p>ArrayIndex2 = (BSindex * Xsize) + Xindex + 1</p>
+<p>ArrayIndex3 = ((BSindex + 1)* Xsize) + Xindex</p>
+<p>ArrayIndex4 = ((BSindex + 1)* Xsize) + Xindex + 1</p>
+<p>BSInputDiff = BS – BSTbl[BSindex]</p>
+<p>XInputDiff = input – XTbl[Xindex]</p>
+<p><strong>Numerator_f32</strong> = ( YMTbl[ArrayIndex2] – YMTbl[ArrayIndex1]) *</p>
+<p>((BSTbl [ BSindex + 1] – BSTbl[BSindex]) * XInputDiff) +</p>
+<p>(YMTbl [ ArrayIndex3] – YMTbl[ArrayIndex1]) *</p>
+<p>(BSInputDiff * (XTbl[Xindex+1] – XTbl[Xindex])) +</p>
+<p>(XInputDiff * BSInputDiff) *</p>
+<blockquote>
+<p>((YMTbl[ArrayIndex4]) – (YMTbl[ArrayIndex3]) – (YMTbl[ArrayIndex2] – YMTbl[ArrayIndex1]))</p>
+<p><strong>Denominator_f32</strong> = (BSTbl[BSindex+1] – BSTbl[BSindex]) * (XTbl[Xindex+1] – XTbl[Xindex])</p>
+</blockquote>
+<p><strong>If</strong> (Denominator_f32 &lt;= FLT_EPSILON) Output_u16 = YMTbl[ArrayIndex1] + 0.5</p>
+<p><strong>Else</strong></p>
+<blockquote>
+<p>Output_u16 = YMTbl[ArrayIndex1] + (Numerator_f32 / Denominator_f32) + 0.5</p>
+</blockquote>
+<p><strong>Endif</strong></p>
+<p>return Output_u16</p>
+<p>end</p>
+<h3 id="syntax-bilinearxym_s16_s16xs16ym_cnt-bs-input-bstbl-bsize-xtbl-ymtbl-xsize">Syntax: BilinearXYM_s16_s16Xs16YM_Cnt (BS, input, *BSTbl, BSize, *XTbl, *YMTbl, Xsize)</h3>
+<p>Arguments:</p>
+<ol type="1">
+<li><p>BS:- Bilinear Selector</p></li>
+<li><p>Input:-The input to the table</p></li>
+<li><p>BSTbl:- Bilinear Selector Table 2D</p></li>
+<li><p>BSize:- Bilinear Selector Table Size</p></li>
+<li><p>XTbl:- Table X 2D</p></li>
+<li><p>YMTbl:- Table Y with MxN dimension</p></li>
+<li><p>Xsize:- Size of XTbl</p></li>
+</ol>
+<p>Output:- The output from the table</p>
+<p><strong>Pseudo Code:</strong></p>
+<blockquote>
+<p>UINT16 BSindex, Xindex</p>
+<p>UINT16 ArrayIndex1, ArrayIndex2, ArrayIndex3, ArrayIndex4</p>
+<p>SINT32 BSinputDiff, XInputDiff</p>
+<p>FLOAT32 Numerator_f32, Denominator_f32, Output_f32</p>
+<p>SINT16 Output_s16</p>
+<p>Const UINT16 BSTbl = [z1,z2,z3,z4,…..]</p>
+<p>Const UINT16 XTbl = [x1,x2,x3,x4,…...]</p>
+<p>Const SINT16 YMTbl[mxn] = [(y1,y2,y3…),(y4,y5,y6….),….]</p>
+<p><strong>If</strong> (BS &lt;= BSTbl[0])</p>
+<p>BSindex = 0</p>
+<p>BS = BSTbl[0]</p>
+</blockquote>
+<p><strong>Else if</strong> (BS &gt;= BSTbl[BSize-1])</p>
+<p>BSindex = BSsize -2</p>
+<p>BS = BSTbl[BSsize -1]</p>
+<p><strong>While</strong> ((BSTbl[BSindex] = = BSTbl[BSindex + 1] &amp;&amp; (BSindex &gt; 0)))</p>
+<p>BSindex = BSindex - 1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Else</strong></p>
+<p>BSindex = 0</p>
+<p><strong>While</strong> ( BSTbl[BSindex +1] &lt; BS)</p>
+<p>BSindex = BSindex + 1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (input &lt;= XTbl[0])</p>
+<p>Xindex = 0</p>
+<p>Input = XTbl[0]</p>
+<p><strong>Else if</strong> (input &gt;= XTbl[XSize – 1])</p>
+<p>Xindex = Xsize – 2</p>
+<p>Input = XTbl[Xsize -1]</p>
+<p><strong>Else</strong></p>
+<p>Xindex = 0</p>
+<p><strong>While</strong> ( XTbl[Xindex +1] &lt; input)</p>
+<p>Xindex = Xindex+1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p>ArrayIndex1 = (BSindex * Xsize) + Xindex</p>
+<p>ArrayIndex2 = (BSindex * Xsize) + Xindex + 1</p>
+<p>ArrayIndex3 = ((BSindex + 1) * Xsize) + Xindex</p>
+<p>ArrayIndex4 = ((BSindex + 1) * Xsize) + Xindex + 1</p>
+<p>BSInputDiff = BS – BSTbl[BSindex]</p>
+<p>XInputDiff = input – XTbl[Xindex]</p>
+<blockquote>
+<p><strong>Numerator_f32</strong> = ( YMTbl[ArrayIndex2] – YMTbl[ArrayIndex1]) * ((BSTbl[BSindex+1] – BSTbl[BSindex]) * XInputDiff) +</p>
+</blockquote>
+<p>(YMTbl[ArrayIndex3] – YMTbl[ArrayIndex1]) *</p>
+<p>(BSInputDiff * (XTbl[Xindex+1] – XTbl[Xindex])) +</p>
+<p>(XInputDiff * BSInputDiff ) *</p>
+<blockquote>
+<p>((YMTbl[ArrayIndex4]) – (YMTbl[ArrayIndex3]) – (YMTbl[ArrayIndex2] – YMTbl[ArrayIndex1]))</p>
+<p><strong>Denominator_f32</strong> = (BSTbl[BSindex +1] – BSTbl[BSindex]) * (XTbl[Xindex+1] – XTbl[Xindex])</p>
+</blockquote>
+<p><strong>If</strong> (Denominator_f32 &lt;= FLT_EPSILON) Output_f32 = YMTbl[ArrayIndex1]</p>
+<p><strong>Else</strong></p>
+<p>Output_f32 = YMTbl[ArrayIndex1] + Numerator_f32 / Denominator_f32</p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (Output_f32 &gt;= 0)</p>
+<p>Output_f32 = Output_f32 + 0.5</p>
+<p><strong>Else</strong></p>
+<p>Output_f32 =Output_f32 – 0.5</p>
+<p><strong>Endif</strong></p>
+<p>/*Float to SINT16 typecast*/</p>
+<p>Output_s16 = Output_f32</p>
+<p>return Output_s16</p>
+<p>End</p>
+<h3 id="syntax-bilinearxym_u16_s16xu16ym_cntbs-input-bstbl-bssize-xtbl-ymtbl-xsize">Syntax: BilinearXYM_u16_s16Xu16YM_Cnt(BS, input, *BSTbl, BSsize, *XTbl, *YMTbl, Xsize)</h3>
+<p>Arguments</p>
+<ol type="1">
+<li><p>BS:- Bilinear Selector</p></li>
+<li><p>input:-The input to the table</p></li>
+<li><p>BSTbl:- Bilinear Selector Table 2D</p></li>
+<li><p>BSize:- Bilinear Selector Table Size</p></li>
+<li><p>XTbl:- Table X 2D</p></li>
+<li><p>YMTbl:- Table Y with MxN dimension</p></li>
+<li><p>Xsize:- Size of XTbl</p></li>
+</ol>
+<p>Output:- The output from the table</p>
+<p>Pseudo Code:</p>
+<blockquote>
+<p>UINT16 BSindex, Xindex</p>
+<p>UINT16 ArrayIndex1, ArrayIndex2, ArrayIndex3, ArrayIndex4</p>
+<p>SINT32 BSInputDiff, XInputDiff</p>
+<p>FLOAT32 Numerator_f32, Denominator_f32</p>
+<p>UINT16 Output_u16</p>
+</blockquote>
+<p>Const UINT16 BSTbl = [z1,z2,z3,z4,…..]</p>
+<p>Const UINT16 XTbl = [x1,x2,x3,x4,…...]</p>
+<p>Const UINT16 YMTbl[mxn] = [(y1,y2,y3…),(y4,y5,y6….),….]</p>
+<blockquote>
+<p><strong>If</strong> (BS &lt;= BSTbl[0])</p>
+<p>BSindex = 0</p>
+<p>BS = BSTbl[0]</p>
+<p><strong>Else if</strong> (BS &gt;= BSTbl[BSsize – 1])</p>
+<p>BSindex = BSsize -2</p>
+<p>BS = BSTbl [ BSsize – 1]</p>
+<p><strong>While</strong> (( BSTbl [BSindex] == BSTbl [ BSindex+1] &amp;&amp; (BSindex &gt; 0)))</p>
+<p>BSindex = BSindex – 1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Else</strong></p>
+<p>BSindex = 0</p>
+<p><strong>While</strong> (BSTbl[BSindex +1]&lt;BS)</p>
+<p>BSindex = BSindex +1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (input &lt;= XTbl[0])</p>
+<p>Xindex = 0</p>
+<p>Input = XTbl[0]</p>
+<p><strong>Else if</strong> (input &gt;= XTbl[XSize -1])</p>
+<p>Xindex = Xsize -2</p>
+<p>input = XTbl[Xsize -1]</p>
+</blockquote>
+<p><strong>Else</strong></p>
+<p>Xindex = 0</p>
+<p><strong>While</strong> ( XTbl[Xindex + 1] &lt; input)</p>
+<p>Xindex= Xindex + 1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p>ArrayIndex1 = (BSindex * Xsize) + Xindex</p>
+<p>ArrayIndex2 = (BSindex * Xsize) + Xindex + 1</p>
+<p>ArrayIndex3 = ((BSindex + 1)* Xsize) + Xindex</p>
+<p>ArrayIndex4 = ((BSindex + 1)* Xsize) + Xindex + 1</p>
+<p>BSInputDiff = BS – BSTbl[BSindex]</p>
+<p>XInputDiff = input – XTbl[Xindex]</p>
+<p><strong>Numerator_f32</strong> = ( YMTbl[ArrayIndex2] – YMTbl[ArrayIndex1]) *</p>
+<p>((BSTbl [ BSindex + 1] – BSTbl[BSindex]) * XInputDiff) +</p>
+<p>(YMTbl [ ArrayIndex3] – YMTbl[ArrayIndex1]) *</p>
+<p>(BSInputDiff * (XTbl[Xindex+1] – XTbl[Xindex])) +</p>
+<p>(XInputDiff * BSInputDiff) *</p>
+<blockquote>
+<p>((YMTbl[ArrayIndex4]) – (YMTbl[ArrayIndex3]) – (YMTbl[ArrayIndex2] – YMTbl[ArrayIndex1]))</p>
+<p><strong>Denominator_f32</strong> = (BSTbl[BSindex+1] – BSTbl[BSindex]) * (XTbl[Xindex+1] – XTbl[Xindex])</p>
+</blockquote>
+<p><strong>If</strong> (Denominator_f32 &lt;= FLT_EPSILON) Output_u16 = YMTbl[ArrayIndex1] + 0.5</p>
+<p><strong>Else</strong></p>
+<blockquote>
+<p>Output_u16 = YMTbl[ArrayIndex1] + (Numerator_f32 / Denominator_f32) + 0.5</p>
+</blockquote>
+<p><strong>Endif</strong></p>
+<p>return Output_u16</p>
+<p>end</p>
+<h1 id="multiple-x-multiple-y-bilinear-interpolation">Multiple X Multiple Y (Bilinear Interpolation)</h1>
+<h2 id="implementation-3">Implementation</h2>
+<h3 id="syntax-bilinearxmym_u16_u16xmu16ym_cnt-bs-input-bstbl-bssize-xmtbl-ymtbl-xsize">Syntax: BilinearXMYM_u16_u16XMu16YM_Cnt( BS, input, *BSTbl, BSsize, *XMTbl, *YMTbl, Xsize)</h3>
+<p>Arguments:</p>
+<ol type="1">
+<li><p>BS:- Bilinear Selector</p></li>
+<li><p>input:-The input to the table</p></li>
+<li><p>BSTbl:- Bilinear Selector Table 2D</p></li>
+<li><p>BSize:- Bilinear Selector Table Size</p></li>
+<li><p>XTbl:- Table X with [MxN] dimension</p></li>
+<li><p>YMTbl:- Table Y with [MxN] dimension</p></li>
+<li><p>Xsize:- Size of XTbl</p></li>
+</ol>
+<p>Output:- The output from the table</p>
+<p>Pseudo Code:</p>
+<p>UINT16 BSindex, X1index, X2index,</p>
+<p>UINT16 ArrayIndex1, ArrayIndex2, ArrayIndex3, ArrayIndex4</p>
+<p>SINT32 BSInputDiff, XInputDiff1, XInputDiff2</p>
+<p>SINT32 Mult1_s32, Mult2_s32</p>
+<p>FLOAT32 Numerator_f32, Denominator_f32</p>
+<p>UINT16 Output_u16</p>
+<p>SINT32 Den1_s32, Den2_s32, Den3_s32</p>
+<p>UINT16 input2 = input</p>
+<p>Const UINT16 BSTbl = [z1,z2,z3,z4,…..]</p>
+<p>Const UINT16 XTbl[mxn] = [(x1,x2,x3…),(x4,x5,x6….),….]</p>
+<p>Const UINT16 YMTbl[mxn] = [(y1,y2,y3…),(y4,y5,y6….),….]</p>
+<p><strong>If</strong> ( BS &lt;= BSTbl[0] )</p>
+<p>BSindex = 0</p>
+<p>BS = BSTbl [0]</p>
+<p><strong>Else if</strong> (BS &gt;= BSTbl[BSsize -1])</p>
+<p>BSindex = BSsize – 2</p>
+<p>BS = BSTbl [ BSsize-1]</p>
+<p><strong>while</strong> (BSTbl[BSindex] == BSTbl[BSindex+1] &amp;&amp; (BSindex &gt; 0))</p>
+<p>BSindex = BSindex -1</p>
+<p><strong>wend</strong></p>
+<p><strong>Else</strong></p>
+<p>BSindex = 0</p>
+<p><strong>while</strong> ( BSTbl [ BSindex +1] &lt; BS)</p>
+<p>BSindex = BSindex +1</p>
+<p><strong>wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> ( input &lt;= XMTbl [ BSindex * Xsize])</p>
+<p>X1index = 0</p>
+<p>Input = XMTbl [BSindex * Xsize]</p>
+<p><strong>Else if</strong> (input &gt;= XMTbl [ (BSindex * Xsize) + Xsize -1])</p>
+<p>X1index = Xsize – 2</p>
+<blockquote>
+<p>input = XMTbl [ (BSindex * Xsize) + Xsize – 1]</p>
+<p><strong>while</strong> ((XMTbl[(BSindex * Xsize)+X1index] == XMTbl[(BSindex * Xsize) + X1index +1]) &amp;&amp; (X1index &gt;0))</p>
+<p>X1index = X1index – 1</p>
+<p><strong>wend</strong></p>
+</blockquote>
+<p><strong>Else</strong></p>
+<p>X1index = 0</p>
+<p><strong>while</strong> (XMTbl[(BSindex * Xsize)+X1index+1] &lt;input)</p>
+<p>X1index = X1index + 1</p>
+<p><strong>wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (input2 &lt;= XMTb1 [(BSindex+1) * Xsize])</p>
+<p>X2index = 0</p>
+<p>input2 = XMTbl[(BSindex + 1) * Xsize ]</p>
+<p><strong>Else if</strong> (input2 &gt;= XMTbl [ ((BSindex +1) * Xsize) + Xsize -1])</p>
+<p>X2index = Xsize -2</p>
+<p>input2 = XMTbl[((BSindex +1)*Xsize) + Xsize -1]</p>
+<p><strong>while</strong> ((XMTbl[((BSindex+1)*Xsize)+X2index]==XMTbl[((BSindex+1)*Xsize)+X2index+1]) &amp;&amp; (X2index &gt;0))</p>
+<p>X2index = X2index – 1</p>
+<p><strong>wend</strong></p>
+<p><strong>Else</strong></p>
+<p>X2index = 0</p>
+<p><strong>while</strong> ( XMTbl[((BSindex+1)*Xsize)+X2index+1]&lt;input2)</p>
+<p>X2index = X2index +1</p>
+<p><strong>wend</strong></p>
+<p><strong>Endif</strong></p>
+<p>ArrayIndex1 = (BSindex * Xsize) + X1index</p>
+<p>ArrayIndex2 = (BSindex * Xsize) + X1index + 1</p>
+<p>ArrayIndex3 = ((BSindex +1)* Xsize) + X2index</p>
+<p>ArrayIndex4 = ((BSindex +1)*Xsize)+X2index+1</p>
+<p>XInputDiff1 = input – XMTbl[ArrayIndex1]</p>
+<p>XInputDiff2 = input2 – XMTbl[ArrayIndex3]</p>
+<p>BSInputDiff = BS – BSTbl[BSindex]</p>
+<p>Mult1_s32 = XInputDiff1 * (XMTbl[ArrayIndex4] – XMTbl[ArrayIndex3])</p>
+<p>Mult2_s32 = BSInputDiff * (XMTbl[ArrayIndex2] – XMTbl[ArrayIndex1])</p>
+<p>Den1_s32 = (XMTbl[ArrayIndex4]-XMTbl[ArrayIndex3])</p>
+<p>Den2_s32 = (XMTbl[ArrayIndex2] – XMTbl[ArrayIndex1])</p>
+<p>Den3_s32 = (BSTbl[BSindex +1]-BSTbl[BSindex])</p>
+<p><strong>Numerator_f32</strong> = Mult1_s32 * (BSTbl[BSindex+1]-BS) *</p>
+<p>(YMTbl[ArrayIndex2]-YMTbl[ArrayIndex1]) +</p>
+<p>Mult2_s32*(XMTbl[ArrayIndex4] – XMTbl[ArrayIndex3]) *</p>
+<p>(YMTbl[ArrayIndex3] – YMTbl[ArrayIndex1]) +</p>
+<p>Mult2_s32 * XInputDiff2*(YMTbl[ArrayIndex4] – YMTbl[ArrayIndex3])</p>
+<p><strong>Denominator_f32</strong> = (Den1_s32 * Den2_s32) * Den3_s32</p>
+<p>If (Denominator_f32 &lt;= FLT_EPSILON)</p>
+<p>Output_u16 = YMTbl[ArrayIndex1] + 0.5</p>
+<p>Else</p>
+<blockquote>
+<p>Output_u16 = YMTbl[ArrayIndex1] + (Numerator_f32 / Denominator_f32) + 0.5</p>
+</blockquote>
+<p>Endif</p>
+<p>return Output_u16</p>
+<p>end</p>
+<h3 id="syntax-bilinearxmym_s16_u16xms16ym_cntbs-input-bstbl-bssize-xmtbl-ymtbl-xsize">Syntax: BilinearXMYM_s16_u16XMs16YM_Cnt(BS, input, *BSTbl, BSsize, *XMTbl, *YMTbl, Xsize)</h3>
+<p>Arguments:</p>
+<ol type="1">
+<li><p>BS:- Bilinear Selector</p></li>
+<li><p>input:-The input to the table</p></li>
+<li><p>BSTbl:- Bilinear Selector Table 2D</p></li>
+<li><p>BSize:- Bilinear Selector Table Size</p></li>
+<li><p>XTbl:- Table X with [MxN] dimension</p></li>
+<li><p>YMTbl:- Table Y with [MxN] dimension</p></li>
+<li><p>Xsize:- Size of XTbl</p></li>
+</ol>
+<p>Output:- The output from the table</p>
+<p>Pseudo Code:</p>
+<p>UINT16 BSindex, X1index, X2index</p>
+<p>UINT16 ArrayIndex1, ArrayIndex2, ArrayIndex3, ArrayIndex4</p>
+<p>SINT32 BSInputDiff, XInputDiff1, XInputDiff2</p>
+<p>SINT32 Mult1_s32, Mult2_s32</p>
+<p>FLOAT32 Numerator_f32, Denominator_f32</p>
+<p>SINT16 Output_s16</p>
+<p>SINT32 Den1_s32, Den2_s32, Den3_s32</p>
+<p>UINT16 input2 = input</p>
+<p>FLOAT32 Output_f32</p>
+<p>Const UINT16 BSTbl = [z1,z2,z3,z4,…..]</p>
+<p>Const UINT16 XTbl[mxn] = [(x1,x2,x3…),(x4,x5,x6….),….]</p>
+<p>Const SINT16 YMTbl[mxn] = [(y1,y2,y3…),(y4,y5,y6….),….]</p>
+<p><strong>If</strong> ( BS &lt;= BSTbl[0])</p>
+<p>BSindex = 0</p>
+<p>BS = BSTbl[0]</p>
+<p><strong>Else if</strong> (BS &gt;= BSTbl[BSsize -1])</p>
+<p>BSindex = BSsize – 2</p>
+<p>BS = BSTbl [ BSsize – 1]</p>
+<p><strong>While</strong> ( BSTbl[BSindex] == BSTbl[BSindex + 1] &amp;&amp; (BSindex &gt;0))</p>
+<p>BSindex = BSindex – 1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Else</strong></p>
+<p>BSindex = 0</p>
+<p><strong>While</strong> (BSTbl[BSindex +1] &lt; BS)</p>
+<p>BSindex = BSindex +1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (input &lt;= XMTbl[BSindex * Xsize ] )</p>
+<p>X1index =0</p>
+<p>input = XMTbl[BSindex * Xsize]</p>
+<p><strong>else if</strong> (input &gt;= XMTbl[(BSindex * Xsize) + Xsize -1])</p>
+<p>X1index = Xsize -2</p>
+<p>input = XMTbl[(BSindex * Xsize) + Xsize -1]</p>
+<p><strong>while</strong> (( XMTbl[(BSindex * Xsize) + X1index] == XMTbl[(BSindex * Xsize) +X1index+1]) &amp;&amp; (X1index &gt; 0))</p>
+<p>X1index =X1index – 1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Else</strong></p>
+<p>X1index = 0</p>
+<p><strong>While</strong> (XMTbl[(BSindex * Xsize)+X1index+1] &lt; input)</p>
+<p>X1index = X1index +1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (input2 &lt;= XMTbl[(BSindex+1) * Xsize])</p>
+<p>X2index =0</p>
+<p>Input2 = XMTbl[(BSindex+1)* Xsize]</p>
+<p><strong>Else if</strong> (input2 &gt;= XMTbl[(BSindex+1) * Xsize) + XSize-1])</p>
+<p>X2index = Xsize – 2</p>
+<p>input2 = XMTbl[((BSindex +1)*Xsize)+Xsize – 1]</p>
+<p><strong>while</strong> ((XMTbl[((BSindex+1)*Xsize)+X2index] == XMTbl[((BSindex+1) * Xsize)+X2index+1]) &amp;&amp; (X2index &gt;0))</p>
+<p>X2index = X2index – 1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Else</strong></p>
+<p>X2index =0</p>
+<p><strong>While</strong> (XMTbl[((Bsindex+1)* Xsize) + X2index +1] &lt; input2)</p>
+<p>X2index= X2index+1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p>ArrayIndex1 = (BSindex * Xsize) + X1index</p>
+<p>ArrayIndex2 = (BSindex * Xsize) + X1index + 1</p>
+<p>ArrayIndex3 = ((BSindex+1)*Xsize)+X2index</p>
+<p>ArrayIndex4 = ((BSindex + 1)*Xsize) + X2index+1</p>
+<p>XInputDiff1 = input – XMTbl[ArrayIndex1]</p>
+<p>XInputDiff2 = input2 – XMTbl[ArrayIndex3]</p>
+<p>BSInputDiff = BS – BSTbl[BSindex]</p>
+<p>Mult1_s32 = XInputDiff1 * (XMTbl[ArrayIndex4] – XMTbl[ArrayIndex3])</p>
+<p>Mult2_s32 = BSinputDiff * (XMTbl[ArrayIndex2] – XMTbl[ArrayIndex1])</p>
+<p>Den1_s32 = (XMTbl[ArrayIndex4] - XMTbl[ArrayIndex3])</p>
+<p>Den2_s32 = (XMTbl[ArrayIndex2] – XMTbl[ArrayIndex1])</p>
+<p>Den3_s32 = (BSTbl[BSindex+1] – BSTbl[BSindex])</p>
+<p><strong>Numerator_f32</strong> = Mult1_s32 * ((BSTbl[BSindex+1]-BS) * (YMTbl[ArrayIndex2] – YMTbl[ArrayIndex1]) +</p>
+<p>Mult2_s32 * (XMTbl[ArrayIndex4]-XMTbl[ArrayIndex3])*</p>
+<p>YMTbl[ArrayIndex3] – YMTbl[ArrayIndex1]) +</p>
+<p>Mult2_s32*XInputDiff2*(YMTbl[ArrayIndex4]-YMTbl[ArrayIndex3])</p>
+<p><strong>Denominator_f32</strong> = (Den1_s32 * Den2_s32) * Den3_s32</p>
+<p><strong>If</strong> (Denominator_f32 &lt;= FLT_EPSILON)</p>
+<p>Output_f32 = YMTbl[ArrayIndex1]</p>
+<p><strong>Else</strong></p>
+<p>Output_f32 = YMTbl[ArrayIndex1]+Numerator_f32/Denominator_f32</p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (Output_f32 &gt;= 0)</p>
+<p>Output_f32 = Output_f32 +0.5</p>
+<p><strong>Else</strong></p>
+<p>Output_f32 = Output_f32 -0.5</p>
+<p><strong>Endif</strong></p>
+<p>/*float to SINT16 typecasting*/</p>
+<p>Output_s16 = Output_f32</p>
+<p>return Output_s16</p>
+<p><strong>end</strong></p>
+<p><strong>4.1.3 Syntax:</strong> BilinearXMYM_s16_s16XMs16YM_Cnt(BS, input, *BSTbl, BSsize, *XMTbl, *YMTbl, Xsize)</p>
+<p>Arguments:</p>
+<ol type="1">
+<li><p>BS:- Bilinear Selector</p></li>
+<li><p>input:-The input to the table</p></li>
+<li><p>BSTbl:- Bilinear Selector Table 2D</p></li>
+<li><p>BSize:- Bilinear Selector Table Size</p></li>
+<li><p>XTbl:- Table X with [MxN] dimension</p></li>
+<li><p>YMTbl:- Table Y with [MxN] dimension</p></li>
+<li><p>Xsize:- Size of XTbl</p></li>
+</ol>
+<p>Output:- The output from the table</p>
+<p>Pseudo Code:</p>
+<p>UINT16 BSindex, X1index, X2index</p>
+<p>UINT16 ArrayIndex1, ArrayIndex2, ArrayIndex3, ArrayIndex4</p>
+<p>SINT32 BSInputDiff, XInputDiff1, XInputDiff2</p>
+<p>SINT32 Mult1_s32, Mult2_s32</p>
+<p>FLOAT32 Numerator_f32, Denominator_f32</p>
+<p>SINT16 Output_s16</p>
+<p>SINT32 Den1_s32, Den2_s32, Den3_s32</p>
+<p>SINT16 input2 = input</p>
+<p>FLOAT32 Output_f32</p>
+<p>Const UINT16 BSTbl = [z1,z2,z3,z4,…..]</p>
+<p>Const SINT16 XTbl[mxn] = [(x1,x2,x3…),(x4,x5,x6….),….]</p>
+<p>Const SINT16 YMTbl[mxn] = [(y1,y2,y3…),(y4,y5,y6….),….]</p>
+<p><strong>If</strong> (BS &lt;= BSTbl[0])</p>
+<p>BSindex = 0</p>
+<p>BS = BSTbl[0]</p>
+<p><strong>Else if</strong> (BS &gt;= BSTbl[BSsize-1]</p>
+<p>BSindex = BSsize – 2</p>
+<p>BS = BSTbl[BSsize – 1]</p>
+<p><strong>While</strong> ( BSTbl[BSindex] == BSTbl[BSindex+1] &amp;&amp; (BSindex &gt;0))</p>
+<p>BSindex = BSindex -1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Else</strong></p>
+<p>BSindex = 0</p>
+<p><strong>While</strong> (BSTbl[BSindex+1] &lt; BS)</p>
+<p>BSindex = BSindex +1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (input &lt;= XMTbl[BSindex * Xsize])</p>
+<p>X1index = 0</p>
+<p>input = XMTbl[BSindex * Xsize]</p>
+<p><strong>else if</strong> (input &gt;= XMTbl[(BSindex * Xsize) + Xsize – 1])</p>
+<p>X1index = Xsize-2</p>
+<p>input = XMTbl[(BSindex*Xsize)+Xsize-1]</p>
+<p><strong>while</strong> ((XMTbl[(BSindex*Xsize)+X1index] = = XMTbl[(BSindex * Xsize)+X1index+1]) &amp;&amp; (X1index &gt; 0))</p>
+<p>X1index = X1index-1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Else</strong></p>
+<p>X1index = 0</p>
+<p><strong>While</strong> ( XMTbl[(BSindex * Xsize) + X1index+1] &lt; input)</p>
+<p>X1index = X1index+1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (input2 &lt;= XMTbl[(BSindex+1)*Xsize])</p>
+<p>X2index = 0</p>
+<p>input2= XMTbl[(BSindex+1)*Xsize]</p>
+<p><strong>else if</strong> (input2 &gt;= XMTbl[((BSindex+1)*Xsize)+Xsize-1])</p>
+<p>X2index = Xsize-2</p>
+<p>input2 = XMTbl[((BSindex+1)*Xsize)+Xsize-1]</p>
+<p><strong>while</strong> (( XMTbl[(BSindex+1)*Xsize) + X2index] == XMTbl[((BSindex+1)*Xsize)+X2index+1]) &amp;&amp; (X2index &gt; 0))</p>
+<p>X2index = X2index-1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Else</strong></p>
+<p>X2index = 0</p>
+<p><strong>While</strong> ( XMTbl[((BSindex+1)*Xsize)+X2index+1] &lt; input2)</p>
+<p>X2index = X2index+1</p>
+<p><strong>Wend</strong></p>
+<p><strong>Endif</strong></p>
+<p>ArrayIndex1 = (BSindex * Xsize) + X1index</p>
+<p>ArrayIndex2 = (BSindex * Xsize) + X1index + 1</p>
+<p>ArrayIndex3 = ((BSindex +1)*Xsize)+X2index</p>
+<p>ArrayIndex4 = ((BSindex + 1)*Xsize)+X2index+1</p>
+<p>XInputDiff1 = input – XMTbl[ArrayIndex1]</p>
+<p>XInputDiff2 = inpu2 – XMTbl[ArrayIndex3]</p>
+<p>BSInputDiff = BS – BSTbl[BSindex]</p>
+<p>Mult1_s32 = XInputDiff1 * (XMTbl[ArrayIndex4] – XMTbl[ArrayIndex3])</p>
+<p>Mult2_s32 = BSInputDiff * (XMTbl[ArrayIndex2] – XMTbl[ArrayIndex1])</p>
+<p>Den1_s32 = (XMTbl[ArrayIndex4] – XMTbl[ArrayIndex3])</p>
+<p>Den2_s32 = (XMTbl[ArrayIndex2] – XMTbl[ArrayIndex1])</p>
+<p>Den3_s32 = (BSTbl[BSindex + 1] – BSTbl[BSindex])</p>
+<p><strong>Numerator_f32</strong> = Mult1_s32 * ((BSTbl[BSindex+1]-BS)* (YMTbl[ArrayIndex2]-YMTbl[ArrayIndex1])+</p>
+<p>Mult2_s32 * (XMTbl[ArrayIndex4]-XMTbl[ArrayIndex3]) *</p>
+<p>(YMTbl[ArrayIndex3] – YMTbl[ArrayIndex1]) +</p>
+<p>Mult2_s32 * XInputDiff2 * (YMTbl[ArrayIndex4] – YMTbl[ArrayIndex3])</p>
+<p><strong>Denominator_f32</strong> = (Den1_s32 * Den2_s32) * Den3_s32</p>
+<p><strong>If</strong> (Denominator_f32 &lt;= FLT_EPSILON)</p>
+<p>Output_f32 = YMTbl[ArrayIndex1]</p>
+<p><strong>Else</strong></p>
+<p>Output_f32 = YMTbl[ArrayIndex1] + Numerator_f32 / Denominator_f32</p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (Output_f32 &gt;= 0)</p>
+<p>Output_f32 = Output_f32 +0.5</p>
+<p><strong>Else</strong></p>
+<p>Output_f32 = Output_f32 – 0.5</p>
+<p><strong>Endif</strong></p>
+<p>/*float to SINT16 typecast*/</p>
+<p>Output_s16 = Output_f32</p>
+<p>return Output_s16</p>
+<p><strong>end</strong></p>
+<h3 id="syntax-bilinearxmym_u16_s16xmu16ym_cnt-bs-input-bstbl-bssize-xmtbl-ymtbl-xsize">Syntax: BilinearXMYM_u16_s16XMu16YM_Cnt( BS, input, *BSTbl, BSsize, *XMTbl, *YMTbl, Xsize)</h3>
+<p>Arguments:</p>
+<ol type="1">
+<li><p>BS:- Bilinear Selector</p></li>
+<li><p>input:-The input to the table</p></li>
+<li><p>BSTbl:- Bilinear Selector Table 2D</p></li>
+<li><p>BSize:- Bilinear Selector Table Size</p></li>
+<li><p>XTbl:- Table X with [MxN] dimension</p></li>
+<li><p>YMTbl:- Table Y with [MxN] dimension</p></li>
+<li><p>Xsize:- Size of XTbl</p></li>
+</ol>
+<p>Output:- The output from the table</p>
+<p>Pseudo Code:</p>
+<p>UINT16 BSindex, X1index, X2index,</p>
+<p>UINT16 ArrayIndex1, ArrayIndex2, ArrayIndex3, ArrayIndex4</p>
+<p>SINT32 BSInputDiff, XInputDiff1, XInputDiff2</p>
+<p>SINT32 Mult1_s32, Mult2_s32</p>
+<p>FLOAT32 Numerator_f32, Denominator_f32</p>
+<p>UINT16 Output_u16</p>
+<p>SINT32 Den1_s32, Den2_s32, Den3_s32</p>
+<p>UINT16 input2 = input</p>
+<p>Const UINT16 BSTbl = [z1,z2,z3,z4,…..]</p>
+<p>Const UINT16 XTbl[mxn] = [(x1,x2,x3…),(x4,x5,x6….),….]</p>
+<p>Const UINT16 YMTbl[mxn] = [(y1,y2,y3…),(y4,y5,y6….),….]</p>
+<p><strong>If</strong> ( BS &lt;= BSTbl[0] )</p>
+<p>BSindex = 0</p>
+<p>BS = BSTbl [0]</p>
+<p><strong>Else if</strong> (BS &gt;= BSTbl[BSsize -1])</p>
+<p>BSindex = BSsize – 2</p>
+<p>BS = BSTbl [ BSsize-1]</p>
+<p><strong>while</strong> (BSTbl[BSindex] == BSTbl[BSindex+1] &amp;&amp; (BSindex &gt; 0))</p>
+<p>BSindex = BSindex -1</p>
+<p><strong>wend</strong></p>
+<p><strong>Else</strong></p>
+<p>BSindex = 0</p>
+<p><strong>while</strong> ( BSTbl [ BSindex +1] &lt; BS)</p>
+<p>BSindex = BSindex +1</p>
+<p><strong>wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> ( input &lt;= XMTbl [ BSindex * Xsize])</p>
+<p>X1index = 0</p>
+<p>Input = XMTbl [BSindex * Xsize]</p>
+<p><strong>Else if</strong> (input &gt;= XMTbl [ (BSindex * Xsize) + Xsize -1])</p>
+<p>X1index = Xsize – 2</p>
+<blockquote>
+<p>input = XMTbl [ (BSindex * Xsize) + Xsize – 1]</p>
+<p><strong>while</strong> ((XMTbl[(BSindex * Xsize)+X1index] == XMTbl[(BSindex * Xsize) + X1index +1]) &amp;&amp; (X1index &gt;0))</p>
+<p>X1index = X1index – 1</p>
+<p><strong>wend</strong></p>
+</blockquote>
+<p><strong>Else</strong></p>
+<p>X1index = 0</p>
+<p><strong>while</strong> (XMTbl[(BSindex * Xsize)+X1index+1] &lt;input)</p>
+<p>X1index = X1index + 1</p>
+<p><strong>wend</strong></p>
+<p><strong>Endif</strong></p>
+<p><strong>If</strong> (input2 &lt;= XMTb1 [(BSindex+1) * Xsize])</p>
+<p>X2index = 0</p>
+<p>input2 = XMTbl[(BSindex + 1) * Xsize ]</p>
+<p><strong>Else if</strong> (input2 &gt;= XMTbl [ ((BSindex +1) * Xsize) + Xsize -1])</p>
+<p>X2index = Xsize -2</p>
+<p>input2 = XMTbl[((BSindex +1)*Xsize) + Xsize -1]</p>
+<p><strong>while</strong> ((XMTbl[((BSindex+1)*Xsize)+X2index]==XMTbl[((BSindex+1)*Xsize)+X2index+1]) &amp;&amp; (X2index &gt;0))</p>
+<p>X2index = X2index – 1</p>
+<p><strong>wend</strong></p>
+<p><strong>Else</strong></p>
+<p>X2index = 0</p>
+<p><strong>while</strong> ( XMTbl[((BSindex+1)*Xsize)+X2index+1]&lt;input2)</p>
+<p>X2index = X2index +1</p>
+<p><strong>wend</strong></p>
+<p><strong>Endif</strong></p>
+<p>ArrayIndex1 = (BSindex * Xsize) + X1index</p>
+<p>ArrayIndex2 = (BSindex * Xsize) + X1index + 1</p>
+<p>ArrayIndex3 = ((BSindex +1)* Xsize) + X2index</p>
+<p>ArrayIndex4 = ((BSindex +1)*Xsize)+X2index+1</p>
+<p>XInputDiff1 = input – XMTbl[ArrayIndex1]</p>
+<p>XInputDiff2 = input2 – XMTbl[ArrayIndex3]</p>
+<p>BSInputDiff = BS – BSTbl[BSindex]</p>
+<p>Mult1_s32 = XInputDiff1 * (XMTbl[ArrayIndex4] – XMTbl[ArrayIndex3])</p>
+<p>Mult2_s32 = BSInputDiff * (XMTbl[ArrayIndex2] – XMTbl[ArrayIndex1])</p>
+<p>Den1_s32 = (XMTbl[ArrayIndex4]-XMTbl[ArrayIndex3])</p>
+<p>Den2_s32 = (XMTbl[ArrayIndex2] – XMTbl[ArrayIndex1])</p>
+<p>Den3_s32 = (BSTbl[BSindex +1]-BSTbl[BSindex])</p>
+<p><strong>Numerator_f32</strong> = Mult1_s32 * (BSTbl[BSindex+1]-BS) *</p>
+<p>(YMTbl[ArrayIndex2]-YMTbl[ArrayIndex1]) +</p>
+<p>Mult2_s32*(XMTbl[ArrayIndex4] – XMTbl[ArrayIndex3]) *</p>
+<p>(YMTbl[ArrayIndex3] – YMTbl[ArrayIndex1]) +</p>
+<p>Mult2_s32 * XInputDiff2*(YMTbl[ArrayIndex4] – YMTbl[ArrayIndex3])</p>
+<p><strong>Denominator_f32</strong> = (Den1_s32 * Den2_s32) * Den3_s32</p>
+<p>If (Denominator_f32 &lt;= FLT_EPSILON)</p>
+<p>Output_u16 = YMTbl[ArrayIndex1] + 0.5</p>
+<p>Else</p>
+<blockquote>
+<p>Output_u16 = YMTbl[ArrayIndex1] + (Numerator_f32 / Denominator_f32) + 0.5</p>
+</blockquote>
+<p>Endif</p>
+<p>return Output_u16</p>
+<p>end</p>
+<h1 id="unittesting-range-linear-and-bilinear-interpolation">UnitTesting Range: Linear and Bilinear Interpolation </h1>
+<blockquote>
+<p>For unit testing consider Ranges as <strong>FULL</strong> based on the data type of the tables and Input. Note a limitation for all interpolation functions is that the X tables and the BS Tables are assumed to be always increasing in value (or equal). The tables should never be decreasing in values as the index increases.</p>
+</blockquote>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 59%" />
+<col style="width: 13%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>CBD</td>
+<td>Interpolation MDD</td>
+<td>13 April 12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2</td>
+<td>Added remaining bilinear interpolation functions</td>
+<td>28-Sep-12</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3</td>
+<td>Changed divide by zero logic in bilinear interpolation to prevent floating point exceptions</td>
+<td>21-Mar-13</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4</td>
+<td>Updated pseudo code for the corrections for anomalies EA3#530 and EA3#191</td>
+<td>06-May-15</td>
+<td>KJS</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,801 @@
+---
+title: TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles
+linkTitle: TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles
+weight: 71
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-1_1.png"/><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>MICROSAR&#160;DB Update&#160;</b><br/>
+Technical&#160;Reference&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Version&#160;1.9&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Authors&#160;<br/>
+Benjamin&#160;Gottschalk,&#160;Mario&#160;Kunz,&#160;Matthias Bannholzer&#160;<br/>
+Status&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-2_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-2_2.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>Document&#160;Information&#160;</b><br/>
+<b>History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;</b><br/>
+<b>Remarks&#160;</b><br/>
+Benjamin&#160;Gottschalk&#160;<br/>
+2009-12-10&#160;<br/>
+1.0&#160;<br/>
+Creation&#160;<br/>
+Benjamin&#160;Gottschalk&#160;<br/>
+2009-12-17&#160;<br/>
+1.1&#160;<br/>
+Adapted&#160;Reference&#160;<br/>Documents&#160;<br/>
+Benjamin&#160;Gottschalk&#160;<br/>
+2010-01-13&#160;<br/>
+1.2&#160;<br/>
+Added&#160;examples&#160;for&#160;<br/>validation&#160;and&#160;fix&#160;mode&#160;<br/>
+Benjamin&#160;Gottschalk&#160;<br/>
+2010-03-31&#160;<br/>
+1.3&#160;<br/>
+Added&#160;chapter&#160;“Basic&#160;<br/>Concepts”&#160;<br/>
+Manuela Scheufele&#160;<br/>
+2010-06-24&#160;<br/>
+1.4&#160;<br/>
+Add&#160;Appendix&#160;Supported&#160;Use&#160;<br/>Cases&#160;<br/>
+Benjamin&#160;Gottschalk&#160;<br/>
+2010-09-27&#160;<br/>
+1.5&#160;<br/>
+ESCAN00045603&#160;<br/>
+Benjamin&#160;Gottschalk&#160;<br/>
+2011-01-14&#160;<br/>
+1.6&#160;<br/>
+Added&#160;chapter&#160;5&#160;<br/>
+Mario&#160;Kunz&#160;<br/>
+2011-10-31&#160;<br/>
+1.7&#160;<br/>
+ESCAN00054591,&#160;<br/>ESCAN00054592&#160;<br/>
+Matthias Banholzer&#160;<br/>
+2012-09-14&#160;<br/>
+1.8&#160;<br/>
+ESCAN00050371&#160;<br/>
+Mario&#160;Kunz&#160;<br/>
+2013-03-27&#160;<br/>
+1.9&#160;<br/>
+ESCAN00065153&#160;<br/>
+<b>Reference&#160;Documents&#160;</b><br/>
+<b>No.&#160;</b><br/>
+<b>Source&#160;</b><br/>
+<b>Title&#160;</b><br/>
+<b>Version&#160;</b><br/>
+[1]&#160;&#160;&#160;<br/>
+VECTOR&#160;&#160;TechnicalReference_Asr_GenTool_CsAsrInitialEcuC.pdf&#160;<br/>
+1.0&#160;<br/>
+[2]&#160;&#160;&#160;<br/>
+VECTOR&#160;&#160;DbUpdateConsoleApplication.exe.config&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Please&#160;note&#160;<br/></b>We&#160;have configured&#160;the&#160;programs&#160;in&#160;accordance&#160;with your&#160;specifications&#160;in the&#160;<br/>
+<b>&#160;&#160;</b>questionnaire.&#160;Whereas&#160;the&#160;programs&#160;do&#160;support&#160;other&#160;configurations&#160;than&#160;the&#160;one&#160;<br/>
+specified&#160;in your&#160;questionnaire,&#160;Vector´s&#160;release&#160;of&#160;the&#160;programs&#160;delivered&#160;to&#160;your&#160;<br/>company&#160;is&#160;expressly&#160;restricted&#160;to&#160;the&#160;configuration&#160;you&#160;have specified&#160;in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+2&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-3_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#5"><b>1</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#5"><b>Introduction...................................................................................................................&#160;5</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#7"><b>2</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#7"><b>Basic concepts&#160;.............................................................................................................&#160;7</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#8"><b>3</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#8"><b>Usage.............................................................................................................................&#160;8</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#8">3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#8">Use Cases&#160;.........................................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#8">3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#8">Arguments&#160;.........................................................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#11">3.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#11">Application Configuration&#160;File&#160;...........................................................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#11">3.2.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#11">Standard&#160;Use Case&#160;..........................................................................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#13">3.2.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#13">Updating project&#160;based&#160;on two ECUC&#160;projects&#160;.................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14"><b>4</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14"><b>Consistency&#160;of&#160;an&#160;existing&#160;ECUC&#160;project&#160;.................................................................&#160;14</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14">4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14">Validation&#160;mode&#160;...............................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14">4.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14">Fix&#160;mode&#160;..........................................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#15"><b>5</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#15"><b>What&#160;to do&#160;after&#160;an&#160;update&#160;.........................................................................................&#160;15</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#15">5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#15">Dcm&#160;.................................................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#16"><b>6</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#16"><b>Appendix&#160;.....................................................................................................................&#160;16</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#16">6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#16">supported&#160;Use&#160;Cases&#160;......................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#21"><b>7</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#21"><b>Glossary&#160;and&#160;Abbreviations&#160;......................................................................................&#160;21</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#21">7.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#21">Glossary&#160;..........................................................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#21">7.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#21">Abbreviations&#160;...................................................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#22"><b>8</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#22"><b>Contact&#160;........................................................................................................................&#160;22</b>&#160;</a><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+3&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-4_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#5">Figure&#160;1-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#5">Workflow&#160;for&#160;updating&#160;an&#160;ECUC&#160;project&#160;......................................................&#160;5&#160;</a><br/>
+<b>&#160;</b><br/>
+<b>Tables&#160;</b><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#9">Table 3-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#9">Command&#160;line&#160;arguments&#160;...........................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#10">Table 3-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#10">Command&#160;line&#160;arguments&#160;for&#160;calling&#160;the MICROSAR&#160;Initial&#160;ECUC&#160;<br/>Generator&#160;.................................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#12">Table 3-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#12">Arguments&#160;standard use&#160;case&#160;..................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#13">Table 3-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#13">Arguments&#160;updating&#160;project&#160;based on&#160;two ECUC&#160;projects&#160;........................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14">Table 4-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14">Arguments&#160;validating&#160;project&#160;.....................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14">Table 4-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14">Arguments&#160;fixing&#160;project&#160;...........................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#20">Table 5-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#20">Supported&#160;Use Cases&#160;...............................................................................&#160;20&#160;</a><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+4&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-5_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-5_2.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>1&#160;&#160;Introduction&#160;</b><br/>
+The&#160;&#160;MICROSAR&#160;&#160;DB&#160;&#160;Update&#160;&#160;is&#160;&#160;the&#160;&#160;Vector&#160;&#160;solution&#160;&#160;for&#160;&#160;performing&#160;&#160;updates&#160;&#160;based&#160;&#160;on&#160;&#160;an&#160;&#160;existing&#160;<br/>ECU&#160;Configuration Description.&#160;An&#160;example workflow&#160;is&#160;shown below&#160;i<a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#5">n&#160;Figure&#160;1-1.</a>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Figure&#160;1-1&#160;<br/>
+Workflow&#160;for&#160;updating&#160;an&#160;ECUC&#160;project&#160;<br/>
+The&#160;&#160;ECUC&#160;&#160;project&#160;&#160;is&#160;&#160;generated&#160;&#160;by&#160;&#160;the&#160;&#160;MICROSAR&#160;&#160;Initial&#160;&#160;ECUC&#160;&#160;Generator.&#160;&#160;This&#160;&#160;project&#160;&#160;is&#160;<br/>modified&#160;by&#160;working.&#160;&#160;<br/>
+If&#160;&#160;a&#160;&#160;new&#160;&#160;ECU&#160;&#160;Extract&#160;&#160;of&#160;&#160;System&#160;&#160;Configuration&#160;&#160;Description&#160;&#160;is&#160;&#160;released&#160;&#160;by&#160;&#160;the&#160;&#160;OEM&#160;&#160;this&#160;&#160;changes&#160;<br/>must&#160;find&#160;their&#160;way&#160;into&#160;the&#160;ECUC&#160;file&#160;you&#160;are&#160;currently&#160;working&#160;with.&#160;So&#160;an&#160;update&#160;of&#160;the&#160;existing&#160;<br/>(already&#160;partly&#160;or&#160;fully&#160;configured)&#160;ECUC&#160;project&#160;is&#160;necessary.&#160;&#160;<br/>
+The&#160;MICROSAR&#160;DB&#160;Update&#160;needs&#160;to&#160;know&#160;the&#160;BSWMD&#160;files&#160;for&#160;matching&#160;vendor&#160;specific&#160;module&#160;<br/>configurations&#160;&#160;(with&#160;&#160;a&#160;&#160;DEFINITION-REF&#160;&#160;of&#160;&#160;e.g.&#160;&#160;“/MICROSAR/EcuM”)&#160;&#160;with&#160;&#160;standard&#160;&#160;AUTOSAR&#160;<br/>module configuration&#160;(with a&#160;DEFINITION-REF of&#160;e.g.&#160;“/AUTOSAR/EcuM”).&#160;&#160;<br/>
+The&#160;&#160;MICROSAR&#160;&#160;DB&#160;&#160;Update&#160;&#160;needs&#160;&#160;all&#160;&#160;definitions&#160;&#160;of&#160;&#160;the&#160;&#160;module&#160;&#160;configurations&#160;&#160;containing&#160;&#160;in&#160;&#160;the&#160;<br/>existing&#160;&#160;ECUC&#160;&#160;project;&#160;&#160;otherwise&#160;&#160;the&#160;&#160;update&#160;&#160;cannot&#160;&#160;be&#160;&#160;performed&#160;&#160;for&#160;&#160;theses&#160;&#160;module&#160;<br/>configurations&#160;/&#160;containers&#160;/&#160;parameters&#160;or&#160;references.&#160;&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+5&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-6_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+For&#160;this&#160;reason,&#160;the&#160;component&#160;directory&#160;(where&#160;the&#160;BSWMD&#160;files&#160;are&#160;stored)&#160;has&#160;to&#160;be&#160;specified&#160;<br/>for&#160;performing&#160;a complete update.&#160;Alternatively,&#160;the&#160;path to the&#160;components-directory&#160;may&#160;get&#160;read&#160;<br/>out&#160;of&#160;the&#160;*.vdsxml-file&#160;automatically&#160;by&#160;this&#160;tool,&#160;if&#160;that&#160;path&#160;really&#160;exists&#160;physically&#160;on&#160;the&#160;actual&#160;<br/>PC.&#160;This&#160;path&#160;will&#160;be&#160;written&#160;by&#160;GENy&#160;when&#160;saving&#160;the&#160;configuration&#160;the&#160;first&#160;time.&#160;However,&#160;if&#160;the&#160;<br/>configuration&#160;&#160;has&#160;&#160;been&#160;&#160;configured&#160;&#160;on&#160;&#160;one&#160;&#160;PC&#160;&#160;but&#160;&#160;will&#160;&#160;be&#160;&#160;updated&#160;&#160;on&#160;&#160;another,&#160;&#160;the&#160;&#160;path&#160;&#160;to&#160;&#160;the&#160;<br/>correct&#160;components-directory&#160;may&#160;have changed&#160;and&#160;must&#160;be&#160;specified&#160;explicitely.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+6&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-7_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>2&#160;&#160;Basic&#160;concepts&#160;</b><br/>
+The&#160;updater&#160;has&#160;to deal&#160;with a&#160;quadruplet&#160;of&#160;ECUC&#160;files:&#160;<br/>
+<b>&#160;&#160;</b>&#160;<br/>
+<b>&#160;&#160;</b>Existing&#160;Active ECUC&#160;File&#160;<br/>
+<b>&#160;&#160;</b>Existing&#160;Initial&#160;ECUC&#160;File&#160;<br/>
+<b>&#160;&#160;</b>New&#160;Active ECUC&#160;File&#160;<br/>
+<b>&#160;&#160;</b>New&#160;Initial&#160;ECUC&#160;File&#160;<br/>
+&#160;<br/>
+The&#160;&#160;updater&#160;&#160;is&#160;&#160;implemented&#160;&#160;in&#160;&#160;a&#160;&#160;generic&#160;&#160;way&#160;&#160;and&#160;&#160;doesn’t&#160;&#160;have&#160;&#160;any&#160;&#160;knowledge&#160;&#160;about&#160;&#160;module-<br/>details&#160;at&#160;all.&#160;The&#160;tool&#160;is&#160;operating&#160;on&#160;fundamental&#160;ECUC&#160;objects,&#160;like&#160;Containers,&#160;Parameters&#160;and&#160;<br/>References,&#160;&#160;not&#160;&#160;on&#160;&#160;semantically&#160;&#160;objects&#160;&#160;like&#160;&#160;Channels&#160;&#160;or&#160;&#160;Identities.&#160;&#160;So,&#160;during&#160;&#160;update,&#160;&#160;decisions&#160;<br/>are&#160;&#160;based&#160;&#160;on&#160;&#160;a&#160;&#160;strict&#160;&#160;algorithm&#160;&#160;which&#160;&#160;evaluates&#160;&#160;the&#160;&#160;ECUC&#160;&#160;objects&#160;&#160;in&#160;&#160;the&#160;&#160;four&#160;&#160;mentioned&#160;&#160;ECUC&#160;<br/>files.&#160;<br/>
+When&#160;&#160;starting&#160;&#160;the&#160;&#160;tool&#160;&#160;in&#160;&#160;the&#160;&#160;recommended&#160;&#160;use-case,&#160;&#160;at&#160;&#160;first&#160;&#160;the&#160;&#160;MICROSAR&#160;&#160;Initial&#160;&#160;ECUC&#160;<br/>Generator&#160;will&#160;be&#160;called,&#160;which&#160;creates&#160;a temporary&#160;new&#160;ECUC&#160;project&#160;out&#160;of&#160;the&#160;new&#160;ECU-Extract&#160;<br/>of&#160;&#160;System&#160;&#160;Configuration&#160;&#160;Description&#160;&#160;of&#160;&#160;the&#160;&#160;OEM.&#160;&#160;This&#160;&#160;project&#160;&#160;will&#160;&#160;be&#160;&#160;deleted&#160;&#160;at&#160;&#160;the&#160;&#160;end&#160;&#160;of&#160;&#160;the&#160;<br/>update-process,&#160;because it’s not&#160;needed&#160;anymore.&#160;<br/>
+The&#160;second&#160;step&#160;is&#160;the&#160;real&#160;update&#160;of&#160;the&#160;existing&#160;ECUC&#160;project.&#160;It’s&#160;realized&#160;through&#160;copying&#160;the&#160;<br/>newly&#160;created&#160;Initial&#160;ECUC&#160;File&#160;to&#160;the&#160;original&#160;working&#160;directory,&#160;so&#160;the&#160;existing&#160;Initial&#160;ECUC&#160;File&#160;<br/>isn’t&#160;&#160;relevant&#160;&#160;anymore.&#160;&#160;The&#160;&#160;new&#160;&#160;Initial&#160;&#160;ECUC&#160;&#160;File&#160;&#160;contains&#160;&#160;the&#160;&#160;new&#160;&#160;predetermined&#160;&#160;OEM&#160;<br/>restrictions.&#160;All&#160;ECUC&#160;objects&#160;which&#160;are&#160;located&#160;in&#160;the&#160;existing&#160;Active&#160;ECUC&#160;File&#160;will&#160;be&#160;adapted&#160;to&#160;<br/>their&#160;&#160;pendants&#160;&#160;in&#160;&#160;the&#160;&#160;new&#160;&#160;Initial&#160;&#160;ECUC&#160;&#160;File.&#160;&#160;All&#160;&#160;other&#160;&#160;ECUC&#160;&#160;objects&#160;&#160;in&#160;&#160;the&#160;&#160;existing&#160;&#160;Active&#160;&#160;ECUC&#160;<br/>File&#160;&#160;are&#160;&#160;user-configured&#160;&#160;and&#160;&#160;won’t&#160;&#160;be&#160;&#160;touched.&#160;&#160;The&#160;&#160;third&#160;&#160;category&#160;&#160;is&#160;&#160;build&#160;&#160;up&#160;&#160;through&#160;&#160;all&#160;&#160;ECUC&#160;<br/>objects&#160;&#160;which&#160;&#160;only&#160;&#160;exist&#160;&#160;in&#160;&#160;the&#160;&#160;new&#160;&#160;Active&#160;&#160;ECUC&#160;&#160;File.&#160;&#160;These&#160;&#160;objects&#160;&#160;will&#160;&#160;just&#160;&#160;be&#160;&#160;copied&#160;&#160;to&#160;&#160;the&#160;<br/>existing&#160;(updated)&#160;Active ECUC&#160;File.&#160;<br/>
+The&#160;matching&#160;of&#160;ECUC&#160;objects&#160;to&#160;each&#160;other&#160;in&#160;the&#160;different&#160;ECUC&#160;files&#160;can&#160;only&#160;be&#160;done&#160;through&#160;<br/>their&#160;definitions&#160;and&#160;–&#160;if&#160;they’re Identifiables&#160;–&#160;through&#160;their&#160;ShortName.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+7&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-8_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>3&#160;&#160;Usage&#160;</b><br/>
+The&#160;default&#160;usage&#160;help&#160;on&#160;the&#160;command&#160;line&#160;appears&#160;by&#160;calling&#160;the&#160;executable&#160;without&#160;parameters&#160;<br/>or&#160;with parameter&#160;<b>-h</b>.&#160;&#160;<br/>
+The&#160;MICROSAR&#160;DB&#160;Update&#160;calls&#160;the&#160;MICROSAR&#160;Initial&#160;ECUC&#160;Generator&#160;internally&#160;for&#160;generating&#160;<br/>a&#160;&#160;temporary&#160;&#160;ECUC&#160;&#160;Configuration&#160;&#160;based&#160;&#160;on&#160;&#160;the&#160;&#160;new&#160;&#160;ECU&#160;&#160;Extract&#160;&#160;of&#160;&#160;System&#160;&#160;Configuration&#160;<br/>Description.&#160;This&#160;temporary&#160;ECUC&#160;Configuration&#160;will&#160;be&#160;updated&#160;independent&#160;of&#160;the&#160;existing&#160;one.&#160;<br/>
+<b>3.1&#160;</b><br/>
+<b>Use&#160;Cases&#160;</b><br/>
+This&#160;&#160;tool&#160;&#160;has&#160;&#160;been&#160;&#160;implemented&#160;for&#160;&#160;the&#160;&#160;purpose&#160;&#160;of&#160;&#160;updating&#160;&#160;existing&#160;&#160;ECUC&#160;&#160;projects&#160;&#160;based&#160;&#160;on&#160;&#160;a&#160;<br/>first&#160;version&#160;of&#160;an&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;Description&#160;of&#160;an&#160;OEM&#160;to&#160;a&#160;second&#160;version&#160;<br/>(which includes just&#160;minor&#160;changes,&#160;like&#160;some&#160;new&#160;/&#160;removed&#160;messages&#160;or&#160;signals).&#160;<br/>
+This&#160;tool&#160;is&#160;<b>NOT</b>&#160;intended&#160;for&#160;the&#160;following&#160;use&#160;cases and&#160;does&#160;<b>NOT&#160;support</b>&#160;them:&#160;<br/>
+<b>&#160;&#160;</b>Complete&#160;change of&#160;the&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration Description (complete&#160;change&#160;<br/>
+of&#160;communication&#160;matrix)&#160;<br/>
+<b>&#160;&#160;</b>Update&#160;of&#160;a&#160;standard use case&#160;project&#160;to&#160;a&#160;multiple ECU&#160;use&#160;case&#160;project&#160;<br/>
+<b>&#160;&#160;</b>Adding&#160;a&#160;new&#160;identity&#160;to&#160;an&#160;existing&#160;configuration&#160;<br/>
+<b>&#160;&#160;</b>Removing&#160;of&#160;identities&#160;in a&#160;multiple identity&#160;configuration&#160;project.&#160;<br/>
+<b>&#160;&#160;</b>Update&#160;of&#160;an&#160;existing&#160;ECUC&#160;project&#160;for&#160;ECU1&#160;to a&#160;new&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;of&#160;the&#160;OEM&#160;which is specified&#160;for&#160;another&#160;ECU2&#160;<br/>
+<b>&#160;&#160;</b>Update&#160;from&#160;&#34;single&#160;node&#34;&#160;to a&#160;&#34;multiple node&#34;.&#160;To&#160;change&#160;the&#160;configuration&#160;during&#160;the&#160;<br/>
+development&#160;will&#160;not&#160;work.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+8&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-9_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>3.2&#160;</b><br/>
+<b>Arguments&#160;</b><br/>
+The&#160;arguments of&#160;the&#160;MICROSAR DB&#160;Update&#160;are listed&#160;in&#160;the&#160;following&#160;table.&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+-c,&#160;--componentsDir=PATH&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;PATH&#160;being interpreted&#160;as&#160;<br/>the&#160;component&#160;directory&#160;where important&#160;BSWMD&#160;files are&#160;<br/>stored.&#160;<br/>
+-f,&#160;--fix=FILE&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;FILE&#160;being&#160;interpreted&#160;as&#160;<br/>an&#160;ECUC&#160;project,&#160;which&#160;will&#160;be&#160;validated&#160;and updated.&#160;<br/>
+-h,&#160;--help&#160;<br/>
+Display&#160;the&#160;help.&#160;<br/>
+-i,&#160;--initialEcuCGen=PATH&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;PATH&#160;being interpreted&#160;as&#160;<br/>the&#160;directory,&#160;where the&#160;MICROSAR&#160;Initial&#160;ECUC&#160;<br/>Generator&#160;is&#160;stored.&#160;<br/>
+If&#160;this&#160;option&#160;is&#160;not&#160;specified,&#160;the&#160;MICROSAR&#160;DB&#160;Update&#160;<br/>assumes&#160;that&#160;the&#160;MICROSAR&#160;Initial&#160;ECUC&#160;Generator&#160;is&#160;<br/>placed in&#160;the&#160;same directory.&#160;<br/>
+-l,&#160;--logFile=FILE&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;FILE&#160;being&#160;interpreted&#160;as&#160;a&#160;<br/>log&#160;file.&#160;<br/>
+If&#160;<b>-l</b>&#160;is&#160;not&#160;specified,&#160;a default&#160;log&#160;file will&#160;be&#160;generated.&#160;<br/>
+-n,&#160;--noBackup&#160;<br/>
+Creates&#160;no&#160;backup&#160;of&#160;the existing&#160;ECUC&#160;project.&#160;<br/>
+-u,&#160;--updateWithProject=FILE&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;FILE&#160;being&#160;interpreted&#160;as&#160;<br/>VDSXML file of&#160;the&#160;new&#160;ECUC&#160;project.&#160;<br/>
+-v,&#160;--verbose&#160;<br/>
+Display&#160;additional&#160;descriptions and&#160;help.&#160;<br/>
+-V,&#160;--Validate=FILE&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;FILE&#160;being&#160;interpreted&#160;as&#160;<br/>an&#160;ECUC&#160;project,&#160;which&#160;will&#160;be&#160;validated.&#160;<br/>
+-w,&#160;--workingProject=FILE&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;FILE&#160;being&#160;interpreted&#160;as&#160;<br/>VDSXML file of&#160;the&#160;existing&#160;ECUC&#160;project.&#160;<br/>
+Table&#160;3-1&#160;&#160;<br/>
+Command&#160;line&#160;arguments&#160;<br/>
+The&#160;&#160;following&#160;&#160;arguments&#160;&#160;are&#160;&#160;possible&#160;&#160;for&#160;&#160;calling&#160;&#160;the&#160;&#160;MICROSAR&#160;&#160;Initial&#160;&#160;ECUC&#160;&#160;Generator.&#160;&#160;These&#160;<br/>parameters&#160;&#160;will&#160;&#160;only&#160;&#160;be&#160;&#160;forwarded&#160;&#160;to&#160;&#160;the&#160;&#160;generator&#160;&#160;and&#160;&#160;are&#160;&#160;not&#160;&#160;needed&#160;&#160;by&#160;&#160;the&#160;&#160;MICROSAR&#160;&#160;DB&#160;<br/>Update&#160;itself.&#160;For&#160;detailed&#160;information&#160;about&#160;the&#160;MICROSAR&#160;Initial&#160;ECUC&#160;Generator&#160;see&#160;[1].&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+9&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-10_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-10_2.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+-a,&#160;--asrVersion=VERSION&#160;&#160;Makes the&#160;following&#160;parameter&#160;VERSION&#160;being&#160;interpreted&#160;as&#160;the&#160;<br/>
+AsrVersion,&#160;the&#160;ECUC&#160;files&#160;should be&#160;generated&#160;in.&#160;<br/>
+The&#160;VERSION&#160;should be&#160;the&#160;XML namespace version&#160;of&#160;the&#160;<br/>AsrVersion and&#160;should be specified&#160;in&#160;the&#160;following manner:&#160;e.g.&#160;<br/>3.0.2.&#160;<br/>
+-b,&#160;--bswmd=FILE&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;FILE&#160;being&#160;interpreted&#160;as&#160;a&#160;<br/>BSWMD&#160;file.&#160;<br/>
+-m,&#160;--merge&#160;<br/>
+Performs&#160;a&#160;merge&#160;of&#160;all&#160;specified&#160;ECU&#160;Extract&#160;of&#160;System&#160;<br/>Configuration Description&#160;files&#160;to one&#160;output&#160;ECUC&#160;project.&#160;<br/>
+For&#160;this&#160;option,&#160;you&#160;have to&#160;specify&#160;at&#160;least&#160;two valid ECU&#160;Extract&#160;of&#160;<br/>System&#160;Configuration&#160;Description&#160;files.&#160;<br/>
+This&#160;parameter&#160;should&#160;be only&#160;used,&#160;when using&#160;the&#160;Identity&#160;<br/>Manager&#160;feature.&#160;Merging&#160;of&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>Description&#160;files&#160;is&#160;just&#160;supported&#160;in this&#160;context.&#160;<br/>
+-o,&#160;--overlayConfig=FILE&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;FILE&#160;being&#160;interpreted&#160;as&#160;the&#160;XML&#160;<br/>configuration&#160;file&#160;for&#160;buffer&#160;overlay&#160;in Multiple ECU&#160;use&#160;case.&#160;<br/>
+This&#160;parameter&#160;should&#160;be only&#160;used,&#160;when using&#160;the&#160;Identity&#160;<br/>Manager&#160;feature.&#160;<br/>
+-p,&#160;--projectName=NAME&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;NAME&#160;being&#160;interpreted&#160;as project&#160;<br/>name.&#160;<br/>
+Table&#160;3-2&#160;&#160;<br/>
+Command&#160;line&#160;arguments&#160;for&#160;calling&#160;the&#160;MICROSAR&#160;Initial&#160;ECUC&#160;Generator&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>All&#160;arguments&#160;which describe&#160;a&#160;file or&#160;a&#160;path&#160;can&#160;be&#160;specified&#160;relatively&#160;or&#160;absolutely.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+If&#160;you&#160;do&#160;not&#160;use&#160;parameter&#160;<b>-n</b>,&#160;the&#160;MICROSAR&#160;DB&#160;Update&#160;creates a&#160;backup&#160;of&#160;the&#160;existing&#160;ECUC&#160;<br/>project&#160;&#160;in&#160;&#160;a&#160;&#160;new&#160;&#160;generated&#160;&#160;directory.&#160;&#160;(Directory&#160;&#160;of&#160;&#160;the&#160;&#160;existing&#160;&#160;VDSXML&#160;&#160;file).&#160;&#160;The&#160;&#160;backup&#160;&#160;folder&#160;<br/>has&#160;the&#160;following&#160;naming convention:&#160;<br/>
+backup_&lt;hh&gt;-&lt;mm&gt;-&lt;ss&gt;_&lt;YYYY&gt;-&lt;MM&gt;-&lt;DD&gt;,&#160;e.g.:&#160;backup_13-22-35_2009-12-07&#160;<br/>
+After&#160;&#160;the&#160;&#160;backup&#160;&#160;has&#160;&#160;been&#160;&#160;performed&#160;&#160;successfully&#160;&#160;the&#160;&#160;existing&#160;&#160;ECUC&#160;&#160;project&#160;&#160;will&#160;&#160;be&#160;&#160;overwritten&#160;<br/>with&#160;&#160;the&#160;&#160;updated&#160;&#160;ECUC&#160;&#160;project.&#160;&#160;This&#160;&#160;is&#160;&#160;due&#160;&#160;to&#160;&#160;the&#160;&#160;fact&#160;&#160;that&#160;&#160;many&#160;&#160;tools&#160;&#160;may&#160;&#160;refer&#160;&#160;to&#160;&#160;exactly&#160;&#160;this&#160;<br/>VDSXML file at&#160;this&#160;location.&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+10&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-11_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-11_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-11_3.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>3.2.1&#160;</b><br/>
+<b>Application&#160;Configuration&#160;File&#160;</b><br/>
+The&#160;&#160;MICROSAR&#160;&#160;DB&#160;&#160;Update&#160;&#160;is&#160;&#160;supplied&#160;&#160;with&#160;&#160;an&#160;&#160;application&#160;&#160;configuration&#160;&#160;file&#160;&#160;called&#160;<br/><b>DbUpdateConsoleApplication.exe.config</b>&#160;(see&#160;[2]).&#160;This&#160;file&#160;is&#160;written&#160;as&#160;XML&#160;file&#160;&#160;and&#160;stored&#160;in&#160;<br/>the&#160;same directory&#160;as&#160;the executable.&#160;<br/>
+The&#160;file&#160;contains&#160;a&#160;configuration&#160;section&#160;for&#160;specifying&#160;the&#160;relative&#160;path&#160;to&#160;the&#160;directory,&#160;where&#160;the&#160;<br/>MICROSAR&#160;Initial&#160;ECUC&#160;Generator&#160;is&#160;located.&#160;After&#160;the&#160;installation&#160;of&#160;your&#160;delivery&#160;package&#160;this&#160;<br/>path&#160;is&#160;already&#160;set&#160;correctly.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Edit&#160;<br/></b>If&#160;the&#160;directory&#160;structure&#160;changed,&#160;this&#160;file&#160;has&#160;to&#160;be&#160;edit&#160;for&#160;adapting the&#160;path&#160;to&#160;the&#160;<br/>
+&#160;&#160;MICROSAR&#160;Initial&#160;ECUC&#160;Generator.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+If&#160;&#160;command&#160;&#160;line&#160;&#160;parameter&#160;&#160;<b>-i</b>&#160;&#160;is&#160;&#160;defined,&#160;&#160;the&#160;&#160;path&#160;&#160;is&#160;&#160;taken&#160;&#160;from&#160;&#160;this&#160;&#160;parameter&#160;&#160;and&#160;&#160;not&#160;&#160;from&#160;&#160;the&#160;<br/>configuration&#160;file.&#160;<br/>
+&#160;<br/>
+<b>3.2.2&#160;</b><br/>
+<b>Standard&#160;Use&#160;Case&#160;</b><br/>
+This&#160;is&#160;the&#160;default&#160;use&#160;case&#160;for&#160;updating&#160;an&#160;existing&#160;ECUC&#160;project&#160;based&#160;on&#160;a&#160;new&#160;ECU&#160;Extract&#160;of&#160;<br/>System&#160;Configuration&#160;Description.&#160;<br/>
+In&#160;that&#160;case&#160;the&#160;MICROSAR&#160;Initial&#160;ECUC&#160;Generator&#160;is&#160;called&#160;automatically&#160;by&#160;the&#160;MICROSAR&#160;DB&#160;<br/>Update,&#160;to&#160;generate&#160;a&#160;new&#160;ECUC&#160;Project&#160;based&#160;on&#160;the&#160;new&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>Description.&#160;<br/>
+<b>Command&#160;line:&#160;</b><br/>
+DbUpdateConsoleApplication.exe&#160;–w&#160;&lt;vdsxml-file of&#160;the&#160;working&#160;EcuC project&gt;&#160;-c&#160;&lt;components-directory&gt;&#160;<br/>&lt;NewEcuExtractOfSystemConfigurationDescription&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>DbUpdateConsoleApplication.exe&#160;–w&#160;D:\test\workingProject.ecuc.vdsxml&#160;&#160;–c&#160;<br/>
+&#160;&#160;D:\test\components&#160;D:\test\myNewSystemExtract.arxml&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+–w&#160;D:\test\workingProject.ecuc.vdsxml&#160;<br/>
+This&#160;is&#160;the&#160;current&#160;ECUC&#160;project.&#160;<br/>
+-c&#160;D:\test\components&#160;<br/>
+Specifies&#160;the&#160;component&#160;directory&#160;(including&#160;<br/>the&#160;BSWMD&#160;files,&#160;which are important&#160;for&#160;<br/>updating&#160;the&#160;current&#160;ECUC&#160;project).&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+11&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-12_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+D:\test\myNewSystemExtract.arxml&#160;<br/>
+This&#160;is&#160;the&#160;new&#160;ECU&#160;Extract&#160;of&#160;System&#160;<br/>Configuration Description.&#160;This&#160;file is&#160;taken&#160;as&#160;<br/>input&#160;for&#160;updating&#160;the&#160;current&#160;ECUC&#160;project.&#160;<br/>
+Table&#160;3-3&#160;&#160;<br/>
+Arguments&#160;standard&#160;use&#160;case&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+12&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-13_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-13_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-13_3.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>3.2.3&#160;</b><br/>
+<b>Updating&#160;project&#160;based&#160;on&#160;two&#160;ECUC&#160;projects&#160;</b><br/>
+This&#160;&#160;use&#160;&#160;case&#160;&#160;makes&#160;&#160;an&#160;&#160;updated&#160;&#160;ECUC&#160;&#160;project&#160;&#160;based&#160;&#160;on&#160;&#160;an&#160;&#160;existing&#160;&#160;ECUC&#160;&#160;project&#160;&#160;and&#160;&#160;a&#160;&#160;new&#160;<br/>ECUC&#160;project&#160;possible.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>This&#160;use case&#160;is&#160;NOT&#160;recommended.&#160;In&#160;most&#160;cases,&#160;the&#160;new&#160;ECU&#160;Extract&#160;of&#160;System&#160;<br/>
+<b>&#160;&#160;</b>Configuration Description is available,&#160;so the&#160;standard&#160;use&#160;case&#160;is&#160;given&#160;(see&#160;chapter&#160;<br/>
+2.1.2&#160;for&#160;details).&#160;&#160;<br/>
+In some&#160;cases,&#160;the&#160;new&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration Description may&#160;not&#160;be&#160;<br/>available,&#160;but&#160;you&#160;may&#160;have a&#160;new&#160;ECUC&#160;project.&#160;For&#160;these cases,&#160;you&#160;should use&#160;this&#160;<br/>use&#160;case.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Command&#160;line:&#160;</b><br/>
+DbUpdateConsoleApplication.exe&#160;–w&#160;&lt;vdsxml-file of&#160;the&#160;working&#160;EcuC project&gt;&#160;-c&#160;&lt;components-directory&gt;&#160;-<br/>u &lt;new&#160;EcuC project&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>DbUpdateConsoleApplication.exe&#160;–w&#160;D:\test\workingProject.ecuc.vdsxml&#160;&#160;–c&#160;<br/>
+&#160;&#160;D:\test\components&#160;–u D:\test\newProject.ecuc.vdsxml&#160;<br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+–w&#160;D:\test\workingProject.ecuc.vdsxml&#160;<br/>
+This&#160;is&#160;the&#160;current&#160;ECUC&#160;project.&#160;<br/>
+-c&#160;D:\test\components&#160;<br/>
+Specifies&#160;the&#160;component&#160;directory&#160;(including&#160;<br/>the&#160;BSWMD&#160;files,&#160;which are important&#160;for&#160;<br/>updating&#160;the&#160;current&#160;ECUC&#160;project).&#160;<br/>
+–u D:\test\newProject.ecuc.vdsxml&#160;<br/>
+This&#160;is&#160;the&#160;new&#160;ECU&#160;project&#160;(the&#160;output&#160;of&#160;the&#160;<br/>MICROSAR&#160;Initial&#160;ECUC&#160;Generator).&#160;<br/>
+Table&#160;3-4&#160;&#160;<br/>
+Arguments&#160;updating&#160;project&#160;based&#160;on&#160;two&#160;ECUC&#160;projects&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+13&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-14_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-14_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-14_3.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>4&#160;&#160;Consistency&#160;of&#160;an&#160;existing&#160;ECUC&#160;project&#160;</b><br/>
+<b>4.1&#160;</b><br/>
+<b>Validation&#160;mode&#160;</b><br/>
+When&#160;calling&#160;the&#160;MICROSAR&#160;DB&#160;Update&#160;with&#160;parameter&#160;<b>-V</b>,&#160;the&#160;ECUC&#160;project&#160;will&#160;be&#160;validated&#160;in&#160;<br/>the&#160;&#160;following&#160;&#160;way.&#160;&#160;All&#160;&#160;containers&#160;&#160;/&#160;&#160;parameters&#160;&#160;/&#160;&#160;references&#160;&#160;of&#160;&#160;the&#160;&#160;current&#160;&#160;ECUC&#160;&#160;file&#160;&#160;will&#160;&#160;be&#160;<br/>compared&#160;&#160;to&#160;&#160;their&#160;&#160;corresponding&#160;&#160;partners&#160;&#160;in&#160;&#160;the&#160;&#160;existing&#160;&#160;initial&#160;&#160;ECUC&#160;&#160;file.&#160;&#160;If&#160;&#160;the&#160;&#160;values&#160;&#160;are&#160;&#160;NOT&#160;<br/>equal,&#160;an&#160;error&#160;is&#160;reported.&#160;<br/>
+<b>Command&#160;line:&#160;</b><br/>
+DbUpdateConsoleApplication.exe&#160;–V&#160;&lt;vdsxml-file of&#160;the&#160;EcuC project to validate&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>DbUpdateConsoleApplication.exe&#160;–V&#160;D:\test\workingProject.ecuc.vdsxml&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+–V&#160;D:\test\workingProject.ecuc.vdsxml&#160;<br/>
+This&#160;is&#160;the&#160;ECUC&#160;project&#160;to&#160;be&#160;validated.&#160;<br/>
+Table&#160;4-1&#160;&#160;<br/>
+Arguments&#160;validating&#160;project&#160;<br/>
+<b>4.2&#160;</b><br/>
+<b>Fix&#160;mode&#160;</b><br/>
+The&#160;fix&#160;mode&#160;operates&#160;on&#160;the&#160;same&#160;check&#160;as&#160;the&#160;validation&#160;mode.&#160;The&#160;difference&#160;is&#160;that&#160;errors&#160;will&#160;<br/>not&#160;be&#160;reported,&#160;but&#160;immediately&#160;fixed.&#160;<br/>
+The&#160;&#160;result&#160;&#160;is&#160;&#160;a&#160;&#160;consistent&#160;&#160;ECUC&#160;&#160;project,&#160;&#160;where&#160;&#160;all&#160;&#160;containers&#160;&#160;/&#160;&#160;parameters&#160;&#160;/&#160;&#160;references&#160;&#160;of&#160;&#160;the&#160;<br/>current&#160;active ECUC&#160;file will&#160;have exactly&#160;the&#160;same values&#160;as the&#160;initial&#160;ECUC&#160;file.&#160;<br/>
+<b>Command&#160;line:&#160;</b><br/>
+DbUpdateConsoleApplication.exe&#160;–f&#160;&lt;vdsxml-file of&#160;the EcuC&#160;project to&#160;fix&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>DbUpdateConsoleApplication.exe&#160;–f&#160;D:\test\workingProject.ecuc.vdsxml&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+–f&#160;D:\test\workingProject.ecuc.vdsxml&#160;<br/>
+This&#160;is&#160;the&#160;ECUC&#160;project&#160;to&#160;be&#160;fixed.&#160;<br/>
+Table&#160;4-2&#160;&#160;<br/>
+Arguments&#160;fixing&#160;project&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+14&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-15_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>5&#160;&#160;What&#160;to&#160;do&#160;after&#160;an&#160;update&#160;</b><br/>
+There&#160;&#160;are&#160;&#160;some&#160;&#160;steps&#160;&#160;after&#160;&#160;an&#160;&#160;update,&#160;&#160;which&#160;&#160;has&#160;&#160;to&#160;&#160;be&#160;&#160;checked&#160;&#160;(and&#160;&#160;perhaps&#160;&#160;configured)&#160;<br/>manually.&#160;<br/>
+<b>5.1&#160;</b><br/>
+<b>Dcm&#160;</b><br/>
+A&#160;&#160;DcmConnection&#160;&#160;refers&#160;&#160;to&#160;&#160;GlobalPdus.&#160;&#160;These&#160;&#160;GlobalPdus&#160;&#160;are&#160;&#160;derived&#160;&#160;from&#160;&#160;the&#160;&#160;corresponding&#160;<br/>DcmIPdus&#160;in SystemExtract.&#160;&#160;<br/>
+If&#160;there was a&#160;configured&#160;DcmConnection&#160;in the&#160;ecuc-project&#160;before update AND&#160;the&#160;ShortName&#160;of&#160;<br/>a&#160;&#160;DcmIPdu&#160;&#160;has&#160;&#160;changed&#160;&#160;in&#160;&#160;the&#160;&#160;new&#160;&#160;SystemExtract,&#160;&#160;the&#160;&#160;DcmConnection&#160;&#160;is&#160;&#160;not&#160;&#160;fully&#160;&#160;described&#160;<br/>anymore&#160;after&#160;update&#160;(due&#160;to lack&#160;of&#160;the&#160;GlobalPdus,&#160;which have changed,&#160;too)&#160;and will&#160;be&#160;deleted&#160;<br/>during&#160;first&#160;load&#160;of&#160;the&#160;updatet&#160;ecu&#160;configuration&#160;in&#160;GENy.&#160;These&#160;DcmConnections&#160;must&#160;be&#160;added&#160;<br/>manually&#160;again after&#160;update&#160;in&#160;GENy.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+15&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-16_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>6&#160;&#160;Appendix&#160;</b><br/>
+<b>6.1&#160;</b><br/>
+<b>supported&#160;Use&#160;Cases&#160;</b><br/>
+<b>Use&#160;Cases&#160;</b><br/>
+Signal&#160;groups&#160;–&#160;CAN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;signal&#160;to&#160;signal&#160;group&#160;<br/>
+<b>&gt;&#160;&#160;</b>Remove signal&#160;from&#160;signal&#160;group&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move signals&#160;between signal&#160;groups&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change init&#160;values&#160;of&#160;signals&#160;within signal&#160;groups&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;position&#160;of&#160;signal&#160;within signal&#160;groups&#160;<br/>
+<b>&gt;&#160;&#160;</b>Remove signal&#160;group&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;signal&#160;group&#160;direction&#160;from&#160;RX&#160;to&#160;TX&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;signal&#160;group&#160;direction&#160;from&#160;TX&#160;to&#160;RX&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move signal&#160;group&#160;between PDUs&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move signal&#160;group&#160;between channels&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move signal&#160;group&#160;between channels&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;signal&#160;group&#160;<br/>
+PDUs&#160;–&#160;CAN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;PDU&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;direction&#160;of&#160;PDU&#160;from&#160;RX&#160;to&#160;TX&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;direction&#160;of&#160;PDU&#160;from&#160;TX&#160;to RX&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move PDU&#160;between channels&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change PDU&#160;timing&#160;from&#160;cyclic&#160;to direct&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change PDU&#160;timing&#160;from&#160;direct&#160;to&#160;cyclic&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change PDU&#160;timing&#160;from&#160;Mixed&#160;(direct,&#160;cyclic)&#160;to&#160;direct&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;PDU&#160;<br/>
+PDUs&#160;–&#160;LIN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;direction&#160;of&#160;PDU&#160;from&#160;Rx&#160;to&#160;Tx&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;direction&#160;of&#160;PDU&#160;from&#160;Tx&#160;to Rx&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move&#160;PDU&#160;between channels&#160;(Chan1&#160;to Chan2)&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;sporadic&#160;PDU&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+16&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-17_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>Use&#160;Cases&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>Add&#160;event-triggered&#160;PDU&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;unconditional&#160;PDU&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;sporadic&#160;PDU&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;event-triggered&#160;PDU&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;unconditional&#160;PDU&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;order&#160;index&#160;of&#160;associated&#160;frames&#160;in a&#160;sporadic&#160;frame&#160;<br/>
+PDUs&#160;–&#160;FlexRay&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;PDU&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;direction&#160;of&#160;PDU&#160;from&#160;RX&#160;to&#160;TX&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;direction&#160;of&#160;PDU&#160;from&#160;TX&#160;to RX&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move PDU&#160;between channel&#160;A&#160;and B&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move PDU&#160;between channel&#160;B&#160;and A&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;PDU&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move PDU&#160;between frames&#160;<br/>
+Signals&#160;–&#160;CAN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Remove signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change init&#160;value&#160;of&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;bit&#160;position&#160;of&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move signals&#160;between PDUs&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move signals&#160;between PDUs&#160;and channels&#160;<br/>
+Signals&#160;–&#160;LIN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Remove signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change init&#160;value&#160;of&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;bit&#160;position&#160;of&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move signals&#160;between PDUs&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move signals&#160;between PDUs&#160;and channels&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+17&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-18_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>Use&#160;Cases&#160;</b><br/>
+Signals&#160;–&#160;FlexRay&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Remove signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change init&#160;value&#160;of&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;bit&#160;position&#160;of&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move signals&#160;between PDUs&#160;within different&#160;frames&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move signals&#160;between PDUs&#160;and channels&#160;(A/B)&#160;<br/>
+Frames&#160;–&#160;CAN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;ID&#160;<br/>
+Frames&#160;–&#160;LIN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;ID&#160;of&#160;Unconditional&#160;Frame&#160;<br/>
+Frames&#160;–&#160;FlexRay&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change Slot&#160;ID&#160;of&#160;dynamic&#160;frame&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change Slot&#160;ID&#160;of&#160;static&#160;frame&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;dynamic&#160;frame&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;static&#160;frame&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;dynamic&#160;frame&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;static&#160;frame&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;payload of&#160;frame&#160;<br/>
+Gateway&#160;Signal&#160;Mapping&#160;–&#160;CAN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;new&#160;signal&#160;mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Remove signal&#160;mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;signal&#160;mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Signal&#160;move between I-Pdus&#160;<br/>
+Gateway&#160;Signal&#160;Mapping&#160;–&#160;LIN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;new&#160;signal&#160;mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Remove signal&#160;mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;signal&#160;mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Signal&#160;move between I-Pdus&#160;<br/>
+Gateway&#160;Signal&#160;Mapping&#160;–&#160;FlexRay&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;new&#160;signal&#160;mapping&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+18&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-19_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>Use&#160;Cases&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>Remove signal&#160;mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;signal&#160;mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Signal&#160;move between I-Pdus&#160;<br/>
+Gateway&#160;I-Pdu&#160;Mapping&#160;–&#160;CAN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;new&#160;I-Pdu&#160;Mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Remove I-Pdu&#160;Mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;I-Pdu&#160;Mapping&#160;<br/>
+Gateway&#160;I-Pdu&#160;Mapping&#160;–&#160;LIN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;new&#160;I-Pdu&#160;Mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Remove I-Pdu&#160;Mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;I-Pdu&#160;Mapping&#160;<br/>
+Gateway&#160;I-Pdu&#160;Mapping&#160;–&#160;FlexRay&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;new&#160;I-Pdu&#160;Mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Remove I-Pdu&#160;Mapping&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;I-Pdu&#160;Mapping&#160;<br/>
+Network&#160;parameters&#160;–&#160;LIN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change Baud&#160;Rate&#160;for&#160;LINNetwork1&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change Baud&#160;Rate&#160;for&#160;LINNetwork2&#160;<br/>
+Network&#160;parameters&#160;–&#160;FlexRay&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change Baud&#160;Rate&#160;for&#160;FRNetwork1&#160;<br/>
+<b>&gt;&#160;&#160;</b>Increase&#160;number&#160;of&#160;static&#160;slots&#160;by&#160;changing&#160;cycle length and/or&#160;macrotick&#160;duration&#160;(high&#160;level&#160;<br/>
+parameters)&#160;<br/>
+Channels&#160;–&#160;CAN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;channel&#160;name CANNetwork0&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;channel&#160;name CANNetwork1&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;channel&#160;CANNetwork3&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;channel&#160;CANNetwork4&#160;<br/>
+Channels&#160;–&#160;LIN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;channel&#160;name LINNetwork0&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;channel&#160;name LINNetwork1&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;channel&#160;LINNetwork3&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;channel&#160;LINNetwork4&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+19&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-20_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>Use&#160;Cases&#160;</b><br/>
+Cluster&#160;–&#160;FlexRay&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;cluster&#160;name FRNetwork0&#160;<br/>
+I-PDU-Groups&#160;–&#160;CAN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;I-PDU-Group&#160;for&#160;Node&#160;ECUUpdateTest&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;I-PDU-Group&#160;for&#160;Node ECUUpdateTest&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;hierarchical&#160;I-PDU-Group&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;hierarchical&#160;I-PDU-Group&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move IPDUs&#160;between I-PDU-Groups&#160;<br/>
+I-PDU-Groups&#160;–&#160;LIN&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;I-PDU-Group&#160;for&#160;Node&#160;ECUUpdateTest&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;I-PDU-Group&#160;for&#160;Node ECUUpdateTest&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;hierarchical&#160;I-PDU-Group&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;hierarchical&#160;I-PDU-Group&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move IPDUs&#160;between I-PDU-Groups&#160;<br/>
+I-PDU-Groups&#160;–&#160;FlexRay&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;hierarchical&#160;I-PDU-Group&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;hierarchical&#160;I-PDU-Group&#160;<br/>
+LIN Schedule&#160;tables&#160;<br/>
+<b>&gt;&#160;&#160;</b>Add&#160;Schedule&#160;Table&#160;<br/>
+<b>&gt;&#160;&#160;</b>Delete&#160;Schedule&#160;Table&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;slot&#160;position&#160;of&#160;frames&#160;within schedule&#160;table&#160;<br/>
+<b>&gt;&#160;&#160;</b>Move frames&#160;between schedule tables&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;schedule&#160;table name&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;table id&#160;(priority)&#160;of&#160;schedule&#160;table&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change&#160;delay&#160;of&#160;frames&#160;within schedule table&#160;<br/>
+<b>&gt;&#160;&#160;</b>Change Run&#160;Mode of&#160;schedule table&#160;<br/>
+Table&#160;5-1&#160;&#160;<br/>
+Supported&#160;Use&#160;Cases&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+20&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-21_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>7&#160;&#160;Glossary&#160;and&#160;Abbreviations&#160;</b><br/>
+<b>7.1&#160;</b><br/>
+<b>Glossary&#160;</b><br/>
+<b>Term&#160;</b><br/>
+<b>Description&#160;</b><br/>
+ECU&#160;Extract&#160;of&#160;<br/>
+The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;Description is a&#160;subset&#160;of&#160;the&#160;<br/>
+System&#160;Configuration&#160;&#160;System&#160;Configuration&#160;Description.&#160;It&#160;only&#160;contains&#160;information&#160;relevant&#160;for&#160;<br/>Description&#160;<br/>
+one specific&#160;ECU.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>7.2&#160;</b><br/>
+<b>Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+ECU&#160;<br/>
+Electronic&#160;Control&#160;Unit&#160;<br/>
+ECUC&#160;<br/>
+ECU&#160;Configuration&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+21&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsole-22_1.png"/><br/>
+Technical&#160;Reference&#160;MICROSAR DB&#160;Update&#160;&#160;<br/>
+&#160;<br/>
+<b>8&#160;&#160;Contact&#160;</b><br/>
+Visit&#160;our&#160;website&#160;for&#160;more information&#160;on&#160;<br/>
+&#160;<br/>
+<b>&#160;&#160;</b>News&#160;<br/>
+<b>&#160;&#160;</b>Products&#160;<br/>
+<b>&#160;&#160;</b>Demo&#160;software&#160;<br/>
+<b>&#160;&#160;</b>Support&#160;<br/>
+<b>&#160;&#160;</b>Training&#160;data&#160;<br/>
+<b>&#160;&#160;</b>Addresses&#160;<br/>
+&#160;<br/>
+<b>www.vector.com</b>&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+22&#160;/&#160;22&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#5">1 Introduction</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#7">2 Basic concepts</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#8">3 Usage</a>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#8">3.1 Use Cases</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#9">3.2 &#160;Arguments</a>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#11">3.2.1 &#160;Application Configuration File</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#11">3.2.2 Standard Use Case</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#13">3.2.3 &#160;Updating project based on two ECUC projects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14">4 Consistency of an existing ECUC project</a>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14">4.1 Validation mode</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#14">4.2 Fix mode</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#15">5 What to do after an update</a>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#15">5.1 Dcm</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#16">6 Appendix</a>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#16">6.1 supported Use Cases</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#21">7 Glossary and Abbreviations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#21">7.1 Glossary</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#21">7.2 Abbreviations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrDbUpdateConsoles.html#22">8 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

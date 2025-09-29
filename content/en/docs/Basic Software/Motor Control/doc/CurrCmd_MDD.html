@@ -1,0 +1,1713 @@
+---
+title: CurrCmd_MDD
+linkTitle: CurrCmd_MDD
+weight: 2
+---
+
+<h1 class="unnumbered" id="module----currcmd">Module -- CurrCmd</h1>
+<h1 class="unnumbered" id="high-level-description">High-Level Description</h1>
+<p>This Module generates the current command and the voltage reference for the current control.</p>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.65694in;height:3.63472in" /></p>
+<h3 id="diagram-function-name">Diagram – Function (Name)</h3>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Module Inputs</td>
+<td colspan="2">Module Outputs</td>
+</tr>
+<tr class="even">
+<td colspan="2">Refer Data Dictionary</td>
+<td>Refer Data Dictionary</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section"></h2>
+<h2 class="unnumbered" id="section-1"></h2>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 14%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 19%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Variable Name</td>
+<td>Resolution</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>For all information regarding Module level/Display variable refer Data Dictionary</td>
+<td>For all information regarding Module level/Display variable refer Data Dictionary</td>
+<td>For all information regarding Module level/Display variable refer Data Dictionary</td>
+<td>For all information regarding Module level/Display variable refer Data Dictionary</td>
+<td>For all information regarding Module level/Display variable refer Data Dictionary</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Typedef Name</td>
+<td>Element Name</td>
+<td>User Defined Type</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+</tr>
+<tr class="even">
+<td>LowPassFiltBilinear_Str</td>
+<td>PrevInput_Uls_f32</td>
+<td>Single precision float</td>
+<td>FULL RANGE</td>
+<td>FULL RANGE</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>PrevOutput_Uls_f32</td>
+<td>Single precision float</td>
+<td>FULL RANGE</td>
+<td>FULL RANGE</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>TermN_Uls_f32</td>
+<td>Single precision float</td>
+<td>FULL RANGE</td>
+<td>FULL RANGE</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>TermD_Uls_f32</td>
+<td>Single precision float</td>
+<td>FULL RANGE</td>
+<td>FULL RANGE</td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>Refer Data Dictionary</td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 14%" />
+<col style="width: 23%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Units</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>D_SQRT3OVR2_ULS_F32</td>
+<td>Single Precision Float</td>
+<td>Uls</td>
+<td>0.866025403784</td>
+</tr>
+<tr class="odd">
+<td>D_MTRPOLESDIV2_CNT_F32</td>
+<td>Single Precision Float</td>
+<td>Cnt</td>
+<td>3.0</td>
+</tr>
+<tr class="even">
+<td>D_2OVRSQRT3_ULS_F32</td>
+<td>Single Precision Float</td>
+<td>Uls</td>
+<td>1.15470053837925</td>
+</tr>
+<tr class="odd">
+<td>D_NEG2OVRSQRT3_ULS_F32</td>
+<td>Single Precision Float</td>
+<td>Uls</td>
+<td>-1.15470053837925F</td>
+</tr>
+<tr class="even">
+<td>D_ROUND_ULS_F32</td>
+<td>Single Precision Float</td>
+<td>Uls</td>
+<td>0.5</td>
+</tr>
+<tr class="odd">
+<td>D_NEGROUND_ULS_F32</td>
+<td>Single Precision Float</td>
+<td>Uls</td>
+<td>-0.5</td>
+</tr>
+<tr class="even">
+<td>D_NEG_ULS_F32</td>
+<td>Single Precision Float</td>
+<td>Uls</td>
+<td>- 1</td>
+</tr>
+<tr class="odd">
+<td>D_MAXCURRENT_AMP_F32</td>
+<td>Single Precision Float</td>
+<td>Amp</td>
+<td>220</td>
+</tr>
+<tr class="even">
+<td>D_SIZERDLTAPOINTS_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>TableSize_m(t_RefDeltaPoints_Rad_f32)</td>
+</tr>
+<tr class="odd">
+<td>D_MAXDELTAPOINTSSIZE_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>D_SIZERDLTAPOINTS_CNT_U16 – 1U)</td>
+</tr>
+<tr class="even">
+<td>D_PIPLUSPIOVER4_ULS_F32</td>
+<td>Single Precision Float</td>
+<td>ULS</td>
+<td>D_PI_ULS_F32+( D_2PI_ULS_F32/4)</td>
+</tr>
+<tr class="odd">
+<td>D_VECUMAX_VOLTS_F32</td>
+<td>Single Precision Float</td>
+<td>Volts</td>
+<td>31.0F</td>
+</tr>
+<tr class="even">
+<td>D_2PISQRT3OVR2_ULS_F32</td>
+<td>Single Precision Float</td>
+<td>ULS</td>
+<td>(D_2PI_ULS_F32*D_SQRT3OVR2_ULS_F32)</td>
+</tr>
+<tr class="odd">
+<td>D_FOUROVRSQRT3_ULS_F32</td>
+<td>Single Precision Float</td>
+<td>ULS</td>
+<td>( D_2OVRSQRT3_ULS_F32* 2.0F)</td>
+</tr>
+<tr class="even">
+<td>D_BANDWIDTHLOLIM_HZ_F32</td>
+<td>Single Precision Float</td>
+<td>Hz</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>D_BANDWIDTHHILIM_HZ_F32</td>
+<td>Single Precision Float</td>
+<td>Hz</td>
+<td>(1000.0F)</td>
+</tr>
+<tr class="even">
+<td>D_NATFREQLOLIM_HZ_F32</td>
+<td>Single Precision Float</td>
+<td>Hz</td>
+<td>0.0f</td>
+</tr>
+<tr class="odd">
+<td>D_NATFREQHILIM_HZ_F32</td>
+<td>Single Precision Float</td>
+<td>Hz</td>
+<td>500.0f</td>
+</tr>
+<tr class="even">
+<td>D_VECUDEFAULT_VOLT_F32</td>
+<td>Single Precision Float</td>
+<td>Volt</td>
+<td>12.5</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section-2"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td>D_180OVRPI_ULS_F32</td>
+</tr>
+<tr class="even">
+<td>D_ONE_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td>D_QUADRANT3_CNT_U8</td>
+</tr>
+<tr class="even">
+<td>D_QUADRANT1_CNT_U8</td>
+</tr>
+<tr class="odd">
+<td>D_2PI_ULS_F32</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_CNT_U16</td>
+</tr>
+<tr class="odd">
+<td>D_VECUMIN_VOLTS_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>FPM_FloatToFixed_m</p></li>
+<li><p>LPF_SvUpdate_s16InFixKTrunc_m</p></li>
+<li><p>LPF_OpUpdate_s16InFixKTrunc_m</p></li>
+<li><p>FPM_FixedToFloat_m</p></li>
+<li><p>Sqrtf</p></li>
+<li><p>Abs_f32_m</p></li>
+<li><p>atan2f</p></li>
+<li><p>IntplVarXY_u16_u16Xu16Y_Cnt</p></li>
+<li><p>Sinf</p></li>
+<li><p>Cosf</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="local-function-1">Local Function #1</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ParabolicInterpolation</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>IntpolPoints_Uls_T_f32[6]</td>
+<td>Float32</td>
+<td>-</td>
+<td>-</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>ParaIntpol_Uls_T_f32</td>
+<td>Float32</td>
+<td>N/A</td>
+<td>N/A</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+
+<h3 class="unnumbered" id="section-3"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.wmf" /></h3>
+<h3 id="local-function-2">Local Function #2</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CalculateImVSIdq</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>IdRef_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>+220</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>IqRef_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>+220</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>ImVSIdq_AmpSq_T_f32</td>
+<td>Float32</td>
+<td>0</td>
+<td>96800</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.wmf" /></p>
+<h3 id="local-function-3">Local Function #3</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CalculateIq</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Torquecmd_MtrNm_T_f32</td>
+<td>Float32</td>
+<td>-8.8</td>
+<td>8.8</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>IdRef_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>IqRefTmp_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-2">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.wmf" /></p>
+<h3 id="local-function-4">Local Function #4</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CurrtoVoltTest</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>IqRef_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>IdRef_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>*VqR_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>*VdR_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>VoltTest_Uls_T_lgc</td>
+<td>Boolean</td>
+<td>False</td>
+<td>True</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-3">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.wmf" /></p>
+<h3 id="local-function-5">Local Function #5</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CalcTorque</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>CosDelta_Cnt_T_f32</td>
+<td>Float32</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SinDelta_Cnt_T_f32</td>
+<td>Float32</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>*IdMax_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>TorqueCalc_MtrNm_T_f32</td>
+<td>Float32</td>
+<td>-8.8</td>
+<td>8.8</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-4">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.wmf" /></p>
+<h3 id="local-function-6">Local Function #6</h3>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 54%" />
+<col style="width: 9%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LocateTrqExtremese</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>MtrTrqCmd_MtrNm_T_f32</td>
+<td>Float32</td>
+<td>-8.8</td>
+<td>8.8</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>*IdMax_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>*PhsAdvPeak_Rad_T_f32</td>
+<td>Float32</td>
+<td>-2*pi</td>
+<td>+2*pi</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>LimitedMRFMtrTrqCmd_MtrNm_T_f32</td>
+<td>Float32</td>
+<td>-8.8</td>
+<td>8.8</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-5">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.wmf" /></p>
+<h3 id="local-function-7">Local Function #7</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LocateMinimumIm</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>MtrTrqCmd_MtrNm_T_f32</td>
+<td>Float32</td>
+<td>-8.8</td>
+<td>8.8</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>* IdMin_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>* IqMin_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>ImSqrMin_AmpSq_T_f32</td>
+<td>Float32</td>
+<td>0</td>
+<td>96800</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-6">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.wmf" /></p>
+<h3 class="unnumbered" id="section-4"></h3>
+<h3 id="local-function-8">Local Function #8</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 34%" />
+<col style="width: 21%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CalLowPassFiltBilinearOut</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Input_Uls_T_f32</td>
+<td>Float32</td>
+<td>FULL RANGE</td>
+<td>FULL RANGE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>*LowPassFiltBilinear_T_Str</td>
+<td>LowPassFiltBilinear_Str</td>
+<td>FULL RANGE</td>
+<td>FULL RANGE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Output_Uls_T_f32</td>
+<td>Float32</td>
+<td>FULL RANGE</td>
+<td>FULL RANGE</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-7">Description</h4>
+<h3 class="unnumbered" id="section-5"></h3>
+<h3 id="local-function-9-callowpassfiltbilinearterm">Local Function #9 CalLowPassFiltBilinearTerm</h3>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 35%" />
+<col style="width: 21%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CalLowPassFiltBilinearTerm</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Freq_Hz_T_f32</td>
+<td>Float32</td>
+<td>FULL RANGE</td>
+<td>FULL RANGE</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>TimeCons_Sec_T_f32</td>
+<td>Float32</td>
+<td>FULL RANGE</td>
+<td>FULL RANGE</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>LowPassFiltBilinear_T_Str</td>
+<td>LowPassFiltBilinear_Str</td>
+<td>FULL RANGE</td>
+<td>FULL RANGE</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-8">Description</h4>
+<h3 id="local-function-10">Local Function #10</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>AngleWrap</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>MtrCurrAngle_Rev_T_f32</td>
+<td>Float32</td>
+<td>-1</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>MtrCurrAngle_Rev_T_f32</td>
+<td>Float32</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-9">Description</h4>
+<h3 id="local-function-11">Local Function #11</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>CalculateIdBoost</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>*IqMin_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>*IdMin_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>LimitedMRFMtrTrqCmd_MtrNm_T_f32</td>
+<td>Float32</td>
+<td>-8.8</td>
+<td>8.8</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>IdMax_Amp_T_f32</td>
+<td>Float32</td>
+<td>-220</td>
+<td>220</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-10">Description</h4>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Data</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_DaxIntegralGain_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_DaxPropotionalGain_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_EstKe_VpRadpS_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_EstLd_Henry_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_EstLq_Henry_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_EstR_Ohm_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_MRFMtrVel_MtrRadpS_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_MRFTrqCmdScl_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_MtrCurrAngle_Rev_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_MtrCurrDaxRef_Amp_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_MtrCurrQaxRef_Amp_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_MtrPosComputationDelay_Deg_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_MtrTrqCmdSign_Cnt_s16</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_MtrVoltDaxFF_Volt_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_MtrVoltQaxFF_Volt_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_QaxIntegralGain_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_QaxPropotionalGain_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_VehSpd_Kph_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>FastDataAccessBufIndex</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="currcmd_init">CurrCmd_Init</h3>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_CurrCmd_Per1_CP0_CheckpointReached()</p>
+<h4 id="processing">Processing</h4>
+<h3 class="unnumbered" id="section-6"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.wmf" /><br />
+</h3>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-currcmd_per1">Per: CurrCmd_Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>Rte_Call_CurrCmd_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>WriteAccessBufIndex_Cnt_T_u16= (FastDataAccessBufIndex_Cnt_M_u16&amp;1)^1;</p>
+<p>MRFMtrTrqCmd_MtrNm_T_f32=Rte_Iread_CurrCmd_Per1_MRFTrqCmdScl_MtrNm_f32</p>
+<p>MRFMtrVel_MtrRadpS_T_f32=Rte_Iread_CurrCmd_Per1_MRFMtrVel_MtrRadpS_f32</p>
+<p>EstKe_VpRadpS_T_f32=Rte_Iread_CurrCmd_Per1_EstKe_VpRadpS_f32</p>
+<p>EstR_Ohm_T_f32=Rte_Iread_CurrCmd_Per1_EstR_Ohm_f32</p>
+<p>EstLd_Henry_T_f32=Rte_Iread_CurrCmd_Per1_EstLd_Henry_f32</p>
+<p>EstLq_Henry_T_f32=Rte_Iread_CurrCmd_Per1_EstLq_Henry_f32</p>
+<p>VehSpd_Kph_T_f32=Rte_Iread_CurrCmd_Per1_VehSpd_Kph_f32</p>
+<p>MtrQuad_Cnt_T_u8 = Rte_Iread_CurrCmd_Per1_MtrQuad_Cnt_u08</p>
+<p>CurrentGainSvc_Cnt_T_lgc = Rte_IRead_CurrCmd_Per1_CurrentGainSvc_Cnt_lgc()</p>
+<p>Vecu_Volt_T_f32 = Limit_m(Vecu_Volt_T_f32, D_VECUMIN_VOLTS_F32, D_VECUMAX_VOLTS_F32)</p>
+<p>IvtrLoaMtgtnEn_Cnt_T_lgc = Rte_IRead_CurrCmd_Per1_IvtrLoaMtgtnEn_Cnt_lgc()</p>
+<p>MotCurrLoaMtgtnEn_Cnt_T_lgc= Rte_IRead_CurrCmd_Per1_MotCurrLoaMtgtnEn_Cnt_lgc()</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image15.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image16.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image17.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image18.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image20.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image21.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image22.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image23.wmf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>MtrCurrQaxRef_Amp_M_f32[WriteAccessBufIndex_Cnt_T_u16] = MtrCurrQaxRef_Amp_T_f32;</p>
+<p>MtrCurrDaxRef_Amp_M_f32[WriteAccessBufIndex_Cnt_T_u16] = MtrCurrDaxRef_Amp_T_f32;</p>
+<p>MtrCtrl_MtrDaxIntegralGain_Ohm_M_f32[WriteAccessBufIndex_Cnt_T_u16] = KidGain_Ohm_T_f32</p>
+<p>MtrCtrl_MtrDaxPropotionalGain_Ohm_M_f32[WriteAccessBufIndex_Cnt_T_u16] = KpdGain_Ohm_T_f32</p>
+<p>MtrCtrl_MtrQaxIntegralGain_Ohm_M_f32[WriteAccessBufIndex_Cnt_T_u16] = KiqGain_Ohm_T_f32</p>
+<p>MtrCtrl_MtrQaxPropotionalGain_Ohm_M_f32[WriteAccessBufIndex_Cnt_T_u16] = KpqGain_Ohm_T_f32</p>
+<p>Rte_IWrite_CurrCmd_Per1_MtrCurrDaxRef_Amp_f32(MtrCurrDaxRef_Amp_T_f32)</p>
+<p>Rte_IWrite_CurrCmd_Per1_MtrCurrQaxRef_Amp_f32(MtrCurrQaxRef_Amp_T_f32)</p>
+<p>Rte_IWrite_CurrCmd_Per1_MtrCurrAngle_Rev_f32(MtrCurrAngle_Rev_T_f32)</p>
+<p>MtrCtrl_MtrVoltDaxFF_Volt_M_f32[WriteAccessBufIndex_Cnt_T_u16] = MtrVoltDaxFF_Volt_T_f32</p>
+<p>MtrCtrl_MtrVoltQaxFF_Volt_M_f32[WriteAccessBufIndex_Cnt_T_u16] = MtrVoltQaxFF_Volt_T_f32</p>
+<p>MtrPosComputationDelay_Rad_M_f32[WriteAccessBufIndex_Cnt_T_u16] = ElecPosDelayComp_Rad_T_f32</p>
+<p>MtrCtrl_MtrDampTermDax_Ohm_M_f32[WriteAccessBufIndex_Cnt_T_u16] = MtrDampTermDax_Ohm_T_f32</p>
+<p>MtrCtrl_MtrDampTermQax_Ohm_M_f32[WriteAccessBufIndex_Cnt_T_u16] = MtrDampTermQax_Ohm_T_f32</p>
+<p>MtrCtrl_MtrImpedDax_Ohm_M_f32[WriteAccessBufIndex_Cnt_T_u16] = MtrImpedDax_Ohm_T_f32</p>
+<p>MtrCtrl_MtrImpedQax_Ohm_M_f32[WriteAccessBufIndex_Cnt_T_u16] = MtrImpedQax_Ohm_T_f32</p>
+<p>MtrCtrl_MtrCurrDaxMaxVal_Amp_M_f32[WriteAccessBufIndex_Cnt_T_u16]=MtrCurrDaxMaxVal_Amp_T_f32</p>
+<p>MtrCtrl_MtrPosComputationDelayRpl_Rad_M_f32[WriteAccessBufIndex_Cnt_T_u16] = ElecPosDelayCompRpl_Rad_T_f32</p>
+<p>MtrCtrl_Vecu_Volt_M_f32[WriteAccessBufIndex_Cnt_T_u16] = Vecu_Volt_T_f32</p>
+<h4 id="program-flow-end"> Program Flow End</h4>
+<p>Rte_Call_CurrCmd_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="section-7"></h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Calling Frequency</td>
+<td>System State(s) in which the function is called</td>
+</tr>
+<tr class="even">
+<td>CurrCmd_Per1</td>
+<td>2ms</td>
+<td>ALL</td>
+</tr>
+<tr class="odd">
+<td>CurrCmd_Init</td>
+<td>At init</td>
+<td>ALL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Sub-Module called by (Serial Comm Function Name)</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-8"><br />
+</h1>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>CurrCmd_Per1</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>CurrCmd_Init</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-9"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>ParabolicInterpolation</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>CalculateIq</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>CalculateImVSIdq</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>CurrtoVoltTest</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>CalcTorque</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>LocateTrqExtremes</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>LocateMinimumIm</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>CalLowPassFiltBilinearTerm</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>CalLowPassFiltBilinearOut</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>AngleWrap</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>CalculateIdBoost</td>
+<td>RTE_START_SEC_AP_CURRCMD_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>Global Macro’s are not unit tested.</p></li>
+</ol>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 63%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial version</td>
+<td>15<sup>th</sup>-May-12</td>
+<td>KPIT-RT</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Partial implementation of SF-99B v004</td>
+<td>20-Sep-12</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Checkpoints and memmap statements added</td>
+<td>20-Nov-12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0,5.0</td>
+<td>Implementation of SF99 v8</td>
+<td><p>23-Mar-13</p>
+<p>19-Apr-13</p></td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>6.0</td>
+<td>Corrected for A5883. Corrected LocateMinimumIm</td>
+<td>21-Oct-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>7.0</td>
+<td>Updated for v11 FDD99B</td>
+<td>6-Nov-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>8,0</td>
+<td>Corrected for NewDelta calculation / Updated for v11 FDD99B UTP fixes</td>
+<td>8-Nov-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>9.0</td>
+<td>Updated for V12 of FDD SF99</td>
+<td>26-Nov-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>10.0</td>
+<td>Updated for v15 of FDD SF99B</td>
+<td>20-Mar-15</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>11.0</td>
+<td>Updated for V17 of FDD SF99 EA3#A283,EA3#1777 fixed</td>
+<td>21-Aug-15</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>

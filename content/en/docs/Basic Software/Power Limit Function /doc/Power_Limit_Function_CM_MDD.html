@@ -1,0 +1,808 @@
+---
+title: Power_Limit_Function_CM_MDD
+linkTitle: Power_Limit_Function_CM_MDD
+weight: 5
+---
+
+<h1 class="unnumbered" id="module-power-limit-function-current-mode">Module – Power Limit Function (Current Mode)</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module determines an appropriate limit for the system motor torque command based on reasonable output power and system temperature. It also determines to what degree the system command is being limited.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:3.29167in;height:2.85417in" /></p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">EstKe_VpRadpS_f32</td>
+<td>MRFMtrTrqCmd_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">MotorVelMRF_MtrRadpS_f32</td>
+<td>FltTrqLmt_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">PosServEnable_Cnt_lgc</td>
+<td>ThresholdExceeded_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2">Vecu_Volt_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">CntDisMtrTrqCmdMRF_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">AltFaultActive_Cnt_lgc</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>NOTE that the PosServEnable_Cnt_lgc input is included because it is listed in the FDD as an input to the component. However, per an FDD note, it is intended for use with functionality that is to be added in some later revision. The input is currently not used.</p>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PwrLmtFuncCr_ SpdAdj_MtrRadpS_M_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_ VoltageRecoveryTimer_mS_M_u32</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_ ThresholdExceeded_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td> PwrLmtFuncCr_ TrqLmtKSV_M_str</td>
+<td>LPF32KSV_Str</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_ TrqLmtKSV_M_str.SV_Uls_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_ TrqLmtKSV_M_str.K_Uls_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_ MtrVelKSV_M_str</td>
+<td>LPF32KSV_Str</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_ MtrVelKSV_M_str.SV_Uls_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_ MtrVelKSV_M_str.K_Uls_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_ MtrEnvSpd_MtrRadpS_M_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_ MinStdOpLmt_MtrNm_M_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_ TrqEnvLmt1_MtrNm_M_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_ TrqEnvLmt4_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_ TrqLmt4_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_ OPVelOffset_MtrRadpS_D_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_ TrqLmt1_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_ TLimitMaxCurr_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_ MinStdOpLmt_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_ LimitDifference_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_TrqLmt_Uls_D_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_ MtrVelFilt_MtrRadpS_D_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_ VecuSlewAdj_Volt_M_f32</td>
+<td>Single Precision Float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>PWRLMTFUNCCR_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>t_DLVTblX_Volt_u5p11[]</td>
+</tr>
+<tr class="even">
+<td>t_DLVTblY_MtrRadpS_u11p5[]</td>
+</tr>
+<tr class="odd">
+<td>t_MtrEnvTblX_MtrRadpS_s11p4[]</td>
+</tr>
+<tr class="even">
+<td>t_MtrEnvTblY_MtrNm_u5p11</td>
+</tr>
+<tr class="odd">
+<td>k_KeStdTemp_VpRadpS_f32</td>
+</tr>
+<tr class="even">
+<td>t_StdOpMtrEnvTblX_MtrRadpS_u11p5[]</td>
+</tr>
+<tr class="odd">
+<td>t_StdOpMtrEnvTblY_MtrNm_u4p12[]</td>
+</tr>
+<tr class="even">
+<td>k_SpdAdjSlewInc_MtrRadpS_f32</td>
+</tr>
+<tr class="odd">
+<td>k_SpdAdjSlewDec_MtrRadpS_f32</td>
+</tr>
+<tr class="even">
+<td>k_SpdAdjSlewEnable_Cnt_lgc</td>
+</tr>
+<tr class="odd">
+<td>k_AsstReducLPFKn_Hz_f32</td>
+</tr>
+<tr class="even">
+<td>k_PwrLmtMtrVelLPFKn_Hz_f32</td>
+</tr>
+<tr class="odd">
+<td>k_FiltAsstReducTh_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_LowVltAstRecTime_mS_u16</td>
+</tr>
+<tr class="odd">
+<td>k_LowVltAstRecTh_Volt_f32</td>
+</tr>
+<tr class="even">
+<td>k_PwrLmtVecuAltFltAdj_Volt_f32</td>
+</tr>
+<tr class="odd">
+<td>k_PwrLmtVecuAdjSlew_VoltspL_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 14%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_10MS_SEC_F32</td>
+<td>Single Precision Floating Point</td>
+<td>Sec</td>
+<td>0.010</td>
+</tr>
+<tr class="even">
+<td>D_FLTTRQLMTLOLMT_F32</td>
+<td>Single Precision Floating Point</td>
+<td>Unitless</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>D_FLTTRQLMTHILMT_F32</td>
+<td>Single Precision Floating Point</td>
+<td>Unitless</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_2MS_SEC_F32</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td>FLT_EPSILON</td>
+</tr>
+<tr class="even">
+<td>D_TESTNOTCOMPLETETHISOPCYCLEBIT_CNT_B8</td>
+</tr>
+<tr class="odd">
+<td>D_MTRTRQCMDLOLMT_MTRNM_F32</td>
+</tr>
+<tr class="even">
+<td>D_MTRTRQCMDHILMT_MTRNM_F32</td>
+</tr>
+<tr class="odd">
+<td>D_VECUMIN_VOLTS_F32</td>
+</tr>
+<tr class="even">
+<td>D_FALSE_CNT_LGC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>LPF_KUpdate_f32_m</p></li>
+<li><p>LPF_OpUpdate_f32_m</p></li>
+<li><p>Abs_f32_m</p></li>
+<li><p>Abs_s16_m</p></li>
+<li><p>FPM_FixedToFloat_m</p></li>
+<li><p>FPM_FloatToFixed_m</p></li>
+<li><p>IntplVarXY_u16_u16Xu16Y_Cnt</p></li>
+<li><p>TableSize_m</p></li>
+<li><p>Limit_m</p></li>
+<li><p>Min_m</p></li>
+<li><p>Max_m</p></li>
+<li><p>IntplVarXY_u16_s16Xu16Y_Cnt</p></li>
+<li><p>Sign_f32_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>None</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rte_InitValue _CntDisMtrTrqCmdMRF_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_EstKe_VpRadpS_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_MtrVel_MtrRadpS_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_PosServEnable_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_FltTrqLmt_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_MRFMtrTrqCmd_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_ThresholdExceeded_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_Vecu_Volt_f32</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_AltFaultActive_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-pwrlmtfunccr_init1">Init: PwrLmtFuncCr_Init1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-pwrlmtfunccr_per1">Per: PwrLmtFuncCr_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>The MtrTrqCmd is not longer limited by constant 8 but is now limited by interpolation.</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_PwrLmtFuncCr_Per1_CP0_CheckpointReached</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>EstKe_VpRadpS_T_f32 = Rte_IRead_PwrLmtFuncCr_Per1_EstKe_VpRadpS_f32()</p>
+<p>MotorVelMRF_MtrRadpS_T_f32 = Rte_IRead_PwrLmtFuncCr_Per1_MotorVelMRF_MtrRadpS_f32()Vecu_Volt_T_f32 = Rte_IRead_PwrLmtFuncCr_Per1_Vecu_Volt_f32()</p>
+<p>CntDisMtrCmdMRF_MtrNm_T_f32 = Rte_IRead_PwrLmtFuncCr_Per1_CntDisMtrTrqCmdMRF_MtrNm_f32()</p>
+<p>AltFaultActive_Cnt_T_lgc = Rte_IRead_PwrLmtFuncCr_Per1_AltFaultActive_Cnt_lgc()</p>
+<h4 id="filter-motor-velocity">Filter Motor Velocity</h4>
+<p>MtrVelFilt_MtrRadpS_T_f32 = LPF_OpUpdate_f32_m(MotorVelMRF_MtrRadpS_T_f32, &amp; PwrLmtFuncCr_ MtrVelKSV_M_str)</p>
+<h4 id="nexteer-power-limit">Nexteer Power Limit</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h4 id="output-velocity">Output Velocity</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>PwrLmtFuncCr_OPVelOffset_MtrRadpS_D_f32 = OPVelOffset_MtrRadpS_T_f32</p>
+<p>PwrLmtFuncCr_TrqEnvLmt_MtrRadpS_D_f32 = TrqEnvLmt_MtrRadpS_T_f32</p>
+<p>PwrLmtFuncCr_TLimitMaxCurr_MtrNm_D_f32 = TLimitMaxCurr_MtrNm_T_f32</p>
+<p>PwrLmtFuncCr_MinStdOpLmt_MtrNm_D_f32 = PwrLmtFuncCr_ MinStdOpLmt_MtrNm_M_f32</p>
+<p>PwrLmtFuncCr_ SpdAdj_MtrRadpS_M_f32 = SpdAdj_MtrRadpS_T_f32</p>
+<p>PwrLmtFuncCr_ TrqEnvLmt1_MtrNm_M_f32 =TrqEnvLmt1_MtrNm_T_f32;</p>
+<p>PwrLmtFuncCr_TrqLmt1_MtrNm_D_f32 = TrqLmt1_MtrNm_T_f32;</p>
+<p>PwrLmtFuncCr_TrqEnvLmt4_MtrNm_D_f32 = TrqEnvLmt4_MtrNm_T_f32;</p>
+<p>PwrLmtFuncCr_TrqLmt4_MtrNm_D_f32 = TrqLmt4_MtrNm_T_f32;</p>
+<p>PwrLmtFuncCr_MtrVelFilt_MtrRadpS_D_f32 = MtrVelFilt_MtrRadpS_T_f32;</p>
+<p>PwrLmtFuncCr_ VecuSlewAdj_Volt_M_f32 = PwrLmtVecu1SlewAdj_Volt_T_f32</p>
+<p>Rte_IWrite_PwrLmtFuncCr_Per1_MRFMtrTrqCmd_MtrNm_f32 (MRFMtrTrq_MtrNm_T_f32)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_PwrLmtFuncCr_Per1_CP1_CheckpointReached</p>
+<h3 id="per-pwrlmtfunccr_per2">Per: PwrLmtFuncCr_Per2</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>Rte_Call_PwrLmtFuncCr_Per2_CP0_CheckpointReached</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>CntDisMtrCmdMRF_MtrNm_T_f32 = Rte_IRead_PwrLmtFuncCr_Per2_CntDisMtrTrqCmdMRF_MtrNm_f32();</p>
+<p>Vecu_Volt_T_f32 = Rte_IRead_PwrLmtFuncCr_Per2_Vecu_Volt_f32();</p>
+<p>MinStdOpLmt_MtrNm_T_f32 = PwrLmtFuncCr_ MinStdOpLmt_MtrNm_M_f32</p>
+<p>TrqEnvLmt1_MtrNm_T_f32 = PwrLmtFuncCr_ TrqEnvLmt1_MtrNm_M_f32</p>
+<p>MtrEnvSpd_MtrRadpS_T_f32 = PwrLmtFuncCr_ MtrEnvSpd_MtrRadpS_M_f32</p>
+<h4 id="power-limit-status">Power Limit Status</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h4 id="assist-limit-condition">Assist Limit Condition</h4>
+<h4 class="unnumbered" id="section-1"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></h4>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>PwrLmtFuncCr_LimitDifference_MtrNm_D_f32 = LimitDifference_MtrNm_T_f32</p>
+<p>PwrLmtFuncCr_TrqLmt_Uls_D_f32 = TrqLmt_Uls_T_f32</p>
+<p>Rte_IWrite_PwrLmtFuncCr_Per2_FltTrqLmt_Uls_f32(FltTrqLmt_Uls_T_f32)</p>
+<p>Rte_IWrite_PwrLmtFuncCr_Per2_ThresholdExceeded_Cnt_lgc(PwrLmtFuncCr_ ThresholdExceeded_Cnt_M_lgc)</p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>Rte_Call_PwrLmtFuncCr_Per2_CP1_CheckpointReached</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="section-2"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PwrLmtFuncCr_Init1</td>
+<td>On Event</td>
+<td>On Init</td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_Per1</td>
+<td>2 ms</td>
+<td>OPERATE</td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_Per2</td>
+<td>2 ms</td>
+<td>OPERATE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PwrLmtFuncCr_Init1</td>
+<td>RTE_START_SEC_AP_PWRLMTFUNCCR_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>PwrLmtFuncCr_Per1</td>
+<td>RTE_START_SEC_AP_PWRLMTFUNCCR_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>PwrLmtFuncCr_Per2</td>
+<td>RTE_START_SEC_AP_PWRLMTFUNCCR_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-4"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-5"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions defined in GlobalMacro.h are not unit tested.</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial Version (SF-19B v000B)</td>
+<td>7-Aug-12</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Added checkpoints and memmap software segment is updated for static variables</td>
+<td>23-Sep-12</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Updated to version 2 to FDD 19 B</td>
+<td>23-Jan-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Apply limit else in Power Limit function corrected</td>
+<td>28-Jan-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Created local copies to module level variables in per2</td>
+<td>29-Jan-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6</td>
+<td>Added Low Pass Filter to Motor Velocity</td>
+<td>04-Feb-13</td>
+<td>LN</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7.0</td>
+<td>Updated to FDD ver 004 (Fixes the anomaly 4686)</td>
+<td>13-Apr-13</td>
+<td>SP</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8.0</td>
+<td>Updated to FDD ver 006</td>
+<td>21-May-13</td>
+<td>SP</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9.0</td>
+<td>Anomaly 5271 Fix, removed division from Power Limit function slew rate min/max values</td>
+<td>23-Jul-13</td>
+<td>VT</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10.0</td>
+<td>Update for FDD version 007 – Mapped Threshold_Exceeded signal to NTC 0x0B2 (Reduced Assist due to Low Voltage) and update to TrqEnvLmt1_MtrNm calculation. Added output limiting, divide by zero protection, and overflow protection. Also updated input, output, and module and display variable names per FDD and naming conventions.</td>
+<td>27-Aug-13</td>
+<td>KMC</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>11.0</td>
+<td>Removed unnecessary divide by zero protection (that was added in version 10). Type casting update for QAC.</td>
+<td>11-Sep-13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>12.0</td>
+<td>Corrected array index in flowchart in section 6.3.1.5. Added note about unused input PosServEnable_Cnt_lgc per FDD ver 008.</td>
+<td>2-Oct-13</td>
+<td>KMC</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>12.0</td>
+<td>Added limit logic for MtrTrqCmd in flowchart in section 6.3.1.6.</td>
+<td>12-Mar-14</td>
+<td>LK</td>
+</tr>
+</tbody>
+</table>

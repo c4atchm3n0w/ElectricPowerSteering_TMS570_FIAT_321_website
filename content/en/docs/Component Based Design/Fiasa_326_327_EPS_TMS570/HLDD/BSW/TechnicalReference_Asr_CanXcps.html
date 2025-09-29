@@ -1,0 +1,1172 @@
+---
+title: TechnicalReference_Asr_CanXcps
+linkTitle: TechnicalReference_Asr_CanXcps
+weight: 31
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-1_1.png"/><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>XCP on CAN&#160;</b><br/>
+Technical Reference&#160;<br/>
+&#160;<br/>
+XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Version 1.06.00&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+<b>Authors:&#160;</b><br/>
+Frank Triem, Sven Hesselmann,&#160;Andreas&#160;<br/>Herkommer&#160;<br/>
+<b>Version:&#160;</b><br/>
+1.06.00&#160;<br/>
+<b>Status:&#160;</b><br/>
+released&#160;(in preparation/completed/inspected/released)&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-2_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>1&#160;&#160;Document Information&#160;</b><br/>
+<b>1.1&#160;</b><br/>
+<b>History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;Remarks&#160;</b><br/>
+Frank Triem&#160;<br/>
+2007-01-26&#160;&#160;1.00.00&#160;&#160;ESCAN00017890: Creation of Cp_XcpOnCanAsr&#160;<br/>
+based on Cp_XcpOnCan&#160;<br/>
+Sven&#160;<br/>
+2008-08-05&#160;&#160;1.01.00&#160;&#160;Adaptations&#160;to AUTOSAR R3&#160;<br/>
+Hesselmann&#160;<br/>
+Mario Kunz&#160;<br/>
+2009-12-17&#160;&#160;1.02.00&#160;&#160;Support of a2l export.&#160;<br/>
+Andreas&#160;<br/>
+2010-01-14&#160;&#160;1.03.00&#160;&#160;ESCAN00040120: Support MultiChannel&#160;<br/>
+Herkommer&#160;<br/>
+Removed Section 3.3&#160;<br/>
+Andreas&#160;<br/>
+2010-03-30&#160;&#160;1.04.00&#160;&#160;ESCAN00041935: Add feature to disable&#160;<br/>
+Herkommer&#160;<br/>
+XcpOnCanAsr in serial&#160;production ECUs&#160;<br/>
+ESCAN00043225: Missing limitation&#160;for Multiple&#160;<br/>Identity with several CAN channels&#160;<br/>
+Andreas&#160;<br/>
+2011-01-04&#160;&#160;1.05.00&#160;&#160;ESCAN00046305: AR3-297 AR3-894: Support&#160;<br/>
+Herkommer&#160;<br/>
+PduInfoType instead of&#160;the DataPtr&#160;<br/>
+Andreas&#160;<br/>
+2011-03-22&#160;&#160;1.06.00&#160;&#160;ESCAN00049434: Support Monitoring Hooks for&#160;<br/>
+Herkommer&#160;<br/>
+AUTOSAR 4&#160;<br/>
+&#160;<br/>
+<b>1.2&#160;</b><br/>
+<b>Reference Documents&#160;</b><br/>
+<b>Index&#160;</b><br/>
+<b>Document&#160;</b><br/>
+[1]&#160;<br/>
+XCP -Part 1&#160;– Overview,&#160;Version 1.0&#160;of 2003-04-08&#160;<br/>
+[2]&#160;<br/>
+XCP -Part 2-&#160;Protocol Layer Specification, Version 1.0 of 2003-04-08&#160;<br/>
+[3]&#160;<br/>
+XCP -Part 5-&#160;Example Communication Sequences, Version&#160;1.0 of 2003-04-08&#160;<br/>
+[4]&#160;<br/>
+Technical Reference XCP Protocol Layer, Version 1.0 of 2005-01-17&#160;<br/>
+[5]&#160;<br/>
+<a href="http://www.vector-group.net/support/appnotes/AN-AND-1-108_glossary_of_can_protocol_terminology.pdf">AN-AND-1-108 Glossary&#160;of CAN&#160;Protocol Terminology&#160;<br/></a><a href="http://www.vector-informatik.de/">http://www.vector-informatik.de&#160;</a><br/>
+[6]&#160;<br/>
+AUTOSAR_SWS_DevelopmentErrorTracer.pdf V3.0.0&#160;<br/>
+&#160;<br/>
+<b>1.3&#160;</b><br/>
+<b>Abbreviations&#160;</b><br/>
+<b>Abbreviations&#160;&#160;Complete expression&#160;</b><br/>
+<b>A2L&#160;</b><br/>
+File Extension for an&#160;<b>A</b>SAM&#160;<b>2</b>MC&#160;<b>L</b>anguage File&#160;<br/>
+<b>AML&#160;</b><br/>
+<b>A</b>SAM 2&#160;<b>M</b>eta&#160;<b>L</b>anguage&#160;<br/>
+<b>API&#160;</b><br/>
+<b>A</b>pplication&#160;<b>P</b>rogramming&#160;<b>I</b>nterface<b>&#160;</b><br/>
+<b>ASAM&#160;</b><br/>
+<b>A</b>ssociation for&#160;<b>S</b>tandardization of&#160;<b>A</b>utomation and&#160;<b>M</b>easuring Systems&#160;<br/>
+<b>CAN&#160;</b><br/>
+<b>C</b>ontroller&#160;<b>A</b>rea&#160;<b>N</b>etwork&#160;<br/>
+<b>CANape</b>&#160;<br/>
+Calibration&#160;and Measurement Data&#160;Acquisition for Electronic Control Systems<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+2&#160;/&#160;&#160;26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-3_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-3_2.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>CMD&#160;</b><br/>
+<b>C</b>o<b>m</b>man<b>d</b>&#160;<br/>
+<b>CTO&#160;</b><br/>
+<b>C</b>ommand&#160;<b>T</b>ransfer&#160;<b>O</b>bject&#160;<br/>
+<b>DAQ&#160;</b><br/>
+Synchronous&#160;<b>D</b>ata&#160;<b>A</b>c<b>q</b>uistion&#160;<br/>
+<b>DLC&#160;</b><br/>
+<b>D</b>ata&#160;<b>L</b>ength&#160;<b>C</b>ode ( Number of data bytes of a CAN&#160;message )&#160;<br/>
+<b>DLL&#160;</b><br/>
+<b>D</b>ata&#160;<b>l</b>ink&#160;<b>l</b>ayer&#160;<br/>
+<b>DTO&#160;</b><br/>
+<b>D</b>ata&#160;<b>T</b>ransfer&#160;<b>O</b>bject&#160;<br/>
+<b>ECU&#160;</b><br/>
+<b>E</b>lectronic&#160;<b>C</b>ontrol&#160;<b>U</b>nit&#160;<br/>
+<b>ID&#160;</b><br/>
+<b>Id</b>entifier (of&#160;a CAN&#160;message)&#160;<br/>
+<b>Identifier&#160;</b><br/>
+Identifies a&#160;CAN&#160;message&#160;<br/>
+<b>ISR&#160;</b><br/>
+<b>I</b>nterrupt&#160;<b>S</b>ervice&#160;<b>R</b>outine&#160;<br/>
+<b>MCS&#160;</b><br/>
+<b>M</b>aster&#160;<b>C</b>alibration&#160;<b>S</b>ystem<b>&#160;</b><br/>
+<b>Message&#160;</b><br/>
+One or more signals are assigned&#160;to each message.&#160;<br/>
+<b>MRB&#160;</b><br/>
+<b>M</b>ulti&#160;<b>r</b>eceive&#160;<b>b</b>uffer<b>&#160;</b><br/>
+<b>MRC&#160;</b><br/>
+<b>M</b>ulti&#160;<b>r</b>eceive&#160;<b>c</b>hannel<b>&#160;</b><br/>
+<b>OEM&#160;</b><br/>
+<b>O</b>riginal&#160;<b>e</b>quipment&#160;<b>m</b>anufacturer (vehicle manufacturer)&#160;<br/>
+<b>RES&#160;</b><br/>
+Command&#160;<b>Res</b>ponse Packet&#160;<br/>
+<b>SRB&#160;</b><br/>
+<b>S</b>ingle&#160;<b>r</b>eceive&#160;<b>b</b>uffer<b>&#160;</b><br/>
+<b>SERV&#160;</b><br/>
+<b>Ser</b>vice Request Packet&#160;<br/>
+<b>STIM&#160;</b><br/>
+<b>Stim</b>ulation&#160;<br/>
+<b>XCP&#160;</b><br/>
+Universal Measurement and&#160;<b>C</b>alibration&#160;<b>P</b>rotocol&#160;<br/>
+<b>VI&#160;</b><br/>
+<b>V</b>ector&#160;<b>I</b>nformatik GmbH&#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanXcps.html#2">Also refer to&#160;[5]</a>&#160;for a list of common abbreviations and terms.&#160;<br/>
+<b>1.4&#160;</b><br/>
+<b>Naming Conventions&#160;</b><br/>
+The names of the access functions provided by the XCP on CAN&#160;Transport Layer for&#160;<br/>MICROSAR CanIf always start with a prefix that includes the characters ‘CanXcp’. The&#160;<br/>characters ‘CanXcp’ are surrounded by an abbreviation which refers to the service or to&#160;<br/>the layer which requests a XCP service. The&#160;designation of the main services is listed&#160;<br/>below:&#160;<br/>
+<b>Naming conventions&#160;</b><br/>
+CanXcp…&#160;<br/>
+It is mandatory to use all functions beginning with&#160;Xcp…&#160;<br/>These services are called by either the data link layer, XCP&#160;Protocol Layer or&#160;<br/>the application.&#160;<br/>They are e.g. used for the transmission of messages.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Please note&#160;<br/></b>We have configured the&#160;programs in accordance&#160;with your specifications&#160;in the&#160;<br/>
+&#160;<br/>
+questionnaire. Whereas&#160;the programs do support&#160;other configurations than the one&#160;<br/>specified in&#160;your questionnaire, Vector’s release&#160;of the programs delivered to your&#160;<br/>company is expressly restricted to the&#160;configuration you have&#160;specified in&#160;the&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+3&#160;/&#160;&#160;26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-4_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+questionnaire.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+4&#160;/&#160;&#160;26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-5_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanXcps.html#2"><b>1</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#2"><b>Document Information&#160;...............................................................................................&#160;2</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#2">1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#2">History&#160;..........................................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#2">1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#2">Reference Documents&#160;.................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#2">1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#2">Abbreviations&#160;...............................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#3">1.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#3">Naming Conventions....................................................................................&#160;3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#7"><b>2</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#7"><b>Overview&#160;.....................................................................................................................&#160;7</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#8"><b>3</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#8"><b>Functional Description&#160;..............................................................................................&#160;8</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#8">3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#8">Overview of&#160;the Functional Scope&#160;...............................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#8">3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#8">Reception and Transmission of XCP&#160;Packets&#160;.............................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#9">3.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#9">Activation and Deactivation..........................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#9">3.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#9">Hook Functions (AUTOSAR 4 only)&#160;.............................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#10"><b>4</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#10"><b>Integration into the Application&#160;..............................................................................&#160;10</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#10">4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#10">Files............................................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#10">4.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#10">Version Changes........................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#11">4.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#11">Integration of XCP on CAN into the Application.........................................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#13"><b>5</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#13"><b>Description of the API&#160;..............................................................................................&#160;13</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#13">5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#13">Version of the Source Code&#160;.......................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#14">5.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#14">XCP on CAN Transport Layer services&#160;called by the Protocol Layer&#160;........&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#14">5.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#14">CanXcp_Transmit: Transmission of&#160;XCP Packets&#160;.....................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#14">5.2.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#14">CanXcp_MainFunction:&#160;Main Function of XCP on CAN Transport Layer&#160;..&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#15">5.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#15">XCP Transport Layer for CAN services called by the CAN Interface.........&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#15">5.3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#15">CanXcp_RxIndication: XCP Message Indication&#160;Function (“Use Pdu&#160;<br/>Info Type” disabled)&#160;...................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#15">5.3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#15">CanXcp_RxIndication: XCP Message Indication&#160;Function (“Use Pdu&#160;<br/>Info Type” enabled)&#160;....................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#16">5.3.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#16">CanXcp_TxConfirmation: XCP Message Confirmation..............................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#16">5.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#16">XCP Protocol Layer services called&#160;by the&#160;XCP&#160;on CAN Transport&#160;<br/>Layer&#160;..........................................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#16">5.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#16">XCP on CAN Transport Layer services called by other layers...................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#16">5.5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#16">CanXcp_Init: Initialization of XCP on CAN Transport Layer&#160;......................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#17">5.5.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#17">CanXcp_GetVersionInfo: Request version information of XCP on CAN&#160;<br/>Transport Layer..........................................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#17">5.5.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#17">CanXcp_Control: Functionality lock&#160;...........................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#18">5.5.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#18">CanXcp_SetPduMode:&#160;set Transmission mode&#160;........................................&#160;18&#160;</a><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+5&#160;/&#160;&#160;26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-6_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanXcps.html#18">5.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#18">Macros&#160;.......................................................................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#18">5.6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#18">XCP_ACTIVATE: Enable the Protocol and Transport Layer&#160;.....................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#19">5.6.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#19">XCP_DEACTIVATE: Disable the Protocol and Transport Layer................&#160;19&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#20"><b>6</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#20"><b>Configuration of XCP&#160;on CAN&#160;.................................................................................&#160;20</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#20">6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#20">Configuration of XCP on CAN and CanIf with GENy&#160;.................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#21">6.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#21">Main Configuration Page............................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#22">6.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#22">Channel Configuration&#160;Page&#160;......................................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#23">6.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#23">A2L File&#160;......................................................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#24"><b>7</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#24"><b>Limitations&#160;................................................................................................................&#160;24</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#24">7.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#24">Variable Length of XCP Packets is&#160;not supported&#160;.....................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#24">7.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#24">Assignment of CAN identifiers to DAQ Lists is not supported....................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#24">7.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#24">Detection of&#160;all XCP Slaves within a Network&#160;............................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#24">7.1.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#24">Multiple Identity only supported for single&#160;channel configuration&#160;...............&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#25"><b>8</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#25"><b>FAQ............................................................................................................................&#160;25</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#25">8.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#25">Transmit Queue of CAN&#160;Interface is&#160;Disabled&#160;...........................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#26"><b>9</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#26"><b>Contact&#160;......................................................................................................................&#160;26</b>&#160;</a><br/>
+<i>&#160;</i><br/>
+<b>Illustrations&#160;</b><br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanXcps.html#11">Figure 4-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#11">Integration of XCP on CAN into the application&#160;..............................................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#20">Figure 6-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#20">Component selection&#160;......................................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#21">Figure 6-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#21">Main configuration page&#160;of XCP on&#160;CAN Transport Layer&#160;.............................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#22">Figure 6-3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#22">Channel configuration page of XCP on CAN Transport Layer........................&#160;22&#160;</a><br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+6&#160;/&#160;&#160;26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-7_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>2&#160;&#160;Overview&#160;</b><br/>
+This document describes the features, API, configuration and integration of the XCP on&#160;<br/>CAN Transport Layer for MICROSAR CanIf. The XCP Protocol Layer, which is already&#160;<br/>described within a&#160;<a href="TechnicalReference_Asr_CanXcps.html#2">separate document&#160;[4]</a>, is not covered by this document.&#160;<br/>
+Please also&#160;refer to “The Universal Measurement and Calibration Protocol Family”&#160;<br/>specification by ASAM e.V.&#160;<br/>
+XCP on CAN is a hardware independent protocol&#160;that can be ported to almost any CAN&#160;<br/>controller. Due to there are numerous combinations&#160;of micro controllers, compilers and&#160;<br/>memory models it cannot be guaranteed that&#160;it will run properly on&#160;any of the above&#160;<br/>mentioned combinations.&#160;<br/>
+Please note that in this document the term Application is not used strictly for the user&#160;<br/>software but also for any higher software layer.&#160;Therefore, Application refers to any of the&#160;<br/>software components using XCP on CAN.&#160;<br/>
+The API of the functions is described in a separate chapter at the end&#160;of this document.&#160;<br/>Referred functions are always shown in the single channel mode.&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+7&#160;/&#160;&#160;26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-8_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>3&#160;&#160;Functional Description&#160;</b><br/>
+<b>3.1&#160;</b><br/>
+<b>Overview&#160;of the Functional Scope&#160;</b><br/>
+The transmission and reception of XCP Packets is managed by the XCP Transport Layers.&#160;<br/>
+The XCP on CAN Transport Layer for MICROSAR&#160;CanIf uses the AUTOSAR CanIf for the&#160;<br/>transmission and reception of XCP Packets.&#160;&#160;<br/>Variable message length is not supported and&#160;therefore the XCP Transport Layer ensures&#160;<br/>that all transmitted XCP messages&#160;have the same DLC of 8 Bytes.&#160;<br/>
+<b>3.2&#160;&#160;Reception and Transmission of XCP Packets&#160;</b><br/>
+Upon reception of any XCP message the function&#160;<br/>
+void&#160;<b>CanXcp_RxIndication</b>&#160;( PduIdType CanCanXcpRxPduId, &#160;<br/>
+const uint8 * CanSduPtr )&#160;<br/>
+(<a href="TechnicalReference_Asr_CanXcps.html#15">5.3.1)&#160;</a><br/>
+is called by&#160;the CAN Interface and the XCP Packet is passed to the XCP Protocol Layer.&#160;<br/>
+After the command has been processed by&#160;the&#160;Protocol Layer the XCP Response Packet&#160;<br/>is passed to the Transport Layer by the service&#160;<br/>
+void&#160;<b>CanXcp_Transmit</b>&#160;(vuint8 len, MEMORY_ROM BYTEPTR msg )&#160;<br/>
+(<a href="TechnicalReference_Asr_CanXcps.html#14">5.2.1)&#160;</a><br/>
+The XCP message is transmitted via the CAN Interface’s service&#160;<br/>
+vuint8&#160;<b>CanIf_Transmit</b>&#160;( PduIdType CanTxPduId, &#160;<br/>
+const PduInfoType *PduInfoPtr )&#160;<br/>
+The successful transmission is confirmed&#160;by the CAN Interface by a call of&#160;<br/>
+void&#160;<b>CanXcp_TxConfirmation</b>&#160;( PduIdType CanTxPduId )&#160;<br/>
+(<a href="TechnicalReference_Asr_CanXcps.html#16">5.3.3)</a>&#160;<br/>
+The confirmation is passed from the XCP on Can Transport Layer to the Protocol Layer by&#160;<br/>the XcpSendCallback.&#160;<br/>
+&#160;<br/>
+Asynchronous XCP Packet transmission like&#160;e.g. SERV, EV and DAQ are also transmitted&#160;<br/>and confirmed by the above described sequence.&#160;<br/>
+Please note that after Initialization the XCP is in&#160;PDU Mode&#160;CANXCP_SET_OFFLINE.&#160;<br/>Normally it is enabled by the CAN State Manager. If the State Manager is&#160;not present or a&#160;<br/>State Manager from another&#160;vendor is used this has to&#160;be enabled manually by using the&#160;<br/>API:&#160;<br/>
+void&#160;<b>CanXcp_SetPduMode</b>&#160;( NetworkHandleType XcpNwH, CanXcp_PduSetModeType&#160;<br/>
+PduMode )&#160;<br/>
+(<a href="TechnicalReference_Asr_CanXcps.html#18">5.5.4)&#160;</a><br/>
+If this is not done, the&#160;XCP will not send anything!&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+8&#160;/&#160;&#160;26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-9_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-9_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-9_3.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>3.3&#160;</b><br/>
+<b>Activation and Deactivation&#160;</b><br/>
+The XCP provides functionality to disable the component during runtime.&#160;This is useful if&#160;<br/>the component shall remain in series production ECUs&#160;where XCP is disabled by default&#160;<br/>and can be enabled by, e.g. a Diagnosis service.&#160;<br/>
+By default XCP is enabled. The&#160;functionality&#160;of CanXcp can be disabled by calling the&#160;<br/>Macro:&#160;<br/>
+<b>XCP_DEACTIVATE()</b>&#160;<br/>
+(<a href="TechnicalReference_Asr_CanXcps.html#19">5.6.2)</a>&#160;<br/>
+It can be enabled again by calling the respective Macro:&#160;<br/>
+&#160;&#160;&#160;&#160;<b>XCP_ACTIVATE()</b>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<a href="TechnicalReference_Asr_CanXcps.html#18">(5.6.1</a>)&#160;<br/>
+Please Note that the XCP will continue where it was stopped,&#160;so a running&#160;measurement&#160;<br/>will also continue without&#160;the Master knowing about it. Therefore it is safer to call XcpInit()&#160;<br/>and CanXcp_Init() in order to re-initialize the XCP to reactivate it.&#160;<br/>
+<b>3.4&#160;</b><br/>
+<b>Hook Functions (AUTOSAR 4 only)&#160;</b><br/>
+With the AUTOSAR 4 edition it&#160;is now possible&#160;to make use of Hook functions that are&#160;<br/>called at the beginning and end&#160;of each function. These hook&#160;functions are realized as&#160;<br/>empty defines in the file CanXcp_Hooks.h&#160;and therefore do not use any resources.&#160;<br/>
+They can be customized to user defined functions which must be added to this file&#160;<br/>manually.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Example&#160;<br/>&#160;</b><br/>
+&#160;&#160;#define&#160;CanXcpHook_OnBegin_InitMemory MyHookFunction_Begin();&#160;<br/>
+#define&#160;CanXcpHook_OnEnd_InitMemory &#160; MyHookFunction_End();&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Note&#160;<br/></b>The Hook functions are&#160;called after the DET. This means that if you get a DET error the&#160;<br/>
+&#160;&#160;function might be exited and no Hook function&#160;is&#160;called.&#160;<br/>
+Also the Hook functions are Pre-Compile time configurable.&#160;That means that they can&#160;<br/>not be modified for Library deliveries.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+9&#160;/&#160;&#160;26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-10_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-10_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-10_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-10_4.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-10_5.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-10_6.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-10_7.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-10_8.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>4&#160;&#160;Integration into the&#160;Application&#160;</b><br/>
+This chapter describes the steps for the integration of the XCP on CAN Transport Layer&#160;<br/>into an application environment of an ECU.&#160;<br/>
+<b>4.1&#160;</b><br/>
+<b>Files&#160;</b><br/>
+The XCP on CAN Transport Layer consists of the following files:&#160;<br/>
+<b>Files of the XCP on CAN Transport Layer&#160;</b><br/>
+CanXcp.c&#160;<br/>
+XCP on CAN Transport Layer.&#160;<br/>This file&#160;<b>must not&#160;</b>be changed by the user!&#160;<br/>
+CanXcp.h&#160;<br/>
+API of the XCP on CAN&#160;Transport Layer.&#160;<br/>This file&#160;<b>must not&#160;</b>be changed by the application!&#160;<br/>This file&#160;has to be included prior to&#160;XcpProf.h.&#160;<br/>
+CanXcp_Types.h&#160;&#160;Type definitions of the XCP on CAN&#160;Transport Layer.&#160;<br/>
+This file&#160;<b>must not&#160;</b>be changed by the application!&#160;<br/>This file&#160;is handled internally and must not be included&#160;<br/>separately.&#160;<br/>
+CanXcp_Hooks.h&#160;&#160;This file&#160;is only available in the AUTOSAR 4.0 version only&#160;and&#160;<br/>
+can be edited manually to make use of the Hook&#160;functions.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Additionally&#160;the following files are&#160;generated by the generation tool GENy.&#160;<br/>
+<b>Files generated by&#160;GENy&#160;</b><br/>
+CanXcp_Cfg.h&#160;<br/>
+Configuration file for XCP on CAN.&#160;<br/>
+External declarations for&#160;the parameters.&#160;<br/>
+CanXcp_Lcfg.c&#160;<br/>
+Link time parameter definition for the&#160;XCP on CAN.&#160;<br/>
+CanXcp_PBcfg.c&#160;&#160;Post build parameter definition for the XCP on CAN.&#160;<br/>
+&#160;<br/>
+Note that all files of XCP&#160;on CAN must not be changed manually except&#160;if not GENy is&#160;<br/>used for he configuration of the AUTOSAR CAN Interface. In&#160;this case only the generated&#160;<br/>files&#160;CanXcp_Cfg.h,&#160;CanXcp_Lcfg.c&#160;and&#160;CanXcp_PBcfg.c&#160;are relevant.&#160;<br/>
+&#160;<br/>
+<b>4.2&#160;</b><br/>
+<b>Version Changes&#160;</b><br/>
+Changes and the release versions of the XCP on CAN Transport Layer&#160;are listed at the&#160;<br/>beginning of the header&#160;and source code.&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+10&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-11_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-11_2.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>4.3&#160;</b><br/>
+<b>Integration of XCP on CAN into the Application&#160;</b><br/>
+XCP on CAN comprises the XCP Protocol Layer in conjunction with the XCP on CAN&#160;<br/>Transport Layer for MICROSAR CanIf.&#160;&#160;<br/>Note that the CAN Interface, which is distributed as a separate product, is only partly part&#160;<br/>of XCP on CAN.&#160;<br/>
+The following figure shows the interface&#160;between XCP on CAN and the application:&#160;<br/>
+<b>XCP on CAN</b><br/>
+<b>AUTOSAR CAN</b><br/>
+<b>Interface</b><br/>
+<b>(CanIf.c)</b><br/>
+XcpCommand<br/>
+<b>XCP on&#160;CAN</b><br/>
+<b>Transport Layer</b><br/>
+CanXcp_Transmit<br/>
+XcpSendCallback<br/>
+<b>(CanXcp.c)</b><br/>
+<b>XCP</b><br/>
+<b>Protocol&#160;Layer</b><br/>
+<b>( XcpProf.c&#160;)</b><br/>
+XcpEvent<br/>
+XcpInit<br/>
+<b>Application</b><br/>
+XcpBackground<br/>
+CanXcp..<br/>
+&#160;<br/>
+Figure 4-1&#160;&#160;Integration of XCP on CAN into the application&#160;<br/>
+<b>Practical Procedure&#160;<br/></b>The integration of XCP on CAN is&#160;done by following these steps:&#160;<br/>
+&#160;<br/>
+1.&#160;&#160;Configure XCP on CAN in the generation tool GENy and generate.&#160;<br/>
+2.&#160;&#160;Include the include header file&#160;XcpProf.h&#160;into all modules that access&#160;<br/>
+the XCP on CAN services or provide services that XCP on CAN uses.&#160;<br/>
+3.&#160;&#160;Add all source files and generated source files in the make file and link it&#160;<br/>
+together with the data link layer and the application.&#160;<br/>
+4.&#160;Initialize the data link layer after each reset during start-up before&#160;<br/>
+initializing XCP on CAN (interrupts have to be disabled until the complete&#160;<br/>initialization procedure is done) by calling&#160;XcpInit.&#160;<br/>
+5.&#160;&#160;If required call the background function&#160;XcpBackground&#160;cyclically.&#160;<br/>
+6.&#160;Integrate&#160;the&#160;desired&#160;XCP on CAN services into your application. Call&#160;<br/>
+especially the function&#160;XcpEvent(channel)&#160;&#160;cyclic with the appropriate&#160;<br/>cycle time and channel number.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+11&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-12_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+The XCP on CAN sources must not be&#160;changed for the integration into&#160;the&#160;<br/>application.&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+12&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-13_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-13_2.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>5&#160;&#160;Description of the&#160;API&#160;</b><br/>
+The API of XCP on CAN consists&#160;of services,&#160;which are realized by function calls. These&#160;<br/>services are called wherever they are required. They transfer&#160;information to- or take over&#160;<br/>information from XCP on CAN. This information&#160;is stored in XCP on&#160;CAN until it is not&#160;<br/>required anymore, respectively until it is changed by other operations.&#160;<br/>
+Examples for calling the services of XCP on CAN can be found in the description of the&#160;<br/>services.&#160;<br/>
+<b>5.1&#160;</b><br/>
+<b>Version of the Source Code&#160;</b><br/>
+The source code version of the XCP on CAN Transportation Layer is provided by three&#160;<br/>BCD coded constants:&#160;<br/>
+&#160;<br/>
+CONST(uint8, CANXCP_CONST) kXcpOnCanAsrMainVersion &#160; &#160;=&#160;<br/>
+(uint8)(CP_XCPONCANASR_VERSION &gt;&gt; 8);&#160;<br/>
+CONST(uint8, CANXCP_CONST) kXcpOnCanSubAsrVersion &#160; &#160; =&#160;<br/>
+(uint8)(CP_XCPONCANASR_VERSION &amp; 0x00ff);&#160;<br/>
+CONST(uint8, CANXCP_CONST) kXcpOnCanAsrReleaseVersion =&#160;<br/>
+(uint8)(CP_XCPONCANASR_RELEASE_VERSION); &#160;<br/>
+&#160;<br/>
+<b>Example</b>&#160;<br/>Version 1.00.00 is registered as:&#160;<br/>
+&#160;<br/>
+kXcpOnCanAsrMainVersion &#160; &#160;= 0x01;&#160;<br/>kXcpOnCanAsrSubVersion &#160; &#160; = 0x00;&#160;<br/>
+kXcpOnCanAsrReleaseVersion = 0x00;&#160;<br/>
+&#160;<br/>
+These constants are declared as external and&#160;can be read by the application at any time.&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+13&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-14_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>5.2&#160;</b><br/>
+<b>XCP on CAN Transport Layer services called by&#160;the Protocol Layer&#160;</b><br/>
+The following XCP on CAN Transport Layer functions are called by the Protocol Layer.&#160;&#160;&#160;<br/>The API of theses functions can be found&#160;in the header of the XCP on CAN component.&#160;<br/>
+&#160;<br/>
+<b>5.2.1&#160;</b><br/>
+<b>CanXcp_Transmit: Transmission of XCP Packets&#160;</b><br/>
+<b>CanXcp_Transmit</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>CanXcp_Transmit&#160;</b>( uint8 len, const uint8* msg )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+len&#160;<br/>
+Length of the&#160;XCP Packet that has to be&#160;transmitted.&#160;<br/>
+(with len = 1 ... 8)&#160;<br/>
+msg&#160;<br/>
+Pointer to the XCP Packet data.&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Request for the transmission of a DTO&#160;or CTO message.&#160;<br/>&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;Not reentrant&#160;<br/>
+&#160;&#160;Call context of: XcpEvent,&#160;XcpBackground and&#160;context of CAN Interface&#160;<br/>
+&#160;<br/>
+<b>5.2.2&#160;</b><br/>
+<b>CanXcp_MainFunction: Main Function&#160;of XCP on CAN Transport Layer&#160;</b><br/>
+<b>CanXcp_MainFunction</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>CanXcp_MainFunction</b>&#160;( void )&#160;<br/>
+<b>Parameter&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Main function&#160;of XCP on CAN Transport&#160;Layer.&#160;<br/>&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;Not reentrant&#160;<br/>
+&#160;&#160;Call context of XcpBackground&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+14&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-15_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>5.3&#160;</b><br/>
+<b>XCP Transport Layer&#160;for CAN services called by&#160;the CAN Interface&#160;</b><br/>
+The following XCP on CAN Transport Layer functions are called by the AUTOSAR CAN&#160;<br/>Interface. The API of theses functions can be found in the header of the CAN Interface’s&#160;<br/>parameter file.&#160;<br/>
+&#160;<br/>
+<b>5.3.1&#160;</b><br/>
+<b>CanXcp_RxIndication: XCP M<a href="TechnicalReference_Asr_CanXcps.html#1">essage Indication Function (“Use Pdu Info&#160;</a></b><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#1"><b>Type”&#160;disabled)&#160;</b></a><br/>
+<b>CanXcp_RxIndication</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>CanXcp_RxIndication</b>&#160;( PduIdType CanCanXcpRxPduId, const uint8 * CanSduPtr)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+CanCanXcpRxPduId&#160;<br/>
+Target PDU ID&#160;of CAN L-PDU that has been received&#160;<br/>
+CanSduPtr&#160;<br/>
+Pointer to received L-SDU&#160;(payload)&#160;<br/>
+<b>Return code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Rx Indication&#160;for reception of CTO and DTO Packets.&#160;<br/>
+This function&#160;is configured&#160;in the generation tool. &#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;Not reentrant&#160;<br/>
+&#160;&#160;Call context of CAN Interface&#160;<br/>
+&#160;<br/>
+<b>5.3.2&#160;</b><br/>
+<b>CanXcp_RxIndication: XCP M<a href="TechnicalReference_Asr_CanXcps.html#1">essage Indication Function (“Use Pdu Info&#160;</a></b><br/>
+<a href="TechnicalReference_Asr_CanXcps.html#1"><b>Type”&#160;enabled)&#160;</b></a><br/>
+<b>CanXcp_RxIndication</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>CanXcp_RxIndication</b>&#160;( PduIdType CanCanXcpRxPduId, const PduInfoType *&#160;<br/>PduInfoPtr)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+CanCanXcpRxPduId&#160;<br/>
+Target PDU ID&#160;of CAN L-PDU that has been received&#160;<br/>
+PduInfoPtr&#160;<br/>
+Contains pointer and length&#160;to received XCP L-SDU&#160;<br/>
+<b>Return code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Rx Indication&#160;for reception of CTO and DTO Packets.&#160;<br/>
+This function&#160;is configured&#160;in the generation tool. &#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;Not reentrant&#160;<br/>
+&#160;&#160;Call context of CAN Interface&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+15&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-16_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>5.3.3&#160;</b><br/>
+<b>CanXcp_TxConfirmation: XCP Message Confirmation&#160;</b><br/>
+&#160;<br/>
+<b>CanXcp_TxConfirmation</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>CanXcp_TxConfirmation</b>&#160;( PduIdType CanTxPduId )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+CanTxPduId&#160;<br/>
+PDU ID of CAN L-PDU transmitted successfully&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Tx Confirmation for successful transmission of CTO and DTO Packets.&#160;<br/>
+This function is configured in the generation tool.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;Not reentrant&#160;<br/>
+&#160;&#160;Call context of CAN Interface&#160;<br/>
+&#160;<br/>
+<b>5.4&#160;</b><br/>
+<b>XCP Protocol Layer services called&#160;by&#160;the XCP on CAN Transport Layer&#160;</b><br/>
+The following XCP Protocol Layer services&#160;are called by the XCP on CAN Transport&#160;<br/>Layer:&#160;<br/>
+-&#160;<br/>
+VStdSuspendAllInterrupts / VStdResumeAllInterrupts<a href="TechnicalReference_Asr_CanXcps.html#16">1&#160;</a><br/>
+-&#160;<br/>
+SchM_Enter_CanXcp() / SchM_Exit_CanXcp()&#160;<a href="TechnicalReference_Asr_CanXcps.html#16">2&#160;</a><br/>
+-&#160;<br/>
+void XcpCommand( MEMORY_ROM vuint32* pCommand )&#160;<br/>
+-&#160;<br/>
+void XcpSendCallBack( void )&#160;<br/>
+-&#160;<br/>
+vuint8 XcpGetState( void )&#160;<br/>
+For a description of the API and the functionality of these functions please refer to the&#160;<br/><a href="TechnicalReference_Asr_CanXcps.html#2">Technical Reference XCP Protocol Layer&#160;[4]</a>.&#160;<br/>
+&#160;<br/>
+<b>5.5&#160;</b><br/>
+<b>XCP on CAN Transport Layer services called by&#160;other layers&#160;</b><br/>
+The following XCP on CAN Transport Layer functions have to be called from other layers.&#160;<br/>
+<b>5.5.1&#160;</b><br/>
+<b>CanXcp_Init: Initialization of&#160;XCP on CAN Transport Layer&#160;</b><br/>
+<b>CanXcp_Init</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>CanXcp_Init</b>&#160;(const CanXcp_ConfigType * ConfigPtr )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160;&#160;<br/>
+1&#160;Interrupt handling done by&#160;VStdLib&#160;<br/>
+2&#160;Interrupt handling done by&#160;SchM&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+16&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-17_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+ConfigPtr&#160;<br/>
+Pointer to the&#160;post build&#160;configuration&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+Initialization of&#160;the XCP on Transport Layer. &#160;<br/>&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;Must be&#160;called during system initialization&#160;<br/>
+&#160;&#160;Not reentrant&#160;<br/>
+&#160;&#160;Parameter ‘ConfigPtr’ is only evaluated for post build configurations.&#160;<br/>
+&#160;<br/>
+<b>5.5.2&#160;</b><br/>
+<b>CanXcp_GetVersionInfo: Request version information of XCP on CAN&#160;</b><br/>
+<b>Transport Layer&#160;</b><br/>
+<b>CanXcp_Init</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>CanXcp_GetVersionInfo</b>&#160;(Std_VersionInfoType * Versioninfo )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+Versioninfo&#160;<br/>
+Pointer to store the version&#160;information&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+The function&#160;writes&#160;the version information and vendor, module and&#160;instance id to the given pointer.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;none&#160;<br/>
+&#160;<br/>
+<b>5.5.3&#160;</b><br/>
+<b>CanXcp_Control: Functionality&#160;lock&#160;</b><br/>
+<b>CanXcp_Control</b><br/>
+<b>Prototype&#160;</b><br/>
+void CanXcp_Control( uint8 command );&#160;<br/>
+<b>Parameters&#160;[in/out/both]&#160;</b><br/>
+Command [in]&#160;<br/>
+This is&#160;the new state. It can either be&#160;<br/>
+&#160;<br/>
+kXcponCan_Control_Disable&#160;<br/>
+&#160;<br/>
+kXcponCan_Control_Enable&#160;<br/>
+<b>Return code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Service ID&#160;</b><br/>
+Service ID&#160;<br/>
+6&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+With this&#160;service it is&#160;possible to lock&#160;all functionality of the CanXCP&#160;during runtime to prevent erroneous&#160;<br/>execution.&#160;<br/>
+<b>Preconditions&#160;</b><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+17&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-18_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+-&#160;<br/>
+<b>Postconditions&#160;</b><br/>
+-&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+Call context: task level&#160;<br/>
+&#160;<br/>
+Not re-entrant&#160;<br/>
+&#160;<br/>
+Synchronous&#160;<br/>
+&#160;<br/>
+<b>5.5.4&#160;</b><br/>
+<b>CanXcp_SetPduMode: set Transmission mode&#160;</b><br/>
+<b>CanXcp_SetPduMode</b><br/>
+<b>Prototype&#160;</b><br/>
+void CanXcp_SetPduMode( NetworkHandleType XcpNwH, CanXcp_PduSetModeType PduMode&#160;<br/>);&#160;<br/>
+<b>Parameters&#160;[in/out/both]&#160;</b><br/>
+XcpNwH [in]&#160;<br/>
+The&#160;Network&#160;Handle&#160;which is usually 0&#160;<br/>
+PduMode&#160;<br/>
+This is&#160;the new state. It can either be&#160;<br/>
+&#160;<br/>
+CANXCP_SET_ONLINE&#160;<br/>
+&#160;<br/>
+CANXCP_SET_OFFLINE&#160;<br/>
+<b>Return code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Service ID&#160;</b><br/>
+Service ID&#160;<br/>
+7&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+With this&#160;service it is&#160;possible to prevent transmission&#160;of XCP frames, e.g. when&#160;the bus is offline. The&#160;<br/>frames&#160;are not lost but stored in the Send Queue until overrun occurs or transmission is enabled again.&#160;<br/>
+<b>Preconditions&#160;</b><br/>
+-&#160;<br/>
+<b>Postconditions&#160;</b><br/>
+-&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+Call context: task level&#160;<br/>
+&#160;<br/>
+Not re-entrant&#160;<br/>
+&#160;<br/>
+Synchronous&#160;<br/>
+&#160;<br/>
+<b>5.6&#160;</b><br/>
+<b>Macros&#160;</b><br/>
+<b>5.6.1&#160;</b><br/>
+<b>XCP_ACTIVATE: Enable the Protocol and Transport Layer&#160;</b><br/>
+<b>XCP_ACTIVATE</b><br/>
+<b>Prototype&#160;</b><br/>
+XCP_ACTIVATE();&#160;<br/>
+<b>Parameters&#160;[in/out/both]&#160;</b><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+18&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-19_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+Command [in]&#160;<br/>
+-&#160;<br/>
+<b>Return code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Service ID&#160;</b><br/>
+Service ID&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+With this service it is possible to enable all functionality of the XCP&#160;Protocol and&#160;Transport Layer during&#160;<br/>runtime to prevent erroneous execution. The Macros&#160;can be used&#160;instead of calling the service described&#160;in&#160;<br/><a href="TechnicalReference_Asr_CanXcps.html#17">5.5.3</a>&#160;Functionality lock.&#160;<br/>
+<b>Preconditions&#160;</b><br/>
+-&#160;<br/>
+<b>Postconditions&#160;</b><br/>
+-&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+Call context: task level&#160;<br/>
+&#160;<br/>
+Not re-entrant&#160;<br/>
+&#160;<br/>
+Synchronous&#160;<br/>
+&#160;<br/>
+<b>5.6.2&#160;</b><br/>
+<b>XCP_DEACTIVATE: Disable the Protocol and Transport Layer&#160;</b><br/>
+<b>XCP_DEACTIVATE</b><br/>
+<b>Prototype&#160;</b><br/>
+XCP_DEACTIVATE();&#160;<br/>
+<b>Parameters&#160;[in/out/both]&#160;</b><br/>
+Command [in]&#160;<br/>
+-&#160;<br/>
+<b>Return code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Service ID&#160;</b><br/>
+Service ID&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+With this&#160;service it is&#160;possible to lock&#160;all functionality of the XCP Protocol and Transport Layer&#160;during runtime&#160;<br/>to prevent erroneous execution. The Macros&#160;can&#160;be used instead of&#160;calling the service described in&#160;<a href="TechnicalReference_Asr_CanXcps.html#17">5.5.3</a>&#160;<br/>Functionality lock&#160;<br/>
+<b>Preconditions&#160;</b><br/>
+-&#160;<br/>
+<b>Postconditions&#160;</b><br/>
+-&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+Call context: task level&#160;<br/>
+&#160;<br/>
+Not re-entrant&#160;<br/>
+&#160;<br/>
+Synchronous&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+19&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-20_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-20_2.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>6&#160;&#160;Configuration of XCP&#160;on CAN&#160;</b><br/>
+The configuration of XCP on&#160;CAN (XCP Protocol Layer and&#160;XCP on CAN Transport Layer)&#160;<br/>is supported by the generation tool GENy.&#160;<br/>
+<b>6.1&#160;</b><br/>
+<b>Configuration of XCP on&#160;CAN and CanIf with GENy&#160;</b><br/>
+If GENy is used for the configuration&#160;of both XCP on CAN and the AUTOSAR CAN&#160;<br/>Interface the whole configuration can conveniently&#160;be carried out with GENy.&#160;&#160;&#160;<br/>No database attributes are required for the configuration of XCP on CAN.&#160;<br/>
+&#160;<br/>
+Figure 6-1&#160;&#160;Component selection&#160;<br/>
+In order to configure the&#160;XCP on CAN Transport Layer for MICROSAR CanIf (CanXcp) it&#160;<br/>has to be activated on the designated channels.&#160;The activation of the XCP Transport Layer&#160;<br/>for CAN requires the activation of&#160;the XCP Protocol Layer (Cp_Xcp).&#160;<br/>
+The configuration of each&#160;component is done on separate&#160;dialogs. The XCP on CAN&#160;<br/>Transport Layer has component specific and channel specific settings that may be&#160;<br/>customized separately.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+20&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-21_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-21_2.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>6.1.1&#160;</b><br/>
+<b>Main Configuration Page&#160;</b><br/>
+&#160;<br/>
+Figure 6-2&#160;&#160;Main configuration page of XCP on CAN Transport&#160;Layer&#160;<br/>
+<b>Configuration options&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Description&#160;</b><br/>
+XCP on CAN Transport Layer options&#160;<br/>
+Variable DLC&#160;<br/>
+&#160;&#160;Enable&#160;<br/>
+Activate/Deactivate the&#160;transmission of messages&#160;<br/>
+&#160;&#160;Disable&#160;<br/>
+with variable DLC.&#160;<br/>
+This option&#160;is not available yet!&#160;<br/>
+Multi connection protection&#160;<br/>
+&#160;&#160;Enable&#160;<br/>
+Activate/Deactivate the&#160;protection against multiple&#160;<br/>
+&#160;&#160;Disable&#160;<br/>
+connections.&#160;<br/>
+Only available if XCP on&#160;CAN is used on multiple&#160;<br/>CAN channels.&#160;<br/>
+Configuration Variant&#160;<br/>
+&#160;&#160;Variant 1&#160;<br/>
+Select which configuration variant shall be applied to&#160;<br/>
+&#160;&#160;Variant 2&#160;<br/>
+the CAN driver module.&#160;<br/>
+&#160;&#160;Variant 3&#160;<br/>
+- Pre-compile Configuration: All settings can be&#160;<br/>changed and the driver has to be compiled&#160;<br/>
+- Link-time Configuration: All settings except&#160;<br/>precompiled&#160;ones can be changed and driver object&#160;<br/>code has to&#160;be linked&#160;<br/>
+- Post-build&#160;Configuration: Only post build settings&#160;<br/>can be changed and the&#160;generated data has to be&#160;<br/>flashed to the Target&#160;<br/>
+Please Note: If you use Multiple Identities you have&#160;<br/>to select Configuration&#160;Variant 3: Post-build!&#160;<br/>
+Development Error Detection&#160;<br/>
+&#160;&#160;Enable&#160;<br/>
+Detection of&#160;Development Errors like:&#160;<br/>
+&#160;&#160;Disable&#160;<br/>
+- service call&#160;initialization&#160;<br/>
+- invalid channel handle&#160;<br/>
+- rejection of&#160;service calls&#160;<br/>
+All errors are reported to the Development Error&#160;<br/>Tracer (if available)&#160;<br/>
+Production Error&#160;Detection&#160;<br/>
+&#160;&#160;Enable&#160;<br/>
+If 'Production Error Detection' is enabled, production&#160;<br/>
+&#160;&#160;Disable&#160;<br/>
+relevant errors are reported to the Diagnostics Event&#160;<br/>Manager (DEM). Disable this option, if no DEM is&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+21&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-22_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-22_2.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+present in your system.&#160;<br/>
+Get Version Info&#160;<br/>
+&#160;&#160;Enable&#160;<br/>
+Check this box to enable function&#160;<br/>
+&#160;&#160;Disable&#160;<br/>
+CanXcp_GetVersionInfo() to get major, minor and&#160;<br/>patch version information.&#160;<br/>
+Module Start Address&#160;<br/>
+&#160;&#160;Address&#160;<br/>
+This Value specifies the&#160;Start Address of the&#160;<br/>CanXcp Configuration.&#160;The Start Address is needed&#160;<br/>in the post-build configuration process to locate&#160;and&#160;<br/>replace the&#160;previous configuration correctly.&#160;<br/>
+Use PduInfoType&#160;<br/>
+&#160;&#160;Enable&#160;<br/>
+If this option&#160;is enabled&#160;the&#160;CanXcp_RxIndication&#160;<br/>
+&#160;&#160;Disable&#160;<br/>
+function is according to&#160;AUTOSAR&#160;3.1.5.&#160;<br/>
+Table 6-1&#160;&#160;Main configuration page of XCP on CAN Transport&#160;Layer&#160;<br/>
+<b>6.1.2&#160;</b><br/>
+<b>Channel Configuration Page&#160;</b><br/>
+&#160;<br/>
+Figure 6-3&#160;&#160;Channel configuration page of XCP on CAN Transport Layer&#160;<br/>
+&#160;<br/>
+<b>Configuration options&#160;</b><br/>
+<b>Value&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Type of bus system&#160;<br/>
+Ready Only&#160;<br/>
+Bus system type for the specific channel.&#160;<br/>
+Manufacturer&#160;<br/>
+Ready Only&#160;<br/>
+Value of the&#160;database attribute ‘manufacturer’.&#160;<br/>
+XCP on CAN Transport Layer&#160;<br/>
+Slave Id&#160;<br/>
+Tx-ID&#160;<br/>
+XCP Slave Identifier&#160;<br/>
+This is the ID&#160;for Response Packets and DAQ packets.&#160;<br/>
+Only IDs that are no IL,&#160;TP or Diag messages and that&#160;<br/>have a DLC&#160;of 8 can be&#160;selected.&#160;<br/>
+The configuration within the CanIf is&#160;automatically done&#160;<br/>by selecting&#160;the message.&#160;<br/>
+Master Id&#160;<br/>
+RX-ID&#160;<br/>
+XCP Master&#160;Identifier&#160;<br/>
+This is the ID&#160;for Command Packets and STIM Packets.&#160;<br/>
+Only IDs that are no IL,&#160;TP or Diag messages and that&#160;<br/>have a DLC&#160;of 8 can be&#160;selected.&#160;<br/>
+The configuration within the CanIf is&#160;automatically done&#160;<br/>by selecting&#160;the message.&#160;<br/>
+Table 6-2&#160;&#160;Channel configuration page of XCP on CAN Transport Layer&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+22&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-23_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-23_2.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>6.1.3&#160;</b><br/>
+<b>A2L File&#160;</b><br/>
+GENy exports an a2l file for&#160;easier configuration of the XCP&#160;Master (e.g. CANape). This&#160;<br/>file is called CanXCPAsr.a2l and contains&#160;the XCP_ON_CAN IF_DATA section which can&#160;<br/>be included by a master template a2l file.&#160;<br/>
+<b>Hint!&#160;<br/>The following abstract can be used&#160;to include the generated a2l:&#160;</b><br/>
+&#160;<br/>
+<b>&#160; /begin IF_DATA XCP&#160;</b><br/>
+<b>&#160; &#160; ……..&#160;</b><br/>
+<b>&#160; &#160; /include &#34;CanXCPAsr.a2l&#34;&#160;</b><br/>
+<b>&#160; /end IF_DATA</b>&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+23&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-24_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>7&#160;&#160;Limitations&#160;</b><br/>
+<b>7.1.1&#160;</b><br/>
+<b>Variable Length of XCP Packets is not supported&#160;</b><br/>
+The XCP Protocol allows a variable length&#160;of XCP Packets. However many OEMs require&#160;<br/>that all CAN messages sent within their automotive networks have to&#160;have a static DLC.&#160;<br/>Therefore the DLC of XCP on CAN messages&#160;is always 8 and the Control Field of the&#160;<br/>XCP Tails consists of fill bytes.&#160;<br/>
+<b>7.1.2&#160;</b><br/>
+<b>Assignment of CAN identifiers to&#160;DAQ Lists is not supported&#160;</b><br/>
+The assignment of CAN identifiers&#160;to DAQ lists is not supported.&#160;<br/>
+<b>7.1.3&#160;</b><br/>
+<b>Detection of all XCP&#160;Slaves within a Network&#160;</b><br/>
+The detection of all XCP slaves within a network with the command GET_SLAVE_ID is not&#160;<br/>supported.&#160;<br/>
+<b>7.1.4&#160;</b><br/>
+<b>Multiple Identity&#160;only supported for single channel configuration &#160;</b><br/>
+Multiple Identities for AUTOSAR XCP on CAN is only available for a single CAN channel&#160;<br/>configuration.&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+24&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-25_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-25_2.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>8&#160;&#160;FAQ&#160;</b><br/>
+<b>8.1&#160;</b><br/>
+<b>Transmit Queue of CAN Interface is Disabled&#160;</b><br/>
+&#160;<br/>
+<b>FAQ</b>&#160;<br/>How to operate XCP on CAN if the&#160;transmit queue of CanIf is disabled.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+If the transmit queue of CanIf is&#160;disabled, at any time it&#160;might not be possible to transmit&#160;<br/>the XCP Slave message due to an ongoing message transmission. Therefore the&#160;<br/>message transmission might have to&#160;be requested several times.&#160;&#160;<br/>This is done with the service&#160;CanXcp_MainFunction()&#160;that gets called by&#160;<br/>XcpBackground(). This service has to be called cyclic with a recommended call cycle of&#160;<br/>1ms. The faster it gets called the faster the XCP Slave message will participate in the&#160;<br/>arbitration on the bus.&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+25&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name=26></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanXcp-26_1.png"/><br/>
+Technical Reference XCP on CAN Transport Layer for MICROSAR CanIf&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>9&#160;&#160;Contact&#160;</b><br/>
+Visit our website for more information on&#160;<br/>&#160;<br/>&gt;&#160; &#160;News&#160;<br/>&gt;&#160; &#160;Products&#160;<br/>&gt;&#160; &#160;Demo software&#160;<br/>&gt;&#160; &#160;Support&#160;<br/>&gt;&#160; &#160;Training data&#160;<br/>&gt;&#160; &#160;Addresses&#160;<br/>&#160;<br/><b>www.vector-informatik.com&#160;<br/>&#160;</b><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.06.00&#160;<br/>
+26&#160;/ 26<br/>
+based on template&#160;version 1.3&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#2">1 Document Information</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#2">1.1 History</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#2">1.2 Reference Documents</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#2">1.3 Abbreviations</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#3">1.4 Naming Conventions</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#7">2 Overview</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#8">3 Functional Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#8">3.1 Overview of the Functional Scope</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#8">3.2 Reception and Transmission of XCP Packets</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#9">3.3 Activation and Deactivation</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#9">3.4 Hook Functions (AUTOSAR 4 only)</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#10">4 Integration into the Application</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#10">4.1 Files</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#10">4.2 Version Changes</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#11">4.3 Integration of XCP on CAN into the Application</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#13">5 Description of the API</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#13">5.1 Version of the Source Code</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#14">5.2 XCP on CAN Transport Layer services called by the Protocol Layer</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#14">5.2.1 CanXcp_Transmit: Transmission of XCP Packets</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#14">5.2.2 CanXcp_MainFunction: Main Function of XCP on CAN Transport Layer</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#15">5.3 XCP Transport Layer for CAN services called by the CAN Interface</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#15">5.3.1 CanXcp_RxIndication: XCP Message Indication Function (“Use Pdu Info Type” disabled)</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#15">5.3.2 CanXcp_RxIndication: XCP Message Indication Function (“Use Pdu Info Type” enabled)</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#16">5.3.3 CanXcp_TxConfirmation: XCP Message Confirmation</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#16">5.4 XCP Protocol Layer services called by the XCP on CAN Transport Layer</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#16">5.5 XCP on CAN Transport Layer services called by other layers</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#16">5.5.1 CanXcp_Init: Initialization of XCP on CAN Transport Layer</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#17">5.5.2 CanXcp_GetVersionInfo: Request version information of XCP on CAN Transport Layer</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#17">5.5.3 CanXcp_Control: Functionality lock</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#18">5.5.4 CanXcp_SetPduMode: set Transmission mode</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#18">5.6 Macros</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#18">5.6.1 XCP_ACTIVATE: Enable the Protocol and Transport Layer</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#19">5.6.2 XCP_DEACTIVATE: Disable the Protocol and Transport Layer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#20">6 Configuration of XCP on CAN</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#20">6.1 Configuration of XCP on CAN and CanIf with GENy</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#21">6.1.1 Main Configuration Page</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#22">6.1.2 Channel Configuration Page</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#23">6.1.3 A2L File</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#24">7 Limitations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#24">7.1.1 Variable Length of XCP Packets is not supported</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#24">7.1.2 Assignment of CAN identifiers to DAQ Lists is not supported</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#24">7.1.3 Detection of all XCP Slaves within a Network</a></li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#24">7.1.4 Multiple Identity only supported for single channel configuration&#160;</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#25">8 FAQ</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanXcps.html#25">8.1 Transmit Queue of CAN Interface is Disabled</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanXcps.html#26">9 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

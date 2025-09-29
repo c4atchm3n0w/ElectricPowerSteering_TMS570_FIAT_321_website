@@ -1,0 +1,2081 @@
+---
+title: TMS570_Startup_SysStartup_MDD
+linkTitle: TMS570_Startup_SysStartup_MDD
+weight: 12
+---
+
+<h1 class="unnumbered" id="module----tms570-startup---sysstartup">Module -- TMS570 Startup - SysStartup</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module outlines the functionality of the system startup functions of the TMS570. This code is intended to be run starting at the reset vector.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>This diagram shows all data that is shared between functions within the module.</p>
+<p>No Shared Data</p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">ResetCause_Cnt_Enum</td>
+<td>ResetCause_Cnt_Enum</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 33%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>enum systemClockSource</td>
+<td>SYS_OSC</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>SYS_PLL1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SYS_EXTERNAL1</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>SYS_LPO_LOW</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SYS_LPO_HIGH</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>SYS_PLL2</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SYS_EXTERNAL2</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>SYS_VCLK</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_OTP1BITERRADDR_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0xF00803F4</td>
+</tr>
+<tr class="even">
+<td>D_OTP2BITERRADDR_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0xF00803FC</td>
+</tr>
+<tr class="odd">
+<td>D_DPRAMSELECT_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x4</td>
+</tr>
+<tr class="even">
+<td>D_SPRAMSELECT_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x8</td>
+</tr>
+<tr class="odd">
+<td>D_EFCAUTOLOADERROREN_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x00040000</td>
+</tr>
+<tr class="even">
+<td>D_EFCINSTRUCTIONERROREN_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x00080000</td>
+</tr>
+<tr class="odd">
+<td>D_EFCINSTRUCTIONINFOEN_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x00100000</td>
+</tr>
+<tr class="even">
+<td>D_EFCSELFTESTERROREN_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x00200000</td>
+</tr>
+<tr class="odd">
+<td>D_EFCSELFTESTDONE_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x00008000</td>
+</tr>
+<tr class="even">
+<td>D_EFCSELFTESTERROR_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x00004000</td>
+</tr>
+<tr class="odd">
+<td>D_OUTPUTENABLE_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x0003C000</td>
+</tr>
+<tr class="even">
+<td>D_SELFTESTERROR_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x18</td>
+</tr>
+<tr class="odd">
+<td>D_LPOTRIMVALUE_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>((*(uint32*)0xF00801B4) &amp; 0xFFFF0000)&gt;&gt;16</td>
+</tr>
+<tr class="even">
+<td>D_PLLSLIPMASK_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x00000300</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>D_LOWBYTEMASK_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x0000000FFUL</td>
+</tr>
+<tr class="odd">
+<td>D_CURRENTLPOTRIMMASK_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x00000FFFFUL</td>
+</tr>
+<tr class="even">
+<td>D_LPOMONLFTRIMMASK_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0xFFFFFF00UL</td>
+</tr>
+<tr class="odd">
+<td>D_LPOMONHFTRIMMASK_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0xFFFF00FFUL</td>
+</tr>
+<tr class="even">
+<td>D_OTPRAMDEVICEADDR_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0xF0080148u</td>
+</tr>
+<tr class="odd">
+<td>D_ESRAM5ENABLE_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x01&lt;&lt;20</td>
+</tr>
+<tr class="even">
+<td>D_ESRAM6ENABLE_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x01&lt;&lt;21</td>
+</tr>
+<tr class="odd">
+<td>D_ESRAM8ENABLE_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x01&lt;&lt;27</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_SPRAMGRPSTMS_CNT_U32</td>
+</tr>
+<tr class="even">
+<td>D_DPRAMGRPSTMS_CNT_U32</td>
+</tr>
+<tr class="odd">
+<td>D_CSDISCLRVAL_CNT_U32</td>
+</tr>
+<tr class="even">
+<td>D_CSVSTATMASK_CNT_U32</td>
+</tr>
+<tr class="odd">
+<td>D_PCSPWRDWNCLR0VAL_CNT_U32</td>
+</tr>
+<tr class="even">
+<td>D_PCSPWRDWNCLR1VAL_CNT_U32</td>
+</tr>
+<tr class="odd">
+<td>D_PSPWRDWNCLR0VAL_CNT_U32</td>
+</tr>
+<tr class="even">
+<td>D_PSPWRDWNCLR1VAL_CNT_U32</td>
+</tr>
+<tr class="odd">
+<td>D_PSPWRDWNCLR2VAL_CNT_U32</td>
+</tr>
+<tr class="even">
+<td>D_PSPWRDWNCLR3VAL_CNT_U32</td>
+</tr>
+<tr class="odd">
+<td>D_RAMPWRONINITMASKTMS_CNT_U32</td>
+</tr>
+<tr class="even">
+<td>D_RAMRESETINITMASKTMS_CNT_U32</td>
+</tr>
+<tr class="odd">
+<td>D_PLLCTL1VAL_CNT_U32</td>
+</tr>
+<tr class="even">
+<td>D_FRDCNTLVAL_CNT_U32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+<li></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+<li></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="global-function-1">Global Function #1</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>(Exact name used)</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>(if none, write None)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>(Insert more rows for additional passed arguments)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>(if no value returned, write N/A)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p>(Place flowchart/design for local function)</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="local-function-diagfailedreset">Local Function DiagFailedReset</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DiagFailedReset</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<h3 id="local-function-resetstartup">Local Function resetStartup</h3>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>resetStartup</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td><em>MemInitMask_Cnt_T_u32</em></td>
+<td>uint32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-2">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h3 id="local-function-pwronstartup">Local Function pwronStartup</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>pwronStartup</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-3">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h3 id="local-function-afterstc">Local Function afterSTC</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>afterSTC</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-4">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h3 id="local-function-meminitialization">Local Function memInitialization</h3>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>memInitialization</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td><em>MemInitMask_Cnt_T_u32</em></td>
+<td>uint32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale">Design Rationale</h4>
+<blockquote>
+<p>All VIM registers are cleared at the end of the startup initialization routine because the startup routine tests will set some interrupt flags during the testing (CCMSelfCheck).</p>
+</blockquote>
+<h4 id="description-5">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h3 id="local-function-cpuselftest">Local Function cpuSelfTest</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>cpuSelfTest</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-6">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<h3 id="local-function-setuppll">Local Function setupPLL</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>setupPLL</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>This function configures the PLL settings. These register settings assume 20MHz oscillator. Changes to these values will drive changes to these register values.</p>
+<h4 id="description-7">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<h3 id="local-function-efccheck">Local Function efcCheck</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>efcCheck</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-8">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<h3 id="local-function-efcstuckzerotestpassed">Local Function efcStuckZeroTestPassed</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>efcStuckZeroTestPassed</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td><em>TestPassed_Cnt_T_lgc</em></td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-9">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<h3 id="local-function-efcselftest">Local Function efcSelfTest</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>efcSelfTest</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-10">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<h3 id="local-function-periphinit"><br />
+Local Function periphInit</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>periphInit</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-11">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></p>
+<h3 id="local-function-checkefcselftestpassed">Local Function checkEFCSelfTestPassed</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>checkEFCSelfTestPassed</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td><em>TestPassed_Cnt_T_lgc</em></td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-12">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /></p>
+<h3 id="local-function-setupflash">Local Function setupFlash</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>setupFlash</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>The device ID is checked and if the gladiator revA part ID is detected, pre-emption is disabled. This is to account for errata DEVICE#145 of revA parts.</p>
+<h4 id="description-13">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.emf" /></p>
+<h3 id="local-function-trimlpo">Local Function trimLPO</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>trimLPO</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-14">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image15.emf" /></p>
+<h3 id="local-function-fmcbus2check">Local Function fmcBus2Check</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>fmcBus2Check</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-15">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image16.emf" /></p>
+<h3 id="local-function-fmcecccheck">Local Function fmcECCcheck</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>fmcECCcheck</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-16">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image17.emf" /></p>
+<h3 id="local-function-mapclocks">Local Function mapClocks</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>mapClocks</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-17">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image18.emf" /></p>
+<h3 id="local-function-stcselfcheck">Local Function stcSelfCheck</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>stcSelfCheck</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-3">Design Rationale</h4>
+<p>This function assumes a divide by two on the clock frequency will produce a frequency for the test to run at &lt; 90MHz. For the current design, the clock frequency is 160MHz which will produce an 80MHz clock for this test.</p>
+<h4 id="description-18">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image19.emf" /></p>
+<h3 id="local-function-ccmselfcheck">Local Function ccmSelfCheck</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ccmSelfCheck</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-19">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image20.emf" /></p>
+<h3 id="local-function-pbistselfcheck">Local Function pbistSelfCheck</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>pbistSelfCheck</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-4">Design Rationale</h4>
+<p>This function assumes a divide by two on the clock frequency will produce a frequency for the test to run at &lt; 90MHz. For the current design, the clock frequency is 160MHz which will produce an 80MHz clock for this test.</p>
+<h4 id="description-20">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image21.emf" /></p>
+<h3 id="local-function-pbistrun">Local Function pbistRun</h3>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>pbistRun</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td><em>raminfoL_Cnt_T_u32</em></td>
+<td>uint32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><em>algomask_Cnt_T_u32</em></td>
+<td>uint32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-5">Design Rationale</h4>
+<p>This function assumes a divide by two on the clock frequency will produce a frequency for the test to run at &lt; 90MHz. For the current design, the clock frequency is 160MHz which will produce an 80MHz clock for this test.</p>
+<h4 id="description-21">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image22.emf" /></p>
+<h3 id="local-function-pbiststop">Local Function pbistStop</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>pbistStop</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-22">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image23.emf" /></p>
+<h3 id="local-function-errata_pbist_4">Local Function errata_PBIST_4</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>Errata_PBIST_4</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-23">Description</h4>
+<h3 id="local-function-delay">Local Function Delay</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>Delay</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-24">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image26.emf" /></p>
+<h3 id="local-macro-getramdomian1enabled">Local Macro GetRamDomian1Enabled</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>GetRamDomian1Enabled</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-25">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image27.emf" /></p>
+<h3 id="local-macro-getramdomian2enabled">Local Macro GetRamDomian2Enabled</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>GetRamDomian2Enabled</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-26">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image28.emf" /></p>
+<h3 id="local-macro-getramdomian3enabled">Local Macro GetRamDomian3Enabled</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>GetRamDomian3Enabled</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-27">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image29.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>(Note: For multiple init functions, insert new headers at the “Header 2” level – subset of “5.1 Initialization Functions” and follow the same sub-section design shown below)</p>
+<h3 id="init-_c_int00-startup">Init: _c_int00 / Startup</h3>
+<h4 id="design-rationale-6">Design Rationale</h4>
+<p>This _c_int00 function is designed to be placed at the reset vector. Since this function needs to be compiled in arm mode, it immediately branches to the Startup() function which can optionally be compiled in thumb mode to allow memory optimizations. Since stacks are not available, the Startup() function needs to be defined as a Reset vector similar to _c_int00 so that the compiler does not try pushing data to the stack on entry to this function.</p>
+<h5 id="ti-recommended-initialization">TI Recommended Initialization</h5>
+<p>Texas Instruments had provided a recommended startup sequence which the design was based from. The document (spna106a.pdf) and accompanying source code (spna106a.zip) are located in the doc folder of this SWC. Note that SysStartup code primarily handles up to step 35 of spna106a (excluding step 12, 29, 30). Some of the notable deviations from the document include:</p>
+<ul>
+<li><p>Addition of debugger connection detection to allow skipping initialization steps which interfere with debugging</p></li>
+<li><p>Replacement of while(1) loops where failures occurred with Nexteer’s failure strategy summarized in section below</p></li>
+<li><p>Use of configuration template headers to define initialization constants that may change from program to program</p></li>
+<li><p>Handling of resets and use of “ResetCause” variable</p></li>
+<li><p>Moving of mux initialization (Step 12 in spna106a) into application specific code (out of common initialization sequence)</p></li>
+<li><p>Moving of SECDED logic check on RAM and Flash (Step 29, 30) into application specific code (out of common initialization sequence)</p></li>
+<li><p>Some of the functions names were changed and the return type was changed to add clarity to the design (efcStuckZeroTest, checkEFCSelfTest)</p></li>
+</ul>
+<h5 id="failed-initialization-diagnostic-strategy">Failed Initialization Diagnostic Strategy</h5>
+<p>A common strategy is used when diagnostics that are part of this initialization routine fail. In general, the “ResetCause” variable is set to an appropriate value, the nError pin is forced low, and a software reset is performed. The nError will put the controller into a known safe state. The software reset will allow the rest of the initialization tests to be bypassed, as well as reset the controller’s registers to a known state. The rest of the tests are bypassed to ensure the first failure is captured as the “ResetCause”, and the application can then evaluate the failure reason and set appropriate diagnostics codes (and communicate these on the communication bus if desired). Note that the registers getting reset will also reset the nError pin state, so forcing the nError pin low is also done when processing the software reset. Also note that for any of these diagnostics that fail, the general RAM banks will be initialized as part of the reset handling (as opposed to just initializing peripheral ram like most other resets).</p>
+<h5 id="software-initiated-resets">Software Initiated Resets</h5>
+<p>For the two types of resets which can be initiated by software (CPU reset and SW reset), a strategy for setting the “ResetCause” variable has been used to allow for flexibility in adding new reset causes. A check is done to see if the current value of the “ResetCause” indicates a power-on reset. If this is the case, the initialization code assumes whatever code that initiated the reset did not explicitly indicate the reason for reset, and therefore the initialization code overwrites the value to the appropriate reset type (CPU or SW). If the reset value is anything other than power-on reset, the initialization code leaves the “ResetCause” as-is under the assumption that whatever code that initiated the reset set this cause specifically.</p>
+<h5 id="errata-processing">Errata Processing</h5>
+<p>The device ID is checked at power-on and if the gladiator revA part ID is detected, a _esmCcmErrorsClear_() function is called to handle DEVICE#140 errata processing.</p>
+<h4 id="processing">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image30.emf" /></p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="section-1"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>_c_int00()</td>
+<td>power on and during a reset</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>_c_int00()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Startup</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DiagFailedReset</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="odd">
+<td>resetStartup</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>pwronStartup</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="odd">
+<td>afterSTC</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="even">
+<td>setupPLL</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="odd">
+<td>trimLPO</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="even">
+<td>setupFlash</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="odd">
+<td>periphInit</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="even">
+<td>mapClocks</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="odd">
+<td>ccmSelfCheck</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="even">
+<td>stcSelfCheck</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="odd">
+<td>cpuSelfTest</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="even">
+<td>efcCheck</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="odd">
+<td>efcSelfTest</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="even">
+<td>efcStuckZeroTestPassed</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="odd">
+<td>checkEFCSelfTestPassed</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="even">
+<td>fmcBus2Check</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="odd">
+<td>fmcECCcheck</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="even">
+<td>pbistSelfCheck</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="odd">
+<td>pbistRun</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="even">
+<td>pbistStop</td>
+<td>inline with calling function</td>
+</tr>
+<tr class="odd">
+<td>memInitialization</td>
+<td>inline with calling function</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>(Item #1)</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 60%" />
+<col style="width: 15%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>Initial creation</td>
+<td>05/11/12</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2</td>
+<td>Updates for LPO Trim issue</td>
+<td>06/11/12</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3</td>
+<td>Updates to turn of PLL Slip and clock monitor resets in PLLCTL1 Register, added clearing of VIM interrupt requests before jumping into bootloader, added turning on DCAN parity if the memory is configured to be powered on prior to the memory initialization call</td>
+<td>07/13/12</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4</td>
+<td>Update SetUpPll code to check and recover from PLLSLIP and/or FBLSLIP. Modified SetUpPll code, Updated the TrimLPO function and added delay() function</td>
+<td>09/14/12</td>
+<td>BG, BDO</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5</td>
+<td>Updated PLL settings for clock change to 150MHz</td>
+<td>10/12/12</td>
+<td>BWL</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6</td>
+<td>Made PLL configurable and tied flash waitstate settings to frequency</td>
+<td>02/14/13</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7</td>
+<td>Made RAM pbist only run on banks enabled in OTP memory</td>
+<td>02/15/13</td>
+<td>BWL</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8</td>
+<td>Correction for static register check</td>
+<td>02/15/13</td>
+<td>BWL</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9</td>
+<td>Added call to Startup to allow compilation of file in thumb mode</td>
+<td>08/02/13</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10</td>
+<td>Enabled DMA Parity before initialization</td>
+<td>04/29/14</td>
+<td>BWL</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>11</td>
+<td>Added Errata_PBIST_4() Local function description in Section 5.4.23</td>
+<td>05/12/2014</td>
+<td>LK</td>
+</tr>
+</tbody>
+</table>

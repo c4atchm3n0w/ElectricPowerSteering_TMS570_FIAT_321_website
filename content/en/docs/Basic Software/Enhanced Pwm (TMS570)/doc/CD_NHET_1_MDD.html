@@ -1,0 +1,724 @@
+---
+title: CD_NHET_1_MDD
+linkTitle: CD_NHET_1_MDD
+weight: 2
+---
+
+<h1 class="unnumbered" id="module-nhet">Module –Nhet </h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module implements functionality with respect to ES-34B ePWM. This module implements the subfunctions other than the Motor Control Configuration Override subfunction and register initialization.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:1.95625in;height:1.46111in" /></p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">Nhet_HtuDataTrq_Cnt_G_str</td>
+<td>DigHwTrqT1_HwNm_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">PWMPeriod_Cnt_u16</td>
+<td>DigHwTrqT2_HwNm_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 21%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nhet1_NTCParamT1_Cnt_M_u08</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="even">
+<td>Nhet1_NTCParamT2_Cnt_M_u08</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="odd">
+<td>Nhet1_FltAccT1_Cnt_M_u16</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="even">
+<td>Nhet1_FltAccT2_Cnt_M_u16</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="odd">
+<td>Nhet1_HwTrqT1_HwNm_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="even">
+<td>Nhet1_HwTrqT2_HwNm_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="odd">
+<td>Nhet1_TotalMsg_Cnt_M_u32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="even">
+<td>Nhet1_T1MissMsg_Cnt_M_u32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="odd">
+<td>Nhet1_T2MissMsg_Cnt_M_u32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="even">
+<td>Nhet1_PrevPulseCountT1_Cnt_M_u32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="odd">
+<td>Nhet1_PrevPulseCountT2_Cnt_M_u32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="even">
+<td>Nhet1_T1CalcCRC_Cnt_D_u08</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+<tr class="odd">
+<td>Nhet1_T2CalcCRC_Cnt_D_u08</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<p>(Refer the included ref for more details of register)</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="8"></td>
+<td>PULSE_MSGCOUNTST</td>
+<td>enum</td>
+<td>0u</td>
+<td>0u</td>
+</tr>
+<tr class="even">
+<td>PULSE_SYNC</td>
+<td>enum</td>
+<td>1u</td>
+<td>1u</td>
+</tr>
+<tr class="odd">
+<td>PULSE_STATUS</td>
+<td>enum</td>
+<td>2u</td>
+<td>2u</td>
+</tr>
+<tr class="even">
+<td>PULSE_D0</td>
+<td>enum</td>
+<td>3u</td>
+<td>3u</td>
+</tr>
+<tr class="odd">
+<td>PULSE_D1</td>
+<td>enum</td>
+<td>4u</td>
+<td>4u</td>
+</tr>
+<tr class="even">
+<td>PULSE_D2</td>
+<td>enum</td>
+<td>5u</td>
+<td>5u</td>
+</tr>
+<tr class="odd">
+<td>PULSE_CRC</td>
+<td>enum</td>
+<td>6u</td>
+<td>6u</td>
+</tr>
+<tr class="even">
+<td>PULSE_MSGCOUNTEND</td>
+<td>enum</td>
+<td>7u</td>
+<td>7u</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_HwTrqDiag_Cnt_str</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 19%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_NUMRAWDATA_CNT_U08</td>
+<td>Counts</td>
+<td>8u</td>
+</tr>
+<tr class="even">
+<td>D_STATUSFAULT_CNT_U08</td>
+<td>Counts</td>
+<td>0x04u</td>
+</tr>
+<tr class="odd">
+<td>D_PROTOCOLFAULT_CNT_U08</td>
+<td>Counts</td>
+<td>0x08u</td>
+</tr>
+<tr class="even">
+<td>D_CRCFAULT_CNT_U08</td>
+<td>Counts</td>
+<td>0x10u</td>
+</tr>
+<tr class="odd">
+<td>D_SYNCTICKS_ULS_F32</td>
+<td>Counts</td>
+<td>56.0f</td>
+</tr>
+<tr class="even">
+<td>D_HWTRQSCALE_HWNMPCNT_F32</td>
+<td>HwNmCnt</td>
+<td>(20.0f/4095.0f)</td>
+</tr>
+<tr class="odd">
+<td>D_HWTRQOFFSET_HWNM_F32</td>
+<td>HwNm</td>
+<td>10.0f</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T_SENTCRC_CNT_U08</td>
+<td>1</td>
+<td>0,13,7,10,14,3,9,4,1,12,6,11,15,2,8,5</td>
+<td>NHET1_START_SEC_CONST_8</td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>DiagPStep_m</p></li>
+<li><p>DiagNStep_m</p></li>
+<li><p>DiagFailed_m</p></li>
+<li><p>HET Macros</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>Rte_Call_NxtrDiagMgr_SetNTCStatus</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="global-functions-1">Global Functions #1</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td></td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="local-macro-1">Local Macro #1</h3>
+<h3 id="local-function-5">Local Function #5</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>Nhet1_ProcessSENTData</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>RawData_Cnt_T_u32[8]</td>
+<td>Uint32</td>
+<td>0</td>
+<td>2^32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>*PrevPulseCount_Cnt_T_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>*HwTrq_HwNm_T_f32</td>
+<td>Float32</td>
+<td>-10</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>*TxCalcCRC_Cnt_T_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>127</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>NTCParam_Cnt_T_u08</td>
+<td>Float32</td>
+<td>0</td>
+<td>8</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p>To make sure "RawDataTicks" is rounded off, the type of RawData is converted to float and used in the RawDataTicks calculation.</p>
+<p>RawDataTicks is converted again to the nearest fixed point.</p>
+<p>RawDataTicks should be a ratio of RawData to ticks per PULSE_SYNC of RawData</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init">Init: </h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<p>None</p>
+<h4 id="initialize-nhet-1-direction-register">Initialize NHET 1 Direction Register</h4>
+<h3 id="per-nhet-1_per1">Per: NHET 1_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_Nhet1_Per1_CP0_CheckpointReached()</p>
+<h4 id="processing">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_Nhet1_Per2_CP1_CheckpointReached()</p>
+<h3 id="per-nhet-1_per2">Per: NHET 1_Per2</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<h4 id="processing-1">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<h3 id="per-nhet-1_per3">Per: NHET 1_Per3</h3>
+<h4 id="design-rationale-3">Design Rationale</h4>
+<p>Per3 updates the Nhet1 buffer or DMA buffer with the adjusted PWM Period and writes the BUF_RDY flag to signal to the Nhet that the data is available.</p>
+<p>The adjusted PWM period is communicated from the ePWM module via a global variable; both these functions are called by the motor control ISR and therefore cannot communicate via the RTE. The global variable extern declaration is in Cd_Nhet1.c instead of ePWM.h in order to limit its visibility.</p>
+<p>The adjusted period data must be written to the buffer before the BUF_RDY flag is set; therefore all relevant variables must be volatile to guarantee execution order.</p>
+<h4 id="program-flow-start-2">Program Flow Start</h4>
+<p>None</p>
+<h4 id="processing-2">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<p>:</p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-2">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-2">Program Flow End</h4>
+<p>None</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="transition-functions">Transition Functions</h2>
+<p>None</p>
+<h2 id="section-1"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-rates-for-sub-modules-called-by-the-subroutine">Execution Rates for sub-modules called by the Subroutine</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Global Function Name</th>
+<th>Calling Frequency</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nhet1_Per1</td>
+<td>2ms</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Nhet1_Per2</td>
+<td>2ms</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Nhet1_Per3</td>
+<td>Motor control ISR</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nhet1_Per1</td>
+<td>RTE_START_SEC_CD_NHET1_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>Nhet1_Per2</td>
+<td>RTE_START_SEC_CD_NHET1_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>Nhet1_Per3</td>
+<td>Nhet1_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<blockquote>
+<p>None</p>
+</blockquote>
+<h1 class="unnumbered" id="section-5"></h1>
+<h1 id="reference"> Reference </h1>
+<p>Register Reference</p>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 68%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Updated to FDD 34B v003</td>
+<td>28-July-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Corrected NumPulses_Cnt_T_u08 check from 8 to 7</td>
+<td>01-Aug-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Updated for v5 of FDD34B</td>
+<td>7-Apr-14</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Nhet1_Per3 and related material updated for ES-34B v008</td>
+<td>25-Jan-15</td>
+<td>KMC</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Updated to FDD 34B v009</td>
+<td>25-Nov-15</td>
+<td>Rijvi</td>
+</tr>
+</tbody>
+</table>

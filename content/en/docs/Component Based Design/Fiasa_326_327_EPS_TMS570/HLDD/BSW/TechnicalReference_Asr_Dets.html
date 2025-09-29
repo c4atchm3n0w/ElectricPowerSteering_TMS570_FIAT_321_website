@@ -1,0 +1,901 @@
+---
+title: TechnicalReference_Asr_Dets
+linkTitle: TechnicalReference_Asr_Dets
+weight: 59
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-1_1.png"/><br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/><b>MICROSAR DET&#160;<br/></b>Technical Reference&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>Version 1.3&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+Authors&#160;<br/>
+Hartmut Hörner&#160;<br/>
+Version:&#160;<br/>
+1.3&#160;<br/>
+Status:&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-2_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-2_2.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>1 Document&#160;</b><br/>
+<b>Information&#160;</b><br/>
+<b>1.1 History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;</b><br/>
+<b>Remarks&#160;</b><br/>
+Hartmut Hörner&#160;<br/>
+2007-11-29&#160;<br/>
+1.0&#160;<br/>
+Initial version&#160;<br/>
+Hartmut Hörner&#160;<br/>
+2008-01-03&#160;<br/>
+1.1&#160;<br/>
+Update to&#160;AUTOSAR 3.0&#160;<br/>
+Hartmut Hörner&#160;<br/>
+2008-04-14&#160;<br/>
+1.2&#160;<br/>
+Naming changed to&#160;<br/>AUTOSAR short&#160;name,&#160;<br/>screen shots updated.&#160;<br/>(ESCAN00025687)&#160;<br/>
+Hartmut Hörner&#160;<br/>
+2008-09-16&#160;<br/>
+1.3&#160;<br/>
+Added DET&#160;extension&#160;<br/>mechanism based on callout&#160;<br/>(<a href="TechnicalReference_Asr_Dets.html#14">4.7,&#160;</a><a href="TechnicalReference_Asr_Dets.html#19">6.3.1).</a>&#160;<br/><a href="TechnicalReference_Asr_Dets.html#15">Added chapter&#160;5.3.&#160;</a><br/>
+Table 1-1&#160;&#160;&#160;History&#160;of the&#160;Document&#160;<br/>
+<b>1.2 Reference&#160;</b><br/>
+<b>Documents&#160;</b><br/>
+<b>Index&#160;</b><br/>
+<b>Document&#160;</b><br/>
+[1]&#160;<br/>
+AUTOSAR_SWS_DET.pdf, Version 2.2.0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Table 1-2&#160;&#160;&#160;Referenced documents&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+<b>Please note</b>&#160;<br/>We have configured the&#160;programs in accordance&#160;with your specifications in the&#160;<br/>
+&#160;&#160;questionnaire. Whereas&#160;the programs do support&#160;other configurations than the one&#160;<br/>
+specified&#160;in&#160;your questionnaire, Vector´s release&#160;of the programs delivered to your&#160;<br/>company is&#160;expressly restricted to the&#160;configuration you have&#160;specified in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+2&#160;/&#160;&#160;25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-3_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_Asr_Dets.html#2"><b>1</b>&#160;&#160;<b>Document Information....................................................................................................&#160;2</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#2">1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#2">History...............................................................................................................&#160;2</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#2">1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#2">Reference Documents&#160;......................................................................................&#160;2</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#6"><b>2</b>&#160;&#160;<b>Component History.........................................................................................................&#160;6</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#7"><b>3</b>&#160;&#160;<b>Introduction&#160;...................................................................................................................</b></a><b>..&#160;<a href="TechnicalReference_Asr_Dets.html#7">7</a></b>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#7">3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#7">Architecture&#160;Overview.......................................................................................&#160;7</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#9"><b>4</b>&#160;&#160;<b>Functional Description&#160;...................................................................................................&#160;9</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#9">4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#9">Features............................................................................................................&#160;9</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#9">4.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#9">Initialization&#160;.......................................................................................................&#160;9</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#9">4.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#9">States................................................................................................................&#160;9</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#9">4.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#9">Main Functions&#160;.................................................................................................&#160;9</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#9">4.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#9">Error Handling...................................................................................................&#160;9</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#10">4.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#10">Debugging with the DET.................................................................................&#160;10</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#10">4.6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#10">Extended debug features................................................................................&#160;10</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#10">4.6.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#10">Filters&#160;..............................................................................................................&#160;10</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#11">4.6.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#11">Logging&#160;............................................................................................................11</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#12">4.6.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#12">Break handler&#160;.................................................................................................&#160;12</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#14">4.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#14">Extension of the DET......................................................................................&#160;14</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#15"><b>5</b>&#160;&#160;<b>Integration&#160;....................................................................................................................</b></a><b>.&#160;<a href="TechnicalReference_Asr_Dets.html#15">15</a></b>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#15">5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#15">Scope of delivery&#160;............................................................................................&#160;15</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#15">5.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#15">Static Files&#160;......................................................................................................&#160;15</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#15">5.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#15">Generated Files&#160;..............................................................................................&#160;15</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#15">5.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#15">Include Structure.............................................................................................&#160;15</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#15">5.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#15">Handling of&#160;Recursions...................................................................................&#160;15</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#16"><b>6</b>&#160;&#160;<b>API Description&#160;.............................................................................................................&#160;16</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#16">6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#16">Interfaces overview.........................................................................................&#160;16</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#16">6.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#16">Services provided by MICROSAR&#160;DET..........................................................&#160;16</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#16">6.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#16">Det_Init&#160;...........................................................................................................&#160;16</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#17">6.2.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#17">Det_Start.........................................................................................................&#160;17</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#17">6.2.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#17">Det_ReportError&#160;.............................................................................................&#160;17</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#18">6.2.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#18">Det_GetVersionInfo&#160;........................................................................................&#160;18</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#18">6.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#18">Services used by MICROSAR DET................................................................&#160;18</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#19">6.3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#19">Appl_DetEntryCallout&#160;.....................................................................................&#160;19</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#19">6.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#19">Callback Functions&#160;.........................................................................................&#160;19</a>&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+3&#160;/&#160;&#160;25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-4_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#19">6.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#19">Configurable Interfaces...................................................................................&#160;19</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#19">6.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#19">Service Ports&#160;..................................................................................................&#160;19</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#20"><b>7</b>&#160;&#160;<b>Configuration&#160;................................................................................................................&#160;20</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#20">7.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#20">Configuration with GENy&#160;................................................................................&#160;20</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#20">7.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#20">System Configuration&#160;.....................................................................................&#160;20</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#20">7.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#20">Component Configuration...............................................................................&#160;20</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#22"><b>8</b>&#160;&#160;<b>AUTOSAR standard&#160;compliance&#160;.................................................................................&#160;22</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#22">8.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#22">Deviations&#160;.......................................................................................................&#160;22</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#22">8.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#22">Support of service port interface.....................................................................&#160;22</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#22">8.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#22">Additions/ Extensions&#160;.....................................................................................&#160;22</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#22">8.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#22">Extended debug features................................................................................&#160;22</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#22">8.2.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#22">DET&#160;extension mechanism&#160;.............................................................................&#160;22</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#22">8.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#22">Limitations.......................................................................................................&#160;22</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#23"><b>9</b>&#160;&#160;<b>Abbreviations&#160;................................................................................................................&#160;23</b></a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#24"><b>10</b>&#160;&#160;<b>Glossary.......................................................................................................................</b></a><b>..&#160;<a href="TechnicalReference_Asr_Dets.html#24">24</a></b>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#25"><b>11</b>&#160;&#160;<b>Contact........................................................................................................................</b></a><b>...&#160;<a href="TechnicalReference_Asr_Dets.html#25">25</a></b>&#160;<br/>&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+4&#160;/&#160;&#160;25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-5_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_Asr_Dets.html#7">Figure 3-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#7">AUTOSAR architecture.....................................................................................&#160;7</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#8">Figure 3-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#8">Interfaces to&#160;adjacent modules of the DET.......................................................&#160;8</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#20">Figure 7-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#20">Enabling the&#160;DET&#160;in the GENy system&#160;configuration&#160;.....................................&#160;20</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#20">Figure 7-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#20">Component&#160;configuration of the DET&#160;.............................................................&#160;20</a>&#160;<br/>
+&#160;<br/>&#160;<br/><b>Tables&#160;<br/></b><a href="TechnicalReference_Asr_Dets.html#2">Table 1-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#2">History of the Document&#160;...................................................................................&#160;2</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#2">Table 1-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#2">Referenced documents.....................................................................................&#160;2</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#6">Table 2-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#6">Component History&#160;...........................................................................................&#160;6</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#9">Table 4-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#9">Supported SWS features&#160;..................................................................................&#160;9</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#9">Table 4-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#9">Not supported SWS features&#160;............................................................................&#160;9</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#15">Table 5-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#15">Static files........................................................................................................&#160;15</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#15">Table 5-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#15">Generated files&#160;...............................................................................................&#160;15</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#16">Table 6-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#16">Det_Init&#160;...........................................................................................................&#160;16</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#17">Table 6-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#17">Det_Start.........................................................................................................&#160;17</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#18">Table 6-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#18">Det_ReportError&#160;.............................................................................................&#160;18</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#18">Table 6-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#18">Det_GetVersionInfo&#160;........................................................................................&#160;18</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#19">Table 6-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#19">Appl_DetEntryCallout&#160;.....................................................................................&#160;19</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#21">Table 7-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#21">DET&#160;configuration parameters&#160;........................................................................&#160;21</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#23">Table 9-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#23">Abbreviations&#160;..................................................................................................&#160;23</a>&#160;<br/>
+<a href="TechnicalReference_Asr_Dets.html#24">Table 10-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_Dets.html#24">Glossary..........................................................................................................&#160;24</a>&#160;<br/>
+&#160;<br/>&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+5&#160;/&#160;&#160;25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-6_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>2 Component&#160;</b><br/>
+<b>History&#160;</b><br/>
+<b>Component&#160;</b><br/>
+<b>New&#160;Features&#160;</b><br/>
+<b>Version&#160;<br/></b>0.01.00 Creation&#160;<br/>2.00.00&#160;<br/>
+Update for AUTOSAR Release 2.0&#160;<br/>
+3.00.00&#160;<br/>
+Update for AUTOSAR Release 2.1&#160;<br/>
+3.01.00&#160;<br/>
+GetVersionInfo API added &#160;<br/>
+3.02.00&#160;<br/>
+Extended debug features added &#160;<br/>
+4.00.00&#160;<br/>
+Update for AUTOSAR Release 3.0&#160;<br/>
+compiler abstraction and memmap added&#160;<br/>
+4.01.00&#160;<br/>
+DET entry callout&#160;<br/>
+Table&#160;2-1&#160;&#160;&#160;Component History&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+6&#160;/&#160;&#160;25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-7_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-7_2.jpg"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>3 Introduction&#160;</b><br/>
+This document describes the functionality,&#160;API and configuration&#160;of the&#160;AUTOSAR BSW&#160;<br/>module DET&#160;(Development Error&#160;Tracer)&#160;as specified in [1]. &#160;<br/>&#160;<br/>
+<b>Supported AUTOSAR&#160;Release:&#160;</b><br/>
+3.0&#160;<br/>
+<b>Supported Configuration Variants:&#160;</b><br/>
+pre-compile&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Vendor ID:&#160;</b><br/>
+DET_VENDOR_ID &#160; &#160; &#160; &#160; 30&#160;<br/>
+<b>Module ID:&#160;</b><br/>
+DET_MODULE_ID &#160; &#160; &#160; &#160; 15&#160;<br/>
+&#160;<br/>&#160;<br/>The DET&#160;is&#160;the central error handler in the&#160;AUTOSAR architecture during the development&#160;<br/>phase.&#160;All other basic software modules can report development errors to the DET.&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>&#160;<br/>
+<b>3.1 Architecture&#160;</b><br/>
+<b>Overview&#160;</b><br/>
+The following figure shows where the DET&#160;is&#160;located in the&#160;AUTOSAR architecture.&#160;<br/>
+&#160;<br/>
+Figure 3-1&#160;&#160;AUTOSAR architecture&#160;<br/>
+&#160;<br/>&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+7&#160;/&#160;&#160;25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-8_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+The following figure shows the interfaces to&#160;modules&#160;adjacent to DET.&#160;These interfaces&#160;<br/><a href="TechnicalReference_Asr_Dets.html#16">are described in chapter&#160;6. &#160;</a><br/>
+&lt;any&#160;BSW&#160;modu&#160;CO<br/>
+le&gt;&#160;M<br/>
+EcuM<br/>
+IPDU<br/>
+Report&#160;error<br/>
+Init&#160;/&#160;Start<br/>
+DET<br/>
+&#160;<br/>
+Figure 3-2&#160;&#160;Interfaces to adjacent modules of the DET&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+8&#160;/&#160;&#160;25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-9_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>4 Functional&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>4.1 Features&#160;<br/></b>The features listed in this chapter cover the complete functionality<a href="TechnicalReference_Asr_Dets.html#2">&#160;specified in&#160;[1].&#160;<br/></a>The &#34;supported&#34; and &#34;not supported&#34; features are presented in&#160;the following two tables.&#160;<br/>For further information of not support<a href="TechnicalReference_Asr_Dets.html#22">ed features also see to chapter&#160;8.&#160;<br/></a>&#160;<br/><a href="TechnicalReference_Asr_Dets.html#2">The following features described in&#160;[1] are supported:&#160;</a><br/>
+<b>Feature&#160;<br/></b>Initialization&#160;and start services&#160;<br/>Error reporting service&#160;<br/>
+Table 4-1&#160;&#160;&#160;Supported SWS&#160;features&#160;<br/>
+&#160;<br/>The following features described in&#160;<a href="TechnicalReference_Asr_Dets.html#2">[1]&#160;</a>are not supported:&#160;<br/>
+<b>Feature&#160;<br/></b>Service port interface&#160;<br/>
+Table 4-2&#160;&#160;&#160;Not supported SWS features&#160;<br/>
+<b>4.2 Initialization&#160;</b><br/>
+The DET&#160;is initialized and&#160;operational after the&#160;API&#160;Det_Init&#160;has been called. In [1] an&#160;<br/>additional&#160;&#160;Det_Start&#160;service is specified to handle cases where it is necessary to split&#160;<br/>the initialization in two phases. Since&#160;this is not applicable the&#160;Det_Start&#160;function is&#160;<br/>empty.&#160;<br/>
+<b>4.3 States&#160;<br/></b>The DET&#160;has no internal state machine,&#160;it is operational after initialization.&#160;<br/>
+<b>4.4 Main&#160;</b><br/>
+<b>Functions&#160;</b><br/>
+The DET&#160;has no main function since it does not perform cyclic tasks.&#160;<br/>
+<b>4.5 Error&#160;</b><br/>
+<b>Handling&#160;</b><br/>
+Since the DET&#160;is the centralized error handler&#160;it does&#160;not use error handling services of&#160;<br/>other BSW modules.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+9&#160;/&#160;&#160;25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-10_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-10_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-10_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-10_4.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-10_5.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-10_6.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>4.6&#160;&#160;Debugging with the DET&#160;<br/></b>The DET&#160;is called for&#160;each development error&#160;which is reported by&#160;other BSW modules.&#160;<br/>Since it is potentially not safe to continue the program when such an error occurs, the&#160;<br/>default implementation of the DET&#160;is an endless loop.&#160;<br/>A&#160;breakpoint should always be set in this loop.&#160;When the breakpoint is hit, the parameters&#160;<br/>of the function&#160;Det_ReportError&#160;<a href="TechnicalReference_Asr_Dets.html#17">6.2.3 can be inspected in&#160;</a>the debugger.&#160;By means of&#160;<br/>
+these parameters it is possible to&#160;find out which error occurred; it is however sometimes&#160;<br/>more convenient to use a stack trace if the debugger provides this.&#160;<br/>&#160;<br/>
+<b>A&#160;breakpoint should always be set in the endless loop&#160;</b><br/>
+&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>If a simulated target based on the CANoe emulation environment is used the endless loop&#160;<br/>is replaced by an error message&#160;in the CANoe write window. &#160;<br/>
+<b>4.6.1 Extended&#160;</b><br/>
+<b>debug&#160;</b><br/>
+<b>features&#160;</b><br/>
+Sometimes the provision of&#160;the endless loop is not sufficient for debugging, therefore&#160;<br/>some extended debug features&#160;are provided.&#160;These features&#160;are thought as a debugging&#160;<br/>aid, thus they are accessible via&#160;the debugger and do not have special&#160;APIs.&#160;<br/>To&#160;use these features the attribute “Enable&#160;Extended Debug Support”&#160;must be enabled&#160;(s.&#160;<br/><a href="TechnicalReference_Asr_Dets.html#20">7.1.2).&#160;</a><br/>
+<b>4.6.1.1 Filters&#160;<br/></b>Sometimes it happens that a BSW&#160;module reports DET&#160;errors&#160;which are known to be&#160;<br/>uncritical.&#160;Such errors can be ignored by discarding the related calls to&#160;<br/>Det_ReportError.&#160;<br/>To&#160;implement this functionality the DET&#160;provides&#160;a set of filters where the errors to be&#160;<br/>discarded&#160;can&#160;be&#160;configured.&#160;It&#160;is&#160;possible&#160;to&#160;use&#160;the&#160;patterns&#160;0xff&#160;or&#160;0xffff&#160;as&#160;wild&#160;cards&#160;<br/>(don’t care patterns).&#160;<br/>
+<b>Configuration of filters</b>&#160;<br/>
+&#160;<br/>
+&#160;&#160;configure the required number of filters in GENy with the attribute “Number of&#160;<br/>
+Global Filters” (s.&#160;<a href="TechnicalReference_Asr_Dets.html#20">7.1.2)&#160;</a><br/>
+&#160;&#160;enable filtering globally in the debugger by setting detStatus.globalFilterActive&#160;<br/>
+to 1&#160;<br/>&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+10&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-11_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-11_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-11_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-11_4.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-11_5.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-11_6.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-11_7.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-11_8.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+&#160;&#160;configure the required filters in the debugger by setting detGlobalFilter&#160;<br/>
+elements&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>Filter examples</b>&#160;<br/>
+&#160;&#160;a) ignore error 3 of&#160;API7 of module 20 in instance 0&#160;<br/>
+&#160; moduleId=20&#160;<br/>&#160; instanceId=0&#160;<br/>
+&#160; apiId=7&#160;<br/>
+errorId=3&#160;<br/>
+b) ignore all errors of&#160;module 20 in instance 0&#160;<br/>&#160; moduleId=20&#160;<br/>&#160; instanceId=0&#160;<br/>
+&#160; apiId=0xff&#160;<br/>&#160; errorId=0xff&#160;<br/>
+&#160;<br/>
+<b>4.6.1.2 Logging&#160;<br/></b>The DET&#160;provides a log buffer for incoming&#160;error messages. Error messages which have&#160;<br/>been filtered are not logged.&#160;<br/>The contents of the log buffer can be viewed with the debugger.&#160;<br/>&#160;<br/>
+<b>Configuration of logging</b>&#160;<br/>
+&#160;<br/>
+&#160;&#160;configure the required size of the log&#160;buffer in GENy&#160;with the attribute “Size of&#160;<br/>
+Log Buf<a href="TechnicalReference_Asr_Dets.html#20">fer” (s.&#160;7.1.2)&#160;</a><br/>
+&#160;&#160;enable logging globally in the debugger by setting detStatus.logActive to 1&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+11&#160;/&#160;25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-12_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-12_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-12_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-12_4.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-12_5.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-12_6.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Logging example</b>&#160;<br/>
+&#160;&#160;The variable detStatus.logIndex shows the index in the log buffer with the last logged&#160;<br/>
+development error. Use the elements of detLogBuffer to view the logged&#160;errors.&#160;<br/>
+&#160;<br/>
+By default all elements of the variable (s. above) detLogBuffer are initialized with zero.&#160;<br/>
+&#160;<br/>By setting detStatus.breakOnLogOverrun in the debugger it is&#160;possible to enter the&#160;<br/>endless loop if the log buffer is full.&#160;<br/>
+<b>4.6.1.3 Break&#160;</b><br/>
+<b>handler&#160;</b><br/>
+For some errors it is possible to continue operation.&#160;Therefore it is&#160;possible to unlock the&#160;<br/>endless loop with the debugger to&#160;continue the program. Since&#160;the same error could occur&#160;<br/>multiple times and to avoid ending&#160;up in the endless&#160;loop again it is&#160;possible to configure a&#160;<br/>special filter set for the break&#160;handler. Such errors are logged&#160;(if logging is active) but do&#160;<br/>not lead to a break.&#160;<br/>&#160;<br/>
+<b>Configuration of break handler filters</b>&#160;<br/>
+&#160;<br/>
+&#160;&#160;configure the required number of break handler&#160;filters in GENy with the&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+12&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-13_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-13_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-13_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-13_4.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-13_5.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-13_6.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-13_7.jpg"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+attribute “Number of Break Handler&#160;<a href="TechnicalReference_Asr_Dets.html#20">Filters” (s.&#160;7.1.2)&#160;</a><br/>
+&#160;&#160;enable break handler filtering globally in the debugger by setting&#160;<br/>
+detStatus.breakFilterActive to 1&#160;<br/>&#160;<br/>
+&#160;&#160;configure the required break handler&#160;filters in&#160;the&#160;debugger by setting&#160;<br/>
+detBreakFilter elements&#160;<br/>&#160;<br/>
+&#160;<br/>For some fi<a href="TechnicalReference_Asr_Dets.html#10">lter examples please refer to&#160;4.6.1.1.&#160;<br/></a>In the following example it is described how the endless loop&#160;can be unlocked in the&#160;<br/>debugger.&#160;<br/>
+<b>How&#160;to unlock the endless loop&#160;</b><br/>
+&#160;&#160;Set detStatus.unlockBreak to&#160;1 to leave endless loop:&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+13&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-14_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-14_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-14_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-14_4.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-14_5.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>4.7&#160;&#160;Extension of the DET&#160;<br/></b>Sometimes the built-in debug features of the DET&#160;may not be sufficient or some special&#160;<br/>handling of&#160;errors is required. Examples for such use cases include:&#160;<br/>
+&#160;&#160;Logging of DET&#160;errors via debug interface&#160;<br/>&#160;&#160;Transmission of DET&#160;errors on a serial bus system&#160;<br/>&#160;&#160;Error handling which requires direct access to the hardware (e.g. disabling of&#160;<br/>
+specific interrupts)&#160;<br/>
+&#160;&#160;Complex application specific error handling&#160;<br/>
+To&#160;support such extensions the&#160;DET&#160;provides&#160;a DET&#160;entry&#160;callout&#160;<br/>(Appl_DetEntryCallout) which is called first when the&#160;DET&#160;is entered.&#160;The callout has&#160;<br/>to be provided by the application.&#160;It receives all parameters&#160;of the DET’s error reporting&#160;<br/>function. Depending on the return code the DET&#160;continues or abandons error handling. For&#160;<br/>details please refer to&#160;API description in chapter&#160;<a href="TechnicalReference_Asr_Dets.html#19">6.3.1. This&#160;</a>feature is enabled by a&#160;<br/>configuration pa<a href="TechnicalReference_Asr_Dets.html#20">rameter as described in chapter&#160;7.1.2.&#160;</a><br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+14&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-15_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-15_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-15_3.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>5 Integration&#160;</b><br/>
+This chapter gives necessary information for the integration of the&#160;AUTOSAR DET&#160;into an&#160;<br/>application environment of an ECU.&#160;<br/>
+<b>5.1&#160;&#160;Scope of delivery&#160;<br/></b>In the delivery of the MICROSAR DET&#160;the files listed in&#160;<a href="TechnicalReference_Asr_Dets.html#15">5.1.1 and&#160;5.1.2 are cont</a>ained. &#160;<br/>
+<b>5.1.1 Static&#160;</b><br/>
+<b>Files&#160;</b><br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Det.c&#160;<br/>
+This is the source file of&#160;the DET&#160;<br/>
+Det.h&#160;<br/>
+This is the header file of&#160;the DET&#160;<br/>
+Table 5-1&#160;&#160;Static files&#160;<br/>
+<b>5.1.2 Generated&#160;</b><br/>
+<b>Files&#160;</b><br/>
+The dynamic files are generated by&#160;the configuration tool GENy.&#160;<br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Det_cfg.h&#160;<br/>
+This is&#160;configuration header file containing pre-compile parameters.&#160;<br/>
+Table 5-2&#160;&#160;Generated files&#160;<br/>
+<b>5.2 Include&#160;</b><br/>
+<b>Structure&#160;</b><br/>
+The DET&#160;includes the headers menti<a href="TechnicalReference_Asr_Dets.html#15">oned in the previous chapters&#160;5.1.1 and&#160;5.1.2.&#160;<br/></a>In addition the file Std_Types.h is&#160;included.&#160;<br/>To&#160;support the&#160;AUTOSAR memory mapping&#160;concept the header MemMap.h is included.&#160;<br/>
+<b>5.3&#160;&#160;Handling of Recursions&#160;<br/></b>If DET&#160;errors occur within the call context of the DET&#160;recursions could be caused.&#160;This can&#160;<br/>happen in the following cases:&#160;<br/>
+&#160;&#160;A&#160;DET&#160;error occurs in one of the interrupt enabling or disabling functions which&#160;<br/>
+are used by the DET&#160;on its own to protect critical sections of the DET.&#160;<br/>
+&#160;In&#160;an&#160;Appl_DetEntryCallout&#160;or a subroutine of&#160;Appl_DetEntryCallout&#160;if&#160;<br/>
+BSW&#160;API functions are used there.&#160;<br/>
+These cases are handled by an internal locking mechanism in the&#160;DET&#160;so&#160;the application&#160;<br/>needs not to take care of them. It should however be noted that in case of a recursion the&#160;<br/>DET&#160;might skip a callout or its internal error logging.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+15&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-16_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-16_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-16_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-16_4.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-16_5.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>6 API&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>6.1 Interfaces&#160;</b><br/>
+<b>overview&#160;</b><br/>
+The DET&#160;provides the four services &#160;<br/>
+&#160;&#160;Det_Init&#160;for initialization,&#160;<br/>&#160;&#160;Det_Start&#160;for additional initialization purposes, &#160;<br/>&#160;&#160;Det_ReportError&#160;for reporting of development errors and&#160;<br/>&#160;&#160;Det_GetVersionInfo&#160;for version information.&#160;<br/>
+They are described in detail in the following sections.&#160;<br/>
+<b>6.2&#160;&#160;Services provided by&#160;MICROSAR DET&#160;<br/></b>The MICROSAR DET&#160;API consists of services, which are realized by function calls.&#160;<br/>
+<b>6.2.1 Det_Init&#160;</b><br/>
+<b>Det_Init</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>Det_Init</b>&#160; ( void )&#160;<br/><b>Parameter&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>Initializes the DET.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;Should only be&#160;called once&#160;by the EcuM when&#160;the system is started&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Should be&#160;called from a safe context on task level&#160;<br/>
+Table 6-1&#160;&#160;&#160;Det_Init&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+16&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-17_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>6.2.2 Det_Start&#160;</b><br/>
+<b>Det_Start</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>Det_Start</b>&#160; ( void )&#160;<br/><b>Parameter&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>Starts&#160;the&#160;DET.&#160;This service currently has no functionality,&#160;i.e.&#160;the&#160;API function is empty.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;Call could be&#160;omitted&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;No restriction&#160;<br/>
+Table 6-2&#160;&#160;&#160;Det_Start&#160;<br/>
+&#160;<br/>
+<b>6.2.3 Det_ReportError&#160;</b><br/>
+<b>Det_ReportError</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>Det_ReportError</b>&#160; ( uint16 ModuleId, uint8 InstanceId, &#160;<br/>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; uint8 ApiId, uint8 ErrorId )&#160;<br/><b>Parameter&#160;<br/></b>ModuleId&#160;<br/>
+Module ID of&#160;calling module&#160;<br/>
+InstanceId&#160;<br/>
+The identifier of the index based&#160;instance&#160;of a module,&#160;starting from&#160;0, If the&#160;<br/>module is&#160;a single instance&#160;module it shall pass 0 as&#160;the InstanceId.&#160;<br/>
+ApiId&#160;<br/>
+ID of&#160;API service in which error is detected&#160;<br/>(defined&#160;in SWS of calling&#160;module)&#160;<br/>
+ErrorId&#160;<br/>
+ID of detected development error&#160;<br/>(defined&#160;in SWS of calling&#160;module)&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>Used to report errors from other BSW modules&#160;to&#160;the DET.&#160;If extended debug features&#160;are disabled the&#160;<br/>DET&#160;enters an endless loop in case of an embedded target or&#160;issues&#160;an error message in the&#160;CANoe write&#160;<br/>window in&#160;case of a simulated target.&#160;<br/>For details please refer to chapter&#160;<a href="TechnicalReference_Asr_Dets.html#9">4. &#160;<br/></a><b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;If this function is called the&#160;DET&#160;may enter an endless loop, therefore it is strongly recommended to put&#160;<br/>
+a breakpoint in the DET.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;No restriction&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+17&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-18_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+Table 6-3&#160;&#160;&#160;Det_ReportError&#160;<br/>
+<b>6.2.4 Det_GetVersionInfo&#160;</b><br/>
+<b>Det_GetVersionInfo</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>Det_GetVersionInfo</b>&#160; ( Std_VersionInfoType *versioninfo )&#160;<br/><b>Parameter&#160;<br/></b>versioninfo&#160;<br/>
+Version information of the DET&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>The&#160;API can&#160;be used to read the DET&#160;version information. &#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;API is only available if enabled in configuration (s.&#160;<a href="TechnicalReference_Asr_Dets.html#20">7.1.2).&#160;</a><br/>
+&#160;&#160;As an alternative the #defines described in [1] chapter 10.2&#160;could&#160;be used to read this information.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;No restriction&#160;<br/>
+Table 6-4&#160;&#160;&#160;Det_GetVersionInfo&#160;<br/>
+&#160;<br/>&#160;<br/>
+<b>6.3&#160;&#160;Services used by&#160;MICROSAR DET&#160;<br/></b>The DET&#160;does not use services of other BSW modules.&#160;<br/>To&#160;allow for extensions&#160;of the DET&#160;a callout to&#160;the application is used.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+18&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-19_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>6.3.1 Appl_DetEntryCallout&#160;</b><br/>
+<b>Det_ReportError</b><br/>
+<b>Prototype&#160;<br/></b>uint8&#160;<b>Appl_DetEntryCallout</b>&#160; ( uint16 ModuleId, uint8 InstanceId, &#160;<br/>&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; uint8 ApiId, uint8 ErrorId )&#160;<br/><b>Parameter&#160;<br/></b>ModuleId&#160;<br/>
+Module ID of&#160;calling module&#160;<br/>
+InstanceId&#160;<br/>
+The identifier of the index based&#160;instance&#160;of a module,&#160;starting from&#160;0, If the&#160;<br/>module is&#160;a single instance&#160;module it shall pass 0 as&#160;the InstanceId.&#160;<br/>
+ApiId&#160;<br/>
+ID of&#160;API service in which error is detected&#160;<br/>(defined&#160;in SWS of calling&#160;module)&#160;<br/>
+ErrorId&#160;<br/>
+ID of detected development error&#160;<br/>(defined&#160;in SWS of calling&#160;module)&#160;<br/>
+<b>Return code&#160;<br/></b>uint8&#160;<br/>
+0 continue DET&#160;processing&#160;<br/>1 abandon&#160;DET&#160;processing&#160;<br/>
+<b>Functional Description&#160;<br/></b>This function&#160;is used to extend the DET.&#160;The parameters&#160;can be used for application specific error handling.&#160;<br/>By means of the return code&#160;the application&#160;can control further processing of the DET.&#160;<br/>For details please refer to cha<a href="TechnicalReference_Asr_Dets.html#14">pter4.7. &#160;<br/></a><b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;API is only available if enabled in configuration (s.&#160;<a href="TechnicalReference_Asr_Dets.html#20">7.1.2).&#160;</a><br/>
+&#160;&#160;This function&#160;has to be provided by the application.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;No restriction&#160;<br/>
+Table 6-5&#160;&#160;&#160;Appl_DetEntryCallout&#160;<br/>
+<b>6.4 Callback&#160;</b><br/>
+<b>Functions&#160;</b><br/>
+The DET&#160;does not provide callback functions.&#160;<br/>
+<b>6.5 Configurable&#160;</b><br/>
+<b>Interfaces&#160;</b><br/>
+The DET&#160;does not provide configurable interfaces. &#160;<br/>
+<b>6.6 Service&#160;</b><br/>
+<b>Ports&#160;</b><br/>
+Service ports are not supported by&#160;the current version of the DET.&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+19&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-20_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-20_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-20_3.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>7 Configuration&#160;</b><br/>
+In the MICROSAR DET&#160;the attributes can be configured with the following methods:&#160;<br/>
+&#160;&#160;Configuration in GENy, for a detailed descripti<a href="TechnicalReference_Asr_Dets.html#20">on see&#160;7.1&#160;</a><br/>
+<b>7.1&#160;&#160;Configuration with GENy&#160;<br/></b>The MICROSAR DET&#160;is configured with the help of the configuration tool GENy.&#160;<br/>
+<b>7.1.1 System&#160;</b><br/>
+<b>Configuration&#160;</b><br/>
+To&#160;use the DET&#160;it must be enabled in&#160;the system configuration in GENy.&#160;<br/>
+&#160;<br/>
+Figure 7-1&#160;&#160;Enabling the DET&#160;in the GENy&#160;system configuration&#160;<br/>
+<b>7.1.2 Component&#160;</b><br/>
+<b>Configuration&#160;</b><br/>
+In the following screenshot&#160;the component configuration&#160;of the DET&#160;is shown. &#160;<br/>
+&#160;<br/>
+Figure 7-2&#160;&#160;Component configuration of the&#160;DET&#160;<br/>
+&#160;<br/>Details about the configuration parameters are given in&#160;&#160;<a href="TechnicalReference_Asr_Dets.html#21">Table 7-1.&#160;&#160;</a>The usage of these&#160;<br/>parameters for the extended debug s<a href="TechnicalReference_Asr_Dets.html#10">upport is described in chapter&#160;4.6.1.&#160;</a><br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+20&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-21_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;<br/>is written in bold&#160;<br/>
+Global settings&#160;<br/>Enable Development&#160;&#160;Pre-compile boolean&#160;<br/>
+<b>On</b>/off&#160;<br/>
+Enable reporting of development&#160;<br/>
+Error Tracer&#160;<br/>
+errors.&#160;<br/>
+Get Version Info&#160;<br/>
+Pre-compile&#160;<br/>
+boolean&#160;<br/>
+On/<b>off</b>&#160;<br/>
+Enable the function&#160;<br/>Det_GetVersionInfo() to get the&#160;<br/>major,&#160;minor&#160;and patch version&#160;<br/>information.&#160;<br/>
+Entry Callout&#160;<br/>
+Pre-compile&#160;<br/>
+boolean&#160;<br/>
+On/<b>off</b>&#160;<br/>
+Enable the function&#160;<br/>Appl_DetEntryCallout to support&#160;<br/>user&#160;specific&#160;extensions.&#160;<br/>
+Extended Debug support&#160;<br/>Enable Extended&#160;<br/>
+Pre-compile boolean&#160;<br/>
+On/<b>off</b>&#160;<br/>
+Enable extended debug&#160;support&#160;<br/>
+Debug Support&#160;<br/>
+features&#160;including filtering,&#160;logging&#160;<br/>and flexible break handling.&#160;<br/>
+Number of Global&#160;<br/>
+Pre-compile integer&#160;<br/>
+<b>0</b>..255&#160;<br/>
+Number of global filters&#160;which can&#160;<br/>
+Filters&#160;<br/>
+be used to discard irrelevant&#160;<br/>errors.&#160;<br/>
+Number of Break&#160;<br/>
+Pre-compile integer&#160;<br/>
+<b>0</b>..255&#160;<br/>
+Number of break handler filters&#160;<br/>
+Handler Filters&#160;<br/>
+which can be&#160;used&#160;to exit the DET&#160;<br/>without entering the endless loop.&#160;<br/>
+Size of Log Buffer&#160;<br/>
+Pre-compile&#160;<br/>
+integer&#160;<br/>
+<b>0</b>..255&#160;<br/>
+Size of the log buffer which can be&#160;<br/>used&#160;to log errors reported&#160;to the&#160;<br/>DET.&#160;<br/>
+Table 7-1&#160;&#160;&#160;DET&#160;configuration parameters&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+21&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-22_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>8&#160;&#160;AUTOSAR standard compliance&#160;</b><br/>
+<b>8.1 Deviations&#160;</b><br/>
+<b>8.1.1&#160;&#160;Support of service port interface&#160;<br/></b>The current version does not support the&#160;AUTOSAR service port interface. If the DET&#160;<br/>should be used to log application errors the SWCs should call the DET&#160;directly.&#160;<br/>
+<b>8.2 Additions/&#160;</b><br/>
+<b>Extensions&#160;</b><br/>
+<b>8.2.1 Extended&#160;</b><br/>
+<b>debug&#160;</b><br/>
+<b>features&#160;</b><br/>
+Since&#160;AUTOSAR specifies only&#160;the interface and not the functionality of the DET&#160;all&#160;<br/>provided debugging features&#160;are&#160;AUTOSAR extensions. &#160;<br/>
+<b>8.2.2&#160;&#160;DET extension mechanism&#160;<br/></b>Since&#160;AUTOSAR does not specify a mechanism how the DET&#160;can be extended by&#160;<br/>application code a&#160;callout was added.&#160;<br/>
+<b>8.3 Limitations&#160;<br/></b>None&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+22&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-23_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>9 Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+API Application&#160;<br/>
+Programming&#160;<br/>
+Interface&#160;<br/>
+&#160;<br/>
+BSW Basis&#160;<br/>
+SoftWare&#160;<br/>
+DEM Diagnostic&#160;<br/>
+Event&#160;<br/>
+Manager&#160;<br/>
+DET Development&#160;<br/>
+Error&#160;<br/>
+Tracer&#160;<br/>
+pPort Provide&#160;<br/>
+Port&#160;<br/>
+rPort Require&#160;<br/>
+Port&#160;<br/>
+RTE RunTime&#160;<br/>
+Environment&#160;<br/>
+SWC SoftWare&#160;<br/>
+Component&#160;<br/>
+Table 9-1&#160;&#160;&#160;Abbreviations&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+23&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-24_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>10 Glossary&#160;</b><br/>
+<b>Term&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Stack trace&#160;<br/>
+A&#160;stack trace (also called stack backtrace or stack traceback)&#160;is a report&#160;<br/>of the active stack frames instantiated by the execution of a program.&#160;<br/>Although stack traces&#160;may be generated anywhere within a&#160;program, they&#160;<br/>are mostly used to aid debugging by showing where exactly an error&#160;<br/>occurs.&#160;The&#160;last few stack frames often indicate the origin of the bug.&#160;<br/>
+Table 10-1&#160;Glossary&#160;<br/>
+&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+24&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_Det-25_1.png"/><br/>
+Technical Reference MICROSAR DET&#160;<br/>
+&#160;<br/>
+<b>11 Contact&#160;</b><br/>
+Visit our website for more information on&#160;<br/>&#160;<br/>&gt;&#160; &#160;News&#160;<br/>&gt;&#160; &#160;Products&#160;<br/>&gt;&#160; &#160;Demo software&#160;<br/>&gt;&#160; &#160;Support&#160;<br/>&gt;&#160; &#160;Training data&#160;<br/>&gt;&#160; &#160;Addresses&#160;<br/>&#160;<br/><a href="http://www.vector-informatik.com/"><b>www.vector-informatik.com</b></a><b>&#160;<br/></b>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+©2008, Vector Informatik GmbH&#160;<br/>
+Version: 1.3&#160;<br/>
+25&#160;/ 25<br/>
+based on template&#160;version 2.0&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#2">1 Document Information</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#2">1.1 History</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#2">1.2 Reference Documents</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#6">2 Component History</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#7">3 Introduction</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#7">3.1 Architecture Overview</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#9">4 Functional Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#9">4.1 Features</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#9">4.2 Initialization</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#9">4.3 States</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#9">4.4 Main Functions</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#9">4.5 Error Handling</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#10">4.6 Debugging with the DET</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#10">4.6.1 Extended debug features</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#10">4.6.1.1 Filters</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#11">4.6.1.2 Logging</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#12">4.6.1.3 Break handler</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#14">4.7 Extension of the DET</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#15">5 Integration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#15">5.1 Scope of delivery</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#15">5.1.1 Static Files</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#15">5.1.2 Generated Files</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#15">5.2 Include Structure</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#15">5.3 Handling of Recursions</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#16">6 API Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#16">6.1 Interfaces overview</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#16">6.2 Services provided by MICROSAR DET</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#16">6.2.1 Det_Init</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#17">6.2.2 Det_Start</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#17">6.2.3 Det_ReportError</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#18">6.2.4 Det_GetVersionInfo</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#18">6.3 Services used by MICROSAR DET</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#19">6.3.1 Appl_DetEntryCallout</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#19">6.4 Callback Functions</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#19">6.5 Configurable Interfaces</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#19">6.6 Service Ports</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#20">7 Configuration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#20">7.1 Configuration with GENy</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#20">7.1.1 System Configuration</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#20">7.1.2 Component Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#22">8 AUTOSAR standard compliance</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#22">8.1 Deviations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#22">8.1.1 Support of service port interface</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#22">8.2 Additions/ Extensions</a>
+<ul>
+<li><a href="TechnicalReference_Asr_Dets.html#22">8.2.1 Extended debug features</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#22">8.2.2 DET extension mechanism</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#22">8.3 Limitations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_Dets.html#23">9 Abbreviations</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#24">10 Glossary</a></li>
+<li><a href="TechnicalReference_Asr_Dets.html#25">11 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

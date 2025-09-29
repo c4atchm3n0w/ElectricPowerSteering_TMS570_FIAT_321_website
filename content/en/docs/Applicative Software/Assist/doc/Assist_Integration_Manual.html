@@ -1,0 +1,200 @@
+---
+title: Assist_Integration_Manual
+linkTitle: Assist_Integration_Manual
+weight: 3
+---
+
+<h1 class="TOC-Heading" id="contents">Contents</h1>
+<p><a href="#dependencies">1 Dependencies <span>1</span></a></p>
+<p><a href="#configuration">2 Configuration <span>1</span></a></p>
+<p><a href="#build-time-config">2.1 Build Time Config <span>1</span></a></p>
+<p><a href="#generator-config">2.2 Generator Config <span>1</span></a></p>
+<p><a href="#rte-config">3 Runnable Scheduling <span>5</span></a></p>
+<p><a href="#memory-mapping">4 Memory Mapping <span>6</span></a></p>
+<p><a href="#mapping">4.1 Mapping <span>6</span></a></p>
+<p><a href="#usage">4.2 Usage <span>6</span></a></p>
+<h1 id="dependencies">Dependencies</h1>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Required Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rte</td>
+<td>Port and runnable mapping.</td>
+</tr>
+<tr class="even">
+<td>WdgM</td>
+<td>CheckpointReached() API</td>
+</tr>
+</tbody>
+</table>
+<h1 id="configuration">Configuration</h1>
+<h2 id="build-time-config">Build Time Config</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="generator-config">Generator Config</h2>
+<p>The module parameter description file and generator templates are located in the “generate” folder. The generation scheme at this time relies on the ARTT generation framework developed by BMW. Following are the recommended steps to integrate the provided generation templates and parameter description with Davinci Configurator:</p>
+<ol type="1">
+<li><p>Copy the “Artt/artt” framework folder into the “Generators” directory (if not already present)</p></li>
+<li><p>Execute the “Integrate.bat” script from the Tools directory of this component to perform the necessary integration steps:</p>
+<ol type="a">
+<li><p>The script creates the required directories in the integration project, “Generators/Artt/” and “Generators/Components/_Schemes//bswmd”</p></li>
+<li><p>The script then copies the required files from the CBD generate directory into the new directories.</p></li>
+</ol></li>
+<li><p>If this is the first time integration, then perform the Davinci Configurator 3rd party component integration procedure.</p></li>
+</ol>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 65%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AssistGeneral</td>
+<td>General module configuration. See Assist technical reference for details.</td>
+<td>Assist</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rte-config">Rte Config</h2>
+<p>The SWC description included with this component in the “autosar” folder describes only the static portion of the SWC. A partial SWC description describing the configurable part of the component interface is generated into the _ _Cfg.arxml file. This description must be imported into the Rte configuration tool (Developer) using the “Merge Object” option to merge the static SWC description with the generated partial SWC description file.</p>
+<h1 id="runnable-scheduling">Runnable Scheduling</h1>
+<p>This section specifies the required runnable scheduling.</p>
+<table>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 49%" />
+<col style="width: 12%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Privileged Mode</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>_Per1()</td>
+<td>Scheduled per integration project requirements</td>
+<td>Not Required</td>
+<td>2ms</td>
+</tr>
+</tbody>
+</table>
+<h1 id="memory-mapping">Memory Mapping</h1>
+<h2 id="mapping">Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ASSIST_START_SEC_VAR_CLEARED_16</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>* Each …START_SEC… constant is terminated by a …STOP_SEC… constant as specified in the AUTOSAR Memory Mapping requirements.</p>
+<h2 id="usage">Usage</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>RAM</th>
+<th>ROM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Full SWC</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: ARM Cortex R4 Memory Usage<br />
+Revision Control Log</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Item #</strong></th>
+<th><strong>Rev #</strong></th>
+<th><strong>Change Description</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author Initials</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>Initial version</td>
+<td></td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>

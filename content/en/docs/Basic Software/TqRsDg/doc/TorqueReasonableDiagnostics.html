@@ -1,0 +1,773 @@
+---
+title: TorqueReasonableDiagnostics
+linkTitle: TorqueReasonableDiagnostics
+weight: 4
+---
+
+<h1 class="unnumbered" id="module-torque-reasonable-diagnostics">Module – Torque Reasonable Diagnostics</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>The Torque Reasonableness Diagnostic compares the commanded electromagnetic motor torque (calculated from the commanded Iq and Id currents) to the measured electromagnetic torque (calculated from the measured Iq and Id currents) and sets a diagnostic flag when the error is outside of calibration boundaries for calibration time periods. This diagnostic is intended to trip due to a variety of possible errors within the closed loop control of the motor control, including but not exclusive to certain current measurement errors and output drive errors.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.77083in;height:2.75208in" /></p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 59%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th>Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DervLambdaAlphaDiag_Volt_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DervLambdaBetaDiag_Volt_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OutputRampMult_Uls_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>TrqLimitMin_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TqRsDg_AlpaCurrDiagPrimLPF_M_Str</td>
+<td>LPF32KSV_Str</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_NOINIT_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>TqRsDg_BetaCurrDiagPrimLPF_M_Str</td>
+<td>LPF32KSV_Str</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_NOINIT_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>TqRsDg_AlpaCurrDiagSecLPF_M_Str</td>
+<td>LPF32KSV_Str</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_NOINIT_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>TqRsDg_BetaCurrDiagSecLPF_M_Str</td>
+<td>LPF32KSV_Str</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_NOINIT_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>TqRsDg_CurrDiagPrimPNAccum_Cnt_M_u16</td>
+<td>1</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>TqRsDg_CurrDiagSecPNAccum_Cnt_M_u16</td>
+<td>1</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>TqRsDg_DervLambdaAlphaDiagPrimFilt_Volt_D_f32</td>
+<td>Single precision float</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>TqRsDg_DervLambdaBetaDiagPrimFilt_Volt_D_f32</td>
+<td>Single precision float</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>TqRsDg_DervLambdaAlphaDiagSecFilt_Volt_D_f32</td>
+<td>Single precision float</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>TqRsDg_DervLambdaBetaDiagSecFilt_Volt_D_f32</td>
+<td>Single precision float</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>TqRsDg_DervLambdaAlphaDiagLmtd_Volt_D_f32</td>
+<td>Single precision float</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>TqRsDg_DervLambdaBetaDiagLmtd_Volt_D_f32</td>
+<td>Single precision float</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>TQRSDG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td>k_CurrDiagPrimLPFKn_Hz_f32</td>
+</tr>
+<tr class="even">
+<td>k_CurrDiagSecLPFKn_Hz_f32</td>
+</tr>
+<tr class="odd">
+<td>k_CurrDiagMtrEnvTblMax_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>k_CurrDiagSecTrqLmtThresh_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_CurrDiagPrimErrorThresh_Volt_f32</td>
+</tr>
+<tr class="even">
+<td>k_CurrDiagPrim_Cnt_Str</td>
+</tr>
+<tr class="odd">
+<td>k_CurrDiagSec_Cnt_Str</td>
+</tr>
+<tr class="even">
+<td>k_CurrDiagSecErrorThresh_Volt_f32</td>
+</tr>
+<tr class="odd">
+<td>k_CurrDiagLambdaMinMax_Volt_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>D_BIT0_ULS_U8</td>
+<td>Uint8</td>
+<td>Cnt</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>D_BIT1_ULS_U8</td>
+<td>Uint8</td>
+<td>Cnt</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_ZERO_CNT_U8</td>
+</tr>
+<tr class="even">
+<td>D_2MS_SEC_F32</td>
+</tr>
+<tr class="odd">
+<td>D_ONE_ULS_F32</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_CNT_U16</td>
+</tr>
+<tr class="odd">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>Min_m</p></li>
+<li><p>Abs_f32_m</p></li>
+<li><p>Limit_m</p></li>
+<li><p>LPF32KSV_Str</p></li>
+<li><p>DiagSettings_Str</p></li>
+<li><p>LPF_OpUpdate_f32_m</p></li>
+<li><p>LPF_Init_f32_m</p></li>
+<li><p>DiagNStep_m</p></li>
+<li><p>DiagPStep_m</p></li>
+<li><p>DiagFailed_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>Rte_Call_NxtrDiagMgr_SetNTCStatus</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="global-function-1">Global Function #1</h3>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="local-function-1">Local Function #1</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>(Exact name used)</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>(if none, write None)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>(Insert more rows for additional passed arguments)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>(if no value returned, write N/A)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Rte_Init_TqRsDg_Per1_DervLambdaAlphaDiag_Volt_f32</td>
+<td>0.0f</td>
+</tr>
+<tr class="even">
+<td>Rte_Init_TqRsDg_Per1_DervLambdaBetaDiag_Volt_f32</td>
+<td>0.0f</td>
+</tr>
+<tr class="odd">
+<td>Rte_Init_TqRsDg_Per1_OutputRampMult_Uls_f32</td>
+<td>0.0f</td>
+</tr>
+<tr class="even">
+<td>Rte_Init_TqRsDg_Per1_TrqLimitMin_MtrNm_f32</td>
+<td>0.0f</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-tqrsdg_init1-_init">Init: TqRsDg_Init1 _Init</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<h4 id="module-internal">Module Internal </h4>
+<p>None</p>
+<h4 id="processing-of-function">Processing of function</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-trrsdg_per1">Per: TrRsDg_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_TqRsDg_Per1_CP0_CheckpointReached();</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>DervLambdaAlphaDiag_Volt_T_f32 = Rte_IRead_TqRsDg_Per1_DervLambdaAlphaDiag_Volt_f32();</p>
+<p>DervLambdaBetaDiag_Volt_T_f32 = Rte_IRead_TqRsDg_Per1_DervLambdaBetaDiag_Volt_f32();</p>
+<p>OutputRampMult_Uls_T_f32 = Rte_IRead_TqRsDg_Per1_OutputRampMult_Uls_f32();</p>
+<p>TrqLimitMin_MtrNm_T_f32 = Rte_IRead_TqRsDg_Per1_TrqLimitMin_MtrNm_f32();</p>
+<h4 id="processing-of-function-1">Processing of function</h4>
+<h4 class="unnumbered" id="section-1"></h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>ModulationIndex_Uls_M_f32 = ModulationIndex_Uls_T_f32</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_TqRsDg_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<h3 id="scom-modulename_scom">SCom: ModuleName_SCom</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>N/A</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="processing-of-function-2">Processing of function</h4>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>N/A</p>
+<h2 id="section-2"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TqRsDg_Init1</td>
+<td>On init</td>
+<td>None</td>
+</tr>
+<tr class="even">
+<td>TqRsDg_Per1</td>
+<td>2ms</td>
+<td>OPERATE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TqRsDg_Init1</td>
+<td>RTE_START_SEC_AP_TQRSDG_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>TqRsDg_Per1</td>
+<td>RTE_START_SEC_AP_TQRSDG_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-4"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-5"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions defined in GlobalMacro.h are not unit tested.</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 68%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1.0</td>
+<td>Initial Version</td>
+<td>6-Nov-12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>2.0</td>
+<td>Updated to version to SF-31 version 2</td>
+<td>23-Feb-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>3.0</td>
+<td>Anomaly fix for A_4644</td>
+<td>25-Mar-13</td>
+<td>Srikanth</td>
+</tr>
+<tr class="odd">
+<td>4.0</td>
+<td>Fixes for Unit test findings</td>
+<td>15-Apr-13</td>
+<td>Srikanth</td>
+</tr>
+<tr class="even">
+<td>5.0</td>
+<td>Anomaly fix for 4931</td>
+<td>30-Apr-13</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Updated for V3 SF31 (completely new)</td>
+<td>27-Nov-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Updated to SF-31 version 4</td>
+<td>08-Jan-14</td>
+<td>VT</td>
+</tr>
+</tbody>
+</table>

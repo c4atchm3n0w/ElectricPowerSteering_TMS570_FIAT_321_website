@@ -1,0 +1,1751 @@
+---
+title: AutoSAR FEE Parameter Configurations
+linkTitle: AutoSAR FEE Parameter Configurations
+weight: 5
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-1_1.png"/><br/>
+&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160;&#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160; &#160; &#160; &#160; &#160; &#160;&#160;<br/>&#160;<br/>
+<b>&#160;<br/>&#160;<br/>&#160;<br/>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>AutoSAR&#160;FEE Parameter&#160;&#160;</b><br/>
+<b>Configuration&#160;Document&#160;</b><br/>
+<b>&#160;<br/></b>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-2_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>ABSTRACT&#160;</b><br/>
+<b>&#160;</b><br/>
+AutoSAR&#160;&#160;Flash&#160;&#160;EEPROM&#160;&#160;Emulation&#160;&#160;(AutoSAR&#160;&#160;FEE)&#160;&#160;driver&#160;&#160;utilizes&#160;&#160;Code&#160;&#160;Generation&#160;<br/>Tool&#160;&#160;to&#160;&#160;generate&#160;&#160;the&#160;&#160;configuration&#160;&#160;parameters&#160;&#160;required&#160;&#160;for&#160;&#160;EEPROM&#160;&#160;emulation.&#160;&#160;Code&#160;<br/>Generation&#160;&#160;Tool&#160;&#160;is&#160;&#160;used&#160;&#160;to&#160;&#160;configure&#160;&#160;parameters&#160;&#160;like&#160;&#160;which&#160;&#160;Flash&#160;&#160;Sectors&#160;&#160;to&#160;&#160;use,&#160;&#160;the&#160;<br/>number&#160;&#160;of&#160;&#160;Blocks,&#160;&#160;Block&#160;&#160;Size&#160;&#160;etc.&#160;&#160;for&#160;&#160;EEPROM&#160;&#160;emulation.&#160;&#160;Code&#160;&#160;Generation&#160;&#160;Tool&#160;<br/>generates&#160;two&#160;files&#160;(Fee_cfg.h&#160;&amp;&#160;Fee_cfg.c)&#160;depending&#160;on&#160;the&#160;configuration.&#160;<br/>&#160;<br/>This&#160;document&#160;describes&#160;the&#160;parameters&#160;used&#160;by&#160;Code&#160;Generation&#160;Tool&#160;to&#160;generate&#160;the&#160;<br/>AutoSAR&#160;FEE&#160;Configuration&#160;parameters.&#160;&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+2&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-3_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/><b>Revision&#160;History&#160;&#160;<br/>&#160;</b><br/>
+<b>Version&#160;&#160;Release&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Comment&#160;</b><br/>
+<b>Date&#160;</b><br/>
+1.0&#160;<br/>
+09/16/2012&#160;&#160;Vishwanath&#160;&#160;Initial&#160;version&#160;<br/>
+Reddy&#160;<br/>
+1.1&#160;&#160;<br/>
+10/10/2012&#160;&#160;Vishwanath&#160;&#160;Add&#160;configuration&#160;parameter&#160;<br/>
+Reddy&#160;<br/>
+FEE_NUMBER_OF_VIRTUAL_SECTORS_EEP1&#160;<br/>
+1.2&#160;<br/>
+11/20/2012&#160;&#160;Vishwanath&#160;&#160;Remove&#160;FeeSetModeSupported&#160;<br/>
+Reddy&#160;<br/>
+1.3&#160;<br/>
+06/11/2013&#160;&#160;Vishwanath&#160;&#160;Add&#160;configuration&#160;parameter’s:&#160;<br/>
+Reddy&#160;<br/>
+FEE_NUMBER_OF_UNCONFIGUREDBLOCKSTOCOPY,&#160;<br/>FEE_NUMBER_OF_EIGHTBYTEWRITES&#160;<br/>
+1.4&#160;<br/>
+01/06/2014&#160;&#160;Vishwanath&#160;&#160;Added&#160;configuration&#160;parameter&#160;<br/>
+Reddy&#160;<br/>
+FEE_CHECK_BANK7_ACCESS&#160;<br/>
+1.5&#160;<br/>
+09/25/2014&#160;&#160;Vishwanath&#160;&#160;Configuration update&#160;to&#160;support&#160;TMS570LS05xx,&#160;<br/>
+Reddy&#160;<br/>
+TMS570LS07xx,&#160;TMS570LS09xx.&#160;Range&#160;updated&#160;for&#160;<br/>FEE_VirtualSectorNumber,&#160;Virtual&#160;Sectors.&#160;<br/>New&#160;configuration&#160;parameter&#160;<br/>FEE_TOTAL_BLOCKS_DATASETS&#160;added.&#160;<br/>
+1.6&#160;<br/>
+12/31/2014&#160;&#160;Vishwanath&#160;&#160;Add&#160;new&#160;Configuration&#160;parameters.&#160;<br/>
+Reddy&#160;<br/>
+FEE_VIRTUALSECTOR_SIZE,&#160;<br/>FEE_PHYSICALSECTOR_SIZE,&#160;&#160;<br/>FEE_GENERATE_DEVICEANDVIRTUALSECTORSTRUC&#160;<br/>Note&#160;added in&#160;section&#160;1.6&#160;FEE&#160;Sector&#160;Configuration.&#160;<br/>
+1.7&#160;<br/>
+01/07/2015&#160;&#160;Vishwanath&#160;&#160;Remove&#160;Device_Header.h&#160;from&#160;fee_cfg.h&#160;file.&#160;<br/>
+Reddy&#160;<br/>
+1.8&#160;<br/>
+01/21/2015&#160;&#160;Vishwanath&#160;&#160;Added&#160;comments&#160;for&#160;FEE_TOTAL_BLOCKS_DATASETS,&#160;<br/>
+Reddy&#160;<br/>
+FEE_NUMBER_OF_EEPS&#160;and&#160;&#160;<br/>FEE_NUMBER_OF_BLOCKS&#160;<br/>
+&#160;<br/>&#160;<br/><b>Configuration&#160;Changes&#160;<br/></b>&#160;<br/><b>Parameter&#160;added/&#160;Modified</b>&#160;<br/>
+<b>Change&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+FeeCRCEnable&#160;<br/>
+New&#160;<br/>
+FeeWriteCounterSave&#160;<br/>
+New&#160;<br/>
+FeeNumberOfEEPS&#160;<br/>
+New&#160;<br/>
+FeeDevErrorDetect&#160;<br/>
+New&#160;<br/>
+FeeBlockOverhead&#160;<br/>
+Changed&#160;to&#160;0x18&#160;<br/>
+FeeEEPNumber(in block&#160;configuration)&#160;<br/>
+New&#160;<br/>
+FeeNumberOfVirtualSectorsEEP1&#160;<br/>
+New&#160;<br/>
+FEE_NUMBER_OF_UNCONFIGUREDBLOCKSTOCOPY&#160;<br/>
+New&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+3&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-4_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>FEE_NUMBER_OF_EIGHTBYTEWRITES&#160;<br/>
+New&#160;<br/>
+FEE_CHECK_BANK7_ACCESS&#160;<br/>
+New&#160;<br/>
+FEE_TOTAL_BLOCKS_DATASETS&#160;<br/>
+New&#160;<br/>
+FEE_VIRTUALSECTOR_SIZE&#160;<br/>
+New&#160;<br/>
+FEE_PHYSICALSECTOR_SIZE&#160;<br/>
+New&#160;<br/>
+FEE_GENERATE_DEVICEANDVIRTUALSECTORSTRUC&#160;&#160;New&#160;<br/>
+<b>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;</b><br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+4&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-5_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>Table&#160;of&#160;Contents&#160;&#160;</b><br/>
+<b>&#160;</b><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#7">1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#7">Introduction&#160;..............................................................................................................&#160;7&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#7">1.1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#7">FEE&#160;Published information&#160;...............................................................................&#160;7&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#7">1.1.1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#7">Block&#160;OverHead&#160;.........................................................................................&#160;7&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#7">1.1.2&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#7">Maximum&#160;Blocking&#160;Time&#160;............................................................................&#160;7&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#8">1.1.3&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#8">Page&#160;OverHead&#160;.........................................................................................&#160;8&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#8">1.1.4&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#8">Sector&#160;OverHead&#160;.......................................................................................&#160;8&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#9">1.2&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#9">FEE&#160;General&#160;Settings&#160;......................................................................................&#160;9&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#9">1.2.1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#9">Virtual&#160;Page size&#160;........................................................................................&#160;9&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#9">1.2.2&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#9">Driver&#160;Index................................................................................................&#160;9&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#10">1.2.3&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#10">Error&#160;Notification&#160;......................................................................................&#160;10&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#10">1.2.4&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#10">End&#160;Notification&#160;........................................................................................&#160;10&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#11">1.2.5&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#11">Frequency&#160;................................................................................................&#160;11&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#11">1.2.6&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#11">Enable Polling&#160;mode&#160;................................................................................&#160;11&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#12">1.2.7&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#12">Enable Error&#160;Correction&#160;...........................................................................&#160;12&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#12">1.2.8&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#12">Error&#160;Correction Handling&#160;.........................................................................&#160;12&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#13">1.2.9&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#13">Cyclic&#160;Redundancy&#160;Check&#160;.......................................................................&#160;13&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#13">1.2.10&#160;&#160;Block&#160;Write&#160;counter&#160;save..........................................................................&#160;13&#160;<br/></a><a href="AutoSAR FEE Parameter Configurations.html#14">1.2.11&#160;&#160;Number&#160;of&#160;EEPs&#160;......................................................................................&#160;14&#160;<br/>1.2.12&#160;&#160;Development&#160;error&#160;Detect&#160;........................................................................&#160;14&#160;<br/></a><a href="AutoSAR FEE Parameter Configurations.html#15">1.2.13&#160;&#160;Non&#160;configured&#160;blocks&#160;to&#160;copy&#160;.................................................................&#160;15&#160;<br/>1.2.14&#160;&#160;Number&#160;of&#160;eight&#160;byte&#160;writes&#160;......................................................................&#160;15&#160;<br/></a><a href="AutoSAR FEE Parameter Configurations.html#16">1.2.15&#160;&#160;Check&#160;BANK7 Address&#160;Range&#160;.................................................................&#160;16&#160;<br/>1.2.16&#160;&#160;Total&#160;Blocks&#160;and&#160;Data&#160;Sets&#160;......................................................................&#160;16&#160;<br/></a><a href="AutoSAR FEE Parameter Configurations.html#17">1.2.17&#160;&#160;Generate Device and Virtual&#160;sector&#160;structures&#160;.........................................&#160;17&#160;<br/></a><a href="AutoSAR FEE Parameter Configurations.html#18">1.2.18&#160;&#160;Required&#160;Virtual&#160;Sector&#160;Size&#160;....................................................................&#160;18&#160;<br/></a><a href="AutoSAR FEE Parameter Configurations.html#19">1.2.19&#160;&#160;FEE&#160;bank Physical&#160;Sector&#160;Size&#160;................................................................&#160;19&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#20">1.3&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#20">Number&#160;of&#160;Blocks&#160;..........................................................................................&#160;20&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#20">1.3.1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#20">Blocks&#160;......................................................................................................&#160;20&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#20">1.4&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#20">Number&#160;of&#160;Virtual&#160;Sectors&#160;..............................................................................&#160;20&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#20">1.4.1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#20">Virtual&#160;Sectors&#160;..........................................................................................&#160;20&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#21">1.4.2&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#21">Virtual&#160;Sectors&#160;for&#160;EEP1...........................................................................&#160;21&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#21">1.5&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#21">FEE&#160;functions&#160;................................................................................................&#160;21&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#21">1.5.1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#21">FEE_GetVersionInfo&#160;................................................................................&#160;21&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#22">1.6&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#22">FEE&#160;Sector&#160;Configuration&#160;..............................................................................&#160;22&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#22">1.6.1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#22">FEE_VirtualSectorConfiguration&#160;...............................................................&#160;22&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#22">1.6.1.1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#22">FEE_VirtualSectorNumber&#160;................................................................&#160;22&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#23">1.6.1.2&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#23">FEE_VirtualSectorBank&#160;....................................................................&#160;23&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#23">1.6.1.3&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#23">FEE_VirtualSectorStart&#160;.....................................................................&#160;23&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#24">1.6.1.4&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#24">FEE_VirtualSectorEnd&#160;......................................................................&#160;24&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#25">1.6.2&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#25">Example Virtual&#160;Sector&#160;Configuration&#160;.......................................................&#160;25&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#26">1.7&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#26">FEE&#160;Block Configuration&#160;................................................................................&#160;26&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#26">1.7.1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#26">FEE&#160;Block Configuration&#160;..........................................................................&#160;26&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#26">1.7.1.1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#26">FEE_BlockNumber............................................................................&#160;26&#160;</a><br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+5&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-6_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<a href="AutoSAR FEE Parameter Configurations.html#27">1.7.1.2&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#27">FEE_BlockSize&#160;.................................................................................&#160;27&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#27">1.7.1.3&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#27">FEE_NumberOfWriteCycles&#160;..............................................................&#160;27&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#28">1.7.1.4&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#28">FEE_UseImmediateData&#160;..................................................................&#160;28&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#28">1.7.1.5&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#28">FEE&#160;Device Index&#160;.............................................................................&#160;28&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#29">1.7.1.6&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#29">FeeNumberOfDataSets&#160;.....................................................................&#160;29&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#29">1.7.1.7&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#29">FEE&#160;EEP&#160;Number&#160;.............................................................................&#160;29&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#30">1.7.2&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#30">Example Block&#160;Configuration&#160;...................................................................&#160;30&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#31">1.8&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#31">Header&#160;Files&#160;..................................................................................................&#160;31&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#31">1.8.1&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#31">Header&#160;Files&#160;for&#160;Fee_cfg.h&#160;.......................................................................&#160;31&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#31">1.8.2&#160;</a><br/>
+<a href="AutoSAR FEE Parameter Configurations.html#31">Header&#160;Files&#160;for&#160;Fee_cfg.c&#160;.......................................................................&#160;31&#160;</a><br/>
+&#160;<br/><b>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;</b><br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+6&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-7_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/><b>1&#160;&#160;Introduction&#160;</b><br/>
+The&#160;&#160;following&#160;&#160;sections&#160;&#160;describe&#160;&#160;each&#160;&#160;parameter&#160;&#160;in&#160;&#160;the&#160;&#160;Fee_ParamDef.axml&#160;&#160;file&#160;<br/>used&#160;&#160;by&#160;&#160;Code&#160;&#160;Generation&#160;&#160;Tool&#160;&#160;and&#160;&#160;the&#160;&#160;corresponding&#160;&#160;configuration&#160;&#160;parameter&#160;<br/>generated.&#160;&#160;Code&#160;&#160;Generation&#160;&#160;Tool&#160;&#160;generates&#160;&#160;two&#160;&#160;files&#160;&#160;(Fee_Cfg.c&#160;&#160;and&#160;&#160;Fee_cfg.h)&#160;<br/>depending&#160;&#160;on&#160;&#160;the&#160;&#160;configuration&#160;&#160;values.&#160;&#160;This&#160;&#160;section&#160;&#160;describes&#160;&#160;each&#160;&#160;configuration&#160;<br/>value&#160;&#160;in&#160;&#160;the&#160;&#160;above&#160;&#160;two&#160;&#160;files&#160;&#160;and&#160;&#160;their&#160;&#160;relation&#160;&#160;to&#160;&#160;the&#160;&#160;parameter&#160;&#160;defined&#160;&#160;in&#160;&#160;the&#160;<br/>Fee_ParamDef.axml&#160;file.&#160;<br/>
+<b>1.1&#160;&#160;FEE&#160;Published&#160;information&#160;</b><br/>
+<b>1.1.1&#160;&#160;Block&#160;OverHead&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeBlockOverhead&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;number&#160;of&#160;bytes used&#160;for&#160;Block&#160;<br/>Header.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_BLOCK_OVERHEAD&#160;is&#160;set&#160;to&#160;the&#160;value&#160;<br/>assigned&#160;to&#160;FeeBlockOverhead.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x18&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Fixed&#160;to&#160;0x18.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint8&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;file&#160;<br/>
+Fee_cfg.h&#160;<br/>
+<b>1.1.2&#160;&#160;Maximum&#160;Blocking&#160;Time&#160;&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeMaximumBlockingTime&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;maximum&#160;allowed&#160;blocking&#160;time&#160;for&#160;any&#160;<br/>Fee call.&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_MAXIMUM_BLOCKING_TIME&#160;is&#160;set&#160;to&#160;the&#160;<br/>value&#160;assigned to&#160;FeeMaximumBlockingTime.&#160;<br/>
+Default&#160;Value&#160;<br/>
+600.00&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Fixed&#160;to 600 µs.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+float&#160;<br/>
+Target&#160;file&#160;<br/>
+Fee_cfg.h&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+7&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-8_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.1.3&#160;&#160;Page&#160;OverHead&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeePageOverhead&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;Page&#160;Overhead&#160;in bytes.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_PAGE_OVERHEAD&#160;is&#160;set&#160;to&#160;the&#160;value&#160;<br/>assigned&#160;to&#160;FeePageOverhead.&#160;(0x0)&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;&#160;<br/>
+0x0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Fixed&#160;to 0x0.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint8&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+<b>1.1.4&#160;&#160;Sector&#160;OverHead&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeVirtualSectorOverhead&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;number&#160;of&#160;bytes used&#160;for&#160;Virtual&#160;Sector&#160;<br/>Header.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_VIRTUAL_SECTOR_OVERHEAD&#160;is&#160;set&#160;to&#160;the&#160;<br/>value&#160;assigned to&#160;FeeVirtualSectorOverhead&#160;(0x10).&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x10&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Fixed&#160;to&#160;0x10.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint8&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+8&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-9_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.2&#160;&#160;FEE&#160;General&#160;Settings&#160;</b><br/>
+<b>1.2.1&#160;&#160;Virtual&#160;Page&#160;size&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeVirtualPageSize&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;virtual&#160;page&#160;size in&#160;bytes.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_VIRTUAL_PAGE_SIZE&#160;is&#160;set&#160;to&#160;the&#160;value&#160;<br/>assigned&#160;to&#160;FeeVirtualPageSize.&#160;(0x8)&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x8&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Fixed&#160;to&#160;0x8.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint8&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.2.2&#160;&#160;&#160;Driver&#160;Index&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeIndex&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Instance&#160;ID&#160;of&#160;FEE&#160;module.&#160;Should always&#160;be&#160;0x0.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_INDEX&#160;is&#160;set&#160;to&#160;the&#160;value&#160;assigned&#160;to&#160;<br/>FeeIndex.&#160;(0x0)&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Fixed&#160;to 0x0.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint8&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+9&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-10_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.2.3&#160;&#160;Error&#160;Notification&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeNvmJobErrorNotification&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Call&#160;back&#160;function&#160;to&#160;notify&#160;a&#160;Job&#160;Error.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated configuration&#160;<br/>
+FEE_NVM_JOB_ERROR_NOTIFICATION&#160;is&#160;set&#160;to&#160;<br/>the&#160;defined&#160;function&#160;name.&#160;This&#160;is&#160;relevant&#160;only&#160;if&#160;<br/>Polling&#160;mode&#160;is&#160;OFF.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+NvM_JobErrorNotification&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+User&#160;defined&#160;function&#160;name.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+string&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+<b>&#160;&#160;&#160;<br/></b>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.2.4&#160;&#160;End&#160;Notification&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeNvmJobEndNotification&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Call&#160;back&#160;function&#160;to&#160;notify&#160;end&#160;of&#160;a&#160;Job.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_NVM_JOB_END_NOTIFICATION&#160;is&#160;set&#160;to&#160;the&#160;<br/>defined&#160;function&#160;name.&#160;This&#160;is&#160;relevant&#160;only&#160;if&#160;Polling&#160;<br/>mode is&#160;OFF.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+NvM_JobEndNotification&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+User&#160;defined&#160;function&#160;name.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+string&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+10&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-11_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>1.2.5&#160;&#160;Frequency&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeFrequency&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Device operating&#160;frequency&#160;in MHz.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_OPERATING_FREQUENCY&#160;is&#160;set&#160;to&#160;the&#160;value&#160;<br/>assigned&#160;to&#160;FeeFrequency.&#160;&#160;<br/>FeeFrequency&#160;is&#160;equivalent&#160;to&#160;the&#160;HCLK&#160;frequency&#160;<br/>in the&#160;TMS570&#160;clock&#160;tree.&#160;<br/>It&#160;is&#160;recommended&#160;to&#160;copy&#160;the&#160;value&#160;of&#160;HCLK&#160;<br/>obtained by&#160;configuring the&#160;TMS570 clock&#160;tree&#160;<br/>during&#160;MCU&#160;configuration to&#160;this&#160;parameter.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+160.0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Device dependent&#160;parameter.&#160;Refer&#160;to&#160;the&#160;device&#160;<br/>datasheet&#160;to&#160;know&#160;the&#160;range.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+float&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+&#160;<br/>&#160;<br/>
+<b>1.2.6&#160;&#160;Enable&#160;Polling&#160;mode&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeePollingMode&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;if&#160;polling&#160;mode&#160;is&#160;enabled/disabled.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_POLLING_MODE&#160;is&#160;set&#160;to&#160;STD_ON&#160;if&#160;polling&#160;is&#160;<br/>enabled&#160;else&#160;it&#160;is&#160;set&#160;to&#160;STD_OFF.&#160;Currently,&#160;this&#160;<br/>parameter&#160;should be&#160;always&#160;STD_ON.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+STD_ON&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+STD_ON/STD_OFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Boolean&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+11&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-12_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>1.2.7&#160;</b><br/>
+<b>Enable&#160;Error&#160;Correction&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeEnableErrorCorrection&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;if&#160;error&#160;correction&#160;is&#160;enabled.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_FLASH_ERROR_CORRECTION_ENABLE&#160;<br/>Is&#160;set&#160;to&#160;STD_ON&#160;if&#160;Error&#160;Correction&#160;is&#160;enabled&#160;else&#160;<br/>it&#160;is&#160;set&#160;to STD_OFF.&#160;This&#160;parameter&#160;is&#160;not&#160;used&#160;<br/>anymore.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+STD_OFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+STD_ON/STD_OFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Boolean&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+<b>&#160;</b><br/>
+<b>1.2.8&#160;</b><br/>
+<b>Error&#160;Correction&#160;Handling&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeFlashErrCorrHandlingType&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;desired&#160;action&#160;to be&#160;taken&#160;on&#160;detection&#160;of&#160;<br/>bit&#160;errors.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_FLASH_ERROR_CORRECTION_HANDLING&#160;<br/>is&#160;set&#160;to&#160;the&#160;value&#160;assigned&#160;to&#160;<br/>FeeFlashErrCorrHandlingType.&#160;Only&#160;Fee_None is&#160;<br/>supported.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+Fee_None&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Fee_None or&#160;Fee_Fix&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+enum&#160;{Fee_none,&#160;Fee_Fix}&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+12&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-13_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.2.9&#160;&#160;&#160;&#160;&#160;Cyclic Redundancy&#160;Check&#160;</b><br/>
+&#160;<br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeCRCEnable&#160;<br/>
+&#160;<br/>
+Pre-processor&#160;switch to&#160;enable the&#160;CRC&#160;for&#160;blocks.&#160;<br/>
+Description&#160;<br/>
+STD_ON:&#160;CRC&#160;for&#160;blocks&#160;is&#160;enabled.&#160;<br/>STD_OFF:CRC&#160;disabled&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_FLASH_CRC_ENABLE&#160;is&#160;set&#160;to&#160;STD_ON&#160;if&#160;<br/>CRC&#160;check&#160;is&#160;enabled&#160;else it&#160;is&#160;set&#160;to&#160;STD_OFF.&#160;If&#160;<br/>enabled,&#160;16&#160;bit&#160;CRC&#160;of&#160;the&#160;block&#160;is&#160;generated.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+STD_OFF&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+STD_ON&#160;/&#160;STD_OFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Boolean&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+<b>1.2.10&#160;&#160;&#160;&#160;&#160;&#160;Block&#160;Write counter&#160;save&#160;</b><br/>
+&#160;<br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeWriteCounterSave&#160;<br/>
+&#160;<br/>
+Pre-processor&#160;switch to&#160;enable the&#160;block&#160;write&#160;<br/>
+Description&#160;<br/>
+counter.&#160;STD_ON:&#160;Block&#160;Write counter&#160;is&#160;enabled.&#160;<br/>STD_OFF:Block&#160;Write&#160;counter&#160;is&#160;disabled&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_FLASH_WRITECOUNTER_SAVE&#160;is&#160;set&#160;to&#160;<br/>STD_ON&#160;&#160;if&#160;block&#160;write&#160;counter&#160;save&#160;is&#160;enabled&#160;else&#160;<br/>it&#160;is&#160;set&#160;to&#160;STD_OFF.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+STD_OFF&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+STD_ON&#160;/&#160;STD_OFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Boolean&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+13&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-14_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.2.11&#160;&#160;&#160;&#160;&#160;&#160;Number&#160;of&#160;EEPs&#160;</b><br/>
+&#160;<br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeNumberOfEEPS&#160;<br/>
+&#160;<br/>
+Number&#160;of&#160;EEP's&#160;configured.&#160;1&#160;-&#160;Only&#160;one&#160;EEP&#160;<br/>
+Description&#160;<br/>
+configured.&#160;All&#160;Virtual&#160;Sectors&#160;can&#160;be&#160;used&#160;by&#160;this&#160;<br/>EEP.&#160;2&#160;-&#160;Two EEP's&#160;configured.&#160;Each&#160;EEP&#160;can&#160;use&#160;<br/>two Virtual&#160;Sectors.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_NUMBER_OF_EEPS&#160;is&#160;set&#160;to&#160;1&#160;if&#160;all&#160;virtual&#160;<br/>sectors&#160;are used&#160;by&#160;one&#160;EEP.&#160;If&#160;virtual&#160;sectors&#160;are&#160;<br/>shared&#160;between two EEPs,&#160;it&#160;is&#160;set&#160;to 2.&#160;<br/>
+Default&#160;Value&#160;<br/>
+1&#160;&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+1/2&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Uint8&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+Note:&#160;If&#160;GUI&#160;is&#160;calculating&#160;this&#160;parameter&#160;from&#160;the configuration,&#160;this&#160;parameter&#160;<br/>may&#160;not&#160;be&#160;present&#160;in BSWMD&#160;file.&#160;<br/>
+<b>1.2.12&#160;&#160;Development&#160;error&#160;Detect&#160;</b><br/>
+&#160;<br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeDevErrorDetect&#160;<br/>
+&#160;<br/>
+Pre-processor&#160;switch to&#160;enable and disable&#160;<br/>
+Description&#160;<br/>
+development&#160;error&#160;detection.&#160;true:&#160;Development&#160;<br/>error&#160;detection enabled.&#160;false:&#160;Development&#160;error&#160;<br/>detection disabled.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_DEV_ERROR_DETECT&#160;Is&#160;set&#160;to&#160;STD_ON&#160;if&#160;<br/>Set&#160;Mode supported&#160;is&#160;required&#160;else it&#160;is&#160;set&#160;to&#160;<br/>STD_OFF.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+STD_OFF&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+STD_ON/STD_OFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+boolean&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+14&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-15_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>1.2.13&#160;&#160;Non&#160;configured&#160;blocks&#160;to copy&#160;</b><br/>
+&#160;<br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeNumberOfUnconfiguredBlocksToCopy&#160;<br/>
+&#160;<br/>
+Defines&#160;the&#160;maximum&#160;number&#160;of&#160;non configured&#160;<br/>
+Description&#160;<br/>
+blocks&#160;to&#160;be&#160;copied&#160;during virtual&#160;sector&#160;swap.&#160;This&#160;<br/>parameter&#160;is&#160;used&#160;if&#160;project&#160;configures&#160;and writes&#160;10&#160;<br/>blocks&#160;at&#160;start&#160;of&#160;the&#160;project,&#160;then&#160;reduce&#160;the&#160;number&#160;<br/>of&#160;blocks&#160;to&#160;let’s&#160;say&#160;8 blocks,&#160;but&#160;still&#160;want&#160;the&#160;other&#160;<br/>two blocks&#160;to&#160;be&#160;present&#160;in Flash.&#160;In&#160;this&#160;case,&#160;<br/>project&#160;should configure&#160;this&#160;parameter&#160;to&#160;2.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_NUMBER_OF_UNCONFIGUREDBLOCKSTO<br/>COPY&#160;is&#160;set&#160;to&#160;defined value.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+0&#160;-255&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Uint8&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+<b>&#160;</b><br/>
+<b>1.2.14&#160;&#160;Number&#160;of&#160;eight&#160;byte&#160;writes&#160;</b><br/>
+&#160;<br/>
+Parameter&#160;defined in&#160;<br/>
+FeeNumberOfEightByteWrites&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>&#160;<br/>
+Defines&#160;the&#160;number&#160;of&#160;8&#160;byte writes to be&#160;done&#160;in&#160;<br/>
+Description&#160;<br/>
+main&#160;function&#160;call.&#160;If&#160;configured&#160;to&#160;2,&#160;main&#160;function&#160;<br/>writes 16&#160;bytes per&#160;call.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_NUMBER_OF_EIGHTBYTEWRITES&#160;is&#160;set&#160;to&#160;<br/>defined value.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+1-255&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Uint8&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+15&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-16_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+<b>1.2.15&#160;&#160;Check&#160;BANK7&#160;Address&#160;Range&#160;</b><br/>
+&#160;<br/>
+Parameter&#160;defined in&#160;<br/>
+FEE_CHECK_BANK7_ACCESS&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>&#160;<br/>
+Pre processor&#160;switch to&#160;enable EEPROM&#160;address&#160;<br/>
+Description&#160;<br/>
+range check&#160;during&#160;read/write.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_CHECK_BANK7_ACCESS&#160;is&#160;set&#160;to defined&#160;<br/>value.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+STD_OFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+STD_ON/STD_OFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+boolean&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+<b>1.2.16&#160;&#160;Total&#160;Blocks&#160;and&#160;Data&#160;Sets&#160;</b><br/>
+&#160;<br/>
+Parameter&#160;defined in&#160;<br/>
+FEE_TOTAL_BLOCKS_DATASETS&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>Description&#160;<br/>
+Macro&#160;to indicate&#160;total&#160;blocks and&#160;data&#160;sets&#160;<br/>configured.&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_TOTAL_BLOCKS_DATASETS&#160;is&#160;set&#160;to defined&#160;<br/>value.&#160;<br/>
+Default&#160;Value&#160;<br/>
+1&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+1-65536&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Uint16&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+<b>&#160;</b><br/>
+Note:&#160;This&#160;configuration&#160;should calculate&#160;total&#160;number&#160;of&#160;blocks&#160;and&#160;data&#160;sets&#160;<br/>configured&#160;in&#160;the&#160;structure&#160;Fee_BlockConfiguration.&#160;For&#160;example,&#160;if&#160;5&#160;blocks&#160;are&#160;<br/>configured&#160;with block&#160;1&#160;has 1&#160;data&#160;set,&#160;block&#160;2 has&#160;4 data&#160;sets,&#160;block&#160;3 has&#160;2&#160;<br/>data sets,&#160;block&#160;4 has&#160;5&#160;data&#160;sets,&#160;block&#160;5 has&#160;3&#160;data sets,&#160;then&#160;&#160;<br/>FEE_TOTAL_BLOCKS_DATASETS&#160;=&#160;[(1)+(4)+(2)+(5)+(3)]&#160;=&#160;15(sum&#160;of&#160;all&#160;data&#160;<br/>sets).&#160;<br/>If&#160;GUI&#160;is&#160;calculating&#160;this&#160;parameter&#160;from&#160;the&#160;configuration,&#160;this&#160;parameter&#160;may&#160;<br/>not&#160;be&#160;present&#160;in&#160;BSWMD&#160;file.&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+16&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-17_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/><b>1.2.17&#160;&#160;Generate Device&#160;and&#160;Virtual&#160;sector&#160;structures&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+FEE_GENERATE_DEVICEANDVIRTUALSECTORS<br/>
+Fee_ParamDef.axml&#160;<br/>
+TRUC&#160;<br/>
+&#160;<br/>
+Pre processor&#160;switch to&#160;enable/disable&#160;generation of&#160;<br/>
+Description&#160;<br/>
+Device and Virtual&#160;sector&#160;structures.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_GENERATE_DEVICEANDVIRTUALSECTORS<br/>TRUC&#160;is&#160;set&#160;to&#160;defined value.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+STD_OFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+STD_ON/STD_OFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+boolean&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+&#160;<br/>
+Note:&#160;When&#160;this&#160;macro is&#160;turned&#160;ON,&#160;Fee_VirtualSectorConfiguration&#160;&#160;and&#160;<br/>Device_FlashDevice&#160;&#160;are&#160;generated&#160;during&#160;run&#160;time.&#160;&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+17&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-18_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/><b>1.2.18&#160;&#160;Required&#160;Virtual&#160;Sector&#160;Size&#160;&#160;</b><br/>
+&#160;<br/>
+Parameter&#160;defined in&#160;<br/>
+FEE_VIRTUALSECTOR_SIZE&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>&#160;<br/>
+Macro&#160;to indicate&#160;the&#160;required&#160;virtual&#160;sector&#160;size in&#160;<br/>
+Description&#160;<br/>
+kilo bytes.&#160;This&#160;macro is&#160;only&#160;used when&#160;<br/>FEE_GENERATE_DEVICEANDVIRTUALSECTORS<br/>TRUC&#160;is&#160;STD_ON.&#160;Based on&#160;<br/>FEE_VIRTUALSECTOR_SIZE&#160;and&#160;<br/>FEE_NUMBER_OF_VIRTUAL_SECTORS,&#160;elements&#160;<br/>of&#160;the&#160;structure&#160;Fee_VirtualSectorConfiguration&#160;will&#160;<br/>be&#160;populated&#160;during&#160;runtime.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_VIRTUALSECTOR_SIZE&#160;is&#160;set&#160;to defined&#160;<br/>value.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+None&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+4-32(see&#160;below&#160;note)&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Uint8&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+&#160;<br/>
+Note:&#160;Depending&#160;on&#160;the&#160;device,&#160;parameter&#160;range&#160;can&#160;be&#160;different.&#160;&#160;<br/>For&#160;TMS570LS12xx/11xx&#160;family&#160;devices,&#160;FEE&#160;bank is 4*16KB.&#160;Macro&#160;can&#160;take&#160;a&#160;<br/>value&#160;of&#160;16&#160;or&#160;32.&#160;For&#160;TMS570LS09xx,&#160;TMS570LS07xx,&#160;TMS570LS05xx&#160;family&#160;<br/>devices,&#160;FEE&#160;bank&#160;is&#160;16*4KB.&#160;Macro&#160;can&#160;take&#160;a value&#160;of&#160;4&#160;or&#160;8 or&#160;12&#160;or&#160;16&#160;or&#160;32.&#160;&#160;<br/>FEE_VIRTUALSECTOR_SIZE&#160;*&#160;FEE_NUMBER_OF_VIRTUAL_SECTORS&#160;<br/>should not&#160;exceed&#160;the&#160;total&#160;available FEE&#160;bank&#160;size on&#160;device.&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+18&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-19_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/><b>1.2.19&#160;&#160;FEE&#160;bank&#160;Physical&#160;Sector&#160;Size&#160;&#160;</b><br/>
+&#160;<br/>
+Parameter&#160;defined in&#160;<br/>
+FEE_PHYSICALSECTOR_SIZE&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>&#160;<br/>
+Macro&#160;to indicate&#160;the&#160;physical&#160;sector&#160;size on&#160;the&#160;<br/>
+Description&#160;<br/>
+device.&#160;This&#160;macro is&#160;only&#160;used when&#160;<br/>FEE_GENERATE_DEVICEANDVIRTUALSECTORS<br/>TRUC&#160;is&#160;STD_OFF.&#160;This&#160;parameter&#160;is&#160;used&#160;to&#160;select&#160;<br/>device specific&#160;files.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_PHYSICALSECTOR_SIZE&#160;is&#160;set&#160;to defined&#160;<br/>value.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+None.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+4/16&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Uint8&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;&#160;<br/>
+&#160;<br/>
+Note:&#160;This&#160;macro&#160;can&#160;only&#160;have 4/16&#160;as value.&#160;&#160;<br/>For&#160;TMS570LS12xx/11xx&#160;family&#160;devices,&#160;sector&#160;size is 16.&#160;For&#160;TMS570LS09xx,&#160;<br/>TMS570LS07xx,&#160;TMS570LS05xx&#160;family&#160;devices,&#160;sector&#160;size is 4.&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+19&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-20_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.3&#160;&#160;Number of Blocks&#160;</b><br/>
+<b>1.3.1&#160;&#160;Blocks&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeNumberOfBlocks&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Defines&#160;the&#160;number&#160;of&#160;Data&#160;Blocks&#160;used&#160;for&#160;<br/>EEPROM&#160;emulation.&#160;This&#160;is&#160;sum&#160;of&#160;all&#160;the&#160;blocks&#160;<br/>configured&#160;on&#160;EEP1 and&#160;EEP2.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_NUMBER_OF_BLOCKS&#160;is&#160;set&#160;to&#160;the&#160;defined&#160;<br/>value.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+0x1 &#160;to 0xFFFE&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint16&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+Note:&#160;If&#160;GUI&#160;is&#160;calculating&#160;this&#160;parameter&#160;from&#160;the configuration,&#160;this&#160;parameter&#160;<br/>may&#160;not&#160;be&#160;present&#160;in BSWMD&#160;file.<i>&#160;</i><br/>
+&#160;<br/>
+<b>1.4&#160;&#160;Number&#160;of Virtual&#160;Sectors&#160;</b><br/>
+<b>1.4.1&#160;&#160;Virtual&#160;Sectors&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeNumberOfVirtualSectors&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Defines&#160;the&#160;number&#160;of&#160;Virtual&#160;Sectors&#160;used&#160;for&#160;FEE.&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_NUMBER_OF_VIRTUAL_SECTORS&#160;is&#160;set&#160;to&#160;<br/>the&#160;defined&#160;value.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x2&#160;<br/>
+&#160;<br/>
+Min :0x2 Max&#160;:&#160;0x4,For&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+TMS570LS01227/TMS570LS1113.&#160;<br/>&#160;<br/>Min :&#160;0x2 Max&#160;:&#160;16,&#160;For&#160;TMS570LS05xx,&#160;<br/>TMS570LS07xx,&#160;TMS570LS09xx.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint16&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+20&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-21_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.4.2&#160;&#160;Virtual&#160;Sectors&#160;for&#160;EEP1&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeNumberOfVirtualSectorsEEP1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Defines&#160;the&#160;number&#160;of&#160;Virtual&#160;Sectors&#160;used&#160;for&#160;<br/>EEP1.&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_NUMBER_OF_VIRTUAL_SECTORS_EEP1&#160;is&#160;<br/>set&#160;to&#160;the&#160;defined value.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Min :&#160;0x0&#160;Max&#160;:&#160;<br/>(FEE_NUMBER_OF_VIRTUAL_SECTORS-0x02)&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint16&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+<i>&#160;</i><br/>
+<i>Note:&#160;</i>FEE_NUMBER_OF_VIRTUAL_SECTORS_EEP1 should be&#160;configured&#160;as&#160;<br/>zero&#160;if&#160;FEE_NUMBER_OF_EEPS&#160;=&#160;1.<i>&#160;</i><br/>
+&#160;<br/>
+<b>1.5&#160;&#160;FEE&#160;functions&#160;</b><br/>
+<b>1.5.1&#160;&#160;FEE_GetVersionInfo&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeVersionInfoApi&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;if&#160;the&#160;user&#160;can&#160;use&#160;the&#160;function&#160;<br/>Fee_GetVersionInfo().&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FEE_VERSION_INFO_API&#160;is&#160;set&#160;to STD_ON&#160;if&#160;<br/>FeeVersionInfoApi&#160;is&#160;enabled&#160;else&#160;it&#160;is&#160;set&#160;to&#160;<br/>STD_OFF.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+STD_ON&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+STD_ON&#160;/&#160;STD_OFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Boolean&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_cfg.h&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+21&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-22_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.6&#160;&#160;FEE&#160;Sector Configuration&#160;</b><br/>
+Note:&#160;The&#160;structure&#160;definition&#160;Fee_VirtualSectorConfiguration in&#160;fee_cfg.c&#160;should&#160;<br/>be&#160;under&#160;the&#160;conditional&#160;compile&#160;check&#160;&#160;<br/>#if&#160;(FEE_GENERATE_DEVICEANDVIRTUALSECTORSTRUC&#160;==&#160;STD_OFF).&#160;<br/>Projects&#160;need&#160;not&#160;configure below&#160;parameters&#160;when above macro is&#160;turned&#160;ON.&#160;<br/>
+<b>1.6.1&#160;&#160;FEE_VirtualSectorConfiguration&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+Array&#160;Name&#160;<br/>
+FEE_VirtualSectorConfiguration&#160;<br/>
+Description&#160;&#160;<br/>
+Used&#160;to&#160;define&#160;a&#160;Virtual&#160;Sector&#160;<br/>
+&#160;<br/>
+Fee_VirtualSectorConfigType.&#160;&#160;<br/>
+Array&#160;Type&#160;&#160;<br/>
+This&#160;is&#160;a structure having&#160;the&#160;following&#160;members.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Members&#160;<br/>
+FeeVirtualSectorNumber&#160;<br/>
+Virtual&#160;Sector's&#160;Number.&#160;<br/>EEPROM&#160;emulation is&#160;<br/>
+FeeFlashBank&#160;<br/>
+supported&#160;only&#160;on&#160;Bank&#160;7&#160;for&#160;<br/>F021&#160;devices..&#160;<br/>&#160;<br/>
+FeeStartSector&#160;<br/>
+Starting Sector&#160;in&#160;the Bank&#160;for&#160;<br/>this&#160;Virtual&#160;Sector.&#160;<br/>&#160;<br/>
+FeeEndSector&#160;<br/>
+Ending&#160;Sector&#160;in the&#160;Bank&#160;for&#160;<br/>this&#160;Virtual&#160;Sector.&#160;<br/>
+The&#160;configurations&#160;described in&#160;the&#160;following&#160;sections&#160;are&#160;repeated&#160;for&#160;each&#160;<br/>Virtual&#160;Sector.&#160;<br/>
+<b>1.6.1.1&#160;&#160;FEE_VirtualSectorNumber&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeSectorNumber&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Used&#160;to&#160;assign a&#160;number&#160;to&#160;the&#160;Virtual&#160;Sector.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FeeVirtualSectorNumber&#160;is&#160;set&#160;to&#160;the&#160;value&#160;assigned&#160;<br/>to&#160;the&#160;symbolic&#160;name&#160;for&#160;the&#160;Virtual&#160;Sector.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Min :&#160;0x1,&#160;&#160;Max&#160;:&#160;0x4,For&#160;<br/>TMS570LS01227/TMS570LS1113&#160;<br/>&#160;<br/>Min :&#160;0x1&#160;Max&#160;:&#160;16,&#160;For&#160;TMS570LS05xx,&#160;<br/>TMS570LS07xx,&#160;TMS570LS09xx&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint16&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+22&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-23_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_Cfg.c&#160;&#160;<br/>
+&#160;<br/>
+<b>1.6.1.2&#160;&#160;FEE_VirtualSectorBank&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeSectorBank&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;Flash&#160;Bank&#160;used by&#160;the&#160;Virtual&#160;Sector.&#160;<br/>All&#160;the&#160;Virtual&#160;Sectors&#160;should use&#160;the&#160;same&#160;Flash&#160;<br/>Bank.&#160;EEPROM&#160;emulation&#160;is&#160;supported&#160;only&#160;on&#160;<br/>Bank&#160;7&#160;for&#160;F021&#160;devices.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FeeFlashBank&#160;is&#160;set&#160;to&#160;the&#160;value&#160;assigned&#160;to&#160;<br/>FeeSectorBank.&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x7 for&#160;F021&#160;devices.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Fixed&#160;to 0x7&#160;for&#160;F021&#160;devices.&#160;<br/>&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint16&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_Cfg.c&#160;<br/>
+<b>1.6.1.3&#160;&#160;&#160;FEE_VirtualSectorStart&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeSectorStart&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;Flash&#160;Sector&#160;in&#160;the&#160;Bank&#160;used&#160;by&#160;the&#160;<br/>Virtual&#160;Sector&#160;as&#160;the&#160;Start&#160;sector.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FeeStartSector&#160;is&#160;set&#160;to&#160;the&#160;value&#160;assigned&#160;to&#160;<br/>FeeSectorStart.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Device specific,&#160;can&#160;use&#160;any&#160;Sector&#160;of&#160;the&#160;selected&#160;<br/>Flash&#160;Bank.&#160;Please&#160;refer&#160;to&#160;the&#160;device datasheet&#160;<br/>“Flash&#160;Memory&#160;Map”&#160;for&#160;more&#160;details.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint8&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_Cfg.c&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+23&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-24_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>1.6.1.4&#160;&#160;&#160;FEE_VirtualSectorEnd&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeSectorEnd&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;Flash&#160;Sector&#160;in&#160;the&#160;Bank&#160;used&#160;by&#160;the&#160;<br/>Virtual&#160;Sector&#160;as&#160;the&#160;End&#160;sector.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FeeEndSector&#160;is&#160;set&#160;to&#160;the&#160;value&#160;assigned&#160;to&#160;<br/>FeeSectorEnd.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Device specific,&#160;can&#160;use&#160;any&#160;Flash&#160;Sector&#160;of&#160;the&#160;<br/>selected&#160;Flash&#160;Bank.&#160;It&#160;should be&#160;greater&#160;than&#160;the&#160;<br/>FEE&#160;Start&#160;Sector.&#160;Please&#160;refer&#160;to&#160;the&#160;device&#160;<br/>datasheet&#160;“Flash&#160;Memory&#160;Map”&#160;for&#160;more&#160;details.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint8&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_Cfg.c&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+24&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-25_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.6.2&#160;&#160;Example Virtual&#160;Sector&#160;Configuration&#160;<br/></b>#if&#160;(FEE_GENERATE_DEVICEANDVIRTUALSECTORSTRUC&#160;==&#160;STD_OFF)&#160;<br/>
+const&#160;Fee_VirtualSectorConfigType&#160;Fee_VirtualSectorConfiguration[]&#160;=&#160;<br/>{&#160;<br/>&#160; &#160;&#160;/* Virtual Sector 1 */&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;1, &#160; &#160; /* Virtual sector number */&#160;<br/>&#160; &#160; &#160; &#160;&#160;7, &#160; &#160; /* Bank &#160; &#160; &#160; &#160; &#160; &#160;&#160; &#160; &#160;&#160;&#160; &#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;0, &#160; &#160; /* Start Sector &#160; &#160; &#160; &#160; &#160;*//*(0,&#160;For&#160;TMS570LS05xx,&#160;TMS570LS07xx,&#160;TMS570LS09xx)*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;0, &#160; &#160; /* End Sector &#160; &#160; &#160; &#160; &#160; *//*(3,&#160;For&#160;TMS570LS05xx,&#160;TMS570LS07xx,&#160;TMS570LS09xx)*/&#160;<br/>&#160; &#160;&#160;},&#160;<br/>&#160; &#160;&#160;/* Virtual Sector 2 */&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;2, &#160; &#160; /* Virtual sector number */&#160;<br/>&#160; &#160; &#160; &#160;&#160;7, &#160; &#160; /* Bank &#160; &#160; &#160; &#160; &#160;&#160;&#160;&#160; &#160; &#160;&#160;&#160; &#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;1, &#160; &#160; /* Start Sector &#160; &#160; &#160; &#160; &#160;*//*(4,&#160;For&#160;TMS570LS05xx,&#160;TMS570LS07xx,&#160;TMS570LS09xx)*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;1, &#160; &#160; /* End Sector &#160; &#160; &#160; &#160; &#160; *//*(7,&#160;For&#160;TMS570LS05xx,&#160;TMS570LS07xx,&#160;TMS570LS09xx)*/&#160;<br/>&#160; &#160;&#160;},&#160;<br/>&#160; &#160;&#160;/* Virtual Sector 3 */ &#160;&#160;<br/>{&#160;<br/>&#160; &#160; &#160; &#160;&#160;3, &#160; &#160;&#160;/* Virtual sector number */&#160;<br/>&#160; &#160; &#160; &#160;&#160;7, &#160; &#160; /* Bank &#160; &#160; &#160; &#160; &#160; &#160;&#160; &#160; &#160;&#160;&#160; &#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;2, &#160; &#160; /* Start Sector &#160; &#160; &#160; &#160; &#160;*//*(8,&#160;For&#160;TMS570LS05xx,&#160;TMS570LS07xx,&#160;TMS570LS09xx)*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;2, &#160; &#160; /* End Sector &#160; &#160; &#160; &#160; &#160; *//*(11,&#160;For&#160;TMS570LS05xx,&#160;TMS570LS07xx,&#160;TMS570LS09xx)*/&#160;<br/>&#160; &#160;&#160;},&#160;<br/>&#160; &#160;&#160;/* Virtual Sector&#160;4&#160;*/&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;4, &#160; &#160; /* Virtual sector number */&#160;<br/>&#160; &#160; &#160; &#160;&#160;7, &#160; &#160; /* Bank &#160; &#160; &#160; &#160; &#160; &#160;&#160; &#160; &#160;&#160; &#160;&#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;3, &#160; &#160; /* Start Sector &#160; &#160; &#160; &#160; &#160;*//*(12,&#160;For&#160;TMS570LS05xx,&#160;TMS570LS07xx,&#160;TMS570LS09xx)*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;3, &#160; &#160; /* End Sector &#160; &#160; &#160; &#160; &#160;&#160;*//*(15,&#160;For&#160;TMS570LS05xx,&#160;TMS570LS07xx,&#160;TMS570LS09xx)*/&#160;<br/>&#160; &#160;&#160;},&#160;<br/>};&#160;<br/>
+#endif&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+25&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=26></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-26_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.7&#160;&#160;FEE&#160;Block&#160;Configuration&#160;</b><br/>
+<b>1.7.1&#160;&#160;FEE&#160;Block Configuration&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+Array&#160;Name&#160;<br/>
+Fee_BlockConfiguration&#160;<br/>
+Description&#160;&#160;<br/>
+Used&#160;to&#160;define&#160;a&#160;block&#160;<br/>
+&#160;<br/>
+Fee_BlockConfigType.&#160;<br/>
+Array&#160;Type&#160;&#160;<br/>
+This&#160;is&#160;a structure with the&#160;following&#160;members.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Members&#160;<br/>
+FeeBlockNumber&#160;<br/>
+Indicates&#160;Block's&#160;Number.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+FeeBlockSize&#160;<br/>
+Defines&#160;Block's&#160;Size in&#160;bytes.&#160;<br/>&#160;<br/>
+FeeImmediateData&#160;<br/>
+Indicates&#160;if&#160;the&#160;block&#160;is&#160;used&#160;<br/>for&#160;immediate data.&#160;<br/>Number&#160;of&#160;write&#160;cycles&#160;<br/>
+FeeNumberOfWriteCycles&#160;<br/>
+required&#160;for&#160;this&#160;block&#160;.&#160;<br/>
+FeeDeviceIndex&#160;<br/>
+Indicates&#160;the&#160;device index.&#160;&#160;<br/>Indicates&#160;the&#160;number&#160;of&#160;Datasets&#160;<br/>
+FeeNumberofDatasets&#160;<br/>
+for&#160;this&#160;Block.&#160;<br/>
+FeeEEPNumber&#160;<br/>
+Indicates&#160;the&#160;number&#160;of&#160;EEP.&#160;<br/>
+&#160;<br/>The&#160;configurations&#160;described in&#160;the&#160;following&#160;sections&#160;are&#160;repeated&#160;for&#160;each&#160;<br/>Block.&#160;<br/>
+<b>1.7.1.1&#160;&#160;FEE_BlockNumber&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeBlockNumber&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Assigns&#160;a number&#160;for&#160;the&#160;Block.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FeeBlockNumber&#160;is&#160;set&#160;to a&#160;numeric&#160;value.&#160;It&#160;is&#160;<br/>equal&#160;to&#160;the&#160;BlockNumber.&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Min :&#160;0x1 Max&#160;:&#160;0xFFFE&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint16&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_Cfg.c&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+26&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=27></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-27_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>1.7.1.2&#160;&#160;FEE_BlockSize&#160;&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeBlockSize&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;size of&#160;the&#160;Block&#160;in&#160;bytes.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FeeBlockSize is set&#160;to&#160;the value&#160;assigned&#160;to&#160;<br/>FeeBlockSize.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x008&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+0x1 to 0xFFFE&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint16&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_Cfg.c&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.7.1.3&#160;&#160;FEE_NumberOfWriteCycles&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeNumberOfWriteCycles&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;number&#160;of&#160;clock cycles required&#160;to&#160;write&#160;<br/>to a&#160;flash&#160;address&#160;location.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FeeNumberOfWriteCycles is set&#160;to&#160;the&#160;value&#160;<br/>assigned&#160;to&#160;FeeNumberOfWriteCycles.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Device or&#160;core/flash&#160;tech&#160;dependent&#160;parameter.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint32&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_Cfg.c&#160;<br/>
+&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+27&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=28></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-28_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>1.7.1.4&#160;&#160;FEE_UseImmediateData&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeImmediateData&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;if&#160;the&#160;block&#160;is&#160;used&#160;for&#160;immediate&#160;data.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FeeImmediateData&#160;is&#160;set&#160;to&#160;the&#160;value&#160;assigned&#160;to&#160;<br/>FeeImmediateData.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+FALSE&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+TRUE&#160;/&#160;FALSE&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+Boolean&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_Cfg.c&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.7.1.5&#160;&#160;FEE&#160;Device&#160;Index&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeDeviceIndex&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;device index.&#160;This&#160;will&#160;always&#160;be&#160;0.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FeeDeviceIndex&#160;is&#160;set&#160;to&#160;the&#160;value&#160;0x0.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+Fixed&#160;to 0x0.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint8&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_Cfg.c&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+28&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=29></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-29_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.7.1.6&#160;&#160;FeeNumberOfDataSets&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeDataset&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Indicates&#160;the&#160;number&#160;of&#160;Datasets&#160;for&#160;this&#160;particular&#160;<br/>Block&#160;.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FeeNumberOfDataSets&#160;is&#160;set&#160;to&#160;the&#160;value&#160;assigned&#160;<br/>to&#160;FeeDataset.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x01&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+0x1 to 0xFF&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint8&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_Cfg.c&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.7.1.7&#160;</b><br/>
+<b>FEE&#160;EEP&#160;Number&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+Parameter&#160;defined in&#160;<br/>
+&#160;<br/>
+Fee_ParamDef.axml&#160;<br/>
+FeeEEPNumber&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Description&#160;<br/>
+Number&#160;indicating into which EEP&#160;does&#160;the&#160;block&#160;go.&#160;<br/>0&#160;--&#160;Block&#160;will&#160;be&#160;configured&#160;on&#160;EEP1.&#160;1&#160;--&#160;Block&#160;will&#160;<br/>be&#160;configured&#160;on&#160;EEP2.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Generated&#160;configuration&#160;<br/>
+FeeEEPNumber&#160;is&#160;set&#160;to&#160;the&#160;value&#160;assigned.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Default&#160;Value&#160;<br/>
+0x0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Range&#160;<br/>
+0x00/0x01&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Parameter&#160;Type&#160;<br/>
+uint8&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Target&#160;File&#160;<br/>
+Fee_Cfg.c&#160;<br/>
+&#160;<br/>&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+29&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=30></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-30_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+<b>1.7.2&#160;&#160;Example Block Configuration&#160;</b><br/>
+&#160;<br/>/*&#160;Block&#160;Configuration&#160;*/&#160;<br/>const&#160;Fee_BlockConfigType&#160;Fee_BlockConfiguration[]&#160;=&#160;<br/>{&#160;<br/>&#160; &#160;&#160;/*&#160;Block&#160;1&#160;*/&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x01,&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;/*&#160;Block&#160;number &#160; &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x0010,&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Block&#160;size&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;TRUE,&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;/*&#160;Block&#160;immediate&#160;data&#160;used&#160;&#160;<br/>
+&#160;*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x00000064,&#160;&#160;&#160;/*&#160;Block&#160;number of&#160;write&#160;cycles&#160;&#160;&#160;*/&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0,&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;/*&#160;Device&#160;Index&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1,&#160;<br/>
+&#160;<br/>
+/*&#160;Number of&#160;DataSets&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0&#160;&#160;<br/>
+&#160;<br/>
+/*&#160;EEP&#160;number&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160; &#160;&#160;},&#160;<br/>&#160; &#160;&#160;/*&#160;Block&#160;2&#160;*/&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x02,&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Block&#160;number&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x000B,&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Block&#160;size&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;TRUE,&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Block&#160;immediate&#160;data&#160;used&#160;&#160;&#160;&#160;&#160;&#160;*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x00000064,&#160;&#160;&#160;/*&#160;Block&#160;number&#160;of&#160;write&#160;cycles&#160;&#160;&#160;*/&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0,&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Device&#160;Index&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;*/&#160;<br/>
+&#160; &#160; &#160;&#160;&#160;&#160;1,&#160;<br/>
+&#160;<br/>
+/*&#160;Number of&#160;DataSets&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1&#160;&#160;<br/>
+&#160;<br/>
+/*&#160;EEP&#160;number&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160; &#160;&#160;},&#160;<br/>&#160; &#160;&#160;/*&#160;Block&#160;3&#160;*/&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x03,&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Block&#160;number&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x000B,&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Block&#160;size&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;TRUE,&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Block&#160;immediate&#160;data&#160;used&#160;&#160;&#160;&#160;&#160;&#160;*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x00000064,&#160;&#160;&#160;/*&#160;Block&#160;number&#160;of&#160;write&#160;cycles&#160;&#160;&#160;*/&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0,&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Device&#160;Index&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1,&#160;<br/>
+&#160;<br/>
+/*&#160;Number of&#160;DataSets&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1&#160;&#160;<br/>
+&#160;<br/>
+/*&#160;EEP&#160;number&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160; &#160;&#160;},&#160;<br/>&#160; &#160;&#160;<br/>&#160; &#160;&#160;/*&#160;Block&#160;4&#160;*/&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x04,&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Block&#160;number&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x000B,&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Block&#160;size&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;TRUE,&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Block&#160;immediate&#160;data&#160;used&#160;&#160;&#160;&#160;&#160;&#160;*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0x00000064,&#160;&#160;&#160;/*&#160;Block&#160;number&#160;of&#160;write&#160;cycles&#160;&#160;&#160;*/&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+30&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=31></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fee/doc/AutoSAR FEE Parameter Configuration-31_1.png"/><br/>
+&#160; &#160;&#160;&#160;<br/>
+&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;AutoSAR FEE&#160;Parameter&#160;Configuration&#160;(Rev&#160;1.8)&#160;&#160;&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0,&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+/*&#160;Device&#160;Index&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;1,&#160;<br/>
+&#160;<br/>
+/*&#160;Number of&#160;DataSets&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;0&#160;&#160;<br/>
+&#160;<br/>
+/*&#160;EEP&#160;number&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160; &#160;&#160;},&#160;<br/>};&#160;<br/>
+<b>1.8&#160;</b><br/>
+<b>Header&#160;Files&#160;</b><br/>
+&#160;<br/>
+The&#160;following&#160;header&#160;files are&#160;included&#160;in the&#160;files&#160;generated&#160;by&#160;the&#160;Code&#160;<br/>Generation&#160;Tool.&#160;<br/>
+<b>1.8.1&#160;</b><br/>
+<b>Header&#160;Files&#160;for&#160;Fee_cfg.h&#160;</b><br/>
+The&#160;following&#160;files are&#160;included&#160;in Fee_cfg.h&#160;<br/>1.&#160;&#160;MemIf_Types.h&#160;<br/>
+<b>1.8.2&#160;</b><br/>
+<b>Header&#160;Files&#160;for&#160;Fee_cfg.c&#160;</b><br/>
+The&#160;following&#160;files are&#160;included&#160;in Fee_cfg.c&#160;<br/>1.&#160;&#160;Fee.h&#160;<br/>2.&#160;&#160;Fee_Cbk.h&#160;<br/>3.&#160;&#160;SchM_Fee.h&#160;<br/>
+&#160;<br/>This&#160;file should also include&#160;version check&#160;as&#160;following:&#160;<br/>&#160;<br/>#if&#160;(FEE_AR_MAJOR_VERSION&#160;!= 0x03)&#160;<br/>&#160; &#160;&#160;#error&#160;Fee_Cfg.c:&#160;FEE_AR_MAJOR_VERSION&#160;of&#160;Fee.h&#160;is&#160;incompatible.&#160;<br/>#endif&#160;/* FEE_AR_MAJOR_VERSION&#160;*/&#160;<br/>#if&#160;(FEE_AR_MINOR_VERSION&#160;!= 0x00)&#160;<br/>&#160; &#160;&#160;#error&#160;Fee_Cfg.c:&#160;FEE_AR_MINOR_VERSION&#160;of&#160;Fee.h&#160;is&#160;incompatible.&#160;<br/>#endif&#160;/* FEE_AR_MINOR_VERSION&#160;*/&#160;<br/>#if&#160;(FEE_AR_PATCH_VERSION&#160;!= 0x01)&#160;<br/>&#160; &#160;&#160;#error&#160;Fee_Cfg.c:&#160;FEE_AR_PATCH_VERSION&#160;of&#160;Fee.h&#160;is&#160;incompatible.&#160;<br/>#endif&#160;/* FEE_AR_PATCH_VERSION&#160;*/&#160;<br/>#if&#160;(FEE_SW_MAJOR_VERSION&#160;!=&#160;1)&#160;<br/>&#160; &#160;&#160;#error&#160;Fee_Cfg.c:&#160;FEE_SW_MAJOR_VERSION&#160;of&#160;Fee.h&#160;is&#160;incompatible.&#160;<br/>#endif&#160;/* FEE_SW_MAJOR_VERSION&#160;*/&#160;<br/>#if&#160;(FEE_SW_MINOR_VERSION&#160;!=&#160;20)&#160;<br/>&#160; &#160;&#160;#error&#160;Fee_Cfg.c:&#160;FEE_SW_MINOR_VERSION&#160;of&#160;Fee.h&#160;is&#160;incompatible.&#160;<br/>#endif&#160;/* FEE_SW_MINOR_VERSION&#160;*/&#160;<br/>#if&#160;(FEE_SW_PATCH_VERSION&#160;!= 0)&#160;<br/>&#160; &#160;&#160;#error&#160;Fee_Cfg.c:&#160;FEE_SW_PATCH_VERSION&#160;of&#160;Fee.h&#160;is&#160;incompatible.&#160;<br/>#endif&#160;/* FEE_SW_PATCH_VERSION&#160;*/&#160;<br/>
+&#160;<br/>&#160;<br/>
+Texas&#160;Instruments&#160;Incorporated&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160; &#160;&#160;&#160; &#160;&#160;<br/>
+31&#160;<br/>
+&#160;<br/>
+<hr/>
+</body>
+</html>

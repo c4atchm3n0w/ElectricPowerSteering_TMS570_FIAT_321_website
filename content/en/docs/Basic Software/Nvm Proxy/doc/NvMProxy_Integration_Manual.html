@@ -1,0 +1,432 @@
+---
+title: NvMProxy_Integration_Manual
+linkTitle: NvMProxy_Integration_Manual
+weight: 3
+---
+
+<p><a href="#dependencies">1 Dependencies <span>2</span></a></p>
+<p><a href="#swcs">1.1 SWCs <span>2</span></a></p>
+<p><a href="#global-functionsnon-rte-to-be-provided-to-integration-project">1.2 Functions to be provided to Integration Project <span>2</span></a></p>
+<p><a href="#configuration">2 Configuration <span>3</span></a></p>
+<p><a href="#build-time-config">2.1 Build Time Config <span>3</span></a></p>
+<p><a href="#configuration-files-to-be-provided-by-integration-project">2.2 Configuration Files to be provided by Integration Project <span>3</span></a></p>
+<p><a href="#da-vinci-parameter-configuration-changes">2.2.1 Da Vinci Config generation <span>3</span></a></p>
+<p><a href="#da-vinci-parameter-configuration-changes">2.2.2 Manual Configuration Changes <span>3</span></a></p>
+<p><a href="#integration">3 Integration <span>4</span></a></p>
+<p><a href="#required-global-data-inputs">3.1 Required Global Data Inputs <span>4</span></a></p>
+<p><a href="#_Toc357692828">3.2 Optional Global Data Inputs <span>4</span></a></p>
+<p><a href="#specific-include-path-present">3.3 Specific Include Path present <span>4</span></a></p>
+<p><a href="#runnable-scheduling">4 Runnable Scheduling <span>5</span></a></p>
+<p><a href="#memory-mapping">5 Memory Mapping <span>6</span></a></p>
+<p><a href="#mapping">5.1 Mapping <span>6</span></a></p>
+<p><a href="#usage">5.2 Usage <span>6</span></a></p>
+<p><a href="#non-rte-nvm-blocks">5.3 NvM Blocks <span>6</span></a></p>
+<p><a href="#compiler-settings">6 Compiler Settings <span>6</span></a></p>
+<p><a href="#preprocessor-macro">6.1 Preprocessor MACRO <span>6</span></a></p>
+<p><a href="#optimization-settings">6.2 Optimization Settings <span>6</span></a></p>
+<p><a href="#revision-control-log">7 Revision Control Log <span>7</span></a></p>
+<h1 id="dependencies">Dependencies</h1>
+<h2 id="swcs">SWCs</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Required Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NvM</td>
+<td><p>NvM_WriteBlock()</p>
+<p>NvM_GetBlockStatus()</p></td>
+</tr>
+<tr class="even">
+<td>DiagMgr</td>
+<td>NxtrDiagMgr#_ReportNTCStatus()</td>
+</tr>
+<tr class="odd">
+<td>Crc</td>
+<td>Crc_CalculateCRC16()</td>
+</tr>
+</tbody>
+</table>
+<h2 id="global-functionsnon-rte-to-be-provided-to-integration-project">Global Functions(Non RTE) to be provided to Integration Project</h2>
+<p>NvMProxy_Init</p>
+<p>NvMProxy_MainFunction</p>
+<p>NvMProxy_WriteBlock</p>
+<p>NvMProxy_WriteAll</p>
+<p>NvMProxy_GetErrorStatus</p>
+<p>NvMProxy_SetRamBlockStatus</p>
+<h1 id="configuration">Configuration</h1>
+<h2 id="build-time-config">Build Time Config</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modules</th>
+<th>Notes</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-files-to-be-provided-by-integration-project">Configuration Files to be provided by Integration Project</h2>
+<h3 id="da-vinci-parameter-configuration-changes">Da Vinci Parameter Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 55%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>NvMProxyConfigSet/NvMProxyBlock/</em>NvmRamBlockDataAddressSecure</td>
+<td><p>The symbol name of the secured buffer location for the block data</p>
+<p>NOTE: For blocks defined by PIM memory in the Rte, this parameter is the symbol name that Developer inserts into the NvM Ram block configuration parameter for the associated NvM block)</p></td>
+<td>NvMProxy</td>
+</tr>
+<tr class="even">
+<td><em>NvMProxyConfigSet/NvMProxyBlock/</em>InitBlockHandling</td>
+<td><p>This parameter chooses the type of protection handling done on the block at initialization:</p>
+<p><strong>None:</strong> No specific handling needed</p>
+<p><strong>CRC16:</strong> Run a 16 bit CRC on the NvM block and check it against the CRC stored in the NvM block (last two bytes). Failures will trigger the fail action specified in the “InitCheckFailResponse” configuration</p>
+<p><strong>Redundant:</strong> Run redundant storage check on the NvM block. The 1’s compliment of the block data is stored in the NvM block to protect against corruption. Failures will trigger the fail action specified in the “InitCheckFailResponse” configuration</p>
+<p><strong>ZeroData:</strong> Ignore what is stored in NvM and always over-ride the NvM RAM buffer with zeros. This is useful for blocks that may be un</p></td>
+<td>NvMProxy</td>
+</tr>
+<tr class="odd">
+<td><em>NvMProxyConfigSet/NvMProxyBlock/</em>InitCheckFailResponse</td>
+<td><p>Defines the type of response to occur if the NvM block fails either the CRC16 or Redundant check at initialization:</p>
+<p><strong>N/A:</strong> This should be chosen if the block doesn’t have CRC16 or Redundant InitBlockHandling turned on</p>
+<p><strong>SetNTC_0x0A:</strong> This should be chosen to set NTC 0x0A (should be calibrated to a critical shutdown fault- F1)</p>
+<p><strong>SetNTC_0x08_LoadROMDefaults:</strong> This should be chosen to set NTC 0x08 (should be calibrated to be a non-shutdown fault (F3) and mapped to a CTC that lights lamp). Also, default values will be loaded from FLASH memory at the symbolic location specified in the “ROMDefault_Or_NotificationFunction_Symbol” configuration parameter.</p>
+<p><strong>SetNTC_0x08_CallNotificationFunction:</strong> This should be chosen to set NTC 0x08 (should be calibrated to be a non-shutdown fault (F3) and mapped to a CTC that lights lamp). Also, a user defined function will be called. The function name is to be specified in the the “ROMDefault_Or_NotificationFunction_Symbol” configuration parameter.</p>
+<p><strong>SetNTC_0x07_LoadROMDefaults:</strong> This should be chosen to set NTC 0x07 (should be calibrated to be a non-shutdown fault (F3) and mapped to a CTC that does not light lamp). Also, default values will be loaded from FLASH memory at the symbolic location specified in the “ROMDefault_Or_NotificationFunction_Symbol” configuration parameter.</p>
+<p><strong>SetNTC_0x07_CallNotificationFunction:</strong> This should be chosen to set NTC 0x07 (should be calibrated to be a non-shutdown fault (F3) and mapped to a CTC that does not light lamp). Also, a user defined function will be called. The function name is to be specified in the the “ROMDefault_Or_NotificationFunction_Symbol” configuration parameter.</p>
+<p><strong>SetNTC_0x06_LoadROMDefaults:</strong> This should be chosen to set NTC 0x06 (should be calibrated to be a non-shutdown fault (F3) and not mapped to a CTC). Also, default values will be loaded from FLASH memory at the symbolic location specified in the “ROMDefault_Or_NotificationFunction_Symbol” configuration parameter.</p>
+<p><strong>SetNTC_0x06_CallNotificationFunction:</strong> This should be chosen to set NTC 0x06 (should be calibrated to be a non-shutdown fault (F3) and not mapped to a CTC). Also, a user defined function will be called. The function name is to be specified in the the “ROMDefault_Or_NotificationFunction_Symbol” configuration parameter.</p></td>
+<td>NvMProxy</td>
+</tr>
+<tr class="even">
+<td><em>NvMProxyConfigSet/NvMProxyBlock/</em>ROMDefault_Or_NotificationFunction_Symbol</td>
+<td><p>This parameter defines the symbolic name of the FLASH constant that contains the default values to load into NvM RAM if the block fails its CRC16 or Redundant check at initialization in the case of the “InitCheckFailResponse” parameter being either “SetNTC_0x08_LoadROMDefaults”, “SetNTC_0x07_LoadROMDefaults” or “SetNTC_0x06_LoadROMDefaults”. It defines the symbolic name of the notification function in the case of the “InitCheckFailResponse” parameter being either “SetNTC_0x08_CallNotificationFunction”, “SetNTC_0x07_CallNotificationFunction” or “SetNTC_0x06_CallNotificationFunction”.</p>
+<p>This parameter should be set to “NULL_PTR” if CRC16 or Redundant block initialization handling is not turned on.</p></td>
+<td>NvMProxy</td>
+</tr>
+<tr class="odd">
+<td><em>NvMProxyConfigSet/NvMProxyBlock/</em>NvMRamGlobalShared</td>
+<td>Set to “True” if the NvM block’s RAM is already in “Global Shared” memory. This avoids creating another buffer. This is typically the case for “TypeH” blocks and the EEPROM close check block.</td>
+<td>NvMProxy</td>
+</tr>
+<tr class="even">
+<td><em>NvMProxyConfigSet/NvMProxyBlock/</em>NvMBlockDescriptorRef</td>
+<td>Reference to the NvMBlockDescriptor container that defines the NvM block linked to this proxy configuration.</td>
+<td>NvMProxy</td>
+</tr>
+<tr class="odd">
+<td><em>NvMProxyGeneral/</em> NvMProxyIncludes</td>
+<td>This contains a list of project specific include files that need to be compiled into the NvMProxy</td>
+<td>NvMProxy</td>
+</tr>
+<tr class="even">
+<td><em>NvMProxyGeneral/</em> FailureAPI</td>
+<td>This should be set to the diagnostic manager’s API for setting faults. This should be set to the “ReportNTCStatus” API since it is called during initialization. It is configurable because the API depends on the application number. Typically this should be set to “NxtrDiagMgr10_ReportNTCStatus” (assuming Ap 10 is the ASILD application)</td>
+<td>NvMProxy</td>
+</tr>
+<tr class="odd">
+<td><em>DiagMgrConfigSet/DiagMgrEventParameter</em></td>
+<td>This module needs four DiagMgr NTCs added to the configuration: NTC 0x0A, NTC 0x08, NTC 0x07, and NTC 0x06. These need to be configured as “DIAGMGR_EVENT_KIND_BSW”</td>
+<td>DiagMgr</td>
+</tr>
+</tbody>
+</table>
+<h3 id="davinci-interrupt-configuration-changes">DaVinci Interrupt Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 9%" />
+<col style="width: 38%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ISR Name</th>
+<th>VIM #</th>
+<th>Priority Dependency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-configuration-changes">Manual Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NVMPROXY_EXCLUSIVE_AREA_0</td>
+<td>This exclusive are covers the areas of execution within the component that are operating on the request buffer. The buffer is operated on by the MainFunction and the WriteBlock functions. An appropriate level of protection must be employed to maintain exclusive usage of the buffer data.</td>
+<td>SchM</td>
+</tr>
+</tbody>
+</table>
+<h1 id="integration">Integration</h1>
+<p>The following import steps must be completed :</p>
+<ol type="1">
+<li><p>Place CBD project structure to appropriate integration folder</p></li>
+<li><p>Execute the “Integrate.bat” script from the Tools directory of this component to perform the necessary integration steps:</p>
+<ol type="a">
+<li><p>The script creates the required directories in the integration project, “Generators/Artt/NvMProxy” and “Generators/Components/_Schemes/NvMProxy/bswmd”</p></li>
+<li><p>The script then copies the required files from the CBD generate directory into the new directories.</p></li>
+</ol></li>
+<li><p>If this is the first time integration, then perform the Davinci Configurator 3rd party component integration procedure.</p></li>
+<li><p>Configure NvM proxy component per program needs</p></li>
+<li><p>Generate NvM proxy and import generated Cd_NvMProxy_swc.arxml into davinci developer and map all NvM service needs on the blocks needing proxies to the NvM Proxy service component (instead of the NvM service component)</p></li>
+</ol>
+<p><strong>SPECIAL INTEGRATION NOTES:</strong></p>
+<p>NvM Block Sizes</p>
+<blockquote>
+<p>If CRC16 protection is chosen on a block, the NvM configuration needs to be increased by “2” to hold the CRC. The CRC value will be stored in the last two bytes of the data block.</p>
+<p>Similarly, if Redundant protection is chosen on a block, the NvM configuration needs to be doubled to hold the redundant data.</p>
+<p>Because of compiler alignment restrictions, it is HIGHLY recommended to use the debugger in Code Composer to analyze the compiled size of the NvM block. This can be done by using the sizeof(&lt;NvMRamShadowName&gt;) in the expressions window. The resulting size shown should get the added “2” or doubling in the NvM Configuration.</p>
+</blockquote>
+<p>NvM Configuration</p>
+<blockquote>
+<p>The NvM configuration parameter “NvMRamBlockDataAddress” configuration for all blocks using the NvM proxy need to have “NvMP_” pre-pended to the normal name of the RAM shadow symbol. <strong>Please note that if the block is linked through Davinci Developer Per-Instance Memory Mapping, this name will automatically revert back (remove the</strong> <strong>“NvMP_”)</strong> <strong>every time the Davinci Developer project is saved</strong> <strong>and the block size may be reverted to the original size (without the added CRC size or doubling for redundant store).</strong></p>
+</blockquote>
+<p>ROM Defaults and Notification Functions</p>
+<blockquote>
+<p>If “ROM defaults” or “Notification Functions” are configured via the “InitCheckFailResponse” parameter, it is up to the integration project to provide the ROM default data or the notification function named per the “ROMDefault_Or_NotificationFunction_Symbol” parameter. The ROM default option will use a blind memory copy, so it is important that the same NvM RAM Shadow datatype is used for ROM constant to ensure proper data alignment.</p>
+</blockquote>
+<h2 id="required-global-data-inputs">Required Global Data Inputs</h2>
+<p>N/A</p>
+<h2 id="required-global-data-outputs">Required Global Data Outputs</h2>
+<p>N/A</p>
+<h2 id="specific-include-path-present">Specific Include Path present</h2>
+<p>Yes</p>
+<h1 id="runnable-scheduling">Runnable Scheduling </h1>
+<p>This section specifies the required runnable scheduling.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Init</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NvMProxy_Init()</td>
+<td>Must be executed after NvM driver has initialized the unsecured block data to be forwarded to the secured memory by this component.</td>
+<td>Init</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 49%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NvMProxy_MainFunction()</td>
+<td>Run prior to NvM_MainFunction for minimal request processing latency</td>
+<td>Same as NvM_MainFunction</td>
+</tr>
+</tbody>
+</table>
+<p><strong>.</strong></p>
+<h1 id="memory-mapping">Memory Mapping</h1>
+<h2 id="mapping">Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 64%" />
+<col style="width: 16%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Memory Section</th>
+<th>Contents</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NVMPROXY_START_SEC_VAR_NOINIT_8</td>
+<td></td>
+<td><p>Typically allocated to application in which NvM driver resides.</p>
+<p>Not required to be allocated to Global shared memeory.</p></td>
+</tr>
+<tr class="even">
+<td>NVMPROXY_START_SEC_VAR_CLEARED_16</td>
+<td></td>
+<td>Must be allocated into Global Shared memory</td>
+</tr>
+<tr class="odd">
+<td>NVMPROXY_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+<td></td>
+<td>Must be allocated into Global Shared memory</td>
+</tr>
+<tr class="even">
+<td>NVMPROXY_START_SEC_CODE</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>NVMPROXY_START_SEC_CONST_UNSPECIFIED</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>* Each …START_SEC… constant is terminated by a …STOP_SEC… constant as specified in the AUTOSAR Memory Mapping requirements.</p>
+<h2 id="usage">Usage</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>RAM</th>
+<th>ROM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: ARM Cortex R4 Memory Usage</p>
+<h2 id="non-rte-nvm-blocks">Non RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;NVM block used Non RTE functions &gt;</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h2 id="rte-nvm-blocks"> RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;NVM block used in RTE functions &gt;</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h1 id="compiler-settings">Compiler Settings</h1>
+<h2 id="preprocessor-macro"> Preprocessor MACRO</h2>
+<p>&lt;Define all the preprocessor Macros needed and conditions when needed&gt;.</p>
+<h2 id="optimization-settings">Optimization Settings</h2>
+<p>&lt;Define Optimization levels that are needed and conditions when needed&gt;.</p>
+<h2 class="unnumbered" id="section"></h2>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 71%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial version</td>
+<td></td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Updates per generation definition</td>
+<td>10/18/12</td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Updates for CRC and Redundant checking feature</td>
+<td>12/02/13</td>
+<td>LWW</td>
+</tr>
+</tbody>
+</table>

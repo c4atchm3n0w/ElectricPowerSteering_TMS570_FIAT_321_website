@@ -1,0 +1,346 @@
+---
+title: BatteryVoltage_Integration_Manual
+linkTitle: BatteryVoltage_Integration_Manual
+weight: 4
+---
+
+<p><a href="#dependencies">1 Dependencies <span>2</span></a></p>
+<p><a href="#swcs">1.1 SWCs <span>2</span></a></p>
+<p><a href="#global-functionsnon-rte-to-be-provided-to-integration-project">1.2 Global Functions(Non RTE) to be provided to Integration Project <span>2</span></a></p>
+<p><a href="#configuration">2 Configuration <span>3</span></a></p>
+<p><a href="#build-time-config">2.1 Build Time Config <span>3</span></a></p>
+<p><a href="#configuration-files-to-be-provided-by-integration-project">2.2 Configuration Files to be provided by Integration Project <span>3</span></a></p>
+<p><a href="#da-vinci-parameter-configuration-changes">2.2.1 Da Vinci Parameter Configuration Changes <span>3</span></a></p>
+<p><a href="#davinci-interrupt-configuration-changes">2.2.2 DaVinci Interrupt Configuration Changes <span>3</span></a></p>
+<p><a href="#manual-configuration-changes">2.2.3 Manual Configuration Changes <span>3</span></a></p>
+<p><a href="#integration">3 Integration <span>4</span></a></p>
+<p><a href="#required-global-data-inputs">3.1 Required Global Data Inputs <span>4</span></a></p>
+<p><a href="#required-global-data-outputs">3.2 Required Global Data Outputs <span>4</span></a></p>
+<p><a href="#specific-include-path-present">3.3 Specific Include Path present <span>4</span></a></p>
+<p><a href="#runnable-scheduling">4 Runnable Scheduling <span>5</span></a></p>
+<p><a href="#memory-mapping">5 Memory Mapping <span>6</span></a></p>
+<p><a href="#mapping">5.1 Mapping <span>6</span></a></p>
+<p><a href="#usage">5.2 Usage <span>6</span></a></p>
+<p><a href="#non-rte-nvm-blocks">5.3 Non RTE NvM Blocks <span>6</span></a></p>
+<p><a href="#rte-nvm-blocks">5.4 RTE NvM Blocks <span>6</span></a></p>
+<p><a href="#compiler-settings">6 Compiler Settings <span>6</span></a></p>
+<p><a href="#preprocessor-macro">6.1 Preprocessor MACRO <span>6</span></a></p>
+<p><a href="#optimization-settings">6.2 Optimization Settings <span>6</span></a></p>
+<p><a href="#revision-control-log">7 Revision Control Log <span>7</span></a></p>
+<h1 id="dependencies">Dependencies</h1>
+<h2 id="swcs">SWCs</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Module</strong></th>
+<th><strong>Required Feature</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>ADC</strong></td>
+<td>D_ADC1CURRENTMODE_ULS_LGC configuration constant</td>
+</tr>
+<tr class="even">
+<td><strong>Basic System Services</strong></td>
+<td>EnableOvervoltThreshInterrupt()*</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Referencing the external components should be avoided in most cases. Only in unavoidable circumstance external components should be referred. Developer should track the references.</p>
+<p>* Note: EnableOvervoltThreshInterrupt() must be called from ECUStartup.c as soon as possible, but AFTER Adc_Init(), so as to allow configuration of the ADC registers (and subsequently magnitude threshold).</p>
+<h2 id="global-functionsnon-rte-to-be-provided-to-integration-project">Global Functions(Non RTE) to be provided to Integration Project</h2>
+<ul>
+<li><p>ISR(Isr_OvervoltThresh)</p></li>
+<li><p>Since the ISR that contains the overvoltage threshold diagnostic is enabled in ECUStartup.c, the NTC could be set before the RTE starts. In this case the non-Rte “report NTC staus” API should be used. Also, the application that contains the Battery Voltage ISR and NTC is configured at the integration level. A component specific API, BATTERYVOLTAGE_REPORTERRORSTATUS, is used in the ISR source code and a header file, Template_BatteryVoltage_Cfg.h, needs to be configured to link the BATTERYVOLTAGE_REPORTERRORSTATUS() to the appropriate NxtrDiagMgr<strong>???</strong>_ReportNTCStatus() function. Remove the “Template_” from the file name and replace the ??? in the API with the appropriate application and place the file in the Header folder of the integration project.</p></li>
+<li></li>
+</ul>
+<h1 id="configuration">Configuration</h1>
+<h2 id="build-time-config">Build Time Config</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Modules</strong></th>
+<th><strong>Notes</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>None</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-files-to-be-provided-by-integration-project">Configuration Files to be provided by Integration Project</h2>
+<h2 class="unnumbered" id="section"></h2>
+<p>&lt;Configuration file that will generated from this components that will require Da Vinci Config generation or manual generation. Describe each parameter &gt;</p>
+<h3 id="da-vinci-parameter-configuration-changes">Da Vinci Parameter Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Parameter</strong></th>
+<th><strong>Notes</strong></th>
+<th><strong>SWC</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>None</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="davinci-interrupt-configuration-changes">DaVinci Interrupt Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 9%" />
+<col style="width: 36%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>ISR Name</strong></th>
+<th><strong>VIM #</strong></th>
+<th><strong>Priority Dependency</strong></th>
+<th><strong>Notes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Isr_OvervoltThresh</strong></td>
+<td>31</td>
+<td>None</td>
+<td>Category 2 IRQ</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-configuration-changes">Manual Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 36%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Constant</strong></th>
+<th><strong>Notes</strong></th>
+<th><strong>SWC</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>BATTERYVOLTAGE_REPORTERRORSTATUS</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="integration">Integration</h1>
+<h2 id="required-global-data-inputs">Required Global Data Inputs</h2>
+<p>None</p>
+<h2 id="required-global-data-outputs">Required Global Data Outputs</h2>
+<p>None</p>
+<h2 id="specific-include-path-present">Specific Include Path present</h2>
+<p>No</p>
+<h1 id="runnable-scheduling">Runnable Scheduling </h1>
+<p>This section specifies the required runnable scheduling.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Init</strong></th>
+<th><strong>Scheduling Requirements</strong></th>
+<th><strong>Trigger</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>BatteryVoltage_Init1</strong></td>
+<td>None</td>
+<td>RTE (Warm init)</td>
+</tr>
+</tbody>
+</table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Runnable</strong></th>
+<th><strong>Scheduling Requirements</strong></th>
+<th><strong>Trigger</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>BatteryVoltage_Per1</strong></td>
+<td>None</td>
+<td>RTE (2ms)</td>
+</tr>
+<tr class="even">
+<td><strong>BatteryVoltage_Per2</strong></td>
+<td>None</td>
+<td>RTE (4ms)</td>
+</tr>
+</tbody>
+</table>
+<h1 id="memory-mapping">Memory Mapping</h1>
+<h2 id="mapping">Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 16%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Memory Section</strong></th>
+<th><strong>Contents</strong></th>
+<th><strong>Notes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>BATTERYVOLTAGE_START_SEC_VAR_CLEARED_32</strong></td>
+<td>float32</td>
+<td>None</td>
+</tr>
+<tr class="even">
+<td><strong>BATTERYVOLTAGE_START_SEC_VAR_CLEARED_16</strong></td>
+<td>uint16</td>
+<td>None</td>
+</tr>
+<tr class="odd">
+<td><strong>BATTERYVOLTAGE_START_SEC_VAR_CLEARED_BOOLEAN</strong></td>
+<td>boolean</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>* Each …START_SEC… constant is terminated by a …STOP_SEC… constant as specified in the AUTOSAR Memory Mapping requirements.</p>
+<h2 id="usage">Usage</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Feature</strong></th>
+<th><strong>RAM</strong></th>
+<th><strong>ROM</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>&lt;Memmap usuage info&gt;</strong></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: ARM Cortex R4 Memory Usage</p>
+<h2 id="non-rte-nvm-blocks">Non RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Block Name</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>None</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h2 id="rte-nvm-blocks"> RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Block Name</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>OvervoltageData (6 bytes)</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h1 id="compiler-settings">Compiler Settings</h1>
+<h2 id="preprocessor-macro"> Preprocessor MACRO</h2>
+<p>None</p>
+<h2 id="optimization-settings">Optimization Settings</h2>
+<p>None</p>
+<h2 class="unnumbered" id="section-1"></h2>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 71%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Rev #</strong></th>
+<th><strong>Change Description</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Initial version</td>
+<td>16-Apr-13</td>
+<td>Jared</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Added Overvoltage Threshold ISR, some cleanup, updated template</td>
+<td>3-Jan-14</td>
+<td>Jared</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Added BATTERYVOLTAGE_REPORTERRORSTATUS and new template header file.</td>
+<td>8-Jan-14</td>
+<td>BDO</td>
+</tr>
+</tbody>
+</table>

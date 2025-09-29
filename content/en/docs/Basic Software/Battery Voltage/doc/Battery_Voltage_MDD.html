@@ -1,0 +1,702 @@
+---
+title: Battery_Voltage_MDD
+linkTitle: Battery_Voltage_MDD
+weight: 3
+---
+
+<h1 class="unnumbered" id="module----battery-voltage66">Module -- Battery Voltage66</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module is responsible for applying voltage and time based hysteresis to the battery voltage to determine over voltage and low voltage faults.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>This diagram shows all data that is shared between functions within the module.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:3.54167in;height:3.54167in" /></p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Module Inputs (Global Variable Name)</td>
+<td>Module Outputs (Global Variable Name)</td>
+</tr>
+<tr class="even">
+<td>Batt_Volt_f32</td>
+<td>VswitchClosed_Cnt_lgc</td>
+</tr>
+<tr class="odd">
+<td>BattSwitched_Volt_f32</td>
+<td>Vecu_Volts_f32</td>
+</tr>
+<tr class="even">
+<td>SysCVSwitch_Volt_f32</td>
+<td>SysC_Vecu_Volt_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Variable Name</td>
+<td>User Defined Type</td>
+<td>Resolution</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>Vecu_Volts_M_f32</td>
+<td>N/A</td>
+<td>Volts</td>
+<td>5</td>
+<td>31</td>
+<td>BATTERYVOLTAGE_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>VswitchClosed_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>Cnt</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>BATTERYVOLTAGE_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>VswitchCorrLimDiff_Volts_D_f32</td>
+<td>N/A</td>
+<td>Volts</td>
+<td>0</td>
+<td>26</td>
+<td>BATTERYVOLTAGE_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>VecuVbatCorrLimDiff_Volts_D_f32</td>
+<td>N/A</td>
+<td>Volts</td>
+<td>0</td>
+<td>26</td>
+<td>BATTERYVOLTAGE_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>VswitchCorrErrAcc_Cnt_M_u16</td>
+<td>N/A</td>
+<td>Cnt</td>
+<td>0</td>
+<td>255</td>
+<td>BATTERYVOLTAGE_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>VecuVbatCorrErrAcc_Cnt_M_u16</td>
+<td>N/A</td>
+<td>Cnt</td>
+<td>0</td>
+<td>255</td>
+<td>BATTERYVOLTAGE_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>Vbatt_Volts_M_f32</td>
+<td>N/A</td>
+<td>Volts</td>
+<td>5</td>
+<td>31</td>
+<td>BATTERYVOLTAGE_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>OvervoltageFaultSet_Cnt_M_lgc</td>
+<td>boolean</td>
+<td>Cnt</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>BATTERYVOLTAGE_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 31%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Typedef Name</td>
+<td>Element Name</td>
+<td>User Defined Type</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>k_MaxSwitchedVolt_Volts_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MaxBattVoltDiff_Volts_f32</td>
+</tr>
+<tr class="even">
+<td>k_VswitchCorrLim_Cnt_Str</td>
+</tr>
+<tr class="odd">
+<td>k_VecuCorrLim_Cnt_Str</td>
+</tr>
+<tr class="even">
+<td>k_VecuVbatCorrLim_Volts_f32</td>
+</tr>
+<tr class="odd">
+<td>k_VswitchCorrLim_Volts_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 22%" />
+<col style="width: 26%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>D_VSWITCHEDTHRESH_ULS_F32</td>
+<td>Single precision floating point</td>
+<td>0.8</td>
+</tr>
+<tr class="odd">
+<td>D_VECUMAX_VOLTS_F32</td>
+<td>Single precision floating point</td>
+<td>31.0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>D_VECUMIN_VOLTS_F32</td>
+</tr>
+<tr class="odd">
+<td>BC_BATTERYVOLTAGE_FAULTINJECTIONPOINT</td>
+</tr>
+<tr class="even">
+<td>FLTINJ_VECU_BATTERYVOLTAGE</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 20%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>FPM_FloatToFixed_m()</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<p>The data hiding functions / macros used in this module are identified below,</p>
+<ol type="1">
+<li><p>Rte_Call_NxtrDiagMgr_SetNTCStatus()</p></li>
+<li><p>Rte_Call_Batt_Batt_V_f32()</p></li>
+<li><p>Rte_Call_BattSwitched_BattSwitched_V_f32</p></li>
+<li><p>Rte_Call_SysC_Vswitch_BattSwitched_V_f32</p></li>
+<li><p>Rte_Call_BatteryVoltage_Per1_CP0_CheckpointReached</p></li>
+<li><p>Rte_Call_BatteryVoltage_Per1_CP1_CheckpointReached</p></li>
+<li><p>Rte_Call_BatteryVoltage_Per2_CP0_CheckpointReached</p></li>
+<li><p>Rte_Call_BatteryVoltage_Per2_CP1_CheckpointReached</p></li>
+<li><p>Rte_Pim_OvervoltageData()</p></li>
+<li><p>Rte_Call_OvervoltageData_SetRamBlockStatus()</p></li>
+</ol>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>(Note if they are defined in another source file, then reference the appropriate header file)</p>
+<p>The local functions/macros in this module are identified below,</p>
+<h1 class="unnumbered" id="section"><br />
+</h1>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>Module state variables are initialized to 0 at start-up by RAM init.</p>
+<h3 id="init-batteryvoltage_init1">Init: BatteryVoltage_Init1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h3 class="unnumbered" id="section-1"></h3>
+<h3 class="unnumbered" id="section-2"></h3>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>None</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-batteryvoltage_per1">Per: BatteryVoltage_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>See FDD 08B.</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>Rte_Call_BatteryVoltage_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>Vbatt_Volts_T_f32 = Rte_IRead_BatteryVoltage_Per2_Batt_Volt_f32()</p>
+<p>Vswitched_Volts_T_f32 = Rte_IRead_BatteryVoltage_Per1_BattSwitched_Volt_f32()</p>
+<h4 id="perform-over-and-low-voltage-diagnostics">Perform Over and Low Voltage Diagnostics</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.wmf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>Vecu_Volts_M_f32 = Vecu_Volts_T_f32</p>
+<p>Vbatt_Volts_M_f32 = Vbatt_Volts_T_f32</p>
+<p>Rte_IWrite_BatteryVoltage_Per1_ VswitchClosed _Cnt_lgc(VswitchClosed_Cnt_T_lgc)</p>
+<p>Rte_IWrite_BatteryVoltage_Per1_ Vecu _Volts_f32(Vecu_Volts_T_f32)</p>
+<p>Rte_IWrite_BatteryVoltage_Per1_SysC_Vecu_Volt_f32(Vecu_Volts_M_f32)</p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>Rte_Call_BatteryVoltage_Per1_CP1_CheckpointReached()</p>
+<h3 id="per-batteryvoltage_per2">Per: BatteryVoltage_Per2</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>None.</p>
+<h4 id="program-flow-start-2">Program Flow Start</h4>
+<p>Rte_Call_BatteryVoltage_Per2_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-2">Store Module Inputs to Local copies</h4>
+<p>VecuVbatCorrLimDiff_Volts_T_f32 =0</p>
+<p>NTCSysFailCtrlV_T_lgc = FALSE</p>
+<p>Vswitched_Volts_T_f32 = Rte_IRead_BatteryVoltage_Per2_BattSwitched_Volt_f32()</p>
+<p>SysCVswitch_Volts_T_f32 = Rte_IRead_BatteryVoltage_Per2_SysCVSwitch_Volt_f32()</p>
+<h4 id="vswitch-and-vecu-cross-correlation-diagnostics">VSwitch and Vecu cross correlation diagnostics</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.wmf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-2">Store Local copy of outputs into Module Outputs</h4>
+<p>VswitchCorrLimDiff_Volts_D_f32 = VswitchCorrLimDiff_Volts_T_f32</p>
+<p>VecuVbatCorrLimDiff_Volts_D_f32 = VecuVbatCorrLimDiff_Volts_T_f32</p>
+<h4 id="program-flow-end-2">Program Flow End</h4>
+<p>Rte_Call_BatteryVoltage_Per2_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<h3 id="isr-isr_overvoltthresh">Isr: Isr_OvervoltThresh</h3>
+<h4 id="design-rationale-3">Design Rationale</h4>
+<p>None</p>
+<h4 id="description">Description</h4>
+<h4 class="unnumbered" id="section-3"></h4>
+<h4 id="serial-communication-functions">Serial Communication Functions</h4>
+<h3 id="scom-batteryvoltage_scom_cleartransovdata">SCom: BatteryVoltage_SCom_ClearTransOvData</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>BatteryVoltage_SCom_ClearTransOvData</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-4">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-3">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-3">Store Module Inputs to Local Copies</h4>
+<p>None</p>
+<h4 id="clear-transient-overvoltage-data-service">Clear Transient Overvoltage Data Service</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.wmf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-3">Store Local Copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-3">Program Flow End</h4>
+<p>None</p>
+<h3 id="batteryvoltage_scom_readtransovdata">BatteryVoltage_SCom_ReadTransOvData</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>BatteryVoltage_SCom_ReadTransOvData</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>*OvervoltageCounter_Cnt_u16</td>
+<td>Uint16</td>
+<td>0</td>
+<td>65535</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>*MaxBattVoltage_Volts_f32</td>
+<td>Float32</td>
+<td>0</td>
+<td>31</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-5">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-4">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-4">Store Module Inputs to Local Copies</h4>
+<p>None</p>
+<h4 id="read-transient-overvoltage-data-service">Read Transient Overvoltage Data Service</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.wmf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-4">Store Local Copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-4">Program Flow End</h4>
+<p>None</p>
+<h2 class="unnumbered" id="local-functionmacro-definitions">Local Function/Macro Definitions</h2>
+<p>If these are numerous and defined in a separate source file then reference the source file only.</p>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Task List</td>
+<td>Calling Frequency</td>
+<td>System State(s) in which the function is called</td>
+</tr>
+<tr class="even">
+<td>BatteryVoltage_Init1</td>
+<td></td>
+<td>On Init</td>
+<td>WARM INIT</td>
+</tr>
+<tr class="odd">
+<td>BatteryVoltage_Per1</td>
+<td></td>
+<td>2ms</td>
+<td>ALL</td>
+</tr>
+<tr class="even">
+<td>BatteryVoltage_Per2</td>
+<td></td>
+<td>4ms</td>
+<td>OPERATE</td>
+</tr>
+<tr class="odd">
+<td>Isr_OvervoltThresh</td>
+<td></td>
+<td>On Event</td>
+<td>ALL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Sub-Module called by (Serial Comm Function Name)</td>
+</tr>
+<tr class="even">
+<td>BatteryVoltage_SCom_ClearTransOvData</td>
+<td>EPS_DiagSrvc</td>
+</tr>
+<tr class="odd">
+<td>BatteryVoltage_SCom_ReadTransOvData</td>
+<td>EPS_DiagSrvc</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"><br />
+</h1>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>BatteryVoltage_Init1</td>
+<td>RTE_AP_BATTERYVOLTAGE_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>BatteryVoltage_Per1()</td>
+<td>RTE_AP_BATTERYVOLTAGE_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>BatteryVoltage_Per2()</td>
+<td>RTE_AP_BATTERYVOLTAGE_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>BatteryVoltage_SCom_ClearTransOvData()</td>
+<td>RTE_AP_BATTERYVOLTAGE_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>BatteryVoltage_SCom_ReadTransOvData()</td>
+<td>RTE_AP_BATTERYVOLTAGE_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>Isr_OvervoltThresh</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-5"><br />
+</h1>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial AutoSAR release.</td>
+<td>07-Feb-11</td>
+<td>L.N.</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Updated to meet FDD 08B rev 02 Ecu Voltage</td>
+<td>28-Mar-11</td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Updated to meet FDD 08B rev 02 Ecu Voltage</td>
+<td>30-Mar-11</td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Corrected execution states for periodic</td>
+<td>07-Apr-11</td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Updated NTC’s to global constants</td>
+<td>02-Dec-11</td>
+<td>BG</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6</td>
+<td>Updated NTC’s global constants names per latest NTC definitions</td>
+<td>11-Jan-12</td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7</td>
+<td>Updated as per FDD Ver 004</td>
+<td>17-Oct-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8</td>
+<td>changed from client server port type to Sender/Receiver port</td>
+<td>29 -Oct-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9</td>
+<td>MDD updates for UTP catchups</td>
+<td>30-Jan-13</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10</td>
+<td>Checked in the right version of the MDD into synergy</td>
+<td>28-Mar-13</td>
+<td>VK</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>11</td>
+<td>Updated to FDD Ver 005</td>
+<td>16-APR-13</td>
+<td>Jared</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>12</td>
+<td>Updated to FDD Ver 006 and anomaly 5138 correction</td>
+<td>26-Jun-13</td>
+<td>SR</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>13</td>
+<td>Added missing ISR function for overvoltage diagnostic (A5789)</td>
+<td>3-Jan-14</td>
+<td>Jared</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>14</td>
+<td>Add BATTERYVOLTAGE_REPORTERRORSTATUS for program specific integration.</td>
+<td>8-Jan-14</td>
+<td>BDO</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,767 @@
+---
+title: CurrParamComp_MDD
+linkTitle: CurrParamComp_MDD
+weight: 3
+---
+
+<h1 class="unnumbered" id="module----parameter-compensation">Module -- Parameter Compensation</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>None</p>
+<h3 id="diagram-function-name">Diagram – Function (Name)</h3>
+<p>None</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.55208in;height:2.91806in" /></p>
+<h1 class="unnumbered" id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">MtrCurrDaxRef _Amp_f32</td>
+<td>EstKe_VpRadpS_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">MtrCurrQaxRef_ Amp_f32</td>
+<td>EstR_Ohm_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">CuTempEst_DegC_f32</td>
+<td>EstLq_Henry_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">MagTempEst_DegC_f32</td>
+<td>EstLd_Henry_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">SiTempEst_DegC_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">FastDataAccessBufIndex_Cnt_M_u16</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EstKeFF_VpRadpS_M_f32</td>
+<td>single precision float</td>
+<td>0.025</td>
+<td>0.075</td>
+<td>CURRPARAMCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>EstRFF_Ohm_M_f32</td>
+<td>single precision float</td>
+<td>0.005</td>
+<td>0.12565</td>
+<td>CURRPARAMCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>KeSatSclFac_Uls_D_f32</td>
+<td>single precision float</td>
+<td>0</td>
+<td>1</td>
+<td>CURRPARAMCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>LqSatSclFac_Uls_D_f32</td>
+<td>single precision float</td>
+<td>0</td>
+<td>2</td>
+<td>CURRPARAMCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>LdSatSclFac_Uls_D_f32</td>
+<td>single precision float</td>
+<td>0</td>
+<td>2</td>
+<td>CURRPARAMCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>EstRfetFF_Ohm_D_f32</td>
+<td>single precision float</td>
+<td>0.005</td>
+<td>0.12565</td>
+<td>CURRPARAMCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>EstRmtrFF_Ohm_D_f32</td>
+<td>single precision float</td>
+<td>0.005</td>
+<td>0.12565</td>
+<td>CURRPARAMCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>PreLmtEstKe_VpRadpS_D_f32</td>
+<td>single precision float</td>
+<td>0.25</td>
+<td>0.075</td>
+<td>CURRPARAMCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>PreLmtEstLq_Henry_D_f32</td>
+<td>single precision float</td>
+<td>0.00003</td>
+<td>0.00041</td>
+<td>CURRPARAMCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>PreLmtEstLd_Henry_D_f32</td>
+<td>single precision float</td>
+<td>0.00003</td>
+<td>0.00041</td>
+<td>CURRPARAMCOMP_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>t_KeSatTblX_Amp_u9p7</td>
+</tr>
+<tr class="even">
+<td>t_KeSatTblY_Uls_u2p14</td>
+</tr>
+<tr class="odd">
+<td>t_KeSatTblX_Amp_u12p4</td>
+</tr>
+<tr class="even">
+<td>t_CurrParamCompDaxRef_Amp_u9p7</td>
+</tr>
+<tr class="odd">
+<td>t_CurrParamCompQaxRef_Amp_u9p7</td>
+</tr>
+<tr class="even">
+<td>t_CurrParamLqSatSclFac_Uls_u2p14</td>
+</tr>
+<tr class="odd">
+<td>k_MinKeRngLmt_VpRadpS_f32</td>
+</tr>
+<tr class="even">
+<td>k_MaxKeRngLmt_VpRadpS_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MinRRngLmt_Ohm_f32</td>
+</tr>
+<tr class="even">
+<td>k_MaxRRngLmt_Ohm_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MinLqRngLmt_Henry_f32</td>
+</tr>
+<tr class="even">
+<td>k_MaxLqRngLmt_Henry_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MinLdRngLmt_Henry_f32</td>
+</tr>
+<tr class="even">
+<td>k_MaxLdRngLmt_Henry_f32</td>
+</tr>
+<tr class="odd">
+<td>k_NomTemp_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>k_MagThrC_VpRadpSpDegC_f32</td>
+</tr>
+<tr class="odd">
+<td>k_SiThermCoeff_OhmpDegC_f32</td>
+</tr>
+<tr class="even">
+<td>k_NomRfet_Ohm_f32</td>
+</tr>
+<tr class="odd">
+<td>k_CuThermCoeff_OhmpDegC_f32</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td>k_NomLq_Henry_f32</td>
+</tr>
+<tr class="even">
+<td>k_NomLd_Henry_f32</td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section"></h2>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_SQRT3OVR2_ULS_F32</td>
+<td>single precision float</td>
+<td>Unitless</td>
+<td>0.866025403784</td>
+</tr>
+<tr class="even">
+<td>D_MINRRANGE_OHM_F32</td>
+<td>single precision float</td>
+<td>Ohm</td>
+<td>0.005f</td>
+</tr>
+<tr class="odd">
+<td>D_MAXRRANGE_OHM_F32</td>
+<td>single precision float</td>
+<td>Ohm</td>
+<td>0.12565f</td>
+</tr>
+<tr class="even">
+<td>D_MINKERANGE_VPRADPS_F32</td>
+<td>single precision float</td>
+<td>VpRadpS</td>
+<td>0.025f</td>
+</tr>
+<tr class="odd">
+<td>D_MAXKERANGE_VPRADPS_F32</td>
+<td>single precision float</td>
+<td>VpRadpS</td>
+<td>0.075f</td>
+</tr>
+<tr class="even">
+<td>D_CUTEMPESTLOLMT_DEGC_F32</td>
+<td>single precision float</td>
+<td>DegC</td>
+<td>(-50.0f)</td>
+</tr>
+<tr class="odd">
+<td>D_CUTEMPESTHILMT_DEGC_F32</td>
+<td>single precision float</td>
+<td>DegC</td>
+<td>300.0f</td>
+</tr>
+<tr class="even">
+<td>D_MAGTEMPESTLOLMT_DEGC_F32</td>
+<td>single precision float</td>
+<td>DegC</td>
+<td>(-50.0f)</td>
+</tr>
+<tr class="odd">
+<td>D_MAGTEMPESTHILMT_DEGC_F32</td>
+<td>single precision float</td>
+<td>DegC</td>
+<td>200.0f</td>
+</tr>
+<tr class="even">
+<td>D_SITEMPESTLOLMT_DEGC_F32</td>
+<td>single precision float</td>
+<td>DegC</td>
+<td>(-50.0f)</td>
+</tr>
+<tr class="odd">
+<td>D_SITEMPESTHILMT_DEGC_F32</td>
+<td>single precision float</td>
+<td>DegC</td>
+<td>150.0f</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section-1"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>FPM_InitFixedPoint_m</p></li>
+<li><p>Abs_f32_m</p></li>
+<li><p>Limit_m</p></li>
+<li><p>FPM_FloatToFixed_m</p></li>
+<li><p>TableSize_m</p></li>
+<li><p>FPM_FixedToFloat_m</p></li>
+<li><p>IntplVarXY_u16_u16Xu16Y_Cnt</p></li>
+<li><p>BilinearXYM_u16_u16Xu16YM_Cnt</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+<li></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="local-function-1">Local Function #1</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>None</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 53%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rte_IWrite_CurrParamComp_Init_EstR_Ohm_f32</td>
+<td>Rte_Pim_EOLNomMtrParam()-&gt;NomRmtr_Ohm_f32</td>
+</tr>
+<tr class="even">
+<td>Rte_IWrite_CurrParamComp_Init_EstLd_Henry_f32</td>
+<td>k_NomLd_Henry_f32</td>
+</tr>
+<tr class="odd">
+<td>Rte_IWrite_CurrParamComp_Init_EstLq_Henry_f32</td>
+<td>k_NomLq_Henry_f32</td>
+</tr>
+<tr class="even">
+<td>Rte_IWrite_CurrParamComp_Init_EstKe_VpRadpS_f32</td>
+<td>Rte_Pim_EOLNomMtrParam()-&gt;NomKe_VpRadpS_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-paramcomp_init1">Init: ParamComp_Init1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>Rte_IWrite_CurrParamComp_Init_EstR_Ohm_f32(NomRmtr_Ohm_T_f32)</p>
+<p>Rte_IWrite_CurrParamComp_Init_EstLd_Henry_f32(k_NomLd_Henry_f32)</p>
+<p>Rte_IWrite_CurrParamComp_Init_EstLq_Henry_f32(k_NomLq_Henry_f32)</p>
+<p>Rte_IWrite_CurrParamComp_Init_EstKe_VpRadpS_f32(NomKe_VpRadpS_T_f32) MtrEstKe_VpRadpS_M_f32[0] = NomKe_VpRadpS_T_f32</p>
+<p>MtrEstKe_VpRadpS_M_f32[1] = NomKe_VpRadpS_T_f32</p>
+<h4 id="module-internal">Module Internal </h4>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-paramcomp_per1">Per: ParamComp_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>FastDataAccessBufIndex allows the buffer synchronization between data calculated on slower periodic loop time(2 milli seconds) and are read by faster periodic run time (ie 0.125ms)</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_CurrParamComp_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>IqRef_Amp_T_f32=Rte_IRead_CurrParamComp_Per1_MtrCurrQaxRef_Amp_f32()</p>
+<p>IdRef_Amp_T_f32=Rte_IRead_CurrParamComp_Per1_MtrCurrDaxRef_Amp_f32()</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h4 id="processing">Processing</h4>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>MtrEstKe_VpRadpS_M_f32[(ActFaseDataAccBufIndex_Cnt_M_u16&amp;1)^1]=EstKe_VpRadpS_T_f32</p>
+<p>ActFaseDataAccBufIndex_Cnt_M_u16= (ActFaseDataAccBufIndex_Cnt_M_u16&amp; 1)^1</p>
+<p>Rte_IWrite_CurrParamComp_Per1_EstKe_VpRadpS_f32(EstKe_VpRadpS_T_f32)</p>
+<p>Rte_IWrite_CurrParamComp_Per1_EstR_Ohm_f32(EstR_Ohm_T_f32)</p>
+<p>Rte_IWrite_CurrParamComp_Per1_EstLq_Henry_f32(EstLq_Henry_T_f32)</p>
+<p>Rte_IWrite_CurrParamComp_Per1_EstLd_Henry_f32(EstLd_Henry_T_f32)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_CurrParamComp_Per1_CP1_CheckpointReached()</p>
+<h3 id="per-paramcomp_per2">Per: ParamComp_Per2</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>Rte_Call_CurrParamComp_Per2_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>NomKe_VpRadpS_T_f32 = Rte_Pim_EOLNomMtrParam()-&gt;NomKe_VpRadpS_f32</p>
+<p>NomRmtr_Ohm_T_f32 = Rte_Pim_EOLNomMtrParam()-&gt;NomRmtr_Ohm_f32</p>
+<p>CuTempEst_DegC_T_f32 = Rte_IRead_CurrParamComp_Per2_CuTempEst_DegC_f32()</p>
+<p>MagTempEst_DegC_T_f32 = Rte_IRead_CurrParamComp_Per2_MagTempEst_DegC_f32()</p>
+<p>SiTempEst_DegC_T_f32 = Rte_IRead_CurrParamComp_Per2_SiTempEst_DegC_f32()</p>
+<p>NomRmtr_Ohm_T_f32 = Limit_m( NomRmtr_Ohm_T_f32, D_MINRRANGE_OHM_F32, D_MAXRRANGE_OHM_F32)</p>
+<p>NomKe_VpRadpS_T_f32 = Limit_m(NomKe_VpRadpS_T_f32,D_MINKERANGE_VPRADPS_F32,D_MAXKERANGE_VPRADPS_F32)</p>
+<p>CuTempEst_DegC_T_f32 = Limit_m(CuTempEst_DegC_T_f32,D_CUTEMPESTLOLMT_DEGC_F32, D_CUTEMPESTHILMT_DEGC_F32)</p>
+<p>MagTempEst_DegC_T_f32 = Limit_m(MagTempEst_DegC_T_f32, D_MAGTEMPESTLOLMT_DEGC_F32, D_MAGTEMPESTHILMT_DEGC_F32 )</p>
+<p>SiTempEst_DegC_T_f32 = Limit_m(SiTempEst_DegC_T_f32, D_SITEMPESTLOLMT_DEGC_F32, D_SITEMPESTHILMT_DEGC_F32)</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h4 id="processing-1">Processing</h4>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>Rte_Call_CurrParamComp_Per2_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 class="unnumbered" id="section-2"></h2>
+<h2 id="serial-communication-functions"> Serial Communication Functions</h2>
+<h3 id="scomm-scom_eolnommtrparam_get">SComm: SCom_EOLNomMtrParam_Get</h3>
+<h4 id="design-rationale-3">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-2">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-2">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="processing-2">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-2">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-2">Program Flow End</h4>
+<p>None</p>
+<h3 id="scomm-scom_eolnommtrparam_set">SComm: SCom_EOLNomMtrParam_Set</h3>
+<h4 id="design-rationale-4">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-3">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-3">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="processing-3">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-3">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-3">Program Flow End</h4>
+<p>None</p>
+<h2 id="section-3"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ParamComp_Per1</td>
+<td>2 ms</td>
+<td>ALL</td>
+</tr>
+<tr class="even">
+<td>ParamComp_Per2</td>
+<td>100 ms</td>
+<td>ALL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SCom_EOLNomMtrParam_Get</td>
+<td>EPS_DiagSrvc</td>
+</tr>
+<tr class="even">
+<td>SCom_EOLNomMtrParam_Set</td>
+<td>EPS_DiagSrvc</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ParamComp_Per1</td>
+<td>RTE_AP_CURRPARAMCOMP_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>ParamComp_Per2</td>
+<td>RTE_AP_CURRPARAMCOMP_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>SCom_EOLNomMtrParam_Get</td>
+<td>RTE_AP_CURRPARAMCOMP_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>SCom_EOLNomMtrParam_Set</td>
+<td>RTE_AP_CURRPARAMCOMP_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-5"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-6"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>(Item #1)</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 56%" />
+<col style="width: 18%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial Version</td>
+<td>25-May-12</td>
+<td>SK</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Added checkpoints and memmap statements</td>
+<td>20-Nov-12</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td><table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 98%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Update the input value to the interpolations by using the following:<br />
+IqRef_Amp_T_u9p7= FPM_FloatToFixed_m(Abs_f32_m(IqRef_Amp_T_f32,u9p7_T));</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table></td>
+<td>11-Jan-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Updated to version 8 of the Sf99 Mtrlcntrl</td>
+<td>21-Mar-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Updated to version 10 FDD SF99 B. Divide by zero fixed</td>
+<td>21-Oct-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6.0</td>
+<td>Updated to version 11 FDD SF99 B. Limiting EEPROM Read</td>
+<td>7-Nov-13</td>
+<td>Selva</td>
+</tr>
+</tbody>
+</table>

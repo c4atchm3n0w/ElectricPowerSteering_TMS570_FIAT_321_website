@@ -1,0 +1,498 @@
+---
+title: Controller_Disable_MDD
+linkTitle: Controller_Disable_MDD
+weight: 2
+---
+
+<h1 class="unnumbered" id="module----controlled-disable-shutdown">Module -- Controlled Disable Shutdown</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>The Controlled Disable Damping Shutdown method is used for torque sensor failures. When the torque sensor fails, an output torque is computed based on motor velocity to reduce the amount of “handwheel kick” perceived by the driver.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.61736in;height:1.73056in" /></p>
+<h1 id="module-inputs-and-outputs"><br />
+Module Inputs and Outputs</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs (Global Variable Name)</th>
+<th>Module Outputs (Global Variable Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SumLimTrqCmd_MtrNm_f32</td>
+<td>CntDisMtrTrqCmdCRF_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>CRFMtrVel_MtrRadpS_f32</td>
+<td>CtrldDmpCmp_Cnt_lgc</td>
+</tr>
+<tr class="odd">
+<td>DiagStsF2Active_Cnt_lgc</td>
+<td>CntDisMtrTrqCmdMRF_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>AssistAssyPolarity_Cnt_s08</td>
+<td>SysC_CRFMtrTrqCmd</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SysC_MRFMtrTrqCmd</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CntrlDampVelTrq_MtrNm_D_f32</td>
+<td><sup>Single Precision Float</sup></td>
+<td>-2200</td>
+<td>2200</td>
+<td>CTRLDDISSHTDN_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CntrlDampElpsdTime_mS_D_u16</td>
+<td>1</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>CTRLDDISSHTDN_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>LastF2Fault_mS_M_u32</td>
+<td>1</td>
+<td>0</td>
+<td>1000</td>
+<td>CTRLDDISSHTDN_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>CntrlDampTrq_MtrNm_D_f32</td>
+<td><sup>Single Precision Float</sup></td>
+<td>-5.75</td>
+<td>5.75</td>
+<td>CTRLDDISSHTDN_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 22%" />
+<col style="width: 12%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Typedef Name</th>
+<th>Storage Type</th>
+<th>Safety Critical Classification</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_F2Damping_MtrNmpRadpS_f32</td>
+</tr>
+<tr class="even">
+<td>k_CtrlDpVelThr_MtrRadpS_f32</td>
+</tr>
+<tr class="odd">
+<td>k_CntrlDmpRampEnd_Uls_u8p8</td>
+</tr>
+<tr class="even">
+<td>k_MaxCtrlDmpLimit_MtrNm_f32</td>
+</tr>
+<tr class="odd">
+<td>k_CtrlDmpTmrBkptOne_mS_u16</td>
+</tr>
+<tr class="even">
+<td>k_CtrlDmpTmrBkptTwo_mS_u16</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 56%" />
+<col style="width: 25%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_CNTRLDMPTMRSZ_CNT_U16</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>D_CTRLDMPRES_MTRNM_F32</td>
+<td>Single Precision Floating Point</td>
+<td>0.007813</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 13%" />
+<col style="width: 34%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-cntrldisableshutdown_per1">Per: CntrlDisableShutdown_Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>This function is used to damp out handwheel “kick” in the event of a torque sensor fault (or any F2 fault). The design is such that either when the motor velocity is low OR when a time based multiplier has expired, the system will realize the action is complete and state changes can be made (states and modes).</p>
+<p>The design takes into account that F2 type faults could be recoverable, so the “reset” feature is built into the design</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_CtrldDisShtdn_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>Local Variables :</p>
+<p><em>CRFMtrVelSign_T_f32</em></p>
+<p><em>AbsCRFMtrVel_T_MtrRadpS_f32</em></p>
+<p><em>CntrlDamp_VelTrq_T_f32</em></p>
+<p><em>ElapsedTime_mS_T_u16</em></p>
+<p><em>CntrlDmpMult_Uls_T_f32</em></p>
+<p><em>CntrlDampComp_Cnt_T_lgc</em></p>
+<p><em>DiagStsF2Active_Cnt_T_lgc</em></p>
+<p><em>CntrlDamp_MtrNm_T_f32</em></p>
+<p><em>AssistAssyPolarity_Cnt_T_s08</em></p>
+<p><em>MRFMtrTrqCmd_MtrNm_T_f32</em></p>
+<p><em>SysState_Cnt_T_Enum as Rte_ModeType_StaMd_Mode</em></p>
+<p><em>SysState_Cnt_T_Enum = Rte_Mode_SystemState_Mode()</em></p>
+<p><em>t_CtrlDmpTmrX_T_u16 [</em>D_CNTRLDMPTMRSZ_CNT_U16<em>] =</em> { k_CtrlDmpTmrBkptOne_mS_f32, k_CtrlDmpTmrBkptTwo_mS_32}</p>
+<p><em>t_CtrlDmpTmrY_T_u8P8</em> [D_CNTRLDMPTMRSZ_CNT_U16<em>]</em> = { FPM_InitFixedPoint_m(1.0,u8p8_T), k_CntrlDmpRampEnd_Uls_u8p8}</p>
+<p><em>SumLimTrqCmd_MtrNm_T_f32 =</em> <strong>Rte_IRead_CtrldDisShtdn_Per1_SumLimTrqCmd_MtrNm_f32()</strong></p>
+<p><em>CRFMtrVel_MtrRadpS_T_f32 =</em> <strong>Rte_Iread_CtrldDisShtdn_Per1_CRFMtrVel_MtrRadpS_f32()</strong></p>
+<p><em>DiagStatus_Cnt_T_b32 =</em> <strong>Rte_Iread_CtrldDisShtdn_Per1_DiagStsF2Active_Cnt_lgc()</strong></p>
+<p><em>AssistAssyPolarity_Cnt_T_s08 =</em> <strong>Rte_IRead_CtrldDisShtdn_Per1_AssistAssyPolarity_Cnt_s08()</strong></p>
+<h4 id="compute-damping-torque">Compute Damping Torque</h4>
+<h5 class="unnumbered" id="section"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></h5>
+<h4 id="controlled-damping-factor">Controlled Damping Factor</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h4 id="switch-output-control">Switch Output Control</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_Iwrite_CtrldDisShtdn_Per1_CntDisMtrTrqCmdCRF_MtrNm_f32(CRFMtrTrqCmd_MtrNm_T_f32)</p>
+<p>Rte_Iwrite_CtrldDisShtdn_Per1_CtrldDmpStsCmp_Cnt_lgc(CntrlDampComp_Cnt_T_lgc)</p>
+<p>Rte_IWrite_CtrldDisShtdn_Per1_CntDisMtrTrqCmdMRF_MtrNm_f32(MRFMtrTrqCmd_MtrNm_T_f32)</p>
+<p>Rte_IWrite_CtrldDisShtdn_Per1_SysC_CRFMtrTrqCmd_MtrNm_f32(CRFMtrTrqCmd_MtrNm_T_f32)</p>
+<p>Rte_IWrite_CtrldDisShtdn_Per1_SysC_MRFMtrTrqCmd_MtrNm_f32(MRFMtrTrqCmd_MtrNm_T_f32)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<h2 class="unnumbered" id="rte_call_ctrlddisshtdn_per1_cp1_checkpointreached">Rte_Call_CtrldDisShtdn_Per1_CP1_CheckpointReached()</h2>
+<h2 class="unnumbered" id="section-1"><br />
+</h2>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="local-functionmacro-definitions">Local Function/Macro Definitions</h2>
+<p>None</p>
+<h1 id="execution-requirements"><br />
+Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Task List</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CntrlDisableShutdown_Per1</td>
+<td></td>
+<td>2ms</td>
+<td>WARMINIT, OPERATE, DISABLE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 51%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CntrlDisableShutdown__Per1</td>
+<td>RTE_START_SEC_AP_CTRLDDISSHTDN_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions in GlobalMacro.h are not unit tested</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 61%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Item #</strong></th>
+<th><strong>Rev #</strong></th>
+<th><strong>Change Description</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author Initials</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1.0</td>
+<td>Initial release</td>
+<td>08Dec11</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>2.0</td>
+<td>Correcting values in t_CtrlDmpTmrY_T_u8P8</td>
+<td>19Jan12</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>3.0</td>
+<td>Correcting values in t_CtrlDmpTmrY_T_u8P8 using FPM_InitFixedPoint_m</td>
+<td>19Jan12</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>4.0</td>
+<td>Corrected misspelled variable names.</td>
+<td>24Jan12</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>5.0</td>
+<td>Updates made as per FDD SF26 Ver002</td>
+<td>14May12</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>6.0</td>
+<td>Anom 3252 fix and Mode port added to make Trq zero if not in OPERATE State</td>
+<td>16 May 12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>7.0</td>
+<td>Updated to SF-26 v003</td>
+<td>7-Jun-12</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>8.0</td>
+<td>Added watchdog checkpoints.</td>
+<td>16-Sept-12</td>
+<td>B WL</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>9.0</td>
+<td>Corrected Internal variable software segment type</td>
+<td>19-Sep-12</td>
+<td>SSK</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>10</td>
+<td>Corrected for Watchdog naming error</td>
+<td>24-Sep-12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>11</td>
+<td>Redundant storage of CRFMtrTrqCmd</td>
+<td>04-Oct-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>12</td>
+<td>Redundant storage of MRFMtrTrqCmd</td>
+<td>12-Nov-12</td>
+<td>BWL</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,1868 @@
+---
+title: TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs
+linkTitle: TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs
+weight: 75
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-1_1.png"/><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/><b>MICROSAR Initial&#160;ECUC Generator&#160;<br/></b>Technical Reference&#160;<br/>&#160;<br/>
+Description&#160;<br/>Version&#160;1.9&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Authors&#160;<br/>
+Benjamin&#160;Gottschalk,&#160;Mario Kunz,&#160;Matthias Banholzer&#160;<br/>
+Status&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-2_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>Document&#160;Information&#160;</b><br/>
+<b>History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;</b><br/>
+<b>Remarks&#160;</b><br/>
+Benjamin&#160;Gottschalk&#160;<br/>
+2009-12-10&#160;<br/>
+1.0&#160;<br/>
+Creation&#160;<br/>
+Benjamin&#160;Gottschalk&#160;<br/>
+2010-06-18&#160;<br/>
+1.1&#160;<br/>
+Added&#160;list&#160;of&#160;supported&#160;intput&#160;<br/>and&#160;output&#160;AUTOSAR&#160;<br/>versions&#160;<br/>
+Benjamin&#160;Gottschalk&#160;<br/>
+2010-08-10&#160;<br/>
+1.2&#160;<br/>
+Adapted&#160;lists&#160;of&#160;supported&#160;<br/>input&#160;and output&#160;AUTOSAR&#160;<br/>versions&#160;<br/>
+Benjamin&#160;Gottschalk&#160;<br/>
+2010-11-09&#160;<br/>
+1.3&#160;<br/>
+Added&#160;constraint&#160;for&#160;<br/>overlaying&#160;pdus,&#160;which are&#160;<br/>part&#160;of&#160;a&#160;multiplexed&#160;pdu.&#160;<br/>
+Benjamin&#160;Gottschalk&#160;<br/>
+2010-11-29&#160;<br/>
+1.4&#160;<br/>
+Added&#160;UseCase&#160;<br/>IdentityManager.Config&#160;<br/>
+Mario&#160;Kunz&#160;<br/>
+2011-11-02&#160;<br/>
+1.5&#160;<br/>
+Adapted&#160;lists&#160;of&#160;supported&#160;<br/>input&#160;and output&#160;AUTOSAR&#160;<br/>versions&#160;<br/>
+Adapted&#160;chapter&#160;2.4.5.&#160;<br/>
+Added&#160;restriction&#160;of&#160;identities.&#160;<br/>
+Matthias Banholzer&#160;<br/>
+2012-02-29&#160;<br/>
+1.6&#160;<br/>
+Different&#160;behavior&#160;between&#160;<br/>DaVinci&#160;Developer&#160;and&#160;<br/>MICROSAR&#160;Initial&#160;ECUC&#160;<br/>Generator&#160;in Identity&#160;Manager&#160;<br/>with buffer&#160;overlaying&#160;<br/>
+Matthias Banholzer&#160;<br/>
+2012-09-13&#160;<br/>
+1.8&#160;<br/>
+Added&#160;Appendix&#160;<br/>
+Mario&#160;Kunz&#160;<br/>
+2013-02-13&#160;<br/>
+1.9&#160;<br/>
+ESCAN00065140:&#160;[MultiEcu]&#160;<br/>Add&#160;the&#160;restriction&#160;that&#160;the&#160;<br/>master&#160;Extract&#160;shall&#160;be&#160;a&#160;<br/>superset.&#160;<br/>
+<b>Reference&#160;Documents&#160;</b><br/>
+<b>No.&#160;</b><br/>
+<b>Source&#160;</b><br/>
+<b>Title&#160;</b><br/>
+<b>Version&#160;</b><br/>
+[1]&#160;&#160;&#160;<br/>
+AUTOSAR&#160;<br/>
+AUTOSAR_ECU_Configuration.pdf&#160;<br/>
+3.0.2&#160;<br/>
+[2]&#160;&#160;&#160;<br/>
+Vector&#160;<br/>
+IdentityManager.Ecu.xsd&#160;<br/>
+&#160;<br/>
+[3]&#160;&#160;&#160;<br/>
+Vector&#160;<br/>
+IdentityManager.Config.xsd&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+2&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-3_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-3_2.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Please&#160;note&#160;<br/></b>We&#160;have configured&#160;the&#160;programs&#160;in&#160;accordance&#160;with your&#160;specifications&#160;in the&#160;<br/>
+<b>&#160;&#160;</b>questionnaire.&#160;Whereas&#160;the&#160;programs&#160;do&#160;support&#160;other&#160;configurations&#160;than&#160;the&#160;one&#160;<br/>
+specified&#160;in your&#160;questionnaire,&#160;Vector´s&#160;release&#160;of&#160;the&#160;programs&#160;delivered to&#160;your&#160;<br/>company&#160;is&#160;expressly&#160;restricted&#160;to&#160;the&#160;configuration&#160;you&#160;have specified&#160;in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+3&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-4_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#6"><b>1</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#6"><b>Introduction...................................................................................................................&#160;6</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#7"><b>2</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#7"><b>Usage.............................................................................................................................&#160;7</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#7">2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#7">Arguments&#160;.........................................................................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#8">2.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#8">Supported&#160;output&#160;AUTOSAR-Versions&#160;...............................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#8">2.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#8">Supported&#160;input&#160;AUTOSAR-Versions&#160;.................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">2.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">Use Cases&#160;.........................................................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">2.4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">Standard Use&#160;Case&#160;............................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">2.4.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">Specifying&#160;a&#160;project&#160;name&#160;..................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#10">2.4.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#10">Specifying&#160;a&#160;special&#160;AUTOSAR&#160;output&#160;version&#160;.................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#11">2.4.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#11">Specifying&#160;a&#160;BSWMD&#160;file&#160;.................................................................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#12">2.4.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#12">FRTP&#160;Use Case&#160;...............................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#13"><b>3</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#13"><b>Logging&#160;and&#160;error&#160;reporting&#160;......................................................................................&#160;13</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#14"><b>4</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#14"><b>IdentityManager.Ecu&#160;...................................................................................................&#160;14</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#14">4.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#14">IdentityManager.Ecu&#160;without&#160;buffer&#160;overlaying&#160;.................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#15">4.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#15">IdentityManager.Ecu&#160;with buffer&#160;overlaying&#160;......................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#17"><b>5</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#17"><b>IdentityManager.Config&#160;..............................................................................................&#160;17</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#24"><b>6</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#24"><b>Glossary&#160;and&#160;Abbreviations&#160;......................................................................................&#160;24</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#24">6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#24">Glossary&#160;..........................................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#24">6.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#24">Abbreviations&#160;...................................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#25"><b>7</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#25"><b>Contact&#160;........................................................................................................................&#160;25</b>&#160;</a><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+4&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-5_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#6">Figure&#160;1-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#6">Workflow&#160;for&#160;generating&#160;an&#160;ECU&#160;Configuration&#160;Description&#160;........................&#160;6&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">Figure&#160;2-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">Standard use&#160;case&#160;drag’n’drop&#160;...................................................................&#160;9&#160;</a><br/>
+<b>&#160;</b><br/>
+<b>Tables&#160;</b><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#6">Table 1-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#6">Generated&#160;Files&#160;..........................................................................................&#160;6&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#7">Table 2-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#7">Command&#160;line&#160;arguments&#160;...........................................................................&#160;7&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#8">Table 2-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#8">Supported&#160;output&#160;AUTOSAR-Versions&#160;........................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#8">Table 2-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#8">Supported&#160;input&#160;AUTOSAR-Versions&#160;..........................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">Table 2-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">Arguments&#160;standard&#160;use&#160;case&#160;....................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#10">Table 2-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#10">Arguments&#160;specifying&#160;a&#160;project&#160;name&#160;.......................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#10">Table 2-6&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#10">Generated&#160;files&#160;with project&#160;name&#160;.............................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#11">Table 2-7&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#11">Arguments&#160;specifying&#160;a&#160;special&#160;AUTOSAR&#160;output&#160;version&#160;........................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#11">Table 2-8&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#11">Arguments&#160;specifying&#160;a&#160;BSWMD&#160;file.........................................................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#12">Table 2-9&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#12">Arguments&#160;FRTP&#160;Use&#160;Case&#160;......................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#14">Table 4-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#14">Arguments&#160;IdentityManager.Ecu&#160;without&#160;buffer&#160;overlaying&#160;........................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#15">Table 4-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#15">Arguments&#160;IdentityManager.Ecu&#160;with buffer&#160;overlaying&#160;.............................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#18">Table 5-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#18">Arguments&#160;IdentityManager.Config&#160;...........................................................&#160;18&#160;</a><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+5&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-6_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-6_2.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>1&#160;&#160;Introduction&#160;</b><br/>
+The&#160;&#160;MICROSAR&#160;&#160;Initial&#160;&#160;ECUC&#160;&#160;Generator&#160;&#160;is&#160;&#160;the&#160;&#160;Vector&#160;&#160;implementation&#160;&#160;of&#160;&#160;the&#160;AUTOSAR&#160;<br/>ECU&#160;Configuration&#160;Generator&#160;(see&#160;[1]).&#160;The&#160;input&#160;format&#160;for&#160;the&#160;MICROSAR&#160;Initial&#160;ECUC&#160;<br/>Generator&#160;is&#160;the&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;Description.&#160;The&#160;tool&#160;generates&#160;as&#160;<br/>output&#160;format&#160;an&#160;ECU&#160;Configuration&#160;Description.&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Figure&#160;1-1&#160;<br/>
+Workflow&#160;for&#160;generating&#160;an&#160;ECU&#160;Configuration&#160;Description&#160;<br/>
+The&#160;output&#160;files&#160;of&#160;this&#160;tool&#160;form&#160;a&#160;Vector&#160;DataServer&#160;project,&#160;which&#160;can&#160;be&#160;used&#160;for further&#160;<br/>configuration&#160;of&#160;the&#160;BSW&#160;modules.&#160;The&#160;generated&#160;files are&#160;listed&#160;in<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#6">&#160;Table&#160;1-1&#160;&#160;&#160;Generated&#160;<br/>Files.</a>&#160;<br/>
+&#160;<br/>
+<b>File&#160;type&#160;</b><br/>
+<b>Naming&#160;</b><br/>
+AUTOSAR&#160;ECUC&#160;Parameter&#160;Definition&#160;File&#160;<br/>
+AUTOSAR_EcucParamDef.arxml&#160;<br/>
+Active ECUC&#160;File&#160;<br/>
+*.ecuc.arxml&#160;<br/>
+Initial&#160;ECUC&#160;File&#160;<br/>
+*.ecuc.Initial.arxml&#160;<br/>
+DataServer&#160;project&#160;file&#160;<br/>
+*.ecuc.vdsxml&#160;<br/>
+Table&#160;1-1&#160;&#160;<br/>
+Generated&#160;Files&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+6&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-7_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>2&#160;&#160;Usage&#160;</b><br/>
+The&#160;&#160;default&#160;&#160;usage&#160;&#160;help&#160;&#160;on&#160;&#160;the&#160;&#160;command&#160;&#160;line&#160;&#160;appears&#160;&#160;by&#160;&#160;calling&#160;&#160;the&#160;&#160;executable&#160;&#160;without&#160;<br/>parameters or with&#160;parameter&#160;<b>-h</b>.&#160;The&#160;following&#160;chapter shows you&#160;a&#160;more&#160;detailed&#160;view.&#160;<br/>
+<b>2.1&#160;</b><br/>
+<b>Arguments&#160;</b><br/>
+The&#160;arguments&#160;of&#160;the&#160;MICROSAR Initial ECUC Generator&#160;are&#160;listed&#160;below:&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+-a,&#160;--asrVersion=VERSION&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;VERSION&#160;being&#160;interpreted&#160;as&#160;<br/>the&#160;AsrVersion,&#160;where&#160;the&#160;ECUC&#160;files should be&#160;generated&#160;in.&#160;<br/>
+The&#160;VERSION&#160;should be&#160;the&#160;XML&#160;namespace&#160;version&#160;of&#160;the&#160;<br/>AsrVersion and&#160;should be specified&#160;in&#160;the&#160;following manner:&#160;e.g.&#160;<br/>3.0.2.&#160;<br/>
+-b,&#160;--bswmd=FILE&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;FILE&#160;being&#160;interpreted&#160;as&#160;a&#160;<br/>BSWMD&#160;file.&#160;<br/>
+-h,&#160;--help&#160;<br/>
+Display&#160;this&#160;help and&#160;exit.&#160;<br/>
+-l,&#160;--logFile=FILE&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;FILE&#160;being&#160;interpreted&#160;as&#160;a log-<br/>file,&#160;this&#160;tool&#160;can&#160;write&#160;messages&#160;to.&#160;<br/>
+If&#160;-l&#160;is&#160;not&#160;specified,&#160;a default&#160;log&#160;file&#160;(named&#160;as&#160;the&#160;ECU&#160;Extract&#160;<br/>of&#160;System&#160;Configuration&#160;Description)&#160;will&#160;be&#160;generated&#160;in the&#160;<br/>same&#160;directory&#160;as&#160;the&#160;ECUC&#160;project.&#160;<br/>
+-m,&#160;--merge&#160;<br/>
+Performs&#160;a&#160;merge&#160;of&#160;all&#160;specified&#160;ECU&#160;Extract&#160;of&#160;System&#160;<br/>Configuration Description&#160;files&#160;to one&#160;output&#160;ECUC&#160;project.&#160;<br/>
+For&#160;this&#160;option,&#160;you&#160;have&#160;to&#160;specify&#160;at&#160;least&#160;two valid ECU&#160;Extract&#160;<br/>of&#160;System&#160;Configuration&#160;Description&#160;files.&#160;<br/>
+This&#160;parameter&#160;should be only&#160;used,&#160;when using&#160;the&#160;Identity&#160;<br/>Manager&#160;feature.&#160;Merging&#160;of&#160;ECU&#160;Extract&#160;of&#160;System&#160;<br/>Configuration Description&#160;is&#160;just&#160;supported&#160;in this&#160;context.&#160;<br/>
+-o,&#160;--overlayConfig=FILE&#160;&#160;Makes the&#160;following&#160;parameter&#160;FILE&#160;being&#160;interpreted&#160;as&#160;the&#160;<br/>
+XML&#160;configuration&#160;file&#160;for&#160;buffer&#160;overlay&#160;in Multiple&#160;ECU&#160;use&#160;<br/>case.&#160;<br/>
+This&#160;parameter&#160;should be only&#160;used,&#160;when using&#160;the&#160;Identity&#160;<br/>Manager&#160;feature.&#160;<br/>
+-p,&#160;--projectName=NAME&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;NAME&#160;being&#160;interpreted&#160;as&#160;the&#160;<br/>project&#160;name.&#160;<br/>
+-r,&#160;--projectDir=DIR&#160;<br/>
+Makes the&#160;following&#160;parameter&#160;DIR&#160;being&#160;interpreted&#160;as&#160;the&#160;<br/>directory,&#160;where&#160;the&#160;new&#160;created&#160;project&#160;shall&#160;be&#160;saved.&#160;<br/>
+-s,&#160;--shortNames&#160;<br/>
+Limit&#160;all&#160;names&#160;to 32&#160;characters.&#160;<br/>
+-v,&#160;--verbose&#160;<br/>
+Display&#160;additional&#160;descriptions and help.&#160;<br/>
+Table&#160;2-1&#160;&#160;<br/>
+Command&#160;line&#160;arguments&#160;<br/>
+All&#160;arguments which&#160;describe&#160;a&#160;file&#160;or a&#160;path&#160;can&#160;be&#160;specified&#160;relatively&#160;or absolutely.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+7&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-8_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>2.2&#160;</b><br/>
+<b>Supported&#160;output&#160;AUTOSAR-Versions&#160;</b><br/>
+The&#160;&#160;MICROSAR&#160;&#160;Initial&#160;&#160;ECUC&#160;&#160;Generator&#160;&#160;is&#160;&#160;able&#160;&#160;to&#160;&#160;generate&#160;&#160;the&#160;&#160;ECUC&#160;&#160;files&#160;&#160;in&#160;&#160;different&#160;<br/>AUTOSAR versions,&#160;which&#160;are specified&#160;in&#160;the&#160;following&#160;table:&#160;<br/>
+<b>AUTOSAR&#160;version&#160;</b><br/>
+<b>Minimum&#160;required&#160;DataServer&#160;version&#160;</b><br/>
+3.0.1&#160;<br/>
+0.1.0.0&#160;<br/>
+3.0.2&#160;<br/>
+0.1.4.2&#160;<br/>
+3.0.4&#160;<br/>
+0.1.23.0&#160;<br/>
+3.0.6&#160;<br/>
+1.0.0.8&#160;<br/>
+3.1.0&#160;<br/>
+0.1.10.0&#160;<br/>
+3.1.2&#160;<br/>
+0.1.23.0&#160;<br/>
+3.1.4&#160;<br/>
+1.0.0.8&#160;<br/>
+3.2.1&#160;<br/>
+2.0.0.0&#160;<br/>
+3.2.2&#160;<br/>
+2.1.0.1&#160;<br/>
+Table&#160;2-2&#160;&#160;<br/>
+Supported&#160;output&#160;AUTOSAR-Versions&#160;<br/>
+<b>2.3&#160;</b><br/>
+<b>Supported&#160;input&#160;AUTOSAR-Versions&#160;</b><br/>
+The&#160;&#160;MICROSAR&#160;&#160;Initial&#160;&#160;ECUC&#160;&#160;Generator&#160;&#160;accepts&#160;&#160;SystemExtract&#160;&#160;files&#160;&#160;in&#160;&#160;different&#160;<br/>AUTOSAR versions,&#160;which&#160;are specified&#160;in&#160;the&#160;following&#160;table:&#160;<br/>
+<b>AUTOSAR&#160;version&#160;</b><br/>
+<b>Minimum&#160;required&#160;DataServer&#160;version&#160;</b><br/>
+3.0.0&#160;<br/>
+0.1.0.0&#160;<br/>
+3.0.1&#160;<br/>
+0.1.0.0&#160;<br/>
+3.0.2&#160;<br/>
+0.1.4.2&#160;<br/>
+3.0.4&#160;<br/>
+0.1.23.0&#160;<br/>
+3.0.6&#160;<br/>
+1.0.0.8&#160;<br/>
+3.1.0&#160;<br/>
+0.1.10.0&#160;<br/>
+3.1.2&#160;<br/>
+0.1.23.0&#160;<br/>
+3.1.4&#160;<br/>
+1.0.0.8&#160;<br/>
+3.1.4.DAI.2&#160;<br/>
+1.0.0.8&#160;<br/>
+3.1.4.DAI.3&#160;<br/>
+1.1.0.5&#160;<br/>
+3.2.1&#160;<br/>
+2.0.0.0&#160;<br/>
+3.2.2&#160;<br/>
+2.1.0.1&#160;<br/>
+4.0&#160;(only&#160;FrTpIso)&#160;<br/>
+1.0.0.8&#160;<br/>
+4.0.0.DAI.1&#160;<br/>
+0.1.15.0&#160;<br/>
+Table&#160;2-3&#160;&#160;<br/>
+Supported&#160;input&#160;AUTOSAR-Versions&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+8&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-9_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-9_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-9_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-9_4.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>2.4&#160;</b><br/>
+<b>Use&#160;Cases&#160;</b><br/>
+This&#160;&#160;chapter&#160;&#160;describes&#160;&#160;the&#160;&#160;different&#160;&#160;use&#160;&#160;cases,&#160;&#160;which&#160;&#160;are&#160;&#160;supported&#160;&#160;by&#160;&#160;the&#160;&#160;MICROSAR&#160;<br/>Initial ECUC Generator.&#160;<br/>
+&#160;<br/>
+<b>2.4.1&#160;</b><br/>
+<b>Standard Use&#160;Case&#160;</b><br/>
+This&#160;is&#160;the&#160;default&#160;use&#160;case&#160;for&#160;generating&#160;an&#160;ECUC&#160;project&#160;based&#160;on&#160;one&#160;ECU&#160;Extract&#160;of&#160;<br/>System&#160;&#160;Configuration&#160;&#160;Description.&#160;&#160;If&#160;&#160;there&#160;&#160;are&#160;&#160;no&#160;&#160;special&#160;&#160;extensions&#160;&#160;in&#160;&#160;your&#160;&#160;project,&#160;&#160;this&#160;<br/>use&#160;case&#160;is entirely&#160;sufficient.&#160;<br/>
+<b>Command line:&#160;</b><br/>
+GenTool_CsAsrInitialEcuC.exe &lt;EcuExtractOfSystemConfigurationDescription&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>GenTool_CsAsrInitialEcuC.exe&#160;D:\test\mySystemExtract.arxml&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+D:\test\mySystemExtract.arxml&#160;<br/>
+The&#160;tool&#160;creates&#160;an&#160;ECUC&#160;project&#160;based&#160;on&#160;the&#160;ECU&#160;<br/>Extract&#160;of&#160;System&#160;Configuration Description.&#160;<br/>
+Table&#160;2-4&#160;&#160;<br/>
+Arguments&#160;standard&#160;use&#160;case&#160;<br/>
+The&#160;&#160;easiest&#160;&#160;way&#160;&#160;is&#160;&#160;just&#160;&#160;to&#160;&#160;<b>drag’n’drop</b>&#160;&#160;the&#160;&#160;ECU&#160;&#160;Extract&#160;&#160;of&#160;&#160;System&#160;&#160;Configuration&#160;<br/>Description&#160;onto&#160;the&#160;command&#160;line&#160;tool&#160;GenTool_CsAsrInitialEcuC.exe.&#160;<br/>
+&#160;<br/>
+Figure&#160;2-1&#160;<br/>
+Standard&#160;use&#160;case&#160;drag’n’drop&#160;<br/>
+<b>2.4.2&#160;</b><br/>
+<b>Specifying a&#160;project&#160;name&#160;</b><br/>
+This&#160;use&#160;case&#160;enables&#160;the&#160;definition&#160;of&#160;a&#160;project&#160;name.&#160;That&#160;means,&#160;all&#160;generated&#160;files&#160;get&#160;<br/>the&#160;defined&#160;project&#160;name&#160;as&#160;file&#160;name&#160;(supplemented&#160;by&#160;the&#160;extensions&#160;of&#160;the&#160;different&#160;file&#160;<br/>types,&#160;like&#160;*.ecuc.vdsxml&#160;for&#160;a&#160;Vector DataServer project&#160;file).&#160;<br/>
+<b>Command line:&#160;</b><br/>
+GenTool_CsAsrInitialEcuC.exe &lt;EcuExtractOfSystemConfigurationDescription&gt;&#160;&#160;<br/>
+-p &lt;project-name&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>GenTool_CsAsrInitialEcuC.exe&#160;D:\test\mySystemExtract.arxml&#160;–p&#160;<br/>
+&#160;&#160;TestingArgumentP&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+9&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-10_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-10_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-10_3.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+D:\test\mySystemExtract.arxml&#160;<br/>
+The&#160;tool&#160;creates&#160;an&#160;ECUC&#160;project&#160;based&#160;on&#160;the&#160;ECU&#160;<br/>Extract&#160;of&#160;System&#160;Configuration Description.&#160;<br/>
+-p&#160;TestingArgumentP&#160;<br/>
+That&#160;is&#160;the&#160;project&#160;name;&#160;the&#160;generated&#160;ECUC&#160;project&#160;<br/>will&#160;be&#160;named&#160;to.&#160;<br/>
+Table&#160;2-5&#160;&#160;<br/>
+Arguments&#160;specifying&#160;a&#160;project&#160;name&#160;<br/>
+The&#160;generated&#160;files in&#160;this example&#160;would&#160;be:&#160;<br/>
+<b>File&#160;</b><br/>
+<b>Description&#160;</b><br/>
+D:\test\mySystemExtract.arxml&#160;<br/>
+The&#160;tool&#160;creates&#160;an&#160;ECUC&#160;project&#160;<br/>based&#160;on&#160;the&#160;ECU&#160;Extract&#160;of&#160;System&#160;<br/>Configuration Description.&#160;<br/>
+D:\test\TestingArgumentP.ecuc.arxml&#160;<br/>
+Active ECUC&#160;file&#160;<br/>
+D:\test\TestingArgumentP.ecuc.Initial.arxml&#160;<br/>
+Initial&#160;ECUC&#160;file&#160;<br/>
+D:\test\TestingArgumentP.ecuc.vdsxml&#160;<br/>
+Vector&#160;DataServer&#160;project&#160;file&#160;<br/>
+D:\test\TestingArgumentP.InitialEcuC.log.txt&#160;&#160;Log-File&#160;<br/>
+Table&#160;2-6&#160;&#160;<br/>
+Generated&#160;files&#160;with&#160;project&#160;name&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>If&#160;parameter&#160;<b>–p</b>&#160;is&#160;not&#160;specified,&#160;the&#160;project&#160;will&#160;be&#160;named&#160;according&#160;to&#160;the&#160;first&#160;given&#160;<br/>
+&#160;&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration Description.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>2.4.3&#160;</b><br/>
+<b>Specifying a&#160;special&#160;AUTOSAR output&#160;version&#160;</b><br/>
+This&#160;use&#160;case&#160;enables&#160;the&#160;specification&#160;of&#160;the&#160;AUTOSAR&#160;version&#160;in&#160;your&#160;generated&#160;ECUC&#160;<br/>project.&#160;All&#160;available&#160;AUTOSAR&#160;output&#160;versions can&#160;be&#160;found&#160;in&#160;chapte<a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#8">r&#160;2.2.</a>&#160;<br/>
+<b>Command line:&#160;</b><br/>
+GenTool_CsAsrInitialEcuC.exe &lt;EcuExtractOfSystemConfigurationDescription&gt;&#160;&#160;<br/>
+–a &lt;output-version&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>GenTool_CsAsrInitialEcuC.exe&#160;D:\test\mySystemExtract.arxml&#160;–a 3.1.0&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+10&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-11_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-11_2.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+D:\test\mySystemExtract.arxml&#160;<br/>
+The&#160;tool&#160;creates&#160;an&#160;ECUC&#160;project&#160;based&#160;on&#160;the&#160;ECU&#160;<br/>Extract&#160;of&#160;System&#160;Configuration Description.&#160;<br/>
+–a 3.1.0&#160;<br/>
+Makes the&#160;generated&#160;ECUC&#160;project&#160;being&#160;generated&#160;<br/>in the&#160;AUTOSAR&#160;version&#160;3.1.0.&#160;<br/>
+ATTENTION:&#160;The&#160;AUTOSAR&#160;version&#160;you&#160;have to&#160;<br/>specify&#160;is&#160;always&#160;equal&#160;to the&#160;XML&#160;namespace&#160;of&#160;the&#160;<br/>corresponding&#160;AUTOSAR&#160;version.&#160;These&#160;two versions&#160;<br/>are&#160;not&#160;the&#160;same&#160;for&#160;each&#160;AUTOSAR&#160;version.&#160;<br/>
+Table&#160;2-7&#160;&#160;<br/>
+Arguments&#160;specifying&#160;a&#160;special&#160;AUTOSAR&#160;output&#160;version&#160;<br/>
+<b>2.4.4&#160;</b><br/>
+<b>Specifying a&#160;BSWMD&#160;file&#160;</b><br/>
+This&#160;use&#160;case&#160;is very&#160;special.&#160;&#160;<br/>
+The&#160;&#160;tool&#160;&#160;needs&#160;&#160;the&#160;&#160;definitions&#160;&#160;of&#160;&#160;all&#160;&#160;created&#160;&#160;ECUC&#160;&#160;objects,&#160;&#160;like&#160;&#160;module&#160;&#160;configurations,&#160;<br/>containers,&#160;&#160;parameters&#160;&#160;or&#160;&#160;references.&#160;&#160;In&#160;&#160;most&#160;&#160;cases,&#160;&#160;only&#160;&#160;standard&#160;&#160;AUTOSAR&#160;&#160;module&#160;<br/>configurations&#160;&#160;are&#160;&#160;generated,&#160;&#160;which&#160;&#160;can&#160;&#160;be&#160;&#160;found&#160;&#160;in&#160;&#160;AUTOSAR_EcucParamDef.arxml.&#160;<br/>Only&#160;&#160;for&#160;&#160;those&#160;&#160;generated&#160;&#160;module&#160;&#160;configurations,&#160;&#160;which&#160;&#160;are&#160;&#160;not&#160;&#160;part&#160;&#160;of&#160;&#160;this&#160;&#160;common&#160;<br/>AUTOSAR definition&#160;file,&#160;the&#160;corresponding&#160;BSWMD&#160;files are&#160;needed.&#160;<br/>
+<b>Command line:&#160;</b><br/>
+GenTool_CsAsrInitialEcuC.exe &lt;EcuExtractOfSystemConfigurationDescription&gt;&#160;&#160;<br/>
+–bswmd &lt;vector bswmd-file&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>GenTool_CsAsrInitialEcuC.exe&#160;D:\test\mySystemExtract.arxml&#160;–bswmd&#160;<br/>
+&#160;&#160;MostIf_bswmd.arxml&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+D:\test\mySystemExtract.arxml&#160;<br/>
+The&#160;tool&#160;creates&#160;an&#160;ECUC&#160;project&#160;based&#160;on&#160;the&#160;ECU&#160;<br/>Extract&#160;of&#160;System&#160;Configuration Description.&#160;<br/>
+–bswmd&#160;MostIf_bswmd.arxml&#160;<br/>
+Specifies the&#160;BSWMD&#160;file,&#160;which is needed&#160;to create&#160;<br/>
+&#160;<br/>
+special&#160;Module&#160;Configurations in&#160;the&#160;generated&#160;ECUC&#160;<br/>project,&#160;for&#160;which no&#160;AUTOSAR&#160;Module&#160;Definition&#160;<br/>exists.&#160;<br/>
+Table&#160;2-8&#160;&#160;<br/>
+Arguments&#160;specifying&#160;a&#160;BSWMD&#160;file&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+11&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-12_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-12_2.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>2.4.5&#160;</b><br/>
+<b>FRTP&#160;Use&#160;Case&#160;</b><br/>
+This&#160;&#160;use&#160;&#160;case&#160;&#160;enables&#160;&#160;the&#160;&#160;specification&#160;&#160;of&#160;&#160;two&#160;&#160;ECU&#160;&#160;Extracts&#160;&#160;of&#160;&#160;System&#160;&#160;Configuration&#160;<br/>Description&#160;&#160;for&#160;&#160;the&#160;&#160;purpose&#160;&#160;of&#160;&#160;specifying&#160;&#160;the&#160;&#160;system&#160;&#160;configuration&#160;&#160;part&#160;&#160;of&#160;&#160;the&#160;&#160;FRTP&#160;<br/>according&#160;&#160;to&#160;&#160;AUTOSAR&#160;&#160;version&#160;&#160;4.0.&#160;&#160;The&#160;&#160;main&#160;&#160;ECU&#160;&#160;Extract&#160;&#160;of&#160;&#160;System&#160;&#160;Configuration&#160;<br/>Description&#160;file&#160;will&#160;contain&#160;all&#160;other&#160;contents&#160;in&#160;another&#160;AUTOSAR&#160;version&#160;(3.x.x),&#160;only&#160;the&#160;<br/>ECU&#160;&#160;Extract&#160;&#160;of&#160;&#160;System&#160;&#160;Configuration&#160;&#160;Description&#160;&#160;extension&#160;&#160;file&#160;&#160;will&#160;&#160;contain&#160;&#160;the&#160;&#160;FRTP&#160;<br/>contents&#160;&#160;in&#160;AUTOSAR&#160;&#160;version&#160;&#160;4.0.&#160;The&#160;following&#160;&#160;two&#160;&#160;ways&#160;&#160;exists&#160;&#160;to&#160;&#160;call&#160;&#160;the&#160;&#160;MICROSAR&#160;<br/>Initial ECUC Generator with&#160;the&#160;both&#160;files.&#160;<br/>
+<b>Command line:&#160;</b><br/>
+1.&#160;<br/>
+The&#160;&#160;extension&#160;&#160;file&#160;&#160;has&#160;&#160;to&#160;&#160;be&#160;&#160;named&#160;&#160;according&#160;&#160;to&#160;&#160;the&#160;&#160;naming&#160;&#160;convention,&#160;<br/>
+mentioned&#160;in&#160;the&#160;example&#160;below:&#160;<br/>
+GenTool_CsAsrInitialEcuC.exe &lt;EcuExtractOfSystemConfigurationDescription&gt;&#160;<br/>&lt;EcuExtract of SystemConfigurationDescription&#160;–&#160;extension file&gt;&#160;<br/>
+&#160;<br/>
+2.&#160;<br/>
+Both&#160;files have&#160;to&#160;be&#160;enclosed&#160;within&#160;brackets,&#160;mentioned&#160;in&#160;the&#160;example&#160;below:&#160;<br/>
+GenTool_CsAsrInitialEcuC.exe&#160;&#160;<b>[</b>&lt;EcuExtractOfSystemConfigurationDescription&gt;&#160;<br/>&lt;EcuExtract of SystemConfigurationDescription&#160;–&#160;extension file&gt;<b>]&#160;[…]</b>&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>GenTool_CsAsrInitialEcuC.exe&#160;D:\test\mySystemExtract.arxml&#160;<br/>
+&#160;&#160;D:\test\mySystemExtract_FrTp.arxml&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+D:\test\mySystemExtract.arxml&#160;<br/>
+The&#160;main&#160;system&#160;extract&#160;file.&#160;<br/>
+D:\test\mySystemExtract_FrTp.arxml&#160;&#160;The&#160;system&#160;extract&#160;extension&#160;file (AUTOSAR&#160;version&#160;<br/>
+4.0)&#160;<br/>
+Table&#160;2-9&#160;&#160;<br/>
+Arguments&#160;FRTP&#160;Use&#160;Case&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+12&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-13_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>3&#160;&#160;Logging&#160;and&#160;error&#160;reporting&#160;</b><br/>
+If&#160;&#160;no&#160;&#160;log&#160;&#160;file&#160;&#160;has&#160;&#160;been&#160;&#160;specified&#160;&#160;explicitly&#160;&#160;(see&#160;&#160;chapter&#160;&#160;2.2.2),&#160;&#160;a&#160;&#160;default&#160;&#160;log&#160;&#160;file&#160;&#160;will&#160;&#160;be&#160;<br/>generated.&#160;&#160;This&#160;&#160;log&#160;&#160;file&#160;&#160;is&#160;&#160;located&#160;&#160;at&#160;&#160;the&#160;&#160;same&#160;&#160;directory&#160;&#160;as&#160;&#160;the&#160;&#160;ECU&#160;&#160;Extract&#160;&#160;of&#160;&#160;System&#160;<br/>Configuration&#160;Description&#160;and&#160;has&#160;the&#160;following&#160;name:&#160;<br/>
+&lt;Name&#160;of&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;Description&gt;.InitialEcuC.log.txt&#160;<br/>
+If&#160;&#160;several&#160;&#160;ECU&#160;&#160;Extracts&#160;&#160;of&#160;&#160;System&#160;&#160;Configuration&#160;&#160;Description&#160;&#160;are&#160;&#160;specified&#160;&#160;(in&#160;&#160;Multiple&#160;<br/>Identity&#160;use&#160;case), the&#160;log&#160;file&#160;and&#160;project&#160;name&#160;are&#160;taken&#160;from&#160;the&#160;first&#160;one.&#160;<br/>
+There&#160;&#160;are&#160;&#160;different&#160;&#160;levels&#160;&#160;of&#160;&#160;reported&#160;&#160;information&#160;&#160;in&#160;&#160;the&#160;&#160;log&#160;&#160;file,&#160;&#160;which&#160;&#160;can&#160;&#160;be&#160;&#160;parsed&#160;<br/>automatically&#160;by&#160;searching&#160;for&#160;the&#160;error&#160;level&#160;in&#160;lower&#160;letters,&#160;surrounded&#160;by&#160;brackets.&#160;The&#160;<br/>error&#160;levels are:&#160;<br/>
+<b>&gt;&#160;&#160;</b>info&#160;<br/>
+<b>&gt;&#160;&#160;</b>warning&#160;<br/>
+<b>&gt;&#160;&#160;</b>error&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+13&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-14_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-14_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-14_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-14_4.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>4&#160;&#160;IdentityManager.Ecu&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The&#160;maximum&#160;number&#160;of&#160;identities&#160;is&#160;limited&#160;to eight.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>4.1.1&#160;</b><br/>
+<b>IdentityManager.Ecu&#160;without buffer&#160;overlaying&#160;</b><br/>
+This&#160;&#160;use&#160;&#160;case&#160;&#160;is&#160;&#160;needed&#160;&#160;for&#160;&#160;generating&#160;&#160;an&#160;&#160;ECUC&#160;&#160;project&#160;&#160;out&#160;&#160;of&#160;&#160;more&#160;&#160;than&#160;&#160;one&#160;&#160;ECU&#160;<br/>Extract&#160;of&#160;System&#160;Configuration&#160;Description&#160;for&#160;physical multi&#160;ECUs.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>This&#160;use case&#160;is&#160;only&#160;supported&#160;if&#160;the&#160;Identity&#160;Manager&#160;option&#160;is&#160;available.&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Command line:&#160;</b><br/>
+GenTool_CsAsrInitialEcuC.exe&#160;–m&#160;&lt;EcuExtractOfSystemConfigurationDescription&#160;1&gt;&#160;&#160;<br/>&lt;EcuExtract of SystemConfigurationDescription&#160;2&gt;&#160;…&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>GenTool_CsAsrInitialEcuC.exe&#160;–m D:\test\mySystemExtract_ECU1.arxml&#160;<br/>
+&#160;&#160;D:\test\mySystemExtract_ECU2.arxml D:\test\mySystemExtract_ECU3.arxml&#160;<br/>
+D:\test\mySystemExtract_ECU4.arxml&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+–m&#160;&#160;<br/>
+Specifies the use&#160;case&#160;IdentityManager.&#160;<br/>
+D:\test\mySystemExtract_ECU1.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;first&#160;ECU.&#160;<br/>
+D:\test\mySystemExtract_ECU2.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;second ECU.&#160;<br/>
+D:\test\mySystemExtract_ECU3.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;third&#160;ECU.&#160;<br/>
+D:\test\mySystemExtract_ECU4.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;fourth&#160;ECU.&#160;<br/>
+Table&#160;4-1&#160;&#160;<br/>
+Arguments&#160;IdentityManager.Ecu&#160;without&#160;buffer&#160;overlaying&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+14&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-15_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-15_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-15_3.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>4.1.2&#160;</b><br/>
+<b>IdentityManager.Ecu&#160;with buffer&#160;overlaying&#160;</b><br/>
+This&#160;&#160;use&#160;&#160;case&#160;&#160;is&#160;&#160;needed&#160;&#160;for&#160;&#160;generating&#160;&#160;an&#160;&#160;ECUC&#160;&#160;project&#160;&#160;out&#160;&#160;of&#160;&#160;more&#160;&#160;than&#160;&#160;one&#160;&#160;ECU&#160;<br/>Extract&#160;of&#160;System&#160;Configuration&#160;Description&#160;for&#160;physical&#160;multi&#160;ECUs.&#160;Additionally&#160;you&#160;can&#160;<br/>specify&#160;a&#160;configuration&#160;file&#160;for buffer&#160;overlaying.&#160;<br/>
+The&#160;XML&#160;scheme&#160;[2]&#160;for&#160;the&#160;buffer&#160;overlaying&#160;configuration&#160;file&#160;can&#160;be&#160;found&#160;in&#160;the&#160;same&#160;<br/>directory,&#160;where the&#160;main&#160;executable&#160;of&#160;this tool is placed&#160;in.&#160;<br/>
+The&#160;&#160;paths&#160;&#160;to&#160;&#160;the&#160;&#160;ECU&#160;&#160;Extract&#160;&#160;of&#160;&#160;System&#160;&#160;Configuration&#160;&#160;Description&#160;&#160;files,&#160;&#160;which&#160;&#160;are&#160;<br/>obligatory&#160;in&#160;the&#160;buffer&#160;overlay&#160;configuration&#160;file,&#160;may&#160;be&#160;absolutely&#160;or&#160;relatively.&#160;If&#160;they&#160;are&#160;<br/>relatively,&#160;&#160;the&#160;&#160;base&#160;&#160;directory&#160;&#160;of&#160;&#160;the&#160;&#160;relative&#160;&#160;path&#160;&#160;must&#160;&#160;be&#160;&#160;the&#160;&#160;directory,&#160;&#160;where&#160;&#160;the&#160;<br/>configuration&#160;file&#160;is placed&#160;in.&#160;<br/>
+If&#160;&#160;the&#160;&#160;configuration&#160;&#160;file&#160;&#160;is&#160;&#160;placed&#160;&#160;in&#160;&#160;another&#160;&#160;directory&#160;&#160;than&#160;&#160;the&#160;&#160;target-directory,&#160;&#160;where&#160;&#160;the&#160;<br/>generated&#160;files&#160;will&#160;be&#160;placed&#160;in,&#160;the&#160;configuration&#160;file&#160;will&#160;NOT&#160;be&#160;copied&#160;automatically&#160;to&#160;<br/>the&#160;target-directory.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>This&#160;use case&#160;is&#160;only&#160;supported&#160;if&#160;the&#160;Identity&#160;Manager&#160;option&#160;is&#160;available.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Command line:&#160;</b><br/>
+GenTool_CsAsrInitialEcuC.exe&#160;–m&#160;&lt;EcuExtractOfSystemConfigurationDescription&#160;1&gt;&#160;&#160;<br/>&lt;EcuExtractOfSystemConfigurationDescription&#160;2&gt;&#160;…&#160;-o&#160;<br/>myBufferOverlayConfigFile.mecu&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>GenTool_CsAsrInitialEcuC.exe&#160;–m&#160;D:\test\mySystemExtract_ECU1.arxml&#160;<br/>
+&#160;&#160;D:\test\mySystemExtract_ECU2.arxml D:\test\mySystemExtract_ECU3.arxml&#160;<br/>
+D:\test\mySystemExtract_ECU4.arxml&#160;–o myBufferOverlayConfigFile.mecu&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+–m&#160;&#160;<br/>
+Specifies&#160;the use&#160;case&#160;IdentityManager.&#160;<br/>
+D:\test\mySystemExtract_ECU1.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;first&#160;ECU.&#160;<br/>
+D:\test\mySystemExtract_ECU2.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;second ECU.&#160;<br/>
+D:\test\mySystemExtract_ECU3.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;third&#160;ECU.&#160;<br/>
+D:\test\mySystemExtract_ECU4.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;fourth&#160;ECU.&#160;<br/>
+-o myBufferOverlayConfigFile.mecu&#160;&#160;This&#160;is&#160;the&#160;configuration&#160;file for&#160;buffer&#160;overlaying.&#160;<br/>
+Table&#160;4-2&#160;&#160;<br/>
+Arguments&#160;IdentityManager.Ecu&#160;with&#160;buffer&#160;overlaying&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+15&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-16_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-16_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-16_3.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>When specifying&#160;the&#160;pdu-overlays&#160;in the&#160;buffer-overlay&#160;config-file,&#160;take care of&#160;NOT&#160;<br/>
+<b>&#160;&#160;</b>overlaying&#160;pdus,&#160;which are referred&#160;as static-&#160;or&#160;dynamic-part&#160;of&#160;a&#160;multiplexed&#160;pdu!&#160;<br/>
+This&#160;use-case&#160;is&#160;not&#160;allowed.&#160;Configure signal-overlays&#160;instead.&#160;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>The&#160;first&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;file&#160;is&#160;interpreted&#160;as&#160;master&#160;file.&#160;All&#160;other&#160;<br/>
+<b>&#160;&#160;</b>ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;files are&#160;merged&#160;with the&#160;master.&#160;So the&#160;master&#160;<br/>
+ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;file has&#160;to&#160;be&#160;a superset&#160;of&#160;the&#160;other&#160;files.&#160;<br/>
+The&#160;master&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;file&#160;can&#160;be&#160;explicit&#160;set&#160;within the&#160;<br/>mecu-file.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+16&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-17_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-17_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-17_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-17_4.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>5&#160;&#160;IdentityManager.Config&#160;</b><br/>
+This&#160;&#160;use&#160;&#160;case&#160;&#160;is&#160;&#160;needed&#160;&#160;for&#160;&#160;generating&#160;&#160;an&#160;&#160;ECUC&#160;&#160;project&#160;&#160;out&#160;&#160;of&#160;&#160;more&#160;&#160;than&#160;&#160;one&#160;&#160;ECU&#160;<br/>Extract&#160;&#160;of&#160;&#160;System&#160;&#160;Configuration&#160;&#160;Description&#160;&#160;for&#160;&#160;multiple&#160;&#160;configuration&#160;&#160;ECUs.&#160;&#160;The&#160;&#160;XML&#160;<br/>scheme&#160;&#160;[3]&#160;&#160;for&#160;&#160;the&#160;&#160;IdentityManager.Config&#160;&#160;configuration&#160;&#160;file&#160;&#160;can&#160;&#160;be&#160;&#160;found&#160;&#160;in&#160;&#160;the&#160;&#160;same&#160;<br/>directory,&#160;where the&#160;main&#160;executable&#160;of&#160;this tool is placed&#160;in.&#160;<br/>
+The&#160;&#160;paths&#160;&#160;to&#160;&#160;the&#160;&#160;ECU&#160;&#160;Extract&#160;&#160;of&#160;&#160;System&#160;&#160;Configuration&#160;&#160;Description&#160;&#160;files,&#160;&#160;which&#160;&#160;are&#160;<br/>obligatory&#160;in&#160;the&#160;IdentityManager.Config&#160;configuration&#160;file,&#160;may&#160;be&#160;absolutely&#160;or&#160;relatively.&#160;<br/>If&#160;they&#160;are&#160;relatively,&#160;the&#160;base&#160;directory&#160;of&#160;the&#160;relative&#160;path&#160;must&#160;be&#160;the&#160;directory,&#160;where&#160;the&#160;<br/>configuration&#160;file&#160;is placed&#160;in.&#160;<br/>
+If&#160;&#160;the&#160;&#160;configuration&#160;&#160;file&#160;&#160;is&#160;&#160;placed&#160;&#160;in&#160;&#160;another&#160;&#160;directory&#160;&#160;than&#160;&#160;the&#160;&#160;target-directory,&#160;&#160;where&#160;&#160;the&#160;<br/>generated&#160;files&#160;will&#160;be&#160;placed&#160;in,&#160;the&#160;configuration&#160;file&#160;will&#160;NOT&#160;be&#160;copied&#160;automatically&#160;to&#160;<br/>the&#160;target-directory.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>This&#160;use case&#160;is&#160;only&#160;supported&#160;if&#160;the&#160;Identity&#160;Manager&#160;option&#160;is&#160;available.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The&#160;maximum&#160;number&#160;of&#160;identities&#160;is&#160;limited&#160;to eight.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Command line:&#160;</b><br/>
+GenTool_CsAsrInitialEcuC.exe&#160;–m &lt;EcuExtractOfSystemConfigurationDescription&#160;1&gt;&#160;&#160;<br/>&lt;EcuExtract of SystemConfigurationDescription&#160;2&gt;&#160;…&#160;-x&#160;<br/>myIdentityManagerConfigFile.imc&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example&#160;<br/></b>GenTool_CsAsrInitialEcuC.exe&#160;–m D:\test\mySystemExtract_ECU1.arxml&#160;<br/>
+&#160;&#160;D:\test\mySystemExtract_ECU2.arxml D:\test\mySystemExtract_ECU3.arxml&#160;<br/>
+D:\test\mySystemExtract_ECU4.arxml&#160;–x myIdentityManagerConfigFile.imc&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Argument&#160;</b><br/>
+<b>Description&#160;</b><br/>
+–m&#160;&#160;<br/>
+Specifies the use&#160;case&#160;IdentityManager.&#160;<br/>
+D:\test\mySystemExtract_ECU1.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;first&#160;ECU.&#160;<br/>
+D:\test\mySystemExtract_ECU2.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;second ECU.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+17&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-18_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+D:\test\mySystemExtract_ECU3.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;third&#160;ECU.&#160;<br/>
+D:\test\mySystemExtract_ECU4.arxml&#160;&#160;The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration&#160;<br/>
+Description&#160;for&#160;the&#160;fourth&#160;ECU.&#160;<br/>
+-x myIdentityManagerConfigFile.imc&#160;&#160;This&#160;is&#160;the&#160;configuration&#160;file for&#160;the&#160;<br/>
+IdentityManager.Config&#160;feature.&#160;<br/>
+Table&#160;5-1&#160;&#160;<br/>
+Arguments&#160;IdentityManager.Config&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+18&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-19_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>6&#160;&#160;Appendix&#160;</b><br/>
+<b>6.1&#160;</b><br/>
+<b>Derivation of&#160;active&#160;and&#160;initial&#160;parameters&#160;</b><br/>
+Some&#160;&#160;parameters&#160;&#160;are&#160;&#160;derived&#160;&#160;as&#160;&#160;OEM&#160;&#160;parameters.&#160;&#160;This&#160;&#160;parameters&#160;&#160;or&#160;&#160;containers&#160;&#160;are&#160;<br/>called&#160;“initial”&#160;parameters.&#160;Other&#160;non-OEM&#160;parameters&#160;are&#160;called&#160;“active”&#160;parameters.&#160;The&#160;<br/>following&#160;table&#160;shows&#160;which&#160;parameters&#160;are&#160;derived&#160;as&#160;active&#160;parameters.&#160;Parameters&#160;not&#160;<br/>listed&#160;&#160;here&#160;&#160;must&#160;&#160;be&#160;&#160;initial.&#160;&#160;For&#160;&#160;containers&#160;&#160;both&#160;&#160;cases&#160;&#160;cases&#160;&#160;are&#160;&#160;listed,&#160;&#160;initial&#160;&#160;and&#160;&#160;active.&#160;<br/>The&#160;reason&#160;therefore&#160;is the&#160;hierarchy&#160;and&#160;the&#160;behavior in&#160;case&#160;of&#160;inheritance.&#160;&#160;<br/>
+<b>Definition&#160;</b><br/>
+<b>Oem&#160;type&#160;</b><br/>
+<b>AsrTyp&#160;</b><br/>
+Board&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Board/BoardGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Can&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Can/CanConfigSet&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Can/CanConfigSet/CanController&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Can/CanConfigSet/CanController/CanControllerActivation&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+Can/CanConfigSet/CanController/CanControllerSeg1&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Can/CanConfigSet/CanController/CanControllerSeg2&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Can/CanConfigSet/CanController/CanWakeupSourceRef&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+Can/CanConfigSet/CanHardwareObject&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Can/CanConfigSet/CanHardwareObject/CanControllerRef&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+Can/CanConfigSet/CanHardwareObject/CanHandleType&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+Can/CanConfigSet/CanHardwareObject/CanIdType&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+Can/CanConfigSet/CanHardwareObject/CanObjectType&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+Can/CanGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Can/CanGeneral/CanWakeupSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+CanIf&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanIf/CanIfControllerConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanIf/CanIfControllerConfig/CanIfControllerIdRef&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+CanIf/CanIfControllerConfig/CanIfWakeupSupport&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+CanIf/CanIfDriverConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanIf/CanIfInitConfiguration&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfInitControllerConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfInitControllerConfig/CanIfControllerRefConfigSet&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfInitHohConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfInitHohConfig/CanIfHrhConfig&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfInitHohConfig/CanIfHrhConfig/CanIfCanControllerHrhIdRef&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfInitHohConfig/CanIfHrhConfig/CanIfHrhIdSymRef&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfInitHohConfig/CanIfHrhConfig/CanIfHrhType&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfInitHohConfig/CanIfHthConfig&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfInitHohConfig/CanIfHthConfig/CanIfHthIdSymRef&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfInitHohConfig/CanIfHthConfig/CanIfHthType&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfNumberOfCanRxPduIds&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfNumberOfCanTXPduIds&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfNumberOfDynamicCanTXPduIds&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfRxPduConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfRxPduConfig/CanIfCanRxPduHrhRef&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfRxPduConfig/CanIfRxUserType&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfRxPduConfig/CanIfUserRxIndication&#160;<br/>
+ACTIVE&#160;<br/>
+FunctionNameParamDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfTxPduConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfTxPduConfig/CanIfCanTxPduHthRef&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfTxPduConfig/CanIfTxUserType&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+CanIf/CanIfInitConfiguration/CanIfTxPduConfig/CanIfUserTxConfirmation&#160;<br/>
+ACTIVE&#160;<br/>
+FunctionNameParamDef&#160;<br/>
+CanIf/CanIfPrivateConfiguration&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanIf/CanIfPrivateConfiguration/CanIfSoftwareFilterType&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+CanIf/CanIfPublicConfiguration&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanNm&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanNm/CanNmGlobalConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanNm/CanNmGlobalConfig/CanNmChannelConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanNm/CanNmGlobalConfig/CanNmChannelConfig/CanNmChannelActive&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+CanNm/CanNmGlobalConfig/CanNmChannelConfig/CanNmMessageCount&#160;<br/>
+DYNAMIC&#160;<br/>
+IntegerParamDef&#160;<br/>
+CanNm/CanNmGlobalConfig/CanNmChannelConfig/CanNmPduCbvPosition&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+CanNm/CanNmGlobalConfig/CanNmChannelConfig/CanNmPduNidPosition&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+CanNm/CanNmGlobalConfig/CanNmChannelConfig/CanNmPnEnabled&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+CanNm/CanNmGlobalConfig/CanNmChannelConfig/CanNmTxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanNm/CanNmGlobalConfig/CanNmChannelConfig/CanNmUserDataLentgh&#160;<br/>
+DYNAMIC&#160;<br/>
+IntegerParamDef&#160;<br/>
+CanNm/CanNmGlobalConfig/CanNmChannelConfig/CanNmUserDataTxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanNm/CanNmGlobalConfig/CanNmPnInfo&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanNm/CanNmGlobalConfig/CanNmPnInfo/CanNmPnFilterMaskByte&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanSM&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanSM/CanStateManagerConfiguration&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+19&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-20_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+CanSM/CanStateManagerConfiguration/CanSMPartialNetwork&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+CanSM/CanStateManagerConfiguration/CanStateManagerNetworks&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanSM/CanStateManagerConfiguration/CanStateManagerNetworks/CanSMTransceiverId&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+CanSM/CanStateManagerConfiguration/CanStateManagerNetworks/CanStateManagerControllers&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTp&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+CanTp/CanTpConfigSet&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+CanTp/CanTpConfigSet/CanTpActiveRxNSduRef&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+CanTp/CanTpConfigSet/CanTpActiveTxNSduRef&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+CanTp/CanTpGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTp/CanTpRxNSdu/CanTpNSa&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTp/CanTpRxNSdu/CanTpNTa&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTp/CanTpRxNSdu/CanTpRxNPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTp/CanTpRxNSdu/CanTpTxFcNPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTp/CanTpTxNSdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTp/CanTpTxNSdu/CanTpRxFcNPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTp/CanTpTxNSdu/CanTpTxNPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTrcv&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTrcv/CanTrcvConfigSet&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTrcv/CanTrcvConfigSet/CanTrcvChannel&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTrcv/CanTrcvConfigSet/CanTrcvChannel/CanTrcvPartialNetwork/CanTrcvPnEnabled&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+CanTrcv/CanTrcvConfigSet/CanTrcvChannel/CanTrcvPartialNetwork/CanTrcvPnFrameDataMaskSpec&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+CanTrcv/CanTrcvConfigSet/CanTrcvChannel/CanTrcvWakeupSourceRef&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+CanTrcv/CanTrcvGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComGwMapping&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComGwMapping/ComGwDestination&#160;<br/>
+INITIAL&#160;<br/>
+ChoiseContainerDef&#160;<br/>
+Com/ComConfig/ComGwMapping/ComGwDestination/ComGwSignal&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComIPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComIPdu/ComIPduGroupRef&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+Com/ComConfig/ComIPdu/ComTxIPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComIPdu/ComTxIPdu/ComTxIPduMinimumDelayTimeFactor&#160;<br/>
+DYNAMIC&#160;<br/>
+IntegerParamDef&#160;<br/>
+Com/ComConfig/ComIPdu/ComTxIPdu/ComTxModeFalse&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComIPdu/ComTxIPdu/ComTxModeFalse/ComTxMode&#160;<br/>
+DYNAMIC&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComIPdu/ComTxIPdu/ComTxModeTrue&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComIPdu/ComTxIPdu/ComTxModeTrue/ComTxMode/ComTxModeNumberOfRepetitions&#160;<br/>
+DYNAMIC&#160;<br/>
+IntegerParamDef&#160;<br/>
+Com/ComConfig/ComIPdu/ComTxIPdu/ComTxModeTrue/ComTxMode/ComTxModeRepetitionPeriodFactor&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Com/ComConfig/ComIPduGroup&#160;<br/>
+DYNAMIC&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComSignal&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComSignal/ComFilter&#160;<br/>
+DYNAMIC&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComSignal/ComSignalLength&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Com/ComConfig/ComSignal/ComSignalType&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+Com/ComConfig/ComSignalGroup&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComSignalGroup/ComGroupSignal&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Com/ComConfig/ComSignalGroup/ComGroupSignal/ComTransferProperty&#160;<br/>
+DYNAMIC&#160;<br/>
+EnumParamDef&#160;<br/>
+Com/ComGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+ComM&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+ComM/ComMChannel&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+ComM/ComMChannel/ComMUserPerChannel&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+ComM/ComMConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+ComM/ComMConfig/ComMNetworks&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+ComM/ComMConfigSet/ComMChannel/ComMUserPerChannel/ComMUserChannel&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+ComM/ComMConfigSet/ComMPncEnabled&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+ComM/ComMGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+ComM/ComMPnc&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+ComM/ComMPnc/ComMPncComSignal&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+ComM/ComMUser&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmConfigSet&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmConfigSet/DcmActiveDslProtocolRowRef&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslBuffer/DcmDslBufferID&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslBuffer/DcmDslBufferSize&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection/DcmDslProtocolRx/DcmDslProtocolRxAddrType&#160;&#160;ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection/DcmDslProtocolRx/DcmDslProtocolRxPduId&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection/DcmDslProtocolRx/DcmDslProtocolRxPduRef&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection/DcmDslProtocolTx/DcmDslProtocolTxPduRef&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslProtocolID&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslProtocolPreemptTimeout&#160;<br/>
+ACTIVE&#160;<br/>
+FloatParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslProtocolPriority&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslProtocolRxBufferID&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslProtocolTimeLimit&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslProtocolTransType&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslProtocolTxBufferID&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocolTiming/DcmDslProtocolTimingRow/DcmTimStrP2ServerMax&#160;<br/>
+ACTIVE&#160;<br/>
+FloatParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocolTiming/DcmDslProtocolTimingRow/DcmTimStrP2ServerMin&#160;<br/>
+ACTIVE&#160;<br/>
+FloatParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocolTiming/DcmDslProtocolTimingRow/DcmTimStrP2StarServerMax&#160;<br/>
+ACTIVE&#160;<br/>
+FloatParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocolTiming/DcmDslProtocolTimingRow/DcmTimStrP2StarServerMin&#160;<br/>
+ACTIVE&#160;<br/>
+FloatParamDef&#160;<br/>
+Dcm/DcmConfigSet/DcmDsl/DcmDslProtocolTiming/DcmDslProtocolTimingRow/DcmTimStrS3Server&#160;<br/>
+ACTIVE&#160;<br/>
+FloatParamDef&#160;<br/>
+Dcm/DcmDsl&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmDsl/DcmDslBuffer&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+20&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-21_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection&#160;<br/>
+ACTIVE&#160;<br/>
+ChoiseContainerDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection/DcmDslProtocolRx&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection/DcmDslProtocolRx/DcmDslProtocolRxBufferIDValue&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection/DcmDslProtocolRx/DcmDslProtocolRxFirstTxPduId&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection/DcmDslProtocolRx/DcmDslProtocolRxProtocol&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection/DcmDslProtocolTx&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection/DcmDslProtocolTx/DcmDslProtocolTxBufferIDValue&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslConnection/DcmDslMainConnection/DcmDslProtocolTx/DcmDslProtocolTxRxPduId&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslProtocolSIDTableValue&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocol/DcmDslProtocolRow/DcmDslProtocolTimeDefault&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocolTiming&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocolTiming/DcmDslProtocolTimingRow&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmDsl/DcmDslProtocolTiming/DcmDslProtocolTimingRow/DcmTimeStrType&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+Dcm/DcmDsl/DcmP2ServerAdjust&#160;<br/>
+ACTIVE&#160;<br/>
+FloatParamDef&#160;<br/>
+Dcm/DcmDsl/DcmP2StarServerAdjust&#160;<br/>
+ACTIVE&#160;<br/>
+FloatParamDef&#160;<br/>
+Dcm/DcmGeneral&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmPageBufferCfg&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Dcm/DcmPageBufferCfg/DcmPagedBufferEnabled&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+EcuC&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+EcuC/PduCollection&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+EcuC/PduCollection/Pdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+EcuM&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+EcuM/EcuMConfiguration&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMDefaultShutdownTarget&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMDefaultShutdownTarget/EcuMDefaultSleepModeRef&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMDefaultShutdownTarget/EcuMDefaultState&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMModuleConfigurationRef&#160;<br/>
+ACTIVE&#160;<br/>
+ChoisRefParamDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMSleepMode&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMSleepMode/EcuMSleepModeName&#160;<br/>
+ACTIVE&#160;<br/>
+StringParamDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMSleepMode/EcuMSleepModeSuspend&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMSleepMode/EcuMWakeupSourceMask&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMUserConfig&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMWakeupSource&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMWakeupSource/EcuMComMChannelRef&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMWakeupSource/EcuMResetReason&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMWakeupSource/EcuMWakeupSourceId&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+EcuM/EcuMConfiguration/EcuMWakeupSource/EcuMWakeupSourcePolling&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+EcuM/EcuMGeneral&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+Fr&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Fr/FrGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Fr/FrMultipleConfiguration&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Fr/FrMultipleConfiguration/FrController&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Fr/FrMultipleConfiguration/FrController/FrAbsoluteTimer&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfCluster&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfCluster/FrIfController&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfCluster/FrIfController/FrIfAbsTimer&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfCluster/FrIfController/FrIfFrameTriggering&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfCluster/FrIfController/FrIfFrameTriggering/FrIfAllowDynamicLSduLength&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+FrIf/FrIfConfig/FrIfCluster/FrIfController/FrIfFrameTriggering/FrIfPayloadPreamble&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+FrIf/FrIfConfig/FrIfCluster/FrIfController/FrIfLPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfCluster/FrIfController/FrIfLPdu/FrIfVBTriggeringRef&#160;<br/>
+ACTIVE&#160;<br/>
+ReferenceParamDef&#160;<br/>
+FrIf/FrIfConfig/FrIfCluster/FrIfController/FrIfTransceiver&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfCluster/FrIfController/FrIfTransceiver/FrIfFrTrcvChannelRef&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+FrIf/FrIfConfig/FrIfCluster/FrIfJobList&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfFrameStructure&#160;<br/>
+ACTIVE&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfFrameStructure/FrIfPdusInFrame&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfPdu/FrIfPduDirection&#160;<br/>
+INITIAL&#160;<br/>
+ChoiseContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfPdu/FrIfPduDirection/FrIfRxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfConfig/FrIfPdu/FrIfPduDirection/FrIfTxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrIf/FrIfGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmChannelConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmChannelConfig/FrNmChannelIdentifiers&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmChannelConfig/FrNmChannelIdentifiers/FrNmPnEnabled&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+FrNm/FrNmChannelConfig/FrNmChannelIdentifiers/FrNmRxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmChannelConfig/FrNmChannelIdentifiers/FrNmTxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmChannelConfig/FrNmChannelIdentifiers/FrNmUserDataTxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmChannelConfig/FrNmChannelTiming&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmGlobalConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmGlobalConfig/FrNmGlobalConstants&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmGlobalConfig/FrNmGlobalConstants/FrNmPnInfo&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmGlobalConfig/FrNmGlobalConstants/FrNmPnInfo/FrNmPnFilterMaskByte&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmGlobalConfig/FrNmGlobalFeatures&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrNm/FrNmGlobalConfig/FrNmGlobalFeatures/FrNmDualChannelPduEnable&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+FrNm/FrNmGlobalConfig/FrNmVendorSpecific&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrSm&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrSm/FrSmCluster&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrSm/FrSmGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+21&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-22_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+FrTp&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpMultipleConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpChannel&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpChannel/FrTpConcurrentConnections&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpChannel/FrTpConnection&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpChannel/FrTpConnection/FrTpConPduRef&#160;<br/>
+DYNAMIC&#160;<br/>
+ReferenceParamDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpChannel/FrTpConnection/FrTpRxSdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpChannel/FrTpConnection/FrTpTxSdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpChannel/FrTpPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpConnectionControl&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpRxPduPool&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpRxPduPool/FrTpRxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpTxPduPool&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTp/FrTpMultipleConfig/FrTpTxPduPool/FrTpTxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTrcv&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTrcv/FrTrcvGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTrcv/FrTrcvNode&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+FrTrcv/FrTrcvNode/FrTrcvWakeupSourceRef&#160;<br/>
+ACTIVE&#160;<br/>
+SymbolicNameReferenceDef&#160;<br/>
+IPduMplex&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+IPduMplex/IPduMConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+IPduMplex/IPduMConfig/IPduMRxPathway&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+IPduMplex/IPduMConfig/IPduMRxPathway/IPduMRxIndication&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+IPduMplex/IPduMConfig/IPduMRxPathway/IPduMRxIndication/IPduMBitField&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+IPduMplex/IPduMConfig/IPduMRxPathway/IPduMRxIndication/IPduMRxDynamicPart&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+IPduMplex/IPduMConfig/IPduMRxPathway/IPduMRxIndication/IPduMRxDynamicPart/IPduMCopyBitField&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+IPduMplex/IPduMConfig/IPduMRxPathway/IPduMRxIndication/IPduMRxStaticPart&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+IPduMplex/IPduMConfig/IPduMTxPathway/IPduMTxRequest/IPduMTxDynamicPart&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+IPduMplex/IPduMConfig/IPduMTxPathway/IPduMTxRequest/IPduMTxStaticPart&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+IPduMplex/IPduMGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+IPduMplex/IPduMGeneral/IPduMConfigurationTimeBase&#160;<br/>
+ACTIVE&#160;<br/>
+FloatParamDef&#160;<br/>
+Lin&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Lin/LinGlobalConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Lin/LinGlobalConfig/LinChannel&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfFrame&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfFrame/LinIfFixedFrameSdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfFrame/LinIfPduDirection&#160;<br/>
+INITIAL&#160;<br/>
+ChoiseContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfFrame/LinIfPduDirection/LinIfInternalPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfFrame/LinIfPduDirection/LinIfRxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfFrame/LinIfPduDirection/LinIfSlaveToSlavePdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfFrame/LinIfPduDirection/LinIfTxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfFrame/LinIfSubstitutionFrames&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfMaster&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfScheduleTable&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfScheduleTable/LinIfRunMode&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfScheduleTable/LinIfSchedulePriority&#160;<br/>
+ACTIVE&#160;<br/>
+IntegerParamDef&#160;<br/>
+LinIf/LinIfGlobalConfig/LinIfChannel/LinIfSlave&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinSM&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinSM/LinSMChannel&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinSM/LinSMChannel/LinSMSchedule&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinTp&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinTp/LinTpGlobalConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinTp/LinTpGlobalConfig/LinTpRxNSdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+LinTp/LinTpGlobalConfig/LinTpTxNSdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Nm&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Nm/NmGlobalConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Nm/NmGlobalConfig/NmChannelConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Nm/NmGlobalConfig/NmChannelConfig/NmBusType&#160;<br/>
+ACTIVE&#160;<br/>
+EnumParamDef&#160;<br/>
+Nm_DirOsek&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Nm_DirOsek/Nm_DirOsekGlobalConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Nm_DirOsek/Nm_DirOsekGlobalConfig/Nm_DirOsekChannelConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+Nm_DirOsek/Nm_DirOsekGlobalConfig/Nm_DirOsekChannelConfig/NmOsekUserDataTxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+NmFiatB&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+NmFiatB/NmFiatBGlobalConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+NmFiatB/NmFiatBGlobalConfig/NmFiatBChannelConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+NmFiatB/NmFiatBGlobalConfig/NmFiatBChannelConfig/NmFiatBTxPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+PduR&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+PduR/PduRGeneral&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+PduR/PduRGeneral/PduRCanIfSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRCanTpSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRComSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRDcmSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRFrIfSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRFrTpSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRIpduMSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRLinIfSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRLinTpSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRMostIfSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRMostTpSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+22&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-23_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+PduR/PduRGeneral/PduRMulticastFromTpSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRMulticastToIfSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRMulticastToTpSupport&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGeneral/PduRZeroCostOperation&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGlobalConfig&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+PduR/PduRGlobalConfig/PduRRoutingPathGroup&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+PduR/PduRGlobalConfig/PduRRoutingPathGroup/PduRIsEnabledAtInit&#160;<br/>
+ACTIVE&#160;<br/>
+BooleanParamDef&#160;<br/>
+PduR/PduRGlobalConfig/PduRRoutingTable&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+PduR/PduRGlobalConfig/PduRRoutingTable/PduRRoutingPath&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+PduR/PduRGlobalConfig/PduRRoutingTable/PduRRoutingPath/PduRDestPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+PduR/PduRGlobalConfig/PduRRoutingTable/PduRRoutingPath/PduRDestPdu/DestPduRef&#160;<br/>
+DYNAMIC&#160;<br/>
+ReferenceParamDef&#160;<br/>
+PduR/PduRGlobalConfig/PduRRoutingTable/PduRRoutingPath/PduRSrcPdu&#160;<br/>
+INITIAL&#160;<br/>
+ContainerDef&#160;<br/>
+PduR/PduRGlobalConfig/PduRRoutingTable/PduRRoutingPath/PduRSrcPdu/SrcPduRef&#160;<br/>
+DYNAMIC&#160;<br/>
+ReferenceParamDef&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+23&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-24_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>7&#160;&#160;Glossary&#160;and&#160;Abbreviations&#160;</b><br/>
+<b>7.1&#160;</b><br/>
+<b>Glossary&#160;</b><br/>
+<b>Term&#160;</b><br/>
+<b>Description&#160;</b><br/>
+ECU&#160;Extract&#160;of&#160;<br/>
+The&#160;ECU&#160;Extract&#160;of&#160;System&#160;Configuration Description is a&#160;subset&#160;of&#160;the&#160;<br/>
+System&#160;Configuration&#160;&#160;System&#160;Configuration&#160;Description.&#160;It&#160;only&#160;contains information&#160;relevant&#160;for&#160;<br/>Description&#160;<br/>
+one&#160;specific&#160;ECU.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>7.2&#160;</b><br/>
+<b>Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+ECU&#160;<br/>
+Electronic&#160;Control&#160;Unit&#160;<br/>
+ECUC&#160;<br/>
+ECU&#160;Configuration&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+24&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_GenTool_CsAsrInitialEcuC-25_1.png"/><br/>
+Technical Reference&#160;MICROSAR Initial&#160;ECUC Generator&#160;&#160;<br/>
+&#160;<br/>
+<b>8&#160;&#160;Contact&#160;</b><br/>
+Visit&#160;our website&#160;for&#160;more information&#160;on&#160;<br/>
+&#160;<br/>
+<b>&gt;&#160;&#160;</b>News&#160;<br/>
+<b>&gt;&#160;&#160;</b>Products&#160;<br/>
+<b>&gt;&#160;&#160;</b>Demo&#160;software&#160;<br/>
+<b>&gt;&#160;&#160;</b>Support&#160;<br/>
+<b>&gt;&#160;&#160;</b>Training&#160;data&#160;<br/>
+<b>&gt;&#160;&#160;</b>Addresses&#160;<br/>
+&#160;<br/>
+<b>www.vector.com&#160;</b><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.9&#160;<br/>
+25&#160;/&#160;25&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.5&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#6">1 Introduction</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#7">2 Usage</a>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#7">2.1 Arguments</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#8">2.2 &#160;Supported output AUTOSAR-Versions</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#8">2.3 Supported input AUTOSAR-Versions</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">2.4 Use Cases</a>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">2.4.1 Standard Use Case</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#9">2.4.2 Specifying a project name</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#10">2.4.3 Specifying a special AUTOSAR output version</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#11">2.4.4 Specifying a BSWMD file</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#12">2.4.5 &#160;FRTP Use Case</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#13">3 Logging and error reporting</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#14">4 IdentityManager.Ecu</a>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#14">4.1.1 IdentityManager.Ecu without buffer overlaying</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#15">4.1.2 &#160;IdentityManager.Ecu with buffer overlaying</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#17">5 IdentityManager.Config</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#19">6 Appendix</a>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#19">6.1 Derivation of active and initial parameters</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#24">7 Glossary and Abbreviations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#24">7.1 Glossary</a></li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#24">7.2 Abbreviations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_GenTool_CsAsrInitialEcuCs.html#25">8 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

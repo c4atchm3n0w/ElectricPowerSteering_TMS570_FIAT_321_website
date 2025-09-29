@@ -1,0 +1,592 @@
+---
+title: EOTDampingFirewall_MDD
+linkTitle: EOTDampingFirewall_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module-eotdampingfirewall">Module – EOTDampingFirewall</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This MDD describes the summation of all assist and limit terms used in an Electric Power Steering application.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-component-diagram">Diagram – Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:4.0875in;height:3.47847in" /></p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Module Inputs</td>
+<td colspan="2">Module Outputs</td>
+</tr>
+<tr class="even">
+<td colspan="2">AssistEOTDamping_MtrNm_f32</td>
+<td>EOTDampingLtd_MtrNm_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">CRFMtrVel_MtrRadpS_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">HandwheelAuthority_Uls_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">HandwheelPosition_HwDeg_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">Vehicle_Speed_Kph_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">EOTDisable_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">MEC_Counter_Cnt_enum</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Variable Name</td>
+<td>Resolution</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>EOTDmpFWActvLtd_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-16</td>
+<td>16</td>
+<td>ETDMPFW_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>EOTDmpFWInActvLtd_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-8.8</td>
+<td>8.8</td>
+<td>ETDMPFW_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>UprBndActive_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>-16</td>
+<td>16</td>
+<td>ETDMPFW_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>LwrBndActive_MtrNm_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-16</td>
+<td>16</td>
+<td>ETDMPFW_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>EOTDmpFWActvRegion_Cnt_D_lgc</td>
+<td>n/a</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>ETDMPFW_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>EOTDmpFWHWAuth_Cnt_D_lgc</td>
+<td>n/a</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>ETDMPFW_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>EOTDmpFWMode_Cnt_M_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>2</td>
+<td>ETDMPFW_START_SEC_VAR_CLEARED_08</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Typedef Name</td>
+<td>Element Name</td>
+<td>User Defined Type</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>k_MinRackTrvl_HwDeg_u12p4</td>
+</tr>
+<tr class="odd">
+<td>t2_EOTPosDepDmpTblX_HwDeg_u12p4</td>
+</tr>
+<tr class="even">
+<td>k_EOTDynConf_Uls_u8p8</td>
+</tr>
+<tr class="odd">
+<td>t_EOTDmpFWActiveBoundX_MtrRadpS_s11p4</td>
+</tr>
+<tr class="even">
+<td>t2_EOTDmpFWActiveBoundY_MtrNm_s7p8</td>
+</tr>
+<tr class="odd">
+<td>k_EOTDmpFWInactiveLim_MtrNm_f32</td>
+</tr>
+<tr class="even">
+<td>t_EOTDmpFWVehSpd_Kph_u9p7</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Units</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>D_INACTIVEREGION_ULS_U08</td>
+<td>N/A</td>
+<td>Unitless</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>D_ACTIVEREGION_ULS_U08</td>
+<td>N/A</td>
+<td>Unitless</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>D_FIREWALLLDISABLED_ULS_U08</td>
+<td>N/A</td>
+<td>Unitless</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td>D_MTRTRQCMDHILMT_MTRNM_F32</td>
+</tr>
+<tr class="odd">
+<td>D_MTRTRQCMDLOLMT_MTRNM_F32</td>
+</tr>
+<tr class="even">
+<td>BC_ETDMPFW_FAULTINJECTIONPOINT</td>
+</tr>
+<tr class="odd">
+<td>STD_ON</td>
+</tr>
+<tr class="even">
+<td>FLTINJ_EOTDAMPING_ETDMPFW</td>
+</tr>
+<tr class="odd">
+<td>D_NEGONE_CNT_S16</td>
+</tr>
+<tr class="even">
+<td>D_FALSE_CNT_LGC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>Limit_m()</p></li>
+<li></li>
+<li></li>
+<li></li>
+<li><p>Abs_f32_m()</p></li>
+<li><p>BilinearXYM_s16_s16Xs16YM_Cnt()</p></li>
+<li><p>FPM_FloatToFixed_m()</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>N/A</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>N/A</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>N/A</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 91%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Data</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_AssistEOTDamping_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_CRFMtrVel_MtrRadpS_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_EOTDampingLtd_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_HandwheelAuthority_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_HandwheelPosition_HwDeg_f32</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>N/A</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-etdmpfw_per1">Per: EtDmpFw_Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_EtDmpFw_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Local Copy</td>
+<td>Module Input Name</td>
+</tr>
+<tr class="even">
+<td>AsstEOTDamping_MtrNm_T_f32</td>
+<td>Rte_IRead_EtDmpFw_Per1_AssistEOTDamping_MtrNm_f32</td>
+</tr>
+<tr class="odd">
+<td>HandwheelPosition_HwDeg_T_f32</td>
+<td>Rte_IRead_EtDmpFw_Per1_HandwheelPosition_HwDeg_f32</td>
+</tr>
+<tr class="even">
+<td>HandwheelAuthority_Uls_T_f32</td>
+<td>Rte_IRead_EtDmpFw_Per1_HandwheelAuthority_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>CRFMtrVel_MtrRadpS_T_f32</td>
+<td>Rte_IRead_EtDmpFw_Per1_CRFMtrVel_MtrRadpS_f32</td>
+</tr>
+<tr class="even">
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>Rte_IRead_EtDmpFw_Per1_Vehicle_Speed_Kph_f32</td>
+</tr>
+<tr class="odd">
+<td>EOTDisable_Cnt_T_lgc</td>
+<td>Rte_IRead_EtDmpFw_Per1_EOTDisable_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td>MECCounter_Cnt_T_enum</td>
+<td>Rte_IRead_EtDmpFw_Per1_MEC_Counter_Cnt_enum</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="processing-of-function"> (Processing of function)………</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.wmf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 62%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Local Copy</td>
+<td>Module Output Name</td>
+</tr>
+<tr class="even">
+<td>LimitedEOTDamping_MtrNm_T_f32</td>
+<td>Rte_IWrite_EtDmpFw_Per1_EOTDampingLtd_MtrNm_f32</td>
+</tr>
+</tbody>
+</table>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_EtDmpFw_Per1_CP1_CheckpointReached()</p>
+<h4 id="fault-recovery-functions">Fault Recovery Functions</h4>
+<p>N/A</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>N/A</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>N/A</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>N/A</p>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Calling Frequency</td>
+<td>System State(s) in which the function is called</td>
+</tr>
+<tr class="even">
+<td>EtDmpFw_Per1</td>
+<td>2ms</td>
+<td>All</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Sub-Module called by (Serial Comm Function Name)</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section"><br />
+</h1>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>EtDmpFw_Per1</td>
+<td>RTE_START_SEC_AP_ETDMPFW_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-1"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions defined in globalmacro.h are not unittested.</p></li>
+</ol>
+<h1 class="unnumbered" id="revision-control-log">Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Document creation for component based design process</td>
+<td>6-Sep-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Added watchdog checkpoints</td>
+<td>16-Sept-12</td>
+<td>BWL</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Corrected for static variable software section</td>
+<td>19 Sep 12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Updated as per FDDVer002, FaultInjectionPoint added to AsstEOTDamping_MtrNm_T_f32 signal</td>
+<td>29 Jan 13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Updated to SF-27 v003</td>
+<td>16-May-13</td>
+<td>SP</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6.0</td>
+<td>Removed calibration k_EOTDmpFWInputLim_MtrNm_f32 per anomaly 6850</td>
+<td>21-Aug-14</td>
+<td>KJS</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7.0</td>
+<td>Updated as per Unit Test Findings</td>
+<td>27-Aug-14</td>
+<td>KPIT_SM</td>
+</tr>
+</tbody>
+</table>

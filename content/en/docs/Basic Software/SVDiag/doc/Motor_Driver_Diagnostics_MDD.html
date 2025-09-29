@@ -1,0 +1,1012 @@
+---
+title: Motor_Driver_Diagnostics_MDD
+linkTitle: Motor_Driver_Diagnostics_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module----motor-driver-diagnostics">Module -- Motor Driver Diagnostics</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This function operates as a reporting mechanism for all Gate Drive faults.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.png" style="width:2.43056in;height:2.11439in" /></p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2"></td>
+<td>FETFaultPhase_Cnt_enum</td>
+</tr>
+<tr class="even">
+<td colspan="2">MtrDrvrInitStart_Cnt_lgc</td>
+<td>FETFaultType_Cnt_enum</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>MtrDrvrInitComplete_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>GateDriveResetActive_Cnt_lgc</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 11%" />
+<col style="width: 15%" />
+<col style="width: 13%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SVDiag_MtrDrvInitStartTime_mS_M_u32p0</td>
+<td>uint32</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>MTRDRVDIAG_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>SVDiag_ResetWaitLoop_Cnt_M_lgc</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>MTRDRVDIAG_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>SVDiag_GateDrvFltSts_Cnt_D_b16</td>
+<td>uint16</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>MTRDRVDIAG_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>SVDiag_MtrDrvInitActive_Cnt_M_lgc</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>MTRDRVDIAG_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>SVDiag_FETFaultType_Cnt_M_enum</td>
+<td>FETFAULTTYPE_ENUM</td>
+<td colspan="2">NOFAULT , LOWER , UPPER</td>
+<td>MTRDRVDIAG_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>SVDiag_FETFaultPhase_Cnt_M_enum</td>
+<td>FETPHASETYPE_ENUM</td>
+<td colspan="2">NOPHASE, PHASEA , PHASEB , PHASEC</td>
+<td>MTRDRVDIAG_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>SVDiag_GateDriveFltAcc_Cnt_M_u16</td>
+<td>uint16</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>MTRDRVDIAG_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>SVDiag_GenGateDriveFltAcc_Cnt_M_u16</td>
+<td>uint16</td>
+<td>0</td>
+<td>200</td>
+<td>MTRDRVDIAG_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>SVDiag_MtrDrvInitComp_Cnt_M_lgc</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>MTRDRVDIAG_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>SVDiag_OnStateFltAcc_Cnt_M_u16</td>
+<td>uint16</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>MTRDRVDIAG_START_SEC_VAR_CLEARED_16</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_GateDriveDiag_Cnt_str</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td>k_OnStateDiag_Cnt_str</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_PHASEALOWER_CNT_U16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0U</td>
+</tr>
+<tr class="even">
+<td>D_PHASEBLOWER_CNT_U16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>1U</td>
+</tr>
+<tr class="odd">
+<td>D_PHASECLOWER_CNT_U16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>2U</td>
+</tr>
+<tr class="even">
+<td>D_PHASEAUPPER_CNT_U16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>3U</td>
+</tr>
+<tr class="odd">
+<td>D_PHASEBUPPER_CNT_U16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>4U</td>
+</tr>
+<tr class="even">
+<td>D_PHASECUPPER_CNT_U16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>5U</td>
+</tr>
+<tr class="odd">
+<td>D_VREGUV_CNT_U16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>6U</td>
+</tr>
+<tr class="even">
+<td>D_BTSTRPAUV_CNT_U16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>7U</td>
+</tr>
+<tr class="odd">
+<td>D_BTSTRPBUV_CNT_U16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>8U</td>
+</tr>
+<tr class="even">
+<td>D_BTSTRPCUV_CNT_U16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>9U</td>
+</tr>
+<tr class="odd">
+<td>D_NUMOFGDSTATUSBITS_CNT_U16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>10U</td>
+</tr>
+<tr class="even">
+<td>D_STATUSALOWER_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x0001U</td>
+</tr>
+<tr class="odd">
+<td>D_STATUSBLOWER_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x0002U</td>
+</tr>
+<tr class="even">
+<td>D_STATUSCLOWER_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x0004U</td>
+</tr>
+<tr class="odd">
+<td>D_STATUSAUPPER_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x0008U</td>
+</tr>
+<tr class="even">
+<td>D_STATUSBUPPER_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x0010U</td>
+</tr>
+<tr class="odd">
+<td>D_STATUSCUPPER_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x0020U</td>
+</tr>
+<tr class="even">
+<td>D_STATUSVREGUV_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x0040U</td>
+</tr>
+<tr class="odd">
+<td>D_STATUSBTSTRPAUV_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x0080U</td>
+</tr>
+<tr class="even">
+<td>D_STATUSBTSTRPBUV_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x0100U</td>
+</tr>
+<tr class="odd">
+<td>D_STATUSBTSTRPCUV_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x0200U</td>
+</tr>
+<tr class="even">
+<td>D_STATUSVDDUV_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x0400U</td>
+</tr>
+<tr class="odd">
+<td>D_STATUSOVERTEMP_CNT_B16</td>
+<td>uint16</td>
+<td>Counts</td>
+<td>0x8000U</td>
+</tr>
+<tr class="even">
+<td>D_FFDATACLKTIME_US_U16P0</td>
+<td>uint16</td>
+<td>Microseconds</td>
+<td>4.0</td>
+</tr>
+<tr class="odd">
+<td>D_GDRESETTIME_US_U16P0</td>
+<td>uint16</td>
+<td>Microseconds</td>
+<td>2.0</td>
+</tr>
+<tr class="even">
+<td>D_MTRDRVINITDELAY_MS_U08</td>
+<td>Uint8</td>
+<td>Milliseconds</td>
+<td>10U</td>
+</tr>
+<tr class="odd">
+<td>D_GATEDRVCOMMLOSSACCTHRS_CNT_U16</td>
+<td>uint16</td>
+<td>Milliseconds</td>
+<td>100U</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>FPM_InitFixedPoint_m</p></li>
+<li><p>DiagNStep_m</p></li>
+<li><p>DiagPStep_m</p></li>
+<li><p>DiagFailed_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>Rte_Call_FetDrvReset_OP_SET</p></li>
+<li><p>Rte_Call_FetFlt1Data_OP_GET</p></li>
+<li><p>Rte_Call_FetFlt2Clk_OP_GET</p></li>
+<li><p>Rte_Call_FetFlt2Clk_OP_SET</p></li>
+<li><p>Rte_Call_IoHwAbPortConfig_SetFetFlt2ToOutput</p></li>
+<li><p>Rte_Call_NxtrDiagMgr_GetEventFailed</p></li>
+<li><p>Rte_Call_NxtrDiagMgr_SetNTCStatus</p></li>
+<li><p>Rte_Call_SystemTime_DtrmnElapsedTime_mS_u16</p></li>
+<li><p>Rte_Call_SystemTime_DtrmnElapsedTime_uS_u16</p></li>
+<li><p>Rte_Call_SystemTime_GetSystemTime_mS_u32</p></li>
+<li><p>Rte_Call_SystemTime_GetSystemTime_uS_u32</p></li>
+<li><p>SuspendAllInterrupts</p></li>
+<li><p>ResumeAllInterrupts</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>&lt;None&gt;</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="motordriverinit">MotorDriverInit</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>MotorDriverInit</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>void</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>MtrDrvInitComp_Cnt_T_lgc</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>On gate drive startup there is the possibility of its fault register logging fault bits related to startup. In order to clear these bits the gate drive is reset. Once called, this operation shall wait a time period defined by k_GateDrvInitDwellTime_mS_u16p0. Once elapsed, the operation will pulse the Reset line low for nominally 1 uSec. Once done this operation will return MtrDrvInitComp_Cnt_T_lgc = TRUE.</p>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h3 id="procgatedriveflt"><br />
+ProcGateDriveFlt</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 45%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ProcGateDriveFlt</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>GateDriveFltAccPtr_Cnt_T_u16</td>
+<td>pointer to type uint16</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>FF2Set_Cnt_T_lgc</td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>Void</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>This function processes gate drive fault.</p>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h3 id="procbridgeflt">ProcBridgeFlt</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 45%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ProcBridgeFlt</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>OnStateFltAccPtr_Cnt_T_u16</td>
+<td>pointer to type uint16</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>GenGateDriveFltAccPtr_Cnt_T_u16</td>
+<td>pointer to type uint16</td>
+<td>0</td>
+<td>200</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>Void</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>This function processes bridge fault.</p>
+<h4 id="description-2">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h3 id="readmtrdrvfltdata">ReadMtrDrvFltData</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 36%" />
+<col style="width: 21%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ReadMtrDrvFltData</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>StatusPtr_Cnt_T_b16</td>
+<td>pointer to type uint16</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>FaultedPhases_Cnt_T_u16</td>
+<td>uint16</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-3">Design Rationale</h4>
+<h4 class="unnumbered" id="the-gate-drive-ics-fault-register-is-read-serially-through-the-fault-flag-lines.-this-is-done-by-clocking-the-fetflt2-line-and-reading-in-the-data-on-fetflt1-.">The gate drive IC’s fault register is read serially through the fault flag lines. This is done by clocking the <em>FetFlt2</em> line and reading in the data on <em>FetFlt1</em> . </h4>
+<h4 class="unnumbered" id="the-clock-signal-will-have-a-500-khz-max-frequency.-at-that-clock-frequency-the-interface-circuit-shall-ensure-a-minimum-positive-and-negative-pulse-width-at-the-gate-drive-input-of-750-nsec-minimum.-data-is-clocked-out-on-the-gate-drive-on-the-falling-edge-of-its-clock-input.-this-data-is-to-be-present-at-the-dsp-input-for-250-nsec-prior-to-the-rising-edge-of-the-clock.">The clock signal will have a 500 kHz max frequency. At that clock frequency the interface circuit shall ensure a minimum positive and negative pulse width at the gate drive input of 750 nSec minimum. Data is clocked out on the gate drive on the falling edge of its clock input. This data is to be present at the DSP input for 250 nSec prior to the rising edge of the clock.</h4>
+<h4 id="description-3">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<p><strong><br />
+</strong></p>
+<h3 id="resetgatedrive">ResetGateDrive</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 36%" />
+<col style="width: 21%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ResetGateDrive</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>void</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>void</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-4">Design Rationale</h4>
+<p>This function will pulse the Reset line low for nominally 1 uSec. This will clear the fault logging register fault bits. An exclusive area is used around this timing to prevent this function from being interrupted during the wait period, as a pulse for longer than 3.5uSec will put the gate drive chip into a sleep mode.</p>
+<h4 id="description-4">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<h3 id="gatedrvwaittime">GateDrvWaitTime</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 36%" />
+<col style="width: 21%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>GateDrvWaitTime</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>TimeToWait_uS_T_u16p0</td>
+<td>uint16</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>void</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-5">Design Rationale</h4>
+<p>The purpose of this function is to provide the delay times required for the bit manipulation used in this module. This function will wait the amount of time in uS of the variable passed into the function.</p>
+<h4 id="description-5">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>FETFaultPhase_Cnt_enum</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>FETFaultType_Cnt_enum</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_MtrDrvrInitComplete_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_MtrDrvrInitStart_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>GateDriveResetActive_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-mtrdrvdiag_per1">Per: MtrDrvDiag_Per1</h3>
+<h4 id="design-rationale-6">Design Rationale</h4>
+<p>The Motor Driver Diagnostic Periodic Processing operation systematically deals with the motor driver diagnostics. Each failure diagnosed by the gate drive IC has to be fully qualified by the DSP before a fault is considered present. The qualification process used in this design is the typical PStep/Nstep fault accumulator method. This design uses an assumption that each of the individual faults detected by the gate drive IC rarely occurs. Therefore it is not necessary to track through individual fault accumulators for each of the fault indications provided by the gate drive. Instead the faults will be placed into two groups, gate drive faults and FET faults each with their own fault accumulator. For gate drive faults there is no need to identify the exact failure mode. For FET faults the exact FET failure mode is to be learned but is not required until the FET fault has been fully qualified by the DSP. This function will read in the gate drive fault register. Fault conditions detected by gate drive IC are communicated through two dual purpose fault flag lines, FF1 and FF2. The first purpose of the fault flag lines is to indicate a fault is present. The second purpose is to serially transfer an internal fault register indicating which fault was present.</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_MtrDrvDiag_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></p>
+<h4 id="processing-of-function"> Processing of function</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.emf" /></p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_MtrDrvDiag_Per1_CP1_CheckpointReached()</p>
+<h3 id="per-mtrdrvdiag_per2">Per: MtrDrvDiag_Per2</h3>
+<h4 id="design-rationale-7">Design Rationale</h4>
+<p>Configurable checkpoints were not added to this periodic since it doesn’t run in all system states and the current requirements for program flow check require the checkpoint to be called in all system states if it is to be used.</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>N/A</p>
+<h4 id="processing">Processing</h4>
+<p>Rte_Call_FetDrvReset_OP_SET(STD_LOW)</p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>N/A</p>
+<h3 id="per-mtrdrvdiag_trns1">Per: MtrDrvDiag_Trns1</h3>
+<h4 id="design-rationale-8">Design Rationale</h4>
+<p>This function reinitializes variables on entering WARMINIT state.</p>
+<h4 id="program-flow-start-2">Program Flow Start</h4>
+<p>None</p>
+<h4 id="processing-of-function-1">Processing of function</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image15.emf" /></p>
+<h4 id="program-flow-end-2">Program Flow End</h4>
+<p>N/A</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="section"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MtrDrvDiag_Per1</td>
+<td>2mS</td>
+<td>OPERATE, WARMINIT</td>
+</tr>
+<tr class="even">
+<td>MtrDrvDiag_Per2</td>
+<td>2mS</td>
+<td>DISABLE, OFF</td>
+</tr>
+<tr class="odd">
+<td>MtrDrvDiag_Trns1</td>
+<td>Triggered on state transition</td>
+<td>On entering WARMINIT</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-1"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MtrDrvDiag_Per1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MtrDrvDiag_Per2</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MtrDrvDiag_Trns1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-2"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ProcGateDriveFlt</td>
+<td>SA_MTRDRVDIAG_CODE</td>
+</tr>
+<tr class="even">
+<td>ProcBridgeFlt</td>
+<td>SA_MTRDRVDIAG_CODE</td>
+</tr>
+<tr class="odd">
+<td>ReadMtrDrvFltData</td>
+<td>SA_MTRDRVDIAG_CODE</td>
+</tr>
+<tr class="even">
+<td>ResetGateDrive</td>
+<td>SA_MTRDRVDIAG_CODE</td>
+</tr>
+<tr class="odd">
+<td>GateDrvWaitTime</td>
+<td>SA_MTRDRVDIAG_CODE</td>
+</tr>
+<tr class="even">
+<td>MotorDriverInit</td>
+<td>SA_MTRDRVDIAG_CODE</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>ReadMtrDrvFltData needs to be updated to support manual control of the NHET outputs when a faulted FET is detected.</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial MDD</td>
+<td>24-May-11</td>
+<td>BG</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Replaced exclusive area with suspend and resume interrupts</td>
+<td>20-June-11</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3</td>
+<td>Corrected Rte Call to GetEventFailed server in ProcBridgeFlt local function</td>
+<td>02-Dec-11</td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4</td>
+<td>Added functionality for Hardware Power Up</td>
+<td>19-Sep-12</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5</td>
+<td>UTP Update (hard-coded NTC numbers)</td>
+<td>20-Sep-12</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6</td>
+<td>Added checkpoints and memmap software segment is updated for static variables</td>
+<td>28-Sep-12</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7</td>
+<td>Added Per2 per anomaly 4578</td>
+<td>25-Apr-13</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8</td>
+<td>Updated range on GenGateDrv fault accumulator</td>
+<td>17-May-13</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9</td>
+<td>Fixed A4155 . Changes made to ReadMtrDrvFltData</td>
+<td>28-aug-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10</td>
+<td>Updated module and display variables with SVDiag</td>
+<td>8-Oct-13</td>
+<td>VT</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>11</td>
+<td>Updated to FDD V008</td>
+<td>1-Dec-14</td>
+<td>Rijvi</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,1144 @@
+---
+title: Motor_Temperature_Estimation_MDD
+linkTitle: Motor_Temperature_Estimation_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module-motor-temperature-estimation">Module – Motor Temperature Estimation</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module details out the estimation functions (first order lead lag filters) used to estimate the controller Silicon, motor magnet and the motor copper winding temperatures based on the measured substrate temperature and the variation in ambient temperature. The variation in ambient temperature is added as a correction term to the outputs of the lead lag filters and is separate for Si, Magnet and Cu. The correction term representing the variation of temperature above ambient is based off the measured motor current representing the Q-and D axes and uses a first order low pass filter structure.</p>
+<h1 id="figures">Figures</h1>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.39583in;height:2.54167in" /></p>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>This diagram shows all data that is shared between functions within the module.</p>
+<h3 id="diagram-none">Diagram – None</h3>
+<p>This diagram describes the functional characteristics and data flow of a given function.</p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs (Global Variable Name)</th>
+<th>Module Outputs (Global Variable Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CtrlTempFinal_DegC_f32</td>
+<td>CuTempEst_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>EstPkCurr_AmpSq_f32</td>
+<td>MagTempEst_DegC_f32</td>
+</tr>
+<tr class="odd">
+<td>EngTemp_DegC_f32</td>
+<td>SiTempEst_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>AmbTemp_DegC_f32</td>
+<td>AssistMechTempEst_DegC_f32</td>
+</tr>
+<tr class="odd">
+<td>HwVel_HwRadpS_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>ScomTempDataRcvd_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>ScomAMDefeat_Cnt_lgc</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MtrTempEst_CuCorr_DegC_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_CuLLFiltSV_DegC_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_CuAmbLPFiltSV_Watts_M_str</td>
+<td>N/A</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_CuAmbLPFiltSV_Watts_M_str .K_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_CuAmbLPFiltSV_Watts_M_str .SV_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_MagCorr_DegC_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_MagLLFiltSV_DegC_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_MagAmbLPFiltSV_Watts_M_ str</td>
+<td>N/A</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_MagAmbLPFiltSV_Watts_M_ str .K_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_CuAmbLPFiltSV_Watts_M_str .SV_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_SiCorr_DegC_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_SiLLFiltSV_DegC_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_SiAmbLPFiltSV_Watts_M_ str</td>
+<td>N/A</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_SiAmbLPFiltSV_Watts_M_ str .K_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_SiAmbLPFiltSV_Watts_M_ str .SV_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_AsstMechLPFiltSV_Watts_M_str.</td>
+<td>N/A</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_AsstMechLPFiltSV_Watts_M_str.K_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_AsstMechLPFiltSV_Watts_M_str.SV_Uls_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_AmCorr_DegC_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_AMTempEst_DegC_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_AssMechFiltSV_DegC_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_AmbPwr_Watts_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_ScaledAmbTemp_DegC_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_ScaledEngTemp_DegC_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_EstMech_Watts_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_AssMechInitComp_Cnt_M_lgc</td>
+<td>1</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_PrevScomTempDataRcvd_Cnt_M_lgc</td>
+<td>1</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_AssistMechSlew_DegC_M_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>MtrTempEst_AssistMechFilt_DegC_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>See data dictionary</td>
+<td>See data dictionary</td>
+<td>MTRTEMPEST_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="unit-testing-considerations">Unit testing considerations</h3>
+<p>Due to the lead/lag filter implementation in this module, absolute ranges are difficult to determine without pre-defined knowledge on the combination of coefficient values (A1, B0, B1). Because of this the “Filter Design and Analysis 1GP1-B” worksheet (attached to this MDD) was used to calculate combinations of coefficient values to be used in unit test. For unit test purposes, the four sets of lead/lag filter coefficient calibrations (k_MagLLFiltKxx_Uls_f32, k_SiLLFiltKxx_Uls_f32, k_CuLLFiltKxx_Uls_f32, k_AMLLFiltCoefxx_Uls_f32) should be tested using the combinations of coefficient values in the table below, as well as the default values of the filter coefficient calibrations as given in the data dictionary. The ranges given throughout this module were taken as the worst case results of all of the given filter coefficient sets.</p>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 22%" />
+<col style="width: 24%" />
+<col style="width: 19%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fz</th>
+<th>0.0045</th>
+<th>0.0045</th>
+<th>0.00003</th>
+<th>0.00003</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fp</td>
+<td>0.0045</td>
+<td>0.00003</td>
+<td>0.0045</td>
+<td>0.00003</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>B0</td>
+<td>1</td>
+<td>0.0066760330</td>
+<td>149.78955</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>B1</td>
+<td>-0.99717656</td>
+<td>-0.0066571836</td>
+<td>-149.78673</td>
+<td>-0.99998115</td>
+</tr>
+<tr class="odd">
+<td>A1</td>
+<td>0.99717656</td>
+<td>0.99998115</td>
+<td>0.99717656</td>
+<td>0.99998115</td>
+</tr>
+</tbody>
+</table>
+<h3 class="unnumbered" id="section"></h3>
+<h2 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h2>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 31%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_SiAmbLPFKn_Hz_f32</td>
+</tr>
+<tr class="even">
+<td>k_SiAmbMult_DegCpWatt_f32</td>
+</tr>
+<tr class="odd">
+<td>k_SiLLFiltKB0_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_SiLLFiltKB1_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_SiLLFiltKA1_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_MagAmbLPFKn_Hz_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MagAmbMult_DegCpWatt_f32</td>
+</tr>
+<tr class="even">
+<td>k_MagLLFiltKB0_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_MagLLFiltKB1_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_MagLLFiltKA1_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_CuAmbLPFKn_Hz_f32</td>
+</tr>
+<tr class="even">
+<td>k_CuLLFiltKB0_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_CuLLFiltKB1_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_CuLLFiltKA1_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_AmbPwrMult_WtspAmpSq_f32</td>
+</tr>
+<tr class="even">
+<td>k_CuAmbMult_DegCpWatt_f32</td>
+</tr>
+<tr class="odd">
+<td>k_TrimTempSi_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>k_TrimTempCu_DegC_f32</td>
+</tr>
+<tr class="odd">
+<td>k_TrimTempMag_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>k_TrimTempAM_DegC_f32</td>
+</tr>
+<tr class="odd">
+<td>k_EngTempScl_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_AmbTempScl_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_AMLLFiltCoefB0_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_AMLLFiltCoefB1_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td>k_AMLLFiltPoleA1_Uls_f32</td>
+</tr>
+<tr class="even">
+<td>k_AMAmbLPFKn_Hz_f32</td>
+</tr>
+<tr class="odd">
+<td>k_AMAmbMult_DegCpWatt_f32</td>
+</tr>
+<tr class="even">
+<td>k_AMDampScl_NmpRadpS_f32</td>
+</tr>
+<tr class="odd">
+<td>k_AMCorrLmt_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>k_AssistMechSlew_DegCpS_f32</td>
+</tr>
+<tr class="odd">
+<td>k_SiCorrLmt_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>k_MagCorrLmt_DegC_f32</td>
+</tr>
+<tr class="odd">
+<td>k_CuCorrLmt_DegC_f32</td>
+</tr>
+<tr class="even">
+<td>k_AMDefaultTemp_DegC_f32</td>
+</tr>
+<tr class="odd">
+<td>k_WtAvgTempDFt_Cnt_lgc</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 51%" />
+<col style="width: 22%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_MAGTEMPESTLOLMT_DEGC_F32</td>
+<td>Single Precision Floating Point</td>
+<td>-50.0</td>
+</tr>
+<tr class="even">
+<td>D_SITEMPESTLOLMT_DEGC_F32</td>
+<td>Single Precision Floating Point</td>
+<td>-50.0</td>
+</tr>
+<tr class="odd">
+<td>D_MAGTEMPESTHILMT_DEGC_F32</td>
+<td>Single Precision Floating Point</td>
+<td>150.0</td>
+</tr>
+<tr class="even">
+<td>D_SITEMPESTHILMT_DEGC_F32</td>
+<td>Single Precision Floating Point</td>
+<td>200.0</td>
+</tr>
+<tr class="odd">
+<td>D_CUTEMPESTLOLMT_DEGC_F32</td>
+<td>Single Precision Floating Point</td>
+<td>-50.0</td>
+</tr>
+<tr class="even">
+<td>D_CUTEMPESTHILMT_DEGC_F32</td>
+<td>Single Precision Floating Point</td>
+<td>300.0</td>
+</tr>
+<tr class="odd">
+<td>D_AMTEMPESTLOLMT_DEGC_F32</td>
+<td>Single Precision Floating Point</td>
+<td>-50.0</td>
+</tr>
+<tr class="even">
+<td>D_AMTEMPESTHILMT_DEGC_F32</td>
+<td>Single Precision Floating Point</td>
+<td>150.0</td>
+</tr>
+<tr class="odd">
+<td>D_LOOPSPERSEC_CNT_F32</td>
+<td>Single Precision Floating Point</td>
+<td>10.0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 20%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>LPF_KUpdate_f32_m ()</p></li>
+<li><p><mark>LPF_OpUpdate_f32_m</mark> ()</p></li>
+<li><p>Limit_m()</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<p>The data hiding functions / macros used in this module are identified below,</p>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>(Note if they are defined in another source file, then reference the appropriate header file)</p>
+<p>The local functions/macros in this module are identified below,</p>
+<ol type="1">
+<li><p>LeadLagFilt()</p></li>
+<li><p>LeadLagFiltInit (CtrlTempFinal_DegC_T_f32, AmbTemp_DegC_T_f32, EngTemp_DegC_T_f32)</p></li>
+<li><p>AssMechFiltInit(AmbTemp_DegC_T_f32, EngTemp_DegC_T_f32)</p></li>
+</ol>
+<h1 class="unnumbered" id="section-1"></h1>
+<h1 id="software-module-implementation"><br />
+Software Module Implementation</h1>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-mtrtempest_init1">Init: MtrTempEst_Init1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>Initialization of Lead Lag Filter State Variables and Temperature Estimate outputs.</p>
+<p>LPF_KUpdate_f32 is used to initialize the LPF filter instead of the full LPF_Init_f32 macro as an optimization since the required initial state of the filter is 0, which is the initialized value of the RAM, so there is no need to explicitly initialize the state variables in this init function.</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>CtrlTempFinal_DegC_T_f32 = Rte_IRead_MtrTempEst_Init1_CtrlTempFinal_DegC_f32()</p>
+<p>AmbTemp _DegC_T_f32 = Rte_IRead_MtrTempEst_Init1_ AmbTemp_DegC_f32()</p>
+<p>EngTemp _DegC_T_f32 = Rte_IRead_MtrTempEst_Init1_ EngTemp_DegC_f32()</p>
+<p>ScomTempDataRcvd_Cnt_T_lgc = Rte_IRead_MtrTempEst_Init1_ScomTempDataRcvd_Cnt_lgc()</p>
+<p>IF ((ScomTempDataRcvd_Cnt_T_lgc == TRUE) AND (k_WtAvgTempDFt_Cnt_lgc == FALSE))</p>
+<p>ScaledEngTemp_DegC_T_f32 = EngTemp_DegC_T_f32 * k_EngTempScl_Uls_f32</p>
+<p>ScaledAmbTemp_DegC_T_f32 = AmbTemp_DegC_T_f32 * k_AmbTempScl_Uls_f32</p>
+<p>AMTempEst_DegC_T_f32 = ScaledAmbTemp_DegC_T_f32 + ScaledEngTemp_DegC_T_f32</p>
+<p>ELSE</p>
+<p>AMTempEst_DegC_T_f32 = CtrlTempFinal_DegC_T_f32</p>
+<p>END</p>
+<p>SiTempEst_DegC_T_f32 = Limit_m(CtrlTempFinal_DegC_T_f32, D_SITEMPESTLOLMT_DEGC_F32, D_SITEMPESTHILMT_DEGC_F32)</p>
+<p>MagTempEst_DegC_T_f32 = Limit_m(CtrlTempFinal_DegC_T_f32, D_MAGTEMPESTLOLMT_DEGC_F32, D_MAGTEMPESTHILMT_DEGC_F32)</p>
+<p>CuTempEst_DegC_T_f32 = Limit_m(CtrlTempFinal_DegC_T_f32, D_CUTEMPESTLOLMT_DEGC_F32, D_CUTEMPESTHILMT_DEGC_F32)</p>
+<p>MtrTempEst_AMTempEst_DegC_M_f32 = Limit_m(AMTempEst_DegC_T_f32, D_AMTEMPESTLOLMT_DEGC_F32, D_AMTEMPESTHILMT_DEGC_F32)</p>
+<p>Rte_IWrite_MtrTempEst_Init1_AssistMechTempEst_DegC_f32 (MtrTempEst_AMTempEst_DegC_M_f32)</p>
+<p>Rte_Iwrite_MtrTempEst_Init1_SiTempEst_DegC_f32(SiTempEst_DegC_T_f32)</p>
+<p>Rte_Iwrite_MtrTempEst_Init1_MagTempEst_DegC_f32(MagTempEst_DegC_T_f32)</p>
+<p>Rte_Iwrite_MtrTempEst_Init1_CuTempEst_DegC_f32(CuTempEst_DegC_T_f32)</p>
+<h4 id="rte_iwrite_mtrtempest_init1_cutempest_degc_f32cutempest_degc_t_f32module-internal"> Rte_Iwrite_MtrTempEst_Init1_CuTempEst_DegC_f32(CuTempEst_DegC_T_f32);Module Internal </h4>
+<p>LeadLagFiltInit (CtrlTempFinal_DegC_T_f32, AmbTemp_DegC_T_f32, EngTemp_DegC_T_f32)</p>
+<p>LPF_Kupdate_f32_m(k_SiAmbLPFKn_Hz_f32, D_100MS_SEC_F32, &amp;MtrTempEst_SiAmbLPFiltSV_Watts_M_str);</p>
+<p>LPF_Kupdate_f32_m(k_MagAmbLPFKn_Hz_f32, D_100MS_SEC_F32, &amp; MtrTempEst_MagAmbLPFiltSV_Watts_M_str);</p>
+<p>LPF_Kupdate_f32_m(k_CuAmbLPFKn_Hz_f32, D_100MS_SEC_F32, &amp; MtrTempEst_CuAmbLPFiltSV_Watts_M_str);</p>
+<p>LPF_Kupdate_f32_m(k_AMAmbLPFKn_Hz_f32, D_100MS_SEC_F32, &amp; MtrTempEst_AsstMechLPFiltSV_Watts_M_str);</p>
+<p>MtrTempEst_AssMechInitComp_Cnt_M_lgc = False</p>
+<p>MtrTempEst_AssistMechSlew_DegC_M_f32 = (k_AssistMechSlew_DegCpS_f32 / D_LOOPSPERSEC_CNT_F32);</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-mtrtempest_per1">Per: MtrTempEst_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<h4 id="rte_call_mtrtempest_per1_cp0_checkpointreachedstore-module-inputs-to-local-copies">Rte_Call_MtrTempEst_Per1_CP0_CheckpointReached()Store Module Inputs to Local copies</h4>
+<p>CtrlTempFinal_DegC_T_f32 = Rte_Iread_MtrTempEst_Per1_CtrlTempFinal_DegC_f32()</p>
+<p>EngTemp_DegC_T_f32 = Rte_Iread_MtrTempEst_Per1_EngTemp_DegC_f32()</p>
+<p>AmbTemp_DegC_T_f32 = Rte_Iread_MtrTempEst_Per1_AmbTemp_DegC_f32()</p>
+<p>HwVel_HwRadpS_T_f32 = Rte_Iread_MtrTempEst_Per1_HwVel_HwRadpS_f32()</p>
+<p>ScomTempDataRcvd_Cnt_T_lgc = Rte_Iread_MtrTempEst_Per1_ScomTempDataRcvd_Cnt_lgc ()</p>
+<p>EstPkCurr_AmpSq_T_f32 = Rte_Iread_MtrTempEst_Per2_EstPkCurr_AmpSq_f32()</p>
+<p>AMTempEstDisable_Cnt_T_lgc = Rte_Iread_MtrTempEst_Per1_ScomAMDefeat_Cnt_lgc()</p>
+<h4 id="calculate-ambient-power-in-watts">Calculate Ambient Power in Watts</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h4 id="silicon-magnet-and-copper-ambient-low-pass-filter">Silicon, Magnet, and Copper Ambient Low Pass Filter</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h4 id="generate-ambient-correction-terms-and-limit">Generate Ambient Correction Terms and Limit</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h4 id="calculate-temperature-estimation">Calculate Temperature Estimation</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h4 id="reset-filter">Reset Filter</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h4 id="assist-mech-temperature-estimation">Assist Mech Temperature Estimation</h4>
+<blockquote>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+</blockquote>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>MtrTempEst_PrevScomTempDataRcvd_Cnt_M_lgc = ScomTempDataRcvd_Cnt_T_lgc</p>
+<p>Rte_Iwrite_MtrTempEst_Per1_ AssistMechTempEst_DegC_f32 (MtrTempEst_AMTempEst_DegC_M_f32)</p>
+<p>Rte_Iwrite_MtrTempEst_Per1_SiTempEst_DegC_f32(SiTempEst_DegC_T_f32)</p>
+<p>Rte_Iwrite_MtrTempEst_Per1_MagTempEst_DegC_f32(MagTempEst_DegC_T_f32)</p>
+<p>Rte_Iwrite_MtrTempEst_Per1_CuTempEst_DegC_f32(CuTempEst_DegC_T_f32)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_MtrTempEst_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="local-functionmacro-definitions"><br />
+Local Function/Macro Definitions</h2>
+<p>If these are numerous and defined in a separate source file then reference the source file only.</p>
+<h3 id="leadlagfiltinit">LeadLagFiltInit</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 41%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LeadLagFiltInit</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>CtrlTempFinal_DegC_T_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-50</td>
+<td>150</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>AmbTemp_DegC_T_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-40</td>
+<td>87.5</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>EngTemp_DegC_T_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-40</td>
+<td>215</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>See unit testing notes in section 3.1.1 for range considerations of lead/lag filter.</p>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<h3 id="assmechfiltinit">AssMechFiltInit</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 41%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>AssMechFiltInit</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>AmbTemp_DegC_T_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-40</td>
+<td>87.5</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>EngTemp_DegC_T_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-40</td>
+<td>215</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>See unit testing notes in section 3.1.1 for range considerations of lead/lag filter.</p>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<h3 id="lead-lag-filter">Lead Lag Filter</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 40%" />
+<col style="width: 15%" />
+<col style="width: 13%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>LeadLagFilt</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>InputTemp_DegC_T_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-100.0</td>
+<td>322.5</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>FiltSVPtr_DegC_T_f32</td>
+<td>Single Precision Floating Point*</td>
+<td>Address</td>
+<td>Address</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>LLFiltKB0_Uls_T_f32</p>
+<p>(see section 3.1.1)</p></td>
+<td>Single Precision Floating Point</td>
+<td>-150</td>
+<td>150</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><p>LLFiltKB1_Uls_T_f32</p>
+<p>(see section 3.1.1)</p></td>
+<td>Single Precision Floating Point</td>
+<td>-150</td>
+<td>150</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><p>LLFiltKA1_Uls_T_f32</p>
+<p>(see section 3.1.1)</p></td>
+<td>Single Precision Floating Point</td>
+<td>-150</td>
+<td>150</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>FiltOutput_DegC_T_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-62983.530</td>
+<td>63206.030</td>
+</tr>
+</tbody>
+</table>
+<p>See unit testing notes in section 3.1.1 for range considerations of lead/lag filter.</p>
+<h4 id="lead-lag-filter-structure-1gp1-b-for-reference-only">Lead Lag Filter Structure 1GP1-B (For Reference Only)</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<h4 id="description-2">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<h1 id="execution-requirements"><br />
+Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Task List</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MtrTempEst_Init1()</td>
+<td></td>
+<td>Once</td>
+<td>START UP</td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_Per1()</td>
+<td></td>
+<td>100ms</td>
+<td>WARM INIT, OPERATE, DISABLE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N/A</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MtrTempEst_Init1 ()</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MtrTempEst_Per1()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LeadLagFilt()</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>LeadLagFiltInit()</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>AssMechFiltInit()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></h1>
+<h1 class="unnumbered" id="section-4"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /></h1>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image15.emf" /></p>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial AutoSAR version.</td>
+<td>17Feb11</td>
+<td>L.N.</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Update to FDD #FS6 001</td>
+<td>03Dec11</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Corrected periodic timings and removed incorrect input</td>
+<td>03Jan12</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Corrected issues found in UTP.</td>
+<td>04Jan12</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Corrected the initialization of SumCurr_AmpSq_M_f32</td>
+<td>11Jan12</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6.0</td>
+<td>Anomaly 4920 changed input to use EstPkCurr_AmpSq_f32</td>
+<td>20Feb12</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7.0</td>
+<td>FDD changes to version 003</td>
+<td>24Feb12</td>
+<td>M. Story</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8.0</td>
+<td>Added AssistMechFilt_DegC_D_f32 display variable</td>
+<td>09MAR12</td>
+<td>M. Story</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9.0</td>
+<td>Updated component to SF-6 Revision 4</td>
+<td>16MAY12</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10</td>
+<td><p>Corrected filter K init to specify 100ms execution rate</p>
+<p>Removed unused FPM Filter constants</p></td>
+<td>22MAY12</td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>11</td>
+<td>Updated floating-point filter structures to include range and resolution</td>
+<td>12Jun12</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>12</td>
+<td>Check points flow updated</td>
+<td>23- Sep -12</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>13</td>
+<td>Updated to SF06 Ver 005</td>
+<td>22-Oct-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>14</td>
+<td>Updated to SF06 Ver 006</td>
+<td>12-Apr-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>15</td>
+<td>Updated temperature estimate limits per FDD data dictionary change (CR9607) , updated module and display variable names per naming conventions, updated input and cal names per FDD.</td>
+<td>30-Aug-13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>16</td>
+<td>Updated ranges of arguments and return value of LeadLagFilt function and added unit testing notes Section 3.1.1.</td>
+<td>30-Sep-13</td>
+<td>KMC</td>
+</tr>
+<tr class="even">
+<td>17</td>
+<td>17</td>
+<td>Added output limiting in initialization to fix anomaly 5761; corrected implementation of slew rate limit on AssistMechTempEst to fix anomaly 5569.</td>
+<td>13-Nov-13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td>18</td>
+<td>Anomaly 6300 fix(AssistMech Temp Est Initialization)</td>
+<td>24-Feb-14</td>
+<td>VK</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,720 @@
+---
+title: Polarity_MDD
+linkTitle: Polarity_MDD
+weight: 3
+---
+
+<h1 class="unnumbered" id="module---">Module -- </h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module implements the polarity assignments for the EPS systems to allow for various configurations of input and output signals for proper alignment.</p>
+<h1 id="figures"> Figures</h1>
+<h2 id="diagram-component-diagram">Diagram – Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.tiff" style="width:4.02115in;height:3.08753in" alt="Polarity.tif" /></p>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>No shared data.</p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">DiagHwTrqPolarity_Cnt_s08</td>
+<td>HwTrqPolarity_Cnt_s08</td>
+</tr>
+<tr class="even">
+<td colspan="2">DiagHwPosPolarity_Cnt_s08</td>
+<td>HwPosPolarity_Cnt_s08</td>
+</tr>
+<tr class="odd">
+<td colspan="2">DiagMtrPosPolarity_Cnt_s08</td>
+<td>MtrPosPolarity_Cnt_s08</td>
+</tr>
+<tr class="even">
+<td colspan="2">DiagMtrVelPolarity_Cnt_s08</td>
+<td>MtrVelPolarity_Cnt_s08</td>
+</tr>
+<tr class="odd">
+<td colspan="2">DiagMtrElecMechPolarity_Cnt_s08</td>
+<td>MtrElecMechPolarity_Cnt_s08</td>
+</tr>
+<tr class="even">
+<td colspan="2">DiagAssistAssyPolarity_Cnt_s08</td>
+<td>AssistAssyPolarity_Cnt_s08</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>SysC_ MtrElecMechPolarity_Cnt_s32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 27%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Data Type</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Polarity_Cnt_Str</td>
+<td>Polarity_DataType</td>
+<td>N/A</td>
+<td>See DataType</td>
+<td>See DataType</td>
+<td>**NvM/Per-Instance Memory**</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Polarity_DataType</td>
+<td>Polarity_Cnt_b08</td>
+<td>uint8</td>
+<td>Full</td>
+<td>Full</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>R_Polarity_Cnt_b08</td>
+<td>uint8</td>
+<td>Full</td>
+<td>Full</td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>D_HWTRQPOL_CNT_B08</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x01</td>
+</tr>
+<tr class="even">
+<td>D_HWPOSPOL_CNT_B08</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x02</td>
+</tr>
+<tr class="odd">
+<td>D_MTRPOSPOL_CNT_B08</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x04</td>
+</tr>
+<tr class="even">
+<td>D_MTRVELPOL_CNT_B08</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x08</td>
+</tr>
+<tr class="odd">
+<td>D_ASSTASSEMPOL_CNT_B08</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x10</td>
+</tr>
+<tr class="even">
+<td>D_MTRELECMECHPOL_CNT_B08</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x20</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_NEGONE_CNT_S8</td>
+</tr>
+<tr class="even">
+<td>D_ONE_CNT_S8</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>Rte_Pim_Polarity_Cnt_Str()</p></li>
+<li><p>Rte_Call_Polarity_WriteBlock()</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>N/A</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="getpolarity">GetPolarity</h3>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Function Name</strong></th>
+<th>GetPolarity</th>
+<th>Type</th>
+<th>Min</th>
+<th>Max</th>
+<th>UTP Tol.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Arguments Passed</strong></td>
+<td>Polarity_Cnt_T_b08</td>
+<td>uint8</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>PolarityMask_Cnt_T_b08</td>
+<td>uint8</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Polarity_Cnt_T_s08</td>
+<td>sint8</td>
+<td>-1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AssistAssyPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>HwPosPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>HwTrqPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>MtrElecMechPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>MtrPosPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>MtrVelPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>SysC_ MtrElecMechPolarity_Cnt_s32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>DiagHwTrqPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>DiagHwPosPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>DiagMtrPosPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>DiagMtrVelPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>DiagMtrElecMechPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>DiagAssistAssyPolarity_Cnt_s08</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-_init1">Init: _Init1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>During cold initialization, set all output ports to their values based on the stored polarity calibration.</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>N/A</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local Copies</h4>
+<p>N/A</p>
+<h4 id="processing">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>N/A</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>N/A</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-polarity_per1">Per: Polarity_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>This function is checking the polarity signals sent out to the application against the redundantly stored polarity bitfield. The polarity outputs need to be fed back into this module as an input to insure the check is done on the exact memory locations that are being used during run-time to compute the polarity adjusted signals.</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>Rte_Call_Polarity_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p><em>HwTrqPolarity_Cnt_T_s08</em> = Rte_IRead_Polarity_Per1_DiagHwTrqPolarity_Cnt_s08()</p>
+<p><em>HwPosPolarity_Cnt_T_s08</em> = Rte_IRead_Polarity_Per1_DiagHwPosPolarity_Cnt_s08()</p>
+<p><em>MtrPosPolarity_Cnt_T_s08</em> = Rte_IRead_Polarity_Per1_DiagMtrPosPolarity_Cnt_s08()</p>
+<p><em>MtrVelPolarity_Cnt_T_s08</em> = Rte_IRead_Polarity_Per1_DiagMtrVelPolarity_Cnt_s08()</p>
+<p><em>AssistAssyPolarity_Cnt_T_s08</em> = Rte_IRead_Polarity_Per1_DiagAssistAssyPolarity_Cnt_s08()</p>
+<p><em>MtrElecMechPolarity_Cnt_T_s08</em> = Rte_IRead_Polarity_Per1_DiagMtrElecMechPolarity_Cnt_s08()</p>
+<h4 id="processing-1">Processing</h4>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>Rte_Call_Polarity_Per1_CP1_CheckpointReached()</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<h2 id="section-1"></h2>
+<h3 id="scom-polarity_scom_readpolarity">SCom: Polarity_SCom_ReadPolarity</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 45%" />
+<col style="width: 13%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Function Name</strong></th>
+<th>Polarity_SCom_ReadPolarity</th>
+<th>Type</th>
+<th>Min</th>
+<th>Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Arguments Passed</strong></td>
+<td>Polarity_Ptr_T_b08</td>
+<td>uint8 pointer</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>Read and return current polarity calibration to the testing tool.</p>
+<h4 id="program-flow-start-2">Program Flow Start</h4>
+<p>N/A</p>
+<h4 id="store-module-inputs-to-local-copies-2">Store Module Inputs to Local copies</h4>
+<p>N/A</p>
+<h4 id="processing-of-function">(Processing of function)</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-2">Store Local copy of outputs into Module Outputs</h4>
+<p>N/A</p>
+<h4 id="program-flow-end-2">Program Flow End</h4>
+<p>N/A</p>
+<h3 id="scom-polarity_scom_setpolarity">SCom: Polarity_SCom_SetPolarity</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 34%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Function Name</strong></th>
+<th>Polarity_SCom_SetPolarity</th>
+<th>Type</th>
+<th>Min</th>
+<th>Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Arguments Passed</strong></td>
+<td>Polarity_Cnt_T_b08</td>
+<td>uint8</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td colspan="2"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="design-rationale-3">Design Rationale</h3>
+<p>Suspend and Resume all interrupts are used around the updating of the polarity outputs to prevent the function running the diagnostics (Per1) from interrupting this function before all of the outputs are updated.</p>
+<h4 id="program-flow-start-3">Program Flow Start</h4>
+<p>N/A</p>
+<h4 id="store-module-inputs-to-local-copies-3">Store Module Inputs to Local copies</h4>
+<p>N/A</p>
+<h4 id="processing-2">Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-3">Store Local copy of outputs into Module Outputs</h4>
+<p>N/A</p>
+<h4 id="program-flow-end-3">Program Flow End</h4>
+<p>N/A</p>
+<h2 id="section-2"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>N/A</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Polarity_Init1</td>
+<td>Executed Once after RTE is started</td>
+<td>ColdInit</td>
+</tr>
+<tr class="even">
+<td>Polarity_Per1</td>
+<td>10ms</td>
+<td>All</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Polarity_SCom_ReadPolarity</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Polarity_SCom_SetPolarity</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Polarity_Init1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Polarity_Per1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Polarity_SCom_ReadPolarity</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Polarity_SCom_SetPolarity</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GetPolarity</td>
+<td>Inline with calling function</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<h1 id="additional-comments"> Additional Comments</h1>
+<ol type="1">
+<li><p>The polarity bits for hand wheel torque, hand wheel position, motor position, and motor velocity (bits 0 - 4) are assumed to be used at the “sensor” level to place the signals in the proper orientation for use within the ECU. For example, hand wheel torque bit should be used to get the torque signals into the Nexteer CRF described in the polarity FDD-25.</p></li>
+<li><p>Porting a signal from CRF to MRF, or from MRF to CRF, shall be done with the assist assembly polarity bit (bit 5).</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Item #</strong></th>
+<th><strong>Rev #</strong></th>
+<th><strong>Change Description</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author Initials</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>Initial MDD</td>
+<td>23May11</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>2</td>
+<td>Carried over from for component based design</td>
+<td>14Nov11</td>
+<td>JWW</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>3</td>
+<td>Updates and initial release for component based design</td>
+<td>21Apr2012</td>
+<td>KJS</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>4</td>
+<td>Update for GSOD redundant output – FDDv006</td>
+<td>22-Oct-12</td>
+<td>JWJ</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>7</td>
+<td>Updated per FDD requirements</td>
+<td>19-Feb-13</td>
+<td>LWW</td>
+</tr>
+</tbody>
+</table>

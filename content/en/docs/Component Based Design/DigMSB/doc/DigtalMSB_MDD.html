@@ -1,0 +1,1418 @@
+---
+title: DigtalMSB_MDD
+linkTitle: DigtalMSB_MDD
+weight: 5
+---
+
+<h1 class="unnumbered" id="module">Module – `</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>The data synchronsiation between Motor Control ISR and 2 ms Task will be provided at the integration level. But the synchronization between 2 and 100ms is provided by the Module level variable by disabling and enabling interrupts.</p>
+<p>Note: Some variables are used as both input and output. For the those outputs use the ranges from inputs.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.png" style="width:2.96944in;height:2.91463in" /></p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">UncorrMechMtrPos1_Rev_u0p16</td>
+<td>UncorrMechMtrPos1_Rev_u0p16</td>
+</tr>
+<tr class="even">
+<td colspan="2">Die2RxError_Cnt_u16</td>
+<td>Die2RxError_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2">Die2RxRevCtr_Cnt_u16</td>
+<td>Die2RxRevCtr_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td colspan="2">Die2RxMtrPos_Cnt_u16</td>
+<td>Die2RxMtrPos_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2">Die1RxError_Cnt_u16</td>
+<td>Die1RxError_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td colspan="2">Die1RxRevCtr_Cnt_u16</td>
+<td>Die1RxRevCtr_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2">CumMechMtrPos_Rev_f32</td>
+<td>AlignedCumMechMtrPosCRF_Deg_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">RxMtrPosParityAccum_Cnt_u16</td>
+<td>CumMechMtrPosCRF_Deg_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">MtrPosPolarity_Cnt_s08</td>
+<td>CumMechMtrPosMRF_Deg_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">EnergyModeState_Cnt_enum</td>
+<td>MechMtrPos2_Rev_u0p16</td>
+</tr>
+<tr class="odd">
+<td colspan="2">CorrectedElecMtrPos_Rev_u0p16</td>
+<td>SysCCumMechMtrPosMRF_Deg_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">UncorrMechMtrPos1_Rev_u0p16</td>
+<td>AlignedCumMechMtrPosStatus_Cnt_u08</td>
+</tr>
+<tr class="odd">
+<td colspan="2">Die1RxError_Cnt_u16</td>
+<td>MechMtrPos1_Rev_u0p16</td>
+</tr>
+<tr class="even">
+<td colspan="2">Die1RxRevCtr_Cnt_u16</td>
+<td>SysCMechMtrPos1_Rev_u0p16</td>
+</tr>
+<tr class="odd">
+<td colspan="2">Die2RxRevCtr_Cnt_u16</td>
+<td>SysCorrectedElecMtrPos_Rev_u0p16</td>
+</tr>
+<tr class="even">
+<td colspan="2">Die2RxMtrPos_Cnt_u16</td>
+<td>MechMtrPos1TimeStamp_uSec_u32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">Die1UnderVoltgFltAccum_Cnt_u16</td>
+<td>MechMtrPos2TimeStamp_uSec_u32</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>CorrectedElecMtrPos_Rev_u0p16</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>UncorrMechMtrPos1_Rev_u0p16</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>CumMechMtrPos_Rev_s15p16</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>Die1RxError_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>Die1RxRevCtr_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>Die2RxRevCtr_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>Die1RxMtrPos_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>Die2RxMtrPos_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>RxMtrPos1ParityAccum_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>RxMtrPos1UnderVoltgFltAccum_Cnt_u16</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section"></h2>
+<h2 id="module-internal-variables"> Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DigMSB_PWMGrpData_Cnt_M_u16[3]</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_AsyncConfigGrpDie1_Cnt_M_u16[3]</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_AsyncConfigGrpDie2_Cnt_M_u16[3]</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_MechMtrPos1UnCorrec_Rev_M_u0p16</td>
+<td>1.52588E-05</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_RxMtrPos1ParityAccum_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die1R0ParityFault_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_Die1R1ParityFault_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die2R2ParityFault_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_Die1ErrorOkAcc_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die2ErrorOkAcc_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_MechMtrPos2UnCorrec_Rev_M_u0p16</td>
+<td>1.52588E-05</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die1vsDie2TrnsCntrAcc_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_ErrorRegTCAcc_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_ErrorRegVehMaskAcc_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_MtrPosErrAcc_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_PrevMechMtrPos1_Rev_M_u0p16</td>
+<td>1.52588E-05</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_Die2RevCntr_Cnt_M_s16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die1RevCntr_Cnt_M_s16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_Die1R2ParityFault_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die2R1ParityFault_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_Die2R0ParityFault_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_AlignedCumMechMtrPos2CRF_Deg_D_f32</td>
+<td>Single precision float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_AlignedCumMechMtrPos2MRF_Deg_D_f32</td>
+<td>Single preision float</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DigMSB_CumMtrPos1MRF_Rev_M_s15p16</td>
+<td>1.52588E-05</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_AlignedCumMechMtrPos1_Rev_M_s15p16</td>
+<td>1.52588E-05</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DigMSB_AlignedCumMechMtrPos2_Rev_M_s15p16</td>
+<td>1.52588E-05</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_PrevAlignedCumMechMtrPos2_Rev_M_s15p16</td>
+<td>1.52588E-05</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DigMSB_PrevAlignedCumMechMtrPos1_Rev_M_s15p16</td>
+<td>1.52588E-05</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_ResetTC_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>DigMSB_ResetIC_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_Die1ErrorOkAccPassed_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die2ErrorOkAccPassed_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_EnableAsyncConfigGrp_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>DigMSB_AlignedCumMtrPos2Init_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_AlignedCumMtrPos1Init_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die2Errorflag_Cnt_M_u08</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_Die1Errorflag_Cnt_M_u08</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="even">
+<td>DigMSB_CumMechMtrPosStatus_Cnt_M_u08</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_AlignedCumMechMtrPosStatus_Cnt_M_u08</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die1ErrorOk_Cnt_M_enum</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_Die2ErrorOk_Cnt_M_enum</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die1vsDie2TrnsCntrAcc_Cnt_M_enum</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_MtrPosErrAcc_Cnt_M_enum</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>DigMSB_ErrorRegTC_Cnt_M_enum</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_ErrorRegVehMask_Cnt_M_enum</td>
+<td>N/A</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die1UnderVoltgFltAccum_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigMSB_Die1UnderVoltgFltAccum2_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigMSB_Die2UnderVoltgFltAccum_Cnt_M_u16</td>
+<td>1</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGMSB_START_SEC_VAR_CLEARED_16</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<p>(Refer the included ref for more details of register)</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td rowspan="3">NTCStateType_Enum</td>
+<td>NTCSTATE_INVALID</td>
+<td>enum</td>
+<td>0u</td>
+<td>0u</td>
+</tr>
+<tr class="even">
+<td>NTCSTATE_FAILED</td>
+<td>enum</td>
+<td>1u</td>
+<td>1u</td>
+</tr>
+<tr class="odd">
+<td>NTCSTATE_PASSED</td>
+<td>enum</td>
+<td>2u</td>
+<td>2u</td>
+</tr>
+<tr class="even">
+<td rowspan="4">EnergyModeStateType</td>
+<td>NORMAL</td>
+<td>enum</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>PRODUCTION</td>
+<td>enum</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>TRANSPORTATION</td>
+<td>enum</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>FLASH</td>
+<td>enum</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td rowspan="4">DigMSBEOLType</td>
+<td>MtrPosBEMF_Rev_u0p16</td>
+<td>UInt16</td>
+<td>0</td>
+<td>full</td>
+</tr>
+<tr class="odd">
+<td>MtrPosBEMFRedundant_Rev_u0p16</td>
+<td>UInt16</td>
+<td>0</td>
+<td>full</td>
+</tr>
+<tr class="even">
+<td>MtrPos1HarCompTbl_Rev_s2p13[3]</td>
+<td>SInt16</td>
+<td>full</td>
+<td>full</td>
+</tr>
+<tr class="odd">
+<td>MtrPos2HarCompTbl_Rev_s2p13[3]</td>
+<td>SInt16</td>
+<td>full</td>
+<td>full</td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary"><br />
+Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Calibration Constants</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_Die1vsDie2TrnsCntrThresh_Deg_f32</td>
+</tr>
+<tr class="even">
+<td>k_Die2Offset_Rev_u3p13</td>
+</tr>
+<tr class="odd">
+<td>k_MtrPos1vsMtrPos2Thresh_Rev_u3p13</td>
+</tr>
+<tr class="even">
+<td>k_DigMSBErrorRegGenMask_Cnt_u08</td>
+</tr>
+<tr class="odd">
+<td>k_ErrorRegTCMask_Cnt_u08</td>
+</tr>
+<tr class="even">
+<td>k_ErrorRegVehMask_Cnt_u08</td>
+</tr>
+<tr class="odd">
+<td>k_TurnsCntrOffset_Rev_f32</td>
+</tr>
+<tr class="even">
+<td>k_Die1RPMMode_Cnt_u08</td>
+</tr>
+<tr class="odd">
+<td>k_Die2RPMMode_Cnt_u08</td>
+</tr>
+<tr class="even">
+<td>k_DigMSBParity_Cnt_str</td>
+</tr>
+<tr class="odd">
+<td>k_DigMSBTCRunTimeParity_Cnt_str</td>
+</tr>
+<tr class="even">
+<td>k_ErrorRegTCAcc_Cnt_str</td>
+</tr>
+<tr class="odd">
+<td>k_MtrPos1vsMtrPos2Diag_Cnt_str</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 13%" />
+<col style="width: 8%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_PIREVQUATER_REV_S15P16</td>
+<td>1</td>
+<td>Rev</td>
+<td>(FPM_InitFixedPoint_m( 0.25, s15p16_T))</td>
+</tr>
+<tr class="even">
+<td>D_PIREVQUATER_REV_U16</td>
+<td>1</td>
+<td>Rev</td>
+<td>(FPM_InitFixedPoint_m( 0.25, u0p16_T))</td>
+</tr>
+<tr class="odd">
+<td>D_MASK16BITS_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0xFFFFu</td>
+</tr>
+<tr class="even">
+<td>D_HALFREV_REV_U0P16</td>
+<td>1</td>
+<td>Rev</td>
+<td>32768U</td>
+</tr>
+<tr class="odd">
+<td>D_REVTODEG_DEG_F32</td>
+<td>1</td>
+<td>Deg</td>
+<td>360.0F</td>
+</tr>
+<tr class="even">
+<td>D_PWMGRPWRD0_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x200U</td>
+</tr>
+<tr class="odd">
+<td>D_PWMGRPWRD1_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0U</td>
+</tr>
+<tr class="even">
+<td>D_PWMGRPWRD2_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x400U</td>
+</tr>
+<tr class="odd">
+<td>D_ASYNCCONFIGGRPWRD0_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x8800U</td>
+</tr>
+<tr class="even">
+<td>D_ASYNCCONFIGGRPWRD1_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x800U</td>
+</tr>
+<tr class="odd">
+<td>D_ASYNCCONFIGGRPWRD2_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x400U</td>
+</tr>
+<tr class="even">
+<td>D_INITCUMPOS_REV_S15P16</td>
+<td>1</td>
+<td>Rev</td>
+<td>78643200</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section-1"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 71%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_ONE_ULS_F32</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_ULS_F32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>D_NEGONE_CNT_S16</td>
+<td>-1</td>
+</tr>
+<tr class="even">
+<td>D_ONE_CNT_S16</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>D_ZERO_CNT_S16</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>D_NEGONE_CNT_S32</td>
+<td>-1</td>
+</tr>
+<tr class="odd">
+<td>D_ONE_CNT_S32</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_CNT_S32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>D_NEGONE_CNT_S8</td>
+<td>-1</td>
+</tr>
+<tr class="even">
+<td>D_ONE_CNT_S8</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>D_ZERO_CNT_S8</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>D_ONE_CNT_U16</td>
+<td>1u</td>
+</tr>
+<tr class="odd">
+<td>D_ZERO_CNT_U16</td>
+<td>0u</td>
+</tr>
+<tr class="even">
+<td>D_ONE_CNT_U32</td>
+<td>1u</td>
+</tr>
+<tr class="odd">
+<td>D_ZERO_CNT_U32</td>
+<td>0u</td>
+</tr>
+<tr class="even">
+<td>D_ONE_CNT_U8</td>
+<td>1u</td>
+</tr>
+<tr class="odd">
+<td>D_ZERO_CNT_U8</td>
+<td>0u</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T_PARITYTABLE_CNT_U8</td>
+<td>Uint8</td>
+<td>{ 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U, 1U, 0U, 0U, 1U, 1U, 0U, 0U, 1U, 0U, 1U, 1U, 0U}</td>
+<td>DIGMSB_START_SEC_CONST_8</td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>FPM_FixedToFloat_m()</p></li>
+<li><p>Abs_f32_m()</p></li>
+<li><p>Rte_Call_NxtrDiagMgr_SetNTCStatus</p></li>
+<li><p>FPM_Fix_m</p></li>
+<li><p>DiagNStep_m</p></li>
+<li><p>DiagPStep_m</p></li>
+<li><p>DiagFailed_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>MSB1GetData()</p></li>
+<li><p>MSB1SetData()</p></li>
+<li><p>MSB2GetData()</p></li>
+<li><p>MSB2SetData()</p></li>
+<li><p>MSB1EnableDataTransfer()</p></li>
+<li><p>MSB2EnableDataTransfer()</p></li>
+<li><p>MSB1EnableConfigTransfer()</p></li>
+<li><p>MSB2EnableConfigTransfer()</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="global-function-1">Global Function #1</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DigMSB_Per1</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>DigMSB_Write_UncorrMechMtrPos1_Rev_u0p16(DigMSB_MechMtrPos1UnCorrec_Rev_M_u0p16)</p>
+<p>DigMSB_Write_CumMechMtrPos_Rev_s15p16(DigMSB_CumMtrPos1MRF_Rev_M_s15p16)</p>
+<p>DigMSB_Write_MechMtrPos1_Rev_u0p16(MechMtrPos1_Rev_T_u0p16)</p>
+<p>DigMSB_Write_SysCMechMtrPos1_Rev_u0p16(MechMtrPos1_Rev_T_u0p16)</p>
+<p>DigMSB_Write_CorrectedElecMtrPos_Rev_u0p16(CorrectedElecMtrPos_Rev_T_u0p16)</p>
+<p>DigMSB_Write_SysCorrectedElecMtrPos_Rev_u0p16(CorrectedElecMtrPos_Rev_T_u0p16)</p>
+<p>DigMSB_Write_MechMtrPos1TimeStamp_uSec_u32(SampleTime1_uSec_T_u32)</p>
+<p>DigMSB_Write_MechMtrPos2TimeStamp_uSec_u32(SampleTime1_uSec_T_u32)</p>
+<p>DigMSB_Write_RxMtrPos1ParityAccum_Cnt_u16(DigMSB_RxMtrPos1ParityAccum_Cnt_M_u16)</p>
+<p>DigMSB_Write_RxMtrPos1UnderVoltgFltAccum_Cnt_u16(DigMSB_Die1UnderVoltgFltAccum_Cnt_M_u16)</p>
+<p>DigMSB_Write_Die1RxError_Cnt_u16((MSB1RxData_Cnt_T_u16[0]))</p>
+<p>DigMSB_Write_Die1RxRevCtr_Cnt_u16((MSB1RxData_Cnt_T_u16[1]))</p>
+<p>DigMSB_Write_Die1RxMtrPos_Cnt_u16((MSB1RxData_Cnt_T_u16[2]))</p>
+<p>DigMSB_Write_Die2RxError_Cnt_u16((MSB2RxData_Cnt_T_u16[0]))</p>
+<p>DigMSB_Write_Die2RxRevCtr_Cnt_u16((MSB2RxData_Cnt_T_u16[1]))</p>
+<p>DigMSB_Write_Die2RxMtrPos_Cnt_u16((MSB2RxData_Cnt_T_u16[2]))</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="local-marco-1">Local Marco #1</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ParityCalculation_m</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>data</td>
+<td>Uint16</td>
+<td>0</td>
+<td>65535</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>Output</td>
+<td>Uint16</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="local-function-1">Local Function #1</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>MtrPosProcessing</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>RxData_Cnt_T_u16</td>
+<td>Uint16</td>
+<td>0</td>
+<td>65535</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>*DiexRx2Parity_Cnt_T_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>*DiexUnderVoltgFault_Cnt_T_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>MechMtrPos_Rev_T_u0p16</td>
+<td>Uint16</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Processing:</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>See section below</p>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>See section above</p>
+<h4 id="section-2"></h4>
+<h3 id="local-function-2">Local Function #2</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 10%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>RevCntrProcessing</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>RxData_Cnt_T_u16</td>
+<td>Uint16</td>
+<td>0</td>
+<td>65535</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>*DiexRx1Parity_Cnt_T_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>DiexRevCntr_Cnt_T_s16</td>
+<td>Sint16</td>
+<td>-512</td>
+<td>511</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section-3"></h4>
+<h4 id="store-module-inputs-to-local-copies-2">Store Module Inputs to Local copies</h4>
+<p>See section below</p>
+<h4 id="description-2">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h4 class="unnumbered" id="section-4"></h4>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-2">Store Local copy of outputs into Module Outputs</h4>
+<blockquote>
+<p>See section above</p>
+</blockquote>
+<h3 id="local-function-3">Local Function #3</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ErrorRegisterProcessing</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>RxData_Cnt_T_u16</td>
+<td>Uint16</td>
+<td>0</td>
+<td>65535</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>DiexRx0Parity_Cnt_T_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>DiexErrorFlag_Cnt_T_u08</td>
+<td>Uint8</td>
+<td>0</td>
+<td>31</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="store-module-inputs-to-local-copies-3">Store Module Inputs to Local copies</h4>
+<p>See section below</p>
+<h4 id="description-3">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h4 class="unnumbered" id="section-5"></h4>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-3">Store Local copy of outputs into Module Outputs</h4>
+<p>See section above</p>
+<h3 id="data-hiding-macro-1">Data Hiding Macro #1</h3>
+<p>None</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-digmsb_init">Init: DigMSB_Init</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>ISO Fault Debounce Counters are implemented by taking midpoint of range of twice the threshold to avoid the Signed implementation.</p>
+<h4 id="initialize-the-transmit-data-buffer-with-the-value-module-outputs">Initialize the Transmit data buffer with the value Module Outputs</h4>
+<blockquote>
+<p>None</p>
+</blockquote>
+<h4 id="module-internal">Module Internal </h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<h1 id="periodic-functions">Periodic Functions</h1>
+<h3 id="per-_per2">Per: _Per2</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>FDD specifies the precision of p13 for Motor Position, Cumulative Motor Position, Aligned Cumulative Motor Position. But in the implementation p13 is converted to p16. This is done to avoid rollover math and match the output port data types.</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<blockquote>
+<p>Rte_Call_DigMSB_Per2_CP0_CheckpointReached()</p>
+</blockquote>
+<h4 id="store-module-inputs-to-local-copies-4">Store Module Inputs to Local copies</h4>
+<p>UncorrMechMtrPos1_Rev_T_u0p16 = Rte_IRead_DigMSB_Per2_UncorrMechMtrPos1_Rev_u0p16()</p>
+<p>Die2RxError_Cnt_T_u16 = Rte_IRead_DigMSB_Per2_Die2RxError_Cnt_u16()</p>
+<p>Die2RxRevCtr_Cnt_T_u16 = Rte_IRead_DigMSB_Per2_Die2RxRevCtr_Cnt_u16()</p>
+<p>Die2RxMtrPos_Cnt_T_u16 = Rte_IRead_DigMSB_Per2_Die2RxMtrPos_Cnt_u16()</p>
+<p>Die1RxError_Cnt_T_u16 = Rte_IRead_DigMSB_Per2_Die1RxError_Cnt_u16()</p>
+<p>Die1RxRevCtr_Cnt_T_u16 = Rte_IRead_DigMSB_Per2_Die1RxRevCtr_Cnt_u16()</p>
+<p>CumMechMtrPosMRF_Rev_T_f32 = Rte_IRead_DigMSB_Per2_CumMechMtrPos_Rev_f32()</p>
+<p>RxMtrPosParityAccum_Cnt_T_u16 = Rte_IRead_DigMSB_Per2_RxMtrPosParityAccum_Cnt_u16()</p>
+<p>AssistAssemblyPolarity_Cnt_T_s08 = Rte_IRead_DigMSB_Per2_AssistAssemblyPolarity_Cnt_s08()</p>
+<p>MtrPosPolarity_Cnt_T_s08 = Rte_IRead_DigMSB_Per2_MtrPosPolarity_Cnt_s08()</p>
+<p>CorrectedElecMtrPos_Rev_T_u0p16 = Rte_IRead_DigMSB_Per2_CorrectedElecMtrPos_Rev_u0p16()</p>
+<p>Die1UnderVoltgFltAccum_Cnt_T_u16 = Rte_IRead_DigMSB_Per2_Die1UnderVoltgFltAccum_Cnt_u16()</p>
+<blockquote>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /> <img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+</blockquote>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-4">Store Local copy of outputs into Module Outputs</h4>
+<blockquote>
+<p>Rte_IWrite_DigMSB_Per2_AlignedCumMechMtrPosCRF_Deg_f32(AlignedCumMechMtrPos1CRF_Deg_T_f32)</p>
+<p>Rte_IWrite_DigMSB_Per2_AlignedCumMechMtrPosMRF_Deg_f32(AlignedCumMechMtrPos1MRF_Deg_T_f32)</p>
+<p>Rte_IWrite_DigMSB_Per2_CumMechMtrPosCRF_Deg_f32(CumMechMtrPosCRF_Deg_T_f32)</p>
+<p>Rte_IWrite_DigMSB_Per2_CumMechMtrPosMRF_Deg_f32(CumMechMtrPosMRF_Deg_T_f32)</p>
+<p>Rte_IWrite_DigMSB_Per2_MechMtrPos2_Rev_u0p16(MechMtrPos2_Rev_T_u0p16)</p>
+<p>Rte_IWrite_DigMSB_Per2_SysCCumMechMtrPosMRF_Deg_f32(CumMechMtrPosMRF_Deg_T_f32)</p>
+<p>Rte_IWrite_DigMSB_Per2_AlignedCumMechMtrPosStatus_Cnt_u08(DigMSB_AlignedCumMechMtrPosStatus_Cnt_M_u08)</p>
+</blockquote>
+<h4 class="unnumbered" id="rte_iwrite_digmsb_per2_cummechmtrposstatus_cnt_u08digmsb_cummechmtrposstatus_cnt_m_u08">Rte_IWrite_DigMSB_Per2_CumMechMtrPosStatus_Cnt_u08(DigMSB_CumMechMtrPosStatus_Cnt_M_u08) </h4>
+<h4 id="program-flow-end">Program Flow End</h4>
+<blockquote>
+<p>Rte_Call_DigMSB_Per2_CP1_CheckpointReached()</p>
+</blockquote>
+<h3 id="per-_per3">Per: _Per3</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>None</p>
+<h4 id="store-module-inputs-to-local-copies-5">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image15.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-5">Store Local copy of outputs into Module Outputs</h4>
+<blockquote>
+<p>None</p>
+</blockquote>
+<h4 id="program-flow-end-1"> Program Flow End</h4>
+<blockquote>
+<p>None</p>
+</blockquote>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h2>
+<blockquote>
+<p>INLINE functions defined in GlobalMacro.h are not unit tested.</p>
+<p>The variables are not range limited in Motor Control ISR. If the ranges need to be limited, it should be limited at slower time loop.The ranges of Aligned Cumulative and Cumulative Motor Position values are not limited as it used in MtrVel Diagnostics.<br />
+Revision Control Log</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 63%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0,2.0,</td>
+<td>Initial Version</td>
+<td>12-Jun-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>3.0</td>
+<td>Corrected the Delta Motor Pos Calculation by replacing 0.5f with 1f</td>
+<td>1-Aug-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>4.0,5.0</td>
+<td>Fixed Rx buffer position, Parity Calculation updated names to match standards</td>
+<td>8-Aug-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6.0</td>
+<td>Corrected the synchronization issues between 2 and 100 ms task</td>
+<td>28-Aug-13</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7.0</td>
+<td>Updated per FDD v3</td>
+<td>11-Sep-13</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8.0</td>
+<td>Anomaly 5611 correction</td>
+<td>12-Sep-13</td>
+<td>LWW</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>9.0</td>
+<td>Anomaly 5640 correction, Updated “TurnsCntrValidity” state flow</td>
+<td>23-Sep-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>10.0</td>
+<td>FDD v4 update and Unit fix (anomaly 6172)</td>
+<td>7-April-14</td>
+<td>KPIT-SK</td>
+</tr>
+<tr class="even">
+<td>11</td>
+<td>11.0</td>
+<td>Prototype of new multiple transfer group SPI transfers (v5 Prerelease) and also A5929 fixed.</td>
+<td>8-April-14</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>12.0</td>
+<td>Updated for FDD v6</td>
+<td>28-Apr-14</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>13</td>
+<td>13.0</td>
+<td>Updated for 6811, 6831</td>
+<td>30-May-14</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>14</td>
+<td>14.0</td>
+<td>Updated Sections 5.1,5.3.1.2,7.1.1,7.1.2.3,6.2.1.3,6.2.1.3, 5.4.2 and 5.4.3, 5.4.4</td>
+<td>19-Sep-14</td>
+<td>KPIT-SSK</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>15.0</td>
+<td>Anomaly 6855 ,6864 correction</td>
+<td>8-Dec-14</td>
+<td>TATA-JK</td>
+</tr>
+<tr class="odd">
+<td>16</td>
+<td>16.0</td>
+<td>Updated per FDD rev.008</td>
+<td>06-Feb-15</td>
+<td>Rijvi</td>
+</tr>
+</tbody>
+</table>

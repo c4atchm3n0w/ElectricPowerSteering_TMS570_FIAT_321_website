@@ -1,0 +1,1023 @@
+---
+title: DigHwTrqSENT_MDD
+linkTitle: DigHwTrqSENT_MDD
+weight: 5
+---
+
+<h1 class="unnumbered" id="module----digital-handwheel-torque-function-sent">Module -- Digital Handwheel Torque Function (SENT)</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module computes the digital handwheel torque signal from the SENT digital sensor inputs. It takes the sensor inputs, calculates the hw torque, compensates for trim, applies filtering and limits, and outputs the handwheel torque in HwNm. It uses long term correlated compensation to provide a T1 vs T2 correlation fault diagnostic. It also contains the service calls for a trim to be set or cleared.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.70833in;height:2.75in" /></p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">T1_HwNm_f32</td>
+<td>HwTorque_HwNm_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2">T2_HwNm_f32</td>
+<td>SrlComHwTrq_HwNm_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">MECCounter_Cnt_enum</td>
+<td>SrlComHwTrqValid_Cnt_Lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>SysCHwTorque_HwNm_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DigHwTrqSENT_T1_HwNm_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_T2_HwNm_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_HwTrq_HwNm_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_TDiagFiltOut_HwNm_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_SSDiagFiltOut_HwNm_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_CMCFiltOut_HwNm_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_TrqSum_HwNm_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_DigHwTrqKSV_M_str</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_TDiagFiltKSV_M_str</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_SSFiltKSV_M_str</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_CMCFiltKSV_M_str</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_CMCFiltSV_HwNm_M_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_SAVED_ZONEH_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DigHwTrqSENTTrim_DataType</td>
+<td>kEOLHwTrqTrim_HwNm_f32</td>
+<td>float</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>kEOLHwTrqTrimPerformed_Cnt_Lgc</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-display-variables">Module Display Variables</h2>
+<table>
+<colgroup>
+<col style="width: 0%" />
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="2">Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DigHwTrqSENT_SumFiltOut_HwNm_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_CorrDiagFiltOut_HwNm_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_DigHwTrq_HwNm_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_HwTrqTrim_HwNm_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_TmpDigHwTrq_HwNm_D_f32</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>See Data Dictionary</td>
+<td>DIGHWTRQSENT_START_SEC_VAR_CLEARED_32</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_HwTrqLPFFc_Hz_f32</td>
+</tr>
+<tr class="even">
+<td>k_T1vsT2TrqSum_HwNm_f32</td>
+</tr>
+<tr class="odd">
+<td>k_T1T2TransFltLim_HwNm_f32</td>
+</tr>
+<tr class="even">
+<td>k_T1T2CMCLPFEnable_HwNm_f32</td>
+</tr>
+<tr class="odd">
+<td>k_T1T2CMCLPFFc_Hz_f32</td>
+</tr>
+<tr class="even">
+<td>k_CMCLPFOutLim_HwNm_f32</td>
+</tr>
+<tr class="odd">
+<td>k_T1T2SSLPFFc_Hz_f32</td>
+</tr>
+<tr class="even">
+<td>k_T1T2SSLim_HwNm_f32</td>
+</tr>
+<tr class="odd">
+<td>t_T1T2DepTrsTimecon_Hz_u6p10</td>
+</tr>
+<tr class="even">
+<td>t_T1T2IndTrsTimecon_HwNm_u5p11</td>
+</tr>
+<tr class="odd">
+<td>k_MaxHwTrqTrim_HwNm_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 17%" />
+<col style="width: 10%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_DIFFTRQSCALE_ULS_F32</td>
+<td>Single precision floating point</td>
+<td>unitless</td>
+<td>2.0</td>
+</tr>
+<tr class="even">
+<td>D_HWTRQMAXRANGE_HWNM_F32</td>
+<td>Single precision floating point</td>
+<td>HwNm</td>
+<td>10.0</td>
+</tr>
+<tr class="odd">
+<td>D_TRIMPERFORMED_CNT_LGC</td>
+<td>boolean</td>
+<td>boolean</td>
+<td>TRUE</td>
+</tr>
+<tr class="even">
+<td>D_TRIMNOTPERFORMED_CNT_LGC</td>
+<td>boolean</td>
+<td>boolean</td>
+<td>FALSE</td>
+</tr>
+<tr class="odd">
+<td>D_MFGMODE_CNT_ENUM</td>
+<td>enum</td>
+<td>counts</td>
+<td>ManufacturingMode</td>
+</tr>
+<tr class="even">
+<td>D_ONERESOLUTIONCOUNT_HWNM_F32</td>
+<td>Single precision floating point</td>
+<td>HwNm</td>
+<td>0. 00390625f</td>
+</tr>
+<tr class="odd">
+<td>D_DEFDIGHWTRQTRIM_HWNM_F32</td>
+<td>Single precision floating point</td>
+<td>HwNm</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td>D_DEFSSDIAGFILTOUT_HWNM_F32</td>
+<td>Single precision floating point</td>
+<td>HwNm</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>D_HWTRQLPFSAMPLEINT_SEC_F32</td>
+<td>Single precision floating point</td>
+<td>sec</td>
+<td>D_2MS_SEC_F32</td>
+</tr>
+<tr class="even">
+<td>D_TDIAGLPFSAMPLEINT_SEC_F32</td>
+<td>Single precision floating point</td>
+<td>sec</td>
+<td>0.004</td>
+</tr>
+<tr class="odd">
+<td>D_CMCLPFSAMPLEINT_SEC_F32</td>
+<td>Single precision floating point</td>
+<td>sec</td>
+<td>0.1</td>
+</tr>
+<tr class="even">
+<td>D_SSLPFSAMPLEINT_SEC_F32</td>
+<td>Single precision floating point</td>
+<td>sec</td>
+<td>0.1</td>
+</tr>
+<tr class="odd">
+<td>D_SSFILTSVLMT_HWNM_F32</td>
+<td>Single precision floating point</td>
+<td>HwNm</td>
+<td>k_T1T2SSLim_HwNm_f32 + D_ONERESOLUTIONCOUNT_HWNM_F32</td>
+</tr>
+<tr class="even">
+<td>D_FAILEDANDFAILEDTHISOPCYCLE_CNT_U08</td>
+<td>1</td>
+<td>counts</td>
+<td>D_TESTFAILEDBIT_CNT_B8 | D_TESTFAILEDTHISOPCYCLEBIT_CNT_B8</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NULL_PTR</td>
+</tr>
+<tr class="even">
+<td>D_2MS_SEC_F32</td>
+</tr>
+<tr class="odd">
+<td>RTE_E_OK</td>
+</tr>
+<tr class="even">
+<td>NVM_REQ_OK</td>
+</tr>
+<tr class="odd">
+<td>FLTINJ_DIGHWTRQSENT_T1FAULT</td>
+</tr>
+<tr class="even">
+<td>FLTINJ_DIGHWTRQSENT_T2FAULT</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>Limit_m()</p></li>
+<li><p>Abs_f32_m()</p></li>
+<li><p>FPM_FloatToFixed_m()</p></li>
+<li><p>FPM_FixedToFloat_m</p></li>
+<li><p>IntplVarXY_u16_u16Xu16Y_Cnt()</p></li>
+<li><p>LPF_Init_f32_m()</p></li>
+<li><p>LPF_OpUpdate_f32_m ()</p></li>
+<li><p>LPF_KUpdate_f32_m()</p></li>
+<li><p>Tablesize_m()</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>Rte_Call_NxtrDiagMgr_SetNTCStatus()</p></li>
+<li><p>Rte_Call_NxtrDiagMgr_GetNTCStatus()</p></li>
+<li><p>Rte_Pim_DigTrqTrim()</p></li>
+<li><p>Rte_Call_NvM_DigHwTrqSENTTrim_Srv_GetErrorStatus()</p></li>
+<li><p>Rte_Call_NvM_DigHwTrqSENTTrim_Srv_WriteBlock()</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="trim-not-performed-diagnostic">Trim Not Performed Diagnostic</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 41%" />
+<col style="width: 15%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>TrimNotPerfDiag</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>MECCounter_Cnt_T_enum</td>
+<td>ManufModeType</td>
+<td>0</td>
+<td>2</td>
+<td>n/a</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>n/a</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rte_InitValue_T1_HwNm_f32</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_T2_HwNm_f32</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_HwTorque_HwNm_f32</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_SrlComHwTrq_HwNm_f32</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_SrlComHwTrqValid</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_MECCounter_Cnt_enum</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_SysCHwTorque</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-sent_init1">Init: SENT_Init1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>TDiag filter does not need initialization because the state variable initialization value is zero and the filter constant is calculated each time the filter is updated.</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<h4 id="check-nvm-error-status">Check NvM Error Status </h4>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-sent_per1">Per: SENT_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_DigHwTrqSENT_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>DigHwTrqSENT_T1_HwNm_M_f32 = Rte_IRead__DigHwTrqSENT_Per1_T1_HwNm_f32();</p>
+<p>DigHwTrqSENT_T2_HwNm_M_f32 = Rte_IRead_DigHwTrqSENT_Per1_T2_HwNm_f32();</p>
+<h4 id="handwheel-torque-calculation">Handwheel Torque Calculation</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>DigHwTrqSENT_TmpDigHwTrq_HwNm_D_f32 = TmpDigHwTrq_HwNm_T_f32</p>
+<p>DigHwTrqSENT_DigHwTrq_HwNm_D_f32 = DigHwTrq_HwNm_T_f32</p>
+<p>Rte_IWrite_DigHwTrqSENT_Per1_HwTorque_HwNm_f32(DigHwTrqSENT_HwTrq_HwNm_M_f32)</p>
+<p>Rte_IWrite_DigHwTrqSENT_Per1_SysCHwTorque_HwNm_f32(DigHwTrqSENT_HwTrq_HwNm_M_f32);</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_DigHwTrqSENT_Per1_CP1_CheckpointReached()</p>
+<h3 id="per-dighwtrqsent_per2">Per: DigHwTrqSENT_Per2</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>Rte_Call_DigHwTrq_Per2_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="t1-vs-t2-comparison-diagnostic">T1 vs T2 Comparison Diagnostic</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h4 id="serial-comm-outputs">Serial Comm Outputs</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_IWrite_DigHwTrqSENT_Per2_SrlComHwTrq_HwNm_f32 (DigHwTrqSENT_HwTrq_HwNm_M_f32)</p>
+<p>Rte_IWrite_DigHwTrqSENT_Per2_SrlComHwTrqValid_Cnt_lgc (SrlComHwTrqValid_Cnt_T_lgc)</p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>Rte_Call_DigHwTrqSENT_Per2_CP1_CheckpointReached()</p>
+<h3 id="per-dighwtrqsent_per3">Per: DigHwTrqSENT_Per3</h3>
+<h4 id="design-rationale-3">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-2">Program Flow Start</h4>
+<p>Rte_Call_DigHwTrqSENT_Per3_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies-2">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="steady-state-filter">Steady State Filter</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<h4 id="common-mode-compensation">Common Mode Compensation</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<h4 id="program-flow-end-2">Program Flow End</h4>
+<p>Rte_Call_DigHwTrq_Per3_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions"><br />
+Serial Communication Functions</h2>
+<h3 id="scomm-dighwtrqsent_scom_clrtrqtrim">Scomm: DigHwTrqSENT_Scom_ClrTrqTrim</h3>
+<h4 id="design-rationale-4">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-3">Program Flow Start</h4>
+<p>n/a</p>
+<h4 id="store-module-inputs-to-local-copies-3">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="clear-handwheel-torque-trim">Clear Handwheel Torque Trim</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-2">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-3">Program Flow End</h4>
+<p>n/a</p>
+<h3 id="scomm-dighwtrqsent_scom_settrqtrim">Scomm: DigHwTrqSENT_Scom_SetTrqTrim</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 41%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DigHwTrqSENT_SCom_SetTrqTrim</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>NA</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>RetValue</td>
+<td>Uint8</td>
+<td>0</td>
+<td>34</td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-5">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-4">Program Flow Start</h4>
+<p>n/a</p>
+<h4 id="store-module-inputs-to-local-copies-4">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="set-handwheel-torque-trim">Set Handwheel Torque Trim</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-3">Store Local copy of outputs into Module Outputs</h4>
+<p>DigHwTrqSENT_HwTrqTrim_HwNm_D_f32 = HwTrqTrim_HwNm_T_f32</p>
+<h4 id="program-flow-end-4">Program Flow End</h4>
+<p>n/a</p>
+<h3 id="scomm-dighwtrqsent_scom_trimdata">Scomm: DigHwTrqSENT_Scom_TrimData</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 41%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DigHwTrqSENT_SCom_TrimData</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td><p>EOLHwTrqTrim_HwNm_f32</p>
+<p>EOLHwTrqTrimPerformed_Cnt_Lgc</p></td>
+<td><p>Float</p>
+<p>Boolean</p></td>
+<td><p>-10</p>
+<p>False</p></td>
+<td><p>10</p>
+<p>True</p></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>n/a</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-6">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-5">Program Flow Start</h4>
+<p>n/a</p>
+<h4 id="store-module-inputs-to-local-copies-5">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="handwheel-torque-trim-data">Handwheel Torque Trim Data</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-4">Store Local copy of outputs into Module Outputs</h4>
+<h4 id="program-flow-end-5">Program Flow End</h4>
+<p>n/a</p>
+<h3 id="scomm-dighwtrqsent_scom_writedata">Scomm: DigHwTrqSENT_Scom_WriteData</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 41%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DigHwTrqSENT_SCom_WriteData</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>HwTrqTrim_HwNm_f32</td>
+<td>Float</td>
+<td>-10</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>n/a</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-7">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-6">Program Flow Start</h4>
+<p>n/a</p>
+<h4 id="store-module-inputs-to-local-copies-6">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="handwheel-torque-write-data">Handwheel Torque Write Data</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-5">Store Local copy of outputs into Module Outputs</h4>
+<p>n/a</p>
+<h4 id="program-flow-end-6">Program Flow End</h4>
+<p>n/a</p>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DigHwTrqSENT_Init1()</td>
+<td>Once (at initialization)</td>
+<td>STARTUP</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_Per1()</td>
+<td>2 ms</td>
+<td>ALL</td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_Per2()</td>
+<td>4 ms</td>
+<td>ALL</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_Per3()</td>
+<td>100 ms</td>
+<td>ALL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DigHwTrqSENT_SCom_ClrTrqTrim ()</td>
+<td>EPSInternalRoutineControl()</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_SCom_SetTrqTrim ()</td>
+<td>EPSInternalRoutineControl()</td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_SCom_TrimData()</td>
+<td>EPSInternalRoutineControl()</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_SCom_WriteData()</td>
+<td>EPSInternalRoutineControl()</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-1"></h1>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DigHwTrqSENT_Init1()</td>
+<td>RTE_ SA_DIGHWTRQSENT_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_Per1()</td>
+<td>RTE_ SA_DIGHWTRQSENT_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_Per2()</td>
+<td>RTE_ SA_DIGHWTRQSENT_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_Per3()</td>
+<td>RTE_ SA_DIGHWTRQSENT_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_SCom_ClrTrqTrim ()</td>
+<td>RTE_ SA_DIGHWTRQSENT_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_SCom_SetTrqTrim ()</td>
+<td>RTE_ SA_DIGHWTRQSENT_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>DigHwTrqSENT_SCom_TrimData()</td>
+<td>RTE_SA_DIGHWTRQSENT_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>DigHwTrqSENT_SCom_WriteData()</td>
+<td>RTE_SA_DIGHWTRQSENT_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-2"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TrimNotPerfDiag</td>
+<td>SA_DIGHWTRQSENT_CODE</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"></h1>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li></li>
+</ol>
+<p>INLINE functions defined in globalmacro.h are not unit tested</p>
+<ol start="2" type="1">
+<li></li>
+</ol>
+<p>Serial communication outputs are being processed in the DigHwTrqSENT_Per2() function which is called every 4ms. Processing is done at 4 ms instead of 2 ms for processor throughput considerations. If the actual serial outputs are transmitted at a rate that is not a multiple of 4 ms, there will be corresponding jitter in the outputs. E.g. if the outputs are transmitted at 10 ms, the torque value will be updated over an 8ms interval one time, and a 12 ms interval the next.<br />
+Revision Control Log</p>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 67%" />
+<col style="width: 12%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1.0</td>
+<td>Initial Version per ES04C_HWTrqFunc_v003.mdl and ES_04C_HwTrqFunc_Calibrations_Constants.m</td>
+<td>01-Jul-13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>2.0</td>
+<td>Correct name of HwTrq_HwNm_M_f32 in section 3.1. Add RTE_E_OK and NVM_REQ_OK in section 4.2.1.2.</td>
+<td>15-Jul-13</td>
+<td>KMC</td>
+</tr>
+<tr class="even">
+<td>3.0</td>
+<td>Correct reads from SCom functions to be direct rather than buffered.</td>
+<td>31-Jul-13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>4.0</td>
+<td>Add Scom function to read TrimData</td>
+<td>14-Jan-14</td>
+<td>LK</td>
+</tr>
+<tr class="even">
+<td>5.0</td>
+<td>Updated MDD to match with latest source file</td>
+<td>16-Jan-14</td>
+<td>LK</td>
+</tr>
+<tr class="odd">
+<td>6.0</td>
+<td>Updated per Design Review CR 11619</td>
+<td>03-Mar-14</td>
+<td>SB</td>
+</tr>
+<tr class="even">
+<td>7.0</td>
+<td>Updated per Design Review CR 11619</td>
+<td>27-Mar-14</td>
+<td>SB</td>
+</tr>
+<tr class="odd">
+<td>8.0</td>
+<td>Implemented ES04C Rev 006</td>
+<td>09-Jun-14</td>
+<td>SB</td>
+</tr>
+<tr class="even">
+<td>9.0</td>
+<td>Implemented ESC04C Rev 007 and added the function DigHwScomm_WriteData</td>
+<td>30-July-14</td>
+<td>VS</td>
+</tr>
+<tr class="odd">
+<td>10.0</td>
+<td>Updated to match source code 12242</td>
+<td>04-Aug-14</td>
+<td>SB</td>
+</tr>
+</tbody>
+</table>

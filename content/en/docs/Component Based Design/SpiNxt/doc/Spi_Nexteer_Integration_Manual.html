@@ -1,0 +1,449 @@
+---
+title: Spi_Nexteer_Integration_Manual
+linkTitle: Spi_Nexteer_Integration_Manual
+weight: 2
+---
+
+<h1 class="TOC-Heading" id="contents">Contents</h1>
+<p><a href="#_Toc363214774">1 Dependencies <span>1</span></a></p>
+<p><a href="#swcs">1.1 SWCs <span>1</span></a></p>
+<p><a href="#global-functionsnon-rte-to-be-provided-to-integration-project">1.2 Global Functions(Non RTE) to be provided to Integration Project <span>2</span></a></p>
+<p><a href="#configuration">2 Configuration <span>2</span></a></p>
+<p><a href="#build-time-config">2.1 Build Time Config <span>2</span></a></p>
+<p><a href="#configuration-files-to-be-provided-by-integration-project">2.2 Configuration Files to be provided by Integration Project <span>2</span></a></p>
+<p><a href="#da-vinci-parameter-configuration-changes">2.2.1 Da Vinci Parameter Configuration Changes <span>2</span></a></p>
+<p><a href="#da-vinci-interrupt-configuration-changes">2.2.2 Da Vinci Interrupt Configuration Changes <span>3</span></a></p>
+<p><a href="#manual-configuration-changes">2.2.3 Manual Configuration Changes <span>3</span></a></p>
+<p><a href="#integration">3 Integration <span>4</span></a></p>
+<p><a href="#required-global-data-inputs">3.1 Required Global Data Inputs <span>4</span></a></p>
+<p><a href="#required-global-data-outputs">3.2 Required Global Data Outputs <span>4</span></a></p>
+<p><a href="#specific-include-path-present">3.3 Specific Include Path present <span>4</span></a></p>
+<p><a href="#runnable-scheduling">4 Runnable Scheduling <span>5</span></a></p>
+<p><a href="#memory-mapping">5 Memory Mapping <span>5</span></a></p>
+<p><a href="#mapping">5.1 Mapping <span>5</span></a></p>
+<p><a href="#usage">5.2 Usage <span>5</span></a></p>
+<p><a href="#non-rte-nvm-blocks">5.3 Non RTE NvM Blocks <span>5</span></a></p>
+<p><a href="#rte-nvm-blocks">5.4 RTE NvM Blocks <span>5</span></a></p>
+<p><a href="#_Toc357692835">6 Compiler Settings <span>5</span></a></p>
+<p><a href="#preprocessor-macro">6.1 Preprocessor MACRO <span>5</span></a></p>
+<p><a href="#optimization-settings">6.2 Optimization Settings <span>6</span></a></p>
+<p><span id="_Toc363214774" class="anchor"></span></p>
+<h1 id="dependencies">Dependencies</h1>
+<h2 id="swcs">SWCs</h2>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Required Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dio</td>
+<td>Dio_WriteChannel() when SpiNxt used with Turns Counter</td>
+</tr>
+<tr class="even">
+<td>TMS570 MIBSPI3 and MIBSPI5 peripheral</td>
+<td><p>Exclusive access to the MIBSPI3 and MIBSPI5 peripheral registers.</p>
+<p>MIBSPI3 CS3 provided as a No Connect pin on CCA design when SpiNxt used with Turns Counter</p></td>
+</tr>
+<tr class="odd">
+<td>Os</td>
+<td>Category 2 ISR mapping for MIBSPI3 IRQ sources when SpiNxt used with Turns Counter</td>
+</tr>
+<tr class="even">
+<td>TurnsCounter</td>
+<td>TurnsCounter_TxConfirmation() when SpiNxt used with Turns Counter</td>
+</tr>
+<tr class="odd">
+<td>ePWM</td>
+<td>Must provide SPI transmit trigger on N2HET1[14] for mibspi3, and N2HET1[18] for mibspi5, when SpiNxt used with Digital MSB.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="global-functionsnon-rte-to-be-provided-to-integration-project">Global Functions(Non RTE) to be provided to Integration Project</h2>
+<p>void <strong>SpiNxt_Init</strong>(void);</p>
+<p>Std_ReturnType <strong>SpiNxt_AsyncTransmit</strong>( Spi_SequenceType Sequence );<br />
+NOTE that this function is hardcoded for use with the Turns Counter component and returns E_NOT_OK when SpiNxt not configured for use with Turns Counter (see section 2.2.1).</p>
+<p>Spi_SeqResultType <strong>SpiNxt_GetSequenceResult</strong>( Spi_SequenceType Sequence );</p>
+<p>Std_ReturnType <strong>SpiNxt_SetupEB</strong>( Spi_ChannelType Channel,<br />
+P2CONST(Spi_DataType, AUTOMATIC, SPI_APPL_DATA) SrcDataBufferPtr,<br />
+P2VAR(Spi_DataType, AUTOMATIC, SPI_APPL_DATA) DesDataBufferPtr,<br />
+Spi_NumberOfDataType Length);<br />
+NOTE that this function is hardcoded for use with the Turns Counter component and returns E_NOT_OK when SpiNxt not configured for use with Turns Counter (see section 2.2.1).</p>
+<p>void <strong>mibspiSetData</strong>(const mibspiBASE_t *mibspi, uint32 group, const uint16 data[]);</p>
+<p>void <strong>mibspiSetCtrlData</strong>(const mibspiBASE_t *mibspi, uint32 group, const uint32 data[]);</p>
+<p>uint32 <strong>mibspiGetData</strong>(const mibspiBASE_t *mibspi, uint32 group, uint16 data[]);<br />
+NOTE this function is optimized for use by the Digital MSB component when SpiNxt is configured for use with Digital MSB (see section 2.2.1). In that configuration, the mibspi argument must be equal to the base register address of mibspi3 or mibspi5, the length of all transfer groups is assumed to be the constant D_TGSIZE_CNT_U16 (defined in SpiNxt.h), the function always returns zero, and the data argument must be the receive data buffer for the caller.</p>
+<p>void <strong>mibspiTransfer</strong>(mibspiBASE_t *mibspi, uint32 group);</p>
+<p>NOTE that this function enables the specified transfer group for the specified mibspi (with base address equal to the mibspi argument). Depending on the configuration of the transfer group, it will either enable a single transfer on the next trigger (if the transfer group is configured for oneshot) or will enable ongoing transfers as triggered ((if the transfer group is <strong>not</strong> configured for oneshot).</p>
+<h1 id="configuration">Configuration</h1>
+<h2 id="build-time-config">Build Time Config</h2>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modules</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-files-to-be-provided-by-integration-project">Configuration Files to be provided by Integration Project</h2>
+<p>SpiNxt_Cfg.h as generated by SpiNxt_cfg.h.tt</p>
+<h3 id="da-vinci-parameter-configuration-changes">Da Vinci Parameter Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 48%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dio Channel Name: “SPI_TCCS”</td>
+<td>Chip Select DIO output mapped to the turns counter chip select pin when used with Turns Counter</td>
+<td>Dio</td>
+</tr>
+<tr class="even">
+<td>All MIBSPI3 and MIBSPI5 configuration</td>
+<td>The third party Spi driver shall be configured such that it does not read/write any of the MIBSPI3 or MIBSPI5 control registers.</td>
+<td>Spi</td>
+</tr>
+<tr class="odd">
+<td>Port pin SPI3CLK: SPI Output</td>
+<td></td>
+<td>Port</td>
+</tr>
+<tr class="even">
+<td>Port pin SPI3NCS3: SPI Output</td>
+<td>When used with Turns Counter</td>
+<td>Port</td>
+</tr>
+<tr class="odd">
+<td>Port pin SPI3NCS0: SPI Output</td>
+<td>When used with Digital MSB</td>
+<td>Port</td>
+</tr>
+<tr class="even">
+<td>Port pin SPI3SIMO: SPI Output</td>
+<td></td>
+<td>Port</td>
+</tr>
+<tr class="odd">
+<td>Port pin SPI3SOMI: SPI Input</td>
+<td></td>
+<td>Port</td>
+</tr>
+<tr class="even">
+<td>Port pin SPI5CLK: SPI Output</td>
+<td></td>
+<td>Port</td>
+</tr>
+<tr class="odd">
+<td>Port pin SPI5NCS0: SPI Output</td>
+<td>When used with Digital MSB</td>
+<td>Port</td>
+</tr>
+<tr class="even">
+<td>Port pin SPI5SIMO: SPI Output</td>
+<td></td>
+<td>Port</td>
+</tr>
+<tr class="odd">
+<td>Port pin SPI5SOMI: SPI Input</td>
+<td>When used with Digital MSB</td>
+<td>Port</td>
+</tr>
+<tr class="even">
+<td>SPINXT_EXCLUSIVE_AREA_0</td>
+<td>This exclusive area covers the events that need to be synchronized to minimize jitter on the CS to SCLK delay specified by the TurnsCounter FDD 20C (when used with Turns Counter)</td>
+<td>SchM</td>
+</tr>
+<tr class="odd">
+<td>SpiNxtGeneral\ SpiNxtUseWith</td>
+<td><p>This parameter controls generation of D_SPINXTUSEWITH_CNT_ENUM in the SpiNxt_Cfg.h file. Set to D_SPINXT_USEWITHTC for use with the PIC Turns Counter, or set to D_SPINXT_USEWITHDIGMSB for use with the Digital MSB.</p>
+<p>When this parameter is set to D_SPINXT_USEWITHTC, the SpiNxt.h file provides the following constants which previously were manually configured: SPI_TCDATA_CH, SPI_TCDATA_SEQ, D_SPINXTNUMCHAN_CNT_U16, and CALL_MIBSPI3_NOTIFFCN().</p></td>
+<td>SpiNxt</td>
+</tr>
+<tr class="even">
+<td>SpiNxtGeneral\ SpiNxtUseDMA</td>
+<td>This parameter controls generation of BC_SPINXT_USEDMA in the SpiNxt_Cfg.h file. Set to STD_ON when using DMA with SPI.</td>
+<td>SpiNxt</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="da-vinci-interrupt-configuration-changes">Da Vinci Interrupt Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ISR Name</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SpiNxt_IrqUnit2TxRx: MIBSPI3 level 0 interrupt</td>
+<td>Category 2 interrupt mapped to Mibspi3 RxTx interrupt source when used with Turns Counter</td>
+<td>Os</td>
+</tr>
+<tr class="even">
+<td>SpiNxt_IrqUnit2TxRxERR: MIBSPI3 level 1 interrupt</td>
+<td>Category 2 interrupt mapped to Mibspi3 RxTx error interrupt source when used with Turns Counter</td>
+<td>Os</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-configuration-changes">Manual Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="integration">Integration</h1>
+<h2 id="required-global-data-inputs">Required Global Data Inputs</h2>
+<p>&lt;None&gt;</p>
+<h2 id="required-global-data-outputs">Required Global Data Outputs</h2>
+<p>&lt;None&gt;</p>
+<h2 id="specific-include-path-present">Specific Include Path present</h2>
+<p>&lt;Yes&gt;</p>
+<h1 id="runnable-scheduling">Runnable Scheduling</h1>
+<p>This section specifies the required runnable scheduling.</p>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Init</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SpiNxt_Init()</td>
+<td>Must be executed prior to using any of the module C/S API.</td>
+<td>Init</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SpiNxt_MainFunction()</td>
+<td>Dummy runnable used for assigning the SpiNxt component to an application</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h1 id="memory-mapping">Memory Mapping</h1>
+<h2 id="mapping">Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SPINXT_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>SPINXT_START_SEC_CODE</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>* Each …START_SEC… constant is terminated by a …STOP_SEC… constant as specified in the AUTOSAR Memory Mapping requirements.</p>
+<h2 id="usage">Usage</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>RAM</th>
+<th>ROM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Full driver</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: ARM Cortex R4 Memory Usage</p>
+<h2 id="non-rte-nvm-blocks">Non RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None &gt;</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h2 id="rte-nvm-blocks"> RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None &gt;</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<p><span id="_Toc357692835" class="anchor"></span></p>
+<h1 id="compiler-settings">Compiler Settings</h1>
+<h2 id="preprocessor-macro"> Preprocessor MACRO</h2>
+<p>&lt;Define all the preprocessor Macros needed and conditions when needed&gt;.</p>
+<h2 id="optimization-settings">Optimization Settings</h2>
+<p>&lt;Define Optimization levels that are needed and conditions when needed&gt;.</p>
+<h2 class="unnumbered" id="section"></h2>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>Initial version</td>
+<td></td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2</td>
+<td>Added exclusive area configuration and Category 2 interrupt configuration</td>
+<td></td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3</td>
+<td>Added ISR MIBSPI level configuration requirement</td>
+<td></td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4</td>
+<td>New Notification build configuration parameter</td>
+<td></td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5</td>
+<td>Changes and additions for configurability of SpiNxt to be used with PIC Turns Counter or with Digital MSB.</td>
+<td>8/2/13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6</td>
+<td>Updated information on Halcogen API functions and added configuration parameter for use of DMA with SPI as needed for ES-50A rev 005.</td>
+<td>4/1/14</td>
+<td>KMC</td>
+</tr>
+</tbody>
+</table>

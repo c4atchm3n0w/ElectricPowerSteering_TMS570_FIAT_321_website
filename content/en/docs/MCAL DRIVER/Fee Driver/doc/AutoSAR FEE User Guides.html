@@ -1,0 +1,2451 @@
+---
+title: AutoSAR FEE User Guides
+linkTitle: AutoSAR FEE User Guides
+weight: 9
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a>&#160;<br/>
+<i><b>AutoSAR&#160;FEE&#160;Driver&#160;<br/></b></i><b>&#160;<br/>&#160;<br/>&#160;</b><br/>
+Us<b>&#160;</b><br/>
+er's&#160;Guide<br/>
+<b>&#160;</b><br/>
+&#160; &#160; &#160;&#160;&#160; &#160;&#160;&#160; &#160; &#160;&#160;User Manual&#160;<br/>
+<b>&#160;<br/>&#160;<br/>&#160;<br/></b>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>Version 1.13&#160;<br/>&#160;<br/>Mar15,&#160;2016&#160;<br/>&#160;<br/>Copyright&#160;&#160;Texas&#160;Instruments&#160;Incorporated&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+<hr/>
+<a name=2></a><i>Read This&#160;First&#160;<br/>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;<br/>
+<b>IMPORTANT&#160;NOTICE&#160;</b><br/>
+<b>&#160;</b><br/>
+Texas&#160;Instruments&#160;and its&#160;subsidiaries&#160;(TI)&#160;reserve the right&#160;to&#160;make changes&#160;to their&#160;products&#160;or&#160;to&#160;<br/>discontinue&#160;any&#160;product&#160;or&#160;service&#160;without&#160;notice,&#160;and&#160;advise&#160;customers&#160;to&#160;obtain&#160;the&#160;latest&#160;version&#160;of&#160;<br/>relevant&#160;information to verify,&#160;before placing orders,&#160;that&#160;information being relied on&#160;is&#160;current&#160;and&#160;<br/>complete.&#160;All&#160;products&#160;are&#160;sold subject&#160;to&#160;the&#160;terms&#160;and&#160;conditions&#160;of&#160;sale&#160;supplied&#160;at&#160;the time&#160;of&#160;order&#160;<br/>acknowledgment,&#160;including those&#160;pertaining&#160;to&#160;warranty,&#160;patent&#160;infringement,&#160;and&#160;limitation&#160;of&#160;liability.&#160;<br/>
+TI&#160;warrants&#160;performance of&#160;its&#160;products&#160;to&#160;the specifications&#160;applicable at&#160;the time of&#160;sale in&#160;<br/>accordance&#160;with&#160;TI’s&#160;standard&#160;warranty.&#160;Testing&#160;and&#160;other&#160;quality&#160;control&#160;techniques&#160;are&#160;utilized&#160;to&#160;the&#160;<br/>extent&#160;TI&#160;deems&#160;necessary&#160;to support&#160;this&#160;warranty.&#160;Specific&#160;testing&#160;of&#160;all&#160;parameters&#160;of&#160;each device&#160;is&#160;<br/>not&#160;necessarily&#160;performed,&#160;except&#160;those&#160;mandated by&#160;government&#160;requirements.&#160;<br/>
+Customers&#160;are responsible&#160;for&#160;their&#160;applications&#160;using&#160;TI&#160;components.&#160;<br/>
+In order&#160;to minimize risks&#160;associated with the customer’s&#160;applications,&#160;adequate design and operating&#160;<br/>safeguards&#160;ought&#160;to be&#160;provided by&#160;the&#160;customer&#160;so as&#160;to&#160;minimize inherent&#160;or&#160;procedural&#160;hazards.&#160;<br/>
+TI&#160;assumes&#160;no liability&#160;for&#160;applications&#160;assistance or&#160;customer&#160;product&#160;design.&#160;TI&#160;does&#160;not&#160;warrant&#160;or&#160;<br/>represent&#160;that&#160;any&#160;license,&#160;either&#160;express&#160;or&#160;implied,&#160;is&#160;granted&#160;under&#160;any&#160;patent&#160;right,&#160;copyright,&#160;mask&#160;<br/>work&#160;right,&#160;or&#160;other&#160;intellectual&#160;property&#160;right&#160;of&#160;TI&#160;covering&#160;or&#160;relating&#160;to&#160;any&#160;combination,&#160;machine,&#160;or&#160;<br/>process&#160;in&#160;which&#160;such&#160;products&#160;or&#160;services&#160;might&#160;be&#160;or&#160;are&#160;used.&#160;TI’s&#160;publication&#160;of&#160;information&#160;<br/>regarding any&#160;third party’s&#160;products&#160;or&#160;services&#160;does&#160;not&#160;constitute&#160;TI’s&#160;approval,&#160;license,&#160;warranty&#160;or&#160;<br/>endorsement&#160;thereof.&#160;<br/>
+Reproduction of&#160;information&#160;in TI&#160;data&#160;books&#160;or&#160;data&#160;sheets&#160;is&#160;permissible only&#160;if&#160;reproduction&#160;is&#160;without&#160;<br/>alteration and is&#160;accompanied&#160;by&#160;all&#160;associated warranties,&#160;conditions,&#160;limitations&#160;and notices.&#160;&#160;<br/>Representation or&#160;reproduction of&#160;this&#160;information with alteration voids&#160;all&#160;warranties&#160;provided for&#160;an&#160;<br/>associated TI&#160;product&#160;or&#160;service&#160;&#160;is&#160;an unfair&#160;and deceptive business&#160;practice,&#160;and TI&#160;is&#160;neither&#160;<br/>responsible nor&#160;liable&#160;for&#160;any&#160;such&#160;use.&#160;<br/>
+Resale of&#160;TI’s&#160;products&#160;or&#160;services&#160;with&#160;<i>statements&#160;different&#160;from&#160;or&#160;beyond the parameters</i>&#160;stated by&#160;<br/>TI&#160;for&#160;that&#160;product&#160;or&#160;service&#160;voids&#160;all&#160;express&#160;and&#160;any&#160;implied&#160;warranties&#160;for&#160;the&#160;associated&#160;TI&#160;product&#160;<br/>or service,&#160;is&#160;an&#160;unfair&#160;and deceptive&#160;business&#160;practice,&#160;and&#160;TI&#160;is&#160;not&#160;responsible nor&#160;liable&#160;for&#160;any&#160;such&#160;<br/>use.&#160;<br/>
+Also see:&#160;Standard Terms&#160;and Conditions&#160;of&#160;Sale&#160;for&#160;Semiconductor&#160;Products.&#160;&#160;<br/><a href="http://www.ti.com/sc/docs/stdterms.htm">www.ti.com/sc/docs/stdterms.htm&#160;</a><br/>
+Mailing Address:&#160;<br/>
+Texas&#160;Instruments&#160;<br/>
+Post&#160;Office&#160;Box&#160;655303&#160;<br/>
+Dallas,&#160;Texas&#160;75265&#160;<br/>
+&#160;<br/>
+Copyright&#160;©&#160;2012,&#160;Texas&#160;Instruments&#160;Incorporated&#160;<br/>
+<b>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;</b><br/>
+&#160;<br/>
+2&#160;<br/>
+<hr/>
+<a name=3></a><b>Preface&#160;</b><br/>
+<b>Read This First&#160;</b><br/>
+&#160;<br/>
+<i><b>About&#160;This&#160;Manual&#160;</b></i><br/>
+This&#160;&#160;user&#160;&#160;manual&#160;serves&#160;as&#160;a software programmer’s&#160;handbook&#160;for&#160;working with the&#160;<br/>
+AutoSAR&#160;FEE&#160;Driver<b>.&#160;&#160;</b>It&#160;&#160;provides&#160;necessary&#160;information&#160;regarding&#160;how&#160;to&#160;build&#160;and&#160;use&#160;AutoSAR&#160;<br/>FEE Driver&#160;in&#160;user&#160;systems&#160;and&#160;applications.&#160;&#160;<br/>
+It&#160;also&#160;provides&#160;details&#160;regarding&#160;the&#160;AutoSAR&#160;FEE&#160;Driver&#160;functionality,&#160;the&#160;requirements&#160;it&#160;<br/>
+places&#160;on the hardware and software environment&#160;where&#160;it&#160;can&#160;be deployed,&#160;how&#160;to customize/&#160;<br/>configure it&#160;etc.&#160;It&#160;also&#160;provides&#160;supplementary&#160;information&#160;regarding steps&#160;to be followed for&#160;proper&#160;<br/>installation/&#160;un-installation&#160;of&#160;the&#160;AutoSAR&#160;FEE Driver.&#160;&#160;<br/>
+&#160;<br/>
+<i><b>Important&#160;Notes&#160;</b></i><br/>
+Customers&#160;have to&#160;include&#160;F021&#160;API&#160;library&#160;&#160;v2.01.01&#160;or&#160;greater.&#160;<br/>
+<i><b>Abbreviations&#160;</b></i><br/>
+&#160;<br/>
+<b>1-1.&#160;</b>&#160;<b>Table&#160;of&#160;Abbreviations&#160;</b><br/>
+&#160;<br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+AutoSAR&#160;FEE Driver&#160;<br/>
+This&#160;is&#160;TI&#160;coined name&#160;for&#160;the&#160;product.&#160;<br/>
+FEE&#160;<br/>
+Flash&#160;EEPROM&#160;Emulation&#160;<br/>
+<i><b>&#160;</b></i><br/>
+&#160;<br/>
+&#160;3&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=4></a><i>Read This&#160;First&#160;<br/>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;<br/>
+<b>Document&#160;Revision History&#160;&#160;</b><br/>
+&#160;<br/>
+<b>Version&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Revision&#160;History&#160;</b><br/>
+1.0&#160;<br/>
+09/25/2012&#160;<br/>
+Initial version&#160;<br/>
+1.1&#160;<br/>
+11/08/2012&#160;<br/>
+Changes&#160;for&#160;EA2&#160;<br/>
+1.2&#160;<br/>
+11/21/2012&#160;<br/>
+Additional&#160;changes&#160;for&#160;BETA&#160;<br/>
+1.3&#160;<br/>
+12/12/2012&#160;<br/>
+Add error&#160;recovery&#160;prototypes&#160;<br/>
+1.4&#160;<br/>
+06/11/2013&#160;<br/>
+Add software&#160;revision&#160;history.&#160;Added new&#160;<br/>configuration tags&#160;information.&#160;<br/>
+1.5&#160;<br/>
+10/23/2013&#160;<br/>
+Updated software revision&#160;history.&#160;<br/>
+1.6&#160;<br/>
+01/03/2014&#160;<br/>
+Add&#160;new&#160;configuration parameter&#160;for&#160;&#160;<br/>address&#160;range check&#160;for&#160;Read/Write.&#160;<br/>Check&#160;for&#160;Multi&#160;bit&#160;error&#160;during&#160;Read.&#160;<br/>MISRA fixes.&#160;<br/>
+1.7&#160;<br/>
+09/11/2014&#160;<br/>
+Manual&#160;Suspend/Resume feature&#160;added.&#160;<br/>
+1.8&#160;<br/>
+10/15/2014&#160;<br/>
+RAM Optimization changes.&#160;<br/>
+1.9&#160;<br/>
+10/31/2014&#160;<br/>
+Support&#160;TMS570LS05xx,&#160;TMS570LS07xx,&#160;<br/>TMS570LS09xx.&#160;Range updated for&#160;<br/>FEE_VirtualSectorNumber,&#160;Virtual&#160;Sectors&#160;<br/>
+1.10&#160;<br/>
+01/21/2015&#160;<br/>
+Changes&#160;related to&#160;unification of&#160;Archer&#160;and&#160;<br/>Champion.&#160;<br/>
+1.11&#160;<br/>
+10/14/2015&#160;<br/>
+Bugfix&#160;for&#160;block&#160;lost&#160;issue.&#160;<br/>
+1.12&#160;<br/>
+11/20/2015&#160;<br/>
+Enhancement&#160;for&#160;“Do not&#160;change FEE&#160;state&#160;<br/>to IDLE&#160;after&#160;copying&#160;of&#160;the&#160;blocks&#160;is&#160;<br/>completed”&#160;<br/>
+1.13&#160;<br/>
+03/15/2016&#160;<br/>
+Bugfix&#160;for&#160;“Block&#160;offset&#160;address&#160;does&#160;not&#160;get&#160;<br/>updated&#160;correctly,&#160;if&#160;copy&#160;operation&#160;was&#160;<br/>interrupted.”&#160;Added&#160;section&#160;“Important&#160;Notes”&#160;<br/>
+&#160;<br/>
+<b>Software&#160;Revision History&#160;&#160;</b><br/>
+&#160;<br/>
+<b>Version&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Revision&#160;History&#160;</b><br/>
+00.01.00&#160;<br/>
+08/31/2012&#160;<br/>
+Initial version&#160;<br/>
+00.01.01&#160;<br/>
+10/29/2012&#160;<br/>
+Changes&#160;for&#160;implementing&#160;Error&#160;Recovery&#160;<br/>
+&#160;<br/>
+4&#160;<br/>
+<hr/>
+<a name=5></a>00.01.02&#160;<br/>
+11/30/2012&#160;<br/>
+Misra Fixes,&#160;Memory&#160;segmentation changes&#160;<br/>
+00.01.03&#160;<br/>
+01/14/2013&#160;<br/>
+Changes&#160;as&#160;requested by&#160;Vector.&#160;If&#160;there is&#160;an&#160;immediate&#160;<br/>erase/invalidate block&#160; request&#160;before&#160;writing of&#160;a block&#160;,&#160;&#160;<br/>API&#160;should return the job status&#160;as&#160;JOB_OK.&#160;<br/>
+00.01.04&#160;<br/>
+02/12/2013&#160;<br/>
+Integration&#160;issues&#160;fix.&#160;&#160;Fixed issues&#160;regarding&#160;integration of&#160;<br/>FEE&#160;with&#160;NvM.&#160;<br/>
+00.01.05&#160;<br/>
+03/04/2013&#160;<br/>
+Added Deleting a&#160;block&#160;feature&#160;<br/>
+00.01.06&#160;<br/>
+03/11/2013&#160;<br/>
+Added feature :&#160;copying&#160;of&#160;unconfigured blocks.&#160;<br/>
+00.01.07&#160;<br/>
+03/15/2013&#160;<br/>
+Added feature :&#160;Number&#160;of&#160;8 bytes&#160;writes,&#160;fixed&#160;issue&#160;with&#160;<br/>copy&#160;blocks.&#160;<br/>
+00.01.08&#160;<br/>
+04/05/2013&#160;<br/>
+Added feature :&#160;CRC&#160;check&#160;for&#160;unconfigured&#160; blocks,&#160;Main&#160;<br/>function modified to complete&#160;writes&#160;as&#160;fast&#160;as&#160;possible,&#160;<br/>Added Non&#160;polling mode support.&#160;<br/>
+00.01.09&#160;<br/>
+04/19/2013&#160;<br/>
+Warning&#160;removal,&#160;Added feature comparison of&#160;data&#160;<br/>during write.&#160;<br/>
+00.01.10&#160;<br/>
+06/11/2013&#160;<br/>
+Fixed issue&#160;with erase&#160;sector.&#160;Also fixed issue&#160;with 2&#160;<br/>EEPROM’s&#160;where if&#160;one EEPROM is&#160;locked with&#160;error&#160;<br/>condition,&#160;other&#160;EEPROM&#160;will&#160;not&#160;get&#160;locked.&#160;<br/>
+01.10.00&#160;<br/>
+10/23/2013&#160;<br/>
+Updated software&#160;to support&#160;more than&#160;two&#160;VS.&#160;<br/>
+01.20.00&#160;<br/>
+01/03/2014&#160;<br/>
+Add&#160;new&#160;configuration parameter&#160;for&#160;address&#160;range&#160;check&#160;<br/>for&#160;Read/Write.&#160;<br/>Check&#160;for&#160;Multi&#160;bit&#160;error&#160;during&#160;Read.&#160;<br/>MISRA fixes.&#160;<br/>
+01.20.01&#160;<br/>
+09/11/2014&#160;<br/>
+Manual&#160;Suspend/Resume&#160;feature added.&#160;<br/>
+01.21.00&#160;<br/>
+10/15/2014&#160;<br/>
+RAM Optimization changes.&#160;New&#160;configuration&#160;parameter&#160;<br/>FEE_TOTAL_BLOCKS_DATASETS added.&#160;<br/>
+01.22.00&#160;<br/>
+01/21/2015&#160;<br/>
+Add new&#160;Configuration parameters.&#160;<br/>FEE_VIRTUALSECTOR_SIZE,&#160;<br/>FEE_PHYSICALSECTOR_SIZE,&#160;&#160;<br/>FEE_GENERATE_DEVICEANDVIRTUALSECTORSTRUC&#160;<br/>&#160;<br/>
+01.23.00&#160;<br/>
+10/14/2015&#160;<br/>
+Bugfix&#160;for&#160;block&#160;lost&#160;issue.&#160;<br/>
+01.23.01&#160;<br/>
+11/20/2015&#160;<br/>
+Enhancement&#160;for&#160;“Do not&#160;change FEE&#160;state to&#160;IDLE&#160;after&#160;<br/>copying&#160;of&#160;the blocks&#160;is&#160;completed”&#160;<br/>
+01.23.02&#160;<br/>
+03/15/2016&#160;<br/>
+Bugfix&#160;for&#160;“Block&#160;offset&#160;address&#160;does&#160;not&#160;get&#160;updated&#160;<br/>correctly,&#160;if&#160;copy&#160;operation was&#160;interrupted.”&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;5&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=6></a><i>Contents&#160;<br/>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+&#160;<br/>
+<a href="AutoSAR FEE User Guides.html#3"><b>Read This&#160;First&#160;...................................................................................................................&#160;3</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#6"><b>Contents&#160;..............................................................................................................................&#160;6</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#8"><b>Table&#160;of&#160;tables&#160;....................................................................................................................&#160;8</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#9"><b>Table&#160;of&#160;figures&#160;..................................................................................................................&#160;9</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#10"><b>Chapter&#160;1&#160;...........................................................................................................................&#160;10</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#10"><b>AutoSAR&#160;FEE&#160;Driver&#160;Introduction&#160;..............................................................................&#160;10</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#11">1.1&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#11">Overview&#160;.................................................................................................&#160;11&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#11"><i>1.1.1</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#11"><i>Functions&#160;supported in&#160;the&#160;AutoSAR&#160;FEE Driver&#160;.............................&#160;11</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#12"><i>1.1.2</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#12"><i>System&#160;Requirements&#160;......................................................................&#160;12</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#13"><b>Chapter&#160;2&#160;...........................................................................................................................&#160;13</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#13"><b>AutoSAR&#160;FEE&#160;Driver&#160;Design Overview&#160;.....................................................................&#160;13</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#13">Overview&#160;............................................................................................................&#160;13&#160;<br/></a><a href="AutoSAR FEE User Guides.html#14">2.1&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#14">Flash&#160;EEPROM&#160;Emulation Methodology&#160;.................................................&#160;14&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#14"><i>2.1.1</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#14"><i>Virtual&#160;Sector&#160;Organization&#160;..............................................................&#160;14</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#17"><i>2.1.2</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#17"><i>Data Block&#160;Organization&#160;..................................................................&#160;17</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#19"><i>2.1.3</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#19"><i>Available Commands&#160;.......................................................................&#160;19</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#19"><i>2.1.4</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#19"><i>Status&#160;Codes&#160;....................................................................................&#160;19</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#19"><i>2.1.5</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#19"><i>Job Result&#160;........................................................................................&#160;19</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#20"><b>Chapter&#160;3&#160;...........................................................................................................................&#160;20</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#20"><b>Integration Guide&#160;.............................................................................................................&#160;20</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#20">3.1&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#20">Error&#160;Recovery&#160;Implementation&#160;...............................................................&#160;20&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#21">3.2&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#21">Single and&#160;Double bit&#160;Error&#160;Corrections&#160;..................................................&#160;21&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#21">3.3&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#21">Memory&#160;Mapping&#160;.....................................................................................&#160;21&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#22">3.4&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#22">Symbolic&#160;Constants&#160;and Enumerated Data types&#160;...................................&#160;22&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#25">3.5&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#25">Data Structures&#160;.......................................................................................&#160;25&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#26">3.6&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#26">AutoSAR&#160;FEE&#160;Driver&#160;Configuration&#160;Parameters&#160;.....................................&#160;26&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#26"><i>3.6.1</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#26"><i>Block&#160;Overhead&#160;................................................................................&#160;26</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#26"><i>3.6.2</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#26"><i>Maximum&#160;Blocking&#160;Time&#160;..................................................................&#160;26</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#26"><i>3.6.3</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#26"><i>Page&#160;Overhead&#160;................................................................................&#160;26</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#26"><i>3.6.4</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#26"><i>Sector&#160;&#160;Overhead&#160;.............................................................................&#160;26</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#27"><i>3.6.5</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#27"><i>Virtual&#160;Page Size&#160;..............................................................................&#160;27</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#27"><i>3.6.6</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#27"><i>Driver&#160;Index&#160;......................................................................................&#160;27</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#27"><i>3.6.7</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#27"><i>Job Error&#160;Notification&#160;........................................................................&#160;27</i>&#160;</a><br/>
+&#160;<br/>
+6&#160;<br/>
+<hr/>
+<a name=7></a><a href="AutoSAR FEE User Guides.html#27"><i>3.6.8</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#27"><i>Job End &#160;Notification&#160;........................................................................&#160;27</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#28"><i>3.6.9</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#28"><i>FEE&#160;Operating Frequency&#160;...............................................................&#160;28</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#28"><i>3.6.10</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#28"><i>Polling Mode&#160;....................................................................................&#160;28</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#28"><i>3.6.11</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#28"><i>Enable Error&#160;Correction&#160;...................................................................&#160;28</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#29"><i>3.6.12</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#29"><i>Error&#160;Correction Handling&#160;................................................................&#160;29</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#29"><i>3.6.13</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#29"><i>Block&#160;Write&#160;Counter&#160;Save&#160;...............................................................&#160;29</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#29"><i>3.6.14</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#29"><i>Enable CRC.....................................................................................&#160;29</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#29"><i>3.6.15</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#29"><i>NumberOfEEPs&#160;...............................................................................&#160;29</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#30"><i>3.6.16</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#30"><i>Number&#160;of&#160;Blocks&#160;............................................................................&#160;30</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#30"><i>3.6.17</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#30"><i>Number&#160;of&#160;Virtual&#160;Sectors&#160;...............................................................&#160;30</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#30"><i>3.6.18</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#30"><i>Number&#160;of&#160;Virtual&#160;Sectors&#160;on&#160;EEP1&#160;................................................&#160;30</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#30"><i>3.6.19</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#30"><i>Number&#160;of&#160;Eight&#160;Byte&#160;Writes&#160;...........................................................&#160;30</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#31"><i>3.6.20</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#31"><i>Maximum&#160;Number&#160;of&#160;non configured&#160;blocks&#160;to copy&#160;.......................&#160;31</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#31"><i>3.6.21</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#31"><i>Address&#160;Range check&#160;during Read/Write&#160;........................................&#160;31</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#31"><i>3.6.22</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#31"><i>Number&#160;of&#160;blocks&#160;and&#160;Data Sets&#160;.....................................................&#160;31</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#31"><i>3.6.23</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#31"><i>Generate Device and&#160;Virtual&#160;Sector&#160;Structures&#160;...............................&#160;31</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#32"><i>3.6.24</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#32"><i>Required Virtual&#160;Sector&#160;Size&#160;...........................................................&#160;32</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#32"><i>3.6.25</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#32"><i>FEE&#160;bank Physical&#160;Sector&#160;Size&#160;.......................................................&#160;32</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#33"><i>3.6.26</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#33"><i>Virtual&#160;Sector&#160;Configuration&#160;.............................................................&#160;33</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#35"><i>3.6.27</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#35"><i>Block&#160;Configuration&#160;.........................................................................&#160;35</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#39">3.7&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#39">API&#160;Classification&#160;....................................................................................&#160;39&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#39"><i>3.7.1</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#39"><i>Initialization&#160;......................................................................................&#160;39</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#39"><i>3.7.2</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#39"><i>Data Operations&#160;..............................................................................&#160;39</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><i>3.7.3</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><i>Information.......................................................................................&#160;40</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><i>3.7.4</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><i>Internal&#160;Operations&#160;..........................................................................&#160;40</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><i>3.7.5</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><i>Cancel/&#160;Terminate Operations&#160;.........................................................&#160;40</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><i>3.7.6</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><i>Error&#160;Information and&#160;Recovery&#160;Operations&#160;....................................&#160;40</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#41"><i>3.7.7</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#41"><i>Suspend/Resume Erase Sector&#160;......................................................&#160;41</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#42">3.8&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#42">Integration&#160;Example&#160;................................................................................&#160;42&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#43">3.9&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#43">API&#160;Specification.....................................................................................&#160;43&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#43"><i>3.9.1</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#43"><i>AutoSAR&#160;FEE&#160;Driver&#160;Functions&#160;.......................................................&#160;43</i>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#52">3.10&#160;&#160;Privilege Mode access&#160;............................................................................&#160;52&#160;<br/>3.11&#160;&#160;Deviations&#160;from&#160;Autosar3.x&#160;requirements&#160;...............................................&#160;52&#160;<br/>3.12&#160;&#160;Important&#160;Notes&#160;......................................................................................&#160;52&#160;</a><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;7&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=8></a><i>Table&#160;of&#160;tables&#160;<br/>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;<br/>
+<b>Table of&#160;tables&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+<a href="AutoSAR FEE User Guides.html#3"><b>1-1.&#160; Table&#160;of&#160;Abbreviations&#160;............................................................................................&#160;3</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#4"><b>Document&#160;Revision History&#160;............................................................................................&#160;4</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#4"><b>Software Revision&#160;History&#160;..............................................................................................&#160;4</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#16"><b>2-1.&#160; Virtual&#160;Sector&#160;Header&#160;States&#160;...............................................................................&#160;16</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#16"><b>2-2.&#160; Virtual&#160;Sector Header backup&#160;States&#160;.......................................................................&#160;16</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#18"><b>4.&#160; Data Block Header&#160;Field&#160;Definitions&#160;.....................................................................&#160;18</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#18"><b>2-2.&#160; Data&#160;Block Header&#160;Field&#160;Definitions&#160;.................................................................&#160;18</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#18"><b>5.&#160; Data Block&#160;States&#160;......................................................................................................&#160;18</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#24"><b>4-1.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Symbolic&#160;Constants&#160;......................................................&#160;24</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#25"><b>4-2.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Published Information Data&#160;Structure&#160;......................&#160;25</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#25"><b>4-3.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;General&#160;Configuration Data&#160;Structure......................&#160;25</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#39"><b>4-4. &#160;AutoSAR&#160;FEE&#160;Driver&#160;Initialization&#160;APIs&#160;...........................................................&#160;39</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#39"><b>4-5.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Data Operation&#160;APIs&#160;......................................................&#160;39</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><b>4-6.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Information&#160;APIs&#160;............................................................&#160;40</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><b>4-7.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Internal&#160;Operation&#160;APIs&#160;................................................&#160;40</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><b>4-8.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Terminate/Cancel&#160;Operation&#160;APIs&#160;.............................&#160;40</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#40"><b>4-9.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Error Info&#160;and&#160;Recovery&#160;APIs&#160;........................................&#160;40</b>&#160;</a><br/>
+<a href="AutoSAR FEE User Guides.html#41"><b>4-10.&#160; TI&#160;FEE&#160;Driver&#160;Suspend/Resume Erase Sector&#160;APIs&#160;....................................&#160;41</b>&#160;</a><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+8&#160;<br/>
+<hr/>
+<a name=9></a><b>Table of&#160;figures&#160;</b><br/>
+&#160;&#160;<br/><a href="AutoSAR FEE User Guides.html#15">Figure 1 Virtual&#160;Sector&#160;Organization&#160;.....................................................................&#160;15&#160;<br/></a><a href="AutoSAR FEE User Guides.html#16">Figure 2 Virtual&#160;Sector&#160;Header&#160;..............................................................................&#160;16&#160;<br/></a><a href="AutoSAR FEE User Guides.html#17">Figure 3 Data&#160;Block&#160;Structure&#160;...............................................................................&#160;17&#160;<br/></a>&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;9&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=10></a><i>AutoSAR&#160;FEE&#160;Driver&#160;Introduction&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+<b>Chapter&#160;1&#160;</b><br/>
+<b>AutoSAR FEE Driver&#160;Introduction&#160;</b><br/>
+&#160;<br/>
+This&#160;chapter&#160;introduces&#160;the&#160;AutoSAR&#160;FEE Driver&#160;to the user&#160;by&#160;providing a&#160;brief&#160;overview&#160;of&#160;<br/>the&#160;purpose&#160;and&#160;construction&#160;of&#160;the&#160;AutoSAR&#160;FEE&#160;Driver&#160;along&#160;with&#160;hardware&#160;and&#160;software&#160;<br/>environment&#160;specifics&#160;in&#160;the context&#160;of&#160;AutoSAR&#160;FEE&#160;Driver&#160;deployment.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+10&#160;<br/>
+<hr/>
+<a name=11></a><b>1.1&#160;&#160;Overview&#160;&#160;</b><br/>
+This&#160;section describes&#160;the functional&#160;scope of&#160;the&#160;AutoSAR&#160;FEE&#160;Driver&#160;and its&#160;feature set.&#160;It&#160;<br/>introduces&#160;the&#160;AutoSAR&#160;FEE&#160;Driver&#160;to&#160;the&#160;user&#160;along&#160;with&#160;the&#160;functional&#160;decomposition&#160;and&#160;<br/>run-time specifics&#160;regarding deployment&#160;of&#160;AutoSAR&#160;FEE Driver&#160;in&#160;user’s&#160;application.&#160;<br/>
+Many&#160;applications&#160;require&#160;storing small&#160;quantities&#160;of&#160;system&#160;related data (e.g.,&#160;calibration&#160;<br/>values,&#160;device configuration)&#160;in&#160;a non-volatile memory,&#160;so that&#160;it&#160;can&#160;be&#160;used,&#160;modified or&#160;<br/>reused&#160;even&#160;after&#160;power&#160;cycling&#160;the&#160;system.&#160;EEPROMs&#160;are&#160;primarily&#160;used&#160;for&#160;this&#160;purpose.&#160;<br/>EEPROMs&#160;have the ability&#160;to&#160;<i>erase&#160;&#160;</i>and&#160;&#160;<i>write&#160;&#160;</i>individual&#160;bytes&#160;of&#160;memory&#160;many&#160;times&#160;over&#160;<br/>and the&#160;programmed&#160;locations&#160;retain&#160;the&#160;data&#160;over&#160;a&#160;long&#160;period even&#160;when the&#160;system&#160;is&#160;<br/>powered down.&#160;&#160;<br/>
+The objective&#160;of&#160;&#160;AutoSAR&#160;FEE Driver&#160;&#160;is&#160;to&#160;provide&#160;a&#160;set&#160;of&#160;software functions&#160;intended&#160;to&#160;<br/>use&#160;a&#160;Sector&#160;of&#160;on-chip&#160;Flash&#160;memory&#160;as&#160;the&#160;emulated&#160;EEPROM.&#160;These&#160;software&#160;functions&#160;<br/>are transparently&#160;used by&#160;the application program&#160;for&#160;writing,&#160;reading and modifying the&#160;data.&#160;<br/>The&#160;&#160;AutoSAR&#160;FEE Driver&#160;&#160;contains&#160;AutoSAR&#160;interface functions&#160;and&#160;any&#160;additional&#160;<br/>management&#160;functions&#160;needed to operate properly.&#160;&#160;<br/>
+A&#160;list&#160;of&#160;functions&#160;supported by&#160;the&#160;AutoSAR&#160;FEE Driver&#160;can&#160;be found in&#160;Section&#160;1.1.1.&#160; The&#160;<br/>
+primary&#160;function&#160;responsible&#160;for&#160;Fee&#160;management&#160;is&#160;the&#160;function&#160;Fee_Manager.&#160;&#160;This&#160;<br/>function&#160;shall&#160;operate&#160;asynchronously&#160;and&#160;with&#160;little&#160;or&#160;no&#160;user&#160;intervention&#160;after&#160;<br/>configuration,&#160;maintaining the Fee structures&#160;in Flash&#160;memory.&#160;&#160;When&#160;using the AutoSAR&#160;<br/>interface,&#160;&#160;Fee_MainFunction&#160;&#160;function&#160;will&#160;be called&#160;on a&#160;cyclic&#160;basis&#160;&#160;which&#160;&#160;in turn&#160;&#160;calls&#160;<br/>Fee_Manager&#160;&#160;when no other&#160;pending Fee operations&#160;are pending.&#160;&#160;When not&#160;using the&#160;<br/>AutoSAR&#160;interface,&#160;the&#160;user&#160;shall&#160;be&#160;responsible&#160;for&#160;calling&#160;Fee_MainFunction&#160;function&#160;on&#160;a&#160;<br/>cyclic&#160;basis&#160;so that&#160;it&#160;can&#160;perform&#160;internal&#160;operations.&#160;<br/>
+<i><b>1.1.1&#160;</b></i><br/>
+<i><b>Functions&#160;supported&#160;in the&#160;AutoSAR FEE&#160;Driver&#160;</b></i><br/>
+The&#160;Autosar&#160;FEE&#160;Driver&#160;provides&#160;the following&#160;functional&#160;services:&#160;<br/>
+Initialization:&#160;<br/>
+•&#160;<br/>
+Fee_Init&#160;&#160;<br/>
+&#160; &#160; &#160;&#160;&#160;<br/>
+Operations:&#160;<br/>
+•&#160;<br/>
+Fee_Write&#160;<br/>
+•&#160;<br/>
+Fee_Read&#160;<br/>
+•&#160;<br/>
+Fee_EraseImmediateBlock&#160;<br/>
+•&#160;<br/>
+Fee_InvalidateBlock&#160;<br/>
+•&#160;<br/>
+Fee_Cancel&#160;<br/>
+Information:&#160;<br/>
+•&#160;<br/>
+Fee_GetStatus&#160;&#160;<br/>
+•&#160;<br/>
+Fee_GetJobResult&#160;<br/>
+•&#160;<br/>
+Fee_GetVersionInfo&#160;<br/>
+Internal&#160;Operations:&#160;<br/>
+•&#160;<br/>
+Fee_MainFunction&#160;<br/>
+&#160;<br/>
+&#160;11&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=12></a><i>AutoSAR&#160;FEE&#160;Driver&#160;Introduction&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+Error&#160;Information and&#160;Recovery:&#160;<br/>
+•&#160;<br/>
+TI_FeeErrorCode&#160;<br/>
+•&#160;<br/>
+TI_Fee_ErrorRecovery&#160;<br/>
+Suspend/Resume Erase of&#160;Sector:&#160;<br/>
+•&#160;<br/>
+TI_Fee_SuspendResumeErase&#160;<br/>
+<i><b>1.1.2&#160;&#160;System&#160;Requirements&#160;</b></i><br/>
+The&#160;AutoSAR&#160;FEE Driver&#160;is&#160;supported on platforms&#160;characterized by&#160;the following Software&#160;<br/>and Hardware&#160;requirements.&#160;<br/>
+<i><b>1.1.2.1&#160;</b></i><br/>
+<i><b>Software&#160;</b></i><br/>
+The&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;&#160;was&#160;developed&#160;and&#160;validated&#160;on&#160;a system&#160;with the following&#160;<br/>operating system&#160;and software installed&#160;<br/>
+•&#160;<br/>
+Operating System&#160;:&#160;Win7&#160;<br/>
+•&#160;<br/>
+Codegeneration tools&#160;: TM570 Code&#160;Generation tools&#160;4.9.5&#160;<br/>
+•&#160;<br/>
+Fee&#160;Configuration&#160;Files&#160;:&#160;The&#160;user&#160;needs&#160;to&#160;generate&#160;two&#160;configuration&#160;files&#160;using&#160;&#160;<br/>a&#160;&#160;configuration&#160;&#160;tool&#160;&#160;to successfully&#160;deploy&#160;and&#160;use&#160;AutoSAR&#160;FEE&#160;Driver.&#160;&#160;These&#160;<br/>two files&#160;(Fee_Cfg.h &amp;&#160;Fee_Cfg.c)&#160;define&#160;which Flash sectors&#160;to be used for&#160;<br/>EEPROM&#160;emulation,&#160;define Data&#160;Blocks&#160;,Block&#160;Size and&#160;other&#160;configuration&#160;<br/>parameters.&#160;&#160;<br/>
+•&#160;<br/>
+Flash&#160;API&#160;library&#160;:&#160;The&#160;AutoSAR&#160;FEE&#160;Driver&#160;&#160;uses&#160;the&#160;Flash&#160;API&#160;library&#160;for&#160;<br/>performing program/erase operations.&#160;&#160;Customers&#160;have&#160;to&#160;use&#160;&#160;F021 v2.01.01&#160;&#160;or&#160;<br/>greater.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+12&#160;<br/>
+<hr/>
+<a name=13></a><b>Chapter&#160;2&#160;</b><br/>
+<b>AutoSAR FEE Driver&#160;Design&#160;</b><br/>
+<b>Overview&#160;</b><br/>
+&#160;<br/><b>Overview&#160;&#160;</b><br/>
+The Flash EEPROM&#160;Emulation (Fee)&#160;module contains&#160;AutoSAR&#160;interface&#160;functions&#160;and&#160;<br/>additional&#160;management&#160;functions&#160;needed to operate&#160;it&#160;&#160;properly.&#160; A&#160;list&#160;of&#160;functions&#160;<br/>supported by&#160;the&#160;AutoSAR&#160;FEE Driver&#160;can be found in&#160;Section&#160;1.1.1.&#160;&#160;&#160;<br/>
+This&#160;chapter&#160;describes&#160;the&#160;implementation&#160;method&#160;followed&#160;for&#160;Flash&#160;EEPROM&#160;emulation&#160;<br/>in the&#160;AutoSAR&#160;FEE Driver.&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;13&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=14></a><i>AutoSAR&#160;FEE&#160;Driver&#160;Design Overview&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+<b>2.1&#160;&#160;Flash EEPROM&#160;Emulation Methodology&#160;</b><br/>
+The&#160;EEPROM&#160;Emulation&#160;Flash bank&#160;is&#160;divided into two or&#160;more Virtual&#160;Sectors.&#160;Each Virtual&#160;<br/>Sector&#160;is&#160;further&#160;partitioned&#160;into&#160;several&#160;Data&#160;Blocks.&#160;&#160;Data&#160;Blocks&#160;can&#160;be&#160;further&#160;partitioned&#160;<br/>into&#160;Datasets.&#160;A&#160;minimum&#160;of&#160;two&#160;Virtual&#160;Sectors&#160;are required for&#160;Flash&#160;EEPROM&#160;emulation.&#160;&#160;<br/>
+The&#160;initialization&#160;routine&#160;(Fee_Init)&#160;identifies&#160;which&#160;Virtual&#160;Sector&#160;to&#160;be&#160;used&#160;and&#160;marks&#160;it&#160;as&#160;<br/>Active.&#160;The&#160;data&#160;is&#160;written&#160;to the first&#160;empty&#160;location in the&#160;Active&#160;Virtual&#160;Sector.&#160;If&#160;there&#160;is&#160;<br/>insufficient&#160;space in the current&#160;Virtual&#160;Sector&#160;to update the data,&#160;it&#160;switches&#160;over&#160;to the next&#160;<br/>Virtual&#160;Sector&#160;and&#160;copies&#160;all&#160;the&#160;valid&#160;data&#160;from&#160;the&#160;other&#160;Data&#160;Blocks&#160;in&#160;the&#160;current&#160;Virtual&#160;<br/>Sector&#160;to the new&#160;one.&#160;After&#160;copying&#160;all&#160;the&#160;valid&#160;data,&#160;the current&#160;Virtual&#160;Sector&#160;is&#160;erased&#160;<br/>and the&#160;new&#160;one&#160;is&#160;marked as&#160;Active&#160;Virtual&#160;Sector.&#160;Any&#160;new&#160;data is&#160;now&#160;written into the new&#160;<br/>Active Virtual&#160;Sector&#160;and&#160;the&#160;erased Virtual&#160;Sector&#160;is&#160;used&#160;again&#160;once this&#160;new&#160;Virtual&#160;Sector&#160;<br/>has&#160;insufficient&#160;space.&#160;<br/>
+Virtual&#160;Sectors&#160;and Data&#160;Blocks&#160;have certain space allocated to maintain&#160;the status&#160;<br/>information&#160;which&#160;is&#160;described&#160;in more detail&#160;in the following sections.<i>&#160;</i><br/>
+<i><b>2.1.1&#160;&#160;Virtual&#160;Sector&#160;Organization&#160;</b></i><br/>
+The&#160;Virtual&#160;Sector&#160;Structure&#160;is&#160;the&#160;basic&#160;organizational&#160;unit&#160;used&#160;to&#160;partition&#160;the&#160;EEPROM&#160;<br/>Emulation&#160;&#160;Flash&#160;&#160;Bank.&#160;&#160;This&#160;structure&#160;can&#160;contain one&#160;or&#160;more&#160;contiguous&#160;Flash Sectors&#160;<br/>contained&#160;within&#160;one&#160;Flash&#160;Bank.&#160;&#160;A&#160;minimum&#160;of&#160;2&#160;Virtual&#160;Sectors&#160;are&#160;required&#160;to&#160;support&#160;<br/>the Flash&#160;EEPROM&#160;Emulation (FEE)&#160;Driver.&#160;<br/>
+The&#160;internal&#160;structure&#160;of&#160;the&#160;Virtual&#160;Sector&#160;contains&#160;a&#160;Virtual&#160;Sector&#160;Header,&#160;a&#160;static&#160;Data&#160;<br/>Structure&#160;and&#160;the remaining space&#160;is&#160;used for&#160;Data Blocks.&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+14&#160;<br/>
+<hr/>
+<a name=15></a>&#160;<br/>
+<b>Virtual&#160;Sector&#160;Organization&#160;<br/>&#160;</b><br/>
+Virtual Sector Header<br/>
+Block&#160;3<br/>
+Block&#160;5&#160;DS4<br/>
+… Block n<br/>
+Block n<br/>
+Block&#160;3<br/>
+Block&#160;3<br/>
+Block&#160;5&#160;DS3<br/>
+Block&#160;0<br/>
+Block&#160;1&#160;DS2<br/>
+Block&#160;3<br/>
+Block&#160;2<br/>
+Virtual<br/>Sector<br/>
+Block&#160;5&#160;DS4<br/>
+Block X<br/>
+0<br/>
+Block X<br/>
+Block X<br/>
+Block X<br/>
+Block n<br/>
+Block X<br/>
+Block&#160;3<br/>
+Block&#160;5&#160;DS3<br/>
+Block&#160;2<br/>
+Block n<br/>
+Virtual Sector Header<br/>
+Block n<br/>
+Block5&#160;DS3<br/>
+… Block&#160;3<br/>
+Block&#160;1&#160;DS2<br/>
+Block&#160;2<br/>
+Block n<br/>
+Block&#160;5&#160;DS4<br/>
+Block&#160;5&#160;DS3<br/>
+Virtual<br/>Sector<br/>
+Block X<br/>
+1<br/>
+Block X<br/>
+Block X<br/>
+Block X<br/>
+Block X<br/>
+Block X<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>Figure&#160;1&#160;Virtual&#160;Sector&#160;Organization&#160;</b><br/>
+&#160;<br/>
+&#160;15&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=16></a><i>AutoSAR&#160;FEE Driver&#160;Design Overview&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/><i><b>2.1.1.1&#160;</b></i><br/>
+<i><b>Virtual&#160;Sector&#160;Header&#160;</b></i><br/>
+&#160;<br/>The&#160;Virtual&#160;Sector&#160;Header&#160;consists&#160;of&#160;two&#160;64bit&#160;words&#160;(16&#160;bytes)&#160;that&#160;start&#160;at&#160;the&#160;first&#160;<br/>address&#160;for&#160;a&#160;Virtual&#160;Sector&#160;Structure.&#160; The state&#160;of&#160;the Virtual&#160;Sector&#160;Structure is&#160;<br/>maintained in the Virtual&#160;Sector&#160;Header.&#160;<br/>
+&#160;<br/>
+The Status&#160;Word is&#160;the first&#160;64 bit&#160;word of&#160;the Virtual&#160;Sector&#160;Header&#160;and is&#160;used to&#160;<br/>indicate&#160;the current&#160;state of&#160;the&#160;Virtual&#160;Sector.&#160;<br/>
+&#160;<br/>&#160;<br/>
+&#160;<br/>
+<b>64&#160;bit Status&#160;Word&#160;</b><br/>
+&#160;<br/>&#160;<b>32 bit&#160;backup&#160;</b><br/>
+<b>Erase&#160;Count&#160;</b><br/>
+<b>Version&#160;Number&#160; &#160; &#160;&#160; &#160; &#160;</b><br/>
+&#160;<b>Status&#160;&#160;&#160;</b><br/>
+<b>&#160; &#160; &#160; &#160; &#160;&#160;8 bits&#160;reserved</b>&#160;<br/>
+<b>(20 bits)</b>&#160;<br/>
+<b>(4 Bits)</b>&#160;<br/>
+&#160;<br/>
+<b>Figure 2&#160;Virtual&#160;Sector&#160;Header&#160;</b><br/>
+&#160;<br/>&#160;<br/>
+The following table&#160;indicates&#160;the&#160;various&#160;states&#160;a&#160;Virtual&#160;Sector&#160;can&#160;be&#160;in.&#160;<br/>
+&#160;<br/>
+<b>State&#160;</b><br/>
+<b>Value&#160;</b><br/>
+Invalid Virtual&#160;Sector&#160;<br/>
+0xFFFFFFFFFFFFFFFF&#160;<br/>
+Empty&#160;Virtual&#160;Sector&#160;<br/>
+0x0000FFFFFFFFFFFF&#160;<br/>
+Copy&#160;Virtual&#160;Sector&#160;<br/>
+0x00000000FFFFFFFF&#160;<br/>
+Active Virtual&#160;Sector&#160;<br/>
+0x000000000000FFFF&#160;<br/>
+Ready&#160;for&#160;Erase&#160;<br/>
+0x0000000000000000&#160;<br/>
+<b>2-1. &#160;Virtual&#160;Sector&#160;Header&#160;States&#160;</b><br/>
+&#160;<br/>
+<b>Invalid&#160;Virtual&#160;Sector:</b>&#160;&#160;This&#160;Virtual&#160;Sector&#160;is&#160;either&#160;in&#160;process&#160;of&#160;being&#160;erased&#160;or&#160;has&#160;<br/>not&#160;yet&#160;been initialized.&#160;<br/>
+&#160;<br/>
+<b>Empty&#160;Virtual&#160;Sector: &#160;</b>This&#160;indicates&#160;the Virtual&#160;Sector&#160;has&#160;been&#160;erased&#160;and&#160;<br/>initialized and can be&#160;used&#160;to store data.&#160;<br/>
+&#160;<br/>
+<b>Copy&#160;Virtual&#160;Sector:</b>&#160; &#160;This&#160;indicates&#160;that&#160;the Data&#160;Block&#160;Structure is&#160;being&#160;moved&#160;<br/>from&#160;a&#160;full&#160;Virtual&#160;Sector&#160;to&#160;this&#160;one to allow&#160;for&#160;moving&#160;of&#160;the&#160;Active Virtual&#160;Sector.&#160;<br/>
+&#160;<br/>
+<b>Active&#160;Virtual&#160;Sector:</b>&#160;&#160;This&#160;Virtual&#160;Sector&#160;is&#160;the&#160;active one.&#160;<br/>
+&#160;<br/>
+<b>Ready for&#160;Erase:</b>&#160;&#160;&#160;This&#160;Virtual&#160;Sector’s&#160;Data&#160;Block&#160;Structure&#160;has&#160;been correctly&#160;<br/>replicated&#160;to&#160;a&#160;new&#160;Virtual&#160;Sector&#160;and&#160;is&#160;now&#160;ready&#160;to&#160;be&#160;erased&#160;and&#160;initialized&#160;for&#160;re-<br/>use.Virtual&#160;Sector&#160;Information&#160;Record&#160;&#160;is&#160;the&#160;second&#160;64 bit&#160;word in the Virtual&#160;Sector&#160;<br/>header.&#160;It&#160;is&#160;used to&#160;record information needed&#160;by&#160;the&#160;Virtual&#160;Sector&#160;management&#160;<br/>algorithm.&#160; Currently&#160;the&#160;first&#160;4 bits&#160;are used to&#160;indicate the current&#160;version&#160;of&#160;the&#160;Virtual&#160;<br/>Sector&#160;and&#160;the&#160;next&#160;20&#160;bits&#160;are&#160;used&#160;to&#160;indicate&#160;the&#160;number&#160;of&#160;times&#160;the&#160;Virtual&#160;Sector&#160;<br/>has&#160;been&#160;erased.&#160;The erase count&#160;is&#160;incremented each&#160;time the&#160;Virtual&#160;Sector&#160;is&#160;<br/>erased.&#160;The remaining bits&#160;are reserved for&#160;future use.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>State&#160;</b><br/>
+<b>Value&#160;</b><br/>
+Copy Virtual&#160;Sector&#160;<br/>
+0xFFFFFFFF&#160;<br/>
+Active Virtual&#160;Sector&#160;<br/>
+0x00000000&#160;<br/>
+<b>2-2.&#160;&#160;Virtual&#160;Sector Header&#160;backup&#160;States&#160;</b><br/>
+&#160;<br/>
+16&#160;<br/>
+<hr/>
+<a name=17></a>&#160;<br/>
+If&#160;the&#160;normal&#160;Virtual&#160;sector&#160;header&#160;is&#160;corrupted,&#160;then&#160;the&#160;backup&#160;status&#160;will&#160;be&#160;used&#160;to&#160;<br/>know&#160;the VS&#160;state.&#160;<br/>
+<b>&#160;</b><br/>
+After&#160;VS&#160;header,&#160;the&#160;next&#160;8&#160;bytes&#160;are used to&#160;know&#160;erase status&#160;of&#160;the VS.&#160;It&#160;says,&#160;if&#160;the&#160;<br/>erase&#160;was&#160;started/completed/ready&#160;for&#160;erase.&#160;Next&#160;8&#160;bytes&#160;are&#160;reserved.&#160;<br/>
+0x&#160;0000FFFFFFFFFFFF&#160;–&#160;Erase of&#160;other&#160;VS&#160;started&#160;<br/>
+0x&#160;00000000FFFFFFFF&#160;–&#160;Erase of&#160;other&#160;VS&#160;completed&#160;<br/>
+0x000000000000FFFF&#160; &#160;–&#160;This&#160;VS&#160;is&#160;ready&#160;for&#160;Erase.&#160;<br/>
+<i><b>2.1.2&#160;</b></i><br/>
+<i><b>Data Block&#160;Organization&#160;</b></i><br/>
+&#160;<br/>
+The Data Block&#160;is&#160;used to&#160;define&#160;where the&#160;data&#160;within&#160;a Virtual&#160;Sector&#160;is&#160;mapped.&#160;&#160;<br/>One&#160;or&#160;more&#160;variables&#160;can&#160;be&#160;within&#160;a&#160;Data&#160;Block&#160;based on&#160;the&#160;user&#160;definition.&#160;&#160;The&#160;<br/>smallest&#160;amount&#160;of&#160;data&#160;that&#160;can&#160;be&#160;stored&#160;within&#160;the&#160;Data&#160;Block&#160;is&#160;64&#160;bits.&#160;The&#160;Data&#160;<br/>Block&#160;Structure&#160;is&#160;limited to&#160;the size&#160;of&#160;the&#160;Virtual&#160;Sector&#160;it&#160;resides&#160;in.&#160;&#160;<br/><b>Note:&#160;The&#160;size&#160;of all&#160;the&#160;Data&#160;Blocks&#160;cannot exceed&#160;the&#160;Virtual&#160;Sector&#160;length.&#160;</b><br/>
+&#160;<br/>
+When a Data&#160;Packet&#160;write&#160;exceeds&#160;the&#160;available space of&#160;the&#160;current&#160;Virtual&#160;Sector,&#160;<br/>the Data&#160;Block&#160;structure is&#160;duplicated&#160;in the next&#160;Virtual&#160;Sector&#160;to be&#160;made active.&#160;<br/>
+&#160;<br/>
+<b>Data&#160;Block&#160;Structure&#160;</b><br/>
+&#160;<br/>
+Block5&#160;<br/>
+Dataset2&#160;<br/>
+Block5&#160;<br/>
+Dataset6&#160;<br/>
+Block1&#160;<br/>
+Dataset2&#160;<br/>
+Block3&#160;<br/>
+Dataset1&#160;<br/>
+Header&#160;<br/>
+Header&#160;<br/>
+Header&#160;<br/>
+Header&#160;<br/>
+Block4&#160;<br/>
+Dataset4&#160;<br/>
+Block2&#160;<br/>
+Dataset2&#160;<br/>
+Block1&#160;<br/>
+Dataset8&#160;<br/>
+Block2&#160;<br/>
+Dataset3&#160;<br/>
+Header&#160;<br/>
+Header&#160;<br/>
+Header&#160;<br/>
+Header&#160;<br/>
+&#160;<br/>
+<b>Figure&#160;3&#160;Data&#160;Block&#160;Structure&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;17&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=18></a><i>AutoSAR&#160;FEE&#160;Driver&#160;Design Overview&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/><i><b>2.1.2.1&#160;</b></i><br/>
+<i><b>Data Block Header&#160;</b></i><br/>
+&#160;<br/>The Data&#160;Block&#160;Header&#160;is&#160;&#160;24&#160;&#160;bytes&#160;in length and&#160;is&#160;used&#160;to&#160;indicate&#160;the&#160;location&#160;<br/>information (address)&#160;of&#160;valid data&#160;within&#160;a&#160;Virtual&#160;Sector.&#160;&#160;<br/>
+&#160;<br/>
+A&#160;Standard Data&#160;Block&#160;Header&#160;has&#160;the following&#160;fields&#160;<br/>
+<b>&#160;&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+Block&#160;Number&#160;(16 bits)&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160; &#160; &#160; &#160; &#160;&#160; &#160; &#160; &#160;Block&#160;size (16&#160;bits)&#160;<br/>
+<b>&#160;<br/>&#160;</b><br/>
+Block&#160;W/E&#160;Cycle count&#160;-&#160;optional&#160;(32 bits)&#160;/&#160;reserved&#160;if&#160;saving not&#160;enabled&#160;<br/>
+<b>&#160;<br/>&#160;<br/>&#160;</b><br/>
+CRC&#160;-&#160;optional&#160;(32 bits)&#160;<br/>
+<b>&#160;<br/>&#160;<br/>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Address&#160;of&#160;previous&#160;Valid&#160;Block&#160;(32 bits)&#160;<br/>
+<b>&#160;<br/>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+Block&#160;St<br/>
+&#160;S&#160;atus&#160;(64 bits)&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>4.&#160;&#160;Data&#160;Block&#160;Header&#160;Field&#160;Definitions&#160;</b><br/>
+<b>&#160;</b><br/>
+A&#160;Standard Data&#160;Block&#160;Header&#160;has&#160;the following&#160;fields&#160;<br/>
+<b>Bit(s)&#160;</b><br/>
+<b>Field&#160;</b><br/>
+<b>Description&#160;</b><br/>
+191-176&#160;<br/>
+Block&#160;Number&#160;<br/>
+This&#160;is&#160;used to&#160;indicate the&#160;block&#160;number.&#160;<br/>
+175-160&#160;<br/>
+Block&#160;size&#160;<br/>
+Indicates&#160;size of&#160;block&#160;<br/>
+159-128&#160;<br/>
+W/E&#160;counter&#160;<br/>
+Indicates&#160;write/erase counter&#160;for&#160;a block&#160;<br/>
+127-96&#160;<br/>
+CRC&#160;<br/>
+Indicates&#160;CRC&#160;of&#160;block&#160;<br/>
+95-64&#160;<br/>
+Address&#160;<br/>
+Address&#160;of&#160;the&#160;previous&#160;valid block&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Status&#160;of&#160;the&#160;<br/>
+These&#160;64&#160;bits&#160;indicate&#160;the&#160;Status&#160;of&#160;the&#160;Block.&#160;The&#160;<br/>
+63-0&#160;<br/>
+Block&#160;&#160;&#160;<br/>
+following&#160;Table&#160;lists&#160;all&#160;the&#160;possible&#160;combinations&#160;for&#160;the&#160;<br/>
+&#160;<br/>
+Block&#160;Status.&#160;<br/>
+<b>2-2.&#160; Data&#160;Block&#160;Header&#160;Field&#160;Definitions&#160;</b><br/>
+<b>&#160;<br/>&#160;</b><br/>
+<b>State&#160;</b><br/>
+<b>Value&#160;</b><br/>
+Empty&#160;Block&#160;&#160;<br/>
+0xFFFFFFFFFFFFFFFF&#160;<br/>
+Start&#160;Program&#160;Block&#160;<br/>
+0xFFFFFFFFFFFF0000&#160;<br/>
+Valid Block&#160;<br/>
+0xFFFFFFFF00000000&#160;<br/>
+Invalid Block&#160;<br/>
+0xFFFF000000000000&#160;<br/>
+Corrupt&#160;Block&#160;<br/>
+0x0000000000000000&#160;<br/>
+<b>5.&#160; Data&#160;Block&#160;States&#160;</b><br/>
+<b>&#160;</b><br/>
+Block&#160;Status&#160;is&#160;used&#160;to&#160;ensure that&#160;data&#160;integrity&#160;is&#160;maintained even if&#160;the Block&#160;(data)&#160;<br/>update process&#160;is&#160;interrupted by&#160;an uncontrolled event&#160;such as&#160;a&#160;power&#160;supply&#160;failure&#160;or&#160;<br/>reset.&#160;<br/>&#160;<br/><b>Empty&#160;Block:</b>&#160;&#160;New&#160;Data can be&#160;written to this&#160;Block.&#160;<br/>
+&#160;<br/>
+18&#160;<br/>
+<hr/>
+<a name=19></a>&#160;<br/><b>Start&#160;Program&#160;Block: &#160;</b>This&#160;indicates&#160;that&#160;the Data&#160;Block&#160;is&#160;in the&#160;progress&#160;of&#160;being&#160;<br/>programmed with data.&#160;<br/>&#160;<br/><b>Valid&#160;Block:</b>&#160;&#160;This&#160;indicates&#160;that&#160;the Data&#160;Block&#160;is&#160;fully&#160;programmed and contains&#160;Valid&#160;<br/>Data.&#160;<br/>&#160;<br/><b>Invalid&#160;Block:</b>&#160;&#160;This&#160;indicates&#160;that&#160;the&#160;Data&#160;Block&#160;contains&#160;invalid&#160;or&#160;old data.&#160;<br/>&#160;<br/><b>Corrupt Block:</b>&#160; &#160;This&#160;indicates&#160;that&#160;the Data&#160;Block&#160;is&#160;corrupted&#160;and&#160;the&#160;Software&#160;should&#160;<br/>ignore this&#160;Block.&#160;<br/>
+&#160;<br/>
+<i><b>2.1.3&#160;&#160;Available&#160;Commands&#160;</b></i><br/>
+&#160;<br/>
+The following&#160;list&#160;describes&#160;the available commands.&#160;&#160;<br/>1.&#160;<br/>
+Write:&#160;This&#160;command shall&#160;program&#160;a Flash memory&#160;block.&#160;<br/>
+2.&#160;<br/>
+Read:&#160;This&#160;command shall&#160;copy&#160;a continuous&#160;Flash memory&#160;block.&#160;<br/>
+3.&#160;<br/>
+Erase Immediate:&#160;This&#160;command shall&#160;change the status&#160;of&#160;the block&#160;to Invalid&#160;in&#160;<br/>the Data&#160;Block&#160;header&#160;to&#160;Erase&#160;it.&#160;<br/>
+4.&#160;<br/>
+Invalidate Block:&#160;This&#160;command shall&#160;change the&#160;status&#160;of&#160;the block&#160;to Invalid&#160;in&#160;<br/>the Data&#160;Block&#160;header&#160;to&#160;invalidate&#160;it.&#160;<br/>
+&#160;<br/>
+<i><b>2.1.4&#160;&#160;Status Codes&#160;<br/></b></i>This&#160;indicates&#160;the status&#160;of&#160;the Fee module.&#160;It&#160;can&#160;be&#160;in one of&#160;the following states&#160;<br/>1.&#160;MEMIF_UNINIT:&#160;&#160;The Fee Module has&#160;not&#160;been&#160;initialized.&#160;<br/>2.&#160;MEMIF_IDLE:&#160;The&#160;Fee&#160;Module is&#160;currently&#160;idle.&#160;<br/>3.&#160;MEMIF_BUSY:&#160;The Fee&#160;Module&#160;is&#160;currently&#160;busy.&#160;<br/>4.&#160;MEMIF_BUSY_INTERNAL:&#160;The Fee Module&#160;is&#160;currently&#160;busy&#160;with&#160;internal&#160;&#160;<br/>&#160; &#160;management&#160;operations&#160;<br/>
+&#160;<br/>
+<i><b>2.1.5&#160;&#160;Job Result&#160;<br/></b></i>This&#160;indicates&#160;the result&#160;of&#160;the last&#160;job.&#160;The job result&#160;can be any&#160;one&#160;of&#160;the following&#160;<br/>states&#160;<br/>1.&#160;MEMIF_JOB_OK:&#160;The last&#160;job has&#160;finished successfully&#160;<br/>2.&#160;MEMIF_JOB_PENDING:&#160;&#160; &#160;The last&#160;job&#160;is&#160;waiting&#160;for&#160;execution or&#160;is&#160;currently&#160;being&#160;&#160; &#160;&#160;&#160;<br/>&#160;&#160;&#160;&#160;executed.&#160;<br/>3.&#160;MEMIF_JOB_CANCELLED:&#160;The last&#160;job has&#160;been&#160;cancelled.<b>&#160;&#160;</b>&#160;<br/>4.&#160;MEMIF_JOB_FAILED:&#160;&#160;The last&#160;read/erase/write job failed.&#160;<br/>5.&#160;MEMIF_JOB_INCONSISTENT:&#160;The requested&#160;block&#160;is&#160;inconsistent,&#160;it&#160;may&#160;contain&#160;&#160;<br/>&#160; &#160;&#160;corrupted&#160;data.&#160;<br/>6.&#160;MEMIF_JOB_INVALID:&#160;The&#160;requested&#160;block&#160;has&#160;been&#160;invalidated.&#160; The&#160;requested&#160;&#160;<br/>&#160; &#160;&#160;read&#160;operation&#160;cannot&#160;be&#160;performed&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;19&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=20></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+<b>Chapter&#160;3&#160;</b><br/>
+<b>Integration Guide&#160;</b><br/>
+&#160;<br/>
+This&#160;chapter&#160;discusses&#160;the&#160;AutoSAR&#160;FEE&#160;Driver&#160;&#160;run-time&#160;interfaces&#160;that&#160;comprise&#160;the&#160;API&#160;<br/>classification&#160;&amp;&#160;usage&#160;scenarios&#160;and&#160;the&#160;API&#160;specification&#160;itself&#160;in&#160;association&#160;with&#160;its&#160;data&#160;types&#160;<br/>and structure definitions.&#160;&#160;Users&#160;will&#160;have to integrate&#160;TI&#160;FEE&#160;along&#160;with&#160;the Flash&#160;F021&#160;library.&#160;<br/>The&#160;&#160;TI&#160;FEE Driver&#160;&#160;uses&#160;the Flash API&#160;library&#160;for&#160;performing program/erase&#160;operations.&#160;The&#160;&#160;<br/>apprioprate Flash API&#160;library&#160;depending on the type&#160;of&#160;Flash technology&#160;has&#160;to&#160;be&#160;included in&#160;<br/>the.(<b>F021&#160;API&#160;V2.01.01</b>&#160;or&#160;greater).&#160;Users&#160;also need&#160;to integrate the generated&#160;configuration files.&#160;<br/>
+<b>3.1&#160;&#160;Error&#160;Recovery&#160;Implementation&#160;&#160;</b><br/>
+Projects&#160;should implement&#160;error&#160;recovery&#160;mechanism&#160;to recover&#160;from&#160;serious&#160;errors.&#160;They&#160;<br/>
+should call&#160;the&#160;API&#160;<b>TI_FeeErrorCode( )</b>&#160;periodically&#160;to check&#160;if&#160;there are any&#160;severe&#160;<br/>errors(<i>Error_TwoActiveVS,&#160;Error_TwoCopyVS,&#160;Error_SetupStateMachine,&#160;Error_NoActiveVS,&#160;<br/>Error_CopyButNoActiveVS,&#160;Error_NoFreeVS,&#160;Error_EraseVS</i>).&#160;If&#160;error&#160;is&#160;any&#160;of&#160;the above type,&#160;<br/>then&#160;API&#160;TI_Fee_ErrorRecovery(&#160;)&#160;should&#160;be called&#160;with proper&#160;parameters.&#160;&#160;<br/>
+If&#160;the error&#160;is&#160;of&#160;type&#160;<i>Error_TwoActiveVS&#160;or &#160;Error_TwoCopyVS&#160;or&#160;</i><br/>
+<i>Error_CopyButNoActiveVS,&#160;</i>then&#160;the&#160;application has&#160;to&#160;provide&#160;info on&#160;&#160;which&#160;of&#160;the VS&#160;needs&#160;to be&#160;<br/>corrected&#160;in&#160;u8VirtualSector.&#160;TI_Fee_u16ActCpyVS<b>&#160;</b>will&#160;provide info on&#160;which&#160;of&#160;the&#160;VS’s&#160;are&#160;<br/>Active/Copy.&#160;For&#160;error&#160;of&#160;type&#160;<i>Error_CopyButNoActiveVS,&#160;</i>TI_Fee_u16ActCpyVS<b>&#160;</b>will&#160;provide&#160;info&#160;<br/>on which VS&#160;is&#160;Copy.&#160;In this&#160;case,&#160;the second argument&#160;for&#160;the&#160;TI_Fee_ErrorRecovery&#160;should be&#160;<br/>the copy&#160;VS&#160;number.&#160;Error&#160;recovery&#160;API&#160;will&#160;mark&#160;the VS&#160;as&#160;Active.&#160;<br/>
+If&#160;the error&#160;is&#160;of&#160;type&#160;<i>Error_NoFreeVS,&#160;</i>then the application has&#160;to provide&#160;info on&#160;which&#160;of&#160;<br/>
+the&#160;VS&#160;needs&#160;to&#160;be erased&#160;in u8VirtualSector.&#160;TI_Fee_u16ActCpyVS<b>&#160;</b>will provide&#160;info&#160;on which VS&#160;<br/>is active.&#160;<br/>
+If&#160;the error&#160;is&#160;of&#160;type&#160;<i>Error_SetupStateMachine,&#160;</i>recheck&#160;configuration.&#160;Configure&#160;RWAIT,&#160;<br/>
+EWAIT&#160;and operating frequency&#160;correctly.&#160;<br/>
+If&#160;the error&#160;is&#160;of&#160;type&#160;<i>Error_EraseVS</i>,&#160;this&#160;means&#160;either&#160;erasing&#160;or&#160;a&#160;blank&#160;check&#160;of&#160;VS&#160;failed.&#160;<br/>
+Call&#160;error&#160;recovery&#160;function&#160;to perform&#160;erase again.&#160;Check&#160;the variables&#160;<br/>TI_Fee_GlobalVariables[u8EEPIndex].Fee_u16ActiveVirtualSector&#160;/&#160;<br/>TI_Fee_GlobalVariables[u8EEPIndex].Fee_u16CopyVirtualSector&#160;to know&#160;which of&#160;the VS’s&#160;are&#160;<br/>active/copy.&#160;Erase other&#160;sectors.&#160;<br/>
+Application can&#160;access&#160;the&#160;variable “TI_Fee_u16ActCpyVS”&#160;to know&#160;details&#160;about&#160;the VS’s.&#160;&#160;<br/>
+Prototype for&#160;the&#160;API’s&#160;are:&#160;<br/>
+TI_Fee_ErrorCodeType&#160;<b>TI_FeeErrorCode</b>(uint8 u8EEPIndex);&#160;<br/>
+void&#160;<b>TI_Fee_ErrorRecovery</b>(TI_Fee_ErrorCodeType&#160;Error Code,&#160;uint8 u8VirtualSector);&#160;<br/>
+If&#160;two&#160;EEPROM’s&#160;are configured,&#160;then TI_FeeErrorCode has&#160;to be called cyclically&#160;with different&#160;<br/>index.&#160;<br/>
+Ex:&#160;TI_FeeErrorCode(0)&#160;and TI_FeeErrorCode(1)<b>&#160;</b><br/>
+&#160;<br/>
+20&#160;<br/>
+<hr/>
+<a name=21></a>If&#160;Error&#160;is&#160;of&#160;type&#160;<i>Error_TwoActiveVS&#160;</i>and&#160;<i><b>TI_Fee_u16ActCpyVS</b>&#160;</i>=&#160;0x0003,&#160;this&#160;means&#160;VS&#160;1 and&#160;2&#160;<br/>are Active.&#160;<br/>
+If&#160;projects&#160;want&#160;to make&#160;VS&#160;1 as&#160;Active,&#160;then&#160;&#160;<br/>
+Call&#160;&#160;TI_Fee_ErrorRecovery(<i>Error_TwoActiveVS</i>,&#160;2);&#160;<br/>
+Virtual&#160;sector&#160;2&#160;will&#160;be marked as&#160;Ready&#160;for&#160;Erase.&#160;<br/>
+Virtual&#160;sector&#160;numbers&#160;start&#160;from&#160;1.&#160;<br/>
+<b>3.2&#160;&#160;Single&#160;and Double&#160;bit&#160;Error&#160;Corrections&#160;&#160;</b><br/>
+FEE&#160;software&#160;provides&#160;a&#160;mechanism&#160;to&#160;detect&#160;single&#160;and&#160;double&#160;bit&#160;errors.&#160;&#160;In&#160;order&#160;to&#160;use&#160;<br/>
+this&#160;feature,&#160;application has&#160;to&#160;make&#160;sure that&#160;&#160;“<b>EE_EDACMODE[3:0]:&#160;Error Correction&#160;Mode”&#160;<br/></b>in&#160;“<b>EE_CTRL1”&#160;&#160;</b>should be&#160;set&#160;to a value other&#160;than&#160;0101,&#160; “<b>EE_ONE_EN:&#160;Error on&#160;One&#160;Fail&#160;<br/>Enable”&#160;&#160;</b>should be&#160;enabled,&#160;“<b>EE_ZERO_EN: Error&#160;on&#160;Zero&#160;Fail&#160;Enable”&#160;</b>should&#160;be enabled,&#160;<br/>“<b>EE_EDACEN[3:0]: Error&#160;Detection&#160;and&#160;Correction&#160;Enable”&#160;</b>should be set&#160;to&#160;a value other&#160;<br/>than 0101.&#160;<br/>
+Projects&#160;have&#160;to then&#160;call&#160;error&#160;hook&#160;functions&#160;<b>TI_Fee_ErrorHookSingleBitError&#160;(&#160;&#160;)</b>&#160;&#160;and&#160;<br/>
+<b>TI_Fee_ErrorHookDoubleBitError&#160;(&#160;&#160;)</b>&#160;&#160;in ESM.&#160;&#160;For&#160;single bit&#160;error,&#160;an event&#160;is&#160;generated on&#160;<br/>channel&#160;35 of&#160;ESM&#160;and&#160;for&#160;double&#160;bit&#160;error&#160;on&#160;channel&#160;36&#160;of&#160;ESM.&#160;<br/>
+&#160;<br/>
+<b>3.3&#160;&#160;Memory&#160;Mapping&#160;</b><br/>
+Following macros&#160;can be used for&#160;reallocating code,&#160;constants&#160;and&#160;variables.&#160;<br/>
+•&#160;&#160;FEE_START_SEC_CONST_UNSPECIFIED&#160;<br/>
+•&#160;&#160;FEE_STOP_SEC_CONST_UNSPECIFIED&#160;<br/>
+•&#160;&#160;FEE_START_SEC_CODE&#160;<br/>
+•&#160;&#160;FEE_STOP_SEC_CODE&#160;<br/>
+•&#160;&#160;FEE_START_SEC_VAR_INIT_UNSPECIFIED&#160;<br/>
+•&#160;&#160;FEE_STOP_SEC_VAR_INIT_UNSPECIFIED&#160;<br/>
+&#160;<br/>
+&#160;21&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=22></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+<b>3.4&#160;&#160;Symbolic&#160;Constants&#160;and Enumerated Data&#160;types&#160;</b><br/>
+This&#160;section summarizes&#160;all&#160;the symbolic&#160;constants&#160;specified&#160;as&#160;either&#160;<br/>#define&#160;macros&#160;and/or&#160;enumerated&#160;C&#160;data&#160;types.&#160;Described&#160;alongside&#160;the&#160;<br/>macro or&#160;enumeration&#160;is&#160;the semantics&#160;or&#160;interpretation&#160;of&#160;the same in&#160;<br/>terms&#160;of&#160;what&#160;value it&#160;stands&#160;for&#160;and&#160;what&#160;it&#160;means.&#160;<br/>
+&#160;<br/>
+<b>Group&#160;or&#160;Enumeration&#160;Class&#160;</b><br/>
+<b>Symbolic&#160;Constant Name&#160;</b><br/>
+<b>Description&#160;or&#160;</b><br/>
+<b>Evaluation&#160;</b><br/>
+Fee_StatusType&#160;<br/>
+FEE_OK&#160;<br/>
+Function returned no&#160;<br/>error&#160;<br/>
+FEE_ERROR&#160;<br/>
+Function returned&#160;an&#160;<br/>error&#160;<br/>
+&#160;<br/>
+VsState_Invalid =1&#160;<br/>
+Virtual Sector&#160;is&#160;Invalid&#160;<br/>
+VirtualSectorStatesType&#160;<br/>
+VsState_Empty&#160;=2&#160;<br/>
+Virtual&#160;Sector&#160;is&#160;Empty&#160;<br/>
+VsState_Copy&#160;=3&#160;<br/>
+Virtual Sector&#160;is&#160;Copy&#160;<br/>
+VsState_Active&#160;=4&#160;<br/>
+Virtual Sector&#160;is&#160;Active&#160;<br/>
+VsState_ReadyForErase =5&#160;<br/>
+Virtual&#160;Sector&#160;is&#160;Ready&#160;<br/>for&#160;Erase&#160;<br/>
+&#160;<br/>
+Block_StartProg=1&#160;<br/>
+Write/Erase/Invalid&#160;<br/>
+&#160;<br/>
+operation is&#160;in&#160;progress&#160;<br/>
+&#160;<br/>
+on this&#160;Block&#160;&#160;<br/>
+BlockStatesType&#160;<br/>
+Block_Valid=2&#160;<br/>
+Block&#160;is&#160;Valid&#160;<br/>
+Block_Invalid=3&#160;<br/>
+Block&#160;is&#160;Invalid&#160;<br/>
+&#160;<br/>
+Error_Nil=0&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Error_TwoActiveVS=1&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Error_TwoCopyVS=2&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Error_SetupStateMachine=3&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Error_CopyButNoActiveVS=4&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Error_NoActiveVS=5&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Error_BlockInvalid=6&#160;<br/>
+&#160;<br/>
+Fee_ErrorCodeType&#160;<br/>
+Error_NullDataPtr=7&#160;<br/>
+&#160;<br/>
+Error_NoFreeVS=8&#160;<br/>
+&#160;<br/>
+Error_InvalidVirtualSectorPara<br/>
+&#160;<br/>
+meter=9&#160;<br/>
+&#160;<br/>
+22&#160;<br/>
+<hr/>
+<a name=23></a>Error_ExceedSectorOnBank=1<br/>
+&#160;<br/>
+0&#160;<br/>
+Error_EraseVS=11&#160;<br/>
+&#160;<br/>
+Error_BlockOffsetGtBlockSize<br/>
+&#160;<br/>
+=12&#160;<br/>
+Error_LengthParam=13&#160;<br/>
+&#160;<br/>
+Error_FeeUninit=14&#160;<br/>
+&#160;<br/>
+Error_Suspend=15&#160;<br/>
+&#160;<br/>
+Error_InvalidBlockIndex=16&#160;<br/>
+&#160;<br/>
+Error_NoErase=17&#160;<br/>
+&#160;<br/>
+Error_CurrentAddress=18&#160;<br/>
+&#160;<br/>
+Error_Exceed_No_Of_DataSet<br/>
+&#160;<br/>
+s=19&#160;<br/>
+&#160;<br/>
+Fee_None&#160;<br/>
+Take&#160;no&#160;action&#160;on&#160;single&#160;<br/>bit&#160;errors&#160;<br/>
+Fee_FlashErrorCorrectionActionType&#160;<br/>
+Fee_Fix&#160;<br/>
+Correct&#160;single bit&#160;errors&#160;<br/>
+&#160;<br/>
+MEMIF_UNINIT&#160;<br/>
+FEE&#160;Module is&#160;<br/>Uninitialized&#160;<br/>
+&#160;<br/>
+MEMIF_IDLE&#160;<br/>
+FEE&#160;Module is&#160;Idle&#160;<br/>
+Fee_StatusCodeType&#160;<br/>
+MEMIF_BUSY&#160;<br/>
+FEE&#160;Module&#160;is&#160;Busy&#160;<br/>
+MEMIF_BUSY_INTERNAL&#160;<br/>
+FEE&#160;Module is&#160;<br/>performing&#160;internal&#160;<br/>operations&#160;<br/>
+&#160;<br/>
+Erase&#160;<br/>
+If&#160; set&#160;to ‘1’&#160;indicates&#160;<br/>Erase&#160;operation&#160;is&#160;in&#160;<br/>
+&#160;<br/>
+progress&#160;<br/>
+Fee_StatusWordType_UN&#160;<br/>
+ReadSync&#160;<br/>
+If&#160; set&#160;to ‘1’&#160;indicates&#160;<br/>Synchronous&#160;Read&#160;<br/>operation is&#160;in progress&#160;<br/>
+ProgramFailed&#160;<br/>
+If&#160; set&#160;to ‘1’&#160;indicates&#160;<br/>there was&#160;an&#160;error&#160;during&#160;<br/>write operation.&#160;This&#160;is&#160;<br/>now&#160;deprecated.&#160;<br/>
+Read&#160;<br/>
+If&#160; set&#160;to ‘1’&#160;indicates&#160;<br/>Read operation is&#160;in&#160;<br/>progress&#160;<br/>
+Writesync&#160;<br/>
+If&#160; set&#160;to ‘1’&#160;indicates&#160;<br/>Sync&#160;Write operation is&#160;<br/>
+&#160;<br/>
+&#160;23&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=24></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+in progress&#160;<br/>
+WriteAsync&#160;<br/>
+If&#160; set&#160;to ‘1’&#160;indicates&#160;<br/>Async&#160;Write&#160;operation&#160;is&#160;<br/>in progress&#160;<br/>
+EraseImmediate&#160;<br/>
+If&#160; set&#160;to ‘1’&#160;indicates&#160;<br/>Erase&#160;immediate&#160;<br/>operation is&#160;in progress&#160;<br/>
+InvalidateBlock&#160;<br/>
+If&#160; set&#160;to ‘1’&#160;indicates&#160;<br/>Invalidate operation&#160;is&#160;in&#160;<br/>progress&#160;<br/>
+Copy&#160;<br/>
+If&#160; set&#160;to ‘1’&#160;indicates&#160;<br/>Copy&#160;operation&#160;is&#160;in&#160;<br/>progress&#160;<br/>
+Initialized&#160;<br/>
+If&#160;&#160;set&#160;to ‘1’&#160;indicates&#160;<br/>FEE&#160;is&#160;initialized.&#160;This&#160;is&#160;<br/>now&#160;deprecated.&#160;<br/>
+SingleBitError&#160;<br/>
+If&#160; set&#160;to ‘1’&#160;indicates&#160;<br/>there&#160;was&#160;a single bit&#160;<br/>error&#160;during read&#160;<br/>operation.&#160;This&#160;is&#160;now&#160;<br/>deprecated.&#160;<br/>
+FEE_SW_MAJOR_VERSION&#160;<br/>
+#define&#160;Macro which indicates&#160;the Major&#160;version&#160;of&#160;the&#160;<br/>FEE&#160;<br/>
+FEE_SW_MINOR_VERSION&#160;<br/>
+#define&#160;Macro&#160;which&#160;indicates&#160;the&#160;Minor&#160;version of&#160;the&#160;<br/>FEE&#160;<br/>
+FEE_SW_PATCH_VERSION&#160;<br/>
+#define&#160;Macro&#160;which&#160;indicate the Patch&#160;version of&#160;the&#160;FEE&#160;<br/>
+<b>4-1.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Symbolic&#160;Constants&#160;</b><br/>
+<b>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;</b><br/>
+&#160;<br/>
+24&#160;<br/>
+<hr/>
+<a name=25></a><b>3.5&#160;&#160;Data Structures&#160;</b><br/>
+This&#160;section summarizes&#160;the entire&#160;&#160;user&#160;visible&#160;data&#160;structure elements&#160;pertaining to the&#160;<br/>AutoSAR&#160;FEE Driver&#160;run-time interfaces.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Name&#160;</b><br/>
+Fee_PublishedInformationType&#160;&#160;<br/>
+&#160;<br/>
+<b>Description&#160;</b><br/>
+Used to contain&#160;Published&#160;Information&#160;<br/>
+<b>Fields&#160;</b><br/>
+<b>Data&#160;</b><br/>
+<b>Range&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>type&#160;</b><br/>
+<b>FeeBlockOverhead&#160;</b><br/>
+Uint8&#160;<br/>
+0x18&#160;<br/>
+Block&#160;OverHead in bytes&#160;<br/>
+<b>FeeMaximumBlockingTime&#160;&#160;</b>Float32&#160;<br/>
+600us&#160;<br/>
+Maximum&#160;Blocking time in&#160;us&#160;<br/>
+<b>FeePageOverhead&#160;</b><br/>
+Uint8&#160;<br/>
+0x0&#160;<br/>
+Page&#160;overhead in bytes&#160;<br/>
+<b>FeeVirtualSectorOverhead&#160;</b><br/>
+Uint8&#160;<br/>
+0x10&#160;<br/>
+Virtual&#160;Sector&#160;overhead in bytes&#160;<br/>
+<b>4-2.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Published&#160;Information&#160;Data&#160;Structure&#160;</b><br/>
+&#160;<br/>
+<b>Name&#160;</b><br/>
+&#160;<br/>
+Fee_GeneralConfigType&#160;<br/>&#160;<br/>
+<b>Description&#160;</b><br/>
+Used to contain&#160;General&#160;configuration&#160;<br/>information&#160;<br/>
+<b>Fields&#160;</b><br/>
+<b>Data&#160;</b><br/>
+<b>Range&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>type&#160;</b><br/>
+<b>FeeDevErrorDetect&#160;</b><br/>
+boolean&#160;<br/>
+STD_ON/&#160;<br/>
+Indicates&#160;if&#160;<br/>
+STD_OFF&#160;<br/>
+Development&#160;Error&#160;<br/>Detection&#160;is&#160;enabled&#160;<br/>
+<b>FeeIndex&#160;</b><br/>
+uint32&#160;<br/>
+0&#160;<br/>
+Instance ID&#160;of&#160;this&#160;<br/>module.&#160;Should&#160;<br/>always&#160;be 0&#160;<br/>
+<b>*FeeNvmJobEndNotification&#160;</b><br/>
+Fee_Call<br/>
+-&#160;<br/>
+Mapping to&#160;upper&#160;level&#160;<br/>
+backType&#160;<br/>
+job end&#160;notification&#160;<br/>
+<b>*FeeNvmJobErrorNotification&#160;</b><br/>
+Fee_Call<br/>
+-&#160;<br/>
+Mapping to&#160;upper&#160;level&#160;<br/>
+backType&#160;<br/>
+job error&#160;notification&#160;<br/>
+<b>FeePollingMode&#160;</b><br/>
+boolean&#160;<br/>
+STD_ON/&#160;<br/>
+Indicates&#160;if&#160;polling&#160;<br/>
+STD_OFF&#160;<br/>
+mode is&#160;enabled&#160;<br/>
+<b>FeeVersionInfoApi&#160;</b><br/>
+boolean&#160;&#160;<br/>
+STD_ON/&#160;<br/>
+Indicates&#160;if&#160;version&#160;<br/>
+STD_OFF&#160;<br/>
+info API&#160;is&#160;compiled.&#160;<br/>
+<b>FeeVirtualPageSize&#160;</b><br/>
+uint16&#160;<br/>
+0x8&#160;<br/>
+Defines&#160;the virtual&#160;<br/>page&#160;size&#160;<br/>
+<b>4-3. &#160;AutoSAR&#160;FEE&#160;Driver&#160;General&#160;Configuration&#160;Data&#160;Structure&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;25&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=26></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+<b>3.6&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Configuration Parameters&#160;</b><br/>
+The&#160;AutoSAR&#160;FEE Driver&#160;needs&#160;two configuration files.&#160;These two files&#160;(Fee_Cfg.h &amp;&#160;<br/>Fee_cfg.c)&#160;define&#160;which Flash sectors&#160;to be&#160;used for&#160;EEPROM emulation,&#160;define&#160;Data&#160;<br/>Blocks,&#160;Block&#160;Size and&#160;other&#160;configuration&#160;parameters.&#160;This&#160;section describes&#160;the&#160;<br/>configuration&#160;parameters&#160;in&#160;the&#160;AutoSAR&#160;FEE&#160;Driver.&#160;<br/>
+&#160;<br/>
+<i><b>3.6.1&#160;</b></i><br/>
+<i><b>Block Overhead&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_BLOCK_OVERHEAD&#160;<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the number&#160;of&#160;bytes&#160;used for&#160;Block&#160;Header.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x18&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Fixed to&#160;0x18&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_BLOCK_OVERHEAD&#160;0x18&#160;<br/>
+&#160;<br/>
+<i><b>3.6.2&#160;</b></i><br/>
+<i><b>Maximum&#160;Blocking Time&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_MAXIMUM_BLOCKING_TIME&#160;<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the maximum&#160;allowed blocking time for&#160;any&#160;Fee call.&#160;<br/>
+<b>Default&#160;Value&#160;</b><br/>
+600.00&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Fixed to&#160;600.00 µs.&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_MAXIMUM_BLOCKING_TIME&#160;600.00&#160;<br/>
+<i><b>&#160;</b></i><br/>
+<i><b>3.6.3&#160;</b></i><br/>
+<i><b>Page Overhead&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_PAGE_OVERHEAD&#160;<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the Page&#160;Overhead in bytes.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x0&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Fixed to&#160;0x0&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_PAGE_OVERHEAD&#160;0x0&#160;<br/>
+<i><b>3.6.4&#160;</b></i><br/>
+<i><b>Sector&#160;&#160;Overhead&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_VIRTUAL_SECTOR_OVERHEAD<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the number&#160;of&#160;bytes&#160;used for&#160;Virtual&#160;Sector&#160;<br/>Header.&#160;<br/>
+<b>Default&#160;Value&#160;</b><br/>
+0x10&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Fixed to&#160;0x10&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_VIRTUAL_SECTOR_OVERHEAD&#160;0x10&#160;<br/>
+&#160;<br/>
+26&#160;<br/>
+<hr/>
+<a name=27></a><i><b>&#160;</b></i><br/>
+<i><b>3.6.5&#160;&#160;&#160;&#160;Virtual&#160;Page Size&#160;</b></i><br/>
+<i><b>&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_VIRTUAL_PAGE_SIZE&#160;<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the virtual&#160;page size&#160;in&#160;bytes.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x8&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Fixed to&#160;0x8&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_VIRTUAL_PAGE_SIZE&#160;0x8&#160;<br/>
+&#160;<br/>
+<i><b>3.6.6&#160;&#160;&#160;&#160;Driver&#160;Index&#160;</b></i><br/>
+<i><b>&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_INDEX&#160;<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Instance ID&#160;of&#160;FEE&#160;module.&#160;Should always&#160;be&#160;0x0&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x0&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Fixed to&#160;0x0&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_INDEX&#160;0x0&#160;<br/>
+&#160;<br/>
+<i><b>3.6.7&#160;&#160;&#160;&#160;Job&#160;Error&#160;Notification&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_NVM_JOB_ERROR_NOTIFICATION&#160;<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Call&#160;back&#160;function to&#160;notify&#160;a Job&#160;Error.&#160;This&#160;is&#160;only&#160;applicable if&#160;<br/>polling mode is&#160;OFF.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+NvM_JobErrorNotification&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+User&#160;defined function name&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_NVM_JOB_ERROR_NOTIFICATION&#160;&#160;<br/>
+NvM_JobErrorNotification&#160;&#160;<br/>
+&#160;<br/>
+<i><b>3.6.8&#160;&#160;&#160;&#160;Job End&#160; Notification&#160;&#160;&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_NVM_JOB_END_NOTIFICATION&#160;<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Call&#160;back&#160;function to&#160;notify&#160;a Job&#160;End.&#160;This&#160;is&#160;only&#160;applicable if&#160;<br/>polling mode is&#160;OFF.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+NvM_JobEndNotification&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+User&#160;defined function name&#160;<br/>
+&#160;<br/>
+&#160;27&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=28></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_NVM_JOB_END_NOTIFICATION&#160;&#160;<br/>
+NvM_JobEndNotification&#160;<br/>
+&#160;<br/>
+<i><b>3.6.9&#160;&#160;FEE&#160;Operating&#160;Frequency&#160;</b></i><br/>
+<i><b>&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_OPERATING_FREQUENCY&#160;<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Device operating&#160;frequency&#160;in&#160;MHz.&#160;It&#160;is&#160;equivalent&#160;to the&#160;<br/>HCLK&#160;frequency&#160;in&#160;the&#160;TMS570 clock&#160;tree.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+160&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Device dependent&#160;parameter.&#160;Refer&#160;to the device&#160;<br/>datasheet&#160;to know&#160;the&#160;range.&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_OPERATING_FREQUENCY&#160;160&#160;<br/>
+&#160;<br/>
+<i><b>3.6.10&#160;</b></i><br/>
+<i><b>Polling&#160;Mode&#160;</b></i><br/>
+<i><b>&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_POLLING_MODE<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;if&#160;polling&#160;mode&#160;is&#160;enabled/disabled.&#160;Currently,&#160;this&#160;<br/>parameter&#160;should always&#160;be STD_ON.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+STD_ON&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+STD_ON/&#160;STD_OFF&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_POLLING_MODE&#160;STD_ON<b>&#160;</b><br/>
+<i><b>&#160;</b></i><br/>
+<i><b>3.6.11&#160;</b></i><br/>
+<i><b>Enable&#160;Error Correction&#160;</b></i><br/>
+<i><b>&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_FLASH_ERROR_CORRECTION_ENABLE<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Used to&#160;enable/disable&#160;Error&#160;Correction&#160;Used&#160;to&#160;enable ECC&#160;for&#160;<br/>EEPROm&#160;data.&#160;This&#160;configuration parameter&#160;is&#160;no&#160;longer&#160;used.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+STD_OFF&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+STD_ON/&#160;STD_OFF&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_FLASH_ERROR_CORRECTION_ENABLE&#160;<br/>
+STD_OFF<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+28&#160;<br/>
+<hr/>
+<a name=29></a>&#160;<br/>
+<i><b>3.6.12&#160;&#160;&#160;Error&#160;Correction&#160;Handling&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_FLASH_ERROR_CORRECTION_HANDLING<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;desired&#160;action to&#160;be taken on detection of&#160;bit&#160;<br/>errors.&#160;Currently&#160;only&#160;Fee_None&#160;is&#160;supported.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+Fee_None&#160;&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Fee_None&#160;or&#160;Fee_Fix&#160;&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;<br/>FEE_FLASH_ERROR_CORRECTION_HANDLING&#160;&#160;<br/>
+Fee_None&#160;<b>&#160;</b><br/>
+<i><b>3.6.13&#160;&#160;&#160;Block Write&#160;Counter&#160;Save&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_WRITECOUNTER_SAVE&#160;<br/>
+<b>Description&#160;</b><br/>
+Used to&#160;enable/disable saving of&#160;write/erase counter&#160;value&#160;<br/>in to block&#160;header.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+STD_OFF&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+STD_ON/&#160;STD_OFF&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;&#160;FEE_WRITECOUNTER_SAVE &#160;STD_OFF&#160;&#160;<br/>
+<i><b>3.6.14&#160;&#160;&#160;Enable&#160;CRC&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_&#160;CRC_ENABLE&#160;<br/>
+<b>Description&#160;</b><br/>
+Used to&#160;enable/disable&#160;16&#160;bit&#160;CRC.&#160;If&#160;enabled,&#160;16 bit&#160;CRC&#160;<br/>is&#160;calculated and&#160;written&#160;into Block&#160;header.&#160;&#160;<br/>
+<b>Default Value&#160;</b><br/>
+STD_OFF&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+STD_ON/&#160;STD_OFF&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_&#160;CRC_ENABLE&#160;STD_OFF<b>&#160;</b><br/>
+<i><b>3.6.15&#160;&#160;&#160;&#160;NumberOfEEPs&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_NUMBER_OF_EEPS&#160;<br/>
+<b>Description&#160;</b><br/>
+Used to&#160;configure&#160;number&#160;of&#160;emulations&#160;on a single bank.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+1&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+1-2&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_NUMBER_OF_EEPS 1&#160;<b>&#160;</b><br/>
+&#160;<br/>
+&#160;29&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=30></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+<i><b>3.6.16&#160;&#160;Number&#160;of&#160;Blocks&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_NUMBER_OF_BLOCKS&#160;<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Defines&#160;the number&#160;of&#160;Data&#160;Blocks&#160;used for&#160;EEPROM&#160;<br/>emulation.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x1&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+0x1 to&#160;0xFFFE&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_NUMBER_OF_BLOCKS&#160;0x10&#160;<b>&#160;</b><br/>
+<i><b>3.6.17&#160;</b></i><br/>
+<i><b>Number&#160;of&#160;Virtual&#160;Sectors&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_NUMBER_OF_VIRTUAL_SECTORS<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Defines&#160;the number&#160;of&#160;Virtual&#160;Sectors&#160;used&#160;for&#160;FEE..&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x2&#160;<br/>Min&#160;:0x2&#160;Max&#160;:&#160;0x4,For&#160;TMS570LS01227/TMS570LS1113.&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Min&#160;:&#160;0x2&#160;Max&#160;:&#160;16,&#160;For&#160;TMS570LS05xx,&#160;TMS570LS07xx,&#160;<br/>TMS570LS09xx.&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_NUMBER_OF_VIRTUAL_SECTORS&#160;0x2&#160;<b>&#160;</b><br/>
+<i><b>3.6.18&#160;</b></i><br/>
+<i><b>Number&#160;of&#160;Virtual&#160;Sectors on EEP1&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_NUMBER_OF_VIRTUAL_SECTORS_EEP1<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Defines&#160;the number&#160;of&#160;Virtual&#160;Sectors&#160;used&#160;for&#160;EEP1&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x2&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+0 to&#160;FEE_NUMBER_OF_VIRTUAL_SECTORS-2&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_NUMBER_OF_VIRTUAL_SECTORS_EEP1&#160;0x2&#160;<b>&#160;</b><br/>
+<i><b>3.6.19&#160;</b></i><br/>
+<i><b>Number&#160;of&#160;Eight&#160;Byte Writes&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_NUMBER_OF_EIGHTBYTEWRITES<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Defines&#160;the number&#160;of&#160;8 byte&#160;writes&#160;to be performed in&#160;Main&#160;<br/>Function.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x1&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+1&#160;to&#160;255&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_NUMBER_OF_EIGHTBYTEWRITES&#160;0x1&#160;<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+30&#160;<br/>
+<hr/>
+<a name=31></a><i><b>3.6.20&#160;&#160;&#160;&#160;&#160;Maximum&#160;Number&#160;of&#160;non configured&#160;blocks&#160;to&#160;copy&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_NUMBER_OF_UNCONFIGUREDBLOCKSTOCOPY&#160;<br/>
+<b>Description&#160;</b><br/>
+Defines&#160;the&#160;maximum&#160;number&#160;non configured&#160;blocks&#160;to copy.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x0&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+0 to&#160;255&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_NUMBER_OF_&#160;<br/>UNCONFIGUREDBLOCKSTOCOPY&#160;0x0&#160;<b>&#160;</b><br/>
+<i><b>3.6.21&#160;&#160;&#160;&#160;&#160;Address&#160;Range check during&#160;Read/Write&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_CHECK_BANK7_ACCESS&#160;<br/>
+<b>Description&#160;</b><br/>
+Defines&#160;the maximum&#160;number&#160;non configured&#160;blocks&#160;to copy.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+STD_OFF&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+STD_ON/STD_OFF&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_CHECK_BANK7_ACCESS&#160;&#160;STD_OFF<b>&#160;</b><br/>
+<i><b>3.6.22&#160;&#160;&#160;&#160;&#160;Number&#160;of&#160;blocks and Data Sets&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_TOTAL_BLOCKS_DATASETS&#160;<br/>
+<b>Description&#160;</b><br/>
+Defines&#160;the total&#160;data sets&#160;in block&#160;configuration.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+1&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+1-65536&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_TOTAL_BLOCKS_DATASETS&#160;&#160;1<b>&#160;</b><br/>
+&#160;<br/>
+<i><b>3.6.23&#160;&#160;&#160;&#160;&#160;Generate Device and&#160;Virtual&#160;Sector&#160;Structures&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_GENERATE_DEVICEANDVIRTUALSECTORSTRUC&#160;<br/>
+<b>Description&#160;</b><br/>
+Used to&#160;enable/disable&#160;generation of&#160;Device&#160;and Virtual&#160;sector&#160;<br/>structures.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+STD_OFF&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+STD_ON/STD_OFF&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;<br/>FEE_GENERATE_DEVICEANDVIRTUALSECTORSTRUC&#160;<br/>STD_OFF<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;31&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=32></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+Note:&#160;When&#160;FEE_GENERATE_DEVICEANDVIRTUALSECTORSTRUC=STD_ON,&#160;<br/>device&#160;(Device_FlashDevice)&#160;and virtual&#160;sector&#160;<br/>configuration(Fee_VirtualSectorConfiguration)&#160;structures&#160;are&#160;populated&#160;during&#160;<br/>runtime.&#160;Also,&#160;these&#160;structures&#160;will&#160;be placed&#160;in RAM.&#160;Projects&#160;should&#160;take&#160;care&#160;<br/>that&#160;only&#160;FEE&#160;driver&#160;has&#160;access&#160;to&#160;these&#160;structures.&#160;When it’s&#160;STD_OFF,&#160;<br/>structures&#160;are places&#160;in&#160;flash and are const.&#160;<br/>
+<i><b>&#160;&#160;&#160;&#160;</b></i><br/>
+<i><b>3.6.24&#160;&#160;&#160;&#160;&#160;Required Virtual&#160;Sector&#160;Size&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_VIRTUALSECTOR_SIZE&#160;<br/>
+<b>Description&#160;</b><br/>
+Defines&#160;the size of&#160;virtual&#160;sector.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+None&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+4-32(see below&#160;note)&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_VIRTUALSECTOR_SIZE&#160;4<b>&#160;</b><br/>
+&#160;<br/>Note:&#160;Depending&#160;on&#160;the&#160;device,&#160;parameter&#160;range can&#160;be different.&#160;&#160;<br/>For&#160;TMS570LS12xx/11xx&#160;family&#160;devices,&#160;FEE&#160;bank&#160;is&#160;4*16KB.&#160;Macro can take a value&#160;of&#160;<br/>16 or&#160;32.&#160;For&#160;TMS570LS09xx,&#160;TMS570LS07xx,&#160;TMS570LS05xx&#160;family&#160;devices,&#160;FEE&#160;bank&#160;<br/>is&#160;16*4KB.&#160;Macro can&#160;take a value of&#160;4 or&#160;8 or&#160;12 or&#160;16 or&#160;32.&#160;&#160;<br/>FEE_VIRTUALSECTOR_SIZE *&#160;FEE_NUMBER_OF_VIRTUAL_SECTORS should&#160;not&#160;<br/>exceed the total&#160;available FEE&#160;bank&#160;size&#160;on&#160;device.&#160;This&#160;macro is&#160;only&#160;used&#160;when&#160;<br/>FEE_GENERATE_DEVICEANDVIRTUALSECTORSTRUC is&#160;STD_ON.&#160;Based&#160;on&#160;<br/>FEE_VIRTUALSECTOR_SIZE and&#160;FEE_NUMBER_OF_VIRTUAL_SECTORS,&#160;elements&#160;<br/>of&#160;the structure Fee_VirtualSectorConfiguration&#160;will&#160;be&#160;populated&#160;during runtime.&#160;<br/>
+<i><b>3.6.25&#160;&#160;&#160;&#160;&#160;FEE&#160;bank&#160;Physical&#160;Sector&#160;Size&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FEE_PHYSICALSECTOR_SIZE&#160;<br/>
+<b>Description&#160;</b><br/>
+Defines&#160;the size of&#160;one physical&#160;sector&#160;on the device.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+None&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+4/16(see below&#160;note)&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.h&#160;<br/>
+<b>Sample&#160;Configuration&#160;</b><br/>
+#define&#160;FEE_PHYSICALSECTOR_SIZE&#160;4<b>&#160;</b><br/>
+&#160;<br/>Note:&#160;This&#160;macro can only&#160;have 4/16&#160;as&#160;value.&#160;&#160;<br/>For TMS570LS12xx/11xx&#160;family&#160;devices,&#160;sector&#160;size is&#160;16.&#160;For&#160;TMS570LS09xx,&#160;<br/>TMS570LS07xx,&#160;TMS570LS05xx&#160;family&#160;devices,&#160;sector&#160;size&#160;is&#160;4.&#160;This&#160;macro is&#160;only&#160;used&#160;<br/>when&#160;FEE_GENERATE_DEVICEANDVIRTUALSECTORSTRUC&#160;is&#160;STD_OFF.&#160;This&#160;<br/>parameter&#160;is&#160;used to select&#160;device specific&#160;files.&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+32&#160;<br/>
+<hr/>
+<a name=33></a><i><b>3.6.26&#160;&#160;&#160;&#160;&#160;Virtual&#160;Sector&#160;Configuration&#160;</b></i><br/>
+&#160;<br/>
+<b>Array&#160;Name&#160;</b><br/>
+FEE_VirtualSectorConfiguration<b>&#160;&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Used&#160;to define&#160;a Virtual&#160;Sector&#160;<br/>
+<b>Array&#160;Type&#160;</b><br/>
+Fee_VirtualSectorConfigType.&#160;&#160;<br/>
+This&#160;is&#160;a structure having&#160;the following members.&#160;<br/>
+<b>Members&#160;</b><br/>
+FeeVirtualSectorNumber&#160;<br/>
+Virtual&#160;Sector's&#160;Number.&#160;<br/>
+Flash&#160;Bank&#160;for&#160;EEPROM&#160;<br/>
+FeeFlashBank&#160;<br/>
+emulation,&#160;Only&#160;Bank&#160;7 for&#160;<br/>F021 devices.&#160;<br/>
+Starting Sector&#160;in the Bank&#160;for&#160;<br/>
+FeeStartSector&#160;<br/>
+this&#160;Virtual&#160;Sector.&#160;<br/>
+Ending Sector&#160;in the Bank&#160;for&#160;<br/>
+FeeEndSector&#160;<br/>
+this&#160;Virtual&#160;Sector.&#160;<br/>
+<b>Target&#160;File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+The configurations&#160;described below&#160;are repeated&#160;for&#160;each Virtual&#160;Sector.&#160;<br/>
+<i><b>3.6.26.1&#160;&#160;FeeVirtualSectorNumber&#160;&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FeeVirtualSectorNumber<b>&#160;&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Each&#160;Virtual&#160;Sector&#160;is&#160;assigned&#160;a number&#160;starting from&#160;0x1&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x1&#160;<br/>Min&#160;:&#160;0x1,&#160;&#160;Max&#160;:&#160;0x4,For&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+TMS570LS01227/TMS570LS1113&#160;<br/>Min&#160;:&#160;0x1&#160;Max&#160;:&#160;16,&#160;For&#160;TMS570LS05xx,&#160;TMS570LS07xx,&#160;<br/>TMS570LS09xx&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+<i><b>3.6.26.2&#160;&#160;FeeFlashBank &#160;&#160;</b></i><br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FeeFlashBank<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the Flash Bank&#160;used by&#160;the Virtual&#160;Sector.&#160;All the&#160;<br/>Virtual&#160;Sectors&#160;should use the same Flash Bank.&#160;EEPROM&#160;<br/>emulation&#160;is&#160;supported only&#160;on&#160;Bank&#160;7 for&#160;F021 devices&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x7 for&#160;F021 devices&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Fixed to&#160;0x7 for&#160;F021&#160;devices.&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+<i><b>3.6.26.3&#160;&#160;FeeStartSector&#160;&#160;&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FeeStartSector<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the Flash Sector&#160;in the&#160;Bank&#160;used by&#160;the Virtual&#160;<br/>Sector&#160;as&#160;the&#160;Start&#160;sector.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x0&#160;<br/>
+&#160;<br/>
+&#160;33&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=34></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Device specific,&#160;can&#160;use any&#160;Sector&#160;of&#160;the selected&#160;Flash&#160;<br/>Bank.&#160;Please&#160;refer&#160;to&#160;the&#160;device&#160;datasheet&#160;“Flash&#160;Memory&#160;<br/>Map”&#160;for&#160;more details.&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+<i><b>3.6.26.4&#160;&#160;FeeEndSector&#160;&#160;&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FeeEndSector<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the Flash Sector&#160;in the&#160;Bank&#160;used by&#160;the Virtual&#160;Sector&#160;<br/>as&#160;the&#160;End&#160;sector.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x0&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Device&#160;specific,&#160;can&#160;use&#160;any&#160;Flash&#160;Sector&#160;of&#160;the&#160;selected&#160;Flash&#160;<br/>Bank.&#160;It&#160;should be greater&#160;than the FEE&#160;Start&#160;Sector.&#160;Please&#160;<br/>refer&#160;to the device datasheet&#160;“Flash Memory&#160;Map”&#160;for&#160;more&#160;<br/>details.&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+<i><b>3.6.26.5&#160;&#160;Sample&#160;Virtual&#160;Sector&#160;Configuration&#160;</b></i><br/>
+The following code snippet&#160;indicates&#160;one&#160;of&#160;the possible configurations&#160;for&#160;the&#160;Virtual&#160;<br/>Sectors:&#160;<br/>
+/*&#160;Virtual&#160;Sector&#160;Configuration */&#160;<br/>const&#160;TI_FeeVirtualSectorConfigType TI_FeeVirtualSectorConfiguration[]&#160;=&#160;<br/>{&#160;<br/>&#160; &#160;&#160;/*&#160;Virtual&#160;Sector&#160;1&#160;*/&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;1,&#160; &#160;&#160;&#160;/*&#160;Virtual&#160;sector&#160;number&#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;7,&#160; &#160;&#160;&#160;/*&#160;Bank&#160; &#160; &#160; &#160; &#160; &#160; &#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;&#160;*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;0,&#160; &#160;&#160;&#160;/*&#160;Start&#160;Sector&#160; &#160; &#160;&#160; &#160; &#160;&#160;&#160;&#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;0,&#160; &#160;&#160;&#160;/*&#160;End Sector&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;&#160;&#160;&#160;*/&#160;<br/>&#160; &#160;&#160;},&#160;<br/>&#160; &#160;&#160;/*&#160;Virtual&#160;Sector&#160;2&#160;*/&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;2,&#160; &#160;&#160;&#160;/*&#160;Virtual&#160;sector&#160;number&#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;7,&#160; &#160;&#160;&#160;/*&#160;Bank&#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160;&#160;&#160;&#160;&#160;&#160;&#160;<br/>
+&#160;&#160;*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;1,&#160; &#160;&#160;&#160;/*&#160;Start&#160;Sector&#160; &#160; &#160;&#160; &#160; &#160;&#160;&#160;&#160;&#160;&#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;1,&#160; &#160;&#160;&#160;/*&#160;End Sector&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;&#160;&#160;&#160;*/&#160;<br/>&#160; &#160;&#160;},&#160;<br/>};&#160;<br/>
+&#160;<br/>
+<b>Note:&#160;All&#160;the&#160;Virtual&#160;Sectors&#160;should&#160;have&#160;the&#160;same&#160;Flash&#160;Bank.&#160;<br/>Only&#160;Bank&#160;7&#160;is&#160;supported&#160;for&#160;EEPROM&#160;emulation&#160;on&#160;F021&#160;devices.&#160;</b><br/>
+<b>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;</b><br/>
+&#160;<br/>
+34&#160;<br/>
+<hr/>
+<a name=35></a><i><b>3.6.27&#160;&#160;Block&#160;Configuration&#160;</b></i><br/>
+&#160;<br/>
+<b>Array&#160;Name&#160;</b><br/>
+Fee_BlockConfiguration<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Used to&#160;define&#160;a Data&#160;Block&#160;<br/>
+<b>Array&#160;Type&#160;</b><br/>
+Fee_BlockConfigType.&#160;<br/>
+This&#160;is&#160;a structure having&#160;the following members.&#160;<br/>
+<b>Members&#160;</b><br/>
+Indicates&#160;Block's&#160;<br/>
+FeeBlockNumber&#160;<br/>
+Number.&#160;<br/>
+Defines&#160;Block's&#160;Size in&#160;<br/>
+FeeBlockSize&#160;<br/>
+bytes.&#160;<br/>
+Indicates&#160;if&#160;the&#160;block&#160;is&#160;<br/>
+FeeImmediateData&#160;<br/>
+used for&#160;immediate data.&#160;<br/>
+Number&#160;of&#160;write cycles&#160;<br/>
+FeeNumberOfWriteCycles&#160;<br/>
+required for&#160;this&#160;block&#160;.&#160;<br/>
+Indicates&#160;the device&#160;<br/>
+FeeDeviceIndex&#160;<br/>
+index.&#160;<br/>
+Indicates&#160;the number&#160;of&#160;<br/>
+FeeNumberofDatasets&#160;<br/>
+Datasets&#160;for&#160;this&#160;Block.&#160;<br/>
+Indicates&#160;on&#160;which EEP,&#160;<br/>
+FeeEEPNumber&#160;<br/>
+this&#160;block&#160;is&#160;configured.&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+The configurations&#160;described below&#160;are repeated&#160;for&#160;each Data Block.&#160;<br/>
+&#160;<br/>
+<i><b>3.6.27.1&#160;&#160;FeeBlockNumber&#160;&#160;&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FeeBlockNumber<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Each&#160;block&#160;is assigned a&#160;unique number&#160;starting from&#160;0x1.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x1&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Min&#160;:&#160;0x1,&#160;&#160;Max&#160;:&#160;0xFFFE&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+&#160;<br/>
+<i><b>3.6.27.2&#160;&#160;FeeBlockSize&#160;&#160;&#160;&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FeeBlockSize<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the size of&#160;the Block&#160;in bytes.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x08&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+0x1 to&#160;0xFFFE&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+&#160;<br/>
+&#160;35&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=36></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/><i><b>3.6.27.3&#160;&#160;FeeImmediateData&#160;&#160;&#160;&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FeeImmediateData<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;if&#160;the&#160;block&#160;is&#160;used for&#160;immediate data.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+FALSE&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+TRUE /&#160;FALSE&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+<i><b>3.6.27.4&#160;&#160;FeeNumberOfWriteCycles&#160;&#160;&#160;&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FeeNumberOfWriteCycles<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the number&#160;of&#160;clock&#160;cycles&#160;required to&#160;write&#160;<br/>to a flash&#160;address&#160;location.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x1&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Device or&#160;core/flash&#160;tech&#160;dependent&#160;parameter.&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+&#160;<br/>
+<i><b>3.6.27.5&#160;&#160;FeeDeviceIndex &#160;&#160;&#160;&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FeeDeviceIndex<b>&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the device index.&#160;This&#160;will&#160;always&#160;be&#160;0.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x0&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+Fixed to&#160;0x0&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+<i><b>3.6.27.6&#160;&#160;FeeNumberOfDataSets&#160;&#160; &#160;&#160;&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FeeNumberOfDataSets&#160;<br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;the number&#160;of&#160;Datasets&#160;for&#160;this&#160;particular&#160;<br/>Block&#160;.&#160;<br/>
+<b>Default Value&#160;</b><br/>
+0x1&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+0x1 to&#160;0xFF&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+<i><b>&#160;</b></i><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+36&#160;<br/>
+<hr/>
+<a name=37></a><i><b>3.6.27.7&#160;&#160;FeeEEPNumber&#160;&#160; &#160;&#160;&#160;</b></i><br/>
+&#160;<br/>
+<b>Parameter&#160;Name&#160;</b><br/>
+FeeEEPNumber&#160;<br/>
+<b>Description&#160;</b><br/>
+Indicates&#160;into&#160;which&#160;EEP,&#160;this&#160;block&#160;is&#160;configured.&#160;<br/>
+<b>Default&#160;Value&#160;</b><br/>
+0x0&#160;<br/>
+<b>Parameter&#160;Range&#160;</b><br/>
+0x0&#160;to 0x1&#160;<br/>
+<b>Target File&#160;</b><br/>
+Fee_cfg.c&#160;<br/>
+<i><b>3.6.27.8&#160;&#160;Sample&#160;Block&#160;Configuration&#160;</b></i><br/>
+The following code snippet&#160;indicates&#160;one&#160;of&#160;the possible configurations&#160;for&#160;the&#160;Blocks:&#160;<br/>
+/*&#160;Block&#160;Configuration&#160;*/&#160;<br/>
+const&#160;TI_FeeBlockConfigType&#160;TI_Fee_BlockConfiguration[] =&#160;<br/>
+{&#160;<br/>&#160; &#160;&#160;/*&#160;Block&#160;1&#160;*/&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;0x01,&#160;&#160;&#160; &#160;&#160;<br/>
+&#160;&#160;/*&#160;Block&#160;number&#160; &#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;0x004,&#160; &#160; &#160;&#160;<br/>
+&#160;&#160;/*&#160;Block&#160;size&#160;&#160; &#160; &#160; &#160;&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;<br/>
+*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;0x10,&#160;&#160;/*&#160;Block&#160;number&#160;of&#160;write cycles&#160;*/&#160;<br/>&#160; &#160; &#160; &#160;TRUE,&#160;&#160;&#160; &#160; /*&#160;Block&#160;immediate&#160;data&#160;used&#160;&#160; &#160;*/&#160;<br/>
+&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;0,&#160; &#160;&#160;&#160; &#160; &#160;&#160;&#160;<br/>
+/*&#160;Device Index&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;<br/>
+*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;1,&#160;<br/>
+&#160;<br/>
+/*&#160;Number&#160;of&#160;DataSets&#160;&#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;0&#160;<br/>
+&#160;<br/>
+/*&#160;EEP&#160;Number&#160;&#160;&#160;&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160;<br/>
+&#160; &#160;&#160;},&#160;<br/>&#160; &#160;&#160;/*&#160;Block&#160;2&#160;*/&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;0x02,&#160;&#160;&#160; &#160; &#160;&#160;<br/>
+/*&#160;Block&#160;number&#160; &#160; &#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160;&#160;<br/>
+*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;0x008,&#160; &#160; &#160;&#160;<br/>
+/*&#160;Block&#160;size &#160;&#160;&#160; &#160; &#160; &#160;&#160; &#160;&#160; &#160;&#160;&#160;&#160;&#160;<br/>
+&#160;*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;0x10,&#160;&#160;/*&#160;Block&#160;number&#160;of&#160;write cycles&#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;TRUE,&#160;&#160; &#160; &#160;/*&#160;Block&#160;immediate data used &#160; &#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;0,&#160; &#160;&#160;&#160; &#160; &#160;&#160;&#160;<br/>
+/*&#160;Device Index&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;<br/>
+*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;2,&#160;<br/>
+&#160;<br/>
+/*&#160;Number&#160;of&#160;DataSets&#160;&#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;1&#160;<br/>
+&#160;<br/>
+/*&#160;EEP&#160;Number&#160;&#160;&#160;&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160; &#160;&#160;},&#160;<br/>&#160; &#160;&#160;/*&#160;Block&#160;3&#160;*/&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;0x03,&#160;&#160;&#160; &#160;&#160;&#160;<br/>
+&#160;/*&#160;Block&#160;number&#160; &#160; &#160; &#160; &#160; &#160; &#160;&#160; &#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;0x0004,&#160; &#160;&#160;&#160;&#160;<br/>
+&#160;/*&#160;Block&#160;size &#160;&#160; &#160; &#160; &#160;&#160; &#160; &#160;&#160;&#160; &#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;0x10,&#160;&#160;/*&#160;Block&#160;number&#160;of&#160;write cycles&#160;*/&#160;<br/>&#160; &#160; &#160; &#160;TRUE,&#160;&#160;&#160; &#160; /*&#160;Block&#160;immediate&#160;data&#160;used&#160;&#160; &#160;*/&#160;&#160;<br/>&#160; &#160; &#160; &#160;&#160;0,&#160; &#160;&#160;&#160; &#160; &#160;&#160;&#160;<br/>
+/*&#160;Device Index&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;<br/>
+*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;3,&#160;<br/>
+&#160;<br/>
+/*&#160;Number&#160;of&#160;DataSets&#160;&#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;1&#160;<br/>
+&#160;<br/>
+/*&#160;EEP&#160;Number&#160;&#160;&#160;&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160; &#160;&#160;},&#160;<br/>&#160;<br/>/* Block&#160;4&#160;*/&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;0x04,&#160;&#160;&#160; &#160; &#160;&#160;<br/>
+/*&#160;Block&#160;number&#160; &#160; &#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160;&#160;<br/>
+*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;0x001A,&#160;&#160;&#160; &#160;/*&#160;Block&#160;size &#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;<br/>
+&#160;<br/>
+&#160;*/&#160;<br/>
+&#160;<br/>
+&#160;37&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=38></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+&#160; &#160; &#160;&#160;&#160;&#160;0x10,&#160;&#160;/*&#160;Block&#160;number&#160;of&#160;write cycles&#160;&#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;TRUE,&#160;&#160; &#160; &#160;/*&#160;Block&#160;immediate data used &#160; &#160;*/&#160;<br/>&#160; &#160; &#160; &#160;&#160;0,&#160; &#160;&#160;&#160; &#160; &#160;&#160;&#160;<br/>
+/*&#160;Device Index&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;&#160; &#160; &#160;&#160;<br/>
+*/&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;4,&#160;<br/>
+&#160;<br/>
+/*&#160;Number&#160;of&#160;DataSets&#160;&#160;&#160;&#160;<br/>
+*/&#160;<br/>
+&#160;<br/>
+&#160; &#160; &#160; &#160;&#160;0&#160;<br/>
+&#160;<br/>
+/*&#160;EEP&#160;Number&#160;&#160;&#160;&#160;<br/>
+&#160;<br/>
+*/&#160;<br/>
+&#160;<br/>
+&#160; &#160;&#160;},&#160;<br/>
+};&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+38&#160;<br/>
+<hr/>
+<a name=39></a><b>3.7&#160;&#160;API Classification&#160;</b><br/>
+This&#160;section introduces&#160;the application-programming interface for&#160;the&#160;AutoSAR&#160;FEE Driver&#160;<br/>by&#160;grouping them&#160;into logical&#160;units.&#160;This&#160;is&#160;intended&#160;for&#160;the&#160;user&#160;to get&#160;a quick&#160;understanding&#160;<br/>of&#160;&#160;the&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;&#160;APIs.&#160;For&#160;detailed descriptions&#160;please refer&#160;to the&#160;API&#160;<br/>specification section that&#160;follows&#160;this&#160;section.&#160;<br/>
+<i><b>3.7.1&#160;&#160;Initialization&#160;</b></i><br/>
+The&#160;AutoSAR&#160;FEE&#160;Driver&#160;APIs&#160;that&#160;are&#160;intended&#160;for&#160;use&#160;in&#160;<i>initialization&#160;</i>of&#160;the&#160;FEE&#160;module&#160;<br/>are listed&#160;below.&#160;&#160;<br/>
+&#160;<br/>
+<b>Name&#160;&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Fee_Init&#160;<br/>
+Used to&#160;initialize the FEE&#160;module&#160;<br/>
+<b>4-4.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Initialization&#160;APIs&#160;</b><br/>
+<b>&#160;</b><br/>
+<i><b>3.7.2&#160;&#160;Data Operations&#160;</b></i><br/>
+The&#160;&#160;AutoSAR&#160;FEE Driver&#160;&#160;APIs&#160;that&#160;are intended for&#160;performing<i>&#160;&#160;Data operations&#160;</i>on Data&#160;<br/>Blocks&#160;are listed below.&#160;&#160;<br/>
+&#160;<br/>
+<b>Name&#160;&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Fee_Write&#160;<br/>
+Used to initiate a&#160;Write Operation to&#160;a&#160;<br/>Data Block.&#160; Fee_MainFunction should&#160;<br/>be called at&#160;regular&#160;intervals&#160;to finish&#160;<br/>the Write&#160;Operation&#160;<br/>
+Fee_Read&#160;<br/>
+Fee_MainFunction&#160;should&#160;be called at&#160;<br/>regular&#160;intervals&#160;to finish&#160;&#160;this&#160;Operation&#160;<br/>
+Fee_EraseImmediateBlock&#160;<br/>
+Used&#160;to&#160;initiate&#160;an&#160;Erase&#160;Operation&#160;of&#160;a&#160;<br/>Data Block.&#160; Fee_MainFunction should&#160;<br/>be called at&#160;regular&#160;intervals&#160;to finish&#160;&#160;<br/>this&#160;Operation&#160;<br/>
+Fee_InvalidateBlock&#160;<br/>
+Used to initiate an&#160;Invalidate Operation&#160;<br/>on a&#160;Data Block.&#160;Fee_MainFunction&#160;<br/>should be called&#160;at&#160;regular&#160;intervals&#160;to&#160;<br/>finish&#160;this&#160;Operation&#160;<br/>
+<b>4-5.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Data&#160;Operation&#160;APIs&#160;</b><br/>
+<i><b>&#160;</b></i><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;39&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=40></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+<i><b>3.7.3&#160;&#160;&#160;Information&#160;&#160;</b></i><br/>
+The&#160;AutoSAR&#160;FEE&#160;Driver&#160;APIs&#160;that&#160;are&#160;intended&#160;to&#160;get&#160;information&#160;about&#160;the&#160;status&#160;of&#160;the&#160;<br/>FEE&#160;Module&#160;are&#160;listed below.&#160;&#160;<br/>
+&#160;<br/>
+<b>Name&#160;&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Fee_GetVersionInfo&#160;<br/>
+Used to&#160;get&#160;the Driver&#160;version.&#160;<br/>
+Fee_GetStatus&#160;<br/>
+Used to&#160;get&#160;the status&#160;of&#160;the FEE&#160;module.&#160;<br/>
+Fee_GetJobResult&#160;<br/>
+Used&#160;to&#160;get&#160;the&#160;job&#160;result&#160;of&#160;a&#160;Data&#160;<br/>Operation.&#160;<br/>
+<b>4-6. &#160;AutoSAR&#160;FEE&#160;Driver&#160;Information&#160;APIs&#160;</b><br/>
+<b>&#160;</b><br/>
+<i><b>3.7.4&#160;&#160;Internal&#160;Operations&#160;&#160;</b></i><br/>
+The&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;&#160;APIs&#160;that&#160;are&#160;used to&#160;&#160;perform&#160;internal&#160;operations&#160;of&#160;the&#160;FEE&#160;<br/>Module&#160;are&#160;listed below.&#160;&#160;<br/>
+&#160;<br/>
+<b>Name&#160;&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Fee_MainFunction&#160;<br/>
+Used to&#160;complete the&#160;Data Operations&#160;<br/>initiated by&#160;any&#160;of&#160;the&#160;Data Operation&#160;<br/>functions.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>4-7.&#160;&#160;AutoSAR&#160;FEE&#160;Driver&#160;Internal&#160;Operation&#160;APIs&#160;</b><br/>
+<i><b>3.7.5&#160;&#160;Cancel/&#160;Terminate&#160;Operations&#160;&#160;</b></i><br/>
+The&#160;&#160;AutoSAR&#160;FEE Driver&#160;&#160;APIs&#160;that&#160;are&#160;used to&#160;cancel/terminate an ongoing Data&#160;<br/>Operation are listed&#160;below.&#160;&#160;<br/>
+&#160;<br/>
+<b>Name&#160;&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Fee_Cancel&#160;<br/>
+Used to&#160;cancel&#160;an&#160;ongoing&#160;write,&#160;erase,&#160;<br/>invalidate or&#160;read operation.&#160;<br/>
+<b>4-8. &#160;AutoSAR&#160;FEE&#160;Driver&#160;Terminate/Cancel&#160;Operation&#160;APIs&#160;</b><br/>
+<i><b>3.7.6&#160;&#160;Error&#160;Information&#160;and Recovery&#160;Operations&#160;&#160;</b></i><br/>
+The&#160;TI&#160;FEE Driver&#160;APIs&#160;that&#160;are&#160;used&#160;to&#160;provide&#160;error&#160;information and recover&#160;from&#160;severe&#160;<br/>errors.&#160;&#160;<br/>
+&#160;<br/>
+<b>Name&#160;&#160;</b><br/>
+<b>Description&#160;</b><br/>
+TI_FeeErrorCode&#160;<br/>
+Function to&#160;know&#160;the&#160;error&#160;type.&#160;<br/>Function to recover&#160;from&#160;severe&#160;errors.&#160;<br/>
+TI_Fee_ErrorRecovery&#160;<br/>
+<b>4-9. &#160;AutoSAR&#160;FEE&#160;Driver&#160;Error&#160;Info&#160;and&#160;Recovery&#160;APIs&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+40&#160;<br/>
+<hr/>
+<a name=41></a><i><b>3.7.7&#160;Suspend/Resume Erase Sector&#160;&#160;</b></i><br/>
+The&#160;TI&#160;FEE Driver&#160;APIs&#160;that are&#160;used to suspend/Resume erasing of&#160;sector.&#160;&#160;<br/>
+&#160;<br/>
+<b>Name&#160;&#160;</b><br/>
+<b>Description&#160;</b><br/>
+TI_Fee_SuspendResumeErase&#160;&#160;Function&#160;to&#160;suspend/resume&#160;erasing&#160;<br/>
+of&#160;sectors.&#160;<br/>
+<b>4-10. &#160;TI&#160;FEE Driver&#160;Suspend/Resume Erase&#160;Sector&#160;APIs&#160;</b><br/>
+<b>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;</b><br/>
+&#160;<br/>
+&#160;41&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=42></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+<b>3.8&#160;&#160;&#160;Integration Example&#160;</b><br/>
+This&#160;section&#160;depicts&#160;a&#160;flow&#160;chart&#160;for&#160;a typical&#160;FEE&#160;operation.&#160;<br/>
+<b>Initialization&#160;</b><br/>
+To be called&#160;only&#160;once at&#160;the&#160;<br/>
+<b>Fee_Init()&#160;</b><br/>
+beginning&#160;to&#160;initialize the FEE&#160;<br/>
+<b>&#160;</b><br/>
+module.&#160;&#160;<br/>
+<b>FEE&#160;is in&#160;IDLE&#160;state after&#160;<br/>successful initialization&#160;</b><br/>
+Call&#160;any&#160;one&#160;of&#160;the data&#160;<br/>operation functions&#160;as&#160;required.&#160;<br/>A&#160;new&#160;operation can be initiated&#160;<br/>only&#160;when the&#160;module&#160;is&#160;in “Idle”&#160;<br/>state.&#160;<br/>
+<b>Schedule a Data Operation&#160;<br/>FEE_Write() /&#160;<br/>FEE_EraseImmediateBlock()&#160;/&#160;</b><br/>
+To be called&#160;at&#160;regular&#160;<br/>
+<b>FEE_InvalidateBlock() /&#160;</b><br/>
+intervals&#160;to complete&#160;the&#160;Data&#160;<br/>
+<b>FEE_Read()&#160;</b><br/>
+operation.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Schedule&#160;Other&#160;</b><br/>
+<b>Fee_Main()&#160;</b><br/>
+<b>Application&#160;Tasks&#160;</b><br/>
+&#160;<br/>
+<b>TI_Fee_Main&#160;calls&#160;<br/>TI_FeeInternal_FeeM<br/>anager&#160;</b><br/>
+<b>Fee_GetStatus()</b>&#160;<br/>&#160;<br/>
+Called by&#160;Fee_Main()&#160;whenever&#160;in&#160;<br/>
+No&#160;<br/>
+<b>IDLE?&#160;</b><br/>
+“Idle”&#160;state to&#160;handle internal&#160;<br/>
+ti<br/>
+&#160;<br/>
+Yes&#160;<br/>
+<b>Fee_GetJobResult()&#160;</b><br/>
+Returns&#160;the Job result&#160;of&#160;the last&#160;<br/>
+&#160;<br/>
+operation.&#160;<br/>
+&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+42&#160;<br/>
+<hr/>
+<a name=43></a><b>3.9&#160;&#160;API Specification&#160;<br/></b>&#160;<br/>
+This&#160;section constitutes&#160;the&#160;detailed reference for&#160;the&#160;entire&#160;API&#160;set&#160;published to&#160;users&#160;of&#160;the&#160;<br/>AutoSAR&#160;FEE Driver.&#160;&#160;<br/>
+For&#160;each of&#160;the published API&#160;listed,&#160;the following&#160;attributes&#160;are specified&#160;<br/>
+•<b>&#160;&#160;<i>Prototype</i></b>:&#160;The signature of&#160;the function&#160;and&#160;or&#160;macro method in question&#160;<br/>•<b>&#160;&#160;<i>Description</i></b>:&#160;The functionality&#160;of&#160;the procedure or&#160;macro&#160;<br/>•<b>&#160;&#160;<i>Arguments</i></b>:&#160;The list&#160;of&#160;parameters&#160;supplied by&#160;the user&#160;<br/>•<b>&#160;&#160;<i>Return</i></b>&#160;<i><b>value</b></i>:&#160;The evaluated return value from&#160;the procedure&#160;invoked&#160;<br/>
+<i><b>3.9.1&#160;&#160;AutoSAR FEE&#160;Driver&#160;Functions&#160;</b></i><br/>
+<i><b>3.9.1.1&#160;</b></i><br/>
+<i><b>Fee&#160;Initilization&#160;Function&#160;</b></i><br/>
+&#160;<br/>
+<b>Prototype&#160;</b><br/>
+void Fee_Init(&#160;)&#160;<br/>
+<b>Description&#160;</b><br/>
+Used to&#160;initialize the FEE&#160;module&#160;<br/>
+<b>Arguments&#160;</b><br/>
+None&#160;<br/>
+<b>Return&#160;value&#160;</b><br/>
+None&#160;<br/>
+&#160;<br/>
+The function Fee_Init()&#160;shall&#160;initialize the Fee module.&#160;This&#160;function shall&#160;initialize&#160;all&#160;Flash&#160;<br/>Memory&#160;relevant&#160;registers&#160;(hardware)&#160;with parameters&#160;provided in the given configuration&#160;<br/>set. &#160;&#160;<br/>
+The function Fee_Init()&#160;shall&#160;initialize&#160;all&#160;Fee&#160;module global&#160;variables&#160;and&#160;those&#160;controller&#160;<br/>registers&#160;that&#160;are&#160;needed for&#160;controlling the flash device and that&#160;do not&#160;influence&#160;or&#160;<br/>depend&#160;on other&#160;(hardware)&#160;modules.&#160;&#160;Registers&#160;that&#160;can influence&#160;or&#160;depend on&#160;other&#160;<br/>modules&#160;shall&#160;be&#160;initialized&#160;by&#160;a common system&#160;module.&#160;<br/>
+This&#160;function shall&#160;set&#160;the&#160;Fee module state to MEMIF_IDLE&#160;after&#160;successfully&#160;finishing&#160;the&#160;<br/>Fee&#160;module initialization.&#160;&#160;&#160;<br/>
+<i><b>Note:&#160;Do&#160;not call&#160;Fee_Init&#160;API&#160;multiple&#160;times&#160;in&#160;a&#160;single power&#160;cycle.&#160;There are&#160;<br/>chances&#160;of some&#160;blocks&#160;getting&#160;lost(if there&#160;are&#160;different block&#160;configurations&#160;for&#160;<br/>different instances&#160;of Fee_Init call&#160;), if&#160;it’s&#160;called&#160;multiple&#160;times.&#160;If project&#160;<br/>requirement&#160;&#160;needs&#160;to&#160;call&#160;Fee_Init multiple&#160;times,&#160;make sure .data and&#160;.bss sections&#160;<br/>are&#160;cleared&#160;before&#160;calling&#160;Fee_Init.</b></i>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;43&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=44></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/><i><b>3.9.1.2&#160;</b></i><br/>
+<i><b>Fee&#160;Write&#160;Function&#160;</b></i><br/>
+&#160;<br/>
+Std_ReturnType Fee_Write(&#160;<br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+uint16 BlockNumber,&#160;<br/>
+&#160;<br/>
+uint8*&#160;DataBufferPtr&#160;<br/>
+)&#160;<br/>
+<b>Description&#160;</b><br/>
+Used to&#160;initiate a&#160;Write&#160;Operation&#160;on&#160;a Data&#160;<br/>Block&#160;/&#160;DataSet&#160;within a Data Block&#160;<br/>
+<b>BlockNumber&#160;&#160;</b>The BlockNumber&#160;should comprise of&#160;the&#160;<br/>
+number&#160;of&#160;the logical&#160;block&#160;and the&#160;Dataset&#160;<br/>index&#160;within&#160;that&#160;logical&#160;block.&#160;The number&#160;of&#160;the&#160;<br/>logical&#160;block&#160;is&#160;left&#160;shifted by&#160;the maximum&#160;<br/>number&#160;of&#160;Datasets&#160;configures&#160;<br/>
+<b>&#160;</b><br/>
+(NVM_DATASET_SELECTION_BITS)&#160;and then&#160;<br/>
+<b>ts</b><br/>
+combined&#160;with the Dataset&#160;index&#160;to obtain the&#160;<br/>
+<b>n<br/>e</b><br/>
+BlockNumber&#160;parameter.&#160;<br/>
+<b>m<br/>u</b><br/>
+<b>DataBufferPtr&#160;</b><br/>
+<b>rg</b><br/>
+Pointer&#160;to data&#160;buffer.&#160;<br/>
+<b>A</b><br/>
+<b>Return&#160;value&#160;</b><br/>
+E_OK:&#160; The&#160;write job&#160;was&#160;accepted by&#160;the Fee&#160;<br/>module&#160;<br/>
+E_NOT_OK:&#160; The&#160;write job&#160;was&#160;not&#160;accepted by&#160;<br/>the Fee module.&#160;<br/>
+&#160;<br/>
+The function&#160;Fee_Write()&#160;shall&#160;take the&#160;block&#160;start&#160;address&#160;and calculate the&#160;&#160;&#160;<br/>corresponding memory&#160;write address.&#160; This&#160;function shall&#160;copy&#160;the given/computed&#160;<br/>parameters&#160;to module internal&#160;variables,&#160;initiate&#160;a&#160;write job,&#160;set&#160;Fee module&#160;status&#160;to&#160;<br/>MEMIF_BUSY,&#160;set&#160;the job&#160;result&#160;to&#160;MEMIF_JOB_PENDING&#160;and return&#160;with&#160;E_OK.&#160;<br/>
+The Fee module shall&#160;execute the job&#160;of&#160;the function&#160;Fee_Write()&#160;asynchronously&#160;within the&#160;<br/>Fee module’s&#160;main function.&#160; This&#160;function shall&#160;write one or&#160;more complete flash&#160;pages&#160;to&#160;<br/>the Flash device.&#160; The job&#160;of&#160;this&#160;function&#160;shall&#160;program&#160;a Flash&#160;memory&#160;block&#160;with data&#160;<br/>provided&#160;via&#160;DataBufferPtr.&#160;<br/>
+&#160;<br/>
+This&#160;function shall&#160;check&#160;the following:&#160;<br/>1.&#160;&#160;That&#160;the&#160;write&#160;length&#160;is&#160;greater&#160;than 0.&#160;If&#160;this&#160;check&#160;fails,&#160;this&#160;function shall&#160;reject&#160;<br/>
+the&#160;Write job and return&#160;with&#160;E_NOT_OK.&#160;<br/>
+2.&#160;&#160;That&#160;the Fee module&#160;has&#160;been&#160;initialized.&#160;&#160;If&#160;this&#160;check&#160;fails,&#160;this&#160;function&#160;shall&#160;<br/>
+reject&#160;the&#160;Write job and return&#160;with&#160;E_NOT_OK. &#160;&#160;<br/>
+3.&#160;&#160;That&#160;the Fee module&#160;is&#160;currently&#160;not&#160;busy.&#160; If&#160;this&#160;check&#160;fails,&#160;this&#160;function shall&#160;<br/>
+reject&#160;the&#160;Write job and return&#160;with&#160;E_NOT_OK.&#160;<br/>
+4.&#160;&#160;The given data&#160;buffer&#160;pointer&#160;for&#160;not&#160;being a&#160;null&#160;pointer.&#160; If&#160;this&#160;check&#160;fails,&#160;this&#160;<br/>
+function shall&#160;reject&#160;the&#160;Write job and return&#160;with&#160;E_NOT_OK. &#160;&#160;<br/>
+Projects&#160;can configure&#160;FEE_NUMBER_OF_EIGHTBYTEWRITES&#160;to suitable value.&#160;By&#160;<br/>default&#160;this&#160;is&#160;0x1.&#160;This&#160;means&#160;8 bytes&#160;of&#160;data&#160;are&#160;written for&#160;every&#160;main function&#160;call.&#160;If&#160;this&#160;<br/>parameter&#160;is&#160;configured to&#160;0x2,&#160;16&#160;bytes&#160;of&#160;data are&#160;written.&#160;<br/>
+&#160;<br/>
+44&#160;<br/>
+<hr/>
+<a name=45></a><i><b>3.9.1.3&#160;</b></i><br/>
+<i><b>Fee&#160;Read&#160;Function&#160;</b></i><br/>
+Std_ReturnType Fee_Read(&#160;<br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+uint16 BlockNumber,&#160;<br/>
+&#160;<br/>
+uint16 BlockOffset,&#160;<br/>
+&#160;<br/>
+uint8*&#160;DataBufferPtr,&#160;<br/>
+&#160;<br/>
+uint16 Length&#160;<br/>
+)&#160;<br/>
+<b>Description&#160;</b><br/>
+Used to&#160;perform&#160;a&#160;Read&#160;Operation&#160;on&#160;a Data Block&#160;/&#160;<br/>DataSet&#160;within&#160;a Data&#160;Block&#160;<br/>
+<b>BlockNumber&#160;&#160;</b>The BlockNumber&#160;should comprise of&#160;the number&#160;of&#160;<br/>
+&#160;<br/>
+the logical&#160;block&#160;and&#160;the Dataset&#160;index&#160;within that&#160;<br/>logical&#160;block.&#160;The number&#160;of&#160;the logical&#160;block&#160;is&#160;left&#160;<br/>shifted by&#160;the maximum&#160;number&#160;of&#160;Datasets&#160;<br/>configures&#160;(NVM_DATASET_SELECTION_BITS)&#160;<br/>and then&#160;combined&#160;with&#160;the&#160;Dataset&#160;index&#160;to&#160;obtain&#160;<br/>the&#160;BlockNumber&#160;parameter.&#160;<br/>
+<b>&#160;<br/>ts</b><br/>
+Read address&#160;offset&#160;inside&#160;the block.&#160;<br/>
+<b>n</b><br/>
+<b>BlockOffset&#160;</b><br/>
+<b>e<br/>m<br/>u</b><br/>
+<b>DataBufferPtr&#160;&#160;</b>Pointer&#160;to data&#160;buffer.&#160;<br/>
+<b>rg</b><br/>
+Number&#160;of&#160;bytes&#160;to read.&#160;<br/>
+<b>A</b><br/>
+<b>Length&#160;</b><br/>
+<b>Return&#160;value&#160;</b><br/>
+E_OK:&#160; The Read job&#160;was&#160;completed successfully.&#160;&#160;<br/>
+E_NOT_OK:&#160; The&#160;Read job&#160;was&#160;not&#160;completed&#160;<br/>successfully.&#160;<br/>
+The function&#160;Fee_Read()&#160;shall&#160;take the&#160;block&#160;start&#160;address&#160;and offset&#160;and calculate the&#160;<br/>corresponding memory&#160;read address.&#160; The address&#160;offset&#160;and&#160;length parameter&#160;can&#160;<br/>take any&#160;value&#160;within the given&#160;types&#160;range.&#160; This&#160;allows&#160;reading&#160;of&#160;an arbitrary&#160;number&#160;<br/>of&#160;bytes&#160;from&#160;an arbitrary&#160;star&#160;address&#160;inside a&#160;logical&#160;block.&#160;&#160;&#160;<br/>
+&#160;<br/>
+The Fee module shall&#160;execute the job&#160;of&#160;the function&#160;Fee_Read()&#160;asynchronously&#160;<br/>within the Fee module’s&#160;main function.&#160; This&#160;function shall&#160;initiate a read&#160;operation&#160;<br/>which copies&#160;a&#160;continuous&#160;Flash memory&#160;block&#160;starting from&#160;the computed start&#160;<br/>address&#160;to the size&#160;of&#160;Length&#160;to the&#160;buffer&#160;pointed to DataBufferPtr.&#160;This&#160;function&#160;shall&#160;<br/>set&#160;Fee module&#160;status&#160;to MEMIF_BUSY,&#160;set&#160;the job result&#160;to&#160;MEMIF_JOB_PENDING&#160;<br/>and return&#160;with&#160;E_OK.&#160;<br/>
+&#160;<br/>
+This&#160;function shall&#160;check&#160;the following:&#160;<br/>1.&#160;&#160;That&#160;the&#160;read&#160;length&#160;is&#160;greater&#160;than 0.&#160;If&#160;this&#160;check&#160;fails,&#160;this&#160;function shall&#160;reject&#160;<br/>
+the&#160;Read&#160;job and return&#160;with&#160;E_NOT_OK.&#160;<br/>
+2.&#160;&#160;That&#160;the Fee module&#160;has&#160;been&#160;initialized.&#160;&#160;If&#160;this&#160;check&#160;fails,&#160;this&#160;function&#160;shall&#160;<br/>
+reject&#160;the&#160;Read&#160;job and return&#160;with&#160;E_NOT_OK. &#160;&#160;<br/>
+3.&#160;&#160;That&#160;the Fee module&#160;is&#160;currently&#160;not&#160;busy.&#160; If&#160;this&#160;check&#160;fails,&#160;this&#160;function shall&#160;<br/>
+reject&#160;the&#160;Read&#160;job and return&#160;with&#160;E_NOT_OK.&#160;<br/>
+4.&#160;&#160;The given data&#160;buffer&#160;pointer&#160;for&#160;not&#160;being a&#160;null&#160;pointer.&#160; If&#160;this&#160;check&#160;fails,&#160;this&#160;<br/>
+function shall&#160;reject&#160;the&#160;Read&#160;job and return&#160;with&#160;E_NOT_OK. &#160;&#160;<br/>
+Main function&#160;will&#160;do&#160;complete data read&#160;in single main function&#160;call.&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;45&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=46></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/><i><b>3.9.1.4&#160;</b></i><br/>
+<i><b>Fee&#160;Erase&#160;Function&#160;</b></i><br/>
+&#160;<br/>
+Std_ReturnType Fee_EraseImmediateBlock(&#160;<br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+uint16 BlockNumber&#160;<br/>
+)&#160;<br/>
+<b>Description&#160;</b><br/>
+Used to&#160;initiate&#160;a logical&#160;Erase operation&#160;on a&#160;Data&#160;<br/>Block&#160;/&#160;DataSet&#160;within a Data Block&#160;<br/>
+<b>BlockNumber&#160;&#160;</b>The BlockNumber&#160;should comprise of&#160;the number&#160;of&#160;<br/>
+<b>&#160;</b><br/>
+the logical&#160;block&#160;and&#160;the Dataset&#160;index&#160;within&#160;that&#160;<br/>
+<b>ts</b><br/>
+&#160;<br/>
+logical&#160;block.&#160;The number&#160;of&#160;the logical&#160;block&#160;is&#160;left&#160;<br/>
+<b>n<br/>e</b><br/>
+shifted by&#160;the maximum&#160;number&#160;of&#160;Datasets&#160;<br/>
+<b>m<br/>u</b><br/>
+configures&#160;(NVM_DATASET_SELECTION_BITS)&#160;<br/>
+<b>rg</b><br/>
+and then&#160;combined&#160;with&#160;the&#160;Dataset&#160;index&#160;to&#160;obtain&#160;<br/>
+<b>A</b><br/>
+the&#160;BlockNumber&#160;parameter.&#160;<br/>
+<b>Return&#160;value&#160;</b><br/>
+E_OK:&#160; The Erase job&#160;was&#160;accepted&#160;by&#160;the&#160;Fee&#160;<br/>module&#160;<br/>
+E_NOT_OK:&#160; The Erase job&#160;was&#160;not&#160;accepted&#160;by&#160;<br/>the Fee module<b>.</b>&#160;<br/>
+&#160;<br/>The&#160;&#160;function&#160;&#160;Fee_&#160;&#160;EraseImmediateBlock()&#160;&#160;shall&#160;take the&#160;block&#160;number&#160;&#160;calculate the&#160;<br/>corresponding memory&#160;address&#160;for&#160;that&#160;block. &#160;&#160;<br/>&#160;<br/>The Fee module shall&#160;execute the job&#160;of&#160;the function&#160;Fee_&#160;EraseImmediateBlock()&#160;<br/>asynchronously&#160;within&#160;the&#160;Fee module’s&#160;main function. &#160;&#160;<br/>The function&#160;Fee_EraseImmediateBlock()&#160;ensures&#160;that&#160;the Fee module&#160;can&#160;write&#160;<br/>immediate data.&#160;&#160;As&#160;the Fee module&#160;implementation should always&#160;be ready&#160;to&#160;write&#160;<br/>data,&#160;unless&#160;the&#160;block&#160;is&#160;marked as&#160;FeeImmediateData ==&#160;FALSE,&#160;it&#160;shall&#160;return&#160;<br/>E_OK. &#160;If&#160;the&#160;block&#160;is&#160;marked as&#160;FeeImmediateData&#160;==&#160;FALSE&#160;it&#160;will return&#160;<br/>E_NOT_OK.&#160;<br/>
+&#160;<br/>
+This&#160;function shall&#160;check&#160;the following:&#160;<br/>1.&#160;<br/>
+That&#160;the Fee module&#160;has&#160;been&#160;initialized.&#160;&#160;If&#160;this&#160;check&#160;fails,&#160;this&#160;function&#160;shall&#160;<br/>reject&#160;the&#160;Erase&#160;job and&#160;return with&#160;E_NOT_OK. &#160;&#160;<br/>
+2.&#160;<br/>
+That&#160;the&#160;Fee module&#160;is&#160;currently&#160;not&#160;busy.&#160; If&#160;this&#160;check&#160;fails,&#160;this&#160;function shall&#160;<br/>reject&#160;the&#160;Erase&#160;job and&#160;return with&#160;E_NOT_OK.&#160;<br/>
+3.&#160;<br/>
+The given&#160;Block&#160;Number&#160;is&#160;marked&#160;for&#160;Immediate Data&#160;Write.&#160;&#160;If&#160;this&#160;check&#160;fails,&#160;<br/>this&#160;function shall&#160;reject&#160;the&#160;Erase&#160;job&#160;and&#160;return&#160;with&#160;E_NOT_OK. &#160;&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+46&#160;<br/>
+<hr/>
+<a name=47></a><i><b>3.9.1.5&#160;</b></i><br/>
+<i><b>Fee&#160;Invalidate&#160;Function&#160;</b></i><br/>
+&#160;<br/>
+Std_ReturnType Fee_InvalidateBlock(&#160;<br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+uint16 BlockNumber&#160;<br/>
+)&#160;<br/>
+<b>Description&#160;</b><br/>
+Used to&#160;initiate&#160;a logical&#160;Invalidate&#160;operation on a&#160;<br/>Data&#160;Block&#160;/&#160;DataSet&#160;within&#160;a Data Block&#160;<br/>
+<b>BlockNumb</b><br/>
+The&#160;BlockNumber&#160;should comprise of&#160;the number&#160;of&#160;<br/>
+<b>&#160;</b><br/>
+<b>er&#160;</b><br/>
+the logical&#160;block&#160;and&#160;the Dataset&#160;index&#160;within&#160;that&#160;<br/>
+<b>ts</b><br/>
+logical&#160;block.&#160;The number&#160;of&#160;the logical&#160;block&#160;is&#160;left&#160;<br/>
+<b>n<br/>e</b><br/>
+&#160;<br/>
+shifted by&#160;the maximum&#160;number&#160;of&#160;Datasets&#160;<br/>
+<b>m<br/>u</b><br/>
+configures&#160;(NVM_DATASET_SELECTION_BITS)&#160;and&#160;<br/>
+<b>rg</b><br/>
+then combined&#160;with&#160;the Dataset&#160;index&#160;to obtain the&#160;<br/>
+<b>A</b><br/>
+BlockNumber&#160;parameter.&#160;<br/>
+<b>Return&#160;value&#160;</b><br/>
+E_OK:&#160; The&#160;Invalidate&#160;job&#160;was&#160;accepted by&#160;the Fee&#160;<br/>module&#160;<br/>
+E_NOT_OK:&#160; The&#160;Invalidate&#160;job was&#160;not&#160;accepted&#160;by&#160;<br/>the Fee module<b>.</b>&#160;<br/>
+&#160;<br/>
+The function Fee_&#160;InvalidateBlock()&#160;shall&#160;take the block&#160;number&#160;calculate&#160;the&#160;<br/>corresponding memory&#160;address&#160;for&#160;that&#160;block.&#160;&#160;&#160;<br/>The Fee module shall&#160;execute the job&#160;of&#160;the function&#160;&#160;<br/>Fee_&#160;InvalidateBlock()&#160;asynchronously&#160;within the Fee&#160;module’s&#160;main function.&#160;&#160;This&#160;<br/>command shall&#160;change the&#160;valid&#160;bit&#160;in the Data&#160;Block&#160;header&#160;to invalidate&#160;it.&#160;<br/>
+&#160;<br/>
+This&#160;function shall&#160;check&#160;the following:&#160;<br/>1.&#160;<br/>
+That&#160;the Fee module&#160;has&#160;been&#160;initialized.&#160;&#160;If&#160;this&#160;check&#160;fails,&#160;this&#160;function&#160;shall&#160;<br/>reject&#160;the&#160;Invalidate&#160;job and&#160;return with&#160;E_NOT_OK. &#160;&#160;<br/>
+2.&#160;<br/>
+That&#160;the Fee module&#160;is&#160;currently&#160;not&#160;busy.&#160; If&#160;this&#160;check&#160;fails,&#160;this&#160;function shall&#160;<br/>reject&#160;the&#160;Invalidate&#160;job and&#160;return with&#160;E_NOT_OK.&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;47&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=48></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/><i><b>3.9.1.6&#160;</b></i><br/>
+<i><b>Fee&#160;Get Version&#160;Info&#160;Function&#160;</b></i><br/>
+&#160;<br/>
+void Fee_GetVersionInfo(&#160;<br/>
+<b>Prototype&#160;</b><br/>
+&#160;<br/>
+Std_VersionInfoType*&#160;VersionInfoPtr&#160;<br/>
+)&#160;<br/>
+<b>Description&#160;</b><br/>
+Function to return the&#160;version information&#160;of&#160;the Fee&#160;<br/>module<b>.</b>&#160;<br/>
+<b>Arguments&#160;</b><br/>
+None&#160;<br/>
+<b>Return&#160;value&#160;</b><br/>
+None&#160;<br/>
+&#160;<br/>&#160;<br/>
+The function Fee_GetVersionInfo()&#160;shall&#160;return the version&#160;information for&#160;the Fee&#160;module.&#160;&#160;<br/>The version&#160;information&#160;includes:&#160;<br/>
+-&#160;&#160;Module Id&#160;<br/>-&#160;&#160;Vendor&#160;Id&#160;<br/>-&#160;&#160;Fee specific&#160;version&#160;numbers&#160;MM.mm.rr&#160;<br/>
+•&#160;&#160;MM&#160;&#160;<br/>
+–&#160;Major&#160;Version&#160;<br/>
+•&#160;&#160;mm&#160;&#160;<br/>
+–&#160;Minor&#160;Version&#160;<br/>
+•&#160;&#160;rr&#160;&#160;<br/>
+–&#160;Revision&#160;<br/>
+&#160;<br/>
+The function Fee_GetVersionInfo()&#160;shall&#160;be pre-compile time configurable On/Off&#160;by&#160;the&#160;<br/>configuration parameter&#160;FEE_VERSION_INFO_API.&#160;<br/>
+<i>&#160;</i><br/>
+<i><b>3.9.1.7&#160;</b></i><br/>
+<i><b>Fee&#160;Get Status&#160;Function&#160;</b></i><br/>
+&#160;<br/>
+<b>Prototype&#160;</b><br/>
+MemIf_StatusType&#160;Fee_GetStatus()&#160;<br/>
+<b>Description&#160;</b><br/>
+Function to return the status&#160;of&#160;the Fee module<b>.</b>&#160;<br/>
+<b>Arguments&#160;</b><br/>
+None&#160;<br/>
+<b>Return&#160;value&#160;</b><br/>
+MEMIF_UNINIT:&#160;The Fee Module&#160;has&#160;not&#160;been&#160;<br/>initialized.&#160;<br/>
+MEMIF_IDLE:&#160;&#160;The Fee&#160;Module is&#160;currently&#160;idle.&#160;<br/>
+MEMIF_BUSY:&#160; The Fee Module&#160;is&#160;currently&#160;busy.&#160;<br/>MEMIF_BUSY_INTERNAL:&#160; The Fee Module&#160;is&#160;<br/>currently&#160;busy&#160;with internal&#160;management&#160;<br/>operations&#160;<br/>
+&#160;<br/>
+The function Fee_&#160;GetStatus()&#160;shall&#160;return the status&#160;information for&#160;the Fee module.&#160;&#160;&#160;<br/>
+&#160;<br/>
+The function Fee_&#160;GetStatus()&#160;shall&#160;be pre-compile time configurable On/Off&#160;by&#160;the&#160;<br/>configuration&#160;parameter&#160;FEE_GET_STATUS_API.&#160;<br/>
+&#160;<br/>&#160;<br/>
+&#160;<br/>
+48&#160;<br/>
+<hr/>
+<a name=49></a><i><b>3.9.1.8&#160;</b></i><br/>
+<i><b>Fee&#160;Get Job&#160;Result Function&#160;</b></i><br/>
+&#160;<br/>
+<b>Prototype&#160;</b><br/>
+MemIf_JobResultType Fee_GetJobResult()&#160;<br/>
+<b>Description&#160;</b><br/>
+Function to&#160;get&#160;the job result&#160;from&#160;the Fee module<b>.</b>&#160;<br/>
+<b>Arguments&#160;</b><br/>
+None&#160;<br/>
+MEMIF_JOB_OK:&#160;The last&#160;job has&#160;finished&#160;<br/>
+<b>Return&#160;value&#160;</b><br/>
+successfully.&#160;<br/>
+MEMIF_JOB_PENDING:&#160;The last&#160;job&#160;is&#160;waiting for&#160;<br/>execution or&#160;is&#160;currently&#160;being executed.&#160;<br/>MEMIF_JOB_FAILED:&#160;&#160;The last&#160;<br/>read/erase/write/compare job failed.&#160;<br/>MEMIF_BLOCK_INCONSISTENT:&#160; The requested&#160;<br/>block&#160;is&#160;inconsistent,&#160;it&#160;may&#160;contain corrupted data.&#160;<br/>MEMIF_JOB_CANCELLED:&#160; The last&#160;job&#160;has&#160;been&#160;<br/>cancelled.&#160;<br/>MEMIF_BLOCK_INVALID:&#160;&#160;The requested block&#160;has&#160;<br/>been&#160;invalidated.&#160; The requested read operation&#160;<br/>cannot&#160;be performed.&#160;<br/>
+&#160;<br/>
+The function&#160;Fee_GetJobResult()&#160;shall&#160;return the result&#160;of&#160;the last&#160;job&#160;&#160;synchronously.&#160; The&#160;<br/>erase,&#160;write,&#160;read&#160;and&#160;invalidate&#160;functions&#160;shall&#160;share&#160;the&#160;same&#160;job&#160;result,&#160;therefore,&#160;only&#160;<br/>the result&#160;of&#160;the&#160;last&#160;job can&#160;be queried.&#160;<br/>
+&#160;<br/>
+The&#160;function&#160;Fee_GetJobResult&#160;shall&#160;be&#160;pre-compile&#160;time&#160;configurable&#160;On/Off&#160;by&#160;the&#160;<br/>configuration&#160;parameter&#160;FEE_GET_JOB_RESULT_API.&#160;<br/>
+&#160;<br/>
+<i><b>3.9.1.9&#160;</b></i><br/>
+<i><b>Fee&#160;Main&#160;Function&#160;</b></i><br/>
+&#160;<br/>
+<b>Prototype&#160;</b><br/>
+void Fee_MainFunction()&#160;<br/>
+<b>Description&#160;</b><br/>
+Function to&#160;handle the requested read/write/erase jobs&#160;<br/>and the&#160;internal&#160;management&#160;operations&#160;of&#160;the Fee&#160;<br/>module.&#160;<br/>
+<b>Arguments&#160;</b><br/>
+None&#160;<br/>
+&#160;<br/>
+<b>Return&#160;value&#160;</b><br/>
+None&#160;<br/>
+&#160;<br/>
+The function Fee_MainFunction()&#160;shall&#160;asynchronously&#160;handle the requested read/write/&#160;<br/>erase jobs&#160;respectively&#160;and&#160;the&#160;internal&#160;management&#160;operations.&#160;<br/>
+&#160;<br/>
+The function shall&#160;accept&#160;only&#160;one read,&#160;write,&#160;or&#160;erase job at&#160;a time.&#160;&#160;When a job&#160;has&#160;been&#160;<br/>initiated,&#160;the&#160;Fee module’s&#160;environment&#160;shall&#160;call&#160;the&#160;function Fee_MainFunction()&#160;cyclically&#160;<br/>until&#160;the job&#160;is&#160;finished.&#160; This&#160;function shall&#160;only&#160;process&#160;as&#160;much data&#160;in&#160;one&#160;call&#160;cycle as&#160;<br/>statically&#160;configured for&#160;the&#160;current&#160;job type&#160;(read,&#160;write&#160;or&#160;erase).&#160;&#160;<br/>
+&#160;<br/>
+After&#160;a&#160;read,&#160;erase&#160;or&#160;write&#160;job has&#160;been&#160;finished;&#160;the function shall&#160;set&#160;the Fee&#160;module’s&#160;<br/>job result&#160;to MEMIF_JOB_OK&#160;if&#160;it&#160;is&#160;currently&#160;in state&#160;<br/>
+&#160;<br/>
+&#160;49&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=50></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+MEMIF_JOB_PENDING.&#160;&#160;Otherwise,&#160;it&#160;shall&#160;leave the&#160;result&#160;unchanged.&#160;&#160;<br/>Furthermore,&#160;the function shall&#160;set&#160;the Fee module’s&#160;state to MEMIF_IDLE&#160;and call&#160;<br/>the job&#160;end&#160;notification function.&#160;<br/>
+&#160;<br/>
+This&#160;function shall&#160;at&#160;most&#160;issue one sector&#160;erase command (to the hardware)&#160;in&#160;<br/>each cycle.&#160;<br/>
+&#160;<br/>
+<i><b>3.9.1.10&#160;&#160;Fee&#160;Manager&#160;Function&#160;</b></i><br/>
+&#160;<br/>
+Fee_StatusType&#160;<br/>
+<b>Prototype&#160;</b><br/>
+TI_FeeInternal_FeeManager(void)&#160;<br/>
+<b>Description&#160;</b><br/>
+Function to&#160;handle the internal&#160;operations&#160;of&#160;the FEE&#160;<br/>driver.&#160;<br/>
+<b>Arguments&#160;</b><br/>
+None&#160;<br/>
+&#160;<br/>
+<b>Return&#160;value&#160;</b><br/>
+FEE_OK&#160;:&#160;Function detected No&#160;Error&#160;<br/>FEE_ERROR:&#160;Function&#160;detected&#160;an&#160;Error&#160;<br/>condition and returned.&#160;<br/>
+&#160;<br/>
+The function&#160;TI_FeeInternal_FeeFeeManager()&#160;manages&#160;the Flash&#160;EEPROM&#160;Emulation&#160;<br/>and is&#160;called&#160;when no&#160;other&#160;job is&#160;pending by&#160;the Fee_MainFunction.<i>&#160;</i>This&#160;function handles&#160;<br/>all&#160;the&#160;background tasks&#160;to manage the FEE.&#160;<br/>
+&#160;&#160;&#160;<br/>
+&#160;This&#160;routine is&#160;responsible&#160;to&#160;<br/>•&#160;<br/>
+Determine&#160;whether&#160;a Virtual&#160;Sector&#160;Copy&#160;operation&#160;is&#160;in progress.&#160;If&#160;so,&#160;it&#160;should&#160;<br/>identify&#160;all&#160;the Valid Data&#160;Blocks&#160;in the&#160;old Virtual&#160;Sector&#160;and copy&#160;them&#160;to the new&#160;<br/>Virtual&#160;Sector.&#160;<br/>
+•&#160;<br/>
+&#160;Determine if&#160;any&#160;of&#160;the Virtual&#160;Sector&#160;needs&#160;to&#160;be erased.&#160;If&#160;so,&#160;it&#160;should&#160;erase that&#160;<br/>particular&#160;Virtual&#160;Sector.&#160;<br/>
+•&#160;<br/>
+&#160;This&#160;function is&#160;only&#160;called&#160;when&#160;the Fee module&#160;is&#160;in&#160;MEMIF_IDLE&#160;state.&#160;It&#160;should&#160;<br/>set&#160;the Fee module&#160;to&#160;MEMIF_BUSY_INTERNAL&#160;state.&#160;<br/>
+&#160;<br/>
+<i><b>3.9.1.11&#160;&#160;Fee Cancel&#160; Function&#160;</b></i><br/>
+&#160;<br/>
+void Fee_Cancel(void)&#160;<br/>
+<b>Prototype&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Function to cancel/terminate an&#160;ongoing operation.&#160;<br/>
+<b>Arguments&#160;</b><br/>
+None&#160;<br/>
+&#160;<br/>
+<b>Return&#160;value&#160;</b><br/>
+None&#160;<br/>
+&#160;<br/>
+The&#160;function&#160;Fee_Cancel()&#160;provides&#160;functionality&#160;for&#160;cancelling/terminating&#160;an&#160;ongoing&#160;<br/>operation.&#160;This&#160;function shall&#160;cancel&#160;an&#160;ongoing flash read,&#160;write&#160;or&#160;erase job&#160;and shall&#160;<br/>reset&#160;the internal&#160;variables&#160;making the module ready&#160;to accept&#160;a new&#160;job.&#160; This&#160;function&#160;<br/>shall&#160;operate synchronously&#160;so after&#160;returning from&#160;this&#160;function a&#160;new&#160;job can&#160;be&#160;started.<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+&#160;<br/>
+50&#160;<br/>
+<hr/>
+<a name=51></a><i><b>3.9.1.12&#160;&#160;TI_FeeErrorCode&#160;</b></i><br/>
+&#160;<br/>
+This&#160;function provides&#160;functionality&#160;to&#160;identify&#160;occurrence of&#160;an error.&#160;&#160;<br/>It&#160;returns&#160;‘0’&#160;if&#160;no&#160;error&#160;has&#160;occurred else&#160;it&#160;returns&#160;an&#160;Error&#160;code.&#160;<br/>
+&#160;<br/>
+TI_FeeErrorCodeType TI_FeeErrorCode(uint8&#160;<br/>
+<b>Prototype&#160;</b><br/>
+u8EEPIndex&#160;)&#160;<br/>
+<b>Description&#160;</b><br/>
+Function to&#160;know&#160;the&#160;error&#160;type.&#160;<br/>
+<b>Arguments&#160;</b><br/>
+EEP Index&#160;<br/>
+&#160;<br/>
+<b>Return&#160;value&#160;</b><br/>
+Error&#160;code&#160;<br/>
+&#160;<br/>
+<i><b>&#160;</b></i><br/>
+<i><b>3.9.1.13&#160;&#160;TI_Fee_ErrorRecovery&#160;</b></i><br/>
+&#160;<br/>
+This&#160;function provides&#160;functionality&#160;to&#160;recover&#160;from&#160;any&#160;severe&#160;errors.&#160;&#160;<br/>
+&#160;<br/>
+Void TI_Fee_ErrorRecovery(TI_Fee_ErrorCodeType&#160;Error&#160;<br/>
+<b>Prototype&#160;</b><br/>
+Code,&#160;uint8&#160;u8VirtualSector)&#160;<br/>Function to recover&#160;from&#160;severe&#160;errors.&#160;<br/>
+<b>Description&#160;</b><br/>
+<b>Arguments&#160;</b><br/>
+<b>Error_TwoActiveVS&#160;</b><br/>
+<b>Error_TwoCopyVS&#160;</b><br/>
+<b>Error_SetupStateMachine&#160;</b><br/>
+<b>Error&#160;Code&#160;</b><br/>
+<b>Error_NoActiveVS&#160;</b><br/>
+<b>Error_CopyButNoActiveVS&#160;</b><br/>
+<b>Error_NoFreeVS&#160;</b><br/>
+<b>Virtual&#160;Sector&#160;Number&#160;</b><br/>
+<b>Return&#160;value&#160;</b><br/>
+<b>None&#160;</b><br/>
+&#160;<br/>
+<i><b>3.9.1.14&#160;&#160;&#160;TI_Fee_SuspendResumeErase&#160;</b></i><br/>
+&#160;<br/>
+This&#160;function provides&#160;functionality&#160;to&#160;suspend/Resume of&#160;erasing&#160;a sector.&#160;<br/>
+&#160;<br/>
+void&#160;<br/>
+<b>Prototype&#160;</b><br/>
+TI_Fee_SuspendResumeErase(TI_Fee_EraseCommandType&#160;<br/>Command)&#160;<br/>
+<b>Description&#160;&#160;</b>Function to&#160;suspend/Resume erasing of&#160;sector.&#160;<br/>
+<b>Arguments&#160;</b><br/>
+Suspend_Erase/Resume_Erase&#160;<br/>
+&#160;<br/>
+<b>Return&#160;</b><br/>
+none&#160;<br/>
+<b>value&#160;</b><br/>
+&#160;<br/>
+&#160;51&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=52></a><i>Integration Guide&#160;</i><br/>
+<i>&#160;</i><br/>
+<i>&#160;</i><br/>
+&#160;&#160;<br/>&#160;<br/>
+<b>Note:</b>&#160;This&#160;API&#160;has&#160;to&#160;be called&#160;once after&#160;Fee_Init&#160;is&#160;executed&#160;with&#160;Suspend_Erase as&#160;<br/>function argument.&#160;It has&#160;to&#160;be called again after&#160;application has&#160;completed all&#160;the&#160;<br/>initialization sequence&#160;with&#160;Resume_Erase as&#160;function&#160;argument.&#160;<br/>
+<b>3.10&#160;Privilege Mode access&#160;</b><br/>
+FEE&#160;needs&#160;following API’s&#160;to be&#160;executed in&#160;Privilege&#160;mode:&#160;<br/>
+-&#160;Fee_Init&#160;<br/>
+-&#160;TI_FeeInternal_WriteDataF021&#160;<br/>
+-&#160;TI_Fee_Read&#160;<br/>
+<b>3.11&#160;Deviations from&#160;Autosar3.x requirements&#160;</b><br/>
+-&#160;&#160;Non&#160;Polling mode not&#160;supported.&#160;<br/>
+-&#160;&#160;Immediate&#160;block&#160;writing not&#160;accepted&#160;when FEE&#160;is&#160;performing copy&#160;of&#160;blocks&#160;/&#160;erase of&#160;<br/>
+sectors.&#160;<br/>
+-&#160;&#160;No Jobs&#160;accepted&#160;during copy&#160;of&#160;blocks&#160;/erase of&#160;sectors&#160;ongoing.(The write job&#160;which&#160;<br/>
+triggered the copy&#160;operation&#160;will&#160;be&#160;pending until&#160;copy&#160;of&#160;blocks&#160;is&#160;completed&#160;and then&#160;<br/>erasing&#160;of&#160;a sector&#160;is&#160;completed.&#160;If&#160;there&#160;is&#160;a powerloss&#160;during copying&#160;of&#160;blocks,&#160;then the&#160;<br/>next&#160;Fee_Init&#160;will&#160;resume&#160;COPY&#160;operation.)&#160;<br/>
+<b>3.12&#160;Important&#160;Notes&#160;</b><br/>
+-&#160;<br/>
+If&#160;projects&#160;are using&#160;bootloader,&#160;make sure the active&#160;bank&#160;in&#160;FMAC&#160;register&#160;is&#160;same&#160;as&#160;<br/>before the start&#160;of&#160;bootloader&#160;and&#160;after&#160;the completion&#160;of&#160;bootloader.&#160;&#160;<br/>
+-&#160;<br/>
+Projects&#160;should not&#160;call&#160;Fee_Init&#160;mutiple times&#160;in one&#160;power&#160;cycle.&#160;If&#160;it&#160;is&#160;required&#160;to call,&#160;<br/>make sure all&#160;the global,&#160;static&#160;variable&#160;sections&#160;are cleared&#160;before calling Fee_Init.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+52&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="AutoSAR FEE User Guides.html#1">AutoSAR FEE Driver</a>
+<ul>
+<li><a href="AutoSAR FEE User Guides.html#13">Overview</a></li>
+<li><a href="AutoSAR FEE User Guides.html#14">The EEPROM Emulation Flash bank is divided into two or more Virtual Sectors. Each Virtual Sector is further partitioned into several Data Blocks. &#160;Data Blocks can be further partitioned into Datasets. A minimum of two Virtual Sectors are required for ...</a></li>
+<li><a href="AutoSAR FEE User Guides.html#14">The initialization routine (Fee_Init) identifies which Virtual Sector to be used and marks it as Active. The data is written to the first empty location in the Active Virtual Sector. If there is insufficient space in the current Virtual Sector to upda...</a></li>
+<li><a href="AutoSAR FEE User Guides.html#14">Virtual Sectors and Data Blocks have certain space allocated to maintain the status information which is described in more detail in the following sections.</a></li>
+<li><a href="AutoSAR FEE User Guides.html#14">The Virtual Sector Structure is the basic organizational unit used to partition the EEPROM Emulation Flash Bank. &#160;This structure can contain one or more contiguous Flash Sectors contained within one Flash Bank. &#160;A minimum of 2 Virtual Sectors are requ...</a></li>
+<li><a href="AutoSAR FEE User Guides.html#14">The internal structure of the Virtual Sector contains a Virtual Sector Header, a static Data Structure and the remaining space is used for Data Blocks.</a></li>
+<li><a href="AutoSAR FEE User Guides.html#52">3.10 Privilege Mode access</a></li>
+<li><a href="AutoSAR FEE User Guides.html#52">3.11 Deviations from Autosar3.x requirements</a></li>
+<li><a href="AutoSAR FEE User Guides.html#52">3.12 Important Notes</a></li>
+</ul>
+</li>
+</ul>
+<hr/>
+</body>
+</html>

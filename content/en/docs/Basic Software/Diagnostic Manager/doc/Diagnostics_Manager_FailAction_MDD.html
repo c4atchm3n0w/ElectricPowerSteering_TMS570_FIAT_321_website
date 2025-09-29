@@ -1,0 +1,542 @@
+---
+title: Diagnostics_Manager_FailAction_MDD
+linkTitle: Diagnostics_Manager_FailAction_MDD
+weight: 6
+---
+
+<h1 class="unnumbered" id="module----fail-action">Module -- Fail Action</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram </h2>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2"></td>
+<td>DiagStsNonRecRmpToZeroFltPres_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>DiagStsCtrldDisRmpPres_Cnt_lgc</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>DiagStsRecRmpToZeroFltPres_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>DiagStsHWASbSystmFltPres_Cnt_lgc</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>DiagStsDefVehSpd_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>DiagStsDefTemp_Cnt_lgc</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>DiagStsScomHWANotValid_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>DiagStsWIRDisable_Cnt_lgc</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>DiagRampRate_XpmS_f32</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>DiagRampValue_Uls_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>DiagRmpToZeroActive_Cnt_lgc</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Datatype</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th><p>Software Segment</p>
+<p>{Data Type}</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DiagSts#_Cnt_M_b16[2]</td>
+<td colspan="5">Refer to Diagnostics_Manager_GeneratedCfg_MDD.docx</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>ActiveRmpRate#_UlspmS_M_f32[2]</td>
+<td colspan="5">Refer to Diagnostics_Manager_GeneratedCfg_MDD.docx</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section"></h2>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DIAGMGR_NUMAPPS</td>
+</tr>
+<tr class="even">
+<td>D_DIAGSTSNONRECRMPTOZEROBIT_CNT_B16</td>
+</tr>
+<tr class="odd">
+<td>D_DIAGSTSRECRMPTOZEROBIT_CNT_B16</td>
+</tr>
+<tr class="even">
+<td>D_DIAGSTSCTRLDDISRMPBIT_CNT_B16</td>
+</tr>
+<tr class="odd">
+<td>D_DIAGSTSHWASBSYSTMFLTBIT_CNT_B16</td>
+</tr>
+<tr class="even">
+<td>D_DIAGSTSDEFVEHSPDBIT_CNT_B16</td>
+</tr>
+<tr class="odd">
+<td>D_DIAGSTSDEFTEMPBIT_CNT_B16</td>
+</tr>
+<tr class="even">
+<td>D_DIAGSTSSCOMHWANOTVALIDBIT_CNT_B16</td>
+</tr>
+<tr class="odd">
+<td>D_DIAGSTSWIRDISABLEBIT_CNT_B16</td>
+</tr>
+</tbody>
+</table>
+<h3 class="unnumbered" id="section-1"></h3>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 11%" />
+<col style="width: 48%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T_DiagMgrDiagSts_Ptr_b16[SIZE]</td>
+<td>N/A</td>
+<td>Refer *</td>
+<td>AP_DIAGMGR_CONST</td>
+</tr>
+<tr class="even">
+<td>T_DiagMgrRmpRate_Ptr_f32[SIZE]</td>
+<td>N/A</td>
+<td>Refer *</td>
+<td>AP_DIAGMGR_CONST</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Note: “ Refer *” - Refer to Diagnostics_Manager_GeneratedCfg_MDD</p>
+<p>Note Size and elements of Table constants varies across projects. Check project configuration files Under UTP/ Contract folder for data.</p>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>TableSize_m()</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="diagnostic-manager-periodic-1">Diagnostic Manager Periodic 1</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 32%" />
+<col style="width: 19%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Function Name</strong></th>
+<th>DiagMgr_Per1</th>
+<th>Type</th>
+<th>Min</th>
+<th>Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Arguments Passed</strong></td>
+<td>none</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>none</td>
+<td></td>
+<td colspan="2"></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="read-bits">Read Bits</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 40%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Function Name</strong></th>
+<th>ReadBit_u16</th>
+<th>Type</th>
+<th>Min</th>
+<th>Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Arguments Passed</strong></td>
+<td>Data</td>
+<td>Uint16</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>BitMask</td>
+<td>Uint16</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td>Boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p>IF (Data &amp; BitMask) = 0</p>
+<p>Return (FALSE)</p>
+<p>ELSE<br />
+Return(TRUE)</p>
+<p>END IF</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<table>
+<colgroup>
+<col style="width: 54%" />
+<col style="width: 45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions-1">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions-1">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions-1">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="global-and-local-functions">Global and Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DiagMgr_Per1</td>
+<td>AP_DIAGMGR_CODE</td>
+</tr>
+<tr class="even">
+<td>ReadBit_u16</td>
+<td>AP_DIAGMGR_CODE</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>(Item #1)</p></li>
+</ol>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 61%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Rev #</strong></th>
+<th><strong>Change Description</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author Initials</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Initial MDD version</td>
+<td>14-Feb-13</td>
+<td>VK</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Changes made to make it more generic for all projects</td>
+<td>24-June-13</td>
+<td>NRAR</td>
+</tr>
+</tbody>
+</table>

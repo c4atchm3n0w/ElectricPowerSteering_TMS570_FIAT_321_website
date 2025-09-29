@@ -1,0 +1,432 @@
+---
+title: MISRA Compliance Guidelines
+linkTitle: MISRA Compliance Guidelines
+weight: 2
+---
+
+<p><strong>MISRA Compliance Guidelines</strong></p>
+<p><strong>VERSION: 1.0</strong></p>
+<p><strong>DATE: 29-Jul-2014</strong></p>
+<p><strong>Prepared By:</strong></p>
+<p><strong>Nexteer Automotive,</strong></p>
+<p><strong>Saginaw, MI, USA<br />
+</strong></p>
+<p><strong>Revision History</strong></p>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 30%" />
+<col style="width: 19%" />
+<col style="width: 11%" />
+<col style="width: 14%" />
+<col style="width: 16%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Sl. No.</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Author</strong></td>
+<td><strong>Version</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Approved By</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial Version</td>
+<td>Spandana Balani</td>
+<td>1.0</td>
+<td>28-Jul-2014</td>
+<td>SPRB</td>
+</tr>
+</tbody>
+</table>
+<p><strong><u><br />
+Table of Contents</u></strong></p>
+<p><a href="#abbreviations-and-acronyms">1. Abbreviations And Acronyms <span>5</span></a></p>
+<p><a href="#references">2. References <span>6</span></a></p>
+<p><a href="#introduction">3. Introduction <span>7</span></a></p>
+<p><a href="#purpose">3.1. Purpose <span>7</span></a></p>
+<p><a href="#scope">3.2. Scope <span>7</span></a></p>
+<p><a href="#document-conventions-and-definitions">3.3. Document Conventions and Definitions <span>7</span></a></p>
+<p><a href="#misra-guidelines">4. MISRA Guidelines <span>8</span></a></p>
+<p><a href="#software-modules-classification">4.1. Software modules classification <span>8</span></a></p>
+<p><a href="#misra-c-compliance-and-deviations">4.2. MISRA C Compliance and Deviations <span>8</span></a></p>
+<p><a href="#suppression-technique">4.3. Suppression Technique <span>8</span></a></p>
+<p><a href="#single-line-comment">4.4. Single Line Comment <span>9</span></a></p>
+<p><a href="#block-level">4.5. Block Level <span>9</span></a></p>
+<p><a href="#file-level-comment">4.6. File Level Comment <span>9</span></a></p>
+<p><a href="#iso-26262-compliance">5. ISO 26262 Compliance <span>10</span></a></p>
+<p><a href="#coverage-of-iso26262-part-6-table-1-topics-to-be-covered-by-modelling-and-coding-guidelines">5.1. Coverage of ISO26262 Part 6 Table 1 — Topics to be covered by modelling and coding guidelines <span>10</span></a></p>
+<p><a href="#coverage-of-iso26262-part-6-table-8----design-principles-for-software-unit-design-and-implementation">5.2. Coverage of ISO26262 Part 6 Table 8 -- Design principles for software unit design and implementation <span>10</span></a></p>
+<p><a href="#appendix">6. Appendix <span>11</span></a></p>
+<p><a href="#qac-project-creation-and-analysis-for-component">6.1. QAC Project Creation and Analysis for component <span>11</span></a></p>
+<p><a href="#guidelines-to-create-component-wise-qac-project-with-standard-folder-structure">6.2. Guidelines to create component wise QAC project with standard folder structure <span>11</span></a></p>
+<p><a href="#manual-creation-of-qac-project">6.3. Manual creation of QAC project <span>11</span></a></p>
+<p><a href="#qac-project-creation-and-analysis-for-integration-project">6.4. QAC Project Creation and Analysis for Integration project <span>17</span></a></p>
+<p><a href="#instructions-to-change-qac-personality-files">6.5. Instructions to change QAC personality files <span>18</span></a></p>
+<h1 id="abbreviations-and-acronyms">Abbreviations And Acronyms</h1>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Abbreviation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MISRA</td>
+<td>Motor Industry Software Reliability Association</td>
+</tr>
+<tr class="even">
+<td>ISO</td>
+<td>International Standards Organization</td>
+</tr>
+</tbody>
+</table>
+<h1 id="references">References</h1>
+<table>
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 80%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sr. No.</th>
+<th>Title</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>MISRA-C:2004, <em>Guidelines for the use of the C language in critical systems</em>, ISBN 978-0-9524156-2-6, MIRA, October 2004</td>
+<td>2004</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Software Design and Coding Standards</td>
+<td>2014</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Software Naming Conventions</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>ISO/IEC 9899:1999(E) – International Standard /Programming languages – C</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>ISO 26262 -6 Road vehicles - Functional safety - Part 6: Product development at the software level</td>
+<td>2011-11-15</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>QAC-8.1 Users Guide</td>
+<td>2012</td>
+</tr>
+</tbody>
+</table>
+<h1 id="introduction">Introduction</h1>
+<h2 id="purpose">Purpose</h2>
+<p>The purpose of this document is to identify Nexteer Automotive’s Electrical Steering Systems software compliance to the MISRA C 2004 standards.</p>
+<h2 id="scope">Scope</h2>
+<p>All production intent software developed by Nexteer Automotive’s Electrical Steering Systems product engineering group [ESG] shall comply with the MISRA C coding Standards and any exceptions should be documented.</p>
+<p>As required by MISRA C: 2004 (section 4.4), this document covers the following:</p>
+<ul>
+<li><p>A compliance matrix that demonstrates how each rule is enforced</p></li>
+<li><p>Analysis to ensure all C code in the product is compliant with the MISRA C rules or deviations documented</p></li>
+<li><p>List all instances where rules are not being followed, including the deviation process</p></li>
+<li><p>Configuration and use of QAC version 8.x as the Static Code Analysis tool</p></li>
+</ul>
+<h2 id="document-conventions-and-definitions">Document Conventions and Definitions</h2>
+<p>The following definitions are used throughout this document:</p>
+<ul>
+<li><p><strong><u>Shall</u></strong>: indicates a mandatory requirement without exception in compliance.</p></li>
+<li><p><strong><u>Should</u></strong>: indicates a mandatory requirement; exceptions allowed only with documented justification.</p></li>
+<li><p><strong><u>May</u></strong>: indicates an optional action.</p></li>
+</ul>
+<h1 id="misra-guidelines">MISRA Guidelines</h1>
+<h2 id="software-modules-classification">Software modules classification</h2>
+<p>Nexteer’s embedded projects contain software that is developed internally, generated through tools and 3<sup>rd</sup> party modules that should not require changes. Each type of software module, as defined in Ref [2], may require a different set of rules and thus needs to be categorized into appropriate group for reporting. Refer to the program’s Software Development Plan for the classification of steering application source modules.</p>
+<p>For this revision of the document:</p>
+<ul>
+<li><p>Type 1A files comply according to section 5 (MISRA C Compliance and Deviations) of this document</p></li>
+<li><p>Type 1B files (the sections that are modified by Nexteer) are treated as Type 1A</p></li>
+<li><p>Type 1B files (the sections that are not modified by Nexteer) are not considered for the compliance</p></li>
+<li><p>Type 2 files are not considered for the compliance</p></li>
+<li><p>Type 3 files are not considered for the compliance</p></li>
+</ul>
+<h2 id="misra-c-compliance-and-deviations">MISRA C Compliance and Deviations</h2>
+<p>The embedded table “MISRA Compliance Guideline” associates MISRA C 2004 rules with QAC messages. The QAC warning messages are summarized in the table such that each warning is either turned ON or OFF at the tool level (Message personality). For the warning messages that are turned ON, this table lists which of those can be deviated. The table also explains the suppression strategy for the warnings that can be deviated.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<p>MISRA C 2004 rules 1.3, 1.4, 1.5, 2.4, 3.2, 3.3, 3.5, 3.6, and 20.3 are not checked by QAC and require manual verification. Refer to the comments in the embedded table.</p>
+<h2 id="suppression-technique">Suppression Technique</h2>
+<p>MISRA compliance guideline lists the suppression strategy for the allowed deviations for all type 1A files. According to Ref [2] Rule [N45.1], for each MISRA rule violation where QAC warning suppression is required, the MISRA rule violation comment shall appear after the QAC suppression comment.</p>
+<p>According to Ref [2] Rule [N44.1], for each MISRA rule violation, a comment at the corresponding code line shall give the justification for the deviation and shall be formatted as follows:</p>
+<p>/* MISRA-C:2004 Rule XX.X: reason why the rule could not be followed or why deviation is allowed in this instance */</p>
+<p>Below are the allowed suppression strategies for QAC warning messages with allowed deviation:</p>
+<h2 id="single-line-comment">Single Line Comment </h2>
+<p>Format: /* PRQA S &lt;QAC warning #&gt; */</p>
+<p>Details: The rule is suppressed at the occurrence of the violation.</p>
+<p>Example:</p>
+<blockquote>
+<p>/* Metrics start hook does nothing in production build. */</p>
+<p>Metrics_TaskStart(D_SPINXT1_CNT_U08); /* PRQA S 3112 */</p>
+<p>/*</p>
+<p>* MISRA-C: 2004 Rule 14.2: These deviations are required for metrics hooks. These statements are intended to have</p>
+<p>* no effect on production code.</p>
+<p>*/</p>
+</blockquote>
+<h2 id="block-level">Block Level</h2>
+<p>Format: /* PRQA S &lt;QAC warning #&gt; &lt;Number of Lines&gt; */</p>
+<blockquote>
+<p>Details: The rule is suppressed for the block due to the frequency of usage throughout the block. Annotation at each deviation unnecessarily clutters the file.</p>
+</blockquote>
+<p>Example:</p>
+<blockquote>
+<p>/* PRQA S 310 10</p>
+<p>* MISRA-C: 2004 Rule 11.4: ADD RATIONALE*/</p>
+</blockquote>
+<h2 id="file-level-comment">File Level Comment</h2>
+<p>Format: /* PRQA S &lt;QAC warning #&gt; EOF */</p>
+<blockquote>
+<p>Details: When a rule is violated 3 or more times within a file for the same reason, e.g. pointer casts in files doing register access, one rule violation comment (refer section 6.4.8.1 of Ref [2] for placement – comment should be placed after File Comment Block and Include Statements) may be used to give justification for that deviation for the entire file.</p>
+</blockquote>
+<p>Example:</p>
+<blockquote>
+<p>/* PRQA S 303 EOF</p>
+<p>* MISRA-C: 2004 Rule 11.3: This deviation is required for register access. The rule is suppressed for the entire file */</p>
+</blockquote>
+<h1 id="iso-26262-compliance">ISO 26262 Compliance</h1>
+<h2 id="coverage-of-iso26262-part-6-table-1-topics-to-be-covered-by-modelling-and-coding-guidelines">Coverage of ISO26262 Part 6 Table 1 — Topics to be covered by modelling and coding guidelines</h2>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 46%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="2">ISO26262-6 Table 1 Topic</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1a</td>
+<td>Enforcement of low complexity</td>
+<td>Ref [2] Rule [N47], checked by QAC cyclomatic complexity metric</td>
+</tr>
+<tr class="even">
+<td>1b</td>
+<td>Use of language subsets</td>
+<td>MISRA C 2004 Rule 1.1, 2.1, checked by QAC</td>
+</tr>
+<tr class="odd">
+<td>1c</td>
+<td>Enforcement of strong typing</td>
+<td>MISRA C 2004 Rule 6.1, 6.2, 6.3, 6.4 6.5, checked by QAC</td>
+</tr>
+<tr class="even">
+<td>1d</td>
+<td>Use of defensive implementation techniques</td>
+<td>MISRA C 2004 Rule 3.1; Ref [2] Rule[N65], [N66], [N67], [N70]</td>
+</tr>
+<tr class="odd">
+<td>1e</td>
+<td>Use of established design principles</td>
+<td>Use of MISRA C as per Ref[6]; Ref [2] See section 7.2, 5.6</td>
+</tr>
+<tr class="even">
+<td>1f</td>
+<td>Use of unambiguous graphical representation</td>
+<td>Ref [2] section7 .1</td>
+</tr>
+<tr class="odd">
+<td>1g</td>
+<td>Use of style guides</td>
+<td>Ref [2] Rules in sections 6.4.9, 6.4.11, and 6.4.12</td>
+</tr>
+<tr class="even">
+<td>1h</td>
+<td>Use of naming conventions</td>
+<td>MISRA C 2004 Rule 3.2, 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7 Ref [3] and Ref [2] rules in section 6.4.1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="coverage-of-iso26262-part-6-table-8----design-principles-for-software-unit-design-and-implementation">Coverage of ISO26262 Part 6 Table 8 -- Design principles for software unit design and implementation</h2>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 45%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="2">ISO26262-6 Table 8 Method</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1a</td>
+<td>One entry and one exit point in subprograms and functions</td>
+<td>MISRA C 2004 14.7, 16.8, checked by QAC</td>
+</tr>
+<tr class="even">
+<td>1b</td>
+<td>No dynamic objects or variables, or else online test during their creation</td>
+<td>MISRA C 2004 21.1, checked by QAC</td>
+</tr>
+<tr class="odd">
+<td>1c</td>
+<td>Initialization of variables</td>
+<td>For temporary variables, MISRA C 2004 1.1, checked by QAC. RTE globals initialized by RTE. Declared globals and module-specific variables covered by rules in section 6.4.6 of Ref [2].</td>
+</tr>
+<tr class="even">
+<td>1d</td>
+<td>No multiple use of variable names</td>
+<td>Ref [2] rules in section 6.4.1; also MISRA C 2004 5.1, 5.2, 5.3, 5.4, 5.5, checked by QAC.</td>
+</tr>
+<tr class="odd">
+<td>1e</td>
+<td>Avoid global variables or else justify their usage</td>
+<td>Ref [2] Rule [N9] and [N10]</td>
+</tr>
+<tr class="even">
+<td>1f</td>
+<td>Limited use of pointers</td>
+<td>MISRA c 2004 Rules under Pointers 17.1, 17.2, 17.3; Ref [2] Rules in section 6.4.13</td>
+</tr>
+<tr class="odd">
+<td>1g</td>
+<td>No implicit type conversions</td>
+<td>MISRA C 2004 Rules under Arithmetic type conversion 10, checked by QAC</td>
+</tr>
+<tr class="even">
+<td>1h</td>
+<td>No hidden data flow or control flow</td>
+<td>Ref [2] Rules in section 6.4.13, and naming conventions for function-like macros in Ref [3].</td>
+</tr>
+<tr class="odd">
+<td>1i</td>
+<td>No unconditional jumps</td>
+<td>MISRA C 2004, 15.2 checked by QAC</td>
+</tr>
+<tr class="even">
+<td>1j</td>
+<td>No recursions</td>
+<td>MISRA C 2004, 16.2 checked by QAC</td>
+</tr>
+</tbody>
+</table>
+<h1 id="appendix">Appendix</h1>
+<h2 id="qac-project-creation-and-analysis-for-component">QAC Project Creation and Analysis for component</h2>
+<p>A QAC project should exist for every SWC. It should be placed in the “tools” folder of the SWC. Note that the QAC project relies on the component having subprojects. A template for the QAC project file is attached below. To adapt the QAC project file to a specific SWC, the file must be edited in a text editor and “##SWC_NAME##” needs to be replaced with the name of the c file that is generated from Davinci Developer. The projects shall reference all files through relative paths to avoid any project changes when a developer starts a working area on their computer. Refer section 8.2 for the Guidelines to create QAC project.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h2 id="guidelines-to-create-component-wise-qac-project-with-standard-folder-structure">Guidelines to create component wise QAC project with standard folder structure</h2>
+<ol type="1">
+<li><p>The QAC project file should be placed in the component folder with a name QAC.prj” as shown below.</p></li>
+</ol>
+<p>..\&lt;Root folder&gt;\&lt;Component Name&gt;\tools\QAC\QAC.Prj</p>
+<ol start="2" type="1">
+<li><p>QAC project should use the message personality and compiler personality files from the existing QAC project.</p></li>
+</ol>
+<p>..\&lt;Root folder&gt;\QAC\m2cmMessage.p_s</p>
+<p>..\&lt;Root folder&gt;\QAC\m2cm.p_c</p>
+<ol start="3" type="1">
+<li><p>A dedicated analyzer personality file should be created for each individual QAC project and should be placed in:</p></li>
+</ol>
+<p>..\&lt;Root folder&gt;\&lt;Component Name&gt;\tools\QAC\m2cmAnalyser.p_a</p>
+<p>(The analyzer personality file shall reference all includes through relative paths to avoid any project changes when a developer starts a working area on their computer)</p>
+<ol start="4" type="1">
+<li><p>QAC Output should be placed in the “QAC Output” folder</p></li>
+</ol>
+<p>..\&lt;Root folder&gt;\&lt;Component Name&gt;\doc\QAC_Results</p>
+<h2 id="manual-creation-of-qac-project">Manual creation of QAC project</h2>
+<ol type="1">
+<li><p>Get the appropriate component project from Synergy to your local machine (example below uses DigHwTrqSENT)</p></li>
+<li><p>Open QAC and click on File&gt;&gt;New Project</p></li>
+</ol>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.png" style="width:6.5in;height:2.84845in" /></p>
+<ol start="3" type="1">
+<li><p>After clicking the ‘New Project’ a New Project Parameters window will pop up as shown</p></li>
+</ol>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.png" style="width:4in;height:3.59482in" /></p>
+<ol start="4" type="1">
+<li><p>Fill in the details as mentioned below</p></li>
+</ol>
+<blockquote>
+<p>Root Folder Name: &lt;Component Name&gt;</p>
+<p>Default Source Path: Point to local work area of the synergy project downloaded from step 1.</p>
+<p>Select Output file path: ..\&lt;Root folder&gt;\&lt;Component Name&gt;\doc\QAC_Results</p>
+</blockquote>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.png" style="width:4.32148in;height:3.86458in" /></p>
+<ol start="5" type="1">
+<li><p>After clicking okay, a &lt;Component Name&gt; folder will be visible in the Project Folders pane as shown below.</p></li>
+</ol>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.png" style="width:5.36458in;height:3.06056in" /></p>
+<ol start="6" type="1">
+<li><p>When you right click on the folder and click Add Folder, New Folder Parameters windows pop up.</p></li>
+</ol>
+<blockquote>
+<p>Fill in the details as mentioned below</p>
+<p>Root Folder Name: &lt;Component Name&gt;</p>
+<p>Default Source Path: Point to local work area of the synergy project downloaded from step 1.</p>
+<p>Select Output file path: ..\&lt;Root folder&gt;\&lt;Component Name&gt;\doc\QAC_Results</p>
+<p>Personalities</p>
+</blockquote>
+<ol type="a">
+<li><p>Message: ..\&lt;Root folder&gt;\QAC\m2cmMessage.p_s</p></li>
+<li><p>Analyzer: ..\&lt;Root folder&gt;\&lt;Component Name&gt;\tools\QAC\m2cmAnalyser.p_a</p></li>
+<li><p>Compiler: ..\&lt;Root folder&gt;\QAC\m2cm.p_c</p></li>
+</ol>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.png" style="width:6.5in;height:3.80208in" /></p>
+<ol start="7" type="1">
+<li><p>Now right click on the sub folder and click on Add Files.</p></li>
+</ol>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.png" style="width:6.48958in;height:3.59375in" /></p>
+<ol start="8" type="1">
+<li><p>Select the C files from &lt;Component Name&gt;\src and click <strong>‘Open’</strong>.</p></li>
+</ol>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.png" style="width:6.5in;height:3.70833in" /></p>
+<ol start="9" type="1">
+<li><p>Now save the project at &lt;Component Name&gt;\tools\QAC with a name as QAC.prj.</p></li>
+<li><p>After clicking <strong>‘Save’</strong> a new ‘Save Project As’ Wizard will pop up</p></li>
+</ol>
+<blockquote>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.png" style="width:5.375in;height:4.13462in" /></p>
+<p>Select ‘Make file paths in each folder relative to its Default Source Path entry’ and click <strong>‘Finish’</strong> in your new QAC project in set up.</p>
+</blockquote>
+<h2 id="qac-project-creation-and-analysis-for-integration-project">QAC Project Creation and Analysis for Integration project</h2>
+<ol type="1">
+<li><p>The QAC Project file for the customers is stored in respective project folders – Application – Version – Source Files - zip folder at <img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.gif" style="width:0.11597in;height:0.15139in" alt="go up a level" /><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.gif" alt="http://eroom1.Nexteer.com/eRoomData/dot.gif" /><a href="http://eroom1.Nexteer.com/eRoom">My eRooms</a> &gt; <a href="http://eroom1.Nexteer.com/eRoom/erooms8/EPSSecureLibrary">EPS Secure Library</a> &gt; EA 3.x.</p></li>
+<li><p>Copy the project for analysis to your local machine and open the QAC prj file in a text editor to add the source paths</p></li>
+<li><p>Open the analyzer personality file in text editor to add include paths</p></li>
+</ol>
+<p>(The analyzer personality file shall reference all includes through relative paths to avoid any project changes when a developer starts a working area on their computer)</p>
+<ol start="4" type="1">
+<li><p>Open the QAC.prj file and run analysis - all files should queue and say completed after analysis finishes</p></li>
+<li><p>After the analysis is finished the warning messages can be viewed from Message Browser.</p></li>
+</ol>
+<h2 id="instructions-to-change-qac-personality-files">Instructions to change QAC personality files</h2>
+<ol type="1">
+<li><p>Copy the project for analysis to your local machine</p></li>
+<li><p>Open QAC and project file</p></li>
+<li><p>Right click on your project</p></li>
+<li><p>Click on Folder Parameters</p></li>
+<li><p>Click on Browse Button next to the personality files and choose the correct message, analyzer and compiler personalities. Note that the message and analyzer personality files are different for different customers but the compiler personality is common.</p></li>
+<li><p>Right click on your top level project within QAC</p></li>
+<li><p>Propagate changes to sub folders 🡪Message Personality</p></li>
+<li><p>Propagate changes to sub folders 🡪Analyser Personality</p></li>
+<li><p>Propagate changes to sub folders 🡪Compiler Personality</p></li>
+</ol>
+<p>Note – It is important to propagate changes to subfolders every time any of the personality files get updated.</p>

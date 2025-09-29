@@ -1,0 +1,547 @@
+---
+title: Hardware_Power_Up_MDD
+linkTitle: Hardware_Power_Up_MDD
+weight: 4
+---
+
+<h1 class="unnumbered" id="module-hardware-power-up-sequence">Module – Hardware Power Up Sequence</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module controls the startup initialization sequence for several modules that would otherwise conflict with one another. It uses a series of boolean inputs and outputs to control these modules.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:3.35764in;height:2.47708in" /></p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">PwrDiscATestComplete_Cnt_lgc</td>
+<td>PwrDiscATestStart_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2">TMFTestComplete_Cnt_lgc</td>
+<td>TMFTestStart_Cnt_lgc</td>
+</tr>
+<tr class="odd">
+<td colspan="2">PwrDiscBTestComplete_Cnt_lgc</td>
+<td>PwrDiscBTestStart_Cnt_lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2">MtrDrvrInitComplete_Cnt_lgc</td>
+<td>MtrDrvrInitStart_Cnt_lgc</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section"></h1>
+<h1 id="module-internal-variables">Module Internal Variables</h1>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HwPwUp_PowerUpState_Cnt_M_enum</td>
+<td>1</td>
+<td>0</td>
+<td>6</td>
+<td>HWPWUP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>HwPwUp_PwrDiscATestStart_Cnt_M_lgc</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>HWPWUP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>HwPwUp_TMFTestStart_Cnt_M_lgc</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>HWPWUP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>HwPwUp_PwrDiscBTestStart_Cnt_M_lgc</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>HWPWUP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>HwPwUp_MtrDrvrInitStart_Cnt_M_lgc</td>
+<td>boolean</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>HWPWUP_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 33%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PowerUpSequenceType</td>
+<td><p>PWRUP_PWRDISCSTEPA = 0</p>
+<p>PWRUP_TMFINIT = 1</p>
+<p>PWRUP_PWRDISCSTEPB = 2</p>
+<p>PWRUP_MTRDRIVERINIT = 3</p>
+<p>PWRUP_WARMINITCOMPLETE = 4</p>
+<p>PWRUP_RUN = 5</p>
+<p>PWRUP_DISABLE = 6</p></td>
+<td>uint8</td>
+<td>0</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_PWRDISCSTEPAMASK_CNT_U16</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x0001</td>
+</tr>
+<tr class="even">
+<td>D_PWRDISCSTEPBMASK_CNT_U16</td>
+<td>1</td>
+<td>Counts</td>
+<td>0x0004</td>
+</tr>
+<tr class="odd">
+<td>D_PGMSPECMASK_CNT_U16</td>
+<td>1</td>
+<td>Counts</td>
+<td>configurable</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>Rte_Call_MilestoneRqst_WarmInitMilestoneComplete</p></li>
+<li><p>Rte_Call_MilestoneRqst_WarmInitMilestoneNotComplete</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rte_InitValue_MtrDrvrInitComplete_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_MtrDrvrInitStart_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_PwrDiscATestComplete_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_PwrDiscATestStart_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_PwrDiscBTestComplete_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_PwrDiscBTestStart_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_TMFTestComplete_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_TMFTestStart_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<h3 id="per-_per1">Per: _Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_HwPwUp_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>PwrDiscATestComplete_Cnt_T_lgc = Rte_IRead_HwPwUp_Per1_PwrDiscATestComplete_Cnt_lgc()</p>
+<p>TMFTestComplete_Cnt_T_lgc = Rte_IRead_HwPwUp_Per1_TMFTestComplete_Cnt_lgc()</p>
+<p>PwrDiscBTestComplete_Cnt_T_lgc = Rte_IRead_HwPwUp_Per1_PwrDiscBTestComplete_Cnt_lgc()</p>
+<p>MtrDrvrInitComplete_Cnt_T_lgc = Rte_IRead_HwPwUp_Per1_MtrDrvrInitComplete_Cnt_lgc()</p>
+<h4 id="process-state-machine">Process State Machine</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>Rte_IWrite_HwPwUp_Per1_PwrDiscATestStart_Cnt_lgc(HwPwUp_PwrDiscATestStart_Cnt_M_lgc)</p>
+<p>Rte_IWrite_HwPwUp_Per1_TMFTestStart_Cnt_lgc(HwPwUp_TMFTestStart_Cnt_M_lgc)</p>
+<p>Rte_IWrite_HwPwUp_Per1_PwrDiscBTestStart_Cnt_lgc(HwPwUp_PwrDiscBTestStart_Cnt_M_lgc)</p>
+<p>Rte_IWrite_HwPwUp_Per1_MtrDrvrInitStart_Cnt_lgc(HwPwUp_MtrDrvrInitStart_Cnt_M_lgc)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_HwPwUp_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="transition-functions">Transition Functions</h2>
+<h3 id="trns-_trns1">Trns: _Trns1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>N/A</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="reset-state-machine-and-outputs">Reset State Machine and Outputs</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>N/A</p>
+<h3 id="trns-_trns2">Trns: _Trns2</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start-2">Program Flow Start</h4>
+<p>N/A</p>
+<h4 id="store-module-inputs-to-local-copies-2">Store Module Inputs to Local copies</h4>
+<p>None</p>
+<h4 id="set-power-up-state">Set Power Up State</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-2">Store Local copy of outputs into Module Outputs</h4>
+<p>None</p>
+<h4 id="program-flow-end-2">Program Flow End</h4>
+<p>N/A</p>
+<h2 id="section-1"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HwPwUp_Per1</td>
+<td>2 ms</td>
+<td>ALL</td>
+</tr>
+<tr class="even">
+<td>HwPwUp_Trns1</td>
+<td>On Event</td>
+<td>On Entering WARMINIT, On Leaving DISABLE</td>
+</tr>
+<tr class="odd">
+<td>HwPwUp_Trns2</td>
+<td>On Event</td>
+<td>On Entering DISABLE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HwPwUp_Per1</td>
+<td>RTE_START_SEC_AP_HWPWUP_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>HwPwUp_Trns1</td>
+<td>RTE_START_SEC_AP_HWPWUP_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>HwPwUp_Trns2</td>
+<td>RTE_START_SEC_AP_HWPWUP_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial Version (FDD 13B v001)</td>
+<td>11-Sep-12</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>UTP Updates</td>
+<td>17-Sep-12</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3.0</td>
+<td>Added checkpoints and memmap software segment is updated for static variables</td>
+<td>29-Sep-12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4.0</td>
+<td>Anomaly 3912 – fixed writing outputs in all branches</td>
+<td>24-Oct-12</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5.0</td>
+<td>Changed k_PgmSpecMask_Cnt_u16 to D_PGMSPECMASK_CNT_U16 (configurable)</td>
+<td>08-Nov-12</td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6.0</td>
+<td>Updated to FDD V003</td>
+<td>14-Mar-13</td>
+<td>SP</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>8.0</td>
+<td>Updated to FDD v005</td>
+<td>04-June-14</td>
+<td>Selva</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,608 @@
+---
+title: TechnicalReference_VStdLibs
+linkTitle: TechnicalReference_VStdLibs
+weight: 127
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-1_1.png"/><br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/><b>VStdLib&#160;<br/></b>Technical Reference&#160;<br/>&#160;<br/>Vector Standard Library&#160;<br/>Version 1.6&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+Authors&#160;<br/>
+Patrick Markl&#160;<br/>
+Status&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-2_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-2_2.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>1&#160;&#160;Document Information&#160;</b><br/>
+<b>1.1&#160;</b><br/>
+<b>History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;</b><br/>
+<b>Remarks&#160;</b><br/>
+Patrick Markl&#160;<br/>
+2008-02-06&#160;<br/>
+1.0&#160;<br/>
+Creation, merge from&#160;Application Note&#160;<br/>
+Patrick Markl&#160;<br/>
+2008-10-31&#160;<br/>
+1.3&#160;<br/>
+Fixed document version&#160;<br/>
+Patrick Markl&#160;<br/>
+2008-11-07&#160;<br/>
+1.4&#160;<br/>
+Added information about mixed VStdLib versions<br/>
+Patrick Markl&#160;<br/>
+2009-07-02&#160;<br/>
+1.5&#160;<br/>
+Updated assertion codes&#160;<br/>Added chapter about QNX&#160;OS&#160;<br/>
+Patrick Markl&#160;<br/>
+2009-10-16&#160;<br/>
+1.6&#160;<br/>
+Described inclusion of OSEK OS header file&#160;<br/>
+Table 1-1&#160;&#160;&#160;History&#160;of the&#160;Document&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+<b>Please note&#160;<br/></b>We have configured the&#160;programs in accordance&#160;with your specifications in the&#160;<br/>
+&#160;&#160;questionnaire. Whereas&#160;the programs do support&#160;other configurations than the one&#160;<br/>
+specified&#160;in&#160;your questionnaire, Vector’s&#160;release&#160;of the programs delivered to your&#160;<br/>company is&#160;expressly restricted to the&#160;configuration you have&#160;specified in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+2&#160;/&#160;&#160;20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-3_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_VStdLibs.html#2"><b>1</b>&#160;&#160;<b>Document Information....................................................................................................&#160;2</b></a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#2">1.1&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#2">History...............................................................................................................&#160;2</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#5"><b>2</b>&#160;&#160;<b>Introduction&#160;...................................................................................................................</b></a><b>..&#160;<a href="TechnicalReference_VStdLibs.html#5">5</a></b>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#6"><b>3</b>&#160;&#160;<b>Functional Description&#160;...................................................................................................&#160;6</b></a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#8"><b>4</b>&#160;&#160;<b>Integration&#160;....................................................................................................................</b></a><b>...&#160;<a href="TechnicalReference_VStdLibs.html#8">8</a></b>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#8">4.1&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#8">CANbedded&#160;Particularities................................................................................&#160;8</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#8">4.2&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#8">MICROSAR Particularities................................................................................&#160;8</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#8">4.3&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#8">Mixing VStdLib Versions&#160;...................................................................................&#160;8</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#9"><b>5</b>&#160;&#160;<b>Configuration&#160;..................................................................................................................&#160;9</b></a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#11">5.1&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#11">Usage with OSEK&#160;OS......................................................................................11</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#11">5.2&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#11">Usage with QNX&#160;OS&#160;........................................................................................11</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#13"><b>6</b>&#160;&#160;<b>API Description&#160;.............................................................................................................&#160;13</b></a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#13">6.1&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#13">Initialization&#160;.....................................................................................................&#160;13</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#14">6.2&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#14">Interrupt Control..............................................................................................&#160;14</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#15">6.3&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#15">Memory Functions&#160;..........................................................................................&#160;15</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#16">6.4&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#16">Callback Functions&#160;.........................................................................................&#160;16</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#18"><b>7</b>&#160;&#160;<b>Assertions&#160;.....................................................................................................................&#160;18</b></a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#19"><b>8</b>&#160;&#160;<b>Glossary&#160;and&#160;Abbreviations&#160;........................................................................................&#160;19</b></a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#19">8.1&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#19">Glossary..........................................................................................................&#160;19</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#19">8.2&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#19">Abbreviations&#160;..................................................................................................&#160;19</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#20"><b>9</b>&#160;&#160;<b>Contact........................................................................................................................</b></a><b>...&#160;<a href="TechnicalReference_VStdLibs.html#20">20</a></b>&#160;<br/>&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+3&#160;/&#160;&#160;20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-4_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_VStdLibs.html#9">Figure 5-1&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#9">VStdLib configuration dialog in GENy...............................................................&#160;9</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#9">Figure 5-2&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#9">VStdLib configuration dialog in CANGen&#160;..........................................................&#160;9</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#11">Figure 5-3&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#11">Locking&#160;configuration in&#160;case CAN events are handled in an interrupt&#160;<br/>thread...............................................................................................................11</a>&#160;<br/>
+<a href="TechnicalReference_VStdLibs.html#12">Figure 5-4&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#12">Configuration of the VStdLib in case&#160;of handling&#160;CAN events&#160;on interrupt&#160;<br/>level&#160;................................................................................................................&#160;12</a>&#160;<br/>
+<b>&#160;</b><br/>
+<b>Tables&#160;<br/></b><a href="TechnicalReference_VStdLibs.html#2">Table 1-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_VStdLibs.html#2">History of the Document&#160;...................................................................................&#160;2</a>&#160;<br/>
+&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+4&#160;/&#160;&#160;20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-5_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>2&#160;&#160;Introduction&#160;</b><br/>
+The basic&#160;idea of the VStdLib is to provide standard functionality&#160;to different Vector&#160;<br/>components.&#160;This includes memory copy and interrupt locking functions. The&#160;VStdLib&#160;is&#160;<br/>also a means to provide special memory copy functions, which are not available by&#160;<br/>compiler libraries to the communication components. &#160;<br/>The VStdLib is designed to be used by Vector communication components&#160;only.&#160;So the&#160;<br/>customer integrating the communication stack&#160;will probably not notice the VStdLib at all.&#160;<br/>The VStdLib is highly hardware specific.&#160;This&#160;means some functions are only available on&#160;<br/>certain platforms.&#160;This includes special copy&#160;functions&#160;for far,&#160;near or huge memory.&#160;A&#160;<br/>hardware specific VStdLib does&#160;not necessarily implement all possible copy function for&#160;<br/>the corresponding hardware platform, but only the functions required by&#160;the Vector&#160;<br/>software components.&#160;<br/>The VStdLib also provides interrupt lock functions.&#160;This feature depends on the&#160;<br/>CANbedded CAN driver’s&#160;Reference Implementation (RI).&#160;The RI defines a certain feature&#160;<br/>set to be supported by the CAN driver. CAN drivers which implement&#160;RI1.5 and higher&#160;do&#160;<br/>not provide an interrupt locking mechanism&#160;as previously implementations did&#160;<br/>(CanGlobalInterruptDisable/CanGlobalInterruptRestore). These&#160;driver require a VStdLib to&#160;<br/>provide this functionality,&#160;although the API&#160;CanGlobalInterruptDisable&#160;and&#160;<br/>CanGlobalInterruptRestore remains for compatibility.&#160;Please refer to the CANbedded CAN&#160;<br/>driver technical reference for more information about your specific CAN driver.&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+5&#160;/&#160;&#160;20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-6_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>3&#160;&#160;Functional Description&#160;</b><br/>
+The VStdLib provides&#160;basically two main functionalities to Vector communication stack&#160;<br/>components.&#160;<br/>
+&#160;<br/>
+Functions to copy memory&#160;<br/>
+&#160;<br/>
+Functions to lock/unlock interrupts&#160;<br/>
+Interrupt locking functionality is required for&#160;CAN drivers with a reference inplementation&#160;<br/>1.5 or higher or MICROSAR&#160;stacks. Functions to copy&#160;memory are always provided.&#160;The&#160;<br/>following table describes the&#160;API of the VStdLib which is used internally.&#160;<br/>&#160;<br/>
+<b>API Function&#160;</b><br/>
+<b>Description&#160;</b><br/>
+VStdMemSet&#160;<br/>
+Initializes default RAM memory to a certain character.<br/>
+VStdMemNearSet&#160;<br/>
+Initializes near RAM&#160;memory to a certain character. &#160;<br/>
+VStdMemFarSet&#160;<br/>
+Initializes far&#160;RAM&#160;memory to a certain character.&#160;<br/>
+VStdMemClr&#160;<br/>
+Clears default RAM to zero.&#160;<br/>
+VStdMemNearClr&#160;<br/>
+Clears near RAM to zero.&#160;<br/>
+VStdMemFarClr&#160;<br/>
+Clears far RAM to zero.&#160;<br/>
+VStdMemCpyRamToRam&#160;<br/>
+Copies default RAM to default RAM.&#160;<br/>
+VStdMemCpyRomToRam&#160;<br/>
+Copies default ROM to&#160;default RAM.&#160;<br/>
+VStdMemCpyRamToNearRam&#160;<br/>
+Copies default RAM to near RAM.&#160;<br/>
+VStdMemCpyRomToNearRam&#160;<br/>
+Copies default ROM to&#160;near RAM.&#160;<br/>
+VStdMemCpyRamToFarRam&#160;<br/>
+Copies default RAM to far RAM.&#160;<br/>
+VStdMemCpyRomToFarRam&#160;<br/>
+Copies default ROM to far RAM.&#160;<br/>
+VStdMemCpy16RamToRam&#160;<br/>
+Copies default RAM to default RAM.&#160;The copying is&#160;<br/>performed 16 bit wise.&#160;<br/>
+VStdMemCpy16RamToFarRam&#160;<br/>
+Copies default RAM to far RAM.&#160;The copying is&#160;<br/>performed 16 bit wise.&#160;<br/>
+VStdMemCpy16FarRamToRam&#160;<br/>
+Copies far RAM to default RAM.&#160;The copying is&#160;<br/>performed 16 bit wise.&#160;<br/>
+VStdMemCpy32RamToRam&#160;<br/>
+Copies default RAM to default RAM.&#160;The copying is&#160;<br/>performed 32 bit wise.&#160;<br/>
+VStdMemCpy32RamToFarRam&#160;<br/>
+Copies default RAM to far RAM.&#160;The copying is&#160;<br/>performed 32 bit wise.&#160;<br/>
+VStdMemCpy32FarRamToRam&#160;<br/>
+Copies far RAM to default RAM.&#160;The copying is&#160;<br/>performed 32 bit wise.&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+6&#160;/&#160;&#160;20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-7_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-7_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-7_3.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/>The&#160;API functions described in the following table&#160;contain “near” and “far” as parts of&#160;<br/>
+&#160;&#160;the&#160;API names.&#160;The meaning of near&#160;and far depends on the&#160;platform and the functions&#160;<br/>
+are not necessarily implemented to work on near&#160;or far memory.&#160;<br/>The wording “default RAM” or “default ROM”&#160;means RAM or&#160;ROM data which is not&#160;<br/>explicitely declared to be near or far.&#160;These data&#160;inherit the current compiler memory&#160;<br/>model settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>One cannot be sure that&#160;a far to near copy&#160;routine (for instance) implements really a&#160;<br/>
+&#160;&#160;copying from far to near.&#160;This depends on the platform and the supported memory&#160;<br/>
+models of the communication stack!&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+7&#160;/&#160;&#160;20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-8_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>4&#160;&#160;Integration&#160;</b><br/>
+The integration of the VStdLib is straightforward.&#160;As the other Vector components the&#160;<br/>VStdLib is&#160;to be configured by means of the configuration tool.&#160;The configuration is&#160;<br/>described in the next&#160;chapter<a href="TechnicalReference_VStdLibs.html#13">. Chapter&#160;6 describes s</a>ome callback function&#160;which have to&#160;<br/>be implemented by the application&#160;depending on the configuration.&#160;<br/>In order to integrate the VStdLib simply add the file vstdlib.c as&#160;the other Vector software&#160;<br/>components to the compile and link list.&#160;<br/>
+<b>4.1&#160;</b><br/>
+<b>CANbedded Particularities&#160;</b><br/>
+If the VStdLib is integrated as part of a CANbedded stack the initialization of the VStdLib is&#160;<br/>performed by the CAN or LIN driver automatically.&#160;<br/>
+<b>4.2&#160;</b><br/>
+<b>MICROSAR Particularities&#160;</b><br/>
+If a MICROSAR stack is integrated the VStdLib is&#160;not initialized by any of&#160;the software&#160;<br/>components.&#160;The application has to take care that the VStdLib’s initialization function is&#160;<br/>called before any other MICROSAR&#160;API function is called.&#160;The following code example&#160;<br/>shows how to initialize the VStdLib.&#160;<br/>&#160;<br/>void InitRoutine(void)&#160;<br/>
+{&#160;<br/>&#160; ...&#160;<br/>&#160;<br/>
+&#160; /* Initialize the VstLib */&#160;<br/>&#160; VStdInitPowerOn();&#160;<br/>
+&#160;<br/>&#160; /* Perform initialization of the other software components */&#160;<br/>
+&#160; ...&#160;<br/>&#160; &#160;<br/>}&#160;<br/>
+&#160;<br/>
+<b>4.3&#160;</b><br/>
+<b>Mixing VStdLib Versions&#160;</b><br/>
+If you receive different software component packages from Vector, it is possible that these&#160;<br/>packages contain different VStdLib versions.&#160;A&#160;general rule is to use the VStdLib which&#160;<br/>was received with the CAN driver package. In&#160;case you encounter any&#160;incompatibilities or&#160;<br/>have questions, please contact the Vector support.&#160;<br/>&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+8&#160;/&#160;&#160;20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-9_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-9_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-9_3.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>5&#160;&#160;Configuration&#160;</b><br/>
+It depends on the used communication software if&#160;the VStdLib has configurable options.&#160;<br/>The configuration tool provides&#160;options for the VStdLib if (as previously described) the&#160;<br/>used CAN driver has RI1.5 or higher&#160;or a MICROSAR stack is used. &#160;<br/>The VStdLib is configured by&#160;means of the configuration tool. CANGen provides an own&#160;<br/>dialog named VStdLib to configure this component. In GENy these configuration options&#160;<br/>are found in the hardware options dialog.&#160;The following two pictures show the&#160;<br/>configuration dialogs in both tools.&#160;The first picture&#160;shows the dialog in GENy. &#160;<br/>&#160;<br/>
+&#160;<br/>
+Figure 5-1&#160;&#160;VStdLib configuration dialog in GENy&#160;<br/>
+&#160;<br/>The next picture shows the configuration dialog of the VStdLib in the CANGen tool.&#160;<br/>&#160;<br/>
+&#160;<br/>
+Figure 5-2&#160;&#160;VStdLib configuration dialog in CANGen&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+9&#160;/&#160;&#160;20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-10_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-10_2.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+The following table describes the different configuration items of&#160;the VStdLib dialogs.&#160;<br/>&#160;<br/>
+<b>Configuration Item&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Lock Mechanism&#160;<br/>
+One can select the interrupt lock mechanism&#160;<br/>used by the VStdLib.&#160;The VStdLib provides&#160;<br/>four different types: Default, LockLevel, OSEK&#160;<br/>and User.&#160;<br/>The setting “OSEK” covers OSEK&#160;OS and&#160;<br/>AUTOSAR OS.&#160;<br/>
+Lock Level&#160;<br/>
+If LockLevel was selected as Lock Mechanism&#160;<br/>one can select the interrupt lock&#160;level used for&#160;<br/>CANbedded&#160;components.&#160;The VStdLib will&#160;<br/>lock interrupts up to the&#160;specified&#160;level. Higher&#160;<br/>level interrupts remain unlocked.&#160;<br/>
+Nested Disable&#160;<br/>
+If “User” was selected as&#160;Lock Mechanism the&#160;<br/>user can type in the name of the user&#160;defined&#160;<br/>function which lock&#160;the interrupts.&#160;<br/>
+Nested Restore&#160;<br/>
+If “User” was selected as&#160;Lock Mechanism the&#160;<br/>user can type in the name of the user&#160;defined&#160;<br/>function which restores the interrupts to their&#160;<br/>previous state.&#160;<br/>
+Assertions&#160;<br/>
+If this checkbox is enabled the VStdLib will call&#160;<br/>an assertion&#160;function in&#160;case of a fatal error.&#160;<br/>
+&#160;<br/>&#160;<br/>If one configures the option Lock Mechanism as “User” two function have to be provided.&#160;<br/>The prototype of both functions is:&#160;<br/>&#160;<br/><b>void UserFunction(void)&#160;</b><br/>
+&#160;<br/>The first function entered under the option&#160;“Nested Disable” is expected to disable&#160;<br/>interrupts and store the current&#160;context of the interrupt state (Current I-Flag, Current&#160;<br/>Interrupt Lock Level, etc.) to a global variable.&#160;<br/>The second function entered under&#160;“Nested Restore” is expected to restore the interrupts&#160;<br/>to the previous state using the value which was saved in the context of “Nested Disable”.&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>The two functions must&#160;not implement a disable/enable mechanism but a&#160;<br/>
+&#160;&#160;disable/restore mechanism! Otherwise it may happen that interrupts remain locked&#160;until&#160;<br/>
+the next Power On reset.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+10&#160;/ 20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-11_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-11_2.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+The configuration option “User” can be used instead of the previously known CAN driver&#160;<br/>option “Interrupt Control by&#160;Application”.&#160;<br/>&#160;<br/>
+<b>5.1&#160;</b><br/>
+<b>Usage with OSEK OS&#160;</b><br/>
+If OSEK OS is configured as lock mechanism&#160;the VStdLib needs&#160;to include the header of&#160;<br/>the OSEK OS. Since the header&#160;of the OSEK OS may have&#160;different names depending on&#160;<br/>the OS supplier the VStdLib includes always the same&#160;header file.&#160;This header file has&#160;to&#160;<br/>be provided by the user.&#160;The file’s name must&#160;be os.h. If the OSEK&#160;OS already provides a&#160;<br/>file named like this nothing needs&#160;to be done (as&#160;long it provides the&#160;required prototypes).&#160;<br/>Otherwise the user has to create a header file named os.h and include the corresponding&#160;<br/>OSEK OS file.&#160;<br/>If the VStdLib is configued to lock/unlock interrupts by means of OSEK OS the following&#160;<br/>OSEK functions are called&#160;to implement the lock:&#160;<br/>
+&#160;&#160;SuspendAllInterrupts&#160;<br/>
+&#160;&#160;ResumeAllInterrupts&#160;<br/>
+&#160;<br/>
+<b>5.2&#160;</b><br/>
+<b>Usage with QNX OS&#160;</b><br/>
+In case the VStdLib is used in a QNX OS environment two options for interrupt locking are&#160;<br/>available. Depending&#160;on the way CAN interrupts are&#160;handled (ISR, Interrupt&#160;Thread)&#160;<br/>different locking mechanisms are needed.&#160;<br/>&#160;<br/>In case the CAN interrupts are handled by&#160;an interrupt thread the&#160;locking is done by&#160;<br/>means of mutexes.&#160;These are not implemented by the VStdLib but the QWrap component.&#160;<br/><a href="TechnicalReference_VStdLibs.html#11">Please refer to&#160;Figure 5-3 which shows the locking&#160;</a>configuration in this case. &#160;<br/>&#160;<br/>
+&#160;<br/>
+Figure 5-3&#160;&#160;Locking configuration in case CAN events are handled in an interrupt thread&#160;<br/>
+User defined locking is also required if the VStdLib is configured&#160;to run in the context of the&#160;<br/>QNX startup code (minidriver).&#160;The MdWrap&#160;component provides&#160;the same callbacks as&#160;<br/>shown in&#160;<a href="TechnicalReference_VStdLibs.html#11">Figure 5-3 walso in that</a>&#160;case. QWrap&#160;and MdWrap implement the same callback&#160;<br/>names in case the same tool&#160;configuration is used to generate for the minidriver and the&#160;<br/>fulldriver.&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+11&#160;/&#160;20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-12_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-12_2.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>In case CAN interrupts are handled by a&#160;CAN interrupt routine the VStdLib locking&#160;<br/>functions disable/restore the global interrupt flag. Mutexes&#160;are not used. In this case the&#160;<br/>configuration of the VStdLib must<a href="TechnicalReference_VStdLibs.html#12">&#160;be set to Default as shown in&#160;Figure 5-4.&#160;<br/></a>&#160;<br/>
+&#160;<br/>
+Figure 5-4&#160;&#160;Configuration of the VStdLib in case of handling CAN events on interrupt level&#160;<br/>
+&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+12&#160;/ 20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-13_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>6&#160;&#160;API Description&#160;</b><br/>
+This chapter describes the&#160;API of the VStdLib.&#160;<br/>&#160;<br/>
+<b>6.1&#160;</b><br/>
+<b>Initialization&#160;</b><br/>
+&#160;<br/>
+<b>VStdInitPowerOn</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>VStdInitPowerOn</b>(void)&#160;<br/><b>Parameter&#160;<br/></b>None&#160;<br/>
+-&#160;<br/>
+<b>Return code&#160;<br/></b>None&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>Initializes&#160;the VStdLib component.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This function&#160;must be&#160;called once after&#160;PowerOn reset.&#160;This function must not be&#160;re-called later.&#160;<br/>
+&#160;&#160;The application must not&#160;call any other&#160;Vector&#160;communication stack function&#160;before this function.&#160;This&#160;<br/>
+includes&#160;also&#160;the other VStdLib functions. In other words:&#160;The function VStdInitPowerOn must&#160;be the&#160;<br/>very first Vector function being called after startup. Depending on the architecture&#160;the caller must take&#160;<br/>care about interruptions&#160;of the init function&#160;which may violate this requirement (OS task&#160;which&#160;calls&#160;<br/>another Vector function).&#160;<br/>
+&#160;&#160;If the CANbedded&#160;stack is&#160;used&#160;this function is automatically called by the CAN or LIN driver.&#160;<br/>
+&#160;&#160;In a MICROSAR communication&#160;stack is&#160;integrated this function has to be called by the application&#160;<br/>
+before any other MICROSAR&#160;API function is called.&#160;<br/>
+&#160;<br/>Call context&#160;<br/>
+&#160;&#160;Task context&#160;<br/>
+&#160;<br/>&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+13&#160;/ 20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-14_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>6.2&#160;</b><br/>
+<b>Interrupt Control&#160;</b><br/>
+&#160;<br/>
+<b>VStdSuspendAllInterrupts</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>VStdSuspendAllInterrupts</b>(void)&#160;<br/><b>Parameter&#160;<br/></b>None&#160;<br/>
+-&#160;<br/>
+<b>Return code&#160;<br/></b>None&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>Disables&#160;all interrupts or locks interrupts to a certain&#160;lock level.&#160;This depends on&#160;the hardware&#160;platform.&#160;The&#160;<br/>way interrupts are locked is&#160;to be configured in the&#160;configuration tool. &#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This function&#160;is designed to be called in&#160;a nested&#160;way (except User&#160;Interrupt Control is&#160;configured).&#160;<br/>
+&#160;&#160;Every call to VStdSuspendAllInterrupts&#160;must have a&#160;corresponding&#160;call to VStdResumeAllInterrupts.&#160;<br/>
+&#160;&#160;If User Interrupt Control is&#160;configured this function is&#160;redirected to the&#160;functions specified by the user&#160;in&#160;<br/>
+the configuration tool. No nesting&#160;counter is implemented.&#160;The user may have to take&#160;special&#160;care to&#160;<br/>handle this behavior.&#160;<br/>
+&#160;&#160;Depending&#160;on&#160;the used&#160;OS&#160;this function&#160;may use either a global lock or a mutex.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;No limitation&#160;<br/>
+&#160;<br/>&#160;<br/>
+<b>VStdResumeAllInterrupts</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>VStdResumeAllInterrupts</b>(void)&#160;<br/><b>Parameter&#160;<br/></b>None&#160;<br/>
+-&#160;<br/>
+<b>Return code&#160;<br/></b>None&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>Resumest the interrupts which&#160;were locked using the&#160;API function VStdSuspendAllInterrupts.&#160;&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This function&#160;must not be&#160;called without a corresponding call to VStdSuspendAllInterrupts.&#160;<br/>
+&#160;&#160;If User Interrupt Control is&#160;configured this function is&#160;redirected to the&#160;functions specified by the user&#160;in&#160;<br/>
+the configuration tool. No nesting&#160;counter is implemented.&#160;The user may have to take&#160;special&#160;care to&#160;<br/>handle this behavior.&#160;<br/>
+&#160;&#160;Depending&#160;on&#160;the used&#160;OS&#160;this function&#160;may use either a global lock or a mutex.&#160;<br/>
+Call context&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+14&#160;/ 20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-15_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+&#160;&#160;No limitation&#160;<br/>
+&#160;<br/>&#160;<br/>
+<b>6.3&#160;</b><br/>
+<b>Memory&#160;Functions&#160;</b><br/>
+This chapter describes not all functions, as&#160;they do all the same except for the memory&#160;<br/>qualifiers of the source and destionation locations.&#160;<br/>&#160;<br/>
+<b>VStdMemSet</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>VStdMemSet&#160;</b>(void *pDest, vuint8 nPattern, vuint16 nCnt)&#160;<br/><b>Parameter&#160;<br/></b>pDest&#160;<br/>
+The start address in memory which is to&#160;be initialized&#160;using the given&#160;<br/>character.&#160;<br/>
+nPattern&#160;<br/>
+The character to be used to fill nCnt&#160;Bytes starting&#160;at address pDest.&#160;<br/>
+nCnt&#160;<br/>
+The number&#160;of Bytes to be filled using the given character.&#160;<br/>
+<b>Return code&#160;<br/></b>None&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>This function&#160;fills nCnt Bytes starting at address pDest&#160;in memory&#160;using the&#160;character nPattern.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This function&#160;exists&#160;in three variants (default, near&#160;and far memory). Depending&#160;on the plattform these&#160;<br/>
+function may&#160;be implemented differently&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;No restriction&#160;<br/>
+&#160;<br/>&#160;<br/>
+<b>VStdMemSet</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>VStdMemClr&#160;</b>(void *pDest, vuint16 nCnt)&#160;<br/><b>Parameter&#160;<br/></b>pDest&#160;<br/>
+The start address in memory which is to&#160;be initialized to zero.&#160;<br/>
+nCnt&#160;<br/>
+The number&#160;of Bytes to be set to zero.&#160;<br/>
+<b>Return code&#160;<br/></b>None&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>This function&#160;initializes&#160;nCnt Bytes starting at address pDest in memory to zero.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This function&#160;exists&#160;in three variants (default, near&#160;and far memory). Depending&#160;on the plattform these&#160;<br/>
+function may&#160;be implemented differently&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+15&#160;/ 20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-16_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;No restriction&#160;<br/>
+&#160;<br/>&#160;<br/>
+<b>VStdMemSet</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>VStdMemCpy&#160;</b>(void *pDest, void *pSrc, vuint16 nCnt)&#160;<br/><b>Parameter&#160;<br/></b>pDest&#160;<br/>
+The destination address to&#160;which the data is copied.&#160;<br/>
+pSrc&#160;<br/>
+The source address from&#160;where the data is copied.&#160;<br/>
+nCnt&#160;<br/>
+The number&#160;of Bytes to be copied&#160;from&#160;start address&#160;pSrc to destination&#160;<br/>address pDest.&#160;<br/>
+<b>Return code&#160;<br/></b>None&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>This function&#160;copies a block of nCnt Bytes starting&#160;at memory location pSrc to another memory location&#160;<br/>starting at address pDest.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This function&#160;exists&#160;in many&#160;variants.&#160;These variants implement different memory source and&#160;<br/>
+destination locations.&#160;<br/>
+&#160;&#160;The implementation of these functions is highly plattform dependant&#160;<br/>
+&#160;&#160;The memory blocks starting&#160;at pSrc and&#160;pDest must&#160;no overlap.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;No restriction&#160;<br/>
+&#160;<br/>
+<b>6.4&#160;</b><br/>
+<b>Callback Functions&#160;</b><br/>
+&#160;<br/>
+<b>ApplVStdFatalError</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>ApplVStdFatalError&#160;</b>(vuint8 nErrorNumber)&#160;<br/><b>Parameter&#160;<br/></b>nErrorNumber&#160;<br/>
+This&#160;parameter describes the reason which caused the assertion.&#160;<br/>
+<b>Return code&#160;<br/></b>None&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>This function&#160;is called by the VStdLib in case an&#160;assertion fails.&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+16&#160;/ 20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-17_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This function&#160;is to be implemented by the application.&#160;<br/>
+&#160;&#160;If this function returns to the caller, it is not ensured that the calling&#160;functions finished successfully. It has&#160;<br/>
+to be considered as&#160;a severe error if this function is&#160;called.&#160;<br/>
+Call context&#160;<br/>
+&#160;&#160;No restriction&#160;<br/>
+&#160;<br/>&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+17&#160;/ 20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-18_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-18_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-18_3.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>7&#160;&#160;Assertions&#160;</b><br/>
+If the user enables the option “Assertions”&#160;the VStdLib component&#160;performs additional&#160;<br/>checks. If a&#160;checked condition fails the assertion function&#160;ApplVStdFatalError is called.&#160;The&#160;<br/>implementation of this function is to be provided by the application.&#160;This function has an&#160;<br/>errorcode parameter which describes the reason which caused the assertion.&#160;The&#160;<br/>following table describes these reasons.&#160;<br/>&#160;<br/>
+<b>Errorcode&#160;</b><br/>
+<b>Description&#160;</b><br/>
+kVStdErrorIntDisableTooOften&#160;<br/>
+The called VStdLib interrupt locking function&#160;<br/>exceeded a nesting call&#160;depth of 127.&#160;<br/>
+kVStdErrorIntRestoreTooOften&#160;<br/>
+The number of calls of the VStdLib interrupt&#160;<br/>unlocking&#160;function was higher than the number of&#160;<br/>nested interrupt lock&#160;calls.&#160;<br/>
+kVStdErrorMemClrInvalidParameter &#160;<br/>
+A&#160;memclr function of the&#160;VStdLib was called with&#160;an&#160;<br/>invalid pointer parameter&#160;<br/>
+kVStdErrorMemCpyInvalidParameter&#160;<br/>
+A&#160;memcpy&#160;function of the VStdLib was called&#160;with an&#160;<br/>invalid pointer parameter&#160;<br/>
+kVStdErrorMemSetInvalidParameter&#160;<br/>
+A&#160;memset function of the&#160;VStdLib was called with&#160;an&#160;<br/>invalid pointer parameter&#160;<br/>
+kVStdErrorUnexpectedLockState&#160;<br/>
+A&#160;interrupt restore function of the VStdLib is called&#160;<br/>but the interrupts are already unlocked.&#160;This&#160;state is&#160;<br/>not expected and must never occur.&#160;<br/>
+&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>Note that some of the assertions exist solely in case the VStdLib is configured to use&#160;<br/>
+&#160;&#160;no library functions. In&#160;that case the&#160;missing library functionality is implemented directly&#160;<br/>
+in the VStdLib source file.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>Note&#160;<br/></b>Not every assertion code is implemented on each hardware.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+18&#160;/ 20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-19_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>8&#160;&#160;Glossary and&#160;Abbreviations&#160;</b><br/>
+<b>8.1&#160;</b><br/>
+<b>Glossary&#160;</b><br/>
+<b>Term&#160;</b><br/>
+<b>Description&#160;</b><br/>
+User configuration file&#160;&#160;A&#160;text file which is appended by the configuration tool to the&#160;generated&#160;<br/>
+source files.&#160;If a user configuration file is required the technical reference&#160;<br/>describes it and&#160;the&#160;contents.&#160;<br/>
+&#160;<br/>&#160;<br/>
+<b>8.2&#160;</b><br/>
+<b>Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+RI&#160;<br/>
+Reference implementation of the CANbedded CAN driver.&#160;The reference&#160;<br/>implementation defines the features&#160;a CAN driver must provide. From&#160;<br/>Reference Implementation 1.5 (RI1.5) the interrupt locking functionality&#160;of&#160;<br/>each CAN driver is moved to the VStdLib for the specific platform.&#160;<br/>
+VStdLib&#160;<br/>
+Vector Standard Library&#160;<br/>
+&#160;<br/>&#160;<br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+19&#160;/ 20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_VStdLib-20_1.png"/><br/>
+Technical Reference VStdLib &#160;<br/>
+&#160;<br/>
+<b>9&#160;&#160;Contact&#160;</b><br/>
+Visit our website for more information on&#160;<br/>&#160;<br/>&gt;&#160; &#160;News&#160;<br/>&gt;&#160; &#160;Products&#160;<br/>&gt;&#160; &#160;Demo software&#160;<br/>&gt;&#160; &#160;Support&#160;<br/>&gt;&#160; &#160;Training data&#160;<br/>&gt;&#160; &#160;Addresses&#160;<br/>&#160;<br/><b>www.vector-informatik.com&#160;</b><br/>
+©2009, Vector Informatik GmbH&#160;<br/>
+Version: 1.6&#160;<br/>
+20&#160;/ 20<br/>
+based on template&#160;version 3.7&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_VStdLibs.html#2">1 Document Information</a>
+<ul>
+<li><a href="TechnicalReference_VStdLibs.html#2">1.1 History</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_VStdLibs.html#5">2 Introduction</a></li>
+<li><a href="TechnicalReference_VStdLibs.html#6">3 Functional Description</a></li>
+<li><a href="TechnicalReference_VStdLibs.html#8">4 Integration</a>
+<ul>
+<li><a href="TechnicalReference_VStdLibs.html#8">4.1 CANbedded Particularities</a></li>
+<li><a href="TechnicalReference_VStdLibs.html#8">4.2 MICROSAR Particularities</a></li>
+<li><a href="TechnicalReference_VStdLibs.html#8">4.3 Mixing VStdLib Versions</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_VStdLibs.html#9">5 Configuration</a>
+<ul>
+<li><a href="TechnicalReference_VStdLibs.html#11">5.1 Usage with OSEK OS</a></li>
+<li><a href="TechnicalReference_VStdLibs.html#11">5.2 Usage with QNX OS</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_VStdLibs.html#13">6 API Description</a>
+<ul>
+<li><a href="TechnicalReference_VStdLibs.html#13">6.1 Initialization</a></li>
+<li><a href="TechnicalReference_VStdLibs.html#14">6.2 Interrupt Control</a></li>
+<li><a href="TechnicalReference_VStdLibs.html#15">6.3 Memory Functions</a></li>
+<li><a href="TechnicalReference_VStdLibs.html#16">6.4 Callback Functions</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_VStdLibs.html#18">7 Assertions</a></li>
+<li><a href="TechnicalReference_VStdLibs.html#19">8 Glossary and Abbreviations</a>
+<ul>
+<li><a href="TechnicalReference_VStdLibs.html#19">8.1 Glossary</a></li>
+<li><a href="TechnicalReference_VStdLibs.html#19">8.2 Abbreviations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_VStdLibs.html#20">9 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

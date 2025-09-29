@@ -1,0 +1,388 @@
+---
+title: VehDyn_Integration_Manual
+linkTitle: VehDyn_Integration_Manual
+weight: 4
+---
+
+<p><a href="#dependencies">1 Dependencies <span>2</span></a></p>
+<p><a href="#swcs">1.1 SWCs <span>2</span></a></p>
+<p><a href="#global-functionsnon-rte-to-be-provided-to-integration-project">1.2 Global Functions(Non RTE) to be provided to Integration Project <span>2</span></a></p>
+<p><a href="#configuration">2 Configuration <span>3</span></a></p>
+<p><a href="#build-time-config">2.1 Build Time Config <span>3</span></a></p>
+<p><a href="#configuration-files-to-be-provided-by-integration-project">2.2 Configuration Files to be provided by Integration Project <span>3</span></a></p>
+<p><a href="#da-vinci-parameter-configuration-changes">2.2.1 Da Vinci Parameter Configuration Changes <span>3</span></a></p>
+<p><a href="#davinci-interrupt-configuration-changes">2.2.2 DaVinci Interrupt Configuration Changes <span>3</span></a></p>
+<p><a href="#manual-configuration-changes">2.2.3 Manual Configuration Changes <span>3</span></a></p>
+<p><a href="#integration">3 Integration <span>4</span></a></p>
+<p><a href="#required-global-data-inputs">3.1 Required Global Data Inputs <span>4</span></a></p>
+<p><a href="#required-global-data-outputs">3.2 Required Global Data Outputs <span>4</span></a></p>
+<p><a href="#specific-include-path-present">3.3 Specific Include Path present <span>4</span></a></p>
+<p><a href="#runnable-scheduling">4 Runnable Scheduling <span>5</span></a></p>
+<p><a href="#memory-mapping">5 Memory Mapping <span>6</span></a></p>
+<p><a href="#mapping">5.1 Mapping <span>6</span></a></p>
+<p><a href="#usage">5.2 Usage <span>6</span></a></p>
+<p><a href="#non-rte-nvm-blocks">5.3 Non RTE NvM Blocks <span>6</span></a></p>
+<p><a href="#rte-nvm-blocks">5.4 RTE NvM Blocks <span>6</span></a></p>
+<p><a href="#compiler-settings">6 Compiler Settings <span>6</span></a></p>
+<p><a href="#preprocessor-macro">6.1 Preprocessor MACRO <span>6</span></a></p>
+<p><a href="#optimization-settings">6.2 Optimization Settings <span>6</span></a></p>
+<p><a href="#revision-control-log">7 Revision Control Log <span>7</span></a></p>
+<h1 id="dependencies">Dependencies</h1>
+<h2 id="swcs">SWCs</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 69%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Required Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Note : Referencing the external components should be avoided in most cases. Only in unavoidable circumstance external components should be refered. Developer should track the references.</p>
+<h2 id="global-functionsnon-rte-to-be-provided-to-integration-project">Global Functions(Non RTE) to be provided to Integration Project</h2>
+<p>&lt; Global function (except the ones that are defined in RTE modules) that is defined in this component but used by other function&gt;</p>
+<p>None</p>
+<h1 id="configuration">Configuration</h1>
+<h2 id="build-time-config">Build Time Config</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modules</th>
+<th>Notes</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-files-to-be-provided-by-integration-project">Configuration Files to be provided by Integration Project</h2>
+<h2 class="unnumbered" id="section"></h2>
+<p>Ap_VehDyn_Cfg.h (generated using Ap_VehDyn_Cfg.h.tt)</p>
+<h3 id="da-vinci-parameter-configuration-changes">Da Vinci Parameter Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VehDynGeneral/VehDynCPEnable</td>
+<td>Enable checkpoints if needed</td>
+<td>VehDyn</td>
+</tr>
+</tbody>
+</table>
+<h3 id="davinci-interrupt-configuration-changes">DaVinci Interrupt Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 9%" />
+<col style="width: 38%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ISR Name</th>
+<th>VIM #</th>
+<th>Priority Dependency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-configuration-changes">Manual Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="integration">Integration</h1>
+<h2 id="required-global-data-inputs">Required Global Data Inputs</h2>
+<p>VehicleSpeed_Kph_f32</p>
+<p>HwTorque_HwNm_f32</p>
+<p>TorqueCmdCRF_MtrNm_f32</p>
+<p>VehicleSpeedValid_Cnt_lgc</p>
+<p>MotorVelCRF_MtrRadpS_f32</p>
+<p>RelHwPos_HwDeg_f32</p>
+<p>CcwEOT_HwDeg_f32</p>
+<p>CwEOT_HwDeg_f32</p>
+<p>HwAuth_Uls_f32</p>
+<p>HandwheelPosition_HwDeg_f32</p>
+<p>MechMtrPos_Rev_f32</p>
+<p>SrlHwAgVld_Cnt_lgc</p>
+<p>SrlHwAg_HwDeg_f32</p>
+<h2 id="required-global-data-outputs">Required Global Data Outputs</h2>
+<p>SensorlessHwAuth_Uls_f32</p>
+<p>SensorlessHwPos_HwDeg_f32</p>
+<h2 id="specific-include-path-present">Specific Include Path present</h2>
+<p>&lt; No &gt;</p>
+<h1 id="runnable-scheduling">Runnable Scheduling </h1>
+<p>This section specifies the required runnable scheduling.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Init</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VehDyn_Init1</td>
+<td>Called from RTE before first call of periodic function</td>
+<td>RTE at init</td>
+</tr>
+</tbody>
+</table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VehDyn_Per1</td>
+<td>Should be called after the 2ms periodic that outputs RelHwPos and before the 2ms periodic that uses VDHwPos and VDAuthority</td>
+<td>RTE 2 ms</td>
+</tr>
+</tbody>
+</table>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VehDyn_Trns1</td>
+<td>triggered on entering of Mode &lt;OFF&gt; of ModeDeclarationGroupPrototype &lt;Mode&gt; of PortPrototype &lt;SystemState&gt;</td>
+<td>RTE at shutdown</td>
+</tr>
+</tbody>
+</table>
+<p><strong>.</strong></p>
+<h1 id="memory-mapping">Memory Mapping</h1>
+<h2 id="mapping">Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 58%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Memory Section</th>
+<th>Contents</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VEHDYN_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VEHDYN_START_SEC_VAR_CLEARED_BOOLEAN</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>RTE_START_SEC_AP_VEHDYN_APPL_CODE</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>VEHDYN_START_SEC_VAR_CLEARED_32</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>VEHDYN_START_SEC_VAR_CLEARED_8</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>* Each …START_SEC… constant is terminated by a …STOP_SEC… constant as specified in the AUTOSAR Memory Mapping requirements.</p>
+<h2 id="usage">Usage</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>RAM</th>
+<th>ROM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;Memmap usage info&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: ARM Cortex R4 Memory Usage</p>
+<h2 id="non-rte-nvm-blocks">Non RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h2 id="rte-nvm-blocks"> RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VehDynReset</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h1 id="compiler-settings">Compiler Settings</h1>
+<h2 id="preprocessor-macro"> Preprocessor MACRO</h2>
+<p>&lt;Define all the preprocessor Macros needed and conditions when needed&gt;.</p>
+<h2 id="optimization-settings">Optimization Settings</h2>
+<p>&lt;Define Optimization levels that are needed and conditions when needed&gt;.</p>
+<h2 class="unnumbered" id="section-1"></h2>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 71%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial version</td>
+<td>19-Aug-13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Updated per SF42 - VCDMotPos rev 002</td>
+<td>21-Aug-14</td>
+<td>SB</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Updated to SF42 – VCDMotPos v004</td>
+<td>16-Jan-15</td>
+<td>SB</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Updated to SF42 – VCDMotPos v006</td>
+<td>13-Aug-15</td>
+<td>JK</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>New MemMap section added and Input name change</td>
+<td>15-Dec-15</td>
+<td>SB</td>
+</tr>
+</tbody>
+</table>

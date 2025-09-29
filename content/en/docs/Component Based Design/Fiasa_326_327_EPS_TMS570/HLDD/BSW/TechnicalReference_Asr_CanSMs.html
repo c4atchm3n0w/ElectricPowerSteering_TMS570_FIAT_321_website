@@ -1,0 +1,2431 @@
+---
+title: TechnicalReference_Asr_CanSMs
+linkTitle: TechnicalReference_Asr_CanSMs
+weight: 19
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-1_1.png"/><br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+<b>MICROSAR CAN State Manager&#160;<br/></b>Technical Reference&#160;<br/>&#160;<br/>&#160;<br/>
+Version 1.16&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+Authors&#160;<br/>
+Mark A.&#160;Fingerle&#160;<br/>
+Status&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-2_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>1&#160;&#160;Document Information&#160;</b><br/>
+<b>1.1&#160;</b><br/>
+<b>History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;&#160;Remarks&#160;</b><br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2008-02-04&#160;&#160;1.0&#160;<br/>
+ASR 3.0 beta release&#160;<br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2008-02-27&#160;&#160;1.1&#160;<br/>
+Switch to new template&#160;<br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2008-03-31&#160;&#160;1.2&#160;<br/>
+ESCAN00025504 Rename&#160;Technical Reference to&#160;<br/>MSR Short&#160;Name&#160;<br/>ESCAN00025710 Adapt&#160;initialization.&#160;<br/>ESCAN00025711&#160;Adapt Chapter Configuration&#160;<br/>GENy to&#160;ASR names&#160;<br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2008-05-06&#160;&#160;1.3&#160;<br/>
+ESCAN00025892 Simplify the set controller mode&#160;<br/>algorithm of the CanSM&#160;<br/>ESCAN00026001 Extend error handling to the&#160;case&#160;<br/>a transition fails and the&#160;mode request changes&#160;<br/>before recovering of the transition.&#160;<br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2008-07-18&#160;&#160;1.4&#160;<br/>
+Allowed timer values&#160;<br/>IPDU&#160;via drop down list&#160;<br/>critical section kinds&#160;<br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2008-10-08&#160;&#160;1.5&#160;<br/>
+New feature/API ECU&#160;passive mode&#160;<br/>CAN bus specific bus-off configuration parameter&#160;<br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2008-10-28&#160;&#160;1.6&#160;<br/>
+State machine start/entry point&#160;<br/>Additional explanation of passive mode&#160;<br/>Additional explanation of error counter&#160;<br/>Figure 4-1 updated&#160;<br/>GENy screen shots updated&#160;<br/>
+Mark A.&#160;Fingerle&#160;<br/>
+2009-02-18&#160;&#160;1.7&#160;<br/>
+add API&#160;CanSM_PreventBusSleepAtStartUp&#160;<br/>advance chapter&#160;<a href="TechnicalReference_Asr_CanSMs.html#14">4.2&#160;Init</a>ialization&#160;<br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2009-03-23&#160;&#160;1.8&#160;<br/>
+Adapt configuration of the transceiver&#160;handling&#160;<br/>
+Mark A.&#160;Fingerle&#160;<br/>
+2009-05-13&#160;&#160;1.9&#160;<br/>
+Correct&#160;<a href="TechnicalReference_Asr_CanSMs.html#28">Figure 6-1&#160;&#160;CanSM interactions with&#160;other&#160;<br/>BSW&#160;<br/></a><a href="TechnicalReference_Asr_CanSMs.html#15">4.3.1&#160;“T</a>ransition Check” in case set&#160;transceiver&#160;<br/>mode fail&#160;<br/>Add Error code&#160;CANSM_E_SETTRANSCEIVERMODE&#160;in&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#23">Table 4-6&#160;<br/></a>Add application bus-off&#160;notification fu<a href="TechnicalReference_Asr_CanSMs.html#18">nctions&#160;4.3.2,&#160;<br/></a><a href="TechnicalReference_Asr_CanSMs.html#34">6.5.2,&#160;6.5.2&#160;</a><br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2009-10-13&#160;&#160;1.10&#160;<br/>
+ESCAN00037731&#160;Ambiguous description of critical&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#26">sections in chapter&#160;5.5&#160;<br/></a>GENy feature&#160;Disable Pdu&#160;Group&#160;and&#160;BusOff&#160;Notification&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+2&#160;/&#160;&#160;51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-3_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanSMs.html#41">7.1.5&#160;</a><br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2010-01-13&#160;&#160;1.10.01&#160;&#160;<a href="TechnicalReference_Asr_CanSMs.html#38">Correct chapter&#160;7.1.3</a>, EcuM&#160;Î&#160;SchM&#160;<br/>
+Mark A.&#160;Fingerle&#160;<br/>
+2010-03-03&#160;&#160;1.11&#160;<br/>
+Update&#160;<a href="TechnicalReference_Asr_CanSMs.html#26">5.5&#160;critica</a>l sections&#160;<br/>
+Mark A.&#160;Fingerle&#160;<br/>
+2010-04-23&#160;&#160;1.12&#160;<br/>
+ESCAN00040930 Add API&#160;<br/>EcuM_GeneratorComp<a href="TechnicalReference_Asr_CanSMs.html#34">atibilityError&#160;Table 6-11,&#160;<br/></a><a href="TechnicalReference_Asr_CanSMs.html#28">Figure 6-1&#160;<br/></a>ESCAN00037126 Better the Onscreen Help of the &#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#45">&#34;Bor Counter L2 Err Ch&#34;&#160;Table 7-4&#160;<br/></a>ESCAN00041444 re-initialization of&#160;signals when&#160;<br/>switching from&#160;NO to FULL&#160;communication in&#160;<br/>chapter&#160;<a href="TechnicalReference_Asr_CanSMs.html#41">7.1.5&#160;</a><br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2010-08-13&#160;&#160;1.13&#160;<br/>
+ESCAN00043552&#160;Add support for XCP&#160;shutdown&#160;<br/>chapter&#160;<a href="TechnicalReference_Asr_CanSMs.html#20">4.4&#160;</a><br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2010-10-03&#160;&#160;1.14&#160;<br/>
+ESCAN00045704 Disable DeadlineMonitoring in&#160;<br/>state CANSM_SILENT_COMMUNICATION.&#160;Add&#160;<br/>DM description to the states in chapter&#160;<a href="TechnicalReference_Asr_CanSMs.html#15">4.3.1.&#160;<br/></a>ESCAN00045482 Wrong configuration class for&#160;<br/>AUTOSAR parameter: CanSM Post&#160;Build&#160;Config&#160;<br/>Start Address&#160;<a href="TechnicalReference_Asr_CanSMs.html#40">Table 7-1&#160;</a><br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2011-01-23&#160;<br/>
+1.15&#160;<br/>
+R11: During&#160;the BusOff recovery the&#160;Nm&#160;may&#160;<br/>trigger the shutdown NmTimeOut&#160;<a href="TechnicalReference_Asr_CanSMs.html#18">4.3.2&#160;<br/></a>BusOffEnd missing if N<a href="TechnicalReference_Asr_CanSMs.html#18">oCom is triggered&#160;4.3.2&#160;<br/></a>Partial Networks&#160;<a href="TechnicalReference_Asr_CanSMs.html#48">8.1.10&#160;<br/></a>BswM Co<a href="TechnicalReference_Asr_CanSMs.html#48">mMode Indication&#160;8.1.11&#160;<br/></a>Multiple ide<a href="TechnicalReference_Asr_CanSMs.html#48">ntity&#160;8.1.12&#160;<br/></a>Usage&#160;CANSM_EXCLUSIVE_AREA_4&#160;<br/>
+Mark&#160;A. Fingerle&#160;<br/>
+2011-04-23&#160;<br/>
+1.16&#160;<br/>
+R12: ESCAN00049972&#160;Add MSR Dem errors to&#160;<br/>deviation ch<a href="TechnicalReference_Asr_CanSMs.html#48">apter&#160;8.1.13&#160;<br/></a>ESCAN00047985 No CAN communication&#160;<br/>possible,&#160;caused by bus-off in SILENT&#160;<br/>communication&#160;<a href="TechnicalReference_Asr_CanSMs.html#48">8.1.14&#160;<br/></a>ESCAN00050250 Extend Bus Off recovery&#160;<br/>handling, additional ModeIndications during BusOff&#160;<br/>recovery&#160;<a href="TechnicalReference_Asr_CanSMs.html#18">4.3.2&#160;</a><br/>
+Table 1-1&#160;&#160;<br/>
+History&#160;of the&#160;document&#160;<br/>
+<b>1.2&#160;</b><br/>
+<b>Reference Documents&#160;</b><br/>
+<b>No.&#160;</b><br/>
+<b>Title&#160;</b><br/>
+<b>Version&#160;</b><br/>
+[1]&#160;&#160;&#160;<br/>
+AUTOSAR&#160;Specification of CAN State Manager&#160;<br/>
+1.0.0&#160;<br/>
+[2]&#160;&#160;&#160;<br/>
+AUTOSAR&#160;Specification of Development Error&#160;Tracer&#160;<br/>
+2.2.0&#160;<br/>
+[3]&#160;&#160;&#160;<br/>
+AUTOSAR&#160;Specification of Diagnostics Event&#160;Manager&#160;<br/>
+2.2.1&#160;<br/>
+[4]&#160;&#160;&#160;<br/>
+AUTOSAR&#160;List of Basic Software Modules&#160;<br/>
+1.2.0&#160;<br/>
+[5]&#160;&#160;&#160;<br/>
+AUTOSAR&#160;Specification of CAN Interface&#160;<br/>
+2.1.0&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+3&#160;/&#160;&#160;51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-4_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-4_2.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+[6]&#160;&#160;&#160;<br/>
+AUTOSAR&#160;Specification of Communication Manager&#160;<br/>
+2.0.0&#160;<br/>
+[7] &#160;&#160;AN-ISC-8-1093&#160;<br/>
+1.0.0&#160;<br/>
+[8]&#160;&#160;&#160;<br/>
+AN-ISC-8-1118 MICROSAR BSW&#160;Compatibility Check&#160;<br/>
+1.0.0&#160;<br/>
+Table 1-2&#160;&#160;<br/>
+Reference documents&#160;<br/>
+<b>1.3&#160;</b><br/>
+<b>Scope of the Document&#160;</b><br/>
+This technical reference describes the general use of the CAN&#160;State Manager basis&#160;<br/>software.&#160;All aspects&#160;which are CAN controller specific are described in a separate&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#3">document&#160;[5]</a>, which is also part of the delivery.&#160;<br/>
+<b>Please note&#160;<br/></b>We have configured the&#160;programs in accordance&#160;with your specifications in the&#160;<br/>
+&#160;&#160;questionnaire. Whereas&#160;the programs do support&#160;other configurations than the one&#160;<br/>
+specified&#160;in&#160;your questionnaire, Vector´s release&#160;of the programs delivered to your&#160;<br/>company is&#160;expressly restricted to the&#160;configuration you have&#160;specified in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+4&#160;/&#160;&#160;51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-5_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#2"><b>1</b>&#160;&#160;<b>Document Information....................................................................................................&#160;2</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#2">1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#2">History...............................................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#3">1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#3">Reference Documents&#160;......................................................................................&#160;3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#4">1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#4">Scope of the Document&#160;....................................................................................&#160;4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#11"><b>2</b>&#160;&#160;<b>Component History.......................................................................................................&#160;11</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#12"><b>3</b>&#160;&#160;<b>Introduction&#160;...................................................................................................................&#160;12</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#12">3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#12">Architecture&#160;Overview.....................................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#14"><b>4</b>&#160;&#160;<b>Functional Description&#160;.................................................................................................&#160;14</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#14">4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#14">Features..........................................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#14">4.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#14">Initialization&#160;.....................................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#15">4.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#15">State Machines&#160;...............................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#15">4.3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#15">Network Mode State Machine.........................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#18">4.3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#18">Bus-off&#160;Recovery State Machine.....................................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#20">4.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#20">XCP&#160;notification function.................................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">4.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">ECU passive mode&#160;.........................................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">4.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">Main Function&#160;.................................................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">4.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">Communication Modes&#160;...................................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">4.8&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">Communication Mode Polling&#160;.........................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">4.9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">Error Handling.................................................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">4.9.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#21">Development Error Reporting&#160;.........................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#22">4.9.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#22">Parameter Checking&#160;.......................................................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#23">4.9.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#23">Production Code&#160;Error&#160;Reporting&#160;...................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#24"><b>5</b>&#160;&#160;<b>Integration&#160;.....................................................................................................................&#160;24</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#24">5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#24">Brief Instruction...............................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#24">5.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#24">Scope of Delivery............................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#24">5.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#24">Static Files&#160;......................................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#25">5.2.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#25">Dynamic Files&#160;.................................................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#25">5.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#25">Include Structure.............................................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#26">5.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#26">Compiler&#160;Abstraction and Memory&#160;Mapping...................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#26">5.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#26">Critical Areas...................................................................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#28"><b>6</b>&#160;&#160;<b>API Description&#160;.............................................................................................................&#160;28</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#28">6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#28">Interfaces Overview&#160;........................................................................................&#160;28&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#28">6.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#28">Type Definitions&#160;..............................................................................................&#160;28&#160;</a><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+5&#160;/&#160;&#160;51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-6_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanSMs.html#29">6.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#29">Services Provided by CanSM&#160;.........................................................................&#160;29&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#30">6.3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#30">CanSM_InitMemory&#160;........................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#30">6.3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#30">CanSM_Init&#160;.....................................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#31">6.3.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#31">CanSM_MainFunction&#160;....................................................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#31">6.3.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#31">CanSM_RequestComMode............................................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#32">6.3.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#32">CanSM_SetEcuPassive..................................................................................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#32">6.3.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#32">CanSM_GetCurrentComMode&#160;.......................................................................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#32">6.3.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#32">CanSM_GetVersionInfo&#160;..................................................................................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#33">6.3.8&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#33">CanSM_PreventBusSleepAtStartUp...............................................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#33">6.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#33">Services used by CanSM&#160;...............................................................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#34">6.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#34">Callback Functions&#160;.........................................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#34">6.5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#34">CanSM_ControllerBusOff&#160;...............................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#34">6.5.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#34">Appl_CanSM_BusOffBegin.............................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#35">6.5.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#35">Appl_CanSM_BusOffEnd&#160;...............................................................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#36"><b>7</b>&#160;&#160;<b>Configuration&#160;................................................................................................................&#160;36</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#36">7.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#36">Configuration with GENy&#160;................................................................................&#160;36&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#36">7.1.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#36">Basic&#160;...............................................................................................................&#160;36&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#37">7.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#37">Activation of the CAN State Manager&#160;.............................................................&#160;37&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#38">7.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#38">General Settings&#160;.............................................................................................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#41">7.1.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#41">Network Settings.............................................................................................&#160;41&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#41">7.1.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#41">General CAN Channel Specific Settings.........................................................&#160;41&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#43">7.1.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#43">Bus-off&#160;Recovery State Machine&#160;Configuration&#160;..............................................&#160;43&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#45">7.1.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#45">Values from other BSW Modules&#160;....................................................................&#160;45&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47"><b>8</b>&#160;&#160;<b>AUTOSAR Standard&#160;Compliance.................................................................................&#160;47</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">8.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">Additions /&#160;Extensions&#160;....................................................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">8.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">Additional Error Handling in the Network Mode&#160;State Machine&#160;......................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">8.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">API CanSM_InitMemory()...............................................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">8.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">Error Code&#160;......................................................................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">8.1.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">Configuration Options&#160;.....................................................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">8.1.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">API CanSM_PreventBusSleepAtStartUp()......................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">8.1.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">ECU passive mode&#160;.........................................................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">8.1.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">Bus-off notification&#160;..........................................................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">8.1.8&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#47">Support for XCP&#160;shutdown&#160;.............................................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">8.1.9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">No mode notification&#160;during CanSM_Init&#160;........................................................&#160;48&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">8.1.10&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">Partial Networks..............................................................................................&#160;48&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">8.1.11&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">BswM ComMode Indication&#160;............................................................................&#160;48&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">8.1.12&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">Multiple Identity...............................................................................................&#160;48&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">8.1.13&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">Additional bus-off recovery in state silent&#160;.......................................................&#160;48&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">8.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">Limitations.......................................................................................................&#160;48&#160;</a><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+6&#160;/&#160;&#160;51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-7_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">8.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#48">Controllers&#160;......................................................................................................&#160;48&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#49"><b>9</b>&#160;&#160;<b>Glossary&#160;and&#160;Abbreviations&#160;........................................................................................&#160;49</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#49">9.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#49">Glossary..........................................................................................................&#160;49&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#49">9.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#49">Abbreviations&#160;..................................................................................................&#160;49&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#51"><b>10</b>&#160;&#160;<b>Contact...........................................................................................................................&#160;51</b>&#160;<br/></a>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+7&#160;/&#160;&#160;51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-8_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#12">Figure 3-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#12">AUTOSAR architecture&#160;..............................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#13">Figure 3-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#13">Interfaces to&#160;adjacent modules of the CanSM&#160;...........................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#16">Figure 4-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#16">Network mode state machine.....................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#18">Figure 4-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#18">Bus-off recovery state&#160;machine..................................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#26">Figure 5-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#26">Include structure.........................................................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#28">Figure 6-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#28">CanSM interactions with&#160;other BSW&#160;..........................................................&#160;28&#160;</a><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+8&#160;/&#160;&#160;51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-9_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-9_2.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanSMs.html#37">Figure 7-1.............................................................................GENy global view&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#37">37&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#38">Figure 7-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#38">GENy channel selection.............................................................................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#39">Figure 7-3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#39">GENy setup switches&#160;.................................................................................&#160;39&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#41">Figure 7-4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#41">GENy CAN&#160;channel specific&#160;configuration.................................................&#160;41&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#42">Figure 7-5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#42">GENy CAN&#160;channel specific PDU group configuration&#160;..............................&#160;42&#160;</a><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+9&#160;/&#160;&#160;51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-10_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_CanSMs.html#43">Figure 7-6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#43">GENy setup PDU groups&#160;...........................................................................&#160;43&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#44">Figure 7-7&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#44">GENy CAN&#160;channel bus-off configuration..................................................&#160;44&#160;</a><br/>
+&#160;<br/>
+<b>Tables&#160;<br/></b><a href="TechnicalReference_Asr_CanSMs.html#3">Table 1-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#3">History of the document&#160;...............................................................................&#160;3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#4">Table 1-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#4">Reference documents&#160;..................................................................................&#160;4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#11">Table 2-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#11">Component history&#160;......................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#14">Table 4-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#14">Supported SWS features&#160;...........................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#14">Table 4-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#14">Not supported SWS features&#160;.....................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#22">Table 4-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#22">Mapping of service IDs to services&#160;............................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#22">Table 4-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#22">Errors reported to DET...............................................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#23">Table 4-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#23">Development Error Reporting:&#160;Assignment of checks to&#160;services&#160;.............&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#23">Table 4-6&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#23">Errors reported to DEM&#160;..............................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#24">Table 5-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#24">Static files&#160;...................................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#25">Table 5-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#25">Generated files...........................................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#26">Table 5-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#26">Compiler abstraction and memory&#160;mapping&#160;..............................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#29">Table 6-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#29">Type definitions&#160;..........................................................................................&#160;29&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#30">Table 6-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#30">API Overview&#160;.............................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#30">Table 6-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#30">CanSM_InitMemory&#160;...................................................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#31">Table 6-4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#31">CanSM_Init&#160;................................................................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#31">Table 6-5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#31">CanSM_MainFunction................................................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#31">Table 6-6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#31">CanSM_RequestComMode&#160;.......................................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#32">Table 6-7&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#32">CanSM_SetEcuPassive&#160;.............................................................................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#32">Table 6-8&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#32">CanSM_GetCurrentComMode...................................................................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#33">Table 6-9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#33">CanSM_GetVersionInfo&#160;.............................................................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#33">Table 6-10&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#33">CanSM_PreventBusSleepAtStartUp&#160;..........................................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#34">Table 6-11&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#34">Services used by the CanSM.....................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#34">Table 6-12&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#34">CanSM_ControllerBusOff...........................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#35">Table 6-13&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#35">Appl_CanSM_BusOffBegin........................................................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#35">Table 6-14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#35">Appl_CanSM_BusOffEnd...........................................................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#40">Table 7-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#40">General configuration Settings in GENy&#160;....................................................&#160;40&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#42">Table 7-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#42">Partial Network...........................................................................................&#160;42&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#43">Table 7-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#43">Channel configuration&#160;................................................................................&#160;43&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#45">Table 7-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#45">Bus-off recovery state&#160;machine parameter&#160;................................................&#160;45&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#49">Table 9-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#49">Glossary&#160;.....................................................................................................&#160;49&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#50">Table 9-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#50">Abbreviations&#160;.............................................................................................&#160;50&#160;</a><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+10&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-11_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>2&#160;&#160;Component History&#160;</b><br/>
+<b>New&#160;Features&#160;<br/></b>ASR 3 release of the CAN State Manager implementation&#160;<br/>API ECU&#160;passive mode&#160;<br/>Prevent bus sleep at startup&#160;<br/>Application bus-off&#160;notification&#160;<br/>
+Table 2-1&#160;&#160;<br/>
+Component history&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+11&#160;/&#160;51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-12_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-12_2.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>3&#160;&#160;Introduction&#160;</b><br/>
+This document describes the functionality,&#160;API and configuration&#160;of the&#160;AUTOSAR BSW&#160;<br/>module CanSM&#160;<a href="TechnicalReference_Asr_CanSMs.html#3">as specified in&#160;[1]</a>.&#160;<br/>
+<b>Supported AUTOSAR&#160;Release<a href="TechnicalReference_Asr_CanSMs.html#12">*</a></b><b>:&#160;</b><br/>
+3&#160;<br/>
+<b>Supported Configuration Variants:&#160;</b><br/>
+pre-compile, link-time, post-build&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Vendor ID:&#160;</b><br/>
+CANSM_VENDOR_ID&#160;30&#160;<br/>
+decimal&#160;<br/>
+(=&#160;Vector-Informatik,&#160;<br/>according to&#160;HIS)&#160;<br/>
+<b>Module ID:&#160;</b><br/>
+CANSM_MODULE_ID &#160;&#160;<br/>
+0x8C&#160;<br/>
+(according to ref.&#160;<a href="TechnicalReference_Asr_CanSMs.html#3">[4]</a>)&#160;<br/>
+* For the precise&#160;AUTOSAR Release 3.x please&#160;see the&#160;release specific&#160;documentation.&#160;<br/>&#160;<br/>The CAN State Manager (CanSM) realizes a software layer between the Communication&#160;<br/>Manager (ComM) and the CAN Interface (CanIf).&#160;The CanSM handles the startup and&#160;<br/>shutdown of the communication of a CAN&#160;network.&#160;The CAN State Manager maps&#160;the&#160;<br/>CAN State Manager states to the states of the ComM and causes the necessary actions to&#160;<br/>change the CAN State Manager state to those requested by the ComM.&#160;The main function&#160;<br/>of the CAN State Manager is called cyclically by the Schedule Manager (SchM).&#160;<br/>
+<b>3.1&#160;</b><br/>
+<b>Architecture Overview&#160;</b><br/>
+The following figure shows where the CanSM is&#160;located in the&#160;AUTOSAR architecture.&#160;<br/>
+&#160;<br/>
+Figure 3-1&#160;<br/>
+AUTOSAR architecture&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+12&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-13_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+The next figure shows the interfaces&#160;to adjacent modules of the CanSM.&#160;These interfaces&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#28">are described in chapter&#160;6</a>.&#160;<br/>
+EcuM<br/>
+SchM<br/>
+ComM<br/>
+CAN&#160;SM<br/>
+Com<br/>
+Det<br/>
+Dem<br/>
+CAN&#160;IF<br/>
+&#160;<br/>
+Figure 3-2&#160;<br/>
+Interfaces to adjacent modules of the CanSM&#160;<br/>
+SWC do not access the services&#160;of the BSW modules directly.&#160;They use the service ports&#160;<br/>provided by the BSW&#160;modules&#160;via the RTE.&#160;The services provided by the CanSM are&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#29">listed in chapter&#160;6.3</a><a href="TechnicalReference_Asr_CanSMs.html#3">&#160;and are defined in&#160;[1]</a>.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+13&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-14_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>4&#160;&#160;Functional Description&#160;</b><br/>
+<b>4.1&#160;</b><br/>
+<b>Features&#160;</b><br/>
+The features listed in this chapter cover the complete functionality<a href="TechnicalReference_Asr_CanSMs.html#3">&#160;specified in&#160;[1].&#160;<br/></a>The &#34;supported&#34; and &#34;not supported&#34; features are presented&#160;in&#160;the following two tables.&#160;<br/>For further information of not suppor<a href="TechnicalReference_Asr_CanSMs.html#48">ted features also see chapter&#160;8.2</a>.&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#3">The following features described in&#160;[1]</a>&#160;are supported:&#160;<br/>
+<b>Feature&#160;<br/></b>Translation&#160;of network communication mode requests&#160;<br/>Output of current network communication modes (Polling and&#160;Callback)&#160;<br/>Control of peripherals (CAN&#160;Transceivers, CAN Controllers)&#160;<br/>Control of PDU mode&#160;<br/>Control of PDU groups&#160;<br/>Handle the network mode via a separate state machine per network&#160;<br/>Bus error management: Bus-off recovery&#160;via a separate state machine per network&#160;<br/>Error classification detection notification&#160;<br/>Enable and disable development and production&#160;error detection&#160;<br/>Handle several CAN networks&#160;<br/>
+Table 4-1&#160;&#160;<br/>
+Supported SWS&#160;features&#160;<br/>
+<a href="TechnicalReference_Asr_CanSMs.html#3">The following features described in&#160;[1]</a>&#160;are not supported:&#160;<br/>
+<b>Feature&#160;<br/></b>The CanSM networks and CanSM controllers are not changeable via Post-build configuration.&#160;<br/>The CanSM supports&#160;several controllers per network.&#160;<br/>The CanSM supports&#160;Post-build process with&#160;set of multiple&#160;parameters&#160;<br/>
+Table 4-2&#160;&#160;<br/>
+Not supported SWS features&#160;<br/>
+<b>4.2&#160;</b><br/>
+<b>Initialization&#160;</b><br/>
+Some embedded targets don’t (re)initialize variables correctly.&#160;Therefore some variables&#160;<br/>have to be initialized explicitly if they need a&#160;specific value before the initialization function&#160;<br/>CanSM_Init&#160;&#160;is called.&#160;This is&#160;done by&#160;the function&#160;CanSM_InitMemory(void). The&#160;<br/>function initializes the CanSM variables and sets&#160;the state to un-init.&#160;The function has to be&#160;<br/>called before the initialization function.&#160;<br/>
+After that the initialization&#160;CanSM_Init&#160;has&#160;to be triggered and&#160;the CAN State Manager&#160;<br/>
+will set the internal used variables to their start values to ensure a deterministic behavior of&#160;<br/>the state machines.&#160;The state machines become&#160;initialized, too. If selectable post build&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+14&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-15_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-15_2.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+configuration is active&#160;a valid&#160;configuration has to be passed.&#160;In other cases the function&#160;<br/>has to be called without a parameter and the init&#160;function will map the configuration data to&#160;<br/>a pointer.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/>The CanSM initializes the CAN channel into&#160;the&#160;state NO COMMUNICATION.&#160;This&#160;<br/>
+&#160;&#160;means, the CAN&#160;modules (CanIf, CanDrv and&#160;CanTrcv) are set into the corresponding&#160;<br/>
+state for NO COMMUNCIATION (bus sleep). During this transition, detected wake up&#160;<br/>reasons, inside the CAN modules, are cleared.&#160;<br/>This leads to the behavior that wake up events, which are triggered by the CAN bus,&#160;<br/>can not be detected and/or validated during the initialization phase.&#160;<br/>If the detection/validation of the wake up information is necessary for the ECU then the&#160;<br/>CanSM API&#160;<a href="TechnicalReference_Asr_CanSMs.html#33">CanSM_PreventBusSleepAtStartUp</a>() can be used to prevent the bus&#160;<br/>sleep mode at start up for the above listed CAN modules.&#160;<br/>For further information, refer to [7].&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>4.3&#160;</b><br/>
+<b>State Machines&#160;</b><br/>
+The CanSM contains&#160;two different state machines per network. Each CAN network gets its&#160;<br/>own network&#160;mode state machine and its own bus-off&#160;state machine.&#160;<br/>
+<b>4.3.1&#160;&#160;Network Mode State Machine&#160;</b><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+15&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-16_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>stm&#160;CanSM</b><br/>
+<b>CANSM_FULL_COMMUNICATION</b><br/>
+[ReqNotFullCom]<br/>
+[ReqFullCom]<br/>
+/T05<br/>
+/T04<br/>
+<b>CANSM_SILENT_COMMUNICATION</b><br/>
+[T02_OK]<br/>
+[ReqNoCom]<br/>/T03<br/>
+[ReqSilentCom]<br/>
+[TxFailed,<br/>
+[TxFailed,<br/>
+ReqNotFullCom]<br/>
+ReqFullCom]<br/>
+/T01<br/>
+/T02<br/>
+<b>Transition&#160;Check</b><br/>
+[T01_OK]<br/>
+[T03_OK]<br/>
+[Init]<br/>
+[ReqNotFullCom]<br/>
+/T01<br/>
+[ReqFullCom]<br/>/T02<br/>
+<b>CANSM_NO_COMMUNICATION</b><br/>
+Initial<br/>
+Figure 4-1&#160;<br/>
+Network mode&#160;state machine&#160;<br/>
+The network mode state machine handles the&#160;activation and the deactivation of the CAN&#160;<br/>communication.&#160;<br/>
+<b>Initial&#160;<br/></b>The CAN state manager functionality can&#160;not be used before&#160;the API&#160;function&#160;<br/>CanSM_Init&#160;has been called. If the CanSM_Init function is executed successfully the&#160;<br/>CanSM performs the transition&#160;T01 and sets the state to&#160;CANSM_NO_COMMUNNICATION.&#160;<br/>
+<b>Transition Check&#160;<br/></b>If the transition&#160;T01,&#160;T02 or&#160;T03 succeeds the state “Transition Check” is skipped and the&#160;<br/>CanSM switches to the following state, in the same cycle.&#160;<br/>The CanSM evaluates if the desired controller mode is reached in&#160;T01,&#160;T02 and&#160;T03 and if&#160;<br/>the desired transceiver mode is reached in&#160;T02 only.&#160;If the CAN state manager detects&#160;a&#160;<br/>failure the CanSM enters the virtual state “Transition Check”, increases the error counter&#160;<br/>Hw Repetition<a href="TechnicalReference_Asr_CanSMs.html#40">&#160;(see&#160;Table 7-1</a>) and the further actions of the transition are skipped.&#160;<br/>Afterwards the CanSM&#160;cyclically tries to reach the desired state until&#160;the transition passes.&#160;<br/>Therefore the CanSM triggers the transition&#160;T01 or&#160;<a href="TechnicalReference_Asr_CanSMs.html#16">T02 (see&#160;Figure 4-1</a>), depending on the&#160;<br/>requested communication mode. Each sequently failed transition is counted and if the&#160;<br/>specified number exceeds&#160;the CanSM triggers the DEM failed message&#160;<br/>CANSM_E_MODE_CHANGE_NETWORK_x.&#160;The counter is reset if a transition succeeds.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+16&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-17_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+If the function CanSM_GetCurrentComMode is&#160;called and the CanSM is in state&#160;<br/>“Transition Check” the prior state is returned as the current communication mode, because&#160;<br/>the state&#160;Transition Check” is&#160;unknown by the other modules.&#160;<br/>
+<b>CANSM_NO_COMMUNICATION&#160;<br/></b>In this state there is no communication on the CAN channel.&#160;When full communication is&#160;<br/>requested the CAN state manager starts the transceiver and PDU groups. Additionally&#160;the&#160;<br/>BOR SM switches to the Meta&#160;st<a href="TechnicalReference_Asr_CanSMs.html#18">ate “Recovery enabled” (see&#160;4.3.2</a>). When the wake up&#160;<br/>process is not finished successfully (e.g.&#160;a used BSW function reports an error) the CAN&#160;<br/>state manager stays in the state and retries the transition next cycle if full communication&#160;<br/>is still requested. In case of a successful&#160;transition the CAN state manager notifies the&#160;<br/>communication manager about the new communication state and enables&#160;the deadline&#160;<br/>monitoring, if the feature is&#160;activated in the module Com.&#160;<br/>
+<b>CANSM_FULL_COMMUNICATION&#160;<br/></b>The CanSM stays in this state as long as full communication is requested. Otherwise the&#160;<br/>CanSM switches to silent mode and stops&#160;the PDU groups. In case of a successful&#160;<br/>transition the CAN state manager notifies the communication manager about the new&#160;<br/>communication state.&#160;The BOR switches to&#160;the Meta&#160;state “Recovery disabled” and&#160;<br/>switches the deadline monitoring,&#160;if the feature is activated in&#160;the module Com. By default&#160;<br/>the deadline monitoring is activated. Via a configuration switch the CanSM&#160;can also be&#160;<br/>disposed to deactivate&#160;the monitoring in&#160;state CANSM_SILENT_COMMUNICATION to&#160;<br/>avoid Rx timeouts.&#160;<br/>
+<b>CANSM_SILENT_COMMUNICATION&#160;<br/></b>The state represents the prepare&#160;bus sleep phase of the network.&#160;The node is still able to&#160;<br/>receive CAN messages but doesn’t transmit them.&#160;According to the requested&#160;<br/>communication mode the CanSM switches to&#160;CANSM_NO_COMMUNNICATION, back to&#160;<br/>CANSM_FULL_COMMUNICATION&#160;or stays in the state. If the deadline monitoring is&#160;<br/>
+activated in the module Com,&#160;the CanSM ensures that the deadline monitoring of the Com&#160;<br/>is activated if&#160;CANSM_FULL_COMMUNICATION&#160;reached and deactivated&#160;if&#160;<br/>CANSM_NO_COMMUNICATION&#160;if reached.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+17&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-18_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-18_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-18_3.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>4.3.2&#160;&#160;Bus-off Recovery&#160;State Machine&#160;</b><br/>
+Figure 4-2&#160;<br/>
+Bus-off recovery&#160;state machine&#160;<br/>
+The BOR handles the restart of the CAN communication after a bus-off.&#160;The BOR SM&#160;<br/>becomes activated, meta&#160;state “Recovery enabled”, if the network state machine reaches&#160;<br/>full communication and the BOR SM is deactivated if the full communication state is left,&#160;<br/>state&#160;CANSM_BOR_IDLE.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+18&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-19_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+Transition to Meta&#160;state “Recovery disabled” see state CANSM_FULL_COMMUNICATION&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#15">in chapter&#160;4.3.1</a>.&#160;<br/>
+<b>CANSM_BOR_IDLE&#160;</b><br/>
+The Network Mode State&#160;Machine is not in&#160;CANSM_FULL_COMMUNICATION. BOR timer&#160;<br/>
+and counter are deactivated.&#160;<br/>
+<b>CANSM_BOR_CHECK_INIT&#160;</b><br/>
+The CanSM waits for a bus-off&#160;until timer&#160;TxEnsured&#160;exceeds. If during this period no&#160;<br/>bus-off&#160;is reported, the BOR SM switches to&#160;CANSM_BOR_NO_BUS_OFF. Otherwise the&#160;<br/>
+controller is restarted, the deadline monitoring becomes deactivated and the CanSM&#160;<br/>switches to&#160;CANSM_BOR_TXOFF_L1.&#160;<br/>
+<b>CANSM_BOR_NO_BUS_OFF&#160;</b><br/>
+The Network Mode State Machine is&#160;in&#160;CANSM_FULL_COMMUNICATION&#160;and no error is&#160;<br/>
+detected.&#160;The CAN bus has the full functionality,&#160;is able to receive and send messages.&#160;<br/>Each time the state is entered a DEM&#160;DEM_EVENT_STATUS_PASSED&#160;is send.&#160;<br/>If a bus-off&#160;is reported the controller becomes&#160;restarted, the deadline monitoring becomes&#160;<br/>deactivated and the CanSM switches to&#160;CANSM_BOR_TXOFF_L1.&#160;<br/>
+<b>CANSM_BOR_TXOFF_L1, CANSM_BOR_TXOFF_L2&#160;<br/></b>In these states the node transmits no messages on the bus.&#160;<br/>
+If the&#160;Level 2 recovery time&#160;has expired the Can&#160;SM switches to&#160;<br/>CANSM_BOR_CHECK_Lx&#160;and activates the transmission of messages again.&#160;<br/>On entering one of these states&#160;the CanSM will call the function&#160;<br/>ComM_BusSM_ModeIndication, report SILENT_COMMUNICATION mode to the ComM&#160;<br/>module and FULL_COMMUNICATION mode again on&#160;exit.&#160;During the CanSM is in state&#160;<br/>TXOFF_L1 (or&#160;TXOFF_L2) the function&#160;CanSM_GetCurrentComMode&#160;reports&#160;<br/>
+SILENT_COMMUNICATION mode.&#160;<br/>
+<b>CANSM_BOR_CHECK_L1, CANSM_BOR_CHECK_L2 &#160;&#160;</b><br/>
+The CanSM waits for&#160;a bus-off until timer&#160;TxEnsured&#160;exceeds. If no bus-off&#160;is reported&#160;<br/>during this&#160;period the BOR SM switches to&#160;CANSM_BOR_NO_BUS_OFF. Otherwise the&#160;<br/>controller becomes restarted, the transmission of messages is deactivated and the error&#160;<br/>counter is increased.&#160;<br/>The following state depends on the error counter. If&#160;the value of the error counter is lower&#160;<br/>than the threshold&#160;Counter L1 to L2&#160;the CanSM switches to&#160;CANSM_BOR_TXOFF_L1.&#160;<br/>Otherwise the next state is&#160;CANSM_BOR_TXOFF_L2.&#160;<br/>If the value of the error counter reaches the threshold&#160;L2 error counter&#160;the CanSM&#160;<br/>additionally&#160;triggers DEM&#160;DEM_EVENT_STATUS_FAILED. CanSM still continues with the&#160;<br/>BOR mechanism and each bus-off causes a DEM&#160;failed until the BOR is&#160;successful or the&#160;<br/>SWC reacts and sets the CAN to no communication or silent communication.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+19&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-20_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-20_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-20_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-20_4.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Bus-off notification functions&#160;Appl_CanSM_BusOffBegin and&#160;<br/>Appl_CanSM_BusOffEnd&#160;<br/></b>The feature gives&#160;the&#160;application&#160;the possibility to react on an&#160;active bus-off. If the feature&#160;<br/>is activated the CanSM triggers the&#160;Appl_CanSM_BusOffBegin&#160;immediately and each&#160;<br/>time the CanSM is&#160;informed about a bus-off. When the CanSM enters the state&#160;<br/>CANSM_BOR_CHECK_L1&#160;or&#160;CANSM_BOR_CHECK_L2&#160;the&#160;Tx path is restarted so the&#160;<br/>
+communication should work again and the CanSM informs the&#160;application via the function&#160;<br/>Appl_CanSM_BusOffEnd.&#160;The according channel can be identified via the network&#160;<br/>handle, which is a parameter of both functions.&#160;The&#160;BusOffBegin&#160;function delivers also&#160;<br/>
+the number of bus-offs in a sequence.&#160;A&#160;sequence starts after the first bus-off occurred&#160;<br/>and ends&#160;when the bus-off&#160;sequence of&#160;the CAN channel had been recovered&#160;<br/>successfully.&#160;That means the CanSM enters the state&#160;_BOR_NO_BUS_OFF&#160;after the time&#160;<br/>TxEnsured&#160;exceeded.&#160;<br/>A&#160;bus-off&#160;recovery introduced by the function&#160;Appl_CanSM_BusOffBegin&#160;is always&#160;<br/>“closed” by&#160;Appl_CanSM_BusOffEnd&#160;even if the CanSM receives a shutdown request&#160;<br/>
+and the bus-off&#160;recovery is interrupted.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>During the bus-off recovery the Nm&#160;may trigger the shutdown.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Caution&#160;<br/></b>The function&#160;Appl_CanSM_BusOffBegin&#160;is called in interrupt context so pay&#160;<br/>
+<b>&#160;&#160;</b>attention to&#160;a SHORT&#160;runtime.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Caution&#160;<br/></b>The function&#160;Appl_CanSM_BusOffEnd&#160;is with&#160;blocked CAN interrupts&#160;<br/>
+<b>&#160;&#160;</b>(CANSM_EXCLUSIVE_AREA_4) so pay attention to&#160;a SHORT&#160;runtime.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>4.4&#160;</b><br/>
+<b>XCP notification function&#160;</b><br/>
+The XCP&#160;gets the information if messages&#160;can be transmitted or not. I.e. the CanSM&#160;<br/>reports CANXCP_SET_ONLINE&#160;to the XCP&#160;if the state CanSM enters the state&#160;<br/>CANSM_FULL_COMMUNICATION and the passive&#160;mode is NOT&#160;activated. If CanSM&#160;<br/>leaves the state CANSM_FULL_COMMUNICATION and the passive mode is NOT&#160;<br/>activated the CanSM&#160;reports CANXCP_SET_OFFLINE to the XCP.&#160;If the CanSM is&#160;in&#160;<br/>state CANSM_FULL_COMMUNICATION and the ECU mode changes to passive CanSM&#160;<br/>reports CANXCP_SET_OFFLINE to the XCP&#160;and CANXCP_SET_ONLINE if the ECU&#160;<br/>mode switches back to active. If the CanSM&#160;is in state CANSM_FULL_COMMUNICATION&#160;<br/>and the&#160;Tx&#160;channel is deactivated caused&#160;by a bus off then the CanSM reports&#160;<br/>CANXCP_SET_OFFLINE when the CanSM enters the state CANSM_BOR_TXOFF_L1&#160;or&#160;<br/>L2 and CANXCP_SET_ONLINE again if the state is left.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+20&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-21_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+If the CanSM and the CanXCP&#160;is active at&#160;the same channel the configuration tool&#160;<br/>activates the feature by writing the XCP&#160;API&#160;function in the CanSM_Lcfg.c file.&#160;The&#160;<br/>channel assignment can be changed during link time configuration.&#160;<br/>
+<b>4.5&#160;</b><br/>
+<b>ECU passive mode&#160;</b><br/>
+After the initialization of the CanSM the ECU mode is set&#160;to default value ECU active&#160;<br/>mode.&#160;The mode is the same for each CAN channel. The&#160;CanSM&#160;can&#160;be instructed to&#160;<br/>handle the passive or the active mode via the&#160;API CanSM_SetEcuPassive.&#160;The ECU&#160;<br/>mode stays until new request or a (re)initialization of the CanSM. In passive mode the&#160;<br/>CanSM sets&#160;the&#160;Tx PDU mode to OFFLINE_ACTIVE instead to ONLINE (T02). If the ECU&#160;<br/>mode switches form passive to active the CanSM switches the&#160;Tx&#160;PDUs which are in&#160;<br/>OFFLINE_ACTIVE to ONLINE. &#160;<br/>During a bus-off recovery phase the modification of the&#160;Tx&#160;PDU&#160;mode is postponed until&#160;<br/>the bus-off&#160;recovery phase has been finished (T08,&#160;T015)&#160;<br/>
+<b>4.6&#160;</b><br/>
+<b>Main Function&#160;</b><br/>
+The CanSM has one main function which has&#160;to be called cyclically by the SchM.&#160;The&#160;<br/>main function of the CanSM executes the bus-off recovery state machines&#160;(including timer&#160;<br/>and counters) of each network handle, which&#160;is configured for the CanSM. In some&#160;<br/>conditions the main function executes the network state machines too.&#160;The main function&#160;<br/>handles the Network Mode State Machine and the BOR SM for each CAN network once&#160;<br/>per cycle.&#160;<br/>
+<b>4.7&#160;</b><br/>
+<b>Communication Modes&#160;</b><br/>
+The ComM collects the communication requests from the SW-C&#160;and from the network.&#160;<br/>Accordingly the ComM&#160;calculates the needed communication&#160;mode and requests this from&#160;<br/>the CAN State Manager via the function&#160;CanSM_RequestComMode.&#160;<br/>
+<b>4.8&#160;</b><br/>
+<b>Communication Mode Polling&#160;</b><br/>
+The ComM is informed about every mode change&#160;by the CAN State Manager via the&#160;call&#160;<br/>back function&#160;ComM_BusSM_ModeIndication.&#160;<br/>Additional the ComM may request&#160;the communication mode which is currently active by&#160;<br/>calling the&#160;API function&#160;CanSM_GetCurrentComMode.&#160;The CAN State Manager will&#160;<br/>deliver the communication mode to the pointer passed as a function parameter.&#160;<br/>
+<b>4.9&#160;</b><br/>
+<b>Error Handling&#160;</b><br/>
+<b>4.9.1&#160;&#160;Development Error Reporting&#160;<br/></b>Development errors are reported to DET&#160;using the service&#160;Det_ReportError(),&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#3">(specified in&#160;[2]</a>), if the pre-compile parameter&#160;CANSM_DEV_ERROR_DETECT&#160;is equal to&#160;<br/>STD_ON.&#160;<br/>The reported CanSM ID is&#160;0x8C.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+21&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-22_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+The reported service IDs identify the services which are described in&#160;<a href="TechnicalReference_Asr_CanSMs.html#29">6.3</a>. The&#160;following&#160;<br/>table maps&#160;the service IDs to the related services:&#160;<br/>
+<b>Service ID&#160;</b><br/>
+<b>Service&#160;</b><br/>
+0x00&#160;CANSM_INIT_SERVICE_ID&#160;<br/>0x01&#160;CANSM_GETVERSIONINFO_SERVICE_ID&#160;<br/>0x02&#160;CANSM_REQUESTCOMMODE_SERVICE_ID&#160;<br/>0x03&#160;CANSM_GETCURRENTCOMMODE_SERVICE_ID&#160;<br/>0x04&#160;CANSM_CONTROLLERBUSOFF_SERVICE_ID&#160;<br/>0x05&#160;CANSM_MAINFUNCTION_SERVICE_ID&#160;<br/>0x06&#160;CANSM_PREVENTBUSSLEEPATSTARTUP_SERVICE_ID&#160;<br/>
+Table 4-3&#160;&#160;<br/>
+Mapping of service IDs to services&#160;<br/>
+The errors reported to DET&#160;are described in the following table:&#160;<br/>
+<b>Error Code&#160;</b><br/>
+<b>Description&#160;</b><br/>
+0x01&#160;CANSM_E_UNINIT&#160;<br/>
+API service&#160;used without having called the initialization&#160;<br/>function.&#160;<br/>
+0x02&#160;CANSM_E_PARAM_POINT<br/>
+API service called with invalid pointer in parameter list&#160;<br/>
+ER&#160;<br/>
+0x03&#160;CANSM_E_INVALID_NET<br/>
+API service called with wrong network handle&#160;<br/>
+WORK_HANDLE&#160;<br/>
+parameter,&#160;which is not configured in the CanSM&#160;<br/>configuration.&#160;<br/>
+0x04&#160;CANSM_E_INVALID_NET<br/>
+API service called with&#160;wrong network mode parameter&#160;<br/>
+WORK_MODE&#160;<br/>
+0x05&#160;CANSM_E_PARAM_CONTR<br/>
+The function CanSM_ControllerBusOff is called&#160;<br/>
+OLLER&#160;<br/>
+with a wrong controller index.&#160;<br/>
+0x06&#160;CANSM_E_INITLIZED&#160;&#160;API service used after the initialization function&#160;<br/>
+Table 4-4&#160;&#160;<br/>
+Errors reported to DET&#160;<br/>
+<b>4.9.1.1&#160;</b><br/>
+<b>Parameter Checking&#160;</b><br/>
+The following table shows which parameter checks are performed on which services:&#160;<br/>
+<b>Check&#160;</b><br/>
+&#160;<br/>
+h&#160;<br/>
+r&#160;<br/>
+dle&#160;<br/>
+ed&#160;<br/>
+e not&#160;<br/>od<br/>
+&#160;<br/>
+nter&#160;<br/>
+call<br/>
+d&#160;<br/>
+r Id &#160;not&#160;<br/>
+st&#160;<br/>
+_Init has&#160;<br/>
+te<br/>
+e&#160;<br/>
+_Init has&#160;<br/>
+&#160;<br/>
+alled wit<br/>
+&#160;poi<br/>
+d pointe<br/>
+es<br/>
+rk m<br/>
+st&#160;<br/>
+<b>Service&#160;</b><br/>
+equ<br/>
+API c<br/>
+NULL<br/>
+invali<br/>
+Network han<br/>
+not exi<br/>
+CanSM<br/>
+not been&#160;<br/>
+R<br/>
+netwo<br/>
+possibl<br/>
+Controlle<br/>
+exi<br/>
+CanSM<br/>
+been called&#160;<br/>
+CanSM_Init&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CanSM_GetVersionInfo&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CanSM_InitMemory&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CanSM_RequestComMode&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CanSM_SetEcuPassive&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CanSM_GetCurrentComMode&#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+22&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-23_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Check&#160;</b><br/>
+&#160;<br/>
+h&#160;<br/>
+r&#160;<br/>
+dle&#160;<br/>
+ed&#160;<br/>
+e not&#160;<br/>od<br/>
+&#160;<br/>
+nter&#160;<br/>
+call<br/>
+r Id &#160;not&#160;<br/>
+st&#160;<br/>
+_Init has&#160;<br/>
+sted&#160;<br/>
+e&#160;<br/>
+_Init has&#160;<br/>
+&#160;<br/>
+alled wit<br/>
+&#160;poi<br/>
+d pointe<br/>
+rk m<br/>
+ue<br/>
+st&#160;<br/>
+<b>Service&#160;</b><br/>
+API c<br/>
+NULL<br/>
+invali<br/>
+Network han<br/>
+not exi<br/>
+CanSM<br/>
+not been&#160;<br/>
+Req<br/>
+netwo<br/>
+possibl<br/>
+Controlle<br/>
+exi<br/>
+CanSM<br/>
+been called&#160;<br/>
+CanSM_ControllerBusOff&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+CanSM_MainFunction&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CanSM_PreventBusSleepAtSt<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+artUp&#160;<br/>
+Table 4-5&#160;&#160;<br/>
+Development Error&#160;Reporting:&#160;Assignment of checks to services&#160;<br/>
+AUTOSAR requires that&#160;API functions check&#160;the validity&#160;of their parameters.&#160;The checks in&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#23">Table 4-5</a>&#160;are internal parameter checks of the&#160;API functions.&#160;These checks are for&#160;<br/>development error reporting and can be&#160;en-/disabled via the parameter&#160;<br/>CANSM_DEV_ERROR_DETECT.&#160;<br/>
+<b>4.9.2&#160;&#160;Production Code Error Reporting&#160;<br/></b>Production code related errors are&#160;reported to DEM using the service&#160;<br/>Dem_ReportErrorStatus()&#160;(specified in&#160;<a href="TechnicalReference_Asr_CanSMs.html#3">[3]), if the pre-compile p</a>arameter&#160;<br/>CANSM_PROD_ERROR_DETECT == STD_ON. En-/disabling is&#160;an addition to the&#160;AUTOSAR&#160;<br/>
+standard.&#160;<br/>The errors reported to DEM are described in the following table:&#160;<br/>
+<b>Error Code&#160;</b><br/>
+<b>Description&#160;</b><br/>
+CANSM_E_BUSOFF_NETWORK_&lt;&#160;The CAN State Manager reports&#160;to the DEM a network&#160;<br/>X&gt;&#160;<br/>
+specific bus-off event each time the bus-off could be&#160;<br/>recovered or the bus-off&#160;could not be recovered within the&#160;<br/>specified&#160;tries.&#160;<br/>
+CANSM_E_MODE_CHANGE_NETW&#160;As described in&#160;<a href="TechnicalReference_Asr_CanSMs.html#15">4.3.1&#160;the CanSM re</a>peats a transition if&#160;an&#160;<br/>ORK_&lt;X&gt;&#160;<br/>
+error occurred. If the repetitions&#160;sequence exceed the&#160;<br/>specified&#160;Hw Repetition<a href="TechnicalReference_Asr_CanSMs.html#40">&#160;(see&#160;Table 7-1</a>) the CanSM&#160;<br/>reports&#160;this&#160;error to the DEM.&#160;<br/>
+CANSM_E_SETTRANSCEIVERMODE_&#160;If the setting&#160;of the transceiver mode&#160;was not successful&#160;the&#160;<br/>
+NETWORK_&lt;X&gt;&#160;<br/>
+CanSM reports this error to the DEM.&#160;<br/>
+Table 4-6&#160;&#160;<br/>
+Errors reported to DEM&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+23&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-24_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>5&#160;&#160;Integration&#160;</b><br/>
+This chapter gives necessary information for the integration of&#160;the MICROSAR CanSM&#160;<br/>into an application environment of an ECU.&#160;<br/>
+<b>5.1&#160;</b><br/>
+<b>Brief Instruction&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>Check if mandatory modules are available, see chapter&#160;<a href="TechnicalReference_Asr_CanSMs.html#33">6.4.&#160;</a><br/>
+<b>&gt;&#160;&#160;</b>Adapt the default configuration&#160;settings of the CanSM in the&#160;configuration tool (GENy),&#160;<br/>
+<a href="TechnicalReference_Asr_CanSMs.html#36">see chapter&#160;7.1</a>.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Check if the EcuM reinitializes the variables by calling&#160;CanSM_InitMemory&#160;before the&#160;<br/>
+initialization of the CanSM.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Call&#160;CanSM_PreventBusSleepAtStartUp&#160;if needed (once for each network handle).&#160;<br/>
+<b>&gt;&#160;&#160;</b>Check&#160;if the EcuM initializes the CanSM by calling&#160;CanSM_Init&#160;and delivers a&#160;<br/>
+reference to the cluster configuration data as&#160;a function parameter.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Check if ComM requests the desired communication mode by calling the function&#160;<br/>
+CanSM_RequestComMode.&#160;The ComM has to deliver the communication mode and the&#160;<br/>according network handle as parameters.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Check if the SchM calls the&#160;CanSM_MainFunction&#160;cyclically.&#160;<br/>
+<b>5.2&#160;</b><br/>
+<b>Scope of Delivery&#160;</b><br/>
+The delivery of the CanSM contains the&#160;files which are described in the chapters&#160;<a href="TechnicalReference_Asr_CanSMs.html#24">5.2.1&#160;and&#160;<br/></a><a href="TechnicalReference_Asr_CanSMs.html#25">5.2.2</a>.&#160;<br/>
+<b>5.2.1&#160;&#160;Static Files&#160;</b><br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+CanSM.c&#160;<br/>
+This is the source file of&#160;the CanSM.&#160;It contains the implementation of the&#160;<br/>main functionality (not available if libraries are delivered).&#160;<br/>
+CanSM.h&#160;<br/>
+This is the&#160;main header file of the CAN state manager which is the “defines”&#160;<br/>and types of the CAN state manager.&#160;<br/>
+CanSM_Cbk.h&#160;<br/>
+This is the callback header file of the CAN state&#160;manager which is the specific&#160;<br/>interface of the bus-off function.&#160;<br/>
+CanSM_EcuM.h&#160;&#160;This is a&#160;header file of the CAN state manager which is the&#160;specific interface&#160;<br/>
+for the EcuM to the services of the&#160;CAN state&#160;manager.&#160;<br/>
+CanSM_SchM.h&#160;&#160;This is a&#160;header file of the CAN state manager which is the&#160;specific interface&#160;<br/>
+for the SchM to the services of the&#160;CAN state&#160;manager.&#160;<br/>
+CanSM_ComM.h&#160;&#160;This is a&#160;header file of the CAN state manager which is the&#160;specific interface&#160;<br/>
+for the ComM to the services of the&#160;CAN state&#160;manager.&#160;<br/>
+Table 5-1&#160;&#160;<br/>
+Static files&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+24&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_1.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_2.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_3.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_4.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_5.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_6.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_7.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_8.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_9.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_10.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_11.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_12.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_13.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_14.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_15.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_16.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_17.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_18.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_19.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_20.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_21.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_22.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_23.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_24.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_25.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_26.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_27.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_28.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_29.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_30.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_31.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_32.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_33.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_34.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_35.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_36.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_37.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_38.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_39.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_40.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_41.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_42.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_43.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_44.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_45.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_46.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_47.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_48.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_49.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_50.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_51.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_52.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_53.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_54.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_55.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_56.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_57.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_58.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_59.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_60.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_61.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_62.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_63.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_64.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_65.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_66.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_67.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_68.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_69.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_70.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_71.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_72.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_73.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_74.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_75.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_76.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_77.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_78.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_79.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_80.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_81.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_82.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_83.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_84.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-25_85.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>5.2.2&#160;&#160;Dynamic Files&#160;<br/></b>The dynamic files are generated by&#160;the configuration tool GENy.&#160;<br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+CanSM_Cfg.h&#160;<br/>
+Configuration header file&#160;which is generated. It contains pre-compile switches,&#160;<br/>which enable/disable features, type definitions and constant&#160;values.&#160;<br/>
+CanSM_Lcfg.c&#160;<br/>
+Configuration source file. It contains&#160;configuration parameter which may&#160;be&#160;<br/>changed at link time.&#160;<br/>
+CanSM_PBcfg.c&#160;&#160;Configuration source file. It contains&#160;for example&#160;timer variable values or&#160;<br/>
+channel configuration parameter. It contains configuration parameter which&#160;<br/>may be changed after link time.&#160;<br/>
+Table 5-2&#160;&#160;<br/>
+Generated files&#160;<br/>
+<b>5.3&#160;</b><br/>
+<b>Include Structure&#160;</b><br/>
+<b>obj&#160;ect&#160;Header&#160;File&#160;Structure</b><br/>
+<b>Std_Types.h</b><br/>
+<b>CanSM_Cbk.h</b><br/>
+<b>SchM_CanSM.h</b><br/>
+<b>CanIf.h</b><br/>
+<b>ComM_BusSM.h</b><br/>
+«include»<br/>
+<b>SchM_CanSM.h</b><br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+«include»&#160;«include»<br/>
+«include»<br/>
+«include»<br/>
+<b>ComM_Types.h</b><br/>
+<b>CanSM_ComM.h</b><br/>
+<b>CanSM.c</b><br/>
+<b>Det.h</b><br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+<b>EcuM_Cbk.h</b><br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+<b>ComStack_Types.h</b><br/>
+<b>CanSM_Cfg.h</b><br/>
+<b>CanSM.h</b><br/>
+<b>CanSM_EcuM.h</b><br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+«include»<br/>
+<b>Dem.h</b><br/>
+<b>Com.h</b><br/>
+<b>ComM.h</b><br/>
+«include»&#160;«include»<br/>
+<b>CanXcp.h</b><br/>
+<b>CanSM_Lcfg.c</b><br/>
+<b>CanSM_PBcfg.c</b><br/>
+«include»<br/>
+&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+25&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=26></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-26_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+Figure 5-1&#160;<br/>
+Include structure&#160;<br/>
+<b>5.4&#160;</b><br/>
+<b>Compiler Abstraction and Memory&#160;Mapping&#160;</b><br/>
+The objects (e.g. variables, functions, constants) are declared by compiler&#160;independent&#160;<br/>definitions – the compiler abstraction definitions. Each compiler abstraction definition is&#160;<br/>assigned to a memory section.&#160;<br/>The following table contains the names&#160;of&#160;the memory section and the compiler&#160;<br/>abstraction definitions defined for the&#160;CanSM and illustrate their mapping.&#160;<br/>
+<b>Compiler Abstraction</b><br/>
+&#160;<br/>
+<b>Definitions</b><br/>
+&#160;<br/>
+<b>&#160;<br/>&#160;</b><br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Memory&#160;Mapping&#160;<br/>Sections&#160;</b><br/>
+CANSM_VAR_NOINIT<br/>
+CANSM_VAR_ZERO_INIT<br/>
+CANSM_CONST<br/>
+CANSM_PBCFG&#160;<br/>
+CANSM_CODE<br/>
+CANSM_START_SEC_VAR_NOINIT_UNSPECIFIED&#160;<br/>
+CANSM_STOP_SEC_VAR_NOINIT_UNSPECIFIED&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANSM_START_SEC_VAR_ZERO_INIT_8BIT&#160;<br/>
+CANSM_STOP_SEC_VAR_ZERO_INIT_8BIT&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANSM_START_SEC_VAR_NOINIT_8BIT&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANSM_STOP_SEC_VAR_NOINIT_8BIT&#160;<br/>CANSM_START_SEC_CONST_8BIT&#160;<br/>
+CANSM_STOP_SEC_CONST_8BIT&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANSM_START_SEC_CONST_32BIT&#160;<br/>
+CANSM_STOP_SEC_CONST_32BIT&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANSM_START_SEC_CONST_UNSPECIFIED&#160;<br/>
+CANSM_STOP_SEC_CONST_UNSPECIFIED&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANSM_START_SEC_PBCFG&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+CANSM_STOP_SEC_PBCFG&#160;<br/>CANSM_START_SEC_CODE&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+CANSM_STOP_SEC_CODE&#160;<br/>
+Table 5-3&#160;&#160;<br/>
+Compiler abstraction and memory&#160;mapping&#160;<br/>
+<b>5.5&#160;</b><br/>
+<b>Critical Areas&#160;</b><br/>
+The&#160;AUTOSAR standard provides with the BSW&#160;Scheduler a BSW module, which handles&#160;<br/>entering and leaving critical sections.&#160;The Vector&#160;AUTOSAR CanSM supports additional&#160;<br/>solutions to handle these sections.&#160;<br/>Critical sections are supported by&#160;the following three alternatives:&#160;<br/><b>&gt;&#160;&#160;</b>the BSW Scheduler&#160;<br/>
+<b>&gt;&#160;&#160;</b>the Vector Standard&#160;Library (VStdLib)&#160;<br/>
+<b>&gt;&#160;&#160;</b>the proprietary CAN interrupts locking functions&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+26&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=27></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-27_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+The VStdLib offers the possibility of mapping the interrupt handling to OS services, or to&#160;<br/>user defined functions. In the first case interrupt handling is done by&#160;the OS, in the second&#160;<br/>case the user has to take care&#160;by providing corresponding functions.&#160;<br/>The intention of the following critical sections is&#160;to block the interrupt<b>&#160;</b>of CanSM functions&#160;<br/>(with a higher priority).&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;CANSM_EXCLUSIVE_AREA_1&#160;has to be used if it’s possible that the function&#160;<br/>
+CanSM_MainFunction()&#160;may be interrupted by any of the functions&#160;<br/>CanSM_RequestComMode()&#160;or&#160;CanSM_SetEcuPassive().&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;CANSM_EXCLUSIVE_AREA_2&#160;has to be used if it’s possible that the function&#160;<br/>
+CanSM_RequestComMode()&#160;may be interrupted by any of the functions&#160;<br/>CanSM_MainFunction()&#160;or&#160;CanSM_SetEcuPassive().&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;CANSM_EXCLUSIVE_AREA_3&#160;has to be used if it’s possible that the function&#160;<br/>
+CanSM_SetEcuPassive()&#160;may be interrupted by any of the functions&#160;<br/>CanSM_RequestComMode()&#160;or&#160;CanSM_MainFunction ().&#160;<br/>
+The intention of the following critical sections is to avoid a change of the&#160;CAN controller or&#160;<br/>transceiver mode during shutdown of the CAN communication&#160;when&#160;the CanSM performs&#160;<br/>the transition to from&#160;SilentCommunication&#160;to NoCommunication.&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;CANSM_EXCLUSIVE_AREA_4&#160;has to be used if it’s possible that one of functions&#160;<br/>
+CanSM_MainFunction()&#160;or&#160;CanSM_RequestComMode()&#160;may be interrupted by a CAN event.&#160;<br/>
+<b>1.&#160;&#160;</b>By Can Wake Up Interrupt&#160;<br/>
+<b>2.&#160;&#160;</b>By Can Wake Up Polling&#160;<br/>
+<b>3.&#160;&#160;</b>By Can bus-off (Can error)&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;CANSM_EXCLUSIVE_AREA_5&#160;has to be used if it’s possible that one of functions&#160;<br/>
+CanSM_MainFunction()&#160;or&#160;CanSM_RequestComMode()&#160;may be interrupted by a CAN&#160;<br/>wakeup:&#160;<br/>
+<b>1.&#160;&#160;</b>By Can Wake Up Interrupt&#160;<br/>
+<b>2.&#160;&#160;</b>By Can Wake Up Polling&#160;<br/>
+<b>3.&#160;&#160;</b>By Wakeup by transceiver&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+27&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=28></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_1.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_2.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_3.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_4.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_5.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_6.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_7.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_8.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_9.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_10.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_11.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_12.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_13.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_14.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_15.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_16.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_17.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_18.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_19.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_20.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_21.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_22.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_23.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_24.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_25.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_26.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_27.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_28.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_29.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_30.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_31.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_32.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_33.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_34.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_35.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_36.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_37.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_38.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_39.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_40.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_41.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_42.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_43.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_44.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_45.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_46.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_47.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_48.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_49.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_50.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_51.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_52.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_53.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_54.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_55.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_56.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_57.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_58.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_59.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_60.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_61.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_62.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_63.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_64.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_65.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_66.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_67.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_68.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_69.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_70.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_71.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_72.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_73.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_74.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_75.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_76.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_77.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_78.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_79.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_80.png"/><br/>
+<img class="yflip" src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-28_81.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>6&#160;&#160;API Description&#160;</b><br/>
+<b>6.1&#160;</b><br/>
+<b>Interfaces Overview&#160;</b><br/>
+<b>class Interactions</b><br/>
+<b>ComM</b><br/>
+«interface»<br/>
+«interface»<br/>
+<b>EcuM</b><br/>
+«use»<br/>
+<b>CanSM_ComM</b><br/>
+<b>CanSM_EcuM</b><br/>
+«use»<br/>
++&#160;&#160;CanSM_RequestComMode()&#160;:&#160;Std_ReturnType<br/>+&#160;&#160;CanSM_GetCurrentComMode()&#160;:&#160;Std_ReturnType<br/>
++&#160;CanSM_Init()&#160;<br/>
+:&#160;<br/>
+void<br/>
++&#160;&#160;CanSM_GetVersionInfo()&#160;: void<br/>
++&#160;CanSM_InitMemory()&#160;<br/>
+:&#160;<br/>
+void<br/>
+«implement»<br/>
+«implement»<br/>
+«interface»<br/>
+«interface»<br/>
+<b>ComM_BusSM</b><br/>
+<b>EcuM</b><br/>
++&#160;&#160;ComM_BusSM_ModeIndication()&#160;:&#160;void<br/>
++&#160;EcuM_GeneratorCompatibilityError() :&#160;void<br/>
+«implement»<br/>
+«implement»<br/>
+«use»<br/>
+«use»<br/>
+<b>CanSM</b><br/>
+«interface»<br/>
+«interface»<br/>
+<b>COM</b><br/>
+<b>CanIf</b><br/>
++&#160;&#160;Com_IpduGroupStart()&#160;:&#160;void<br/>
+«use»<br/>
++&#160;CanIf_SetControllerMode()&#160;<br/>
+:&#160;<br/>
+Std_ReturnType<br/>
+«use»<br/>
++&#160;&#160;Com_IpduGroupStop()&#160;:&#160;void<br/>
++&#160;&#160;CanIf_SetTransceiverMode()&#160;: Std_ReturnType<br/>
++&#160;Com_DisableReceptionDM()&#160;<br/>
+:&#160;<br/>
+void<br/>
++&#160;&#160;CanIf_SetPduMode()&#160;: Std_ReturnType<br/>
++&#160;&#160;Com_EnableReceptionDM()&#160;:&#160;void<br/>
+«implement»<br/>
+«implement»<br/>
+«interface»<br/>
+«interface»<br/>
+<b>CanSM_SchM</b><br/>
+<b>CanSM_Cbk</b><br/>
+«use»<br/>
+«use»<br/>
++&#160;&#160;CanSM_ControllerBusOff() :&#160;void<br/>
++&#160;&#160;CanSM_MainFunction()&#160;:&#160;void<br/>
+«use»<br/>
+«interface»<br/>
+«interface»<br/>
+<b>CanXcp</b><br/>
+<b>DEM</b><br/>
++&#160;Dem_ReportErrorStatus()&#160;<br/>
+:&#160;<br/>
+void<br/>
+«implement»<br/>
++&#160;CanXcp_SetPduMode()&#160;<br/>
+:&#160;<br/>
+void<br/>
+«implement»<br/>
+«use»<br/>
+«use»<br/>
+«interface»<br/>
+<b>DET</b><br/>
++&#160;&#160;Det_ReportError() :&#160;void<br/>
+«implement»<br/>
+«implement»<br/>
+«implement»<br/>
+<b>COM</b><br/>
+<b>SchM</b><br/>
+<b>XCP</b><br/>
+<b>DET</b><br/>
+<b>DEM</b><br/>
+<b>CanIf</b><br/>
+&#160;<br/>
+Figure 6-1&#160;<br/>
+CanSM interactions with other BSW&#160;<br/>
+<b>6.2&#160;</b><br/>
+<b>Type Definitions&#160;</b><br/>
+<b>Type Name&#160;</b><br/>
+<b>C-Type&#160;&#160;Description&#160;</b><br/>
+<b>Value Range&#160;</b><br/>
+CanSM_NetworkMode&#160;uint8&#160;<br/>
+This type defines the&#160;<br/>
+CANSM_UNINITED&#160;<br/>
+StateType&#160;<br/>
+states of the&#160;network&#160;<br/>
+CanSM is not initialized&#160;in this state<br/>
+mode state machine.&#160;<br/>
+CANSM_NO_COMMUNICATION&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+28&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=29></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-29_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Type Name&#160;</b><br/>
+<b>C-Type&#160;&#160;Description&#160;</b><br/>
+<b>Value Range&#160;<br/></b>ComM requests&#160;<br/>COMM_NO_COMMUNICATION&#160;in this&#160;<br/>state&#160;<br/>CANSM_SILENT_COMMUNICATION<br/>ComM requests&#160;<br/>COMM_SILENT_COMMUNICATION&#160;<br/>in this state&#160;<br/>CANSM_FULL_COMMUNICATION&#160;<br/>ComM requests&#160;<br/>COMM_FULL_COMMUNICATION&#160;in&#160;<br/>this state&#160;<br/>
+CanSM_BusOffRecov<br/>
+uint8&#160;<br/>
+This type defines the&#160;<br/>
+CANSM_BOR_IDLE&#160;<br/>
+eryStateType&#160;<br/>
+states of the&#160;bus-off&#160;<br/>
+Idle state&#160;<br/>
+recovery&#160;state machine.&#160;<br/>
+CANSM_BOR_CHECK&#160;<br/>Initial bus-off check at&#160;beginning of&#160;<br/>full-communication&#160;<br/>CANSM_BOR_NO_BUS_OFF&#160;<br/>Regular state during full-<br/>communication without&#160;detected&#160;<br/>bus-off events&#160;<br/>CANSM_BOR_TXOFF_L1&#160;<br/>Bus-off recovery level 1 state,&#160;TX&#160;<br/>disabled&#160;<br/>CANSM_BOR_CHECK_L1&#160;<br/>Bus-off recovery level 1 state,&#160;TX&#160;<br/>enabled again&#160;<br/>CANSM_BOR_TXOFF_L2&#160;<br/>Bus-off recovery level 2 state,&#160;TX&#160;<br/>disabled&#160;<br/>CANSM_BOR_CHECK_L2&#160;<br/>Bus-off recovery level 2 state,&#160;<br/>TX enabled again&#160;<br/>
+Table 6-1&#160;&#160;<br/>
+Type definitions&#160;<br/>
+<b>6.3&#160;</b><br/>
+<b>Services Provided by&#160;CanSM&#160;</b><br/>
+The CanSM&#160;API consists of services, which are realized by function calls.&#160;<br/>
+<b>Return value&#160;</b><br/>
+<b>Function name&#160;</b><br/>
+<b>Function parameter&#160;</b><br/>
+void&#160;CanSM_Init&#160;<br/>
+CanSM_ConfigType * ConfigPtr XOR void&#160;<br/>
+void&#160;CanSM_GetVersionInfo&#160;<br/>
+Std_VersionInfoType VersionInfo&#160;<br/>
+Std_ReturnTy<br/>
+NetworkHandleType NetworkHandle,&#160;<br/>
+CanSM_RequestComMode&#160;<br/>
+pe&#160;<br/>
+ComM_ModeType ComM_Mode&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+29&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=30></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-30_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+Void&#160;CanSM_SetEcuPassive&#160;<br/>
+Boolean CanSM_EcuPassiveMode&#160;<br/>
+Std_ReturnTy<br/>
+CanSM_GetCurrentComMod&#160;NetworkHandleType NetworkHandle, &#160;<br/>
+pe&#160;<br/>
+e&#160;<br/>
+ComM_ModeType* ComM_ModePtr&#160;<br/>
+void&#160;CanSM_ControllerBusOff&#160;<br/>
+uint8 Controller&#160;<br/>
+void&#160;CanSM_MainFunction&#160;<br/>
+void&#160;<br/>
+Std_ReturnTy<br/>
+CanSM_PreventBusSleepA&#160;NetworkHandleType NetworkHandle&#160;<br/>
+pe&#160;<br/>
+tStartUp&#160;<br/>
+Table 6-2&#160;&#160;<br/>
+API Overview&#160;<br/>
+<b>6.3.1&#160;&#160;CanSM_InitMemory&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void CanSM_InitMemory( void )&#160;<br/><b>Parameter&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>This function&#160;initializes&#160;the&#160;CanSM memory and sets&#160;the variable&#160;CanSm_IsInitialized&#160;to&#160;FALSE&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+Called once at&#160;start-up&#160;before the initialization function.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+Function&#160;is called once before CanSM_Init&#160;<br/>
+&#160;Table&#160;6-3&#160;&#160;<br/>
+CanSM_InitMemory&#160;<br/>
+<b>6.3.2&#160;&#160;CanSM_Init&#160;</b><br/>
+<b>Prototype&#160;<br/></b>VARIANT-PRE-COMPILE,&#160;&#160;void CanSM_Init( void )&#160;<br/>
+VARIANT-LINK-TIME&#160;<br/>VARIANT-POST-BUILD&#160;<br/>
+void CanSM_Init( const CanSM_ConfigType* ConfigPtr )&#160;<br/>
+<b>Parameter&#160;<br/></b>ConfigPtr&#160;<br/>
+Pointer to the&#160;configuration&#160;structure that&#160;shall be used for the post-build&#160;<br/>parameters.&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>Service for&#160;CAN station manager initialization.&#160;<br/>If the feature “Multiple Identity” is activated the function&#160;requires the&#160;configuration&#160;pointer independent of&#160;<br/>the chosen&#160;configuration variant.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+Called once at&#160;start-up by ECU state manager&#160;after the memory initialization function. &#160;<br/>
+&#160;<br/>
+Non&#160;Reentrant&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+30&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=31></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-31_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+Called once after startup&#160;<br/>
+Table 6-4&#160;<br/>
+CanSM_Init&#160;<br/>
+<b>6.3.3&#160;&#160;CanSM_MainFunction&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void CanSM_MainFunction( void );&#160;<br/><b>Parameter&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>The main function of the CanSM executes the bus-off recovery state machines&#160;(including timer and&#160;<br/>counters) of each network&#160;handle, which&#160;is configured&#160;for the CanSM.&#160;The main function&#160;executes the&#160;<br/>network&#160;state&#160;machine too.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+CanSM has to be initialized. Function has to be called cyclic.&#160;The&#160;cycle time is&#160;set in the configuration&#160;<br/>
+tool. &#160;<br/>
+&#160;<br/>
+Non&#160;Reentrant&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+Cyclic&#160;on task&#160;level&#160;<br/>
+Table 6-5&#160;<br/>
+CanSM_MainFunction&#160;<br/>
+<b>6.3.4&#160;&#160;CanSM_RequestComMode&#160;</b><br/>
+<b>Prototype&#160;<br/></b>Std_ReturnType CanSM_RequestComMode( NetworkHandleType NetworkHandle,&#160;<br/>ComM_ModeType ComM_Mode )&#160;<br/><b>Parameter&#160;<br/></b>NetworkHandle&#160;<br/>
+The communication network number belonging to the request.&#160;<br/>
+ComM_Mode&#160;<br/>
+New desired value of the communication mode.&#160;<br/>
+<b>Return code&#160;<br/></b>ReturnType&#160;<br/>
+Returns&#160;whether function parameter are&#160;valid or not.&#160;<br/>
+<b>Functional Description&#160;<br/></b>The function stores&#160;the requested communication mode for the network handle&#160;and executes&#160;the&#160;<br/>corresponding network mode state machine.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+CanSM has to&#160;be initialized.&#160;<br/>
+&#160;<br/>
+Reentrant for&#160;different CAN networks, not reentrant for the same&#160;CAN network&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+Function&#160;can be called in task and interrupt context.&#160;<br/>
+Table 6-6&#160;<br/>
+CanSM_RequestComMode&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+31&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=32></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-32_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>6.3.5&#160;&#160;CanSM_SetEcuPassive&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void CanSM_SetEcuPassive( boolean CanSM_EcuPassiveMode )&#160;<br/><b>Parameter&#160;<br/></b>CanSM_EcuPassiveMode&#160;Boolean&#160;parameter which switches&#160;the&#160;ECU mode between active&#160;and&#160;<br/>
+passive&#160;mode&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>The function stores&#160;the requested ECU&#160;mode until it’s&#160;modified by the next call of&#160;this function. In passive&#160;<br/>mode the CanSM sets&#160;the&#160;Tx PDU mode&#160;to OFFLINE_ACTIVE instead to ONLINE.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+CanSM has to&#160;be initialized.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+Function&#160;can be called in task and interrupt context.&#160;<br/>
+Table 6-7&#160;<br/>
+CanSM_SetEcuPassive&#160;<br/>
+<b>6.3.6&#160;&#160;CanSM_GetCurrentComMode&#160;</b><br/>
+<b>Prototype&#160;<br/></b>Std_ReturnType CanSM_GetCurrentComMode( NetworkHandleType&#160;<br/>NetworkHandle, ComM_ModeType* ComM_ModePtr )&#160;<br/><b>Parameter&#160;<br/></b>NetworkHandle&#160;<br/>
+Index of the network&#160;channel.&#160;<br/>
+ComM_ModePtr&#160;<br/>
+Pointer where the communication mode&#160;information is copied to.&#160;<br/>
+<b>Return code&#160;<br/></b>ReturnType&#160;<br/>
+Returns&#160;whether function parameter are&#160;valid or not.&#160;<br/>
+<b>Functional Description&#160;<br/></b>This service delivers&#160;the&#160;current&#160;communication mode of a CAN&#160;network.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+CanSM has to&#160;be initialized.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+Function&#160;can be called in task and interrupt context.&#160;<br/>
+Table 6-8&#160;<br/>
+CanSM_GetCurrentComMode&#160;<br/>
+<b>6.3.7&#160;&#160;CanSM_GetVersionInfo&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void CanSM_GetVersionInfo( Std_VersionInfoType * VersionInfo )&#160;<br/><b>Parameter&#160;<br/></b>VersionInfo&#160;<br/>
+Pointer,&#160;where to store the&#160;version data&#160;of the CanSM.&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+32&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=33></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-33_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Functional Description&#160;<br/></b>This&#160;service returns the version information of this module.&#160;The version information includes:&#160;<br/>&#160;- Module Id&#160;<br/>&#160;- Vendor Id&#160;<br/>&#160;- Vendor specific version numbers. &#160;<br/>This function&#160;shall be&#160;pre&#160;compile time configurable On/Off&#160;by the configuration parameter:&#160;<br/>CANSM_VERSION_INFO_API&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+The function is only available if enabled&#160;at compile time (CANSM_VERSION_INFO_API = STD_ON)&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+Function&#160;can be called in task and interrupt context.&#160;<br/>
+Table 6-9&#160;<br/>
+CanSM_GetVersionInfo&#160;<br/>
+<b>6.3.8&#160;&#160;CanSM_PreventBusSleepAtStartUp&#160;</b><br/>
+<b>Prototype&#160;<br/></b>Std_ReturnType CanSM_PreventBusSleepAtStartUp( NetworkHandleType&#160;<br/>CanSM_NetworkHandle )&#160;<br/><b>Parameter&#160;<br/></b>NetworkHandleType&#160;<br/>
+communication network handle&#160;<br/>
+<b>Return code&#160;<br/></b>Std_ReturnType&#160;<br/>
+Returns&#160;whether the network handle is&#160;valid and if the&#160;function has&#160;been&#160;<br/>called before or after the initialization.&#160;<br/>
+<b>Functional Description&#160;<br/></b>The function can be used to prevent the&#160;bus&#160;sleep state of the CanIf, CanDrv and CanTrcv at start up for&#160;<br/>the given CAN network handle.&#160;<br/>The CanIf, CanDrv and CanTrcv leaves in the&#160;corresponding module initialization state.&#160;<br/>For further information refer to [7].&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+Called at start-up before the CanSM initialization function&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+Function&#160;has to be called before CanSM_Init&#160;<br/>
+Table 6-10&#160;<br/>
+CanSM_PreventBusSleepAtStartUp&#160;<br/>
+<b>6.4&#160;</b><br/>
+<b>Services used by&#160;CanSM&#160;</b><br/>
+The following services are provided by other&#160;components.&#160;The services are used by the&#160;<br/>CanSM. For details about prototype and functionality refer to the documentation of the&#160;<br/>providing component.&#160;<br/>
+<b>Component&#160;</b><br/>
+<b>API&#160;</b><br/>
+CanIf&#160;CanIf_SetControllerMode&#160;<br/>CanIf&#160;CanIf_GetControllerMode&#160;<br/>CanIf&#160;CanIf_SetTransceiverMode&#160;<br/>CanIf&#160;CanIf_GetTransceiverMode&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+33&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=34></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-34_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Component&#160;</b><br/>
+<b>API&#160;</b><br/>
+CanIf&#160;CanIf_SetPduMode&#160;<br/>DEM&#160;Dem_ReportErrorStatus&#160;<br/>DET&#160;Det_ReportError&#160;<br/>EcuM&#160;EcuM_GeneratorComp<a href="TechnicalReference_Asr_CanSMs.html#4">atibilityError&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#4">(see&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanSMs.html#4">[8]</a>)&#160;<br/>
+ComM&#160;ComM_BusSM_ModeIndication&#160;<br/>Com&#160;Com_IpduGroupStart&#160;<br/>Com&#160;Com_IpduGroupStop&#160;<br/>Com&#160;Com_DisableReceptionDM&#160;<br/>Com&#160;Com_EnableReceptionDM&#160;<br/>SchM&#160;SchM_Enter_CanSM(ExclusiveArea)&#160;<br/>SchM&#160;SchM_Exit_CanSM(ExclusiveArea)&#160;<br/>XCP&#160;CanXcp_SetPduMode&#160;<br/>
+Table 6-11&#160;&#160;<br/>
+Services used by the CanSM&#160;<br/>
+<b>6.5&#160;</b><br/>
+<b>Callback Functions&#160;</b><br/>
+This chapter describes the callback functions&#160;that are implemented&#160;by the CanSM and can&#160;<br/>be invoked by other modules.&#160;The prototypes of&#160;the callback functions are provided in the&#160;<br/>header file CanSM_Cbk.h by the CanSM.&#160;<br/>
+<b>6.5.1&#160;&#160;CanSM_ControllerBusOff&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void CanSM_ControllerBusOff( uint8 Controller )&#160;<br/><b>Parameter&#160;<br/></b>Controller&#160;<br/>
+Index of the CAN controller,&#160;which detected a bus-off event&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>The CanSM is notified about a bus-off&#160;event on a certain CAN&#160;controller with this callback function.&#160;The&#160;<br/>CanSM uses&#160;this information to execute&#160;the bus-off&#160;recovery for the corresponding controller.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+CanSM has to&#160;be initialized.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+Function&#160;can be called in task and interrupt context.&#160;<br/>
+Table 6-12&#160;<br/>
+CanSM_ControllerBusOff&#160;<br/>
+<b>6.5.2&#160;&#160;Appl_CanSM_BusOffBegin&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void Appl_CanSM_BusOffBegin( NetworkHandleType CanSm_NetworkHandle,&#160;<br/>CanSM_BorCounterType CanSM_BusOffNotificationCounter )&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+34&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=35></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-35_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Parameter&#160;<br/></b>NetworkHandleType&#160;<br/>
+communication network handle&#160;<br/>
+CanSM_BusOffNotifica&#160;Number of bus-offs&#160;in a sequence&#160;<br/>tionCounter&#160;<br/><b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>The function informs the application about a occurred&#160;bus-off&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+Function&#160;can be called in task and interrupt context.&#160;<br/>
+Table 6-13&#160;<br/>
+Appl_CanSM_BusOffBegin&#160;<br/>
+<b>6.5.3&#160;&#160;Appl_CanSM_BusOffEnd&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void Appl_CanSM_BusOffEnd ( NetworkHandleType CanSm_NetworkHandle )&#160;<br/><b>Parameter&#160;<br/></b>NetworkHandleType&#160;<br/>
+communication network handle&#160;<br/>
+<b>Return code&#160;<br/></b>-&#160;<br/>
+-&#160;<br/>
+<b>Functional Description&#160;<br/></b>The function informs the application if the&#160;Tx&#160;communication is&#160;restarted after a bus-off&#160;event.&#160;<br/><b>Particularities and Limitations&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;<br/>
+Function&#160;is called in CanSM task context.&#160;<br/>
+Table 6-14&#160;<br/>
+Appl_CanSM_BusOffEnd&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+35&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=36></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-36_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>7&#160;&#160;Configuration&#160;</b><br/>
+The attributes of the CanSM can be configured with the following methods:&#160;<br/>
+<b>&gt;&#160;&#160;</b>Configuration in GENy&#160;for a detailed description see&#160;<a href="TechnicalReference_Asr_CanSMs.html#36">7.1&#160;</a><br/>
+<b>7.1&#160;</b><br/>
+<b>Configuration with GENy&#160;</b><br/>
+<b>7.1.1.1&#160;</b><br/>
+<b>Basic&#160;</b><br/>
+The CanSM is configured with&#160;the help of the configuration tool GENy. Settings for the&#160;<br/>CanSM can be selected in the GUI, if you choose&#160;Components, CanSM&#160;in the tree at the&#160;<br/>left.&#160;These settings are used to generate the configuration header&#160;which is needed to&#160;<br/>compile the component and the code files which may be linked to the object code.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+36&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=37></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-37_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-37_2.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+Figure 7-1&#160;&#160;GENy&#160;global view&#160;<br/>
+<b>7.1.2&#160;&#160;Activation of the CAN State Manager&#160;<br/></b>If the CanSM isn’t available in the navigation&#160;tree you have to assign the desired channels&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+37&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=38></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-38_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-38_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-38_3.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-38_4.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+to the&#160;CanSM&#160;by checking the corresponding box in the tab&#160;Component Selection&#160;of&#160;<br/>the&#160;System Configuration, see&#160;<a href="TechnicalReference_Asr_CanSMs.html#38">Figure 7-2</a>. If no CAN channel is available add one via&#160;<br/>“Configuration”, “Add&#160;Channel”.&#160;<br/>
+Figure 7-2&#160;<br/>
+GENy&#160;channel selection&#160;<br/>
+Pay also attention that the&#160;Com&#160;and the&#160;ComM&#160;are activated in each channel which has an&#160;<br/>active&#160;CanSM. The&#160;Com&#160;may only selectable if the channel has an activated driver.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/>The detailed&#160;information for all checkboxes and settings is given in the so-called&#160;<br/>
+&#160;&#160;OnScreen Help view of GENy just by clicking the checkbox&#160;or the name of the switch.&#160;<br/>
+This is activated via&#160;<b>View&#160;| OnScreen Help</b>.&#160;<br/>Information about how to work with GENy can be found in the “Online Help” of GENy&#160;<br/>opened via&#160;<b>Help | Help&#160;topics</b>.&#160;<br/>
+<b>&#160;</b><br/>
+<b>7.1.3&#160;&#160;General Settings&#160;<br/></b>The main function of the CanSM is called once each cycle time by the SchM. The cycle&#160;<br/>time is defined at configuration time and&#160;shall not be changed during runtime because this&#160;<br/>functionality requires a fixed timing. If you&#160;choose a lower cycle time the performance&#160;of&#160;<br/>the CanSM&#160;state machines will increase a little and the chosen thresholds of the timers will&#160;<br/>have a smaller deviation. On the other hand more&#160;calls of the main function will be&#160;<br/>wasteful, if the CanSM has executed all jobs and the performance of the overall system&#160;<br/>may be reduced. Enter the desired time in the line&#160;Main Fct Cycle Time, see&#160;<a href="TechnicalReference_Asr_CanSMs.html#39">Figure&#160;<br/>7-3</a>.&#160;<br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>The resolution of the timer is limited&#160;by the cycle time.&#160;Therefore is the duration of the&#160;<br/>
+&#160;&#160;timers a multiple of the cycle time. Nevertheless&#160;the desired time can be entered direct&#160;<br/>
+in seconds&#160;and the tool&#160;will convert it in the&#160;fitting numbers of cycle times. Due to this&#160;<br/>conversion&#160;you may have a deviation of a cycle time.&#160;<br/>
+<b>&#160;</b><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+38&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=39></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-39_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-39_2.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+With the “switches” of the CanSM configuration you can activate&#160;or deactivate&#160;<br/>functionalities to adapt the CanSM to your needs.&#160;<br/>
+&#160;<br/>
+Figure 7-3&#160;<br/>
+GENy&#160;setup switches&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default&#160;<br/>value is&#160;<br/>written in bold&#160;<br/>
+Common&#160;<br/>Configuration&#160;<br/>
+PRE-COMPILE&#160;define&#160;<br/>
+<b>1</b>, 2, 3<b>&#160;</b><br/>
+The CAN State Manager&#160;supports&#160;<br/>
+Variant&#160;<br/>
+&#160;<br/>
+pre-compile&#160;(1), link time (2) and post&#160;<br/>build (3) configuration.&#160;The&#160;generation&#160;<br/>tool provides&#160;the possibility&#160;to choose&#160;<br/>the kind of configuration.&#160;<br/>
+Version Info&#160;<br/>
+PRE-COMPILE&#160;define&#160;<br/>
+STD_ON&#160;<br/>
+The CAN State Manager allows to&#160;<br/>
+Api&#160;<br/>
+&#160;<br/>
+<b>STD_OFF&#160;&#160;</b>enabling and&#160;disabling the&#160;version&#160;<br/>
+info API&#160;function.&#160;<br/>
+Dev Error&#160;<br/>
+PRE-COMPILE&#160;define&#160;<br/>
+STD_ON&#160;<br/>
+The CAN State Manager allows&#160;<br/>
+Detect&#160;<br/>
+&#160;<br/>
+<b>STD_OFF&#160;&#160;</b>enabling and&#160;disabling the&#160;<br/>
+development error notification&#160;<br/>mechanism. If the checkbox&#160;isn’t&#160;<br/>selected the&#160;CanSM&#160;will remove the&#160;<br/>function&#160;calls and the header includes&#160;<br/>of the DET.&#160;<br/>
+Prod Error&#160;<br/>
+PRE-COMPILE&#160;define&#160;<br/>
+STD_ON&#160;<br/>
+The CanSM allows activating and&#160;<br/>
+Detect&#160;<br/>
+&#160;<br/>
+<b>STD_OFF&#160;&#160;</b>deactivating the production&#160;error&#160;<br/>
+messages to&#160;the DEM.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+39&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=40></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-40_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default&#160;<br/>value is&#160;<br/>written in bold&#160;<br/>
+User&#160;<br/>
+PRE-COMPILE&#160;define&#160;<br/>
+<b>-&#160;</b><br/>
+If a file path&#160;will be specified, the file&#160;<br/>
+Configuration&#160;<br/>
+&#160;<br/>
+is read and its contents are put at the&#160;<br/>
+File&#160;<br/>
+end of the CanSM configuration file.&#160;<br/>
+Miscellaneous&#160;<br/>Main Fct Cycle&#160;<br/>
+PRE-COMPILE&#160;-&#160;<br/>
+<b>0.0100&#160;</b><br/>
+Specifies the time base of the&#160;<br/>
+Time [s]&#160;<br/>
+CanSM.&#160;The main function&#160;of the&#160;<br/>CanSM is&#160;called once each&#160;cycle time&#160;<br/>by the Schedule Manager.&#160;<br/>
+Hw Repetition&#160;<br/>
+PRE-COMPILE,&#160;&#160;uint8&#160;<br/>
+<b>5&#160;</b><br/>
+The value specifies how often the&#160;<br/>
+LINK-TIME&#160;<br/>
+CanSM tries to&#160;recover a failed&#160;<br/>transition. If the number is&#160;exceeded&#160;<br/>the CanSM triggers a DEM&#160;failed&#160;<br/>message (se<a href="TechnicalReference_Asr_CanSMs.html#15">e&#160;4.3.1).&#160;</a><br/>
+Partial&#160;<br/>
+PRE-COMPILE&#160;define&#160;<br/>
+STD_ON&#160;<br/>
+If enabled the&#160;CanSM changes the&#160;<br/>
+Networks&#160;<br/>
+<b>STD_OFF</b>&#160;&#160;ASR shutdown sequence according&#160;<br/>
+to the needs of &#160;Partial Network&#160;<br/>Transceivers&#160;<br/>
+BswM ComMode&#160;<br/>
+PRE-COMPILE&#160;define&#160;<br/>
+STD_ON&#160;&#160;If enabled the&#160;CanSM inform the&#160;<br/>
+Indication&#160;<br/>
+<b>STD_OFF</b>&#160;&#160;BswM about the communication&#160;<br/>
+mode via&#160;<br/>BswM_CanSM_CurrentState()&#160;<br/>
+Ecu Passive&#160;<br/>
+PRE-COMPILE&#160;define&#160;<br/>
+STD_ON&#160;<br/>
+En-/ disable the ECU Passive Mode&#160;<br/>
+Mode&#160;<br/>
+&#160;<br/>
+<b>STD_OFF&#160;&#160;</b>handling. (De)Activate the feature if it&#160;<br/>
+is&#160;(de)activated in the ComM too. In&#160;<br/>passive mode&#160;the CanSM&#160;sets&#160;the&#160;Tx&#160;<br/>PDU mode to OFFLINE_ACTIVE&#160;<br/>instead to ONLINE.&#160;<br/>
+BusOff&#160;<br/>
+PRE-COMPILE&#160;define&#160;<br/>
+STD_ON&#160;<br/>
+En-/ disable the bus-off notification&#160;<br/>
+Notification&#160;<br/>
+&#160;<br/>
+<b>STD_OFF</b>&#160;&#160;functions&#160;<br/>
+Appl_CanSM_BusOffBegin&#160;and&#160;<br/>Appl_CanSM_BusOffEnd. The&#160;<br/>
+application is&#160;informed about each&#160;<br/>bus-off&#160;(Begin) and if the&#160;CAN&#160;<br/>channel is&#160;restarted (End).&#160;<br/>
+Disable DM&#160;<br/>
+PRE-COMPILE&#160;define&#160;<br/>
+STD_ON&#160;<br/>
+If enabled the&#160;CanSM disables the&#160;<br/>
+during&#160;<br/>
+&#160;<br/>
+<b>STD_OFF</b>&#160;&#160;deadline monitoring of the RX PDU&#160;<br/>
+SilentCom&#160;<br/>
+groups&#160;in transition to&#160;<br/>CANSM_SILENT_COMMUNICATION.&#160;<br/>
+Postbuild Configuration&#160;<br/>Post Build Config&#160;<br/>
+PRE-COMPILE,&#160;&#160;address&#160;<br/>
+0x0&#160;<br/>
+Set the Start&#160;Address of the module’s&#160;<br/>
+Start Address&#160;<br/>
+LINK-TIME&#160;<br/>
+post-build configuration.&#160;The&#160;Modul&#160;<br/>Start&#160;Address must specify the start&#160;<br/>address of the memory area, where&#160;<br/>the generated hex-file will&#160;be mapped&#160;<br/>to.&#160;The attribute is only evaluated and&#160;<br/>visible if the configuration variant is&#160;<br/>set to Variant 3 (Post-build&#160;<br/>configuration).&#160;<br/>
+Table 7-1&#160;&#160;<br/>
+General configuration Settings in GENy&#160;<br/>
+<b>&#160;</b><br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+40&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=41></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-41_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-41_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-41_3.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Info</b>&#160;<br/>The transceiver handling will be activated automatic if a transceiver is activated in the&#160;<br/>
+&#160;&#160;Component Selection. In&#160;<a href="TechnicalReference_Asr_CanSMs.html#38">Figure 7-2</a>&#160;the transceiver handling is activated at the first&#160;<br/>
+and the last&#160;channel.&#160;<br/>The CanSM checks if the CanIf_SetTransceiverMode was successful. If&#160;the CAN&#160;<br/>network doesn’t start check which transceiver mode is returned by the function&#160;<br/>CanIf_GetTransceiverMode.&#160;The returned transceiver mode&#160;has to be equal to the&#160;<br/>mode which was requested by the CanSM before.&#160;<br/>
+<b>&#160;</b><br/>
+<b>7.1.4&#160;&#160;Network Settings&#160;<br/></b>The number of networks may be changed at&#160;link time.&#160;The user doesn’t need to enter the&#160;<br/>number of networks manually.&#160;The configuration tool calculates this value automatically.&#160;<br/>
+<b>7.1.5&#160;&#160;General CAN Channel Specific Settings&#160;<br/></b>The parameter described in this chapter can be set individual for each CAN channel.&#160;<br/>
+&#160;<br/>
+Figure 7-4&#160;<br/>
+GENy&#160;CAN channel&#160;specific&#160;configuration&#160;<br/>
+Each CAN network needs the&#160;variable names of the PDU groups. Select the desired PDU&#160;<br/>group name in the dropdown menu of the CA<a href="TechnicalReference_Asr_CanSMs.html#42">N channel, see&#160;Figure 7-5</a>.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+41&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=42></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-42_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-42_2.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default&#160;<br/>value is&#160;<br/>written in bold&#160;<br/>
+Miscellaneous&#160;<br/>Partial Network&#160;&#160;PRE-COMPILE,&#160;&#160;boolean&#160;<br/>
+<b>false&#160;</b><br/>
+If Enabled then&#160;the CanSM&#160;changes the&#160;<br/>
+Ch&#160;<br/>
+LINK-TIME,&#160;<br/>
+shutdown sequence to the&#160;needs&#160;of the&#160;partial&#160;<br/>
+network feature.&#160;The global switch has to&#160;be&#160;<br/>
+POST-BUILD&#160;<br/>
+enabled,&#160;too.&#160;<br/>
+Table 7-2&#160;&#160;<br/>
+Partial Network&#160;<br/>
+Figure 7-5&#160;<br/>
+GENy&#160;CAN channel specific PDU&#160;group configuration&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default&#160;<br/>value is&#160;<br/>written in bold&#160;<br/>
+IPDU groups&#160;<br/>Disable Tx Pdu&#160;<br/>
+PRE-COMPILE,&#160;&#160;boolean&#160;<br/>
+<b>false&#160;</b><br/>
+If Enabled then the CanSM disables&#160;<br/>
+Group&#160;<br/>
+LINK-TIME&#160;<br/>
+the&#160;TX PDU&#160;groups&#160;handling for this&#160;<br/>channel.&#160;Activate the option if the&#160;<br/>channel has&#160;no IPDU group.&#160;<br/>
+Tx PDU Group Id&#160;&#160;PRE-COMPILE,&#160;&#160;Name&#160;<br/>
+<b>-&#160;</b><br/>
+Identifier to connect variable used&#160;by&#160;<br/>
+LINK-TIME&#160;<br/>
+CanSM to the&#160;desired PDU group of&#160;<br/>the Com.&#160;<br/>
+Initialize Tx&#160;<br/>
+PRE-COMPILE,&#160;&#160;boolean&#160;<br/>
+<b>false&#160;</b><br/>
+If Enabled then the CanSM requests&#160;<br/>
+Pdu Data&#160;<br/>
+LINK-TIME&#160;<br/>
+the initialization of the data&#160;in the I-<br/>PDUs of this I-PDU group (see&#160;<br/>second parameter of the function&#160;<br/>Com_IpduGroupStart).&#160;<br/>
+Disable Rx Pdu&#160;<br/>
+PRE-COMPILE,&#160;&#160;boolean&#160;<br/>
+<b>false&#160;</b><br/>
+If Enabled then the CanSM disables&#160;<br/>
+Group&#160;<br/>
+LINK-TIME&#160;<br/>
+the&#160;TX PDU&#160;groups&#160;handling for this&#160;<br/>channel.&#160;Activate the option if the&#160;<br/>channel has&#160;no IPDU group.&#160;<br/>
+Rx PDU Group Id&#160;&#160;PRE-COMPILE,&#160;&#160;name&#160;<br/>
+<b>-&#160;</b><br/>
+Identifier to connect variable used&#160;by&#160;<br/>
+LINK-TIME&#160;<br/>
+CanSM to the&#160;desired PDU group of&#160;<br/>the Com.&#160;<br/>
+Initialize Rx&#160;<br/>
+PRE-COMPILE,&#160;boolean&#160;&#160;<b>false&#160;</b><br/>
+If Enabled then the CanSM requests&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+42&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=43></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-43_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-43_2.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default&#160;<br/>value is&#160;<br/>written in bold&#160;<br/>
+Pdu Data&#160;<br/>
+LINK-TIME&#160;<br/>
+the initialization of the data&#160;in the I-<br/>PDUs of this I-PDU group (see&#160;<br/>second parameter of the function&#160;<br/>Com_IpduGroupStart).&#160;<br/>
+Table 7-3&#160;&#160;<br/>
+Channel configuration&#160;<br/>
+If the list is empty check if the Com module is&#160;activated in the component selection, see&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#38">Figure 7-2. If the Com is available and the list is st</a>ill empty it’s also possible&#160;that the PDU&#160;<br/>list in the Com is empty.&#160;Add new PDUs by&#160;a click with the right mouse button on the&#160;IPdu&#160;<br/>Groups<a href="TechnicalReference_Asr_CanSMs.html#43">, see&#160;Figure 7-6</a>.&#160;<br/>
+Figure 7-6&#160;<br/>
+GENy&#160;setup PDU groups&#160;<br/>
+If another variable name for the PDU&#160;group is needed adapt the name in the&#160;Com&#160;like in&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#43">Figure 7-6. Pay attention to that the adapted name&#160;</a>is the correct one.&#160;The new name is&#160;<br/><a href="TechnicalReference_Asr_CanSMs.html#42">automatically updated in the CanSM see&#160;Figure 7-5</a>.&#160;<br/>
+<b>7.1.6&#160;&#160;Bus-off Recovery&#160;State&#160;Machine Configuration&#160;<br/></b>Each bus-off&#160;recovery state machine has a bus-off-timer, which is compared with the three&#160;<br/>time parameters.&#160;These parameters are the same for each network handle, independent&#160;<br/>from the timer of the network&#160;handle. Each bus-off&#160;recovery state machine has a bus-off&#160;<br/>counter, which is compared with the two counter thresholds.&#160;These parameters don’t&#160;<br/>depend on the network handle they are same for each counter.&#160;All “Bus Off Settings”&#160;<br/>parameters can be modified for each CAN channel separate.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+43&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=44></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-44_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-44_2.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+Figure 7-7&#160;<br/>
+GENy&#160;CAN channel&#160;bus-off configuration&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default&#160;<br/>value is&#160;<br/>written in bold&#160;<br/>
+Bus-off recovery state&#160;machine&#160;<br/>Bor Time Tx&#160;<br/>
+PRE-COMPILE,&#160;&#160;uint16&#160;<br/>
+<b>5.000&#160;</b><br/>
+Defines the duration of the&#160;bus-off&#160;<br/>
+Ensured Ch [s]&#160;<br/>
+LINK-TIME,&#160;<br/>
+event check. If a new bus-off&#160;occurs&#160;<br/>
+POST-BUILD&#160;<br/>
+during this time period, the CAN State&#160;<br/>Manager evaluates this&#160;bus-off as&#160;<br/>sequential bus-off&#160;without successful&#160;<br/>recovery.&#160;The&#160;configured time must&#160;<br/>be large enough to ensure that new&#160;<br/>PDUs are transmitted.&#160;<br/><b>The entered&#160;value is multiplied by&#160;<br/>the Cycle Time. The result has to&#160;<br/>be covered by&#160;the 16 bit integer&#160;<br/>range are allowed. E.g. if&#160;the Cycle&#160;<br/>Time is set 0.010 only&#160;values&#160;<br/>between 0.0&#160;and 655.3500&#160;are&#160;<br/>allowed.&#160;</b><br/>
+Bor Counter L1&#160;<br/>
+PRE-COMPILE,&#160;&#160;uint16&#160;<br/>
+<b>5&#160;</b><br/>
+Defines at which bus-off-counter&#160;<br/>
+To L2 Ch&#160;<br/>
+LINK-TIME,&#160;<br/>
+value the bus-off recovery&#160;state&#160;<br/>
+POST-BUILD&#160;<br/>
+machine switches from level 1 to level&#160;<br/>2.&#160;<br/>
+Bor Time L1 Ch &#160;&#160;PRE-COMPILE,&#160;&#160;uint16&#160;<br/>
+<b>1.000&#160;</b><br/>
+Defines the duration of the&#160;bus-off&#160;<br/>
+[s]&#160;<br/>
+LINK-TIME,&#160;<br/>
+recovery time in level 1 (usually short&#160;<br/>
+POST-BUILD&#160;<br/>
+recovery time), which is given to&#160;<br/>restart the CAN network.&#160;<br/><b>The entered&#160;value is multiplied by&#160;<br/>the Cycle Time. The result has to&#160;<br/>be covered by&#160;the 16 bit integer&#160;<br/>range are allowed. E.g. if&#160;the Cycle&#160;<br/>Time is set 0.010 only&#160;values&#160;<br/>between 0.0&#160;and 655.3500&#160;are&#160;<br/>allowed.&#160;</b><br/>
+Bor Time L2 Ch &#160;&#160;PRE-COMPILE,&#160;uint16&#160;<br/>
+<b>3.000&#160;</b><br/>
+Defines the duration of the&#160;bus-off&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+44&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=45></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-45_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-45_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-45_3.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default&#160;<br/>value is&#160;<br/>written in bold&#160;<br/>
+[s]&#160;<br/>
+LINK-TIME,&#160;<br/>
+recovery time&#160;in level 2 (usually long&#160;<br/>
+POST-BUILD&#160;<br/>
+recovery time), which is given to&#160;<br/>restart the CAN network.&#160;<br/><b>The entered&#160;value is multiplied by&#160;<br/>the Cycle Time. The result have&#160;to&#160;<br/>be covered by&#160;the 16 bit integer&#160;<br/>range are allowed. E.g. if&#160;the Cycle&#160;<br/>Time is set 0.010 only&#160;values&#160;<br/>between 0.0&#160;and 655.3500&#160;are&#160;<br/>allowed.&#160;</b><br/>
+Bor Counter L2&#160;<br/>
+PRE-COMPILE,&#160;&#160;Uint16&#160;<br/>
+<b>8&#160;</b><br/>
+Defines at which bus-off-counter&#160;<br/>
+Err Ch&#160;<br/>
+LINK-TIME,&#160;<br/>
+value the bus-off recovery&#160;state&#160;<br/>
+POST-BUILD&#160;<br/>
+machine shall&#160;report a failed&#160;<br/>production error&#160;state to the DEM.&#160;<br/>Caused by the bus-off&#160;state machine&#160;<br/>(see<a href="TechnicalReference_Asr_CanSMs.html#18">&#160;Figure 4-2) a cou</a>nter&#160;value&#160;<br/>greater&#160;than the &#34;CounterL1&#160;to L2&#34;&#160;<br/>should be&#160;chosen.&#160;The all recovery&#160;<br/>retries of level one and level two has&#160;<br/>to be performed unsuccessful before&#160;<br/>the DEM is triggered.&#160;<br/>
+Bor Disable Rx&#160;<br/>
+PRE-COMPILE,&#160;&#160;define&#160;<br/>
+STD_ON&#160;<br/>
+The CAN State Manager allows&#160;<br/>
+Dl Monitoring&#160;<br/>
+LINK-TIME&#160;<br/>
+&#160;<br/>
+<b>STD_OFF&#160;&#160;</b>enabling and&#160;disabling the&#160;deadline&#160;<br/>
+Ch&#160;<br/>
+monitoring.&#160;The RX PDU group&#160;<br/>deadline monitoring may be&#160;<br/>deactivated to avoid timeouts&#160;during&#160;<br/>bus-off&#160;recovery process. If the&#160;<br/>checkbox is&#160;selected&#160;on the CanSM&#160;<br/>will enable the monitoring&#160;of the Rx&#160;<br/>PDU groups&#160;if the full communication&#160;<br/>mode is active without a bus-off.&#160;<br/>
+Table 7-4&#160;&#160;<br/>
+Bus-off recovery&#160;state machine parameter&#160;<br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/>A&#160;value equal to zero for&#160;the “Bor Counter L1 To L2 Ch” is senseless because&#160;<br/>
+&#160;&#160;the counter is at least&#160;incremented one time see bus-off state<a href="TechnicalReference_Asr_CanSMs.html#3">&#160;machine in&#160;[1]&#160;</a><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info</b>&#160;<br/>A&#160;value equal or lower than “Bor Counter L1 To L2 Ch” for the “Bor Counter&#160;<br/>
+&#160;&#160;L2 Err Ch” is senseless because the counter is at least&#160;incremented one time after&#160;<br/>
+the counter&#160;reaches the&#160;threshold “Bor Counter L1 To L2 Ch” see bus-off&#160;state&#160;<br/>machine in&#160;<a href="TechnicalReference_Asr_CanSMs.html#3">[1]&#160;</a><br/>
+<b>&#160;</b><br/>
+<b>7.1.7&#160;&#160;Values from other BSW Modules&#160;<br/></b>To&#160;configure the CanSM some settings in&#160;other BSW modules have to be done.&#160;The&#160;<br/>necessary configuration options in dependency&#160;to the BSW module are listed hereafter.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+45&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=46></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-46_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-46_2.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+The DEM has to deliver for each configured&#160;CAN network one specific bus-off error event&#160;<br/>code. Values for production code event IDs are&#160;assigned externally by&#160;the configuration of&#160;<br/>the DEM.&#160;The error event codes&#160;are published&#160;in a DEM header&#160;file.&#160;The declaration and&#160;<br/>variable names, which have to follow&#160;the naming convention of the SWS&#160;<a href="TechnicalReference_Asr_CanSMs.html#3">[1], are generated&#160;<br/></a>by the configuration tool as soon as&#160;the network handles are available.&#160;<br/>
+CANSM_E_BUSOFF_NETWORK_&lt;X&gt;&#160;<br/>
+&#160;<br/>
+<b>Example</b>&#160;<br/>The assigned bus-off error for the network handle 5 is&#160;<br/>
+&#160;&#160;CANSM_E_BUSOFF_NETWORK_5.The IDs of the error codes are assigned by the&#160;<br/>
+DEM at configuration time.&#160;<br/>
+&#160;<br/>The Com defines the symbolic handles of the IPDU Groups in the configuration header&#160;of&#160;<br/>the Com.&#160;The configuration tool of the CAN&#160;State Manager maps the&#160;names of the Com to&#160;<br/>the fields of the arrays.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+46&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=47></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-47_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>8&#160;&#160;AUTOSAR Standard Compliance&#160;</b><br/>
+<b>8.1&#160;</b><br/>
+<b>Additions / Extensions &#160;</b><br/>
+<b>8.1.1&#160;&#160;Additional Error Handling in the Network Mode State Machine&#160;<br/></b>The NW SM checks if the setting of the controller or transceiver fails. In this case the&#160;<br/>CanSM tries to recover the&#160;failure in the next cycle.&#160;<br/>
+<b>8.1.2&#160;&#160;API CanSM_InitMemory()&#160;<br/></b>This service function was added to be called at Power On or after reset to set the global&#160;<br/>CanSM state, afterwards the CanSM can be initialized&#160;correctly.&#160;<br/><b>8.1.3&#160;&#160;Error Code&#160;<br/></b>The following error codes are reported addi<a href="TechnicalReference_Asr_CanSMs.html#3">tionally to the errors defined in&#160;[1]</a>:&#160;<br/>&#160;<br/><b>&gt;&#160;&#160;</b>CANSM_E_PARAM_CONTROLLER&#160;the name is mentioned in the SWS but got no value.&#160;<br/>
+<b>&gt;&#160;&#160;</b>CANSM_E_MODE_CHANGE&#160;addition to&#160;ASR in case if transition fails&#160;several times in&#160;<br/>
+sequence.&#160;<br/>
+<b>&gt;&#160;&#160;</b>CANSM_E_SETTRANSCEIVERMODE&#160;addition to&#160;ASR in case if set transceiver mode fails.&#160;<br/>
+<b>8.1.4&#160;&#160;Configuration Options&#160;<br/>&gt;&#160;&#160;</b>It’s&#160;possible to deactivate the DEM&#160;at pre-compile time, like DET.&#160;<br/>
+<b>&gt;&#160;&#160;</b>It’s possible to change the option&#160;Rx deadline monitoring&#160;at link time too.&#160;<br/>
+<b>&gt;&#160;&#160;</b>It’s possible to enable a feature which deactivates the&#160;Rx deadline monitoring&#160;in&#160;<br/>
+the state CANSM_SILENT_COMMUNICATION too.&#160;<br/>
+<b>8.1.5&#160;&#160;API CanSM_PreventBusSleepAtStartUp()&#160;<br/></b>This service function was added to prevent&#160;the overwriting of the wakeup reason.&#160;<br/><b>8.1.6&#160;&#160;ECU passive mode&#160;<br/></b>The passive&#160;mode deactivates the Tx part during full communication. The ECU listened&#160;<br/>“passive” on the CAN bus.&#160;<br/><b>8.1.7&#160;&#160;Bus-off notification&#160;<br/></b>The CanSM informs the application about a bus-off.&#160;<br/><b>8.1.8&#160;&#160;Support for XCP shutdown&#160;<br/></b>If XCP and CanSM is activates at the same&#160;system channel the XCP gets informed if the&#160;<br/>Tx Channel switches to Online or back again.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+47&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=48></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-48_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>8.1.9&#160;&#160;No mode notification during CanSM_Init&#160;<br/></b>The ComM_BusSM_ModeIndication is not&#160;called during the transition from&#160;CANSM_INIT&#160;<br/>to&#160;CANSM_NO_COMMUNNICATION&#160;because the ComM becomes initialized after the&#160;<br/>
+CanSM.&#160;<br/><b>8.1.10&#160;&#160;Partial Networks&#160;<br/></b>If Partial Network for a CAN channel is activated the CAN transceiver can only be woken&#160;<br/>up by a specified CAN Message.&#160;Also the&#160;network management will ignore Nm messages&#160;<br/>which don’t belong to the Partial Network. If the feature is enabled (see&#160;<a href="TechnicalReference_Asr_CanSMs.html#40">Table 7-1&#160;and&#160;<br/></a><a href="TechnicalReference_Asr_CanSMs.html#42">Table 7-2</a>) the CanSM adapts the shutdown sequence.&#160;<br/>
+<b>8.1.11&#160;&#160;BswM&#160;ComMode Indication&#160;<br/></b><a href="TechnicalReference_Asr_CanSMs.html#40">If the feature is enabled (see&#160;Table 7-1</a>) the CanSM informs the BswM about state&#160;<br/>changes via the function BswM_CanSM_CurrentState.&#160;<br/>The transmitted states are:&#160;<br/>&#160;&#160;CANSM_BSWM_NO_COMMUNICATION&#160;<br/>&#160;&#160;CANSM_BSWM_SILENT_COMMUNICATION&#160;<br/>&#160;&#160;CANSM_BSWM_FULL_COMMUNICATION&#160;<br/>&#160;&#160;CANSM_BSWM_BUS_OFF&#160;<br/>
+<b>8.1.12&#160;&#160;Multiple Identity&#160;<br/></b>If the feature is activated the CanSM generates several configuration structures which are&#160;<br/>declared in the configuration header CanSM_Cfg.h.&#160;According to the identity the EcuM has&#160;<br/>to calls the CanSM_Init function&#160;with the according configuration.&#160;<br/><b>8.1.13&#160;&#160;Additional Dem error&#160;<br/></b>The CanSM reports&#160;two additional&#160;errors to the Dem module. &#160;<br/>
+<b>&gt;&#160;&#160;</b>CANSM_E_MODE_CHANGE_NETWORK_&lt;X&gt; if&#160;the transition tries exceeds&#160;the&#160;<br/>
+configured number of “Hw Repetition“.&#160;<br/>
+<b>&gt;&#160;&#160;</b>CANSM_E_SETTRANSCEIVERMODE_NETWORK_&lt;X&gt; if the change of the&#160;<br/>
+transceiver mode fails.&#160;<br/>
+<b>8.1.14&#160;&#160;Additional bus-off recovery&#160;in state silent&#160;<br/></b>If a bus-off&#160;occurs outside the state FULL_COMMUNICATION, the CanSM&#160;handles the&#160;<br/>bus-off&#160;and sets the CAN controller mode back to STARTED.&#160;<br/>
+<b>8.2&#160;</b><br/>
+<b>Limitations&#160;</b><br/>
+<b>8.2.1&#160;&#160;Controllers&#160;<br/></b>The CanSM supports&#160;only one controller per channel.&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+48&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=49></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-49_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>9&#160;&#160;Glossary and&#160;Abbreviations&#160;</b><br/>
+<b>9.1&#160;</b><br/>
+<b>Glossary&#160;</b><br/>
+<b>Term&#160;</b><br/>
+<b>Description&#160;</b><br/>
+GENy&#160;<br/>
+Generation tool for CANbedded and&#160;MICROSAR components&#160;<br/>
+Bus communication&#160;<br/>
+Bus communication messages are&#160;all messages sent on the&#160;<br/>
+messages &#160;<br/>
+communication bus.&#160;This&#160;<br/>
+Bus sleep &#160;<br/>
+No activity required on communication bus (e.g.&#160;CAN bus sleep).&#160;<br/>
+CAN communication&#160;&#160;Describes the complete CAN network: Participating nodes Definition of all&#160;<br/>matrix&#160;<br/>
+CAN PDUs&#160;(identifier, DLC) Source and Sinks for PDUs&#160;<br/>
+CAN controller&#160;<br/>
+A&#160;CAN controller is a CPU on-chip or external standalone hardware&#160;<br/>device. One CAN controller is&#160;connected to one&#160;physical channel.&#160;<br/>
+CAN device driver&#160;<br/>
+Generic term of&#160;CAN Driver and CAN&#160;Transceiver Driver.&#160;<br/>
+CAN L-PDU&#160;<br/>
+CAN Protocol Data Unit. Consists&#160;of&#160;an identifier,&#160;DLC and data (SDU).&#160;<br/>
+CAN L-SDU&#160;<br/>
+CAN Service Data Unit. Data that are transported inside the&#160;CAN L-PDU.&#160;<br/>
+Diagnostic PDU&#160;<br/>
+Sending of diagnostic PDUs. Scheduling of CAN diagnostic PDUs is&#160;<br/>
+scheduling&#160;&#160;<br/>
+performed by the diagnostic module,&#160;scheduling&#160;of LIN diagnostic PDUs&#160;<br/>is performed by the diagnostic module and the LIN interface&#160;and&#160;<br/>scheduling&#160;of FlexRay&#160;diagnostic PDUs is performed&#160;<br/>
+L-PDU channel group&#160;&#160;Group of CAN L-PDUs,&#160;which belong to just one&#160;underlying network.&#160;<br/>
+Usually they are handled&#160;by one upper layer module.&#160;<br/>
+L-PDU handle&#160;<br/>
+The L-PDU&#160;handle is defined as integer type and placed inside the CAN&#160;<br/>Interface layer.&#160;Typically&#160;each handle&#160;represents&#160;an L-PDU,&#160;which is a&#160;<br/>constant structure with information for&#160;Tx/Rx processing.&#160;<br/>
+Passive wake-up &#160;<br/>
+Wakeup by another ECU and propagated (e.g.&#160;by bus or wakeup-line) to&#160;<br/>the ECU currently in focus. &#160;<br/>
+Table 9-1&#160;&#160;<br/>
+Glossary&#160;<br/>
+<b>9.2&#160;</b><br/>
+<b>Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+API&#160;<br/>
+Application Programming Interface &#160;<br/>
+ASR&#160;AUTOSAR&#160;<br/>AUTOSAR&#160;<br/>
+Automotive Open System&#160;Architecture&#160;<br/>
+BOR SM&#160;<br/>
+Bus Of Recovery State Machine&#160;<br/>
+BSW&#160;Basis&#160;<br/>
+Software&#160;<br/>
+CAN&#160;Controller&#160;<br/>
+Area&#160;<br/>
+Network&#160;<br/>
+CanIf&#160;CAN&#160;<br/>
+Interface&#160;<br/>
+CanSM&#160;CAN&#160;<br/>
+State&#160;<br/>
+Manager&#160;<br/>
+Cbk&#160;<br/>
+call-back / call-out notification (functions)&#160;<br/>
+Cfg&#160;Configuration&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+49&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=50></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-50_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+Com&#160;<br/>
+Communication (means the&#160;ASR module)&#160;<br/>
+ComM&#160;Communication&#160;<br/>
+Manager&#160;<br/>
+DEM&#160;<br/>
+Diagnostic Event Manager&#160;<br/>
+DET&#160;Development&#160;<br/>
+Error&#160;<br/>
+Tracer&#160;<br/>
+DTC&#160;Diagnostic&#160;<br/>
+Trouble&#160;<br/>
+Code&#160;<br/>
+ECU&#160;Electronic&#160;<br/>
+Control&#160;<br/>
+Unit&#160;<br/>
+EcuM&#160;ECU&#160;<br/>
+State&#160;<br/>
+Manager&#160;<br/>
+EMI&#160;electromagnetic&#160;<br/>
+interference&#160;<br/>
+GUI&#160;<br/>
+Graphical User Interface&#160;<br/>
+HIS&#160;<br/>
+Hersteller Initiative Software&#160;<br/>
+ISR&#160;<br/>
+Interrupt Service Routine&#160;<br/>
+MemMap&#160;Memory&#160;<br/>
+Mapping&#160;<br/>
+MICROSAR&#160;<br/>
+Microcontroller Open System&#160;Architecture (the Vector&#160;AUTOSAR&#160;<br/>solution)&#160;<br/>
+NW SM&#160;<br/>
+NetWork State Machine&#160;<br/>
+PB&#160;Post&#160;<br/>
+Build&#160;<br/>
+PC&#160;Personal&#160;<br/>
+Computer&#160;<br/>
+PDU&#160;<br/>
+Protocol Data&#160;Unit&#160;<br/>
+RTE&#160;Runtime&#160;<br/>
+Environment&#160;<br/>
+SchM&#160;BSW&#160;<br/>
+Scheduler&#160;<br/>
+SRS&#160;<br/>
+Software Requirement&#160;Specification&#160;<br/>
+SWC&#160;Software&#160;<br/>
+Component&#160;<br/>
+SWS&#160;Soft&#160;<br/>
+Ware&#160;<br/>
+Specification&#160;<br/>
+(here it usually means the&#160;<br/>
+SWS_CAN_StateManager)&#160;<br/>
+XCP&#160;<br/>
+X Calibration Protocol (X&#160;means able to handle several bus&#160;<br/>systems CAN, FlexRay)&#160;<br/>
+Table 9-2&#160;&#160;<br/>
+Abbreviations&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+50&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=51></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanSM-51_1.png"/><br/>
+Technical Reference MICROSAR CAN State Manager &#160;<br/>
+&#160;<br/>
+<b>10&#160;&#160;Contact&#160;</b><br/>
+Visit our website for more information on&#160;<br/>&#160;<br/>&gt;&#160; &#160;News&#160;<br/>&gt;&#160; &#160;Products&#160;<br/>&gt;&#160; &#160;Demo software&#160;<br/>&gt;&#160; &#160;Support&#160;<br/>&gt;&#160; &#160;Training data&#160;<br/>&gt;&#160; &#160;Addresses&#160;<br/>&#160;<br/>
+<a href="http://www.vector-informatik.com/"><b>www.vector-informatik.com&#160;</b></a><br/>
+&#160;<br/>&#160;<br/>
+©2011, Vector Informatik GmbH&#160;<br/>
+Version: 1.16&#160;<br/>
+51&#160;/ 51<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#2">1 Document Information</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#2">1.1 History</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#3">1.2 Reference Documents</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#4">1.3 Scope of the Document</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#11">Component History</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#12">3 Introduction</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#12">3.1 Architecture Overview</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#14">4 Functional Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#14">4.1 Features</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#14">4.2 Initialization</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#15">4.3 State Machines</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#15">4.3.1 Network Mode State Machine</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#18">4.3.2 Bus-off Recovery State Machine</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#20">4.4 XCP notification function</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#21">4.5 ECU passive mode</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#21">4.6 Main Function</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#21">4.7 Communication Modes</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#21">4.8 Communication Mode Polling</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#21">4.9 Error Handling</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#21">4.9.1 Development Error Reporting</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#22">4.9.1.1 Parameter Checking</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#23">4.9.2 Production Code Error Reporting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#24">5 Integration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#24">5.1 Brief Instruction</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#24">5.2 Scope of Delivery</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#24">5.2.1 Static Files</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#25">5.2.2 Dynamic Files</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#25">5.3 Include Structure</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#26">5.4 Compiler Abstraction and Memory Mapping</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#26">5.5 Critical Areas</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#28">6 API Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#28">6.1 Interfaces Overview</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#28">6.2 Type Definitions</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#29">6.3 Services Provided by CanSM</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#30">6.3.1 CanSM_InitMemory</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#30">6.3.2 CanSM_Init</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#31">6.3.3 CanSM_MainFunction</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#31">6.3.4 CanSM_RequestComMode</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#32">6.3.5 CanSM_SetEcuPassive</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#32">6.3.6 CanSM_GetCurrentComMode</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#32">6.3.7 CanSM_GetVersionInfo</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#33">6.3.8 CanSM_PreventBusSleepAtStartUp</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#33">6.4 Services used by CanSM</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#34">6.5 Callback Functions</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#34">6.5.1 CanSM_ControllerBusOff</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#34">6.5.2 Appl_CanSM_BusOffBegin</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#35">6.5.3 Appl_CanSM_BusOffEnd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#36">7 Configuration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#36">7.1 Configuration with GENy</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#36">7.1.1.1 Basic</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#37">7.1.2 Activation of the CAN State Manager</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#38">7.1.3 General Settings</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#41">7.1.4 Network Settings</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#41">7.1.5 General CAN Channel Specific Settings</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#43">7.1.6 Bus-off Recovery State Machine Configuration</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#45">7.1.7 Values from other BSW Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#47">8 AUTOSAR Standard Compliance</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#47">8.1 Additions / Extensions&#160;</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#47">8.1.1 Additional Error Handling in the Network Mode State Machine</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#47">8.1.2 API CanSM_InitMemory()</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#47">8.1.3 Error Code</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#47">8.1.4 Configuration Options</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#47">8.1.5 API CanSM_PreventBusSleepAtStartUp()</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#47">8.1.6 ECU passive mode</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#47">8.1.7 Bus-off notification</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#47">8.1.8 Support for XCP shutdown</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#48">8.1.9 No mode notification during CanSM_Init</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#48">8.1.10 Partial Networks</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#48">8.1.11 BswM ComMode Indication</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#48">8.1.12 Multiple Identity</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#48">8.1.13 Additional Dem error</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#48">8.1.14 Additional bus-off recovery in state silent</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#48">8.2 Limitations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#48">8.2.1 Controllers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#49">9 Glossary and Abbreviations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanSMs.html#49">9.1 Glossary</a></li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#49">9.2 Abbreviations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanSMs.html#51">10 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

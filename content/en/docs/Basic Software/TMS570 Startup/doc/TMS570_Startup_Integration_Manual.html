@@ -1,0 +1,663 @@
+---
+title: TMS570_Startup_Integration_Manual
+linkTitle: TMS570_Startup_Integration_Manual
+weight: 10
+---
+
+<p><a href="#_Toc358640599">1 Dependencies <span>2</span></a></p>
+<p><a href="#swcs">1.1 SWCs <span>2</span></a></p>
+<p><a href="#functions-to-be-provided-to-integration-project">1.2 Functions to be provided to Integration Project <span>2</span></a></p>
+<p><a href="#functions-to-be-provided-by-integration-project">1.3 Functions to be provided by Integration Project <span>2</span></a></p>
+<p><a href="#configuration">2 Configuration <span>2</span></a></p>
+<p><a href="#build-time-config">2.1 Build Time Config <span>2</span></a></p>
+<p><a href="#configuration-files-to-be-provided-by-integration-project">2.2 Configuration Files to be provided by Integration Project <span>2</span></a></p>
+<p><a href="#startup_cfg.h">2.2.1 startup_cfg.h <span>3</span></a></p>
+<p><a href="#appinit_cfg.h">2.2.2 appinit_cfg.h <span>3</span></a></p>
+<p><a href="#davinci-config-configuration-changes">2.3 DaVinci Config Configuration Changes <span>3</span></a></p>
+<p><a href="#manual-configuration-changes">2.4 Manual Configuration Changes <span>3</span></a></p>
+<p><a href="#integration">3 Integration <span>3</span></a></p>
+<p><a href="#required-global-data-inputs">3.1 Required Global Data Inputs <span>3</span></a></p>
+<p><a href="#optional-global-data-inputs">3.2 Optional Global Data Inputs <span>3</span></a></p>
+<p><a href="#specific-include-path-present">3.3 Specific Include Path present <span>3</span></a></p>
+<p><a href="#build-exclusions">3.4 Build Exclusions <span>3</span></a></p>
+<p><a href="#definition-of-stacks">3.5 Definition of Stacks <span>4</span></a></p>
+<p><a href="#reset-causes">3.6 Reset Causes <span>4</span></a></p>
+<p><a href="#impact-on-integration-project">3.7 Impact on Integration Project <span>6</span></a></p>
+<p><a href="#jtag-debugger-considerations">3.7.1 JTAG Debugger Considerations <span>6</span></a></p>
+<p><a href="#ram-memory-state">3.7.2 RAM Memory State <span>7</span></a></p>
+<p><a href="#ecc-and-parity">3.7.3 ECC and Parity <span>7</span></a></p>
+<p><a href="#runnable-scheduling">4 Runnable Scheduling <span>7</span></a></p>
+<p><a href="#memory-mapping">5 Memory Mapping <span>7</span></a></p>
+<p><a href="#resetcause-section">5.1 .resetcause Section <span>7</span></a></p>
+<p><a href="#mapping">5.2 Mapping <span>7</span></a></p>
+<p><a href="#usage">5.3 Usage <span>7</span></a></p>
+<p><a href="#nvm-blocks">5.4 NvM Blocks <span>8</span></a></p>
+<p><a href="#compiler-settings">6 Compiler Settings <span>8</span></a></p>
+<p><a href="#preprocessor-macro">6.1 Preprocessor MACRO <span>8</span></a></p>
+<p><a href="#optimization-settings">6.2 Optimization Settings <span>8</span></a></p>
+<p><a href="#other-settings">6.3 Other Settings <span>8</span></a></p>
+<p><a href="#revision-control-log">7 Revision Control Log <span>8</span></a></p>
+<p><span id="_Toc358640599" class="anchor"></span></p>
+<h1 id="dependencies">Dependencies</h1>
+<h2 id="swcs">SWCs</h2>
+<table>
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Required Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>StdDef</td>
+<td>TMS570 Register Definitions</td>
+</tr>
+</tbody>
+</table>
+<h2 id="functions-to-be-provided-to-integration-project">Functions to be provided to Integration Project</h2>
+<p>void _fiqhandler(void);</p>
+<p>uint32 _coreGetDebugStatusAndControlRegister_(void);</p>
+<p>uint32 _coreGetSecondaryAuxiliaryControlRegister_(void);</p>
+<p>void _coreSetSecondaryAuxiliaryControlRegister_(uint32 SecAuxCtrlRegVal_Cnt_T_u32);</p>
+<p>uint32 _coreGetFPSCR_(void);</p>
+<h2 id="functions-to-be-provided-by-integration-project">Functions to be provided by Integration Project</h2>
+<p>All common functionality required for a boot project startup is contained in “BootStartup.c”, and all common functionality for application project startup is contained in “AppStartup.c”. There may be instances, however, where a boot or application project will need to do special steps that are specific to a particular program, prior to the “main()” function call. To accommodate this, several functions are called, one at the start and one at the end of both BootStartup.c and AppStartup.c. These functions are</p>
+<ul>
+<li><p>void BootStartupCallout1(void)</p></li>
+<li><p>void BootStartupCallout2(void)</p></li>
+<li><p>void AppStartupCallout1(void)</p></li>
+<li><p>void AppStartupCallout2(void)</p></li>
+</ul>
+<p>The integration projects are required to provide these functions, regardless of if there is content in them.</p>
+<h1 id="configuration">Configuration</h1>
+<h2 id="build-time-config">Build Time Config</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modules</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-files-to-be-provided-by-integration-project">Configuration Files to be provided by Integration Project</h2>
+<p>Configuration files are needed to configure the startup sequence based on the needs of the program being implemented in. These configuration files are simply header files that define a set of build constants. Templates of these files are provided (located in the tools folder of this SWC) that can be adapted to the needs of the program. From the context of a boot project, startup_cfg.h is required. From the context of an application project, appinit_cfg.h is required.</p>
+<h3 id="startup_cfg.h">startup_cfg.h</h3>
+<p>This file contains the startup configuration constants used in sys_startup. The following constants can be enabled or disabled defining them as either STD_OFF or STD_O, descriptions are as follows:</p>
+<h3 id="appinit_cfg.h">appinit_cfg.h</h3>
+<h2 id="davinci-config-configuration-changes">DaVinci Config Configuration Changes</h2>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 2%" />
+<col style="width: 19%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="2">Parameter</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>OsOSFIQHandler</td>
+<td colspan="2">_fiqhandler</td>
+<td>Needs to be configured if more than one FIQ is configured in the system (e.g. when adding the floating point exception handling FIQ). When only one FIQ is configured, the value of this parameter should be the name of that one FIQ ISR.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="manual-configuration-changes">Manual Configuration Changes</h2>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="integration">Integration</h1>
+<h2 id="required-global-data-inputs">Required Global Data Inputs</h2>
+<p>None</p>
+<h2 id="optional-global-data-inputs">Optional Global Data Inputs</h2>
+<p>None</p>
+<h2 id="specific-include-path-present">Specific Include Path present</h2>
+<p>Yes</p>
+<h2 id="build-exclusions">Build Exclusions</h2>
+<p>This component is designed to be included in a given program’s boot and application projects. The boot project is defined as the project which the hardware reset vector jumps to. A subset of this component’s files needs to be part of the build based on given context. The source files to be excluded from the build through code composer project settings are as follows:</p>
+<p>Excluded from Boot Project:</p>
+<ul>
+<li><p>AppStartup.c</p></li>
+</ul>
+<p>Excluded from the Application Project:</p>
+<ul>
+<li><p>BootStartup.c</p></li>
+<li><p>sys_startup.c</p></li>
+<li><p><mark>sys_pmu.asm</mark></p></li>
+</ul>
+<h2 id="definition-of-stacks">Definition of Stacks</h2>
+<p>The stacks (sizes and locations) need to be defined and reserved by both the boot and application integration projects. This can be done by defining symbols for the locations of the stack (typically in the linker file). The stack symbols (used to initialize the stack pointers) the startup code requires are:</p>
+<ul>
+<li><p>“_StackSVC_”</p></li>
+<li><p>“_StackFIQ_”</p></li>
+<li><p>“_StackIRQ_”</p></li>
+<li><p>“_StackUSER_”</p></li>
+<li><p>“_StackABORT_”</p></li>
+<li><p>“_StackUND_”</p></li>
+</ul>
+<h2 id="reset-causes">Reset Causes</h2>
+<p>A variable of this SWC holds the reset cause and it is used to alter the processing of the startup sequence. This SWC defines a set of reset causes shown in the table below. The integration project is free to define its own reset cause values if necessary and write this value to the ResetCause_Cnt_Enum variable prior to performing a software reset; however, the names and values in the table below are reserved for use of this SWC. The ResetCause_Cnt_Enum variable can be read at any time by integration project components for information or diagnostic use.</p>
+<table>
+<colgroup>
+<col style="width: 70%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Reset Cause Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PWRONRESET</td>
+<td>0x0000FFFF</td>
+</tr>
+<tr class="even">
+<td>DEBUGRESET</td>
+<td>0x0001FFFE</td>
+</tr>
+<tr class="odd">
+<td>CPURESET</td>
+<td>0x0002FFFD</td>
+</tr>
+<tr class="even">
+<td>SPPBISTFAILED</td>
+<td>0x0003FFFC</td>
+</tr>
+<tr class="odd">
+<td>DPPBISTFAILED</td>
+<td>0x0004FFFB</td>
+</tr>
+<tr class="even">
+<td>EXTRESET</td>
+<td>0x0005FFFA</td>
+</tr>
+<tr class="odd">
+<td>OSCFAIL</td>
+<td>0x0006FFF9</td>
+</tr>
+<tr class="even">
+<td>SWRESET</td>
+<td>0x0007FFF8</td>
+</tr>
+<tr class="odd">
+<td>WDGFAIL</td>
+<td>0x0008FFF7</td>
+</tr>
+<tr class="even">
+<td>CCMSTEFFAILED</td>
+<td>0x0009FFF6</td>
+</tr>
+<tr class="odd">
+<td>CCMSTFAILED</td>
+<td>0x000AFFF5</td>
+</tr>
+<tr class="even">
+<td>CCMEFFAILED</td>
+<td>0x000BFFF4</td>
+</tr>
+<tr class="odd">
+<td>PBISTSCFAILED</td>
+<td>0x000CFFF3</td>
+</tr>
+<tr class="even">
+<td>STCSCFAILED</td>
+<td>0x000DFFF2</td>
+</tr>
+<tr class="odd">
+<td>STCFAILED</td>
+<td>0x000EFFF1</td>
+</tr>
+<tr class="even">
+<td>ESM3NONZERO</td>
+<td>0x000FFFF0</td>
+</tr>
+<tr class="odd">
+<td>EFCSTFAILED</td>
+<td>0x0010FFEF</td>
+</tr>
+<tr class="even">
+<td>EFCSTUCKZERO</td>
+<td>0x0011FFEE</td>
+</tr>
+<tr class="odd">
+<td>EFCERROR</td>
+<td>0x0012FFED</td>
+</tr>
+<tr class="even">
+<td>FLSBUS2CORRFAILED</td>
+<td>0x0013FFEC</td>
+</tr>
+<tr class="odd">
+<td>FLSBUS2ADDCAPFAILED</td>
+<td>0x0014FFEB</td>
+</tr>
+<tr class="even">
+<td>FLSBUS2MULBITDETFAILED</td>
+<td>0x0015FFEA</td>
+</tr>
+<tr class="odd">
+<td>FLSBUS2SNGBITDETFAILED</td>
+<td>0x0016FFE9</td>
+</tr>
+<tr class="even">
+<td>VIMPARFLGFAILED</td>
+<td>0x0017FFE8</td>
+</tr>
+<tr class="odd">
+<td>VIMPARADDERRFAILED</td>
+<td>0x0018FFE7</td>
+</tr>
+<tr class="even">
+<td>VIMPARESMFAILED</td>
+<td>0x0019FFE6</td>
+</tr>
+<tr class="odd">
+<td>DCAN1PARESMFAILED</td>
+<td>0x001AFFE5</td>
+</tr>
+<tr class="even">
+<td>DCAN2PARESMFAILED</td>
+<td>0x001BFFE4</td>
+</tr>
+<tr class="odd">
+<td>DCAN3PARESMFAILED</td>
+<td>0x001CFFE3</td>
+</tr>
+<tr class="even">
+<td>DMAPARESMFAILED</td>
+<td>0x001DFFE2</td>
+</tr>
+<tr class="odd">
+<td>MIBADC1PARESMFAILED</td>
+<td>0x001EFFE1</td>
+</tr>
+<tr class="even">
+<td>MIBADC2PARESMFAILED</td>
+<td>0x001FFFE0</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI1PARESMFAILED</td>
+<td>0x0020FFDF</td>
+</tr>
+<tr class="even">
+<td>MIBSPI3PARESMFAILED</td>
+<td>0x0021FFDE</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI5PARESMFAILED</td>
+<td>0x0022FFDD</td>
+</tr>
+<tr class="even">
+<td>N2HET1PARESMFAILED</td>
+<td>0x0023FFDC</td>
+</tr>
+<tr class="odd">
+<td>N2HET1TUPARESMFAILED</td>
+<td>0x0024FFDB</td>
+</tr>
+<tr class="even">
+<td>N2HET2PARESMFAILED</td>
+<td>0x0025FFDA</td>
+</tr>
+<tr class="odd">
+<td>N2HET2TUPARESMFAILED</td>
+<td>0x0026FFD9</td>
+</tr>
+<tr class="even">
+<td>B0MULBITRAMECCDETFAILED</td>
+<td>0x0027FFD8</td>
+</tr>
+<tr class="odd">
+<td>B1MULBITRAMECCDETFAILED</td>
+<td>0x0028FFD7</td>
+</tr>
+<tr class="even">
+<td>B0SNGBITRAMECCDETFAILED</td>
+<td>0x0029FFD6</td>
+</tr>
+<tr class="odd">
+<td>B1SNGBITRAMECCDETFAILED</td>
+<td>0x002AFFD5</td>
+</tr>
+<tr class="even">
+<td>SNGBITFLSECCDETFAILED</td>
+<td>0x002BFFD4</td>
+</tr>
+<tr class="odd">
+<td>MULBITFLSECCDETFAILED</td>
+<td>0x002CFFD3</td>
+</tr>
+<tr class="even">
+<td>LPOTRIMERROR</td>
+<td>0x002DFFD2</td>
+</tr>
+<tr class="odd">
+<td>DATAMULBITRAMECCFAILED</td>
+<td>0x002EFFD1</td>
+</tr>
+<tr class="even">
+<td>DATAMULBITFLSECCFAILED</td>
+<td>0x002FFFD0</td>
+</tr>
+<tr class="odd">
+<td>CPUDATAABORT</td>
+<td>0x0030FFCF</td>
+</tr>
+<tr class="even">
+<td>CPUPREFETCHABORT</td>
+<td>0x0031FFCE</td>
+</tr>
+<tr class="odd">
+<td>PRFTCMULBITRAMECCFAILED</td>
+<td>0x0032FFCD</td>
+</tr>
+<tr class="even">
+<td>PRFTCMULBITFLSECCFAILED</td>
+<td>0x0033FFCC</td>
+</tr>
+<tr class="odd">
+<td>UNDEFINST</td>
+<td>0x0034FFCB</td>
+</tr>
+<tr class="even">
+<td>CLOCKMONITOR</td>
+<td>0x0035FFCA</td>
+</tr>
+<tr class="odd">
+<td>CCMFAILED</td>
+<td>0x0036FFC9</td>
+</tr>
+<tr class="even">
+<td>FMCUNCORRERR</td>
+<td>0x0037FFC8</td>
+</tr>
+<tr class="odd">
+<td>B0UNCORRERR</td>
+<td>0x0038FFC7</td>
+</tr>
+<tr class="even">
+<td>B1UNCORRERR</td>
+<td>0x0039FFC6</td>
+</tr>
+<tr class="odd">
+<td>B0ADDPARERR</td>
+<td>0x003AFFC5</td>
+</tr>
+<tr class="even">
+<td>B1ADDPARERR</td>
+<td>0x003BFFC4</td>
+</tr>
+<tr class="odd">
+<td>FLSECCLIVELOCK</td>
+<td>0x003CFFC3</td>
+</tr>
+<tr class="even">
+<td>VIMMULTBITFLT</td>
+<td>0x003DFFC2</td>
+</tr>
+<tr class="odd">
+<td>VIMPARTHRSHFLT</td>
+<td>0x003EFFC1</td>
+</tr>
+<tr class="even">
+<td>UNUSEDINTERRUPT</td>
+<td>0x003FFFC0</td>
+</tr>
+<tr class="odd">
+<td>STACKOVERWRITE</td>
+<td>0x0040FFBF</td>
+</tr>
+<tr class="even">
+<td>MPUVIOLATION</td>
+<td>0x0041FFBE</td>
+</tr>
+<tr class="odd">
+<td>WDGALIVEMONFAIL</td>
+<td>0x0042FFBD</td>
+</tr>
+<tr class="even">
+<td>WDGDEADLINEFAIL</td>
+<td>0x0043FFBC</td>
+</tr>
+<tr class="odd">
+<td>WDGPROGFLOWFAIL</td>
+<td>0x0044FFBB</td>
+</tr>
+<tr class="even">
+<td>SWWDGFAIL</td>
+<td>0x0045FFBA</td>
+</tr>
+<tr class="odd">
+<td>FPUDZCEXCP</td>
+<td>0x0046FFB9</td>
+</tr>
+<tr class="even">
+<td>FPUOFCEXCP</td>
+<td>0x0047FFB8</td>
+</tr>
+<tr class="odd">
+<td>FPUIOCEXCP</td>
+<td>0x0048FFB7</td>
+</tr>
+<tr class="even">
+<td>FPUUNKNOWNEXCP</td>
+<td>0x0049FFB6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="impact-on-integration-project">Impact on Integration Project</h2>
+<h3 id="jtag-debugger-considerations">JTAG Debugger Considerations</h3>
+<p>Integrating this project will impact the debugging capabilities. The normal startup which runs all of the diagnostic startup tests will be bypassed if a debugger connection is detected. Because of safety ramifications of potentially bypassing startup tests if the controller incorrectly reads a debugger being attached, a branch to self instruction is inserted in AppStartup.c if the reset cause is “DEBUGRESET”. In the scenario where a debugger is actually attached, the user running the debug session will have to manually move the program-counter past this branch instruction to continue debugging.</p>
+<h3 id="ram-memory-state">RAM Memory State</h3>
+<p>This SWC will leave the RAM cleared to all zeros only on a Power-On Reset. All other resets will bypass any RAM manipulation. It is the responsibility of the boot project and application project to make certain the initial state of RAM is proper for all reset scenarios.</p>
+<h3 id="ecc-and-parity">ECC and Parity</h3>
+<p>The sys_startup function will exit in a state with both RAM and Flash ECC turned on. If this is not the desired state for either the boot or application code, the callout functions could potentially be used to change this (e.g. the boot callout could turn off flash ECC, and the application callout could turn flash ECC back on).</p>
+<p>The AppStartup can be configured to test parity on the applicable peripheral RAM. After the test, the parity will be left in the enabled state; however, the integration application code will need to configure response to failures (ISRs, etc).</p>
+<h1 id="runnable-scheduling">Runnable Scheduling</h1>
+<p>This section specifies the required runnable scheduling.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 54%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Init</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 44%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="memory-mapping">Memory Mapping</h1>
+<h2 id="resetcause-section">.resetcause Section</h2>
+<p>A “.resetcause” memory section must be defined in both the boot and application linker file. This holds a 32bit variable to be located in RAM memory. This variable is shared between the boot and the application projects, and therefore must be located in a shared, fixed memory location.</p>
+<h2 id="mapping">Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 26%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Memory Section</th>
+<th>Contents</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>* Each …START_SEC… constant is terminated by a …STOP_SEC… constant as specified in the AUTOSAR Memory Mapping requirements.</p>
+<h2 id="usage">Usage</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>RAM</th>
+<th>ROM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Full driver</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: ARM Cortex R4 Memory Usage</p>
+<h2 id="nvm-blocks">NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="compiler-settings">Compiler Settings</h1>
+<h2 id="preprocessor-macro"> Preprocessor MACRO</h2>
+<p>&lt;Define all the preprocessor Macros needed and conditions when needed&gt;.</p>
+<h2 id="optimization-settings">Optimization Settings</h2>
+<p>&lt;Define Optimization levels that are needed and conditions when needed&gt;.</p>
+<h2 id="other-settings">Other Settings</h2>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 68%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial version</td>
+<td></td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Updated to latest Integration Manual Template; Updated reset cause table (section 3.5); Removed sys_core.asm and sys_memory.asm from list of modules needing special compilation (section 6.3) (handled by a directive in the asm files); added information on configuring _fiqhandler</td>
+<td>6/10/2013</td>
+<td>KMC</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Removed requirement of compilation of sys_startup and AppStartup in arm mode</td>
+<td>08/02/13</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Added exclusion of sys_pmu.asm build from application in section 3.4</td>
+<td>05/09/13</td>
+<td>LK</td>
+</tr>
+</tbody>
+</table>

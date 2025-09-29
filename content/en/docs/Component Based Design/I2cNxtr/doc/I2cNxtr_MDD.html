@@ -1,0 +1,2269 @@
+---
+title: I2cNxtr_MDD
+linkTitle: I2cNxtr_MDD
+weight: 5
+---
+
+<h1 class="unnumbered" id="module----i2c-nexteer">Module -- I2C Nexteer</h1>
+<p>This document describes the software design and implementation of the Nexteer inter-integrated circuit (I<sup>2</sup>C) driver for EA3.x applications.</p>
+<h1 id="equations-for-register-settings">Equations for Register Settings</h1>
+<p>Depending on the type of device attached to the I<sup>2</sup>C bus different register settings may be required. The following equations were used to determine the module clock frequency and high and low times for the required device that are documented in this MDD.</p>
+<h2 id="module-clock-frequency">Module Clock Frequency</h2>
+<p>The module clock frequency determines the frequency at which the I<sup>2</sup>C module operates. The value in the prescale register (I2CPSC) is programmable and divides the input clock to produce the module clock. The module clock frequency must be between 6.7 MHz and 13.3 MHz for proper operation of the I<sup>2</sup>C module. At the time this specification was created, the input clock frequency is 80MHz.</p>
+<p><span class="math display">$$ModuleClockFrequency = \frac{I2CInputClockFrequency}{(I2CPSC + 1)}\ $$</span></p>
+<h2 id="master-clock-frequency">Master Clock Frequency</h2>
+<p>The master clock frequency is the frequency that will be used on the SCL pin of the TMS570 device when in master mode. Depending on the value of the I2CPSC and the desired clock low (I2CCKL) and high (I2CCKH) times, the mast clock frequency can be calculated by one of the two equations below:</p>
+<p><span class="math display">$$MasterClockFrequency = \frac{ModuleClockFrequency}{(I2CCKL + d) + (I2CCKH + d)}$$</span></p>
+<p><span class="math display">$$MasterClockFrequency = \frac{I2CInputClockFrequency}{(I2CPSC + 1)*((I2CCKL + d) + (I2CCKH + d))}$$</span></p>
+<p>Where <em>d</em> depends on:</p>
+<table>
+<colgroup>
+<col style="width: 70%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>I2CPSC</th>
+<th>d</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>Greater than 1</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">None</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 11%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>I2cNxtr_I2cTransfer_Cnt_M_str. Mode_Cnt_b32</td>
+<td>1</td>
+<td>0</td>
+<td>0x10</td>
+<td>I2CNXTR_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>I2cNxtr_I2cTransfer_Cnt_M_str. Length_Cnt_u32</td>
+<td>1</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>I2CNXTR_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>I2cNxtr_I2cTransfer_Cnt_M_str. DataPtr_Cnt_u08</td>
+<td>1</td>
+<td>FULL</td>
+<td>FULL</td>
+<td>I2CNXTR_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>i2cctrlregs_t</td>
+<td><p>OAR</p>
+<p>IMR</p>
+<p>STR</p>
+<p>CLKL</p>
+<p>CLKH</p>
+<p>CNT</p>
+<p>DRR</p>
+<p>SAR</p>
+<p>DXR</p>
+<p>MDR</p>
+<p>IVR</p>
+<p>EMDR</p>
+<p>PSC</p>
+<p>PID11</p>
+<p>PID12</p>
+<p>DMAC</p>
+<p>FUN</p>
+<p>DIR</p>
+<p>DIN</p>
+<p>DOUT</p>
+<p>SET</p>
+<p>CLR</p>
+<p>ODR</p>
+<p>PD</p>
+<p>PSL</p></td>
+<td><p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p>
+<p>uint32</p></td>
+<td><p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p>
+<p>0</p></td>
+<td><p>1023</p>
+<p>255</p>
+<p>32767</p>
+<p>65535</p>
+<p>65535</p>
+<p>65535</p>
+<p>255</p>
+<p>1023</p>
+<p>255</p>
+<p>65535</p>
+<p>7</p>
+<p>3</p>
+<p>255</p>
+<p>65535</p>
+<p>255</p>
+<p>3</p>
+<p>1</p>
+<p>3</p>
+<p>3</p>
+<p>3</p>
+<p>3</p>
+<p>3</p>
+<p>3</p>
+<p>3</p>
+<p>3</p></td>
+</tr>
+<tr class="even">
+<td>I2cTransferType</td>
+<td><p>Mode_Cnt_b32</p>
+<p>Length_Cnt_u32</p>
+<p>DataPtr_Cnt_u08</p></td>
+<td><p>uint32</p>
+<p>uint32</p>
+<p>*uint8</p></td>
+<td><p>FULL</p>
+<p>FULL</p>
+<p>FULL</p></td>
+<td><p>FULL</p>
+<p>FULL</p>
+<p>FULL</p></td>
+</tr>
+<tr class="odd">
+<td>enum i2cMode</td>
+<td><p>I2C_FD_FORMAT</p>
+<p>I2C_START_BYTE</p>
+<p>I2C_RESET_OUT</p>
+<p>I2C_DLOOPBACK</p>
+<p>I2C_REPEATMODE</p>
+<p>I2C_10BIT_AMODE</p>
+<p>I2C_TRANSMITTER</p>
+<p>I2C_MASTER</p>
+<p>I2C_STOP_COND</p>
+<p>I2C_START_COND</p>
+<p>I2C_FREE_RUN</p>
+<p>I2C_NACK_MODE</p></td>
+<td><p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p></td>
+<td><p>0x0008</p>
+<p>0x0010</p>
+<p>0x0020</p>
+<p>0x0040</p>
+<p>0x0080</p>
+<p>0x0100</p>
+<p>0x0200</p>
+<p>0x0400</p>
+<p>0x0800</p>
+<p>0x2000</p>
+<p>0x4000</p>
+<p>0x8000</p></td>
+<td><p>0x0008</p>
+<p>0x0010</p>
+<p>0x0020</p>
+<p>0x0040</p>
+<p>0x0080</p>
+<p>0x0100</p>
+<p>0x0200</p>
+<p>0x0400</p>
+<p>0x0800</p>
+<p>0x2000</p>
+<p>0x4000</p>
+<p>0x8000</p></td>
+</tr>
+<tr class="even">
+<td>enum i2cBitCount</td>
+<td><p>I2C_2_BIT</p>
+<p>I2C_3_BIT</p>
+<p>I2C_4_BIT</p>
+<p>I2C_5_BIT</p>
+<p>I2C_6_BIT</p>
+<p>I2C_7_BIT</p>
+<p>I2C_8_BIT</p></td>
+<td><p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p></td>
+<td><p>0x2</p>
+<p>0x3</p>
+<p>0x4</p>
+<p>0x5</p>
+<p>0x6</p>
+<p>0x7</p>
+<p>0x0</p></td>
+<td><p>0x2</p>
+<p>0x3</p>
+<p>0x4</p>
+<p>0x5</p>
+<p>0x6</p>
+<p>0x7</p>
+<p>0x0</p></td>
+</tr>
+<tr class="odd">
+<td>enum i2cIntFlags</td>
+<td><p>I2C_AL_INT</p>
+<p>I2C_NACK_INT</p>
+<p>I2C_ARDY_INT</p>
+<p>I2C_RX_INT</p>
+<p>I2C_TX_INT</p>
+<p>I2C_SCD_INT</p>
+<p>I2C_AAS_INT</p>
+<p>I2C_RECV_OVERRUN</p></td>
+<td><p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p></td>
+<td><p>0x0001</p>
+<p>0x0002</p>
+<p>0x0004</p>
+<p>0x0008</p>
+<p>0x0010</p>
+<p>0x0020</p>
+<p>0x0040</p>
+<p>0x0800</p></td>
+<td><p>0x0001</p>
+<p>0x0002</p>
+<p>0x0004</p>
+<p>0x0008</p>
+<p>0x0010</p>
+<p>0x0020</p>
+<p>0x0040</p>
+<p>0x0800</p></td>
+</tr>
+<tr class="even">
+<td>enum i2cStatFlags</td>
+<td><p>I2C_AL</p>
+<p>I2C_NACK</p>
+<p>I2C_ARDY</p>
+<p>I2C_RXRDY</p>
+<p>I2C_TXRDY</p>
+<p>I2C_SCD</p>
+<p>I2C_ADDRZEROST</p>
+<p>I2C_ADDRASSLV</p>
+<p>I2C_XSMT</p>
+<p>I2C_RXFULL</p>
+<p>I2C_BUSBUSY</p>
+<p>I2C_NACKMOD</p>
+<p>I2C_SLAVEDIR</p></td>
+<td><p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p>
+<p>uint16</p></td>
+<td><p>0x0001</p>
+<p>0x0002</p>
+<p>0x0004</p>
+<p>0x0008</p>
+<p>0x0010</p>
+<p>0x0020</p>
+<p>0x0100</p>
+<p>0x0200</p>
+<p>0x0400</p>
+<p>0x0800</p>
+<p>0x1000</p>
+<p>0x2000</p>
+<p>0x4000</p></td>
+<td><p>0x0001</p>
+<p>0x0002</p>
+<p>0x0004</p>
+<p>0x0008</p>
+<p>0x0010</p>
+<p>0x0020</p>
+<p>0x0100</p>
+<p>0x0200</p>
+<p>0x0400</p>
+<p>0x0800</p>
+<p>0x1000</p>
+<p>0x2000</p>
+<p>0x4000</p></td>
+</tr>
+<tr class="odd">
+<td>enum i2cDMA</td>
+<td><p>I2C_TXDMA</p>
+<p>I2C_RXDMA</p></td>
+<td><p>uint16</p>
+<p>uint16</p></td>
+<td><p>0x20</p>
+<p>0x10</p></td>
+<td><p>0x20</p>
+<p>0x10</p></td>
+</tr>
+<tr class="even">
+<td>struct g_i2cTransfer</td>
+<td><p>mode</p>
+<p>length</p>
+<p>*data</p></td>
+<td><p>uint32</p>
+<p>uint32</p>
+<p>uint8</p></td>
+<td><p>Full</p>
+<p>Full</p>
+<p>N/A</p></td>
+<td><p>Full</p>
+<p>Full</p>
+<p>N/A</p></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_CLKRESETPULSES_CNT_U08</td>
+<td>1</td>
+<td>Counts</td>
+<td>18</td>
+</tr>
+<tr class="even">
+<td>D_CLOCKPERIOD_US_U08</td>
+<td>1</td>
+<td>uS</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="i2c-init">I2C Init</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 30%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_Init</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<h3 id="i2c-enable">I2C Enable</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 30%" />
+<col style="width: 12%" />
+<col style="width: 10%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_Enable</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h3 id="i2c-reset">I2C Reset</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 29%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_Reset</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-2">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h3 id="i2c-setup-master-transmit">I2C Setup Master Transmit</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 29%" />
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SetupMasterTransmit</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SlaveAddress_Cnt_T_u08</td>
+<td>uint8</td>
+<td>In</td>
+<td>0</td>
+<td>127</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DataLength_Cnt_T_u16</td>
+<td>uint16</td>
+<td>In</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-3">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h3 id="i2c-setup-master-receive">I2C Setup Master Receive</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 32%" />
+<col style="width: 13%" />
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SetupMasterReceive</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SlaveAddress_Cnt_T_u08</td>
+<td>uint8</td>
+<td>In</td>
+<td>0</td>
+<td>127</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DataLength_Cnt_T_u16</td>
+<td>uint16</td>
+<td>In</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-4">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h3 id="i2c-switch-master-receive">I2C Switch Master Receive</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 33%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SwitchMasterReceive</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>DataLength_Cnt_T_u16</td>
+<td>uint16</td>
+<td>In</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-5">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h3 id="i2c-set-count">I2C Set Count</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 31%" />
+<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SetCount</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Count_Cnt_T_u16</td>
+<td>uint16</td>
+<td>In</td>
+<td>0</td>
+<td>65535</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-6">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<h3 id="i2c-set-own-address">I2C Set Own Address</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 32%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SetOwnAdd</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Address_Cnt_T_u16</td>
+<td>uint16</td>
+<td>In</td>
+<td>1</td>
+<td>127</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-7">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<h3 id="i2c-set-slave-address">I2C Set Slave Address</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 31%" />
+<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SetSlaveAdd</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Address_Cnt_T_u16</td>
+<td>uint16</td>
+<td>In</td>
+<td>1</td>
+<td>127</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-8">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<h3 id="i2c-set-functional">I2C Set Functional</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 32%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SetFunctional</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Port_Cnt_T_u08</td>
+<td>Uint8</td>
+<td>In</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-9">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<h3 id="i2c-set-baudrate">I2C Set Baudrate</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 31%" />
+<col style="width: 13%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SetBaudrate</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Baud_Hz_T_u32</td>
+<td>uint32</td>
+<td>In</td>
+<td>1</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-10">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<h3 id="i2c-is-tx-ready">I2C Is TX Ready</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 31%" />
+<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_IsTxReady</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Ready_Cnt_T_lgc</td>
+<td>boolean</td>
+<td>Out</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-11">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></p>
+<h3 id="i2c-send-byte">I2C Send Byte</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 34%" />
+<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SendByte</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Byte_Cnt_T_u08</td>
+<td>uint8</td>
+<td>In</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-12">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /></p>
+<h3 id="i2c-send">I2C Send</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 32%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_Send</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Length_Cnt_T_u32</td>
+<td>uint32</td>
+<td>In</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DataPtr_Cnt_T_u08</td>
+<td>*uint8</td>
+<td>In</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-13">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.emf" /></p>
+<h3 id="i2c-is-rx-ready">I2C Is RX Ready</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 31%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_IsRxReady</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Ready_Cnt_T_lgc</td>
+<td>boolean</td>
+<td>Out</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-14">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image15.emf" /></p>
+<h3 id="i2c-rx-error">I2C RX Error</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 35%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_RxError</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Status_Cnt_T_b32</td>
+<td>uint32</td>
+<td>Out</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-15">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image16.emf" /></p>
+<h3 id="i2c-receive-ready">I2C Receive Ready</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 38%" />
+<col style="width: 11%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_ReceiveByte</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Data_Cnt_T_u08</td>
+<td>uint8</td>
+<td>Out</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-16">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image17.emf" /></p>
+<h3 id="i2c-set-receive">I2C Set Receive</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 33%" />
+<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SetRecv</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Length_Cnt_T_u32</td>
+<td>uint32</td>
+<td>In</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DataPtr_Cnt_T_u08</td>
+<td>*uint8</td>
+<td>Out</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-17">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image18.emf" /></p>
+<h3 id="i2c-set-direction">I2C Set Direction</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 34%" />
+<col style="width: 11%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SetDirection</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Dir_Cnt_T_u08</td>
+<td>uint8</td>
+<td>In</td>
+<td>0</td>
+<td>3</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-18">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image19.emf" /></p>
+<h3 id="i2c-set-bit">I2C Set Bit</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 29%" />
+<col style="width: 13%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SetBit</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Bit_Cnt_T_u08</td>
+<td>uint8</td>
+<td>In</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Value_Cnt_T_u08</td>
+<td>uint8</td>
+<td>In</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-19">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image20.emf" /></p>
+<h3 id="i2c-get-bit">I2C Get Bit</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 32%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_GetBit</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Bit_Cnt_T_u08</td>
+<td>uint8</td>
+<td>In</td>
+<td>0</td>
+<td>31</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>Value_Cnt_T_u08</td>
+<td>uint8</td>
+<td>Out</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-20">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image21.emf" /></p>
+<h3 id="i2c-enable-notification">I2C Enable Notification</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 29%" />
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_EnableNotification</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Flags_Cnt_T_b32</td>
+<td>uint32</td>
+<td>In</td>
+<td>0</td>
+<td>127</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-21">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image22.emf" /></p>
+<h3 id="i2c-disable-notification">I2C Disable Notification</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 32%" />
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_DisableNotification</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Flags_Cnt_T_b32</td>
+<td>uint32</td>
+<td>In</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-22">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image23.emf" /></p>
+<h3 id="i2c-generate-start-condition">I2C Generate Start Condition</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 32%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_GenStartCond</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-23">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image24.emf" /></p>
+<h3 id="i2c-generate-stop-condition">I2C Generate Stop Condition</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 30%" />
+<col style="width: 14%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_GenStopCond</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-24">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image25.emf" /></p>
+<h3 id="i2c-get-interrupt-vector">I2C Get Interrupt Vector</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 30%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_GetIntVect</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Vector_Cnt_T_u08</td>
+<td>uint8</td>
+<td>Out</td>
+<td>0</td>
+<td>7</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-25">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image26.emf" /></p>
+<h3 id="i2c-get-status">I2C Get Status</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 32%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_GetStatus</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Status_Cnt_T_u16</td>
+<td>uint16</td>
+<td>Out</td>
+<td>0</td>
+<td>32767</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-26">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image27.emf" /></p>
+<h3 id="i2c-set-status">I2C Set Status</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 31%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 10%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>I2c_SetStatus</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>I2cRegPtr_Cnt_T_str</td>
+<td>i2cctrlregs_t</td>
+<td>In/Out</td>
+<td>See section 2.1.1</td>
+<td>See section 2.1.1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Status_Cnt_T_u16</td>
+<td>uint16</td>
+<td>In</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-27">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image28.emf" /></p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>None</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions"><br />
+Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions"><br />
+Interrupt Functions</h2>
+<h3 id="isr-isr_i2c">Isr: Isr_I2c</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Metrics_TaskStart(D_I2CNXT_CNT_U08)</p>
+<h4 id="i2c-notification">I2c Notification</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image29.emf" /></p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Metrics_TaskEnd(D_I2CNXT_CNT_U08)</p>
+<h2 id="serial-communication-functions"><br />
+Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="section-1"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>I2c_Init</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_Enable</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_Reset</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_SetupMasterTransmit</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_SetupMasterReceive</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_SwitchMasterReceive</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_SetCount</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_SetOwnAdd</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_SetSlaveAdd</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_SetFunctional</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_SetBaudrate</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_IsTxReady</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_SendByte</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_Send</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_IsRxReady</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_RxError</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_ReceiveByte</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_SetRecv</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_SetDirection</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_SetBit</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_GetBit</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_EnableNotification</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_DisableNotification</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_GenStartCond</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_GenStopCond</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_GetIntVect</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>I2c_GetStatus</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>I2c_SetStatus</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>Initial component creation</td>
+<td>22-Aug-13</td>
+<td>Jared</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2</td>
+<td>Add Metrics hook.</td>
+<td>7-Oct-13</td>
+<td>BWL</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3</td>
+<td>New enum is created and receiver overrun is checked when receive data</td>
+<td>24-Feb-14</td>
+<td>Rijvi</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4</td>
+<td>Updated init code to add new bit-banged SCK strobe for A6836</td>
+<td>3-Jun-14</td>
+<td>Jared</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5</td>
+<td>Updated as per Unit Test findings.</td>
+<td>24-Jul-14</td>
+<td>KPIT_SM</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,1331 @@
+---
+title: DigColPsInt_MDD
+linkTitle: DigColPsInt_MDD
+weight: 6
+---
+
+<h1 class="unnumbered" id="module----digital-column-position-sensor-i2c-interface">Module -- Digital Column Position Sensor (I2C) Interface</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module is responsible for the transport of sensor data between the I2C peripheral and the DigColPs Component. This module accomplishes this task by providing a number of interface functions. The functions handle the complexities of making request and handling the underlying interrupts to present the periodic task in the DigColPs module with the requested data on the next iteration.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>See DigColPs_MDD for sequence diagram and interaction between this module, the DigColPs module and the physical sensor.</p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">Type_Cnt_u08</td>
+<td>CommFaults_Cnt_b08</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>DataType_Cnt_u08</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>ColSnsrData_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td>SpurSnsrData_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2"></td>
+<td>DigColPsInt_I2CHwCustData_Uls_M_u16</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DigColPsInt_CurrentStepNo_Cnt_M_enum</td>
+<td>1</td>
+<td>0</td>
+<td>36</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_InitialTime_mS_M_u32</td>
+<td>1</td>
+<td>0</td>
+<td>FULL</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_ColSnsrData_Cnt_M_u16</td>
+<td>1</td>
+<td>0</td>
+<td>65535</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_SpurSnsrData_Cnt_M_u16</td>
+<td>1</td>
+<td>0</td>
+<td>65535</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_ColSnsrErrData_Cnt_D_u16</td>
+<td>1</td>
+<td>0</td>
+<td>FULL</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_ColSnsrExtErrData_Cnt_D_u16</td>
+<td>1</td>
+<td>0</td>
+<td>FULL</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_ColSnsrCheckStatData_Cnt_D_u16</td>
+<td>1</td>
+<td>0</td>
+<td>FULL</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_SpurSnsrErrData_Cnt_D_u16</td>
+<td>1</td>
+<td>0</td>
+<td>FULL</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_SpurSnsrExtErrData_Cnt_D_u16</td>
+<td>1</td>
+<td>0</td>
+<td>FULL</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_SpurSnsrCheckStatData_Cnt_D_u16</td>
+<td>1</td>
+<td>0</td>
+<td>FULL</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_CurrentSlave_Cnt_M_u08</td>
+<td>1</td>
+<td>0</td>
+<td>127</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_RecvdDataType_Cnt_M_u08</td>
+<td>1</td>
+<td>0</td>
+<td>5</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_Buffer_Cnt_M_u08[]</td>
+<td>1</td>
+<td>0</td>
+<td>255</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_PrevReqDataType_Cnt_M_u08</td>
+<td>1</td>
+<td>0</td>
+<td>5</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_TransactionCnt_Cnt_M_u08</td>
+<td>1</td>
+<td>0</td>
+<td>255</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_PrevTransactionCnt_Cnt_M_u0 8</td>
+<td>1</td>
+<td>0</td>
+<td>255</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_InitFailedOnce_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_BusBusySeqError_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_NackOccured_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_SkipRegisterWrite_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_RecvOverrunError_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_SensInitialized_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_I2CHwCustData_Uls_M_u16</td>
+<td>1</td>
+<td>0</td>
+<td>511</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_I2CHwIncompleteCustData_Uls_M_u16</td>
+<td>1</td>
+<td>0</td>
+<td>255</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_AttempOccurForCustDatRead_Cnt_M_u08</td>
+<td>1</td>
+<td>0</td>
+<td>11</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_8</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_CmdFailOccurred_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_ColCustDatFound_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_SpurCustDatFound_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>FALSE</td>
+<td>TRUE</td>
+<td>DIGCOLPSINT_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 44%" />
+<col style="width: 13%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CommStepType</td>
+<td><p>INIT_NOT_INITIALIZED</p>
+<p>INIT_SENSOR1_READERROR_SETREG</p>
+<p>INIT_SENSOR1_READERROR_READ</p>
+<p>INIT_SENSOR1_READEXTERR_SETREG</p>
+<p>INIT_SENSOR1_READEXTERR_READ</p>
+<p>INIT_SENSOR1_SENDCMD</p>
+<p>INIT_SENSOR1_CHECKSTAT_SETREG</p>
+<p>INIT_SENSOR1_CHECKSTAT_READ</p>
+<p>INIT_SENSOR2_READERROR_SETREG</p>
+<p>INIT_SENSOR2_READERROR_READ</p>
+<p>INIT_SENSOR2_READEXTERR_SETREG</p>
+<p>INIT_SENSOR2_READEXTERR_READ</p>
+<p>INIT_SENSOR2_SENDCMD</p>
+<p>INIT_SENSOR2_CHECKSTAT_SETREG</p>
+<p>INIT_SENSOR2_CHECKSTAT_READ</p>
+<p>INIT_SENSOR1_EXTREADADDRREG_SENDCMD</p>
+<p>INIT_SENSOR1_EXTREADCTRLREG_SENDCMD</p>
+<p>INIT_SENSOR1_DUMMY_SEND,</p>
+<p>INIT_SENSOR1_DUMMY_READ,</p>
+<p>INIT_SENSOR2_EXTREADADDRREG_SENDCMD</p>
+<p>INIT_SENSOR2_EXTREADCTRLREG_SENDCMD</p>
+<p>INIT_SENSOR2_DUMMY_SEND,</p>
+<p>INIT_SENSOR2_DUMMY_READ,</p>
+<p>INIT_SENSOR1_EXTREADCTRLREG_SETREG</p>
+<p>INIT_SENSOR1_EXTREADCTRLREG_READ</p>
+<p>INIT_SENSOR2_EXTREADCTRLREG_SETREG</p>
+<p>INIT_SENSOR2_EXTREADCTRLREG_READ</p>
+<p>INIT_SENSOR1_EXTREADDATREG_SETREG</p>
+<p>INIT_SENSOR1_EXTREADDATREG_READ</p>
+<p>INIT_SENSOR2_EXTREADDATREG_SETREG</p>
+<p>INIT_SENSOR2_EXTREADDATREG_READ</p>
+<p>INIT_COMPLETE</p>
+<p>READ_SENSOR1_SETREG</p>
+<p>READ_SENSOR1_GETDATA</p>
+<p>READ_SENSOR2_SETREG</p>
+<p>READ_SENSOR2_GETDATA</p>
+<p>READ_COMPLETE</p></td>
+<td><p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p>
+<p>uint8</p></td>
+<td><p>0</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p></td>
+<td><p>0</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5</p>
+<p>6</p>
+<p>7</p>
+<p>8</p>
+<p>9</p>
+<p>10</p>
+<p>11</p>
+<p>12</p>
+<p>13</p>
+<p>14</p>
+<p>15</p>
+<p>16</p>
+<p>17</p>
+<p>18</p>
+<p>19</p>
+<p>20</p>
+<p>21</p>
+<p>22</p>
+<p>23</p>
+<p>24</p>
+<p>25</p>
+<p>26</p>
+<p>27</p>
+<p>28</p>
+<p>29</p>
+<p>30</p>
+<p>31</p>
+<p>32</p>
+<p>33</p>
+<p>34</p>
+<p>35</p>
+<p>36</p></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_ColSensorI2CAddress_Cnt_u08</td>
+</tr>
+<tr class="even">
+<td>k_I2CHWInitTransactionTime_Sec_f32</td>
+</tr>
+<tr class="odd">
+<td>k_SpurSensorI2CAddress_Cnt_u08</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 17%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_COLSENSOR_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>D_SPURSENSOR_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>D_CLEARSTATUSBITS_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x0007</td>
+</tr>
+<tr class="even">
+<td>D_RESETCMD_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x0746</td>
+</tr>
+<tr class="odd">
+<td>D_EXTREADADDRREGCMD_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x0307</td>
+</tr>
+<tr class="even">
+<td>D_EXTREADCTRLREGCMD_CNT_U16</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x8000</td>
+</tr>
+<tr class="odd">
+<td>D_NACKOCCURRED_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>D_BBSEQERR_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>D_TRANSNOTCOMP_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>16</td>
+</tr>
+<tr class="even">
+<td>D_ANGLEDATA_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>D_NONE_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x00</td>
+</tr>
+<tr class="even">
+<td>D_ANGLEREG_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x20</td>
+</tr>
+<tr class="odd">
+<td>D_CONTROLREG_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x1E</td>
+</tr>
+<tr class="even">
+<td>D_ERRORREG_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x24</td>
+</tr>
+<tr class="odd">
+<td>D_EXTERRORREG_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x26</td>
+</tr>
+<tr class="even">
+<td>D_STATUSREG_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x22</td>
+</tr>
+<tr class="odd">
+<td>D_RECVOVERRUNERR_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x08</td>
+</tr>
+<tr class="even">
+<td>D_SENSINITDELAY_MS_U08</td>
+<td>1</td>
+<td>mS</td>
+<td>32</td>
+</tr>
+<tr class="odd">
+<td>D_CMDFAILED_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x20</td>
+</tr>
+<tr class="even">
+<td>D_EXTREADADDRREG_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x0A</td>
+</tr>
+<tr class="odd">
+<td>D_EXTREADCTRLREG_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x0C</td>
+</tr>
+<tr class="even">
+<td>D_EXTREADDATREG_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>0x0E</td>
+</tr>
+<tr class="odd">
+<td>D_MAXATTEMPTSFORCUSTDATREAD_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>D_SENSINITNOTDONE_CNT_U08</td>
+<td>1</td>
+<td>Cnt</td>
+<td>1&lt;&lt;7U (0x80)</td>
+</tr>
+<tr class="odd">
+<td>D_SECTOMILLSEC_CNT_F32</td>
+<td>1</td>
+<td>Cnt</td>
+<td>1000.0F</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T_DataRegisters_Cnt_u08[6]</td>
+<td>1</td>
+<td><p>D_NONE_CNT_U08,</p>
+<p>D_ANGLEREG_CNT_U08,</p>
+<p>D_CONTROLREG_CNT_U08,</p>
+<p>D_ERRORREG_CNT_U08,</p>
+<p>D_EXTERRORREG_CNT_U08,</p>
+<p>D_STATUSREG_CNT_U08,</p>
+<p>D_EXTREADADDRREG_CNT_U08,</p>
+<p>D_EXTREADCTRLREG_CNT_U08,</p>
+<p>D_EXTREADDATREG_CNT_U08</p></td>
+<td>DIGCOLPSINT_START_SEC_CONST_8</td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="initialize">Initialize</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DigColPsInt_Init</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<h3 id="get-data">Get Data</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DigColPsInt_GetData</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>ColSnsrDataPtr_Cnt_T_u16</td>
+<td>uint16</td>
+<td>Out</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SpurSnsrDataPtr_Cnt_T_u16</td>
+<td>uint16</td>
+<td>Out</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DataTypePtr_Cnt_T_u08</td>
+<td>uint8</td>
+<td>Out</td>
+<td>0</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>CommFaults_Cnt_T_b08</td>
+<td>uint8</td>
+<td>Out</td>
+<td>0</td>
+<td>16</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h3 id="start-request">Start Request</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DigColPsInt_StartRequest</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Type_Cnt_T_u08</td>
+<td>uint8</td>
+<td>Out</td>
+<td>0</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-2">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h3 id="interrupt-notification">Interrupt Notification</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DigColPsInt_InterruptNotification</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Flags_Cnt_T_b16</td>
+<td>uint16</td>
+<td>In</td>
+<td>1</td>
+<td>64</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>The interrupt notification function needs to be setup by the integrator to be called by the Isr_I2C interrupt service inside of the I2cNxtr component through the use of the I2cNxtr_Cfg.h header file. A template for that header file can be found in the I2cNxtr includes directory.</p>
+<p>In the FDD rev.005 the timeout requirement for ‘Customer Data’ read was 5 to 10 ms. Instead of timeout it is implemented by counting the ‘Number of Attempts’ occurred to read ‘Customer Data’, because it speeds up the interrupt execution time. ‘Number of Attempts’ required to fulfill the same timeout operation is determined in the following calculation.</p>
+<p>Number of bits sends and receives by the master to determine whether the ‘Customer Data’ is ready to read is 47bits.</p>
+<blockquote>
+<p>So for 100Kb baud speed total time required to check control register data for both column and spur sensors is (47*2)/100K = 0.94 ms</p>
+<p>Therefore for 5 ms timeout ‘Number of Attempts’ occurred = 5/0.94 = 5.32</p>
+<p>Similarly for 10 ms timeout ‘Number of Attempts’ occurred = 10/0.94 = 10.64</p>
+</blockquote>
+<p>Number <strong>10</strong> is chosen in this implementation</p>
+<h4 id="notification-processing">Notification Processing</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></p>
+<h3 id="get-cust-data">Get Cust Data</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DigColPsInt_GetCustData</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>DigColPsInt_I2CHwCustData_Uls_M_u16</td>
+<td>Uint16</td>
+<td>Out</td>
+<td>0</td>
+<td>511</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-3">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /></p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="setup-write---data">Setup Write - Data</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SetupWriteData</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Register_Cnt_T_u08</td>
+<td>uint8</td>
+<td>In</td>
+<td>0</td>
+<td>127</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Data_Cnt_T_u16</td>
+<td>uint16</td>
+<td>In</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-4">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.emf" /></p>
+<h3 id="setup-write---register">Setup Write - Register</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SetupWriteRegister</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Register_Cnt_T_u08</td>
+<td>uint8</td>
+<td>In</td>
+<td>0</td>
+<td>127</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-5">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image15.emf" /></p>
+<h3 id="setup-read">Setup Read</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SetupRead</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-6">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image16.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions"><br />
+Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions"><br />
+Interrupt Functions</h2>
+<h3 class="unnumbered" id="none">None</h3>
+<h2 id="serial-communication-functions"><br />
+Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="section-1"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DigColPsInt_Init</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_GetData</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_StartRequest</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td>DigColPsInt_InterruptNotification</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td>DigColPsInt_GetCustData</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions in GlobalMacro.h are not unit tested</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>Initial component creation</td>
+<td>21-Aug-13</td>
+<td>Jared</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2</td>
+<td><p>Implemented the FDD rev.003:</p>
+<p>Changed inside the functions DigColPsInt_Init(), DigColPsInt_GetData(), DigColPsInt_StartRequest() and DigColPsInt_InterruptNotification().</p>
+<p>Added delay before sensors initialization.</p>
+<p>Added six new display variables.</p>
+<p>Added receiver overrun error checking and action.</p>
+<p>Added a bit for receive overrun error in CommFaults_Cnt_T_b08</p></td>
+<td>27-Feb-14</td>
+<td>Rijvi</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3</td>
+<td><p>Implemented the FDD rev.005.</p>
+<p>Fixed anomaly 6089.</p>
+<p>Fixed anomaly 6471.</p></td>
+<td>20-Mar-14</td>
+<td>Rijvi</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4</td>
+<td>Implemented the FDD rev.006</td>
+<td>26-Mar-14</td>
+<td>Rijvi</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5</td>
+<td>Implemented the FDD rev 007</td>
+<td>11-May-14</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6</td>
+<td>Updated to FDD ver 008</td>
+<td>27-Jun-14</td>
+<td>Jared</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7</td>
+<td>Updated to FDD ver12 compatibility with DSS</td>
+<td>05-Sep-14</td>
+<td>Vishnu</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>8</td>
+<td>Unit Testing Finding Fixes</td>
+<td>13-Oct-14</td>
+<td>KPIT-PM</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,801 @@
+---
+title: SPNA148s
+linkTitle: SPNA148s
+weight: 13
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><i>Application&#160;Report</i><br/>
+<i>SPNA148&#160;–&#160;May&#160;2013</i><br/>
+<i><b>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</b></i><br/>
+<i>John&#160;R.&#160;Hall</i><br/>
+<b>ABSTRACT</b><br/>
+This&#160;application&#160;report&#160;gives&#160;the&#160;user&#160;of&#160;the&#160;F021&#160;Flash&#160;API&#160;the&#160;ability&#160;to&#160;write&#160;program&#160;and&#160;erase&#160;code&#160;in<br/>a&#160;way&#160;that&#160;is&#160;optimized&#160;to&#160;their&#160;applications.<br/>
+<b>Contents</b><br/>
+1<br/>
+Introduction&#160;..................................................................................................................&#160;<a href="SPNA148s.html#2">2</a><br/>
+2<br/>
+Flash&#160;Registers&#160;Used&#160;.......................................................................................................&#160;<a href="SPNA148s.html#2">2</a><br/>
+3<br/>
+Example&#160;Usage&#160;.............................................................................................................&#160;<a href="SPNA148s.html#5">5</a><br/>
+4<br/>
+References&#160;.................................................................................................................&#160;<a href="SPNA148s.html#11">11</a><br/>
+<b>List&#160;of&#160;Figures</b><br/>
+1<br/>
+Flash&#160;Address&#160;Register&#160;(FADDR)&#160;[offset&#160;=&#160;FFF8&#160;7110h]..............................................................&#160;<a href="SPNA148s.html#2">2</a><br/>
+2<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE0)&#160;[offset&#160;=&#160;FFF8&#160;7120h]&#160;............................&#160;<a href="SPNA148s.html#3">3</a><br/>
+3<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE1)&#160;[offset&#160;=&#160;FFF8&#160;7124h]&#160;............................&#160;<a href="SPNA148s.html#3">3</a><br/>
+4<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE2)&#160;[offset&#160;=&#160;FFF8&#160;7128h]&#160;............................&#160;<a href="SPNA148s.html#3">3</a><br/>
+5<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE3)&#160;[offset&#160;=&#160;FFF8&#160;712Ch]&#160;...........................&#160;<a href="SPNA148s.html#3">3</a><br/>
+6<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE4)&#160;[offset&#160;=&#160;FFF8&#160;7130h]&#160;............................&#160;<a href="SPNA148s.html#3">3</a><br/>
+7<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE5)&#160;[offset&#160;=&#160;FFF8&#160;7134h]&#160;............................&#160;<a href="SPNA148s.html#3">3</a><br/>
+8<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE6)&#160;[offset&#160;=&#160;FFF8&#160;7138h]&#160;............................&#160;<a href="SPNA148s.html#3">3</a><br/>
+9<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE7)&#160;[offset&#160;=&#160;FFF8&#160;713Ch]&#160;...........................&#160;<a href="SPNA148s.html#3">3</a><br/>
+10<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;ECC&#160;Register&#160;-&#160;288-Bit&#160;Bank&#160;(FWPWRITE_ECC)&#160;[offset&#160;=&#160;FFF8<br/>7140h]&#160;........................................................................................................................&#160;<a href="SPNA148s.html#4">4</a><br/>
+11<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;ECC&#160;Register&#160;-&#160;144-Bit&#160;Bank&#160;(FWPWRITE_ECC)&#160;[offset&#160;=&#160;FFF8<br/>7140h]&#160;........................................................................................................................&#160;<a href="SPNA148s.html#4">4</a><br/>
+12<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;ECC&#160;Register&#160;-&#160;72-Bit&#160;Bank&#160;(FWPWRITE_ECC)&#160;[offset&#160;=&#160;FFF8<br/>7140h]&#160;........................................................................................................................&#160;<a href="SPNA148s.html#4">4</a><br/>
+13<br/>
+Flash&#160;State&#160;Machine&#160;Command&#160;Register&#160;(FSM_COMMAND)&#160;[offset&#160;=&#160;FFF8&#160;720Ch]&#160;............................&#160;<a href="SPNA148s.html#5">5</a><br/>
+14<br/>
+Flash&#160;State&#160;Machine&#160;Command&#160;Execute&#160;Register&#160;(FSM_EXECUTE)&#160;[offset&#160;=&#160;FFF8&#160;72B4h]&#160;...................&#160;<a href="SPNA148s.html#5">5</a><br/>
+15<br/>
+Recommended&#160;Command&#160;Execution&#160;Flow..............................................................................&#160;<a href="SPNA148s.html#7">7</a><br/>
+<b>List&#160;of&#160;Tables</b><br/>
+1<br/>
+Additional&#160;Flash&#160;Control&#160;Registers&#160;.......................................................................................&#160;<a href="SPNA148s.html#2">2</a><br/>
+2<br/>
+Flash&#160;Address&#160;Register&#160;(FADDR)&#160;Field&#160;Descriptions&#160;..................................................................&#160;<a href="SPNA148s.html#2">2</a><br/>
+3<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE0)&#160;Field&#160;Descriptions&#160;................................&#160;<a href="SPNA148s.html#4">4</a><br/>
+4<br/>
+Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;ECC&#160;Register&#160;(FWPWRITE_ECC)&#160;Field&#160;Descriptions&#160;....................&#160;<a href="SPNA148s.html#4">4</a><br/>
+5<br/>
+Flash&#160;State&#160;Machine&#160;Command&#160;Register&#160;(FSM_COMMAND)&#160;Field&#160;Descriptions&#160;.................................&#160;<a href="SPNA148s.html#5">5</a><br/>
+6<br/>
+Flash&#160;State&#160;Machine&#160;Command&#160;Register&#160;(FSM_COMMAND)&#160;Field&#160;Descriptions&#160;.................................&#160;<a href="SPNA148s.html#5">5</a><br/>
+All&#160;trademarks&#160;are&#160;the&#160;property&#160;of&#160;their&#160;respective&#160;owners.<br/>
+SPNA148&#160;–&#160;May&#160;2013<br/>
+<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</i><br/>
+1<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA148"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=2></a><i>Introduction</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>1</b><br/>
+<b>Introduction</b><br/>
+The&#160;65nm&#160;Flash&#160;Technology&#160;used&#160;on&#160;Hercules&#160;devices&#160;generally&#160;requires&#160;the&#160;use&#160;of&#160;the&#160;F021&#160;Flash&#160;API<br/>to&#160;do&#160;program&#160;and&#160;erase&#160;operations.&#160;Since&#160;these&#160;functions&#160;need&#160;to&#160;cover&#160;all&#160;possible&#160;uses,&#160;they&#160;are<br/>generic,&#160;and&#160;not&#160;the&#160;most&#160;efficient&#160;functions&#160;available&#160;for&#160;all&#160;applications.&#160;Therefore,&#160;this&#160;document&#160;is<br/>designed&#160;to&#160;allow&#160;the&#160;user&#160;to&#160;write&#160;erase&#160;and&#160;program&#160;functions&#160;that&#160;are&#160;optimized&#160;for&#160;their&#160;application<br/>needs.&#160;The&#160;F021&#160;Flash&#160;API&#160;is&#160;still&#160;required&#160;for&#160;Flash&#160;initialization&#160;and&#160;bank&#160;selection.&#160;For&#160;recommended<br/>erase&#160;and&#160;program&#160;operation&#160;flows,&#160;see&#160;the&#160;<i>F021&#160;Flash&#160;API&#160;Reference&#160;Guide&#160;</i><a href="http://www.ti.com/lit/pdf/SPNU501">(SPNU501).</a><br/>
+<b>NOTE:&#160;<i>This&#160;document&#160;applies&#160;to&#160;all&#160;versions&#160;of&#160;the&#160;F021&#160;Flash&#160;API&#160;starting&#160;with&#160;v2.00.00.</i></b><br/>
+<b>2</b><br/>
+<b>Flash&#160;Registers&#160;Used</b><br/>
+In&#160;addition&#160;to&#160;the&#160;registers&#160;listed&#160;in&#160;the&#160;<i>F021&#160;Flash&#160;Module&#160;</i>chapter&#160;in&#160;the&#160;device-specific&#160;technical<br/>reference&#160;manual,&#160;<a href="SPNA148s.html#2">Table&#160;1&#160;</a>lists&#160;registers&#160;specifically&#160;needed&#160;for&#160;program&#160;and&#160;erase&#160;operations.<br/>
+<b>Table&#160;1.&#160;Additional&#160;Flash&#160;Control&#160;Registers</b><br/>
+<b>Offset</b><br/>
+<b>Acronym</b><br/>
+<b>Register&#160;Description</b><br/>
+<b>Section</b><br/>
+FFF8&#160;7110<br/>
+FADDR<br/>
+The&#160;absolute&#160;address&#160;of&#160;the&#160;data&#160;that&#160;the&#160;CPU&#160;would&#160;use&#160;to<br/>
+<a href="SPNA148s.html#2">Section&#160;2.1</a><br/>
+access&#160;the&#160;location.<br/>
+FFF8&#160;7120<br/>
+FWPWRITE0<br/>
+WPDATA[31:&#160;00]<br/>
+<a href="SPNA148s.html#3">Section&#160;2.2</a><br/>
+FFF8&#160;7124<br/>
+FWPWRITE1<br/>
+WPDATA[63:32]<br/>
+<a href="SPNA148s.html#3">Section&#160;2.2</a><br/>
+FFF8&#160;7128<br/>
+FWPWRITE2<br/>
+WPDATA[95:64]<br/>
+<a href="SPNA148s.html#3">Section&#160;2.2</a><br/>
+FFF8&#160;712C<br/>
+FWPWRITE3<br/>
+WPDATA[127:96]<br/>
+<a href="SPNA148s.html#3">Section&#160;2.2</a><br/>
+FFF8&#160;7130<br/>
+FWPWRITE4<br/>
+WPDATA[159:128]<br/>
+<a href="SPNA148s.html#3">Section&#160;2.2</a><br/>
+FFF8&#160;7134<br/>
+FWPWRITE5<br/>
+WPDATA[191:160]<br/>
+<a href="SPNA148s.html#3">Section&#160;2.2</a><br/>
+FFF8&#160;7138<br/>
+FWPWRITE6<br/>
+WPDATA[223:192]<br/>
+<a href="SPNA148s.html#3">Section&#160;2.2</a><br/>
+FFF8&#160;713C<br/>
+FWPWRITE7<br/>
+WPDATA[255:224]<br/>
+<a href="SPNA148s.html#3">Section&#160;2.2</a><br/>
+FFF8&#160;7140<br/>
+FWPWRITE_ECC<br/>
+Contains&#160;the&#160;ECC&#160;bits&#160;for&#160;the&#160;FWPWRITE7:0&#160;registers<br/>
+<a href="SPNA148s.html#4">Section&#160;2.3</a><br/>
+FFF8&#160;720C<br/>
+FSM_COMMAND<br/>
+The&#160;command&#160;to&#160;be&#160;executed<br/>
+<a href="SPNA148s.html#5">Section&#160;2.4</a><br/>
+FFF8&#160;72B4<br/>
+FSM_EXECUTE<br/>
+Execute&#160;the&#160;command&#160;in&#160;the&#160;FSM_COMMAND&#160;register<br/>
+<a href="SPNA148s.html#5">Section&#160;2.5</a><br/>
+<i><b>2.1</b></i><br/>
+<i><b>Flash&#160;Address&#160;Register&#160;(FADDR)</b></i><br/>
+This&#160;register&#160;contains&#160;the&#160;absolute&#160;address&#160;of&#160;the&#160;location&#160;to&#160;be&#160;programmed,&#160;or&#160;area&#160;to&#160;be&#160;erased.&#160;For<br/>FSM&#160;operations,&#160;this&#160;register&#160;can&#160;contain&#160;the&#160;main&#160;Flash,&#160;data&#160;Flash&#160;or&#160;Customer&#160;OTP&#160;addresses.&#160;The<br/>ECC&#160;regions&#160;at&#160;0xF01x_xxxx&#160;or&#160;0xF02x_xxxx&#160;are&#160;illegal&#160;regions&#160;because&#160;the&#160;ECC&#160;programs&#160;must&#160;be<br/>done&#160;using&#160;the&#160;address&#160;of&#160;the&#160;data&#160;that&#160;ECC&#160;protects&#160;and&#160;the&#160;FWPWRITE_ECC&#160;register.&#160;FADDR&#160;is&#160;used<br/>by&#160;Program&#160;and&#160;Erase&#160;commands.<br/>
+The&#160;Flash&#160;address&#160;register&#160;is&#160;shown&#160;in&#160;<a href="SPNA148s.html#2">Figure&#160;1&#160;</a>and&#160;described&#160;in&#160;<a href="SPNA148s.html#2">Table&#160;2.</a><br/>
+<b>Figure&#160;1.&#160;Flash&#160;Address&#160;Register&#160;(FADDR)&#160;[offset&#160;=&#160;FFF8&#160;7110h]</b><br/>
+31<br/>
+0<br/>
+ADDR<br/>
+RWP<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode&#160;with&#160;FLOCK=any&#160;value<br/>
+<b>Table&#160;2.&#160;Flash&#160;Address&#160;Register&#160;(FADDR)&#160;Field&#160;Descriptions</b><br/>
+<b>Bit</b><br/>
+<b>Field</b><br/>
+<b>Value</b><br/>
+<b>Description</b><br/>
+31:0<br/>
+ADDR<br/>
+CPU&#160;address&#160;to&#160;be<br/>
+Absolute&#160;address&#160;of&#160;the&#160;data&#160;that&#160;the&#160;CPU&#160;would&#160;use&#160;to&#160;access&#160;the&#160;location.<br/>
+operated&#160;on&#160;by&#160;the<br/>
+command<br/>
+2<br/>
+<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</i><br/>
+SPNA148&#160;–&#160;May&#160;2013<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA148"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=3></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Flash&#160;Registers&#160;Used</i><br/>
+<i><b>2.2</b></i><br/>
+<i><b>Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE0-7)</b></i><br/>
+The&#160;Flash&#160;wide&#160;programming&#160;write&#160;data&#160;register&#160;is&#160;shown&#160;in&#160;<a href="SPNA148s.html#3">Figure&#160;2&#160;</a>through&#160;<a href="SPNA148s.html#3">Figure&#160;9&#160;</a>and&#160;described&#160;in<br/><a href="SPNA148s.html#4">Table&#160;3</a>.<br/>
+<b>Figure&#160;2.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE0)&#160;[offset&#160;=&#160;FFF8&#160;7120h]</b><br/>
+31<br/>
+0<br/>
+WPDATA[31:00]<br/>
+RWP<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode<br/>
+<b>Figure&#160;3.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE1)&#160;[offset&#160;=&#160;FFF8&#160;7124h]</b><br/>
+31<br/>
+0<br/>
+WPDATA[63:32]<br/>
+RWP<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode<br/>
+<b>Figure&#160;4.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE2)&#160;[offset&#160;=&#160;FFF8&#160;7128h]</b><br/>
+31<br/>
+0<br/>
+WPDATA[95:64]<br/>
+RWP<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode<br/>
+<b>Figure&#160;5.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE3)&#160;[offset&#160;=&#160;FFF8&#160;712Ch]</b><br/>
+31<br/>
+0<br/>
+WPDATA[127:96]<br/>
+RWP<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode<br/>
+<b>Figure&#160;6.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE4)&#160;[offset&#160;=&#160;FFF8&#160;7130h]</b><br/>
+31<br/>
+0<br/>
+WPDATA[159:128]<br/>
+RWP<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode<br/>
+<b>Figure&#160;7.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE5)&#160;[offset&#160;=&#160;FFF8&#160;7134h]</b><br/>
+31<br/>
+0<br/>
+WPDATA[191:160]<br/>
+RWP<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode<br/>
+<b>Figure&#160;8.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE6)&#160;[offset&#160;=&#160;FFF8&#160;7138h]</b><br/>
+31<br/>
+0<br/>
+WPDATA[223:192]<br/>
+RWP<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode<br/>
+<b>Figure&#160;9.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE7)&#160;[offset&#160;=&#160;FFF8&#160;713Ch]</b><br/>
+31<br/>
+0<br/>
+WPDATA[255:224]<br/>
+RWP<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode<br/>
+SPNA148&#160;–&#160;May&#160;2013<br/>
+<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</i><br/>
+3<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA148"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=4></a><i>Flash&#160;Registers&#160;Used</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<b>Table&#160;3.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;Register&#160;(FWPWRITE0)&#160;Field&#160;Descriptions</b><br/>
+<b>Bit</b><br/>
+<b>Field</b><br/>
+<b>Value</b><br/>
+<b>Description</b><br/>
+255:0<br/>
+WPDATA<br/>
+Data&#160;to&#160;be<br/>
+This&#160;register&#160;contains&#160;the&#160;data&#160;to&#160;program&#160;into&#160;the&#160;flash&#160;memory.&#160;Each&#160;write&#160;will&#160;set&#160;data&#160;bits&#160;and<br/>
+[255:0]<br/>
+programmed<br/>
+another&#160;internal&#160;<i><b>byte&#160;enable&#160;bit&#160;</b></i>for&#160;each&#160;byte&#160;to&#160;be&#160;written&#160;by&#160;the&#160;FSM.&#160;The&#160;FWPWRITE&#160;register&#160;is<br/>set&#160;to&#160;all&#160;ones&#160;after&#160;writing&#160;to&#160;the&#160;FADDR&#160;register&#160;or&#160;when&#160;the&#160;FSM&#160;completes&#160;an&#160;operation.<br/>
+For&#160;128-144-bit&#160;banks,&#160;only&#160;FWPWRITE0-3&#160;are&#160;used&#160;during&#160;programming.&#160;FWPWRITE4-7&#160;are<br/>unused.&#160;For&#160;64-72-bit&#160;banks,&#160;use&#160;only&#160;FWPWRITE0-1&#160;are&#160;used&#160;during&#160;programming.<br/>
+Unused&#160;bits&#160;can&#160;be&#160;written&#160;and&#160;read&#160;but&#160;they&#160;will&#160;not&#160;be&#160;part&#160;of&#160;the&#160;bank&#160;operations.<br/>
+<b>NOTE:</b><br/>
+Do&#160;not&#160;write&#160;to&#160;this&#160;register&#160;while&#160;a&#160;FSM&#160;operation&#160;is&#160;active.<br/>
+<i><b>2.3</b></i><br/>
+<i><b>Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;ECC&#160;Register&#160;(FWPWRITE_ECC)</b></i><br/>
+The&#160;Flash&#160;wide&#160;programming&#160;write&#160;ECC&#160;register&#160;is&#160;shown&#160;in&#160;<a href="SPNA148s.html#4">Figure&#160;10&#160;</a>through&#160;<a href="SPNA148s.html#4">Figure&#160;12&#160;</a>and<br/>described&#160;in&#160;<a href="SPNA148s.html#4">Table&#160;4.</a><br/>
+<b>Figure&#160;10.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;ECC&#160;Register&#160;-&#160;288-Bit&#160;Bank&#160;(FWPWRITE_ECC)</b><br/>
+<b>[offset&#160;=&#160;FFF8&#160;7140h]</b><br/>
+31<br/>
+24&#160;23<br/>
+16&#160;15<br/>
+8<br/>
+7<br/>
+0<br/>
+ECC&#160;for&#160;Bytes&#160;7:0<br/>
+ECC&#160;for&#160;Bytes&#160;15:8<br/>
+ECC&#160;for&#160;Bytes&#160;23:16<br/>
+ECC&#160;for&#160;Bytes&#160;31:24<br/>
+RWP<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode&#160;with&#160;FLOCK=any&#160;value<br/>
+<b>Figure&#160;11.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;ECC&#160;Register&#160;-&#160;144-Bit&#160;Bank&#160;(FWPWRITE_ECC)</b><br/>
+<b>[offset&#160;=&#160;FFF8&#160;7140h]</b><br/>
+31<br/>
+24&#160;23<br/>
+16&#160;15<br/>
+0<br/>
+ECC&#160;for&#160;Bytes&#160;7:0<br/>
+ECC&#160;for&#160;Bytes&#160;15:8<br/>
+Reserved<br/>
+RWP<br/>
+RWP=FF<br/>
+FF_FFFF<br/>
+h<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode&#160;with&#160;FLOCK=any&#160;value<br/>
+<b>Figure&#160;12.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;ECC&#160;Register&#160;-&#160;72-Bit&#160;Bank&#160;(FWPWRITE_ECC)</b><br/>
+<b>[offset&#160;=&#160;FFF8&#160;7140h]</b><br/>
+31<br/>
+24&#160;23<br/>
+0<br/>
+ECC&#160;for&#160;Bytes&#160;7:0<br/>
+Reserved<br/>
+RWP<br/>
+RWP=FFF<br/>
+F_FFFFh<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode&#160;with&#160;FLOCK=any&#160;value<br/>
+<b>Table&#160;4.&#160;Flash&#160;Wide&#160;Programming&#160;Write&#160;Data&#160;ECC&#160;Register&#160;(FWPWRITE_ECC)&#160;Field&#160;Descriptions</b><br/>
+<b>Bit</b><br/>
+<b>Field</b><br/>
+<b>Value</b><br/>
+<b>Description</b><br/>
+31:0<br/>
+ECC<br/>
+ECC&#160;Data&#160;to&#160;be<br/>
+This&#160;register&#160;contains&#160;the&#160;ECC&#160;bits&#160;for&#160;the&#160;FWPWRITE7:0&#160;registers.&#160;The&#160;location&#160;of&#160;the&#160;ECC<br/>
+[31:0]<br/>
+programmed<br/>
+bits&#160;corresponding&#160;to&#160;the&#160;data&#160;depends&#160;on&#160;the&#160;device&#160;configuration.&#160;The&#160;three&#160;supported<br/>configurations&#160;are&#160;shown&#160;above.<br/>
+Unused&#160;bits&#160;can&#160;be&#160;written&#160;and&#160;read&#160;but&#160;they&#160;will&#160;not&#160;be&#160;part&#160;of&#160;the&#160;bank&#160;operations.<br/>
+This&#160;register&#160;is&#160;an&#160;extension&#160;of&#160;the&#160;FWPWRITE&#160;register.&#160;Do&#160;not&#160;write&#160;to&#160;this&#160;register&#160;while&#160;a<br/>FSM&#160;operation&#160;is&#160;active.&#160;This&#160;register&#160;is&#160;set&#160;to&#160;all&#160;ones&#160;just&#160;like&#160;the&#160;FWPWRITEx&#160;registers.<br/>
+4<br/>
+<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</i><br/>
+SPNA148&#160;–&#160;May&#160;2013<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA148"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=5></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Example&#160;Usage</i><br/>
+<i><b>2.4</b></i><br/>
+<i><b>Flash&#160;State&#160;Machine&#160;Command&#160;Register&#160;(FSM_COMMAND)</b></i><br/>
+The&#160;Flash&#160;state&#160;machine&#160;command&#160;register&#160;is&#160;shown&#160;in&#160;<a href="SPNA148s.html#5">Figure&#160;13&#160;</a>and&#160;described&#160;in&#160;<a href="SPNA148s.html#5">Table&#160;5</a>.<br/>
+<b>Figure&#160;13.&#160;Flash&#160;State&#160;Machine&#160;Command&#160;Register&#160;(FSM_COMMAND)&#160;[offset&#160;=&#160;FFF8&#160;720Ch]</b><br/>
+31<br/>
+6<br/>
+5<br/>
+4<br/>
+3<br/>
+2<br/>
+1<br/>
+0<br/>
+Reserved<br/>
+FSM_CMD<br/>
+R-0<br/>
+RWP<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode<br/>
+<b>Table&#160;5.&#160;Flash&#160;State&#160;Machine&#160;Command&#160;Register&#160;(FSM_COMMAND)&#160;Field&#160;Descriptions</b><br/>
+<b>Bit</b><br/>
+<b>Field</b><br/>
+<b>Value</b><br/>
+<b>Description</b><br/>
+31:6<br/>
+Reserved<br/>
+0<br/>
+These&#160;are&#160;reserved&#160;bits<br/>
+5:0<br/>
+FSM_CMD<br/>
+Refer&#160;to&#160;the&#160;supported&#160;commands&#160;listed&#160;in&#160;Appendix&#160;A&#160;of&#160;<i>F021&#160;Flash&#160;API&#160;Reference&#160;Guide<br/></i>(<a href="http://www.ti.com/lit/pdf/SPNU501">SPNU501</a>).&#160;Writes&#160;to&#160;this&#160;register&#160;are&#160;blocked&#160;if&#160;the&#160;state&#160;machine&#160;is&#160;busy.&#160;The&#160;only<br/>exception&#160;is&#160;to&#160;write&#160;the&#160;suspend&#160;command.<br/>
+<i><b>2.5</b></i><br/>
+<i><b>Flash&#160;State&#160;Machine&#160;Command&#160;Execute&#160;Register&#160;(FSM_EXECUTE)</b></i><br/>
+The&#160;Flash&#160;state&#160;machine&#160;command&#160;execute&#160;register&#160;is&#160;shown&#160;in&#160;<a href="SPNA148s.html#5">Figure&#160;14&#160;</a>and&#160;described&#160;in&#160;<a href="SPNA148s.html#5">Table&#160;6</a>.<br/>
+<b>Figure&#160;14.&#160;Flash&#160;State&#160;Machine&#160;Command&#160;Execute&#160;Register&#160;(FSM_EXECUTE)&#160;[offset&#160;=&#160;FFF8&#160;72B4h]</b><br/>
+31<br/>
+20<br/>
+19<br/>
+18<br/>
+17<br/>
+16<br/>
+Reserved<br/>
+SUSPEND_NOW<br/>
+R-0<br/>
+RWP-1010<br/>
+15<br/>
+5<br/>
+4<br/>
+3<br/>
+2<br/>
+1<br/>
+0<br/>
+Reserved<br/>
+FSMEXECUTE<br/>
+R-0<br/>
+RWP-01010<br/>
+LEGEND:&#160;-<i>n&#160;</i>=&#160;value&#160;after&#160;reset,&#160;R=Read,&#160;WP=Write&#160;in&#160;Privilege&#160;Mode<br/>
+<b>Table&#160;6.&#160;Flash&#160;State&#160;Machine&#160;Command&#160;Register&#160;(FSM_COMMAND)&#160;Field&#160;Descriptions</b><br/>
+<b>Bit</b><br/>
+<b>Field</b><br/>
+<b>Value</b><br/>
+<b>Description</b><br/>
+31:20<br/>
+Reserved<br/>
+0<br/>
+These&#160;are&#160;reserved&#160;bits<br/>
+19:16<br/>
+SUSPEND_NOW<br/>
+0101<br/>
+Writing&#160;a&#160;5&#160;to&#160;this&#160;register&#160;will&#160;suspend&#160;the&#160;Program&#160;or&#160;Erase&#160;sector&#160;command.&#160;Writes&#160;to<br/>this&#160;register&#160;are&#160;ignored&#160;unless&#160;the&#160;FSM&#160;is&#160;busy&#160;with&#160;one&#160;of&#160;these&#160;commands.&#160;This&#160;field<br/>resets&#160;to&#160;‘1010’&#160;when&#160;the&#160;FSM&#160;enters&#160;the&#160;standby&#160;state&#160;where&#160;it&#160;waits&#160;for&#160;the&#160;next<br/>command.&#160;It&#160;will&#160;not&#160;retain&#160;the&#160;written&#160;value&#160;for&#160;long.&#160;The&#160;Bank&#160;erase&#160;command&#160;and&#160;every<br/>command&#160;except&#160;those&#160;two&#160;commands&#160;above&#160;are&#160;not&#160;suspendable&#160;and&#160;will&#160;ignore&#160;the<br/>suspend&#160;command.&#160;A&#160;suspend&#160;operation&#160;will&#160;exit&#160;the&#160;FSM&#160;with&#160;the&#160;proper&#160;setup&#160;and&#160;hold<br/>times&#160;for&#160;the&#160;various&#160;modes.<br/>
+15:5<br/>
+Reserved<br/>
+0<br/>
+These&#160;are&#160;reserved&#160;bits<br/>
+4:0<br/>
+FSMEXECUTE<br/>
+01010<br/>
+To&#160;invoke&#160;a&#160;FSM&#160;command&#160;this&#160;register&#160;must&#160;be&#160;written&#160;with&#160;a&#160;value&#160;of&#160;10101.&#160;This&#160;register<br/>is&#160;reset&#160;back&#160;to&#160;01010&#160;by&#160;the&#160;FSM&#160;upon&#160;completion&#160;of&#160;the&#160;command&#160;operation.&#160;Writes&#160;to<br/>this&#160;register&#160;are&#160;ignored&#160;while&#160;the&#160;FSM&#160;is&#160;busy.&#160;All&#160;others&#160;registers&#160;must&#160;be&#160;set&#160;up&#160;before<br/>writing&#160;to&#160;this&#160;command.&#160;Writing&#160;a&#160;15h&#160;to&#160;this&#160;field&#160;is&#160;the&#160;last&#160;step&#160;to&#160;starting&#160;an&#160;FSM<br/>operation.<br/>
+<b>3</b><br/>
+<b>Example&#160;Usage</b><br/>
+The&#160;following&#160;examples&#160;show&#160;some&#160;typically&#160;use&#160;cases&#160;in&#160;writing&#160;code&#160;using&#160;the&#160;Flash&#160;Memory&#160;Controller<br/>registers.&#160;The&#160;example&#160;code&#160;segments&#160;make&#160;use&#160;of&#160;the&#160;following&#160;framework&#160;code.&#160;For&#160;API&#160;functions&#160;used<br/>in&#160;these&#160;examples,&#160;see&#160;the&#160;<i>F021&#160;Flash&#160;API&#160;Reference&#160;Guide&#160;</i>(<a href="http://www.ti.com/lit/pdf/SPNU501">SPNU501).&#160;</a>For&#160;proper&#160;initialization&#160;of&#160;the<br/>device&#160;prior&#160;to&#160;any&#160;Flash&#160;operations,&#160;see&#160;the&#160;device-specific&#160;initialization&#160;document.&#160;All&#160;FMC&#160;register<br/>writes&#160;require&#160;the&#160;device&#160;to&#160;be&#160;in&#160;a&#160;privilege&#160;state.<br/>
+SPNA148&#160;–&#160;May&#160;2013<br/>
+<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</i><br/>
+5<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA148"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=6></a><i>Example&#160;Usage</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+#include&#160;“F021.h”<br/>
+int&#160;main&#160;(void)<br/>
+{<br/>
+Fapi_StatusType&#160;oReturnCheck&#160;=&#160;Fapi_Status_Success;<br/>
+FwpWriteByteAccessorType<br/>
+*&#160;oFwpWriteByteAccessor<br/>
+=&#160;FWPWRITE_BYTE_ACCESSOR_ADDRESS;<br/>
+FwpWriteByteAccessorType<br/>
+*&#160;oFwpWriteEccByteAccessor&#160;=&#160;FWPWRITE_ECC_BYTE_ACCESSOR_ADDRESS;<br/>
+FwpWriteDWordAccessorType&#160;*&#160;oFwpWriteDWordAccessor<br/>
+=&#160;FWPWRITE_DWORD_ACCESSOR_ADDRESS;<br/>
+uint8&#160;au8MainDataBuffer[16]&#160;=&#160;{0x78,&#160;0x17,&#160;0x19,&#160;0x2E,&#160;0x0A,&#160;0xB9,&#160;0x11,&#160;0x70,<br/>
+0x5F,&#160;0xC1,&#160;0x9C,&#160;0xFD,&#160;0x54,&#160;0x51,&#160;0xED,&#160;0x86};<br/>
+uint32&#160;u32Index;<br/>
+/*<br/>
+For&#160;proper&#160;initialization&#160;of&#160;the&#160;device&#160;prior&#160;to&#160;any&#160;Flash<br/>
+operations,<br/>
+see&#160;the&#160;device-specific&#160;initialization&#160;document.<br/>
+Assumes,&#160;unless&#160;otherwise&#160;noted,&#160;device&#160;has&#160;144bit&#160;wide&#160;Flash&#160;Banks.<br/>
+*/<br/>
+oReturnCheck&#160;=&#160;Fapi_initializeFlashBanks(180);<br/>
+/*&#160;Example&#160;code&#160;is&#160;assuming&#160;operating<br/>
+frequency&#160;of&#160;180&#160;MHz&#160;*/<br/>
+if((oReturnCheck&#160;==&#160;Fapi_Status_Success)&#160;&amp;&amp;<br/>
+(FLASH_CONTROL_REGISTER-&gt;FmStat.FMSTAT_BITS.Busy&#160;!=&#160;Fapi_Status_FsmBusy))<br/>
+{<br/>
+oReturnCheck&#160;=&#160;Fapi_setActiveFlashBank(Fapi_FlashBank0);<br/>
+/*&#160;Place&#160;specific&#160;example&#160;code&#160;here&#160;*/<br/>
+/*&#160;Wait&#160;for&#160;FSM&#160;to&#160;finish&#160;*/<br/>
+while(FLASH_CONTROL_REGISTER-&gt;FmStat.FMSTAT_BITS.Busy&#160;==&#160;Fapi_Status_FsmBusy);<br/>
+/*&#160;Check&#160;the&#160;FSM&#160;Status&#160;to&#160;see&#160;if&#160;there&#160;were&#160;no&#160;errors&#160;*/<br/>
+if&#160;(FLASH_CONTROL_REGISTER-&gt;FmStat.u32Register&#160;!=&#160;0)<br/>
+{<br/>
+/*&#160;Put&#160;Error&#160;handling&#160;code&#160;here&#160;*/<br/>
+}<br/>
+}<br/>
+}<br/>
+6<br/>
+<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</i><br/>
+SPNA148&#160;–&#160;May&#160;2013<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA148"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=7></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Example&#160;Usage</i><br/>
+<i><b>3.1</b></i><br/>
+<i><b>Typical&#160;Command&#160;Execution&#160;Flow</b></i><br/>
+<a href="SPNA148s.html#7">Figure&#160;15&#160;</a>shows&#160;the&#160;typical&#160;flow&#160;for&#160;issuing&#160;an&#160;erase&#160;or&#160;program&#160;command.<br/>
+Start<br/>
+No<br/>
+Yes<br/>
+<b>CHECK_FSM_READY_BUSY<i>&#160;</i></b><br/>
+<i><b>=</b></i>=&#160;<i>Fapi_Status_FsmReady</i><br/>
+Load&#160;FSM_COMMAND&#160;register&#160;field&#160;<br/>
+FSM_CMD&#160;with&#160;Fapi_ClearStatus<br/>
+Load&#160;FSM_EXECUTE&#160;register&#160;field&#160;<br/>
+FSM_EXECUTE&#160;with&#160;0x15<br/>
+<i>For&#160;Erase&#160;and&#160;Program&#160;commands,&#160;</i><br/>
+<i>load&#160;FADDR&#160;register&#160;with&#160;</i><br/>
+<i>appropriate&#160;address</i><br/>
+<i>For&#160;Program&#160;command,&#160;load&#160;<br/>FWPWRITEx&#160;register(s)&#160;with&#160;</i><br/>
+<i>appropriate&#160;data&#160;values</i><br/>
+Load&#160;FSM_COMMAND&#160;register&#160;field&#160;<br/>
+FSM_CMD&#160;with&#160;one&#160;of&#160;these&#160;<br/>
+commands:&#160;<i>Fapi_ProgramData,&#160;</i><br/>
+<i>Fapi_EraseSector,&#160;Fapi_EraseBank</i><br/>
+Load&#160;FSM_EXECUTE&#160;register&#160;field&#160;<br/>
+FSM_EXECUTE&#160;with&#160;0x15<br/>
+Done<br/>
+<b>Figure&#160;15.&#160;Recommended&#160;Command&#160;Execution&#160;Flow</b><br/>
+SPNA148&#160;–&#160;May&#160;2013<br/>
+<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</i><br/>
+7<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA148"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=8></a><i>Example&#160;Usage</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<i><b>3.2</b></i><br/>
+<i><b>Programming&#160;Operations</b></i><br/>
+<b>3.2.1</b><br/>
+<b>Programming&#160;a&#160;Single&#160;Byte</b><br/>
+The&#160;following&#160;code&#160;segement&#160;will&#160;write&#160;a&#160;single&#160;byte&#160;to&#160;the&#160;address&#160;specified.<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register&#160;=&#160;1U;<br/>
+/*&#160;Disable&#160;Level&#160;1&#160;Protection&#160;*/<br/>
+/*&#160;Enable&#160;all&#160;sectors&#160;of&#160;current&#160;bank&#160;for&#160;erase&#160;and&#160;program.<br/>
+For&#160;EEPROM&#160;banks&#160;with&#160;more<br/>
+than&#160;16&#160;sectors,&#160;this&#160;must&#160;be&#160;0xFFFF&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbse.u32Register&#160;=&#160;0xFFFF;<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register&#160;=&#160;0U;<br/>
+/*&#160;Enable&#160;Level&#160;1&#160;Protection&#160;*/<br/>
+/*Unlock&#160;FSM&#160;registers&#160;for&#160;writing&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register<br/>
+=&#160;0x5U;<br/>
+/*&#160;Set&#160;command&#160;to&#160;&#34;Clear&#160;the&#160;Status&#160;Register&#34;&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD&#160;=&#160;Fapi_ClearStatus;<br/>
+/*&#160;Execute&#160;the&#160;Clear&#160;Status&#160;command&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE&#160;=&#160;0x15U;<br/>
+/*&#160;Write&#160;address&#160;to&#160;FADDR&#160;register&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;Faddr.u32Register&#160;=&#160;0x0100U;<br/>
+/*&#160;Placing&#160;byte&#160;at&#160;address&#160;0x0102&#160;*/<br/>
+oFwpWriteByteAccessor[2]&#160;=&#160;0xA5;<br/>
+/*&#160;Set&#160;command&#160;to&#160;&#34;Program&#34;&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD&#160;=&#160;Fapi_ProgramData;<br/>
+/*&#160;Execute&#160;the&#160;Program&#160;command&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE&#160;=&#160;0x15U;<br/>
+/*&#160;re-lock&#160;FSM&#160;registers&#160;to&#160;prevent&#160;writing&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register<br/>
+=&#160;0x2U;<br/>
+<b>3.2.2</b><br/>
+<b>Programming&#160;128-Bit&#160;Data&#160;and&#160;16-Bit&#160;ECC</b><br/>
+The&#160;following&#160;code&#160;segement&#160;will&#160;write&#160;16&#160;bytes&#160;starting&#160;at&#160;the&#160;128-bit&#160;aligned&#160;address&#160;specified.<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register&#160;=&#160;1U;<br/>
+/*&#160;Disable&#160;Level&#160;1&#160;Protection&#160;*/<br/>
+/*&#160;Enable&#160;all&#160;sectors&#160;of&#160;current&#160;bank&#160;for&#160;erase&#160;and&#160;program.<br/>
+For&#160;EEPROM&#160;banks&#160;with&#160;more<br/>
+than&#160;16&#160;sectors,&#160;this&#160;must&#160;be&#160;0xFFFF&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbse.u32Register&#160;=&#160;0xFFFF;<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register&#160;=&#160;0U;<br/>
+/*&#160;Enable&#160;Level&#160;1&#160;Protection&#160;*/<br/>
+/*Unlock&#160;FSM&#160;registers&#160;for&#160;writing&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register<br/>
+=&#160;0x5U;<br/>
+/*&#160;Set&#160;command&#160;to&#160;&#34;Clear&#160;the&#160;Status&#160;Register&#34;&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD&#160;=&#160;Fapi_ClearStatus;<br/>
+/*&#160;Execute&#160;the&#160;Clear&#160;Status&#160;command&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE&#160;=&#160;0x15U;<br/>
+/*&#160;Write&#160;address&#160;to&#160;FADDR&#160;register&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;Faddr.u32Register&#160;=&#160;0x0100U;<br/>
+/*&#160;Placing&#160;bytes&#160;at&#160;address&#160;0x0100&#160;-&#160;0x010F&#160;*/<br/>
+8<br/>
+<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</i><br/>
+SPNA148&#160;–&#160;May&#160;2013<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA148"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=9></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>Example&#160;Usage</i><br/>
+for(u32Index=0;u32Index&lt;16;u32Index++)<br/>
+{<br/>
+oFwpWriteByteAccessor[u32Index]&#160;=&#160;au8MainDataBuffer[u32Index];<br/>
+}<br/>
+/*&#160;Supply&#160;the&#160;address&#160;where&#160;ECC&#160;is&#160;being&#160;calculated&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FemuAddr.u32Register<br/>
+=&#160;0x0100;<br/>
+#if&#160;defined(_LITTLE_ENDIAN)<br/>
+/*&#160;Supply&#160;the&#160;lower&#160;32bit&#160;word&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FemuDlsw.u32Register<br/>
+=&#160;oFwpWriteDwordAccessor[1];<br/>
+/*&#160;Supply&#160;the&#160;upper&#160;32bit&#160;word&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FemuDmsw.u32Register<br/>
+=&#160;oFwpWriteDwordAccessor[0];<br/>
+#else<br/>
+/*&#160;Supply&#160;the&#160;upper&#160;32bit&#160;word&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FemuDlsw.u32Register<br/>
+=&#160;oFwpWriteDwordAccessor[0];<br/>
+/*&#160;Supply&#160;the&#160;lower&#160;32bit&#160;word&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FemuDmsw.u32Register<br/>
+=&#160;oFwpWriteDwordAccessor[1];<br/>
+#endif<br/>
+/*&#160;Place&#160;the&#160;Wrapper&#160;calculated&#160;ECC&#160;into&#160;FWPWRITE_ECC&#160;*/<br/>
+oFwpWriteEccByteAccessor[EI8(0)]&#160;=&#160;FLASH_CONTROL_REGISTER-&gt;FemuEcc.FEMU_ECC_BITS.EMU_ECC);<br/>
+/*&#160;Supply&#160;the&#160;address&#160;where&#160;ECC&#160;is&#160;being&#160;calculated&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FemuAddr.u32Register<br/>
+=&#160;0x0108;<br/>
+#if&#160;defined(_LITTLE_ENDIAN)<br/>
+/*&#160;Supply&#160;the&#160;lower&#160;32bit&#160;word&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FemuDlsw.u32Register<br/>
+=&#160;oFwpWriteDwordAccessor[3];<br/>
+/*&#160;Supply&#160;the&#160;upper&#160;32bit&#160;word&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FemuDmsw.u32Register<br/>
+=&#160;oFwpWriteDwordAccessor[2];<br/>
+#else<br/>
+/*&#160;Supply&#160;the&#160;upper&#160;32bit&#160;word&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FemuDlsw.u32Register<br/>
+=&#160;oFwpWriteDwordAccessor[2];<br/>
+/*&#160;Supply&#160;the&#160;lower&#160;32bit&#160;word&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FemuDmsw.u32Register<br/>
+=&#160;oFwpWriteDwordAccessor[3];<br/>
+#endif<br/>
+/*&#160;Place&#160;the&#160;Wrapper&#160;calculated&#160;ECC&#160;into&#160;FWPWRITE_ECC&#160;*/<br/>
+oFwpWriteEccByteAccessor[EI8(1)]&#160;=&#160;FLASH_CONTROL_REGISTER-&gt;FemuEcc.FEMU_ECC_BITS.EMU_ECC);<br/>
+/*&#160;Set&#160;command&#160;to&#160;&#34;Program&#34;&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD&#160;=&#160;Fapi_ProgramData;<br/>
+/*&#160;Execute&#160;the&#160;Program&#160;command&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE&#160;=&#160;0x15U;<br/>
+/*&#160;re-lock&#160;FSM&#160;registers&#160;to&#160;prevent&#160;writing&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register<br/>
+=&#160;0x2U;<br/>
+SPNA148&#160;–&#160;May&#160;2013<br/>
+<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</i><br/>
+9<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA148"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=10></a><i>Example&#160;Usage</i><br/>
+<a href="http://www.ti.com">www.ti.com</a><br/>
+<i><b>3.3</b></i><br/>
+<i><b>Erasing&#160;Operations</b></i><br/>
+<b>3.3.1</b><br/>
+<b>Erasing&#160;a&#160;Single&#160;Sector&#160;With&#160;Bank&#160;Erase</b><br/>
+The&#160;following&#160;code&#160;segment&#160;will&#160;erase&#160;a&#160;single&#160;Flash&#160;sector&#160;using&#160;the&#160;Bank&#160;erase&#160;command.<br/>
+<b>NOTE:</b><br/>
+The&#160;Bank&#160;Erase&#160;command&#160;is&#160;not&#160;a&#160;suspendable&#160;operation.<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register&#160;=&#160;1U;<br/>
+/*&#160;Disable&#160;Level&#160;1&#160;Protection&#160;*/<br/>
+/*&#160;Enable&#160;all&#160;sectors&#160;of&#160;current&#160;bank&#160;for&#160;erase&#160;and&#160;program.<br/>
+For&#160;EEPROM&#160;banks&#160;with&#160;more<br/>
+than&#160;16&#160;sectors,&#160;this&#160;must&#160;be&#160;0xFFFF&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbse.u32Register&#160;=&#160;0xFFFF;<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register&#160;=&#160;0U;<br/>
+/*&#160;Enable&#160;Level&#160;1&#160;Protection&#160;*/<br/>
+/*Unlock&#160;FSM&#160;registers&#160;for&#160;writing&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register<br/>
+=&#160;0x5U;<br/>
+FLASH_CONTROL_REGISTER-<br/>
+&gt;FsmSector.u32Register&#160;=&#160;0xFFFE0000;<br/>
+/*&#160;Disable&#160;all&#160;sectors&#160;except&#160;for&#160;sector&#160;0&#160;from&#160;bank<br/>
+operation&#160;*/<br/>
+/*&#160;Set&#160;command&#160;to&#160;&#34;Clear&#160;the&#160;Status&#160;Register&#34;&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD&#160;=&#160;Fapi_ClearStatus;<br/>
+/*&#160;Execute&#160;the&#160;Clear&#160;Status&#160;command&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE&#160;=&#160;0x15U;<br/>
+/*&#160;Write&#160;address&#160;to&#160;FADDR&#160;register.<br/>
+This&#160;address&#160;must&#160;be&#160;within&#160;the&#160;bank&#160;to&#160;be&#160;erased&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;Faddr.u32Register&#160;=&#160;0x0100U;<br/>
+/*&#160;Set&#160;command&#160;to&#160;&#34;Program&#34;&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD&#160;=&#160;Fapi_EraseBank;<br/>
+/*&#160;Execute&#160;the&#160;Program&#160;command&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE&#160;=&#160;0x15U;<br/>
+/*&#160;re-lock&#160;FSM&#160;registers&#160;to&#160;prevent&#160;writing&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register<br/>
+=&#160;0x2U;<br/>
+10<br/>
+<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</i><br/>
+SPNA148&#160;–&#160;May&#160;2013<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA148"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=11></a><a href="http://www.ti.com">www.ti.com</a><br/>
+<i>References</i><br/>
+<b>3.3.2</b><br/>
+<b>Erasing&#160;a&#160;Single&#160;Sector&#160;With&#160;Sector&#160;Erase</b><br/>
+The&#160;following&#160;code&#160;segment&#160;will&#160;erase&#160;a&#160;single&#160;Flash&#160;sector&#160;using&#160;the&#160;Sector&#160;erase&#160;command.<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register&#160;=&#160;1U;<br/>
+/*&#160;Disable&#160;Level&#160;1&#160;Protection&#160;*/<br/>
+/*&#160;Enable&#160;all&#160;sectors&#160;of&#160;current&#160;bank&#160;for&#160;erase&#160;and&#160;program.<br/>
+For&#160;EEPROM&#160;banks&#160;with&#160;more<br/>
+than&#160;16&#160;sectors,&#160;this&#160;must&#160;be&#160;0xFFFF&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbse.u32Register&#160;=&#160;0xFFFF;<br/>
+FLASH_CONTROL_REGISTER-&gt;Fbprot.u32Register&#160;=&#160;0U;<br/>
+/*&#160;Enable&#160;Level&#160;1&#160;Protection&#160;*/<br/>
+/*Unlock&#160;FSM&#160;registers&#160;for&#160;writing&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register<br/>
+=&#160;0x5U;<br/>
+/*&#160;Set&#160;command&#160;to&#160;&#34;Clear&#160;the&#160;Status&#160;Register&#34;&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD&#160;=&#160;Fapi_ClearStatus;<br/>
+/*&#160;Execute&#160;the&#160;Clear&#160;Status&#160;command&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE&#160;=&#160;0x15U;<br/>
+/*&#160;Write&#160;address&#160;to&#160;FADDR&#160;register.<br/>
+This&#160;address&#160;must&#160;be&#160;within&#160;the&#160;bank&#160;to&#160;be&#160;erased&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;Faddr.u32Register&#160;=&#160;0x0100U;<br/>
+/*&#160;Set&#160;command&#160;to&#160;&#34;Program&#34;&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmCommand.FSM_COMMAND_BITS.FSMCMD&#160;=&#160;Fapi_EraseSector;<br/>
+/*&#160;Execute&#160;the&#160;Program&#160;command&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmExecute.FSM_EXECUTE_BITS.FSMEXECUTE&#160;=&#160;0x15U;<br/>
+/*&#160;re-lock&#160;FSM&#160;registers&#160;to&#160;prevent&#160;writing&#160;*/<br/>
+FLASH_CONTROL_REGISTER-&gt;FsmWrEna.u32Register<br/>
+=&#160;0x2U;<br/>
+<b>4</b><br/>
+<b>References</b><br/>
+<i>F021&#160;Flash&#160;API&#160;Reference&#160;Guide&#160;</i>(<a href="http://www.ti.com/lit/pdf/SPNU501">SPNU501</a>)<br/>
+SPNA148&#160;–&#160;May&#160;2013<br/>
+<i>Advanced&#160;F021&#160;Flash&#160;API&#160;Erase/Program&#160;Usage</i><br/>
+11<br/>
+<a href="http://www.go-dsp.com/forms/techdoc/doc_feedback.htm?litnum=SPNA148"><i>Submit&#160;Documentation&#160;Feedback</i></a><br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name=12></a><b>IMPORTANT&#160;NOTICE</b><br/>
+Texas&#160;Instruments&#160;Incorporated&#160;and&#160;its&#160;subsidiaries&#160;(TI)&#160;reserve&#160;the&#160;right&#160;to&#160;make&#160;corrections,&#160;enhancements,&#160;improvements&#160;and&#160;other<br/>changes&#160;to&#160;its&#160;semiconductor&#160;products&#160;and&#160;services&#160;per&#160;JESD46,&#160;latest&#160;issue,&#160;and&#160;to&#160;discontinue&#160;any&#160;product&#160;or&#160;service&#160;per&#160;JESD48,&#160;latest<br/>issue.&#160;Buyers&#160;should&#160;obtain&#160;the&#160;latest&#160;relevant&#160;information&#160;before&#160;placing&#160;orders&#160;and&#160;should&#160;verify&#160;that&#160;such&#160;information&#160;is&#160;current&#160;and<br/>complete.&#160;All&#160;semiconductor&#160;products&#160;(also&#160;referred&#160;to&#160;herein&#160;as&#160;“components”)&#160;are&#160;sold&#160;subject&#160;to&#160;TI’s&#160;terms&#160;and&#160;conditions&#160;of&#160;sale<br/>supplied&#160;at&#160;the&#160;time&#160;of&#160;order&#160;acknowledgment.<br/>
+TI&#160;warrants&#160;performance&#160;of&#160;its&#160;components&#160;to&#160;the&#160;specifications&#160;applicable&#160;at&#160;the&#160;time&#160;of&#160;sale,&#160;in&#160;accordance&#160;with&#160;the&#160;warranty&#160;in&#160;TI’s&#160;terms<br/>and&#160;conditions&#160;of&#160;sale&#160;of&#160;semiconductor&#160;products.&#160;Testing&#160;and&#160;other&#160;quality&#160;control&#160;techniques&#160;are&#160;used&#160;to&#160;the&#160;extent&#160;TI&#160;deems&#160;necessary<br/>to&#160;support&#160;this&#160;warranty.&#160;Except&#160;where&#160;mandated&#160;by&#160;applicable&#160;law,&#160;testing&#160;of&#160;all&#160;parameters&#160;of&#160;each&#160;component&#160;is&#160;not&#160;necessarily<br/>performed.<br/>
+TI&#160;assumes&#160;no&#160;liability&#160;for&#160;applications&#160;assistance&#160;or&#160;the&#160;design&#160;of&#160;Buyers’&#160;products.&#160;Buyers&#160;are&#160;responsible&#160;for&#160;their&#160;products&#160;and<br/>applications&#160;using&#160;TI&#160;components.&#160;To&#160;minimize&#160;the&#160;risks&#160;associated&#160;with&#160;Buyers’&#160;products&#160;and&#160;applications,&#160;Buyers&#160;should&#160;provide<br/>adequate&#160;design&#160;and&#160;operating&#160;safeguards.<br/>
+TI&#160;does&#160;not&#160;warrant&#160;or&#160;represent&#160;that&#160;any&#160;license,&#160;either&#160;express&#160;or&#160;implied,&#160;is&#160;granted&#160;under&#160;any&#160;patent&#160;right,&#160;copyright,&#160;mask&#160;work&#160;right,&#160;or<br/>other&#160;intellectual&#160;property&#160;right&#160;relating&#160;to&#160;any&#160;combination,&#160;machine,&#160;or&#160;process&#160;in&#160;which&#160;TI&#160;components&#160;or&#160;services&#160;are&#160;used.&#160;Information<br/>published&#160;by&#160;TI&#160;regarding&#160;third-party&#160;products&#160;or&#160;services&#160;does&#160;not&#160;constitute&#160;a&#160;license&#160;to&#160;use&#160;such&#160;products&#160;or&#160;services&#160;or&#160;a&#160;warranty&#160;or<br/>endorsement&#160;thereof.&#160;Use&#160;of&#160;such&#160;information&#160;may&#160;require&#160;a&#160;license&#160;from&#160;a&#160;third&#160;party&#160;under&#160;the&#160;patents&#160;or&#160;other&#160;intellectual&#160;property&#160;of&#160;the<br/>third&#160;party,&#160;or&#160;a&#160;license&#160;from&#160;TI&#160;under&#160;the&#160;patents&#160;or&#160;other&#160;intellectual&#160;property&#160;of&#160;TI.<br/>
+Reproduction&#160;of&#160;significant&#160;portions&#160;of&#160;TI&#160;information&#160;in&#160;TI&#160;data&#160;books&#160;or&#160;data&#160;sheets&#160;is&#160;permissible&#160;only&#160;if&#160;reproduction&#160;is&#160;without&#160;alteration<br/>and&#160;is&#160;accompanied&#160;by&#160;all&#160;associated&#160;warranties,&#160;conditions,&#160;limitations,&#160;and&#160;notices.&#160;TI&#160;is&#160;not&#160;responsible&#160;or&#160;liable&#160;for&#160;such&#160;altered<br/>documentation.&#160;Information&#160;of&#160;third&#160;parties&#160;may&#160;be&#160;subject&#160;to&#160;additional&#160;restrictions.<br/>
+Resale&#160;of&#160;TI&#160;components&#160;or&#160;services&#160;with&#160;statements&#160;different&#160;from&#160;or&#160;beyond&#160;the&#160;parameters&#160;stated&#160;by&#160;TI&#160;for&#160;that&#160;component&#160;or&#160;service<br/>voids&#160;all&#160;express&#160;and&#160;any&#160;implied&#160;warranties&#160;for&#160;the&#160;associated&#160;TI&#160;component&#160;or&#160;service&#160;and&#160;is&#160;an&#160;unfair&#160;and&#160;deceptive&#160;business&#160;practice.<br/>TI&#160;is&#160;not&#160;responsible&#160;or&#160;liable&#160;for&#160;any&#160;such&#160;statements.<br/>
+Buyer&#160;acknowledges&#160;and&#160;agrees&#160;that&#160;it&#160;is&#160;solely&#160;responsible&#160;for&#160;compliance&#160;with&#160;all&#160;legal,&#160;regulatory&#160;and&#160;safety-related&#160;requirements<br/>concerning&#160;its&#160;products,&#160;and&#160;any&#160;use&#160;of&#160;TI&#160;components&#160;in&#160;its&#160;applications,&#160;notwithstanding&#160;any&#160;applications-related&#160;information&#160;or&#160;support<br/>that&#160;may&#160;be&#160;provided&#160;by&#160;TI.&#160;Buyer&#160;represents&#160;and&#160;agrees&#160;that&#160;it&#160;has&#160;all&#160;the&#160;necessary&#160;expertise&#160;to&#160;create&#160;and&#160;implement&#160;safeguards&#160;which<br/>anticipate&#160;dangerous&#160;consequences&#160;of&#160;failures,&#160;monitor&#160;failures&#160;and&#160;their&#160;consequences,&#160;lessen&#160;the&#160;likelihood&#160;of&#160;failures&#160;that&#160;might&#160;cause<br/>harm&#160;and&#160;take&#160;appropriate&#160;remedial&#160;actions.&#160;Buyer&#160;will&#160;fully&#160;indemnify&#160;TI&#160;and&#160;its&#160;representatives&#160;against&#160;any&#160;damages&#160;arising&#160;out&#160;of&#160;the&#160;use<br/>of&#160;any&#160;TI&#160;components&#160;in&#160;safety-critical&#160;applications.<br/>
+In&#160;some&#160;cases,&#160;TI&#160;components&#160;may&#160;be&#160;promoted&#160;specifically&#160;to&#160;facilitate&#160;safety-related&#160;applications.&#160;With&#160;such&#160;components,&#160;TI’s&#160;goal&#160;is&#160;to<br/>help&#160;enable&#160;customers&#160;to&#160;design&#160;and&#160;create&#160;their&#160;own&#160;end-product&#160;solutions&#160;that&#160;meet&#160;applicable&#160;functional&#160;safety&#160;standards&#160;and<br/>requirements.&#160;Nonetheless,&#160;such&#160;components&#160;are&#160;subject&#160;to&#160;these&#160;terms.<br/>
+No&#160;TI&#160;components&#160;are&#160;authorized&#160;for&#160;use&#160;in&#160;FDA&#160;Class&#160;III&#160;(or&#160;similar&#160;life-critical&#160;medical&#160;equipment)&#160;unless&#160;authorized&#160;officers&#160;of&#160;the&#160;parties<br/>have&#160;executed&#160;a&#160;special&#160;agreement&#160;specifically&#160;governing&#160;such&#160;use.<br/>
+Only&#160;those&#160;TI&#160;components&#160;which&#160;TI&#160;has&#160;specifically&#160;designated&#160;as&#160;military&#160;grade&#160;or&#160;“enhanced&#160;plastic”&#160;are&#160;designed&#160;and&#160;intended&#160;for&#160;use&#160;in<br/>military/aerospace&#160;applications&#160;or&#160;environments.&#160;Buyer&#160;acknowledges&#160;and&#160;agrees&#160;that&#160;any&#160;military&#160;or&#160;aerospace&#160;use&#160;of&#160;TI&#160;components<br/>which&#160;have&#160;<i><b>not&#160;</b></i>been&#160;so&#160;designated&#160;is&#160;solely&#160;at&#160;the&#160;Buyer's&#160;risk,&#160;and&#160;that&#160;Buyer&#160;is&#160;solely&#160;responsible&#160;for&#160;compliance&#160;with&#160;all&#160;legal&#160;and<br/>regulatory&#160;requirements&#160;in&#160;connection&#160;with&#160;such&#160;use.<br/>
+TI&#160;has&#160;specifically&#160;designated&#160;certain&#160;components&#160;as&#160;meeting&#160;ISO/TS16949&#160;requirements,&#160;mainly&#160;for&#160;automotive&#160;use.&#160;In&#160;any&#160;case&#160;of&#160;use&#160;of<br/>non-designated&#160;products,&#160;TI&#160;will&#160;not&#160;be&#160;responsible&#160;for&#160;any&#160;failure&#160;to&#160;meet&#160;ISO/TS16949.<br/>
+<b>Products</b><br/>
+<b>Applications</b><br/>
+Audio<br/>
+<a href="http://www.ti.com/audio">www.ti.com/audio</a><br/>
+Automotive&#160;and&#160;Transportation<br/>
+<a href="http://www.ti.com/automotive">www.ti.com/automotive</a><br/>
+Amplifiers<br/>
+<a href="http://amplifier.ti.com">amplifier.ti.com</a><br/>
+Communications&#160;and&#160;Telecom<br/>
+<a href="http://www.ti.com/communications">www.ti.com/communications</a><br/>
+Data&#160;Converters<br/>
+<a href="http://dataconverter.ti.com">dataconverter.ti.com</a><br/>
+Computers&#160;and&#160;Peripherals<br/>
+<a href="http://www.ti.com/computers">www.ti.com/computers</a><br/>
+DLP®&#160;Products<br/>
+<a href="http://www.dlp.com">www.dlp.com</a><br/>
+Consumer&#160;Electronics<br/>
+<a href="http://www.ti.com/consumer-apps">www.ti.com/consumer-apps</a><br/>
+DSP<br/>
+<a href="http://dsp.ti.com">dsp.ti.com</a><br/>
+Energy&#160;and&#160;Lighting<br/>
+<a href="http://www.ti.com/energy">www.ti.com/energy</a><br/>
+Clocks&#160;and&#160;Timers<br/>
+<a href="http://www.ti.com/clocks">www.ti.com/clocks</a><br/>
+Industrial<br/>
+<a href="http://www.ti.com/industrial">www.ti.com/industrial</a><br/>
+Interface<br/>
+<a href="http://interface.ti.com">interface.ti.com</a><br/>
+Medical<br/>
+<a href="http://www.ti.com/medical">www.ti.com/medical</a><br/>
+Logic<br/>
+<a href="http://logic.ti.com">logic.ti.com</a><br/>
+Security<br/>
+<a href="http://www.ti.com/security">www.ti.com/security</a><br/>
+Power&#160;Mgmt<br/>
+<a href="http://power.ti.com">power.ti.com</a><br/>
+Space,&#160;Avionics&#160;and&#160;Defense<br/>
+<a href="http://www.ti.com/space-avionics-defense">www.ti.com/space-avionics-defense</a><br/>
+Microcontrollers<br/>
+<a href="http://microcontroller.ti.com">microcontroller.ti.com</a><br/>
+Video&#160;and&#160;Imaging<br/>
+<a href="http://www.ti.com/video">www.ti.com/video</a><br/>
+RFID<br/>
+<a href="http://www.ti-rfid.com">www.ti-rfid.com</a><br/>
+OMAP&#160;Applications&#160;Processors<br/>
+<a href="http://www.ti.com/omap">www.ti.com/omap</a><br/>
+<b>TI&#160;E2E&#160;Community</b><br/>
+<a href="http://e2e.ti.com">e2e.ti.com</a><br/>
+Wireless&#160;Connectivity<br/>
+<a href="http://www.ti.com/wirelessconnectivity">www.ti.com/wirelessconnectivity</a><br/>
+Mailing&#160;Address:&#160;Texas&#160;Instruments,&#160;Post&#160;Office&#160;Box&#160;655303,&#160;Dallas,&#160;Texas&#160;75265<br/>
+Copyright&#160;©&#160;2013,&#160;Texas&#160;Instruments&#160;Incorporated<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="SPNA148s.html#1">Advanced F021 Flash API Erase/Program Usage</a>
+<ul>
+<li><a href="SPNA148s.html#2">1 Introduction</a></li>
+<li><a href="SPNA148s.html#2">2 Flash Registers Used</a>
+<ul>
+<li><a href="SPNA148s.html#2">2.1 Flash Address Register (FADDR)</a></li>
+<li><a href="SPNA148s.html#3">2.2 Flash Wide Programming Write Data Register (FWPWRITE0-7)</a></li>
+<li><a href="SPNA148s.html#4">2.3 Flash Wide Programming Write Data ECC Register (FWPWRITE_ECC)</a></li>
+<li><a href="SPNA148s.html#5">2.4 Flash State Machine Command Register (FSM_COMMAND)</a></li>
+<li><a href="SPNA148s.html#5">2.5 Flash State Machine Command Execute Register (FSM_EXECUTE)</a></li>
+</ul>
+</li>
+<li><a href="SPNA148s.html#5">3 Example Usage</a>
+<ul>
+<li><a href="SPNA148s.html#7">3.1 Typical Command Execution Flow</a></li>
+<li><a href="SPNA148s.html#8">3.2 Programming Operations</a>
+<ul>
+<li><a href="SPNA148s.html#8">3.2.1 Programming a Single Byte</a></li>
+<li><a href="SPNA148s.html#8">3.2.2 Programming 128-Bit Data and 16-Bit ECC</a></li>
+</ul>
+</li>
+<li><a href="SPNA148s.html#10">3.3 Erasing Operations</a>
+<ul>
+<li><a href="SPNA148s.html#10">3.3.1 Erasing a Single Sector With Bank Erase</a></li>
+<li><a href="SPNA148s.html#11">3.3.2 Erasing a Single Sector With Sector Erase</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="SPNA148s.html#11">4 References</a></li>
+</ul>
+</li>
+</ul>
+<hr/>
+</body>
+</html>

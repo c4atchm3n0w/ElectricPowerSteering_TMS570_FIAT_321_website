@@ -1,0 +1,1283 @@
+---
+title: TechnicalReference_DbcRules_Fiat_FASs
+linkTitle: TechnicalReference_DbcRules_Fiat_FASs
+weight: 107
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/><b>DBC and&#160;LDF Configuration&#160;<br/></b>Technical Reference&#160;<br/>&#160;<br/>for FGA&#160;<br/>Version&#160;1.7.2&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Authors&#160;<br/>
+Hannes&#160;Haas,&#160;Milena Shakir&#160;<br/>
+Status&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>Document&#160;Information&#160;</b><br/>
+<b>History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;&#160;Remarks&#160;</b><br/>
+Hannes&#160;Haas,&#160;Klaus&#160;Emmert&#160;&#160;2010-09-27&#160;&#160;1.0.0&#160;<br/>
+Created&#160;&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2010-09-28&#160;&#160;1.0.1&#160;<br/>
+Added&#160;update&#160;bit&#160;for&#160;signal&#160;groups&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2010-10-13&#160;&#160;1.0.2&#160;<br/>
+GenMsgNrOfRepetition&#160;description&#160;<br/>changed&#160;<br/>Removed&#160;restrictions&#160;of&#160;Tx&#160;Mode&#160;<br/>combination&#160;<br/>Added&#160;description&#160;to&#160;message&#160;routing&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2010-10-15&#160;&#160;1.0.3&#160;<br/>
+Changed&#160;spec.&#160;for&#160;GenSigTimeoutTime&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2010-11-08&#160;&#160;1.0.4&#160;<br/>
+GenMsgCycleTimeFast&#160;for&#160;Tx&#160;modes&#160;<br/>with repetitions&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2010-12-17&#160;&#160;1.1.0&#160;<br/>
+Added&#160;LDF 2.1&#160;rules&#160;<br/>Renamed&#160;NmNodeType&#160;to&#160;<br/>NwmNodeType&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2011-01-03&#160;&#160;1.1.1.&#160;<br/>
+Improved&#160;Tx&#160;mode&#160;mappings&#160;by&#160;adding&#160;<br/>GenMsgCycleTimeFast&#160;to the&#160;examples&#160;<br/>Fixed&#160;issues&#160;in Send&#160;Type examples&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2011-03-07&#160;&#160;1.1.2&#160;<br/>
+CONTROL&#160;Tx&#160;mode only&#160;supported&#160;for&#160;<br/>carry-back&#160;ECUs&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2011-04-07&#160;&#160;1.1.3&#160;<br/>
+Release&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2011-05-03&#160;&#160;1.1.4&#160;<br/>
+Changed&#160;definition&#160;of&#160;<br/>GenMsgNrOfRepetition&#160;to make&#160;it&#160;<br/>compliant&#160;with CANbedded&#160;<br/>Added&#160;TpOwnSystemEcuNumber&#160;for&#160;<br/>CANbedded&#160;projects&#160;<br/>Clarified&#160;handling&#160;of&#160;CONTROL&#160;signals&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2011-07-27&#160;&#160;1.2.0&#160;<br/>
+Added&#160;Tx&#160;modes&#160;Dual&#160;Cycle&#160;with&#160;<br/>Trigger&#160;&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2012-02-10&#160;&#160;1.3.0&#160;<br/>
+Added&#160;additional&#160;CAN&#160;baud&#160;rate&#160;<br/>attributes&#160;<br/>
+Milena Shakir&#160;<br/>
+2012-11-14&#160;&#160;1.4.0&#160;<br/>
+Added&#160;attributes&#160;for&#160;Class&#160;C&#160;Network&#160;<br/>Management&#160;With&#160;Wakeup&#160;<br/>
+Milena Shakir&#160;<br/>
+2013-02-28&#160;&#160;1.5.0&#160;<br/>
+Updated&#160;description&#160;for&#160;NwmNodeType&#160;&#160;<br/>and added chapter&#160;for&#160;diagnostic&#160;routing&#160;<br/>
+Milena Shakir&#160;<br/>
+2013-03-20&#160;&#160;1.6.0&#160;<br/>
+Updated&#160;chapter&#160;3.2&#160;regarding&#160;<br/>transmission&#160;mode control&#160;<br/>
+Milena Shakir&#160;<br/>
+2013-03-25&#160;&#160;1.6.1&#160;<br/>
+Minor&#160;adaptions&#160;after&#160;review&#160;<br/>(improvements)&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2013-06-20&#160;&#160;1.7.0&#160;<br/>
+Clarified&#160;&#160;ClassC&#160;Nm&#160;attribute usage&#160;for&#160;<br/>networks&#160;without&#160;wakeup&#160;<br/>Added&#160;rules&#160;for&#160;RoE&#160;diagnostics&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2013-07-01&#160;&#160;1.7.1&#160;<br/>
+Minor&#160;clarifications and&#160;examples&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+2&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=3></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+Hannes&#160;Haas&#160;<br/>
+2013-09-11&#160;&#160;1.7.2&#160;<br/>
+Fixed&#160;RoE&#160;Example in&#160;chapter&#160;3.7.1.1&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+3&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=4></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>Reference&#160;Documents&#160;</b><br/>
+<b>No.&#160;</b><br/>
+<b>Source&#160;&#160;Title&#160;</b><br/>
+<b>Version&#160;</b><br/>
+[1]&#160;&#160;&#160;<br/>
+Vector&#160;<br/>
+TechnicalReference_Asr_CanNm.pdf&#160;<br/>
+&#160;<br/>
+[2]&#160;&#160;&#160;<br/>
+Vector&#160;<br/>
+TechnicalReference_Asr_Com.pdf&#160;<br/>
+&#160;<br/>
+[3]&#160;&#160;&#160;<br/>
+Vector&#160;<br/>
+TechnicalReference_Asr_CanTp.pdf&#160;<br/>
+&#160;<br/>
+[4]&#160;&#160;&#160;<br/>
+Vector&#160;<br/>
+TechnicalReference_Asr_Dcm_Fiat.pdf&#160;<br/>
+&#160;<br/>
+[5]&#160;&#160;&#160;<br/>
+LIN&#160;<br/>
+LIN Standard&#160;<br/>
+2.1&#160;<br/>
+[6]&#160;&#160;&#160;<br/>
+Vector&#160;<br/>
+Application&#160;&#160;Note&#160;&#160;AN-AND-1-106:&#160;&#160;Basic&#160;&#160;CAN&#160;&#160;Bit&#160;&#160;Timing&#160;&#160;2.0&#160;<br/>
+Available&#160;from&#160;the&#160;vector.com&#160;download&#160;center&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+4&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=5></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#7"><b>1</b>&#160;&#160;<b>Overview&#160;.........................................................................................................................&#160;7</b>&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#8"><b>2</b>&#160;&#160;<b>Introduction&#160;....................................................................................................................&#160;8</b>&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#8">2.1&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#8">Data&#160;Base&#160;Attributes........................................................................................&#160;8&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#10"><b>3</b>&#160;&#160;<b>DBC&#160;Attributes&#160;and&#160;Conventions&#160;................................................................................&#160;10</b>&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#10">3.1&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#10">General&#160;Attributes&#160;.........................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#11">3.2&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#11">Attributes&#160;for&#160;COM&#160;Module&#160;............................................................................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#12">3.2.1&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#12">Mapping&#160;of&#160;FGA&#160;Transmission&#160;Modes to DBC&#160;Attributes&#160;...............................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#16">3.3&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#16">Attributes&#160;for&#160;AUTOSAR&#160;Network&#160;Management&#160;............................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#17">3.4&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#17">Attributes&#160;for&#160;FGA&#160;Class&#160;C&#160;Networks&#160;(Non-Gateway,&#160;Without&#160;Wakeup)&#160;........&#160;17&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#17">3.5&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#17">Attributes&#160;for&#160;FGA&#160;Class&#160;C&#160;Network&#160;Management&#160;(with&#160;Wakeup)&#160;.................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#18">3.6&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#18">Attributes&#160;for&#160;FGA&#160;Class&#160;B&#160;Network&#160;Management&#160;(Slave)&#160;.............................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#19">3.7&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#19">Attributes&#160;for&#160;Diagnostic&#160;(DCM)&#160;.....................................................................&#160;19&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#20">3.7.1&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#20">Examples&#160;......................................................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#20">3.7.1.1&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#20">Enhanced&#160;UDS&#160;Communication&#160;......................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#22">3.7.1.2&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#22">Legislative OBD&#160;Communication&#160;.....................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#23">3.8&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#23">Definition&#160;of&#160;XCP&#160;and&#160;application messages&#160;.................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#23">3.9&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#23">Definition&#160;of&#160;Update Bits&#160;................................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#23">3.10&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#23">Definition&#160;of&#160;Invalid Values&#160;............................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#24"><b>4</b>&#160;&#160;<b>LDF Rules&#160;and&#160;Conventions&#160;........................................................................................&#160;24</b>&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#24">4.1&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#24">Definition&#160;of&#160;LIN&#160;Channel&#160;Name&#160;....................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#24">4.2&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#24">Definition&#160;of&#160;Update Bits&#160;................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#24">4.3&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#24">Definition&#160;of&#160;invalid values&#160;.............................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#25">4.3.1&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#25">Example&#160;........................................................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#26"><b>5</b>&#160;&#160;<b>General&#160;Rules&#160;...............................................................................................................&#160;26</b>&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">5.1&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">Definition&#160;of&#160;AUTOSAR&#160;System&#160;Signals&#160;........................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">5.2&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">Definition&#160;of&#160;Routing&#160;Relations&#160;......................................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">5.2.1&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">Signal&#160;Routing&#160;(by&#160;COM)&#160;..............................................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">5.2.2&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">Message Routing&#160;(IF&#160;Layer&#160;Routing&#160;by&#160;PDUR)&#160;.............................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">5.2.3&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">Diagnostic&#160;Routing&#160;(TP&#160;Gateway&#160;Routing&#160;by&#160;PDUR)&#160;.....................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#28"><b>6</b>&#160;&#160;<b>Contact..........................................................................................................................&#160;28</b>&#160;<br/></a>&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+5&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=6></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>&#160;&#160;<br/>Tables&#160;<br/></b><a href="TechnicalReference_DbcRules_Fiat_FASs.html#10">Table&#160;3-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#10">General&#160;Attributes&#160;.....................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#12">Table&#160;3-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#12">List&#160;of&#160;COM&#160;Data&#160;Base&#160;Attributes&#160;.............................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#17">Table&#160;3-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#17">List&#160;of&#160;NM&#160;Data&#160;Base&#160;Attributes&#160;................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#17">Table&#160;3-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#17">Class C Network&#160;Management&#160;.................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#18">Table&#160;3-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#18">Class C Network&#160;Management&#160;.................................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#19">Table&#160;3-6&#160;&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#19">Class B&#160;Network&#160;Management&#160;.................................................................&#160;19&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#20">Table&#160;3-7&#160;&#160;</a><br/>
+<a href="TechnicalReference_DbcRules_Fiat_FASs.html#20">List&#160;of&#160;DCM&#160;Data&#160;Base&#160;Attributes&#160;..............................................................&#160;20&#160;</a><br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+6&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=7></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>1&#160;&#160;Overview&#160;</b><br/>
+This&#160;&#160;application&#160;&#160;note&#160;&#160;describes&#160;&#160;the&#160;&#160;CAN&#160;&#160;data&#160;&#160;base&#160;&#160;(DBC)&#160;&#160;attributes&#160;&#160;for&#160;&#160;the&#160;&#160;FGA&#160;<br/>AUTOSAR&#160;Stack.&#160;In&#160;the&#160;following&#160;chapter&#160;an&#160;introduction&#160;to&#160;the&#160;CAN&#160;data&#160;base&#160;and&#160;the&#160;<br/>CAN&#160;&#160;data&#160;&#160;base&#160;&#160;attributes&#160;&#160;is&#160;&#160;provided.&#160;&#160;In&#160;&#160;a&#160;&#160;further&#160;&#160;chapter&#160;&#160;the&#160;&#160;relevant&#160;&#160;CAN&#160;&#160;data&#160;&#160;base&#160;<br/>attributes&#160;for FGA&#160;are&#160;described&#160;in&#160;detail.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+7&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_DbcRules_Fiat_FAS-8_1.png"/><br/>
+Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>2&#160;&#160;Introduction&#160;</b><br/>
+The&#160;CAN&#160;data&#160;base&#160;(DBC&#160;for&#160;short)&#160;describes&#160;the&#160;CAN&#160;communication&#160;between&#160;all&#160;ECUs&#160;<br/>in&#160;one&#160;network.&#160;For&#160;the&#160;description&#160;of&#160;multiple&#160;CAN&#160;networks&#160;in&#160;a&#160;vehicle&#160;a&#160;separate&#160;DBC&#160;<br/>file&#160;for each&#160;CAN&#160;network is necessary.&#160;<br/>Additionally&#160;the&#160;DBC&#160;format&#160;supports&#160;the&#160;possibility&#160;to&#160;describe&#160;any&#160;additional&#160;information&#160;<br/>via&#160;attributes,&#160;e.g.&#160;CAN baud&#160;rate.&#160;<br/>The&#160;&#160;described&#160;&#160;CAN&#160;&#160;communication&#160;&#160;and&#160;&#160;the&#160;&#160;attributes&#160;&#160;within&#160;&#160;a&#160;&#160;DBC&#160;&#160;file&#160;&#160;are&#160;&#160;used&#160;&#160;to&#160;<br/>configure&#160;the&#160;embedded&#160;communication&#160;stack&#160;via&#160;the&#160;configuration&#160;tool&#160;GENy.&#160;GENy&#160;also&#160;<br/>generates&#160;the&#160;dynamic&#160;code&#160;part&#160;of&#160;this&#160;stack.&#160;Other&#160;Vector&#160;tools&#160;also&#160;use&#160;the&#160;DBC&#160;file&#160;as&#160;<br/>input&#160;format,&#160;e.g.&#160;the&#160;network simulation&#160;and&#160;analyzing&#160;tool CANoe.&#160;<br/>This&#160;&#160;document&#160;&#160;focuses&#160;&#160;on&#160;&#160;the&#160;&#160;necessary&#160;&#160;attributes&#160;&#160;and&#160;&#160;their&#160;&#160;values&#160;&#160;for&#160;&#160;correct&#160;<br/>configuration&#160;and&#160;code&#160;generation&#160;via&#160;GENy.&#160;<br/>
+<b>2.1&#160;</b><br/>
+<b>Data&#160;Base&#160;Attributes&#160;</b><br/>
+Data&#160;&#160;base&#160;&#160;attributes&#160;&#160;contain&#160;&#160;additional&#160;&#160;configuration-relevant&#160;&#160;information,&#160;&#160;e.g.&#160;&#160;the&#160;&#160;baud&#160;<br/>rate&#160;of&#160;a&#160;CAN network.&#160;As&#160;such&#160;information&#160;has&#160;always&#160;a&#160;specific&#160;context&#160;(e.g.&#160;baud&#160;rate&#160;is&#160;<br/>network specific)&#160;at&#160;creation&#160;time&#160;of&#160;an&#160;attribute&#160;the&#160;context&#160;(object&#160;type) has to&#160;be&#160;defined.&#160;<br/>The&#160;following&#160;list contains&#160;the&#160;relevant&#160;object&#160;types.&#160;<br/>
+<b>&gt;&#160;&#160;Network</b>&#160;<br/>
+Attribute&#160;is network-specific&#160;and&#160;has&#160;to&#160;be&#160;configured&#160;only&#160;once&#160;in&#160;the&#160;DBC&#160;(as&#160;a&#160;DBC&#160;<br/>contains only&#160;a&#160;single&#160;network)&#160;<br/>
+<b>&gt;&#160;&#160;Node</b>&#160;<br/>
+Attribute&#160;is node-specific and&#160;has&#160;to&#160;be&#160;set&#160;for each&#160;node&#160;in&#160;the&#160;network&#160;<br/>
+<b>&gt;&#160;&#160;Message</b>&#160;<br/>
+Attribute&#160;is&#160;message-specific and&#160;has to&#160;be&#160;set&#160;for&#160;each&#160;message&#160;in&#160;the&#160;network&#160;<br/>
+<b>&gt;&#160;&#160;Signal</b>&#160;<br/>
+Attribute&#160;is signal-specific and&#160;has&#160;to&#160;be&#160;set&#160;for each&#160;signal in&#160;the&#160;network&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>The&#160;default&#160;value&#160;of&#160;a&#160;data base&#160;attribute is automatically&#160;set&#160;to all&#160;relevant&#160;objects&#160;at&#160;<br/>
+&#160;&#160;creation&#160;time&#160;of&#160;the&#160;attribute.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>There&#160;are&#160;four&#160;relevant&#160;different&#160;value&#160;types&#160;for&#160;data&#160;base&#160;attributes&#160;that&#160;are&#160;described&#160;in&#160;<br/>the&#160;following&#160;list:&#160;<br/>
+<b>&gt;&#160;&#160;Enumeration (Enum)</b>&#160;<br/>
+Attribute&#160;can&#160;adopt&#160;a&#160;limited&#160;list of&#160;non-numeric values,&#160;e.g.&#160;No&#160;/&#160;Yes.&#160;&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+8&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_DbcRules_Fiat_FAS-9_1.png"/><br/>
+Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Caution&#160;<br/></b>The&#160;names&#160;and&#160;the&#160;sorting&#160;order&#160;must&#160;be&#160;considered&#160;as&#160;defined&#160;in this&#160;document&#160;for&#160;<br/>
+<b>&#160;&#160;</b>each attribute&#160;(e.g.&#160;No&#160;=&#160;0,&#160;Yes&#160;=&#160;1).&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>&gt;&#160;&#160;Hex</b>&#160;<br/>
+Numeric attribute&#160;in&#160;a&#160;hexadecimal&#160;format&#160;<br/>
+<b>&gt;&#160;&#160;Integer</b>&#160;<br/>
+Numeric attribute&#160;in&#160;an&#160;integer&#160;format&#160;<br/>
+<b>&gt;&#160;&#160;String</b>&#160;<br/>
+Attribute&#160;can&#160;be&#160;any&#160;string&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+9&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_DbcRules_Fiat_FAS-10_1.png"/><br/>
+Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>3&#160;&#160;DBC&#160;Attributes&#160;and&#160;Conventions&#160;</b><br/>
+This&#160;&#160;chapter&#160;&#160;describes&#160;&#160;the&#160;&#160;definition&#160;&#160;and&#160;&#160;usage&#160;&#160;of&#160;&#160;the&#160;&#160;attributes&#160;&#160;used&#160;&#160;for&#160;&#160;the&#160;&#160;FGA&#160;<br/>AUTOSAR&#160;&#160;stack.&#160;&#160;Please&#160;&#160;also&#160;&#160;refer&#160;&#160;to&#160;&#160;the&#160;&#160;attribute&#160;&#160;documentation&#160;&#160;in&#160;&#160;the&#160;&#160;component-<br/>specific technical references.&#160;<br/>The&#160;&#160;described&#160;&#160;attribute&#160;&#160;rules&#160;&#160;are&#160;&#160;backward&#160;&#160;compatible&#160;&#160;with&#160;&#160;the&#160;&#160;existing&#160;&#160;CANbedded&#160;<br/>solution.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>This&#160;document&#160;just&#160;gives an&#160;overview&#160;of&#160;attributes&#160;for&#160;a&#160;data&#160;base&#160;for&#160;FGA.&#160;For&#160;more&#160;<br/>
+&#160;&#160;detailed&#160;description&#160;on&#160;the attributes,&#160;please also&#160;refer&#160;to&#160;the&#160;attribute&#160;documentation&#160;in&#160;<br/>
+the&#160;component&#160;specific&#160;technical&#160;references.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>3.1&#160;</b><br/>
+<b>General&#160;Attributes&#160;</b><br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Object&#160;Type&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Values and&#160;Ranges&#160;&#160;Description&#160;<br/></b>(<b>Bold&#160;=&#160;</b>default)<b>&#160;</b><br/>
+Baudrate<br/>
+Network<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;&#160;0..<b>500000</b>..1000000&#160;<br/>
+CAN&#160;Baud rate of&#160;the&#160;network&#160;<br/>
+SamplePointMin<br/>
+Network<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;&#160;50..81..100&#160;<br/>
+For details&#160;please ref<a href="TechnicalReference_DbcRules_Fiat_FASs.html#4">er to&#160;[6]:&#160;<br/></a>“Sample Point”.&#160;This&#160;<br/>parameter&#160;is&#160;optional.&#160;<br/>
+SamplePointMax<br/>
+Network<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;&#160;50..90..100&#160;<br/>
+For details&#160;please ref<a href="TechnicalReference_DbcRules_Fiat_FASs.html#4">er to&#160;[6]:&#160;<br/></a>“Sample Point”.&#160;This&#160;<br/>parameter&#160;is&#160;optional.&#160;<br/>
+SyncJumpWidthMin&#160;Network<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;&#160;1..4&#160;<br/>
+For details&#160;please ref<a href="TechnicalReference_DbcRules_Fiat_FASs.html#4">er to&#160;[6]:&#160;<br/></a>“Resynchronization&#160;Jump&#160;<br/>Width”.&#160;This&#160;parameter&#160;is&#160;<br/>optional.&#160;<br/>
+SyncJumpWidthMax&#160;Network<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;&#160;1..4&#160;<br/>
+For details&#160;please ref<a href="TechnicalReference_DbcRules_Fiat_FASs.html#4">er to&#160;[6]:&#160;<br/></a>“Resynchronization&#160;Jump&#160;<br/>Width”.&#160;This&#160;parameter&#160;is&#160;<br/>optional.&#160;<br/>
+NBTMin<br/>
+Network<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;&#160;8..6..25&#160;<br/>
+For details&#160;please ref<a href="TechnicalReference_DbcRules_Fiat_FASs.html#4">er to&#160;[6]:&#160;<br/></a>“Number&#160;of&#160;Time Quanta”.&#160;<br/>This&#160;parameter&#160;is&#160;optional.&#160;<br/>
+NBTMax<br/>
+Network<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;&#160;8..21..25&#160;<br/>
+For details&#160;please ref<a href="TechnicalReference_DbcRules_Fiat_FASs.html#4">er to&#160;[6]:&#160;<br/></a>“Number&#160;of&#160;Time Quanta”.&#160;<br/>This&#160;parameter&#160;is&#160;optional.&#160;<br/>
+Manufacturer<br/>
+Network<br/>
+&#160;<br/>
+&#160;<br/>
+String&#160;<br/>
+<b>Fiat</b>&#160;<br/>
+Indicates&#160;OEM FGA.&#160;Value&#160;<br/>must be „Fiat“.&#160;<br/>
+DBName<br/>
+Network<br/>
+&#160;<br/>
+&#160;<br/>
+String&#160;<br/>
+<b>CAN&#160;</b><br/>
+Specifies&#160;the&#160;name of&#160;the&#160;<br/>network.&#160;&#160;<br/>Must be&#160;different for any&#160;CAN&#160;<br/>(and LIN)&#160;network&#160;within one&#160;<br/>ECU.&#160;<br/>
+Table&#160;3-1&#160;&#160;<br/>
+General&#160;Attributes&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+10&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=11></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>3.2&#160;</b><br/>
+<b>Attributes&#160;for&#160;COM&#160;Module&#160;</b><br/>
+The&#160;following&#160;table&#160;describes the&#160;relevant&#160;attributes&#160;for the&#160;FGA&#160;Autosar COM.&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Object&#160;&#160;Type&#160;</b><br/>
+<b>Values and&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Ranges&#160;<br/></b>(<b>Bold&#160;=&#160;</b>default)<b>&#160;</b><br/>
+GenMsgILSupport<br/>
+Message<br/>
+Indicates&#160;that&#160;a message shall&#160;be&#160;<br/>
+&#160;<br/>
+&#160;&#160;Enum&#160;<br/>
+<b>No</b>&#160;=&#160;0&#160;<br/>Yes&#160;=&#160;1&#160;<br/>
+handled by&#160;COM. If&#160;“Yes”&#160;is&#160;<br/>chosen&#160;the message will&#160;be&#160;<br/>handled by&#160;COM&#160;otherwise&#160;not.&#160;<br/>&#160;<br/>Please note&#160;for network&#160;<br/>management&#160;messages:&#160;<br/>For&#160;FGA&#160;Class&#160;C Nm&#160;messages&#160;<br/>(STATUS_C)&#160;this&#160;attribute&#160;shall&#160;be&#160;<br/>set&#160;to&#160;“Yes”.&#160;<br/>For&#160;FGA&#160;Class&#160;B&#160;NM or&#160;<br/>AUTOSAR NM messages&#160;that&#160;<br/>attribute&#160;shall&#160;be set&#160;to&#160;“No”.&#160;<br/>
+GenMsgSendType<br/>
+Message<br/>
+Specifies&#160;the&#160;Tx&#160;behavior&#160;if&#160;the I<br/>
+&#160;<br/>
+&#160;&#160;Enum&#160;<br/>
+Cyclic&#160;=&#160;0,&#160;<br/>
+-<br/>
+NotUsed,&#160;&#160;<br/>
+PDU. Can&#160;be&#160;combined&#160;with any&#160;<br/>
+NotUsed,&#160;&#160;<br/>
+kind&#160;of&#160;GenSigSendType.&#160;<br/>
+NotUsed,&#160;&#160;<br/>NotUsed,&#160;&#160;<br/>NotUsed,&#160;&#160;<br/>NotUsed,&#160;&#160;<br/>NotUsed,&#160;&#160;<br/><b>NoMsgSendType&#160;=&#160;<br/>8</b>&#160;<br/>
+GenSigSendType<br/>
+Signal<br/>
+Specified the&#160;Tx&#160;behavior&#160;if&#160;a&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Enum&#160;<br/>
+NotUsed,&#160;&#160;<br/>OnWrite&#160;=&#160;1,&#160;<br/>
+Signal. OnChange&#160;and&#160;IfActive are&#160;<br/>
+OnWriteWithRepetit&#160;only&#160;supported for signals&#160;&lt;=&#160;4&#160;<br/>ion&#160;=&#160;2,&#160;<br/>
+Byte.&#160;<br/>
+OnChange&#160;=&#160;3,&#160;<br/>
+Please note:&#160;The&#160;combination&#160;of&#160;<br/>
+OnChangeWithRep&#160;transmission&#160;types&#160;with&#160;repetition&#160;<br/>etition&#160;=&#160;4,&#160;<br/>
+and&#160;without repetition&#160;will&#160;result&#160;in&#160;<br/>
+IfActive&#160;=&#160;5,&#160;<br/>
+the&#160;message being&#160;transmitted&#160;<br/>
+IfActiveWithRepeitio&#160;with&#160;repetition&#160;at&#160;any&#160;time.&#160;<br/>n =&#160;6,<b>&#160;<br/>NoSigSendType&#160;=&#160;<br/>7</b>&#160;<br/>
+GenMsgCycleTime<br/>
+Message<br/>
+&#160;<br/>
+&#160;&#160;Integer&#160;&#160;<b>0</b>..&#160;65535&#160;<br/>
+Time in ms&#160;between each&#160;cyclic&#160;<br/>transmission&#160;of&#160;a&#160;message.&#160;<br/>
+GenMsgCycleTimeFast<br/>
+Message<br/>
+&#160;<br/>
+&#160;&#160;Integer&#160;&#160;<b>0</b>..&#160;65535<b>&#160;</b><br/>
+Relevant for DualCycle&#160;and&#160;BAF&#160;<br/>messages:&#160;Time in ms&#160;between&#160;<br/>each cyclic&#160;transmission&#160;of&#160;a&#160;<br/>message if&#160;at&#160;least one&#160;<br/>IfActiveSignal&#160;has&#160;a&#160;different&#160;value&#160;<br/>as&#160;its&#160;default&#160;value.&#160;<br/>Relevant&#160;for messages&#160;with&#160;<br/>repetitions&#160;(i.e.&#160;<br/>GenMsgNrOfRepetition&#160;&gt;&#160;0):&#160;Time&#160;<br/>between&#160;each&#160;repetition.&#160;<br/>
+GenSigStartValue<br/>
+Signal<br/>
+<b>0x00</b>.. 0x7FFFFFFF<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;<br/>
+<b>&#160;&#160;</b>This&#160;Value is&#160;the&#160;default&#160;value&#160;for&#160;<br/>
+Hex&#160;<br/>
+the&#160;signal.&#160;<br/>The&#160;string&#160;value&#160;type can&#160;<br/>represent&#160;hexadecimal&#160;and&#160;integer&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+11&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=12></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Object&#160;&#160;Type&#160;</b><br/>
+<b>Values and&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Ranges&#160;<br/></b>(<b>Bold&#160;=&#160;</b>default)<b>&#160;</b><br/>
+values.&#160;<br/>
+GenSigInactiveValue<br/>
+Signal<br/>
+<b>0x00</b>..&#160;0x7FFFFFFF<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;<br/>
+<b>&#160;&#160;</b>Indicates&#160;the&#160;inactive&#160;value&#160;of&#160;a&#160;<br/>
+Hex&#160;<br/>
+signal.&#160;&#160;<br/>IfActive&#160;and&#160;IfActiveWithRepetition&#160;<br/>only&#160;supported for signals&#160;&lt;=&#160;4&#160;<br/>Byte.&#160;<br/>
+GenMsgDelayTime<br/>
+Message<br/>
+&#160;<br/>
+&#160;&#160;Integer&#160;&#160;<b>0</b>..&#160;65535<b>&#160;</b><br/>
+This&#160;is&#160;the minimum&#160;time in&#160;ms&#160;<br/>between&#160;the&#160;transmissions&#160;of&#160;<br/>different&#160;messages&#160;with&#160;the&#160;same&#160;<br/>identifier.&#160;<br/>
+GenMsgStartDelayTime<br/>
+Message<br/>
+&#160;<br/>
+&#160;&#160;Integer&#160;&#160;<b>0</b>..&#160;65535<b>&#160;</b><br/>
+This&#160;defines&#160;the&#160;time in ms&#160;<br/>between&#160;Com_IpduGroupStart&#160;<br/>and the&#160;first&#160;<br/>transmission&#160;of&#160;the cyclic&#160;part of&#160;<br/>this&#160;I-PDU.&#160;<br/>
+GenMsgNrOfRepetition<br/>
+Message<br/>
+<b>0x00</b>..&#160;0xFF<br/>
+&#160;<br/>
+&#160;&#160;Integer&#160;<br/>
+<b>&#160;</b><br/>
+Number&#160;of&#160;confirmed&#160;transmit&#160;<br/>
+Hex&#160;<br/>
+requests&#160;upon&#160;a triggering&#160;event.&#160;<br/>If&#160;the value is&#160;0&#160;or 1&#160;the&#160;PDU&#160;will&#160;<br/>be&#160;transmitted&#160;once.&#160;<br/>The&#160;time between&#160;the&#160;repetitions&#160;<br/>has&#160;to&#160;be&#160;defined&#160;using the&#160;dbc&#160;<br/>attribute&#160;GenMsgCycleTimeFast.&#160;<br/>
+GenSigTimeoutTime_&lt;Ecu<br/>
+Signal&#160;<br/>
+Integer&#160;&#160;<b>0</b>..&#160;65535<b>&#160;</b><br/>
+Timeout&#160;time in ms&#160;used&#160;for&#160;this&#160;<br/>
+&gt;<br/>
+signal&#160;received&#160;by&#160;a specific&#160;node.<br/>
+&#160;<br/>
+&#160;<br/>
+If&#160;different GenSigTimeoutTime&#160;<br/>values&#160;are configured&#160;for a&#160;<br/>message and&#160;update&#160;bits&#160;are not&#160;<br/>used, the&#160;lowest&#160;timeout&#160;time&#160;<br/>(strongest definition)&#160;is&#160;used for&#160;<br/>timeout&#160;monitoring.&#160;<br/>A&#160;dedicated attribute&#160;definition&#160;<br/>(GenSigTimeoutTime_&lt;Ecu&gt;)&#160;has&#160;<br/>to&#160;be&#160;provided&#160;for every&#160;ECU&#160;<br/>receiving this&#160;signal.&#160;<br/>
+Table&#160;3-2&#160;&#160;<br/>
+List&#160;of&#160;COM&#160;Data&#160;Base&#160;Attributes&#160;<br/>
+&#160;<br/>
+<b>3.2.1&#160;&#160;Mapping of&#160;FGA&#160;Transmission Modes&#160;to DBC&#160;Attributes&#160;</b><br/>
+For all&#160;transmission&#160;modes&#160;the&#160;attribute&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgILSupport&#160;=&#160;Yes&#160;<br/>
+shall&#160;be&#160;set.&#160;<br/>
+<b>Periodic&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>GenMsgSendType&#160;= Cyclic&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTime&#160;= Cycle&#160;time&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgStartDelayTime&#160;= Optional&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+12&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=13></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgDelayTime&#160;=&#160;Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigTimeoutTime&#160;= Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;=&#160;All&#160;signals have&#160;to&#160;be&#160;set&#160;to&#160;NoSigSendType&#160;<br/>
+<b>Periodic/Event&#160;CONTROL&#160;and Event&#160;CONTROL&#160;</b><br/>
+These&#160;transmission&#160;modes&#160;are&#160;supported&#160;by&#160;carry-back&#160;ECUs only.&#160;These&#160;rules must&#160;be&#160;<br/>applied&#160;as soon&#160;as soon&#160;a&#160;message&#160;includes&#160;at&#160;least&#160;one&#160;CONTROL&#160;signal.&#160;<br/>
+<b>&gt;&#160;&#160;</b>NmType&#160;=&#160;Fiat_Class_C or FIAT&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgSendType&#160;= NoMsgSendType&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;=&#160;All&#160;signals have&#160;to&#160;be&#160;set&#160;to&#160;NoSigSendType&#160;including&#160;signals that&#160;<br/>
+are actually&#160;STATUS&#160;signals.&#160;<br/>
+<b>Application&#160;Task:</b>&#160;The&#160;transmission&#160;has&#160;to&#160;be&#160;triggered&#160;by&#160;the&#160;application&#160;manually.&#160;For&#160;<br/>this purpose&#160;the&#160;application&#160;has&#160;to&#160;use&#160;the&#160;API&#160;Com_TriggerIPDUSend.&#160;<br/>
+<b>Periodic/Event&#160;STATUS&#160;and Cyclic&#160;on Change&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>GenMsgSendType&#160;= Cyclic&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTime&#160;= Cycle&#160;time&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgStartDelayTime&#160;= Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgDelayTime&#160;=&#160;Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigTimeoutTime&#160;=&#160;Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;= NoSigSendType&#160;for signals that&#160;cannot&#160;trigger the&#160;transmission.&#160;<br/>
+Signals that&#160;can&#160;trigger&#160;the&#160;message&#160;transmission&#160;shall&#160;be&#160;set&#160;to&#160;OnChange&#160;or&#160;<br/>OnChangeWithRepetition.&#160;Within&#160;one&#160;message&#160;OnChange&#160;and&#160;<br/>OnChangeWithRepetition&#160;must&#160;not&#160;be&#160;combined.&#160;&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgNrOfRepetition&#160;= If&#160;signal sent&#160;type&#160;is OnChangeWithRepetition&#160;only.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTimeFast&#160;=&#160;Time&#160;between&#160;each&#160;repetition.&#160;Only&#160;required&#160;if&#160;sent&#160;type&#160;is&#160;<br/>
+OnChangeWithRepetition.&#160;<br/>
+Event&#160;STATUS&#160;and&#160;On&#160;Change<b>&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>GenMsgSendType&#160;= NoMsgSendType&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgDelayTime&#160;=&#160;Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigTimeoutTime&#160;=&#160;Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;= NoSigSendType&#160;for signals that&#160;cannot&#160;trigger the&#160;transmission.&#160;<br/>
+Signals that&#160;can&#160;trigger&#160;the&#160;message&#160;transmission&#160;shall&#160;be&#160;set&#160;to&#160;OnChange&#160;or&#160;<br/>OnChangeWithRepetition.&#160;Within&#160;one&#160;message&#160;OnChange&#160;and&#160;<br/>OnChangeWithRepetition&#160;must&#160;not&#160;be&#160;combined.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgNrOfRepetition&#160;=&#160;Required&#160;if&#160;signal sent&#160;type&#160;is&#160;OnChangeWithRepetition.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+13&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=14></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTimeFast&#160;=&#160;Time&#160;between&#160;each&#160;repetition.&#160;Only&#160;required&#160;if&#160;sent&#160;type&#160;is&#160;<br/>
+OnChangeWithRepetition.&#160;<br/>
+<b>Spontaneous&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>GenMsgSendType&#160;= NoMsgSendType&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgDelayTime&#160;=&#160;Optional&#160;&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigTimeoutTime&#160;=&#160;Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;= NoSigSendType&#160;for signals that&#160;cannot&#160;trigger the&#160;transmission.&#160;<br/>
+Signals that&#160;can&#160;trigger&#160;the&#160;message&#160;transmission&#160;shall&#160;be&#160;set&#160;to&#160;OnWrite&#160;or&#160;<br/>OnWriteWithRepetition.&#160;Within&#160;one&#160;message&#160;OnWrite&#160;and&#160;OnWriteWithRepetition&#160;must&#160;<br/>not&#160;be&#160;combined.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgNrOfRepetition&#160;=&#160;Required&#160;if&#160;signal sent&#160;type&#160;is&#160;OnWriteWithRepetition.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTimeFast&#160;=&#160;Time&#160;between&#160;each&#160;repetition.&#160;Only&#160;required&#160;if&#160;sent&#160;type&#160;is&#160;<br/>
+OnChangeWithRepetition.&#160;<br/>
+<b>Event&#160;on message&#160;reception&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>GenMsgSendType&#160;= NoMsgSendType&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigTimeoutTime&#160;=&#160;Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;= One&#160;signal shall&#160;be&#160;OnWrite&#160;which&#160;is used&#160;to&#160;trigger the&#160;message&#160;<br/>
+transmission.&#160;All&#160;other&#160;signals shall&#160;be&#160;set&#160;to&#160;NoSigSendType.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgNrOfRepetition&#160;= If&#160;signal sent&#160;type&#160;is OnChangeWithRepetition&#160;only&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTimeFast&#160;=&#160;Time&#160;between&#160;each&#160;repetition.&#160;Only&#160;required&#160;if&#160;send&#160;type&#160;is&#160;<br/>
+OnChangeWithRepetition.&#160;<br/>
+<b>Application&#160;Task:</b>&#160;The&#160;Rx&#160;Confirmation&#160;of&#160;the&#160;request&#160;message&#160;has&#160;to&#160;be&#160;used&#160;to&#160;trigger&#160;<br/>the&#160;&#160;transmission&#160;&#160;of&#160;&#160;the&#160;&#160;EM&#160;&#160;message.&#160;&#160;By&#160;&#160;writing&#160;&#160;to&#160;&#160;the&#160;&#160;signal&#160;&#160;with&#160;&#160;Tx&#160;&#160;type&#160;&#160;OnWrite&#160;&#160;the&#160;<br/>transmission&#160;is triggered.&#160;<br/>
+<b>Multi Message&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>GenMsgSendType&#160;= NoMsgSendType&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;= One&#160;signal shall&#160;be&#160;OnWrite&#160;which&#160;is used&#160;to&#160;trigger the&#160;message&#160;<br/>
+transmission.&#160;All&#160;other&#160;signals shall&#160;be&#160;set&#160;to&#160;NoSigSendType&#160;<br/>
+<b>Application&#160;Task:</b>&#160;Application&#160;has&#160;to&#160;trigger&#160;the&#160;next&#160;segment&#160;within&#160;the&#160;TxConfirmation&#160;of&#160;<br/>a&#160;signal&#160;within&#160;&#160;this&#160;message.&#160;The&#160;message&#160;segmentation&#160;has&#160;to&#160;be&#160;implemented&#160;by&#160;the&#160;<br/>application.&#160;A&#160;Signal&#160;Group&#160;may&#160;be&#160;used&#160;in&#160;&#160;order&#160;to&#160;indicate&#160;that&#160;&#160;the&#160;signals&#160;have&#160;to&#160;be&#160;<br/>kept&#160;consistently.&#160;<br/>
+<b>By&#160;Active&#160;Function (BAF)&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>GenMsgSendType&#160;= NoMsgSendType&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTimeFast&#160;=&#160;Cycle&#160;time&#160;if&#160;at&#160;least&#160;one&#160;signal with&#160;GenSidSendType&#160;<br/>
+IfActive&#160;has&#160;a&#160;value&#160;different&#160;to&#160;GenSigInactiveValue.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+14&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=15></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgStartDelayTime&#160;= Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgNrOfRepetition&#160;= Number of&#160;transmissions&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigTimeoutTime&#160;=&#160;Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigInactiveValue&#160;= Default&#160;value&#160;of&#160;the&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;= IfActiveWithRepetition&#160;<br/>
+<b>Dual&#160;Cycle&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>GenMsgSendType&#160;= Cyclic&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTime&#160;= Cycle&#160;time&#160;that&#160;is used&#160;if&#160;all&#160;signal with&#160;GenSidSendType&#160;IfActive&#160;<br/>
+have&#160;a&#160;value&#160;equal to&#160;GenSigInactiveValue.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTimeFast&#160;=&#160;Cycle&#160;time&#160;if&#160;at&#160;least&#160;one&#160;signal with&#160;GenSidSendType&#160;<br/>
+IfActive&#160;has&#160;a&#160;value&#160;different&#160;to&#160;GenSigInactiveValue.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgStartDelayTime&#160;= Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigTimeoutTime&#160;=&#160;Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigInactiveValue&#160;= Default&#160;value&#160;of&#160;the&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;= IfActive&#160;<br/>
+Dual Cycle&#160;plus&#160;On&#160;Change&#160;(DCOC)&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgSendType&#160;= Cyclic&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTime&#160;=&#160;Cycle&#160;time&#160;that&#160;is used&#160;if&#160;all&#160;signal with&#160;GenSidSendType&#160;IfActive&#160;<br/>
+have&#160;a&#160;value&#160;equal to&#160;GenSigInactiveValue.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTimeFast&#160;=&#160;Cycle&#160;time&#160;if&#160;at&#160;least&#160;one&#160;signal with&#160;GenSidSendType&#160;<br/>
+IfActive&#160;has&#160;a&#160;value&#160;different&#160;to&#160;GenSigInactiveValue.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgStartDelayTime&#160;= Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigTimeoutTime&#160;=&#160;Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigInactiveValue&#160;=&#160;Default&#160;value&#160;of&#160;the&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;= Signals switching&#160;the&#160;cycle&#160;shall&#160;be&#160;set&#160;to&#160;IfActive.&#160;Signals that&#160;<br/>
+shall&#160;trigger the&#160;transmission&#160;shall&#160;be&#160;set&#160;to&#160;OnChange.&#160;&#160;&#160;<br/>
+Dual Cycle&#160;plus&#160;On&#160;Change&#160;With&#160;Repetitions&#160;(DCOCrep)&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgSendType&#160;= Cyclic&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTime&#160;= Cycle&#160;time&#160;that&#160;is used&#160;if&#160;all&#160;signal with&#160;GenSidSendType&#160;IfActive&#160;<br/>
+have&#160;a&#160;value&#160;equal to&#160;GenSigInactiveValue.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgCycleTimeFast&#160;=&#160;Cycle&#160;time&#160;if&#160;at&#160;least&#160;one&#160;signal with&#160;GenSidSendType&#160;<br/>
+IfActive&#160;has&#160;a&#160;value&#160;different&#160;to&#160;GenSigInactiveValue.&#160;Time&#160;between&#160;each&#160;repetition.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgStartDelayTime&#160;= Optional&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+15&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=16></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgNrOfRepetition&#160;= Number of&#160;transmissions&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigTimeoutTime&#160;= Optional&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigInactiveValue&#160;= Default&#160;value&#160;of&#160;the&#160;signal&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;= Signals switching&#160;the&#160;cycle&#160;shall&#160;be&#160;set&#160;to&#160;IfActive.&#160;Signals that&#160;<br/>
+shall&#160;trigger the&#160;transmission&#160;shall&#160;be&#160;set&#160;to&#160;OnChangeWithRepetitions.&#160;<br/>
+<b>3.3&#160;</b><br/>
+<b>Attributes&#160;for&#160;AUTOSAR&#160;Network&#160;Management&#160;</b><br/>
+The&#160;following&#160;table&#160;provides&#160;a&#160;list&#160;of&#160;data&#160;base&#160;attributes&#160;that&#160;shall&#160;be&#160;used&#160;if&#160;the&#160;CANNM&#160;<br/>is used&#160;on&#160;a&#160;network.&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Object&#160;&#160;Type&#160;</b><br/>
+<b>Values and&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Ranges&#160;<br/></b>(<b>Bold&#160;=&#160;</b>default)<b>&#160;</b><br/>
+NmType<br/>
+Network<br/>
+&#160;<br/>
+&#160;&#160;String&#160;<br/>
+NmAsr&#160;<br/>
+This&#160;attribute defines&#160;the type&#160;of&#160;<br/>the&#160;NM.&#160;Must be&#160;set&#160;to&#160;“<b>NmAsr</b>”&#160;<br/>for&#160;AUTOSAR NM networks.&#160;<br/>
+NmAsrNode<br/>
+Node<br/>
+This&#160;attribute defines&#160;if&#160;the&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Enum&#160;<br/>
+No =&#160;0,&#160;<br/><b>Yes</b>&#160;=&#160;1&#160;<br/>
+corresponding&#160;node uses&#160;the&#160;<br/>AUTOSAR NM&#160;(“<b>Yes</b>”)&#160;on this&#160;<br/>channel&#160;or&#160;not&#160;(“<b>No</b>”).&#160;<br/>
+NmAsrTimeoutTime<br/>
+Network<br/>
+&#160;<br/>
+&#160;&#160;Integer&#160;&#160;1..<b>1000</b>..&#160;65535&#160;<br/>
+This&#160;attribute defines&#160;the NM&#160;<br/>Network&#160;Timeout&#160;Time&#160;<br/>
+NmAsrWaitBusSleepTime<br/>
+Network<br/>
+&#160;<br/>
+&#160;&#160;Integer&#160;&#160;1..<b>750</b>..&#160;65535&#160;<br/>
+This&#160;attribute defines&#160;the&#160;Wait&#160;Bus&#160;<br/>Sleep&#160;Time&#160;<br/>
+NmAsrRepeatMessageTime<br/>
+Network<br/>
+&#160;<br/>
+&#160;&#160;Integer&#160;&#160;1..<b>800</b>..&#160;65535&#160;<br/>
+This&#160;attribute defines&#160;the Repeat&#160;<br/>MessageTime&#160;<br/>
+NmAsrMessage<br/>
+Message<br/>
+This&#160;attribute&#160;identifies&#160;a&#160;message&#160;<br/>
+&#160;<br/>
+&#160;&#160;Enum&#160;<br/>
+<b>No&#160;=&#160;0,&#160;<br/></b>Yes&#160;=&#160;1&#160;<br/>
+as&#160;AUTOSAR&#160;NM message&#160;<br/>(“<b>yes</b>”).&#160;<br/>
+NmAsrMessageCount<br/>
+Network<br/>
+&#160;<br/>
+&#160;&#160;Integer&#160;&#160;1..<b>64</b>..256&#160;<br/>
+This&#160;attribute defines&#160;the&#160;<br/>maximum&#160;number&#160;of&#160;AUTOSAR&#160;<br/>NM messages&#160;received by&#160;the&#160;NM&#160;<br/>(message range)&#160;<br/>Value&#160;must be 2&#160;to the power&#160;of&#160;n&#160;<br/>and&#160;n has&#160;to be natural&#160;number&#160;<br/>
+NmAsrBaseAddress<br/>
+Network<br/>
+Base address&#160;of&#160;the&#160;NM&#160;<br/>
+&#160;<br/>
+&#160;&#160;Hex&#160;<br/>
+<b>0xE094000</b>..&#160;<br/>0x7FFFFFFF&#160;<br/>
+messages; Identifies&#160;together with&#160;<br/>NmAsrMessageCount&#160;the&#160;NM&#160;<br/>message range:&#160;<br/>&lt;NmAsrBaseAddress&gt;..&#160;<br/>&lt;NmAsrBaseAddress&#160;+&#160;<br/>NmAsrMessageCount&#160;-&#160;1&gt;&#160;<br/>Value&#160;must be an&#160;integer multiple&#160;<br/>of&#160;NmAsrMessageCount&#160;<br/>
+NmAsrCanMsgCycleTime<br/>
+Network<br/>
+&#160;<br/>
+&#160;&#160;Integer&#160;&#160;1..<b>200</b>..&#160;65535&#160;<br/>
+NM message cycle time&#160;<br/>
+NmAsrCanMsgReducedTime&#160;Node<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;&#160;1..<b>100</b>..&#160;65535&#160;<br/>
+Message time for Bus&#160;Load&#160;<br/>Reduction.&#160;This&#160;attribute is&#160;node&#160;<br/>specific&#160;and&#160;has&#160;to&#160;be&#160;greater&#160;or&#160;<br/>equal&#160;to&#160;½&#160;*&#160;<br/>NmAsrCanMsgCycleTime&#160;<br/>but&#160;less&#160;than&#160;<br/>NmAsrCanMsgCycleTime&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+16&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=17></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Object&#160;&#160;Type&#160;</b><br/>
+<b>Values and&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+<b>Ranges&#160;<br/></b>(<b>Bold&#160;=&#160;</b>default)<b>&#160;</b><br/>
+NmAsrCanMsgCycleOffset<br/>
+Node<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;&#160;<b>0</b>..&#160;65535&#160;<br/>
+NM message transmission&#160;offset.&#160;<br/>Has&#160;to&#160;be set&#160;less&#160;than&#160;<br/>NmAsrCanMsgCycleTime.&#160;<br/>
+NmAsrNodeIdentifier<br/>
+Node<br/>
+&#160;<br/>
+&#160;<br/>
+Hex&#160;<br/>
+<b>0x00</b>..0xFF&#160;<br/>
+Default&#160;address&#160;of&#160;Arbitrary&#160;<br/>Address&#160;Capable&#160;nodes.&#160;<br/>Node&#160;ID as&#160;used in the NID&#160;of&#160;the&#160;<br/>NM message (if&#160;used)&#160;<br/>
+Table&#160;3-3&#160;&#160;<br/>
+List&#160;of&#160;NM&#160;Data&#160;Base&#160;Attributes&#160;<br/>
+<b>3.4&#160;</b><br/>
+<b>Attributes&#160;for&#160;FGA&#160;Class&#160;C Networks&#160;(Non-Gateway,&#160;Without Wakeup)&#160;</b><br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Object&#160;&#160;Type&#160;</b><br/>
+<b>Values and&#160;Ranges&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+(<b>Bold&#160;=&#160;</b>default)<b>&#160;</b><br/>
+NmType<br/>
+Network<br/>
+&#160;<br/>
+&#160;&#160;String&#160;<br/>
+Fiat_Class_C&#160;<br/>
+This&#160;attribute defines&#160;the type&#160;<br/>of&#160;the NM.&#160;<br/>Must be&#160;set&#160;to&#160;“<b>Fiat_Class_C</b>”&#160;<br/>for ClassC networks.&#160;<br/>&#160;<br/>No further NM&#160;attributes&#160;are&#160;<br/>required.&#160;The&#160;STATUS_C&#160;<br/>message shall&#160;be assigned&#160;to&#160;<br/>COM (GenMsgILSupport&#160;=&#160;<br/>Yes).&#160;<br/>
+NmNode<br/>
+Node<br/>
+Attribute&#160;must always&#160;be&#160;set to&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Enum&#160;<br/>
+No =&#160;0,&#160;<br/><b>Yes&#160;=&#160;1&#160;</b><br/>
+“<b>No</b>”&#160;for nodes&#160;without&#160;wakeup&#160;<br/>capability.&#160;<br/>
+NwmNodeType<br/>
+Node<br/>
+Attribute&#160;must always&#160;be&#160;set to&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Enum&#160;<br/>
+kMaster =&#160;0,&#160;&#160;<br/>kSlave15&#160;=&#160;1,&#160;&#160;<br/>
+“<b>none</b>”.&#160;<br/>
+kSlave30&#160;=&#160;2,&#160;&#160;<br/><b>none =&#160;3&#160;<br/></b>&#160;<br/>
+Table&#160;3-4&#160;&#160;<br/>
+Class&#160;C&#160;Network&#160;Management&#160;<br/>
+Additionally&#160;&#160;a&#160;&#160;cyclic&#160;&#160;STATUS_C&#160;&#160;message&#160;&#160;may&#160;&#160;be&#160;&#160;transmitted&#160;&#160;as&#160;&#160;application&#160;&#160;message&#160;<br/>(chapte<a href="TechnicalReference_DbcRules_Fiat_FASs.html#11">r&#160;3.2):</a>&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgILSupport&#160;==&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>NmMessage&#160;==&#160;No&#160;(or undefined)&#160;&#160;<br/>
+<b>&gt;&#160;&#160;</b>NmAsrMessage&#160;==&#160;No&#160;(or&#160;undefined)&#160;<br/>
+&#160;<br/>
+<b>3.5&#160;</b><br/>
+<b>Attributes&#160;for FGA&#160;Class&#160;C Network&#160;Management&#160;(with&#160;wakeup)&#160;</b><br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Object&#160;&#160;Type&#160;</b><br/>
+<b>Values and&#160;Ranges&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+(<b>Bold&#160;=&#160;</b>default)<b>&#160;</b><br/>
+NmType<br/>
+Network<br/>
+&#160;<br/>
+&#160;&#160;String&#160;<br/>
+Fiat_Class_C&#160;<br/>
+This&#160;attribute defines&#160;the type&#160;<br/>of&#160;the NM.&#160;<br/>Must be&#160;set&#160;to&#160;“<b>Fiat_Class_C</b>”&#160;<br/>for ClassC networks.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+17&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=18></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Object&#160;&#160;Type&#160;</b><br/>
+<b>Values and&#160;Ranges&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+(<b>Bold&#160;=&#160;</b>default)<b>&#160;</b><br/>
+NmNode<br/>
+Node<br/>
+This&#160;attribute defines&#160;if&#160;the&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Enum&#160;<br/>
+No =&#160;0,&#160;<br/><b>Yes&#160;=&#160;1&#160;</b><br/>
+corresponding&#160;node uses&#160;the&#160;<br/>FGA&#160;ClassC Network&#160;<br/>Management (with&#160;wakeup)&#160;or&#160;<br/>not&#160;<br/>
+NwmNodeType<br/>
+Node<br/>
+If&#160;the node&#160;is&#160;a&#160;ClassC<br/>
+&#160;<br/>
+&#160;<br/>
+Enum&#160;<br/>
+kMaster =&#160;0,&#160;&#160;<br/>
+&#160;&#160;&#160;<br/>
+kSlave15&#160;=&#160;1,&#160;&#160;<br/>
+Wakeup Master&#160;node&#160;the&#160;<br/>
+kSlave30&#160;=&#160;2,&#160;&#160;<br/>
+attribute&#160;must be set&#160;to&#160;<br/>
+<b>none =&#160;3&#160;</b><br/>
+“<b>kMaster</b>”.&#160;If&#160;the node is&#160;a&#160;<br/>
+&#160;<br/>
+Wakeup Slave&#160;Node the&#160;<br/>attribute&#160;shall&#160;be set&#160;<br/>“<b>kSlave30</b>”.&#160;<br/>Nodes&#160;without&#160;wakeup&#160;<br/>capability&#160;shall&#160;be defined&#160;<br/>according&#160;to&#160;chap<a href="TechnicalReference_DbcRules_Fiat_FASs.html#17">ter&#160;3.4.</a>&#160;<br/>
+NmMessage<br/>
+Message<br/>
+This&#160;attribute defines&#160;that&#160;a&#160;<br/>
+&#160;<br/>
+&#160;&#160;Enum&#160;<br/>
+<b>No&#160;=&#160;0,&#160;<br/></b>Yes&#160;=&#160;1&#160;<br/>
+message is&#160;a&#160;FGA&#160;Class&#160;C&#160;<br/>Network&#160;Management&#160;<br/>message.&#160;The&#160;ClassC NM&#160;<br/>Wakeup&#160;message must be set&#160;<br/>to “<b>Yes</b>”&#160;<br/>
+Table&#160;3-5&#160;&#160;<br/>
+Class&#160;C&#160;Network&#160;Management&#160;<br/>
+The&#160;WAKE_C NM&#160;message&#160;shall&#160;be&#160;defined&#160;as&#160;follows:&#160;<br/>
+<b>&gt;&#160;&#160;</b>NmMessage&#160;==&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>NmAsrMessage&#160;==&#160;No&#160;(or undefined)&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgILSupport&#160;==&#160;No&#160;<br/>
+<b>&gt;&#160;&#160;</b>Slave&#160;Nodes&#160;only:&#160;The&#160;message&#160;shall&#160;contain&#160;a&#160;signal named&#160;“WakeUpNodeAddress”.&#160;<br/>
+The&#160;initial value&#160;(GenSigStartValue) defines&#160;the&#160;nodes&#160;wakeup&#160;address.&#160;Master&#160;nodes&#160;<br/>do&#160;not&#160;require&#160;this signal.&#160;<br/>
+&#160;<br/>
+Additionally&#160;&#160;a&#160;&#160;cyclic&#160;&#160;STATUS_C&#160;&#160;message&#160;&#160;may&#160;&#160;be&#160;&#160;transmitted&#160;&#160;as&#160;&#160;application&#160;&#160;message&#160;<br/>(chapte<a href="TechnicalReference_DbcRules_Fiat_FASs.html#11">r&#160;3.2):</a>&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgILSupport&#160;==&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>NmMessage&#160;==&#160;No&#160;(or undefined)&#160;&#160;<br/>
+<b>&gt;&#160;&#160;</b>NmAsrMessage&#160;==&#160;No&#160;(or undefined)&#160;<br/>
+&#160;<br/>
+<b>3.6&#160;</b><br/>
+<b>Attributes&#160;for&#160;FGA&#160;Class&#160;B Network&#160;Management&#160;(Slave)&#160;</b><br/>
+The&#160;following&#160;rules&#160;are&#160;applicable&#160;for&#160;Clamp15&#160;and&#160;Clamp30&#160;ECUs&#160;as&#160;long&#160;as&#160;not&#160;stated&#160;<br/>otherwise.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+18&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=19></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Object&#160;&#160;Type&#160;</b><br/>
+<b>Values and&#160;Ranges&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+(<b>Bold&#160;=&#160;</b>default)<b>&#160;</b><br/>
+NmType<br/>
+Network<br/>
+&#160;<br/>
+&#160;&#160;String&#160;<br/>
+FIAT&#160;<br/>
+This&#160;attribute defines&#160;the type&#160;<br/>of&#160;the NM.&#160;<br/>Must be&#160;set&#160;to&#160;“<b>FIAT</b>”&#160;for&#160;<br/>ClassB&#160;networks.&#160;<br/>
+NmNode<br/>
+Node<br/>
+Defines&#160;that&#160;the related node&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Enum&#160;<br/>
+No =&#160;0,&#160;<br/><b>Yes</b>&#160;=&#160;1<b>&#160;</b><br/>
+makes&#160;use of&#160;the NM&#160;module&#160;<br/>(“<b>Yes</b>”)&#160;or not&#160;(“<b>No</b>”).&#160;<br/>
+NwmNodeType<br/>
+Node<br/>
+Specifies&#160;the&#160;ClassB&#160;NM&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Enum&#160;<br/>
+kMaster =&#160;0,&#160;<br/>kSlave15&#160;=&#160;1,&#160;<br/>
+mode use&#160;on&#160;this&#160;channel&#160;(i.e.&#160;<br/>
+kSlave30&#160;=&#160;2,&#160;<br/>
+Slave&#160;Clamp 30 or&#160;Slave&#160;<br/>
+<b>none</b>&#160;=&#160;3&#160;<br/>
+Clamp 15).&#160;&#160;<br/>
+NmStationAddress<br/>
+Node<br/>
+&#160;<br/>
+&#160;<br/>
+Hex&#160;<br/>
+0x00..0xFF&#160;<br/>
+Station&#160;address&#160;of&#160;the NM&#160;<br/>node. Only&#160;relevant&#160;for Master&#160;<br/>nodes.&#160;<br/>
+NmMessage<br/>
+Message<br/>
+Defines&#160;that&#160;the related&#160;<br/>
+&#160;<br/>
+&#160;&#160;Enum&#160;<br/>
+<b>No&#160;=&#160;0,&#160;<br/></b>Yes&#160;=&#160;1&#160;<br/>
+message is&#160;a&#160;NM message&#160;<br/>(“<b>Yes</b>”).&#160;<br/>
+Table&#160;3-6&#160;&#160;<br/>
+Class&#160;B&#160;Network&#160;Management&#160;<br/>
+The&#160;&#160;user-data&#160;&#160;contained&#160;&#160;in&#160;&#160;the&#160;&#160;NM&#160;&#160;message&#160;&#160;will&#160;&#160;be&#160;&#160;written&#160;&#160;to&#160;&#160;the&#160;&#160;message&#160;&#160;by&#160;&#160;the&#160;&#160;NM&#160;<br/>module.&#160;<br/>
+&#160;<br/>
+<b>3.7&#160;</b><br/>
+<b>Attributes&#160;for&#160;Diagnostic&#160;(DCM)&#160;</b><br/>
+The&#160;following&#160;data&#160;base&#160;attributes&#160;are&#160;utilized&#160;to&#160;configure the&#160;DCM&#160;and&#160;CANTP&#160;modules.&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Object&#160;&#160;Type&#160;</b><br/>
+<b>Values and&#160;Ranges&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+(<b>Bold&#160;=&#160;</b>default)<b>&#160;</b><br/>
+DiagState<br/>
+Message<br/>
+Set&#160;to &#34;<b>yes</b>&#34;&#160;for:<br/>
+&#160;<br/>
+&#160;&#160;Enum&#160;<br/>
+<b>No</b>&#160;=&#160;0,&#160;<br/>
+&#160;<br/>
+Yes&#160;=&#160;1&#160;<br/>
+-&#160;Enhanced&#160;UDS&#160;Functional&#160;<br/>request&#160;<br/>-&#160;OBD request&#160;<br/>
+DiagRequest<br/>
+Message<br/>
+Set&#160;to &#34;<b>yes</b>&#34;&#160;for:<br/>
+&#160;<br/>
+&#160;&#160;Enum&#160;<br/>
+<b>No</b>&#160;=&#160;0,&#160;<br/>
+&#160;<br/>
+Yes&#160;=&#160;1&#160;<br/>
+-&#160;Enhanced&#160;UDS&#160;Physical&#160;<br/>Request&#160;<br/>-&#160;Flow&#160;Control&#160;PDU used for&#160;<br/>OBD Responses&#160;<br/>
+DiagResponse<br/>
+Message<br/>
+Set&#160;to &#34;<b>yes</b>&#34;&#160;for:<br/>
+&#160;<br/>
+&#160;&#160;Enum&#160;<br/>
+<b>No</b>&#160;=&#160;0,&#160;<br/>
+&#160;<br/>
+Yes&#160;=&#160;1&#160;<br/>
+-&#160;Enhanced&#160;UDS&#160;Response&#160;<br/>-&#160;OBD Responses&#160;<br/>
+DiagRoeResponse<br/>
+Message<br/>
+Optional&#160;attribute required for&#160;<br/>
+&#160;<br/>
+&#160;&#160;Enum&#160;<br/>
+<b>No</b>&#160;=&#160;0,&#160;<br/>Yes&#160;=&#160;1&#160;<br/>
+networks&#160;with RoE&#160;service.&#160;<br/>Set&#160;to &#34;<b>yes</b>&#34;&#160;for:&#160;<br/>-&#160;RoE&#160;Response&#160;(transmitted&#160;<br/>by&#160;ECUs&#160;supporting&#160;RoE)&#160;<br/>
+DiagRoeFlowControl<br/>
+Message<br/>
+Optional&#160;attribute required for&#160;<br/>
+&#160;<br/>
+&#160;&#160;Enum&#160;<br/>
+<b>No</b>&#160;=&#160;0,&#160;<br/>Yes&#160;=&#160;1<b>&#160;</b><br/>
+networks&#160;with RoE&#160;service.&#160;<br/>Set&#160;to “<b>yes</b>”&#160;for:&#160;<br/>-&#160;RoE&#160;Flow&#160;Control&#160;<br/>(transmitted by&#160;Tester)&#160;<br/>
+DiagConnection<br/>
+Message<br/>
+&#160;<br/>
+&#160;&#160;Integer&#160;&#160;<b>0x00</b>..0xFFFF&#160;<br/>
+Groups&#160;DiagRequest&#160;and&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+19&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_DbcRules_Fiat_FAS-20_1.png"/><br/>
+Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Object&#160;&#160;Type&#160;</b><br/>
+<b>Values and&#160;Ranges&#160;&#160;Description&#160;</b><br/>
+<b>Type&#160;</b><br/>
+(<b>Bold&#160;=&#160;</b>default)<b>&#160;</b><br/>
+Hex&#160;<br/>
+DiagResponse and&#160;RoE&#160;<br/>messages&#160;to&#160;a&#160;connection.&#160;<br/>RoE&#160;Response and RoE&#160;Flow&#160;<br/>Control&#160;message shall&#160;have&#160;<br/>the&#160;same DiagConnection&#160;<br/>value&#160;as&#160;the&#160;related&#160;enhanced&#160;<br/>UDS&#160;Request and Response.&#160;<br/>The&#160;value&#160;shall&#160;be&#160;derived&#160;as&#160;<br/>follows:&#160;<br/>&lt;TesterAddress&gt;&lt;ServerAddr<br/>ess&gt;.&#160;<br/>
+IsOBDrelevant<br/>
+Node<br/>
+Specifies&#160;if&#160;an&#160;ECU&#160;is&#160;OBD<br/>
+&#160;<br/>
+&#160;<br/>
+Enum&#160;<br/>
+<b>No&#160;=&#160;0,&#160;</b><br/>
+-<br/>
+Yes&#160;=&#160;1&#160;<br/>
+relevant&#160;(“<b>Yes</b>”)&#160;or not&#160;(“<b>No</b>”).&#160;<br/>If&#160;set,&#160;the&#160;Source&#160;Address&#160;F1&#160;<br/>will&#160;be interpreted&#160;as&#160;OBD&#160;<br/>Request. Otherwise Request,&#160;<br/>Response&#160;and&#160;Functional&#160;<br/>Request&#160;will&#160;be&#160;handled&#160;as&#160;<br/>enhanced&#160;UDS.&#160;<br/>
+TpOwnSystemEcuNumber<br/>
+Node<br/>
+<b>0x00</b>..0xFF<br/>
+&#160;<br/>
+&#160;<br/>
+Integer&#160;<br/>
+<b>&#160;</b><br/>
+Optional&#160;Attribute.&#160;Used&#160;by&#160;the&#160;<br/>
+Hex&#160;<br/>
+CANbedded&#160;(non&#160;AUTOSAR)&#160;<br/>
+&#160;<br/>
+tool&#160;chain only.&#160;Will&#160;be&#160;ignored&#160;<br/>by&#160;AUTOSAR tools.&#160;<br/>This&#160;value provides&#160;the&#160;ECU&#160;<br/>Number, necessary&#160;for setting&#160;<br/>up&#160;the&#160;Tx&#160;CAN ID&#160;using&#160;<br/>Normal&#160;Fixed&#160;TP&#160;addressing.&#160;<br/>
+Table&#160;3-7&#160;&#160;<br/>
+List&#160;of&#160;DCM&#160;Data&#160;Base&#160;Attributes&#160;<br/>
+<b>3.7.1&#160;</b><br/>
+<b>Examples&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Note&#160;<br/></b>These&#160;examples assume&#160;that&#160;the&#160;enhanced UDS&#160;tester&#160;ID&#160;is&#160;0xF4&#160;as&#160;defined&#160;by&#160;FGA&#160;<br/>
+&#160;&#160;for&#160;AUTOSAR&#160;projects.&#160;Carry&#160;back&#160;projects&#160;use&#160;the&#160;tester&#160;ID&#160;0xF1.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>3.7.1.1&#160;</b><br/>
+<b>Enhanced UDS&#160;Communication&#160;</b><br/>
+Example&#160;&#160;of&#160;&#160;DBC&#160;&#160;attributes&#160;for&#160;a&#160;communication&#160;between&#160;the&#160;Tester&#160;tool&#160;(0xF4)&#160;and&#160;one&#160;<br/>Node&#160;(0x12):&#160;<br/><b>Enhanced UDS&#160;Request (also used&#160;as&#160;Flow&#160;Control&#160;for Response):&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>DiagState&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRequest&#160;=&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagResponse&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRoeResponse&#160;=&#160;No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRoeFlowControl = No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagConnection&#160;= F412&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+20&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=21></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+Note:&#160;CANID is&#160;0x18DA12F4&#160;<br/>
+&#160;<br/>
+<b>Enhanced UDS&#160;Response&#160;(also&#160;used&#160;as&#160;Flow&#160;Control&#160;for Request):&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>DiagState&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRequest&#160;=&#160;No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagResponse&#160;=&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRoeResponse&#160;=&#160;No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRoeFlowControl = No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagConnection&#160;= F412&#160;<br/>
+Note:&#160;CANID is&#160;0x18DAF412&#160;<br/>
+&#160;<br/>
+<b>Functional&#160;Request&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>DiagState&#160;=&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRequest&#160;=&#160;No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagResponse&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRoeResponse&#160;=&#160;No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRoeFlowControl = No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagConnection&#160;= F4FE&#160;<br/>
+Note:&#160;CANID is&#160;0x18DBFEF4&#160;<br/>
+<b>&#160;</b><br/>
+<b>RoE Response&#160;(Optional):&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>DiagState&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRequest&#160;=&#160;No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagResponse&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRoeResponse&#160;=&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRoeFlowControl = Now&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagConnection&#160;= F412&#160;<br/>
+Note:&#160;CANID is&#160;different&#160;to&#160;the&#160;enhanced&#160;UDS&#160;Response:&#160;0x18DAF412&#160;<br/>
+&#160;<br/>
+<b>RoE Flow&#160;Control&#160;(Optional):&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>DiagState&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRequest&#160;=&#160;No&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+21&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=22></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagResponse&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRoeResponse&#160;=&#160;No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRoeFlowControl =&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagConnection&#160;=&#160;F412&#160;<br/>
+<b>&gt;&#160;&#160;</b>Note:&#160;CANID is&#160;different&#160;to&#160;the&#160;enhanced&#160;UDS&#160;Request:&#160;0x18DA12F4&#160;<br/>
+&#160;<br/>
+<b>3.7.1.2&#160;</b><br/>
+<b>Legislative&#160;OBD Communication&#160;</b><br/>
+Example&#160;&#160;of&#160;&#160;DBC&#160;&#160;attributes&#160;&#160;for&#160;&#160;a&#160;&#160;communication&#160;&#160;between&#160;&#160;the&#160;&#160;OBD&#160;&#160;tool&#160;&#160;(0xF1)&#160;&#160;and&#160;&#160;one&#160;<br/>Node&#160;(0x12):&#160;<br/><b>OBD Request (Functional):&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>DiagState&#160;=&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRequest&#160;=&#160;No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagResponse&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagConnection&#160;= F133&#160;<br/>
+Note:&#160;CANID is&#160;0x18DB33F1&#160;<br/>
+&#160;<br/>
+<b>OBD Response:&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>DiagState&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRequest&#160;=&#160;No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagResponse&#160;=&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagConnection&#160;= F112&#160;<br/>
+Note:&#160;CANID is&#160;0x18DAF112&#160;<br/>
+&#160;<br/>
+<b>Flow&#160;Control&#160;Frame&#160;for OBD&#160;Response&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>DiagState&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRequest&#160;=&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagResponse&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagConnection&#160;= F112&#160;<br/>
+Note:&#160;CANID is&#160;0x18DA12F1&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+22&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=23></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>3.8&#160;</b><br/>
+<b>Definition of XCP&#160;and&#160;application messages&#160;</b><br/>
+If&#160;a&#160;message&#160;shall&#160;be&#160;handled&#160;by&#160;a&#160;non&#160;AUTOSAR module&#160;–&#160;such&#160;as XCP&#160;or another CDD&#160;<br/>–&#160;the&#160;message&#160;shall&#160;not&#160;be&#160;assigned&#160;to&#160;any&#160;of&#160;the&#160;layers&#160;such&#160;as&#160;COM,&#160;DCM&#160;or&#160;network&#160;<br/>management.&#160;<br/>The&#160;following&#160;attributes must&#160;be&#160;set&#160;as defined:&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgILSupport&#160;= No&#160;<br/>
+<b>&gt;&#160;&#160;</b>NmMessage&#160;= No&#160;(or&#160;attribute&#160;not&#160;available)&#160;<br/>
+<b>&gt;&#160;&#160;</b>NmAsrMessage&#160;= No&#160;(or&#160;attribute&#160;not&#160;available)&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagState&#160;= No&#160;(or&#160;not&#160;available)&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagRequest&#160;=&#160;No&#160;<br/>
+<b>&gt;&#160;&#160;</b>DiagResponse&#160;= No&#160;<br/>
+Furthermore&#160;&#160;one&#160;&#160;signal&#160;&#160;shall&#160;&#160;be&#160;&#160;defined&#160;&#160;in&#160;&#160;the&#160;&#160;message&#160;&#160;that&#160;&#160;spans&#160;&#160;over&#160;&#160;the&#160;&#160;complete&#160;<br/>message.&#160;The&#160;signal&#160;has to&#160;be&#160;used&#160;for the&#160;Rx&#160;mapping&#160;of&#160;the&#160;message&#160;in&#160;the&#160;DBC&#160;file.&#160;<br/>
+<b>3.9&#160;</b><br/>
+<b>Definition of Update&#160;Bits&#160;</b><br/>
+In&#160;&#160;order&#160;&#160;to&#160;&#160;use&#160;&#160;update&#160;&#160;bits&#160;&#160;in&#160;&#160;the&#160;&#160;DBC&#160;&#160;file&#160;&#160;a&#160;&#160;naming&#160;&#160;convention&#160;&#160;has&#160;&#160;been&#160;&#160;defined.&#160;&#160;The&#160;<br/>update&#160;bit&#160;is&#160;therefore&#160;defined&#160;as&#160;an&#160;independent&#160;signal&#160;with&#160;some&#160;specific&#160;characteristics.&#160;<br/>Update&#160;bits can&#160;be&#160;used&#160;for signals and&#160;signal&#160;groups.&#160;&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenMsgILSupport&#160;=&#160;Yes&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;update&#160;bit of&#160;the&#160;signal&#160;(or signal group)&#160;with&#160;the&#160;name&#160;&lt;X&gt;&#160;is&#160;configured&#160;as a&#160;<br/>
+further signal with&#160;the&#160;name&#160;&lt;X&gt;_UB&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;update&#160;bit &lt;X&gt;_UB&#160;signal must&#160;be&#160;in&#160;the&#160;same&#160;message&#160;as the&#160;signal&#160;(or signal&#160;<br/>
+group)&#160;&lt;X&gt;&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;update&#160;bit “signal”&#160;shall&#160;have&#160;a&#160;bit size&#160;of&#160;1bit.&#160;<br/>
+<b>&gt;&#160;&#160;</b>GenSigSendType&#160;shall&#160;be&#160;NoSigSendType&#160;for the&#160;update&#160;bit.&#160;<br/>
+In&#160;the&#160;system&#160;description&#160;this update&#160;bit signal will be&#160;modelled&#160;as&#160;an&#160;AUTOSAR update&#160;<br/>bit (i.e.&#160;the&#160;signal&#160;definition&#160;will be&#160;removed&#160;and&#160;an&#160;update&#160;bit will be&#160;added).&#160;<br/>
+<b>3.10&#160;&#160;Definition of Invalid Values&#160;</b><br/>
+If&#160;the&#160;AUTOSAR&#160;mechanism&#160;of&#160;an&#160;invalid&#160;value&#160;shall&#160;be&#160;used&#160;for&#160;a&#160;signal,&#160;the&#160;DBC&#160;value&#160;<br/>table&#160;has&#160;to&#160;be&#160;extended&#160;by&#160;a&#160;value&#160;&#160;description&#160;&#160;called&#160;“SNA”.&#160;The&#160;value&#160;defined&#160;for&#160;this&#160;<br/>description&#160;will be&#160;used&#160;as invalid&#160;value&#160;by&#160;all ECUs sending&#160;or receiving&#160;this signal.&#160;<br/>If&#160;a&#160;signal&#160;has&#160;no&#160;SNA&#160;description&#160;in&#160;the&#160;value&#160;table,&#160;the&#160;invalid&#160;value&#160;feature&#160;will&#160;not&#160;be&#160;<br/>used&#160;for&#160;this signal.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+23&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=24></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>4&#160;&#160;LDF&#160;Rules&#160;and&#160;Conventions&#160;</b><br/>
+The&#160;FGA&#160;AUTOSAR&#160;Stack&#160;shall&#160;use&#160;an&#160;LDF&#160;file&#160;according&#160;to&#160;LIN&#160;2.1.&#160;&#160;In&#160;the&#160;LDF&#160;file,&#160;the&#160;<br/>following&#160;elements&#160;have&#160;to&#160;be&#160;set&#160;as&#160;follows (see<a href="TechnicalReference_DbcRules_Fiat_FASs.html#4">&#160;[5]):</a>&#160;<br/>LIN_protocol_version&#160;=&#160;&#34;2.1&#34;;&#160;<br/>LIN_language_version&#160;= &#34;2.1&#34;;&#160;<br/>This&#160;&#160;chapter&#160;&#160;defines&#160;&#160;additional&#160;&#160;requirements&#160;&#160;to&#160;&#160;this&#160;&#160;standard&#160;&#160;in&#160;&#160;order&#160;&#160;to&#160;&#160;be&#160;&#160;able&#160;&#160;to&#160;<br/>configure some&#160;AUTOSAR related&#160;features&#160;that&#160;are not&#160;available&#160;in&#160;the&#160;LDF.&#160;<br/>
+<b>4.1&#160;</b><br/>
+<b>Definition of LIN Channel&#160;Name&#160;</b><br/>
+The&#160;&#160;LIN&#160;&#160;Channel&#160;&#160;Name&#160;&#160;shall&#160;&#160;be&#160;&#160;defined&#160;&#160;in&#160;&#160;all&#160;&#160;LDF&#160;&#160;files&#160;&#160;by&#160;&#160;using&#160;&#160;the&#160;&#160;LDF&#160;&#160;description&#160;<br/>element&#160;&#160;‘Channel_name’&#160;&#160;(see&#160;&#160;<a href="TechnicalReference_DbcRules_Fiat_FASs.html#4">[5]).&#160;&#160;</a>The&#160;&#160;channel&#160;&#160;name&#160;&#160;must&#160;&#160;be&#160;&#160;unique&#160;&#160;over&#160;&#160;all&#160;&#160;CAN&#160;<br/>(DBName&#160;attribute) and&#160;LIN channels.&#160;<br/>
+<b>4.2&#160;</b><br/>
+<b>Definition of Update&#160;Bits&#160;</b><br/>
+The&#160;LIN&#160;Master&#160;Node&#160;(AUTOSAR&#160;ECU)&#160;shall&#160;be&#160;able&#160;to&#160;support&#160;update&#160;bits&#160;(e.g.&#160;for&#160;CAN&#160;<br/>to&#160;LIN&#160;signal&#160;routing).&#160;In&#160;order&#160;to&#160;use&#160;update&#160;bits&#160;in&#160;the&#160;LDF&#160;file&#160;a&#160;naming&#160;convention&#160;has&#160;<br/>been&#160;&#160;defined.&#160;&#160;The&#160;&#160;update&#160;&#160;bit&#160;&#160;is&#160;&#160;defined&#160;&#160;as&#160;&#160;an&#160;&#160;independent&#160;&#160;signal&#160;&#160;with&#160;&#160;some&#160;&#160;specific&#160;<br/>characteristics.&#160;&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;update&#160;bit of&#160;the&#160;signal&#160;with&#160;the&#160;name&#160;&lt;X&gt;&#160;is&#160;configured&#160;as&#160;a&#160;further signal with&#160;the&#160;<br/>
+name&#160;&lt;X&gt;_UB&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;update&#160;bit &lt;X&gt;_UB&#160;signal must&#160;be&#160;in&#160;the&#160;same&#160;message&#160;as the&#160;signal &lt;X&gt;&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;update&#160;bit “signal”&#160;shall&#160;have&#160;a&#160;bit size&#160;of&#160;1bit.&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;default value&#160;shall&#160;be&#160;0&#160;(required&#160;for the&#160;LIN Slaves that&#160;handle&#160;update&#160;bits&#160;as&#160;<br/>
+ordinary&#160;signals)&#160;<br/>
+In&#160;the&#160;system&#160;description,&#160;this&#160;update&#160;bit&#160;signal&#160;will&#160;be&#160;modelled&#160;as&#160;an&#160;AUTOSAR&#160;update&#160;<br/>bit (i.e.&#160;the&#160;signal&#160;definition&#160;will be&#160;removed&#160;and&#160;an&#160;update&#160;bit will be&#160;added).&#160;<br/>LIN&#160;Slaves&#160;will&#160;read&#160;the&#160;LDF&#160;directly&#160;and&#160;will&#160;handle&#160;the&#160;Update&#160;Bits&#160;as&#160;an&#160;ordinary&#160;signal&#160;<br/>which&#160;has to&#160;be&#160;evaluated&#160;manually&#160;before reading&#160;the&#160;actual signal.&#160;<br/>
+<b>4.3&#160;</b><br/>
+<b>Definition of invalid values&#160;</b><br/>
+In&#160;order&#160;to&#160;allow&#160;the&#160;invalidation&#160;of&#160;LIN&#160;Signals&#160;by&#160;the&#160;LIN&#160;Master&#160;node&#160;the&#160;&#160;LDF&#160;element&#160;<br/>‘Signal_encoding_types’&#160;&#160;(see<a href="TechnicalReference_DbcRules_Fiat_FASs.html#4">&#160;&#160;[5])&#160;&#160;</a>shall&#160;&#160;be&#160;&#160;used.&#160;&#160;The&#160;&#160;value&#160;&#160;that&#160;&#160;shall&#160;&#160;be&#160;&#160;used&#160;&#160;as&#160;&#160;invalid&#160;<br/>value&#160;shall&#160;have&#160;the&#160;name&#160;‘SNA’.&#160;This&#160;is&#160;similar&#160;to&#160;the&#160;solution&#160;on&#160;CAN&#160;where&#160;value&#160;tables&#160;<br/>are used.&#160;<br/>The&#160;&#160;LIN&#160;&#160;slaves&#160;&#160;will&#160;&#160;handle&#160;&#160;this&#160;&#160;“SNA”&#160;&#160;value&#160;&#160;as&#160;&#160;a&#160;&#160;normal&#160;&#160;signal&#160;&#160;value&#160;&#160;that&#160;&#160;must&#160;&#160;be&#160;<br/>considered&#160;as&#160;invalid.&#160;This will be&#160;handled&#160;by&#160;the&#160;LIN Slave&#160;application&#160;manually.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+24&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=25></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>4.3.1&#160;</b><br/>
+<b>Example&#160;</b><br/>
+Signal_encoding_types&#160;{&#160;<br/>&#160; &#160;&#160;FrontLeftSwitchStatus_Sig_Type&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;physical_value,&#160;0,&#160;2,&#160;1, 0;&#160;<br/>&#160; &#160; &#160; &#160;&#160;logical_value,&#160;2,&#160;&#34;down&#34;;&#160;<br/>&#160; &#160; &#160; &#160;&#160;<b>logical_value, 3,&#160;&#34;SNA&#34;;</b>&#160;<br/>
+}&#160;<br/>
+}&#160;<br/>&#160;<br/>Signal_representation {&#160;<br/>&#160; &#160;&#160;FrontLeftSwitchStatus_Sig_Type&#160;: FrontLeftSwitchStatus;&#160;<br/>}&#160;<br/>&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+25&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=26></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>5&#160;&#160;General&#160;Rules&#160;</b><br/>
+These&#160;rules apply&#160;for&#160;LDF and&#160;DBC&#160;files&#160;in&#160;the&#160;same&#160;way.&#160;<br/>
+<b>5.1&#160;</b><br/>
+<b>Definition of&#160;AUTOSAR&#160;System&#160;Signals&#160;</b><br/>
+AUTOSAR specifies&#160;a&#160;so&#160;called&#160;“Signal Fan-out” which&#160;is implemented&#160;by&#160;the&#160;RTE.&#160;&#160;<br/>Using&#160;this&#160;mechanism&#160;allows&#160;the&#160;application&#160;to&#160;write&#160;to&#160;a&#160;single&#160;SWC&#160;data&#160;element&#160;which&#160;<br/>is&#160;then&#160;transmitted&#160;using&#160;several&#160;COM&#160;Signals.&#160;I.e.&#160;the&#160;signal&#160;is&#160;transmitted&#160;on&#160;e.g.&#160;within&#160;<br/>several messages&#160;on&#160;several networks.&#160;<br/>In&#160;&#160;order&#160;&#160;to&#160;&#160;configure&#160;&#160;this&#160;&#160;mechanism&#160;&#160;using&#160;&#160;DBC&#160;&#160;and&#160;&#160;LDF&#160;&#160;files&#160;&#160;a&#160;&#160;naming&#160;&#160;convention&#160;&#160;is&#160;<br/>used:&#160;<br/>If&#160;&#160;a&#160;&#160;node&#160;&#160;transmits&#160;&#160;several&#160;&#160;signals&#160;&#160;(n)&#160;&#160;with&#160;&#160;the&#160;&#160;same&#160;&#160;signal&#160;name,&#160;&#160;the&#160;&#160;same&#160;&#160;signal&#160;&#160;size&#160;<br/>and&#160;&#160;(if&#160;&#160;available)&#160;&#160;the&#160;&#160;same&#160;&#160;value&#160;&#160;table,&#160;&#160;n&#160;&#160;COM&#160;&#160;signals&#160;&#160;will&#160;&#160;be&#160;&#160;created&#160;&#160;but&#160;&#160;only&#160;&#160;a&#160;&#160;single&#160;<br/>system&#160;&#160;signal.&#160;&#160;If&#160;&#160;the&#160;&#160;RTE&#160;&#160;accesses&#160;&#160;the&#160;&#160;system&#160;&#160;signal&#160;&#160;a&#160;&#160;fan-out&#160;&#160;resp.&#160;&#160;fan-in&#160;&#160;will&#160;&#160;be&#160;<br/>generated&#160;that&#160;writes the&#160;signal value&#160;to&#160;all&#160;n&#160;COM&#160;signals.&#160;<br/>The&#160;mechanism&#160;is supported&#160;for&#160;LDF and&#160;DBC (GenMsgILSupport&#160;=&#160;Yes)&#160;signals.&#160;<br/>
+<b>5.2&#160;</b><br/>
+<b>Definition of Routing Relations&#160;</b><br/>
+Routing&#160;relations&#160;between&#160;messages&#160;and&#160;signals&#160;of&#160;DBC&#160;and&#160;LDF&#160;files&#160;are&#160;to&#160;be&#160;defined&#160;<br/>as&#160;follows.&#160;<br/>
+<b>5.2.1&#160;</b><br/>
+<b>Signal&#160;Routing (by&#160;COM)&#160;</b><br/>
+Signal&#160;routing&#160;relations&#160;between&#160;two&#160;signals&#160;(in&#160;different&#160;messages)&#160;is&#160;defined&#160;by&#160;an&#160;equal&#160;<br/>signal name&#160;in&#160;the&#160;DBC or LDF&#160;fie.&#160;&#160;<br/>When&#160;&#160;routing&#160;&#160;signal&#160;&#160;groups,&#160;&#160;a&#160;&#160;routing&#160;&#160;relation&#160;&#160;between&#160;&#160;any&#160;&#160;GroupSignal&#160;&#160;has&#160;&#160;to&#160;&#160;be&#160;<br/>established.&#160;&#160;The&#160;&#160;tooling&#160;&#160;will&#160;&#160;automatically&#160;&#160;detect&#160;&#160;a&#160;&#160;routing&#160;&#160;between&#160;&#160;the&#160;&#160;SignalGroup&#160;&#160;if&#160;<br/>applicable.&#160;<br/>
+<b>5.2.2&#160;</b><br/>
+<b>Message&#160;Routing (IF Layer Routing by&#160;PDUR)&#160;</b><br/>
+Routing&#160;relations&#160;between&#160;two&#160;messages&#160;(on&#160;different&#160;networks)&#160;&#160;are&#160;defined&#160;by&#160;an&#160;equal&#160;<br/>message&#160;name&#160;in&#160;the&#160;DBC&#160;or&#160;LDF&#160;file.&#160;Please&#160;note&#160;that&#160;the&#160;database&#160;design&#160;must&#160;ensure&#160;<br/>that&#160;the&#160;two&#160;messages are similar with&#160;respect&#160;to&#160;the&#160;signal layout.&#160;<br/>If&#160;a&#160;message&#160;routing&#160;has&#160;been&#160;detected&#160;that&#160;links&#160;two&#160;messages&#160;that&#160;contain&#160;signals&#160;with&#160;<br/>the&#160;same&#160;names,&#160;&#160;only&#160;a&#160;message&#160;routing&#160;between&#160;these&#160;two&#160;messages&#160;will&#160;be&#160;created.&#160;<br/>No&#160;signal routing&#160;will&#160;be&#160;created&#160;as this would&#160;be&#160;redundant.&#160;<br/>Please&#160;note&#160;that&#160;message&#160;routing&#160;forwards&#160;received&#160;PDUs&#160;without&#160;changes&#160;to&#160;the&#160;payload&#160;<br/>to&#160;the&#160;destination&#160;network.&#160;There&#160;is&#160;no&#160;transmission&#160;mode&#160;conversion&#160;possible&#160;&#160;–&#160;&#160;i.e.&#160;the&#160;<br/>reception&#160;always triggers the&#160;transmission&#160;of&#160;the&#160;PDU&#160;on&#160;the&#160;destination.&#160;<br/>
+<b>5.2.3&#160;</b><br/>
+<b>Diagnostic&#160;Routing (TP Gateway&#160;Routing&#160;by&#160;PDUR)&#160;</b><br/>
+Routing&#160;relations&#160;between&#160;two&#160;diagnostic&#160;messages&#160;(on&#160;different&#160;networks)&#160;are&#160;defined&#160;by&#160;<br/>an&#160;equal&#160;message&#160;name&#160;in&#160;the&#160;DBC.&#160;Please&#160;note&#160;that&#160;the&#160;database&#160;design&#160;must&#160;ensure&#160;<br/>that&#160;the&#160;two&#160;messages are similar with&#160;respect&#160;to&#160;the&#160;signal layout.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+26&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=27></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>&gt;&#160;&#160;</b>Additionally,<b>&#160;Physical&#160;diagnostic&#160;requests</b>&#160;or&#160;<b>responses</b>&#160;will be&#160;identified&#160;by&#160;the&#160;<br/>
+attributes&#160;DiagRequest&#160;=&#160;Yes /&#160;&#160;DiagResponse&#160;= No&#160;or DiagRequest&#160;= No&#160;/&#160;&#160;<br/>DiagResponse&#160;=&#160;Yes.&#160;DiagState&#160;is set&#160;to&#160;No.&#160;&#160;<br/>
+<b>Diagnostic&#160;message&#160;type&#160;</b><br/>
+<b>Attributes&#160;</b><br/>
+Physical&#160;diagnostic&#160;requests<br/>
+DiagRequest&#160;=&#160;Yes<br/>
+&#160;<br/>
+&#160;<br/>
+DiagResponse =&#160;No&#160;<br/>DiagState&#160;=&#160;No&#160;<br/>&#160;<br/>
+Physical&#160;diagnostic&#160;responses<br/>
+DiagRequest&#160;=&#160;No<br/>
+&#160;<br/>
+&#160;<br/>
+DiagResponse =&#160;Yes&#160;<br/>DiagState&#160;=&#160;No&#160;<br/><b>&#160;</b><br/>
+&#160;<br/>
+In&#160;case&#160;of&#160;two&#160;diagnostic messages with&#160;an&#160;equal message&#160;name&#160;a&#160;routing&#160;relation&#160;is&#160;<br/>created.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Additionally,<b>&#160;Functional&#160;diagnostic&#160;requests</b>&#160;will be&#160;identified&#160;by&#160;the&#160;attribute&#160;<br/>
+DiagState&#160;=&#160;Yes.&#160;&#160;<br/>
+<b>Diagnostic&#160;message&#160;type&#160;</b><br/>
+<b>Attributes&#160;</b><br/>
+Functional&#160;diagnostic&#160;requests<br/>
+DiagRequest&#160;=&#160;No<br/>
+&#160;<br/>
+&#160;<br/>
+DiagResponse =&#160;No&#160;<br/>DiagState&#160;=&#160;Yes&#160;<br/>&#160;<br/>
+&#160;<br/>
+In&#160;case&#160;of&#160;two&#160;diagnostic messages with&#160;an&#160;equal message&#160;name&#160;a&#160;routing&#160;relation&#160;is&#160;<br/>created.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Please&#160;note,&#160;that,&#160;in&#160;case&#160;a&#160;functional&#160;diagnostic&#160;request&#160;shall&#160;not&#160;be&#160;routed&#160;from&#160;one&#160;<br/>
+bus to&#160;the&#160;other&#160;bus,&#160;the&#160;message&#160;should&#160;not&#160;have&#160;the&#160;same&#160;name,&#160;so&#160;that&#160;no&#160;routing&#160;<br/>relation&#160;is created.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+27&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name=28></a>Technical Reference&#160;DBC and&#160;LDF Configuration&#160;<br/>
+<b>6&#160;&#160;Contact&#160;</b><br/>
+Visit&#160;our website&#160;for&#160;more information&#160;on&#160;<br/>
+&#160;<br/>
+<b>&gt;&#160;&#160;</b>News&#160;<br/>
+<b>&gt;&#160;&#160;</b>Products&#160;<br/>
+<b>&gt;&#160;&#160;</b>Demo&#160;software&#160;<br/>
+<b>&gt;&#160;&#160;</b>Support&#160;<br/>
+<b>&gt;&#160;&#160;</b>Training&#160;data&#160;<br/>
+<b>&gt;&#160;&#160;</b>Addresses&#160;<br/>
+&#160;<br/>
+<b>www.vector.com&#160;</b><br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;1.7.2&#160;<br/>
+28&#160;/&#160;28&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;4.7.2&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#7">1 Overview</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#8">2 Introduction</a>
+<ul>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#8">2.1 Data Base Attributes</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#10">3 DBC Attributes and Conventions</a>
+<ul>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#10">3.1 General Attributes</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#11">3.2 Attributes for COM Module</a>
+<ul>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#12">3.2.1 Mapping of FGA Transmission Modes to DBC Attributes</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#16">3.3 Attributes for AUTOSAR Network Management</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#17">3.4 Attributes for FGA Class C Networks (Non-Gateway, Without Wakeup)</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#17">3.5 Attributes for FGA Class C Network Management (with wakeup)</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#18">3.6 Attributes for FGA Class B Network Management (Slave)</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#19">3.7 Attributes for Diagnostic (DCM)</a>
+<ul>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#20">3.7.1 Examples</a>
+<ul>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#20">3.7.1.1 Enhanced UDS Communication</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#22">3.7.1.2 Legislative OBD Communication</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#23">3.8 Definition of XCP and application messages</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#23">3.9 Definition of Update Bits</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#23">3.10 Definition of Invalid Values</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#24">4 LDF Rules and Conventions</a>
+<ul>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#24">4.1 Definition of LIN Channel Name</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#24">4.2 Definition of Update Bits</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#24">4.3 Definition of invalid values</a>
+<ul>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#25">4.3.1 Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">5 General Rules</a>
+<ul>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">5.1 Definition of AUTOSAR System Signals</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">5.2 Definition of Routing Relations</a>
+<ul>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">5.2.1 Signal Routing (by COM)</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">5.2.2 Message Routing (IF Layer Routing by PDUR)</a></li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#26">5.2.3 Diagnostic Routing (TP Gateway Routing by PDUR)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_DbcRules_Fiat_FASs.html#28">6 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

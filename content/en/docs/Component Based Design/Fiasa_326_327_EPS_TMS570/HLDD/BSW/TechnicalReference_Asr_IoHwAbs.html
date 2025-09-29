@@ -1,0 +1,2306 @@
+---
+title: TechnicalReference_Asr_IoHwAbs
+linkTitle: TechnicalReference_Asr_IoHwAbs
+weight: 79
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-1_1.png"/><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/><b>MICROSAR IOHWAB&#160;<br/></b>Technical Reference&#160;<br/>&#160;<br/>&#160;<br/>Version 2.02.02&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+Authors&#160;<br/>
+Christoph Ederer&#160;<br/>
+Status&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>&#160;<br/>&#160;<br/>&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-2_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>1&#160;&#160;Document Information&#160;</b><br/>
+<b>1.1&#160;&#160;History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;</b><br/>
+<b>Remarks&#160;</b><br/>
+Christian Marchl&#160;<br/>
+2007-02-09&#160;<br/>
+1.00.00&#160;<br/>
+Initial version&#160;<br/>
+Christian Marchl&#160;<br/>
+2007-08-09&#160;<br/>
+1.01.00&#160;<br/>
+Typos corrected;&#160;Added&#160;<br/>description&#160;for component&#160;<br/>name field&#160;<br/>
+Christian Marchl&#160;<br/>
+2007-12-13&#160;<br/>
+1.01.01&#160;<br/>
+Version adapted according to&#160;<br/>new version scheme&#160;<br/>
+Christoph Ederer&#160;<br/>
+2008-05-21&#160;<br/>
+2.00.00&#160;<br/>
+Transfer of the document to&#160;<br/>new Technical&#160;Reference&#160;<br/>template; Adapted&#160;<br/>descriptions and screenshots&#160;<br/>to new software version&#160;<br/>
+Christoph Ederer&#160;<br/>
+2008-07-11&#160;<br/>
+2.00.01&#160;<br/>
+Update of document due to&#160;<br/>changes in&#160;DCM interface&#160;<br/>and RTE usage&#160;<br/>
+Christoph Ederer&#160;<br/>
+2009-01-14&#160;<br/>
+2.01.00&#160;<br/>
+Update of the naming of&#160;<br/>graphical elements in the&#160;<br/>configuration, Screenshots&#160;<br/>reworked, DCM subfunctions&#160;<br/>reworked, Added&#160;description&#160;<br/>of default value in&#160;<br/>configuration&#160;<br/>
+Christoph Ederer&#160;<br/>
+2009-03-23&#160;<br/>
+2.01.01&#160;<br/>
+Updated development error&#160;<br/>detection in&#160;GUI description,&#160;<br/>toolchain naming updated, &#160;<br/>hints added&#160;<a href="TechnicalReference_Asr_IoHwAbs.html#14">to chapter&#160;4.1.2&#160;</a><br/>
+Christoph Ederer&#160;<br/>
+2009-07-21&#160;<br/>
+2.02.00&#160;<br/>
+Updated description of the&#160;<br/>generation process (user&#160;<br/>blocks, autom.&#160;SWC&#160;<br/>generation),&#160;updated&#160;<br/>AUTOSAR figure, added&#160;<br/>information on user defined&#160;<br/>signals&#160;<br/>
+Christoph Ederer&#160;<br/>
+2009-09-25&#160;<br/>
+2.02.01&#160;<br/>
+Reworked description&#160;of&#160;DCM<br/>
+interface&#160;<br/>
+Christoph Ederer&#160;<br/>
+2010-11-26&#160;<br/>
+2.02.02&#160;<br/>
+-&#160;Added cha<a href="TechnicalReference_Asr_IoHwAbs.html#17">pter&#160;4.4</a>&#160;<a href="TechnicalReference_Asr_IoHwAbs.html#17">Critical&#160;<br/>Sections&#160;<br/></a>- GUI description updated&#160;<br/>-&#160;Added information about&#160;<br/>necessary make&#160;process&#160;<br/>modifications to&#160;<a href="TechnicalReference_Asr_IoHwAbs.html#14">4.1.2</a>&#160;<br/>(ESCAN00047210)&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+2&#160;/&#160;&#160;48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-3_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-3_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+Table 1-1&#160;&#160;&#160;History&#160;of the&#160;document&#160;<br/>
+<b>1.2&#160;&#160;Reference Documents&#160;</b><br/>
+<b>No.&#160;</b><br/>
+<b>Title&#160;</b><br/>
+<b>Version&#160;</b><br/>
+[1] &#160;&#160;AUTOSAR_SWS_IO_HWAbstraction.pdf&#160;<br/>
+V2.0.0&#160;<br/>
+[2] &#160;&#160;AUTOSAR_SWS_DET.pdf&#160;<br/>
+V2.2.0&#160;<br/>
+[3] &#160;&#160;AUTOSAR_BasicSoftwareModules.pdf&#160;<br/>
+V1.2.0&#160;<br/>
+Table 1-2&#160;&#160;&#160;Reference documents&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Please note&#160;<br/></b>We have configured the&#160;programs in accordance&#160;with your specifications in the&#160;<br/>
+<b>&#160;&#160;</b>questionnaire. Whereas&#160;the programs do support&#160;other configurations than the one&#160;<br/>
+specified&#160;in&#160;your questionnaire, Vector´s release&#160;of the programs delivered to your&#160;<br/>company is&#160;expressly restricted to the&#160;configuration you have&#160;specified in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+3&#160;/&#160;&#160;48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-4_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#2"><b>1</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#2"><b>Document Information....................................................................................................&#160;2</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#2">1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#2">History...............................................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#3">1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#3">Reference Documents&#160;......................................................................................&#160;3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#8"><b>2</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#8"><b>Introduction&#160;.....................................................................................................................&#160;8</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#9">2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#9">Architecture&#160;Overview.......................................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#11"><b>3</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#11"><b>Functional Description&#160;.................................................................................................&#160;11</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#11">3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#11">Features...........................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#11">3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#11">Initialization&#160;......................................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">3.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">States&#160;..............................................................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">3.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">Main Functions&#160;...............................................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">3.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">Error Handling.................................................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">3.5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">Development Error Reporting&#160;.........................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#13">3.5.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#13">Parameter Checking&#160;.......................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#13">3.5.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#13">Production Code&#160;Error&#160;Reporting&#160;...................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14"><b>4</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14"><b>Integration&#160;.....................................................................................................................&#160;14</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14">4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14">Scope of Delivery............................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14">4.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14">Static Files&#160;......................................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14">4.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14">Dynamic Files&#160;.................................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#16">4.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#16">Include Structure.............................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#16">4.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#16">Compiler&#160;Abstraction and Memory&#160;Mapping&#160;...................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#17">4.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#17">Critical Sections&#160;..............................................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#17">4.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#17">Generated Template&#160;Files...............................................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#18">4.5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#18">Generated services in template files...............................................................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#20"><b>5</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#20"><b>API Description&#160;.............................................................................................................&#160;20</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#20">5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#20">Interfaces Overview&#160;........................................................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#21">5.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#21">Type Definitions&#160;..............................................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#22">5.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#22">Services provided by IOHWAB&#160;.......................................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#22">5.3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#22">IoHwAb_Init&#160;....................................................................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#22">5.3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#22">IoHwAb_GetVersionInfo&#160;.................................................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#23">5.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#23">Generated API&#160;functions&#160;.................................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#23">5.4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#23">IoHwAb_Set&lt;CalSignalName&gt;.......................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#24">5.4.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#24">IoHwAb_Get&lt;CalSignalName&gt;&#160;......................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#25">5.4.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#25">IoHwAb_DCM_&lt;CalSignalName&gt;&#160;..................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#26">5.4.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#26">IoHwAb_DCM_Read&lt;CalSignalName&gt;&#160;.........................................................&#160;26&#160;</a><br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+4&#160;/&#160;&#160;48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-5_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#27">5.4.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#27">IoHwAb_Diag&lt;CalSignalName&gt;.....................................................................&#160;27&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#28">5.4.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#28">IoHwAb_Input&lt;UserDefSignalName&gt;&#160;............................................................&#160;28&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#29">5.4.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#29">IoHwAb_DCM_Input&lt;UserDefSignalName&gt;&#160;..................................................&#160;29&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#30">5.4.8&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#30">IoHwAb_DCM_Read&lt;UserDefSignalName&gt;&#160;.................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#31">5.4.9&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#31">IoHwAb_Output&lt;UserDefSignalName&gt;&#160;.........................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#32">5.4.10&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#32">IoHwAb_DCM_Output&lt;UserDefSignalName&gt;&#160;...............................................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#33">5.4.11&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#33">IoHwAb_&lt;SignalHandlerName&gt;&#160;.....................................................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#33">5.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#33">Services used by IOHWAB&#160;.............................................................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">5.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">Callback Functions&#160;.........................................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">5.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">Configurable Interfaces...................................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">5.7.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">Notifications&#160;....................................................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">5.8&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">Service Ports&#160;..................................................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">5.8.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">Client Server&#160;Interface&#160;....................................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">5.8.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">Provide Ports&#160;..................................................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#35">5.8.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#35">Require Ports&#160;..................................................................................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#35">5.9&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#35">Software Component&#160;Template.......................................................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#35">5.9.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#35">Generation&#160;......................................................................................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#35">5.9.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#35">Import to the DaVinci modeling tool&#160;................................................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#37"><b>6</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#37"><b>Configuration&#160;................................................................................................................&#160;37</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#37">6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#37">Configuration of IOHWAB with DaVinci Configurator......................................&#160;37&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#37">6.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#37">Start configuration of the&#160;IOHWAB&#160;.................................................................&#160;37&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#37">6.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#37">Tab ‘IoHwAb Configuration’&#160;............................................................................&#160;37&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#37">6.1.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#37">Node ‘IoHwAbCalSignals’&#160;...............................................................................&#160;37&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#38">6.1.2.1.1&#160;&#160;Node ‘IoHwAbDiscrete’...................................................................................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#39">6.1.2.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#39">Node ‘IoHwAbUserDefSignals’&#160;.......................................................................&#160;39&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#39">6.1.2.2.1&#160;&#160;Node ‘IoHwAbUserDefPort’&#160;............................................................................&#160;39&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#41">6.1.2.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#41">Node ‘IoHwAbHandlers’..................................................................................&#160;41&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#42">6.1.2.3.1&#160;&#160;Node ‘IoHwAbHandler’&#160;...................................................................................&#160;42&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#42">6.1.2.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#42">Node IoHwAbDataTypeSizes..........................................................................&#160;42&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#42">6.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#42">Tab ‘General Settings’.....................................................................................&#160;42&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#42">6.1.3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#42">Area ‘Error Detection –&#160;Development Mode’&#160;..................................................&#160;42&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#43">6.1.3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#43">Area ‘Interrupt Services’&#160;.................................................................................&#160;43&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#44">6.1.3.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#44">Area ‘Common Settings’&#160;.................................................................................&#160;44&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#45">6.1.3.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#45">Area ‘Include List’&#160;...........................................................................................&#160;45&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#45">6.1.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#45">Tab ‘Module&#160;API’&#160;.............................................................................................&#160;45&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#45">6.1.4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#45">Area ‘API Optimization’&#160;...................................................................................&#160;45&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#46"><b>7</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#46"><b>AUTOSAR Standard&#160;Compliance.................................................................................&#160;46</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#47"><b>8</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#47"><b>Glossary&#160;and&#160;Abbreviations&#160;........................................................................................&#160;47</b>&#160;</a><br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+5&#160;/&#160;&#160;48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-6_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#47">8.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#47">Glossary..........................................................................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#47">8.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#47">Abbreviations&#160;..................................................................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#48"><b>9</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#48"><b>Contact...........................................................................................................................&#160;48</b>&#160;</a><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+6&#160;/&#160;&#160;48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-7_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#9">Figure 2-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#9">AUTOSAR architecture.....................................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#10">Figure 2-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#10">Interfaces to&#160;adjacent modules of the IOHWAB&#160;.............................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#16">Figure 4-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#16">Include structure&#160;.............................................................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#20">Figure 5-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#20">IOHWAB interactions with other BSW&#160;............................................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#35">Figure 5-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#35">Import a new software component into DaVinci..............................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#36">Figure 5-3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#36">The imported software component&#160;.................................................................&#160;36&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#38">Figure 6-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#38">Adding a MCAL&#160;signal&#160;....................................................................................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#39">Figure 6-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#39">Adding a user-defined port&#160;.............................................................................&#160;39&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#39">Figure 6-3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#39">Adding a user-defined operation.....................................................................&#160;39&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#41">Figure 6-4&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#41">Adding a handler function&#160;...............................................................................&#160;41&#160;</a><br/>
+<b>&#160;</b><br/>
+<b>Tables&#160;</b><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#3">Table 1-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#3">History of the document&#160;....................................................................................&#160;3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#3">Table 1-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#3">Reference documents.......................................................................................&#160;3&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#11">Table 3-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#11">Supported SWS features&#160;.................................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#11">Table 3-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#11">Not supported SWS features&#160;...........................................................................11&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">Table 3-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">Mapping of service IDs to services&#160;.................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">Table 3-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#12">Errors reported to DET&#160;...................................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#13">Table 3-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#13">Development Error Reporting:&#160;Assignment of checks to&#160;services&#160;..................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14">Table 4-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14">Static files........................................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14">Table 4-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#14">Generated files&#160;...............................................................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#15">Table 4-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#15">DaVinci generated files&#160;...................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#17">Table 4-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#17">Compiler abstraction and memory&#160;mapping&#160;...................................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#21">Table 5-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#21">Type definitions...............................................................................................&#160;21&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#22">Table 5-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#22">IoHwAb_Init&#160;....................................................................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#23">Table 5-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#23">IoHwAb_GetVersionInfo&#160;.................................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#23">Table 5-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#23">IoHwAb_Set&lt;CalSignalName&gt;.......................................................................&#160;23&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#24">Table 5-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#24">IoHwAb_Get&lt;CalSignalName&gt;&#160;......................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#25">Table 5-6&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#25">IoHwAb_DCM_&lt;CalSignalName&gt;&#160;..................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#26">Table 5-7&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#26">IoHwAb_DCM_Read&lt;CalSignalName&gt;&#160;.........................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#27">Table 5-8&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#27">IoHwAb_Diag&lt;CalSignalName&gt;.....................................................................&#160;27&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#28">Table 5-9&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#28">IoHwAb_Input&lt;UserDefSignalName&gt;&#160;............................................................&#160;28&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#29">Table 5-10&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#29">IoHwAb_DCM_Input&lt;UserDefSignalName&gt;&#160;..................................................&#160;29&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#30">Table 5-11&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#30">IoHwAb_DCM_Read&lt;UserDefSignalName&gt;&#160;.................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#31">Table 5-12&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#31">IoHwAb_Output&lt;UserDefSignalName&gt;&#160;.........................................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#32">Table 5-13&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#32">IoHwAb_DCM_Output&lt;UserDefSignalName&gt;&#160;...............................................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#33">Table 5-14&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#33">IoHwAb_&lt;SignalHandlerName&gt;&#160;.....................................................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#33">Table 5-15&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#33">Services used by the IOHWAB&#160;.......................................................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">Table 5-16&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#34">Provide Ports on BSW module side................................................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#38">Table 6-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#38">Node ‘IoHwAbDiscrete’...................................................................................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#47">Table 8-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#47">Glossary..........................................................................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#47">Table 8-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#47">Abbreviations&#160;..................................................................................................&#160;47&#160;</a><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+7&#160;/&#160;&#160;48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-8_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>2&#160;&#160;Introduction&#160;</b><br/>
+This document describes the functionality,&#160;API and configuration&#160;of the&#160;AUTOSAR BSW&#160;<br/>module IOHWAB&#160;as specified in&#160;<a href="TechnicalReference_Asr_IoHwAbs.html#3">[1]. &#160;</a><br/>
+&#160;<br/>
+<b>Supported AUTOSAR&#160;Release<a href="TechnicalReference_Asr_IoHwAbs.html#8">*</a></b><b>:&#160;</b><br/>
+3&#160;<br/>
+<b>Supported Configuration Variants:&#160;</b><br/>
+pre-compile&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Vendor ID:&#160;</b><br/>
+IOHWAB_VENDOR_ID&#160;30&#160;<br/>
+decimal&#160;<br/>
+(= Vector-Informatik,&#160;<br/>according to&#160;HIS)&#160;<br/>
+<b>Module ID:&#160;</b><br/>
+IOHWAB_MODULE_ID &#160;&#160;<br/>
+254 decimal&#160;<br/>
+(according to ref.&#160;<a href="TechnicalReference_Asr_IoHwAbs.html#3">[3]</a>)&#160;<br/>
+* For the precise&#160;AUTOSAR Release 3.x please&#160;see&#160;the release&#160;specific&#160;documentation. &#160;<br/>&#160;<br/>
+The aim of&#160;the IOHWAB is to provide ECU hardware-independent&#160;data transition from&#160;<br/>driver modules up to the Software Components.&#160;To&#160;fulfill this task&#160;the IOHWAB generates&#160;<br/>a Software Component description from the user configuration.&#160;This Software&#160;Component&#160;<br/>description can be imported by DaVinci Developer.&#160;<br/>
+Within the DaVinci modeling tool the IOHWAB is displayed like a normal Software&#160;<br/>Component (SW-C) with a set of server ports and runnables. Other SW-Cs can access&#160;<br/>driver data values through these ports.&#160;<br/>
+This release of the IOHWAB currently supports&#160;a complete abstraction of the DIO driver,&#160;<br/>which means access functions will be generated&#160;automatically&#160;(except&#160;the direction switch&#160;<br/>feature of the Port driver).&#160;<br/>
+For all other drivers the access function has to be coded separately by the user.&#160;The&#160;<br/>IOHWAB supports the user at this task by&#160;providing generated functions stubs, which can&#160;<br/>be filled with code.&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+8&#160;/&#160;&#160;48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-9_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-9_2.jpg"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-9_3.jpg"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-9_4.jpg"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-9_5.jpg"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>2.1&#160;&#160;Architecture Overview&#160;</b><br/>
+The following figure shows where the IOHWAB is&#160;located in the&#160;AUTOSAR architecture.&#160;<br/>
+&#160;<br/>
+Figure 2-1&#160;&#160;AUTOSAR architecture&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+9&#160;/&#160;&#160;48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-10_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-10_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-10_3.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+The next figure shows the interfaces&#160;to adjacent modules of the IOHWAB.&#160;&#160;These&#160;<br/><a href="TechnicalReference_Asr_IoHwAbs.html#20">interfaces are described in chapter&#160;5</a>. &#160;<br/>
+&#160;<br/>
+Figure 2-2&#160;&#160;Interfaces to adjacent modules of the IOHWAB&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The current&#160;version of the IOHWAB&#160;only supports&#160;a complete abstraction of the DIO&#160;<br/>
+&#160;&#160;driver.&#160;The other MCAL&#160;drivers can be integrated&#160;manually via&#160;user-defined signals.&#160;<br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#39">See&#160;6.1.2.2&#160;f</a>f. for further&#160;information about how to create a user-defined&#160;signal.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+10&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-11_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-11_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>3&#160;&#160;Functional Description&#160;</b><br/>
+<b>3.1&#160;&#160;Features&#160;</b><br/>
+The features listed in this chapter cover the complete functionality<a href="TechnicalReference_Asr_IoHwAbs.html#3">&#160;specified in&#160;[1].&#160;</a><br/>
+The &#34;supported&#34; and &#34;not supported&#34; features are presented&#160;in the following two tables.&#160;<br/>For further information of not suppor<a href="TechnicalReference_Asr_IoHwAbs.html#46">ted features, also see chapter&#160;7</a>.&#160;<br/>
+&#160;<br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#3">The following features described in&#160;[1]</a>&#160;are supported:&#160;<br/>
+<b>Feature&#160;</b><br/>
+Abstraction&#160;of MCAL&#160;signals (the IOHWAB generates source&#160;code for accessing DIO&#160;channels&#160;<br/>for a specific signal,&#160;i.e.&#160;OP_GET, OP_SET&#160;and OP_DIAG)&#160;<br/>
+Abstraction&#160;of user-defined signals (the IOHWAB generates source code templates that can be&#160;<br/>used for accessing any lower level software)&#160;<br/>
+Provision of an interface&#160;to DCM, that allows to freeze or adjust measurement values for&#160;<br/>diagnostic purposes&#160;<br/>
+Creation of a Software&#160;Component&#160;Description file that can&#160;be imported by DaVinci Developer&#160;<br/>
+Table 3-1&#160;&#160;&#160;Supported SWS&#160;features&#160;<br/>
+<a href="TechnicalReference_Asr_IoHwAbs.html#3">The following features described in&#160;[1]</a>&#160;are not supported:&#160;<br/>
+<b>Feature&#160;</b><br/>
+Automatic abstraction of&#160;other MCAL&#160;drivers than DIO (calls to further drivers have to&#160;be&#160;<br/>implemented by the user)&#160;<br/>
+Table 3-2&#160;&#160;&#160;Not supported SWS features&#160;<br/>
+<b>3.2&#160;&#160;Initialization&#160;</b><br/>
+Initialization is not necessarily needed for the IOHWAB.&#160;Therefore, the provided service for&#160;<br/>initialization can be removed by a pre-compile option during the&#160;configuration phase.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>It is not intended to initialize drivers in the IOHWAB initialization function. Driver&#160;<br/>
+&#160;&#160;initialization&#160;has to be done by the ECUM.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+11&#160;/&#160;48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-12_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>3.3&#160;&#160;States&#160;</b><br/>
+The IOHWAB itself neither has certain module&#160;states&#160;nor does any handling of states of&#160;<br/>lower-level drivers. Caring about time flows and states is the user’s responsibility.&#160;<br/>
+<b>3.4&#160;&#160;Main Functions&#160;</b><br/>
+The IOHWAB does not provide a main function.&#160;<br/>
+<b>3.5&#160;&#160;Error Handling&#160;</b><br/>
+<b>3.5.1&#160;</b><br/>
+<b>Development Error Reporting&#160;</b><br/>
+Detected development errors are by default reported to the DET&#160;using the service&#160;<br/>Det_ReportError(), (specified in&#160;<a href="TechnicalReference_Asr_IoHwAbs.html#3">[2]), if ‘</a>Development Mode’&#160;and ‘Development Error&#160;<br/>Reporting’&#160;are enabled in&#160;the configuration tool.&#160;<br/>
+The reported IOHWAB ID is 254.&#160;<br/>
+The reported service IDs identify the services, which are described in&#160;<a href="TechnicalReference_Asr_IoHwAbs.html#22">5.3. The&#160;</a>following&#160;<br/>table presents the service IDs and the related services:&#160;<br/>
+<b>Service ID&#160;</b><br/>
+<b>Service&#160;</b><br/>
+0x01&#160;IoHwAb_Init()&#160;<br/>
+0x10&#160;IoHwAb_GetVersionInfo()&#160;<br/>
+0x20&#160;<br/>
+MCAL&#160;signal OP_GET&#160;<br/>
+0x21&#160;<br/>
+MCAL&#160;signal OP_SET&#160;<br/>
+0x2A&#160;<br/>
+MCAL&#160;DCM&#160;bypass read function&#160;<br/>
+0x30&#160;<br/>
+User-defined input operation (corresponds to OP_GET)&#160;<br/>
+0x31&#160;<br/>
+User-defined output operation (corresponds to OP_SET)&#160;<br/>
+0x3A&#160;<br/>
+User-defined DCM bypass read function&#160;<br/>
+Table 3-3&#160;&#160;&#160;Mapping of service IDs to services&#160;<br/>
+The errors reported to DET&#160;are described in the following table:&#160;<br/>
+<b>Error Code&#160;</b><br/>
+<b>Description&#160;</b><br/>
+0x10&#160;IOHWAB_E_NULL_POINTER&#160;API service called with “NULL&#160;pointer” &#160;parameter&#160;<br/>
+Table 3-4&#160;&#160;&#160;Errors reported to DET&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+12&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-13_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>3.5.1.1&#160;&#160;Parameter Checking&#160;</b><br/>
+The following table shows which parameter checks are performed on which services:&#160;<br/>
+<b>Check&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>Service&#160;</b><br/>
+nter check&#160;<br/>
+Null poi<br/>
+MCAL&#160;signal OP_GET&#160;<br/>
+ &#160;<br/>
+MCAL&#160;DCM bypass read function&#160;<br/>
+ &#160;<br/>
+User define input operations&#160;<br/>
+ &#160;<br/>
+IoHwAb_GetVersionInfo()&#160;<br/>
+ &#160;<br/>
+User-defined DCM&#160;bypass read&#160;<br/>
+ &#160;<br/>
+function&#160;<br/>
+Table 3-5&#160;&#160;&#160;Development Error&#160;Reporting:&#160;Assignment of checks to services&#160;<br/>
+<b>3.5.2&#160;</b><br/>
+<b>Production Code Error Reporting&#160;</b><br/>
+As production error reporting is&#160;typically&#160;done on driver level, the IOHWAB does&#160;not&#160;<br/>provide any reporting mechanism. Nonetheless,&#160;production error reporting can be added&#160;<br/>manually to ‘IoHwAb.c’, if necessary.&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+13&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-14_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-14_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>4&#160;&#160;Integration&#160;</b><br/>
+This chapter gives necessary information for the integration of the MICROSAR IOHWAB&#160;<br/>into an application environment of an ECU.&#160;<br/>
+<b>4.1&#160;&#160;Scope of Delivery&#160;</b><br/>
+The delivery of the IOHWAB contains the files, which are described in the c<a href="TechnicalReference_Asr_IoHwAbs.html#14">hapters&#160;4.1.1&#160;<br/>and&#160;4.1.2</a>:&#160;<br/>
+<b>4.1.1&#160;</b><br/>
+<b>Static Files&#160;</b><br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+IoHwAb.h&#160;<br/>
+Declares the interface of the MICROSAR component IOHWAB&#160;<br/>
+Table 4-1&#160;&#160;&#160;Static files&#160;<br/>
+&#160;<br/>
+<b>4.1.2&#160;</b><br/>
+<b>Dynamic Files&#160;</b><br/>
+The dynamic files are generated&#160;by the configuration tool.&#160;<br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+IoHwAb.c&#160;<br/>
+Code template that contains the interfaces of the&#160;IOHWAB as&#160;well as the&#160;<br/>function bodies of the services for the user-defined operations&#160;and the&#160;<br/>corresponding DCM access functions&#160;<br/>
+IoHwAb_Dio.c&#160;<br/>
+Contains the implementation of the&#160;services for&#160;accessing MCAL&#160;signals&#160;as&#160;<br/>well as the corresponding DCM functions&#160;<br/>
+IoHwAb_Dcm.h&#160;<br/>
+Contains the prototypes of the DCM access functions&#160;<br/>
+IoHwAb_Cfg.h&#160;<br/>
+Contains the static configuration of the IOHWAB&#160;<br/>
+IoHwAb_Cbk.h&#160;<br/>
+Code template for prototypes of callback functions&#160;<br/>
+IoHwAb_Types.h&#160;<br/>
+Contains all&#160;the data types that are used in the IOHWAB (File is only used, if&#160;<br/>RTE usage is deactivated)&#160;<br/>
+Table 4-2&#160;&#160;&#160;Generated files&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The files ‘IoHwAb.c’&#160;and ‘IoHwAb_Cbk.h’&#160;are code templates, i.e. after generation they&#160;<br/>
+&#160;&#160;are not complete and require user modifications.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+14&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-15_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-15_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>The file ‘IoHwAb.c’&#160;is a generated code template.&#160;This file is not part of the&#160;AUTOSAR&#160;<br/>
+<b>&#160;&#160;</b>make files provided by the module, because the&#160;file may be copied to different&#160;<br/>
+locations in&#160;an integration package (e.g. a common folder for&#160;all editable&#160;code&#160;<br/>templates).&#160;<br/>
+If you use ‘User Defined&#160;Operations’,&#160;please add&#160;the file ‘IoHwAb.c’&#160;to your make&#160;<br/>process, manually. If the Vector make environment is used, add the file to&#160;the variable&#160;<br/>‘APP_SOURCE_LST’&#160;in the file ‘Makefile.project.part.defines’.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>&#160;<br/>
+For successfully using the IOHWAB there are&#160;further files needed.&#160;These Files can be&#160;<br/>generated by DaVinci Developer/RTE Generator.&#160;<br/>
+<b>File Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+Rte_&lt;IoHwAbServ<br/>
+Contains the prototypes of all the IOHWAB operation services&#160;<br/>
+iceComponentNam<br/>e&gt;.h&#160;<br/>
+Rte_Type.h&#160;<br/>
+Contains all&#160;the data types that are used in the IOHWAB&#160;<br/>
+Table 4-3&#160;&#160;&#160;DaVinci generated files&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+15&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-16_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-16_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>4.2&#160;&#160;Include Structure&#160;</b><br/>
+&#160;<br/>
+Figure 4-1&#160;&#160;Include structure&#160;<br/>
+<b>4.3&#160;&#160;Compiler Abstraction and Memory&#160;Mapping &#160;</b><br/>
+The objects (e.g. variables, functions, constants) are declared by compiler&#160;independent&#160;<br/>definitions – the compiler abstraction definitions. Each compiler abstraction definition is&#160;<br/>assigned to a memory section.&#160;<br/>
+The following table contains the memory section names and the compiler abstraction&#160;<br/>defines for the IOHWAB and illustrates&#160;their assignment&#160;among each other.&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+16&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-17_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-17_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>Compiler Abstraction</b><br/>
+A&#160;<br/>T<br/>
+<b>Definitions</b><br/>
+E&#160;<br/>
+ST&#160;<br/>
+<b>&#160;</b><br/>
+R&#160;<br/>A<br/>
+&#160;<br/>
+<b>Memory&#160;Mapping&#160;</b><br/>
+AB_COD<br/>
+AB_V<br/>
+AB_APPL_DA<br/>
+AB_APPL_CODE&#160;<br/>
+AB_CON<br/>
+<b>Sections&#160;</b><br/>
+IOHW<br/>
+IOHW<br/>
+IOHW<br/>
+IOHW<br/>
+IOHW<br/>
+IOHWAB_START_SEC_CODE&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+IOHWAB_STOP_SEC_CODE&#160;<br/>
+IOHWAB_START_SEC_CONST_32BIT&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+IOHWAB_STOP_SEC_CONST_32BIT&#160;<br/>
+IOHWAB_START_SEC_VAR_ZERO_INIT_UNSPECIFIED&#160;<br/>
+&#160;<br/>
+ &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+IOHWAB_STOP_SEC_VAR_ZERO_INIT_UNSPECIFIED&#160;<br/>
+Table 4-4&#160;&#160;&#160;Compiler abstraction and memory&#160;mapping&#160;<br/>
+<b>4.4&#160;&#160;Critical Sections&#160;</b><br/>
+The IOHWAB implements the following critical section:&#160;<br/>
+&#160;&#160;IOHWAB_EXCLUSIVE_AREA_0: This&#160;critical&#160;section is used to protect code passages&#160;<br/>
+that contain coherent operations.&#160;The critical section shall prevent task switches.&#160;<br/>
+<b>4.5&#160;&#160;Generated Template Files&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>This chapter&#160;is only applicable if DaVinci Configurator is used&#160;for I/O Hardware&#160;<br/>
+&#160;&#160;Abstraction generation.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+A&#160;generated template file in this&#160;document is a file which:&#160;<br/>
+&#160;&#160;is&#160;generated by the generation tool&#160;at every generation process &#160;<br/>
+&#160;&#160;the user can modify this&#160;template for his needs &#160;<br/>
+&#160;&#160;the changes made by the user&#160;will not be overwritten at the next generation process&#160;<br/>
+&#160;<br/>
+In order not to overwrite the&#160;changes made by the user, the template file contains special&#160;<br/>comments, where the user can insert his code in between.&#160;The comments have the&#160;<br/>following format:&#160;<br/>
+/**********************************************************************************&#160;<br/>&#160;* DO NOT CHANGE THIS COMMENT! &lt;USERBLOCK $Variable_Name&gt; DO NOT CHANGE THIS COMMENT &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;<br/>***********************************************************************************/&#160;<br/>&#160;<br/>/**********************************************************************************&#160;<br/>&#160;* DO NOT CHANGE THIS COMMENT! &lt;/USERBLOCK&gt; DO NOT CHANGE THIS COMMENT &#160; &#160;&#160;<br/>***********************************************************************************/&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+17&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-18_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-18_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>Do not modify or delete the comments.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Example:&#160;</b><br/>
+The following example explains&#160;where code can be implemented:&#160;<br/>
+FUNC(void, IOHWAB_CODE) IoHwAb_Init(void)&#160;<br/>{&#160;<br/>&#160;&#160;/* A */&#160;<br/>/***************************************************************************************&#160;<br/>&#160;* DO NOT CHANGE THIS COMMENT! &#160;&lt;USERBLOCK … &gt; &#160; &#160; &#160; &#160; &#160; &#160; DO NOT CHANGE THIS COMMENT!&#160;<br/>&#160;**************************************************************************************/&#160;<br/>&#160;&#160;/* B */&#160;<br/>&#160;&#160;return;&#160;<br/>/***************************************************************************************&#160;<br/>&#160;* DO NOT CHANGE THIS COMMENT! &#160;&lt;/USERBLOCK&gt; &#160; &#160; &#160; &#160; &#160; &#160; &#160; DO NOT CHANGE THIS COMMENT!&#160;<br/>&#160;***************************************************************************************/&#160;<br/>&#160;<br/>&#160;&#160;/* C */&#160;<br/>}&#160;/* IoHwAb_Init() */&#160;<br/>
+&#160;<br/>A and C: all modifications before and after will be deleted at the next generation process&#160;<br/>
+B: all modifications will not be deleted&#160;<br/>
+&#160;<br/>&#160;<br/>The I/O Hardware&#160;Abstraction provides&#160;the following generated template files:&#160;<br/>
+&#160;&#160;IoHwAb.c&#160;<br/>
+&#160;&#160;IoHwAb_Cbk.h&#160;<br/>
+&#160;<br/>
+<b>4.5.1&#160;</b><br/>
+<b>Generated services in template files&#160;</b><br/>
+&#160;<br/>
+The I/O Hardware&#160;Abstraction has no fixed&#160;API, there are fix&#160;services (IoHwAb_Init(),&#160;<br/>IoHwAb_GetVersionInfo()) as well as services that&#160;are generated depending on how&#160;<br/>much and which kind&#160;of signals&#160;are configured.&#160;The latter contain parts that will not be&#160;<br/>overwritten during the generation process.&#160;They have no fixed name, but an UUID as&#160;<br/>Identifier:&#160;<br/>
+/**********************************************************************************&#160;<br/>&#160;* DO NOT CHANGE THIS COMMENT! &lt;USERBLOCK 81fe3f4b-eabd-4f43-8d9a-a0c182f0cc71&gt; DO NOT&#160;<br/>CHANGE THIS COMMENT &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;<br/>***********************************************************************************/&#160;<br/>&#160;<br/>/**********************************************************************************&#160;<br/>&#160;* DO NOT CHANGE THIS COMMENT! &lt;/USERBLOCK&gt; DO NOT CHANGE THIS COMMENT &#160; &#160;&#160;<br/>***********************************************************************************/&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+18&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-19_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-19_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+If a signal is deleted in the configuration, possibly already implemented code would be lost,&#160;<br/>because the generated service is also deleted from the generated file. In this case, the&#160;<br/>‘IoHwAb.c’&#160;template file contains a section&#160;at the end, which receives the code from all&#160;<br/>services whose associated signals have been deleted:&#160;<br/>
+/**********************************************************************************&#160;<br/>* DO NOT CHANGE THIS COMMENT! &lt;&lt;USERBLOCK Start of removed code area&gt;&gt; DO NOT CHANGE THIS&#160;<br/>COMMENT!&#160;<br/>***********************************************************************************/&#160;<br/>&#160;<br/>/**********************************************************************************&#160;<br/>&#160;* DO NOT CHANGE THIS COMMENT! &#160; &#160; &#160; &lt;&lt;/USERBLOCK&gt;&gt; &#160; &#160; DO NOT CHANGE THIS COMMENT!&#160;<br/>&#160;**********************************************************************************/&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>This section&#160;only contains code from&#160;signals that have been deleted during the last&#160;<br/>
+<b>&#160;&#160;</b>generation process. During the next generation, the section will be cleared.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+19&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-20_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-20_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5&#160;&#160;API Description&#160;</b><br/>
+<b>5.1&#160;&#160;Interfaces Overview&#160;</b><br/>
+&#160;<br/>
+Figure 5-1&#160;&#160;IOHWAB interactions with other BSW&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+20&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-21_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>5.2&#160;&#160;Type Definitions&#160;</b><br/>
+<b>Type Name&#160;</b><br/>
+<b>C-Type&#160;&#160;Description&#160;</b><br/>
+<b>Value Range&#160;</b><br/>
+STD_LOW<br/>
+IoHwAb_BoolType&#160;<br/>
+uint8&#160;<br/>
+Value type for a MCAL&#160;<br/>
+&#160;<br/>
+signal that uses a DIO&#160;<br/>
+STD_HIGH&#160;<br/>
+channel&#160;<br/>
+IoHwAb_DiscreteGroupSize&#160;uint8/&#160;&#160;Value type for a MCAL&#160;<br/>
+Depends on the configured&#160;<br/>
+uint16/&#160;<br/>
+signal that uses either a&#160;<br/>
+data type&#160;<br/>
+uint32&#160;<br/>
+DIO port or&#160;a DIO&#160;<br/>channel group&#160;<br/>
+Value type for ECU&#160;<br/>
+Depends on the configured&#160;<br/>
+uint16/&#160;<br/>
+Signals of the&#160;Analogue&#160;<br/>
+data type&#160;<br/>
+IoHwAb_CurrentType&#160;<br/>
+uint32&#160;<br/>
+Class that depict current&#160;<br/>information&#160;<br/>
+Value type for ECU&#160;<br/>
+Depends on the configured&#160;<br/>
+uint16/&#160;<br/>
+Signals of the&#160;Analogue&#160;<br/>
+data type&#160;<br/>
+IoHwAb_VoltageType&#160;<br/>
+uint32&#160;<br/>
+Class that depict voltage&#160;<br/>information&#160;<br/>
+Value type for ECU&#160;<br/>
+Depends on the configured&#160;<br/>
+uint16/&#160;<br/>
+Signals of the&#160;Analogue&#160;<br/>
+data type&#160;<br/>
+IoHwAb_ResistanceType&#160;<br/>
+uint32&#160;<br/>
+Class that depict&#160;<br/>resistance information&#160;<br/>
+Value type for ECU&#160;<br/>
+Depends on the configured&#160;<br/>
+Signals of the Diagnosis&#160;<br/>
+data type&#160;<br/>
+uint16/&#160;<br/>
+IoHwAb_SignalDiagnosisType&#160;<br/>
+Class that depict the&#160;<br/>
+uint32&#160;<br/>
+electrical&#160;failure state of&#160;<br/>an Output Signal&#160;<br/>
+Value type for ECU&#160;<br/>
+Depends on the configured&#160;<br/>
+Signals of the “Pulse&#160;<br/>
+data type&#160;<br/>
+Width Modulation” Class&#160;<br/>
+uint16/&#160;<br/>
+IoHwAb_PwxPeriodType&#160;<br/>
+That means this type is&#160;<br/>
+uint32&#160;<br/>
+used either for modulation&#160;<br/>output or for&#160;<br/>demodulation input.&#160;<br/>
+Value type for ECU&#160;<br/>
+Depends on the configured&#160;<br/>
+Signals of the “Pulse&#160;<br/>
+data type&#160;<br/>
+Width Modulation” Class&#160;<br/>
+uint16/&#160;<br/>
+IoHwAb_PwxDutyCycleType&#160;<br/>
+That means this type is&#160;<br/>
+uint32&#160;<br/>
+used either for modulation&#160;<br/>output or for&#160;<br/>demodulation input.&#160;<br/>
+Table 5-1&#160;&#160;&#160;Type definitions&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+21&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-22_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.3&#160;&#160;Services provided by&#160;IOHWAB&#160;</b><br/>
+The IOHWAB&#160;API consists of services, which are realized by function calls.&#160;<br/>
+<b>5.3.1&#160;</b><br/>
+<b>IoHwAb_Init&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+void &#160;<b>IoHwAb_Init&#160;</b>( void )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+--&#160;<br/>
+--&#160;<br/>
+<b>Return code&#160;</b><br/>
+void&#160;<br/>
+--&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This function&#160;stub can be used to implement any initialization activities and&#160;shall&#160;be called by the ECUM. It&#160;<br/>is not intended&#160;to initialize&#160;drivers in the&#160;IOHWAB initialization function. Driver&#160;initialization has&#160;to be done&#160;<br/>by the ECUM.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service can be disabled using the preprocessor switch&#160;IOHWAB_USE_INIT_FUNCTION.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by an application&#160;<br/>
+Table 5-2&#160;&#160;&#160;IoHwAb_Init&#160;<br/>
+<b>5.3.2&#160;</b><br/>
+<b>IoHwAb_GetVersionInfo&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+void &#160;<b>IoHwAb_GetVersionInfo&#160;</b>( Std_VersionInfoType *versioninfo )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+versioninfo&#160;<br/>
+Pointer to where the version information shall be&#160;stored&#160;<br/>
+<b>Return code&#160;</b><br/>
+void&#160;<br/>
+--&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service returns the version information of this module.&#160;The provided information is:&#160;<br/>
+&#160;&#160;Module ID&#160;<br/>
+&#160;&#160;Vendor ID&#160;<br/>
+&#160;&#160;Instance&#160;ID&#160;<br/>
+Version Information&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;available, dependently on&#160;IOHWAB_VERSION_INFO_API.&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+22&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-23_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-23_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-23_3.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by an application.&#160;<br/>
+Table 5-3&#160;&#160;&#160;IoHwAb_GetVersionInfo&#160;<br/>
+<b>5.4&#160;&#160;Generated API functions&#160;</b><br/>
+The IOHWAB does not have a fixed&#160;API like other BSW modules; rather the&#160;API will be&#160;<br/>generated according to the used configuration.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>The following functions&#160;can be invoked concurrently by the&#160;RTE.&#160;As software on the&#160;<br/>
+<b>&#160;&#160;</b>lower layer may not support concurrency, the application&#160;should avoid parallel calls of&#160;<br/>
+signal services.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+<b>5.4.1&#160;</b><br/>
+<b>IoHwAb_Set&lt;CalSignalName&gt;&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType &#160;<b>IoHwAb_Set&lt;CalSignalName&gt;&#160;</b>( &lt;ConfiguredType&gt; signal )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+signal&#160;<br/>
+Signal value to be written to&#160;the DIO driver&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Successfully executed&#160;<br/>
+E_NOT_OK&#160;<br/>
+An error occurred&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service&#160;writes&#160;a given&#160;value to an existing DIO entity, i.e. it calls the DIO&#160;API (Dio_WriteChannel(),&#160;<br/>Dio_WriteChannelGroup(), Dio_WritePort()) and passes&#160;the parameter value through to the&#160;DIO driver.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service&#160;will be generated, if ‘IoHwAbCreateOpSet’&#160;is enabled&#160;for a MCAL&#160;signal&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by the RTE&#160;<br/>
+Table 5-4&#160;&#160;&#160;IoHwAb_Set&lt;CalSignalName&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The upper service description does&#160;not refer to&#160;a certain&#160;API function, but to a function&#160;<br/>
+&#160;&#160;that will be generated by the IOHWAB.&#160;The service name, as well as the&#160;parameter&#160;<br/>
+format is influenced by the configuration settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+23&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-24_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-24_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.4.2&#160;</b><br/>
+<b>IoHwAb_Get&lt;CalSignalName&gt;&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType &#160;<b>IoHwAb_Get&lt;CalSignalName&gt;&#160;</b>( &lt;ConfiguredType&gt; *signal )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+signal&#160;<br/>
+Pointer to the&#160;variable, where the read&#160;value shall be&#160;stored&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Successfully executed&#160;<br/>
+E_NOT_OK&#160;<br/>
+An error occurred&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service reads a value&#160;from an existing DIO entity,&#160;i.e. it calls the DIO&#160;API (Dio_ReadChannel(),&#160;<br/>Dio_ReadChannelGroup(), Dio_ReadPort()) and stores the read value into the&#160;given address.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service will&#160;be&#160;generated,&#160;if ‘IoHwAbCreateOpGet’&#160;is&#160;enabled for a MCAL&#160;signal&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by the RTE&#160;<br/>
+Table 5-5&#160;&#160;&#160;IoHwAb_Get&lt;CalSignalName&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The upper service description does&#160;not refer to&#160;a certain&#160;API function, but to a function&#160;<br/>
+&#160;&#160;that will be generated by the IOHWAB.&#160;The service name, as well as the&#160;parameter&#160;<br/>
+format is influenced by the configuration settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+24&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-25_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-25_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.4.3&#160;</b><br/>
+<b>IoHwAb_DCM_&lt;CalSignalName&gt;&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType &#160;<b>IoHwAb_DCM_&lt;CalSignalName&gt;&#160;</b>( uint8 action, &#160;&lt;ConfiguredType&gt;&#160;<br/>signal )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+action&#160;<br/>
+Action to be executed&#160;<br/>
+signal&#160;<br/>
+Signal value to be written to&#160;the buffer&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Successfully executed&#160;<br/>
+E_NOT_OK&#160;<br/>
+An error occurred&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This is the DCM access function for an&#160;MCAL&#160;signal.&#160;The state of the signal functions (OP_GET,&#160;OP_SET,&#160;<br/>OP_DIAG)&#160;can be changed&#160;by this service.&#160;The following states&#160;are&#160;available:&#160;<br/>
+&#160;&#160;IOHWAB_CONTROLTOECU&#160;–&#160;The current value will be&#160;unlocked.&#160;The following read and&#160;write&#160;operations&#160;<br/>
+(by the SW-C) will work normally. Here, the parameter&#160;signal&#160;is ignored.&#160;<br/>
+&#160;&#160;IOHWAB_RESETTODEFAULT&#160;–&#160;The signal will&#160;be locked&#160;and reset to the configured default&#160;value (for&#160;<br/>
+further inform<a href="TechnicalReference_Asr_IoHwAbs.html#38">ation, see&#160;6.1.2.1.1), i.e. the configured default value&#160;</a>will be written to the hardware.&#160;The&#160;<br/>following&#160;read&#160;and write operations&#160;(by the&#160;SW-C)&#160;will have no effect of the hardware. &#160;<br/>
+&#160;&#160;IOHWAB_FREEZE&#160;–&#160;The&#160;signal&#160;will be&#160;locked, i.e. the signal is&#160;read/written&#160;and locked. Further&#160;reads&#160;<br/>
+(by the SW-C)&#160;will&#160;return the locked&#160;value. Further writes&#160;(by the SW-C) will have&#160;no&#160;effect on the&#160;<br/>hardware. Here, the parameter&#160;signal&#160;is ignored.&#160;<br/>
+&#160;&#160;IOHWAB_ADJUSTMENT&#160;–&#160;The signal&#160;will be locked, i.e. the parameter&#160;signal&#160;will be&#160;written into the&#160;<br/>
+buffer (input)/to the hardware (output).&#160;Further reads (by the SW-C) will always&#160;return this&#160;value. Further&#160;<br/>writes (by the SW-C) will have no effect on the hardware.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service&#160;will be generated, if ‘IoHwAbCreateOpGet’, ‘IoHwAbCreateOpSet’&#160;and&#160;<br/>
+‘IoHwAbDcmAccess’&#160;are enabled for a MCAL&#160;signal&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by the DCM&#160;<br/>
+Table 5-6&#160;&#160;&#160;IoHwAb_DCM_&lt;CalSignalName&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The upper service description does&#160;not refer to&#160;a certain&#160;API function, but to a function&#160;<br/>
+&#160;&#160;that will be generated by the IOHWAB.&#160;The service name, as well as the&#160;parameter&#160;<br/>
+format is influenced by the configuration settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+25&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=26></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-26_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-26_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.4.4&#160;</b><br/>
+<b>IoHwAb_DCM_Read&lt;CalSignalName&gt;&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType &#160;<b>IoHwAb_DCM_Read&lt;CalSignalName&gt;&#160;</b>( &lt;ConfiguredType&gt; *signal )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+signal&#160;<br/>
+Pointer to the&#160;variable, where the read&#160;value shall be&#160;stored&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Successfully executed&#160;<br/>
+E_NOT_OK&#160;<br/>
+An error occurred&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This method is&#160;a bypass read function&#160;that executes&#160;a&#160;normal OP_GET, reading&#160;the value from the&#160;<br/>hardware,&#160;<b>even if the signal is locked.</b>&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service&#160;will be generated, if ‘IoHwAbCreateOpGet’, ‘IoHwAbCreateOpSet’&#160;and&#160;<br/>
+‘IoHwAbDcmAccess’&#160;are enabled for a MCAL&#160;signal&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by the DCM&#160;<br/>
+Table 5-7&#160;&#160;&#160;IoHwAb_DCM_Read&lt;CalSignalName&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The upper service description does&#160;not refer to&#160;a certain&#160;API function, but to a function&#160;<br/>
+&#160;&#160;that will be generated by the IOHWAB.&#160;The service name, as well as the&#160;parameter&#160;<br/>
+format is influenced by the configuration settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+26&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=27></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-27_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-27_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.4.5&#160;</b><br/>
+<b>IoHwAb_Diag&lt;CalSignalName&gt;&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType &#160;<b>IoHwAb_Diag&lt;CalSignalName&gt;&#160;</b>( &lt;ConfiguredType&gt; *signal )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+signal&#160;<br/>
+Pointer to the&#160;variable, where the read&#160;value shall be&#160;stored&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Successfully executed&#160;<br/>
+E_NOT_OK&#160;<br/>
+An error occurred&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service reads a value&#160;from an existing DIO entity&#160;for diagnostic purposes, i.e. it calls the DIO&#160;API&#160;<br/>(Dio_ReadChannel(), Dio_ReadChannelGroup(), Dio_ReadPort()) and stores the&#160;read value into the given&#160;<br/>address.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service will&#160;be&#160;generated,&#160;if ‘IoHwAbCreateOpDiag’&#160;is&#160;enabled for a MCAL&#160;signal&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by the RTE&#160;<br/>
+Table 5-8&#160;&#160;&#160;IoHwAb_Diag&lt;CalSignalName&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The upper service description does&#160;not refer to&#160;a certain&#160;API function, but to a function&#160;<br/>
+&#160;&#160;that will be generated by the IOHWAB.&#160;The service name, as well as the&#160;parameter&#160;<br/>
+format is influenced by the configuration settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+27&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=28></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-28_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-28_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.4.6&#160;</b><br/>
+<b>IoHwAb_Input&lt;UserDefSignalName&gt;&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType &#160;<b>IoHwAb_Input&lt;UserDefSignalName&gt;&#160;</b>( &lt;ConfiguredType&gt; *signal )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+signal&#160;<br/>
+Pointer to the&#160;variable, where the read&#160;value shall be&#160;stored&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Successfully executed&#160;<br/>
+E_NOT_OK&#160;<br/>
+An error occurred&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service is&#160;for user-defined input operations in general.&#160;Any lower level software can be accessed for&#160;<br/>reading values&#160;of the configured&#160;data type.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service&#160;will be generated, if&#160;‘IoHwAbAccess’&#160;is&#160;set to&#160;‘Input’&#160;for a user-defined signal.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by the RTE&#160;<br/>
+Table 5-9&#160;&#160;&#160;IoHwAb_Input&lt;UserDefSignalName&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The upper service description does&#160;not refer to&#160;a certain&#160;API function, but to a function&#160;<br/>
+&#160;&#160;stub that will be generated by the IOHWAB.&#160;The&#160;service name, as well as the&#160;<br/>
+parameter format is influenced by the configuration settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+28&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=29></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-29_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-29_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.4.7&#160;</b><br/>
+<b>IoHwAb_DCM_Input&lt;UserDefSignalName&gt;&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType &#160;<b>IoHwAb_DCM_Input&lt;UserDefSignalName&gt;&#160;</b>( uint8 action, &#160;<br/>&lt;ConfiguredType&gt; signal )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+action&#160;<br/>
+Action to be executed&#160;<br/>
+signal&#160;<br/>
+Signal value to be stored to&#160;the buffer&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Successfully executed&#160;<br/>
+E_NOT_OK&#160;<br/>
+An error occurred&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This is the DCM access function for a user-defined&#160;input function.&#160;The state of an input function can be&#160;<br/>changed by this service.&#160;The following states are available:&#160;<br/>
+&#160;&#160;IOHWAB_CONTROLTOECU&#160;–&#160;The current value will be unlocked.&#160;The following&#160;read&#160;operations&#160;(by the&#160;<br/>
+SW-C)&#160;will work normally. Here, the parameter&#160;signal&#160;is ignored.&#160;<br/>
+&#160;&#160;IOHWAB_RESETTODEFAULT&#160;–&#160;The signal will&#160;be locked&#160;and reset to the configured default&#160;value (for&#160;<br/>
+further information, see&#160;<a href="TechnicalReference_Asr_IoHwAbs.html#40">6.1.2.2.1.1), i.e.&#160;</a>the configured default value&#160;will be written to an internal buffer.&#160;<br/>Further reads (by the SW-C) will&#160;return&#160;the locked value. Here, the parameter&#160;signal&#160;is ignored.&#160;<br/>
+&#160;&#160;IOHWAB_FREEZE&#160;–&#160;The&#160;signal&#160;will be locked, i.e. the signal is&#160;read and locked. Further&#160;reads (by the&#160;<br/>
+SW-C)&#160;will return the locked value. Here, the parameter&#160;signal&#160;is ignored.&#160;<br/>
+&#160;&#160;IOHWAB_ADJUSTMENT&#160;–&#160;The signal&#160;will be locked, i.e. the parameter&#160;signal&#160;will be&#160;written into the&#160;<br/>
+internal buffer. Further reads (by the SW-C) will&#160;return the locked value.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service&#160;will be generated, if&#160;‘IoHwAbAccess’&#160;of&#160;a user-defined&#160;signal is set to ‘Input’&#160;and&#160;<br/>
+‘IoHwAbDcmAccess’&#160;is enabled.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by the DCM&#160;<br/>
+Table 5-10&#160;IoHwAb_DCM_Input&lt;UserDefSignalName&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The upper service description does&#160;not refer to&#160;a certain&#160;API function, but to a function&#160;<br/>
+&#160;&#160;that will be generated by the IOHWAB.&#160;The service name, as well as the&#160;parameter&#160;<br/>
+format is influenced by the configuration settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+29&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=30></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-30_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-30_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-30_3.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.4.8&#160;</b><br/>
+<b>IoHwAb_DCM_Read&lt;UserDefSignalName&gt;&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType &#160;<b>IoHwAb_DCM_Read&lt;UserDefSignalName&gt;&#160;</b>( &lt;ConfiguredType&gt; *signal )<br/>
+<b>Parameter&#160;</b><br/>
+signal&#160;<br/>
+Pointer to the&#160;variable, where the read&#160;value shall be&#160;stored&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Successfully executed&#160;<br/>
+E_NOT_OK&#160;<br/>
+An error occurred&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This method is&#160;a bypass read function&#160;that executes&#160;a&#160;normal input operation, reading the value from the&#160;<br/>hardware,&#160;<b>even if the signal is locked.</b>&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service&#160;will be generated, if&#160;‘IoHwAbAccess’&#160;of&#160;a user-defined&#160;signal is set to ‘Input’&#160;and&#160;<br/>
+‘IoHwAbDcmAccess’&#160;is enabled.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by the DCM&#160;<br/>
+Table 5-11&#160;&#160;IoHwAb_DCM_Read&lt;UserDefSignalName&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The upper service description does&#160;not refer to&#160;a certain&#160;API function, but to a function&#160;<br/>
+&#160;&#160;that will be generated by the IOHWAB.&#160;The service name, as well as the&#160;parameter&#160;<br/>
+format is influenced by the configuration settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>This service&#160;will be generated for both, input and&#160;output signals. For input&#160;signals&#160;it&#160;<br/>
+<b>&#160;&#160;</b>works similar to the CalSignals-implementation. For output signals, a read&#160;functionality&#160;<br/>
+has to be implemented manually.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+30&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=31></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-31_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-31_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.4.9&#160;</b><br/>
+<b>IoHwAb_Output&lt;UserDefSignalName&gt;&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType &#160;<b>IoHwAb_Output&lt;UserDefSignalName&gt;&#160;</b>( &lt;ConfiguredType&gt; signal )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+signal&#160;<br/>
+Signal value to be written&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Successfully executed&#160;<br/>
+E_NOT_OK&#160;<br/>
+An error occurred&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This&#160;service is&#160;for user-defined output operations&#160;in&#160;general.&#160;Any lower level&#160;software can be&#160;accessed for&#160;<br/>writing values of the configured data&#160;type.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service&#160;will be generated, if&#160;‘IoHwAbAccess’&#160;is&#160;set to ‘Output’&#160;for a user-defined signal.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by the RTE.&#160;<br/>
+Table 5-12&#160;IoHwAb_Output&lt;UserDefSignalName&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The upper service description does&#160;not refer to&#160;a certain&#160;API function, but to a function&#160;<br/>
+&#160;&#160;that will be generated by the IOHWAB.&#160;The service name, as well as the&#160;parameter&#160;<br/>
+format is influenced by the configuration settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+31&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=32></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-32_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-32_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.4.10&#160;&#160;IoHwAb_DCM_Output&lt;UserDefSignalName&gt;&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+Std_ReturnType &#160;<b>IoHwAb_DCM_Output&lt;UserDefSignalName&gt;&#160;</b>( uint8 action, &#160;<br/>&lt;ConfiguredType&gt; signal )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+action&#160;<br/>
+Action to be executed&#160;<br/>
+signal&#160;<br/>
+Signal value to be stored to&#160;the buffer&#160;<br/>
+<b>Return code&#160;</b><br/>
+E_OK&#160;<br/>
+Successfully executed&#160;<br/>
+E_NOT_OK&#160;<br/>
+An error occurred&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This is the DCM access function for a user defined output function.&#160;The state of an output function can be&#160;<br/>changed by this service.&#160;The following states are available:&#160;<br/>
+&#160;&#160;IOHWAB_CONTROLTOECU&#160;–&#160;The&#160;current value&#160;will be unlocked.&#160;The following write operations (by the&#160;<br/>
+SW-C)&#160;will work normally. Here, the parameter&#160;signal&#160;is ignored.&#160;<br/>
+&#160;&#160;IOHWAB_RESETTODEFAULT&#160;–&#160;The signal will&#160;be locked&#160;and reset to the configured default&#160;value (for&#160;<br/>
+further inform<a href="TechnicalReference_Asr_IoHwAbs.html#40">ation, see&#160;6.1.2.2.1.1</a>), i.e. the configured default value&#160;will be written to the&#160;hardware.&#160;<br/>Further&#160;writes&#160;(by the&#160;SW-C) will&#160;have no&#160;effect&#160;on the&#160;hardware.&#160;Here, the&#160;parameter&#160;signal&#160;is&#160;<br/>ignored.&#160;<br/>
+&#160;&#160;IOHWAB_FREEZE&#160;–&#160;The&#160;signal will be locked, i.e. the signal is&#160;written and locked. Further&#160;writes (by the&#160;<br/>
+SW-C)&#160;will have no effect on the hardware. Here, the&#160;parameter&#160;signal&#160;is ignored.&#160;<br/>
+&#160;&#160;IOHWAB_ADJUSTMENT&#160;–&#160;The&#160;signal will be locked,&#160;i.e. the parameter&#160;signal&#160;will be written to the&#160;<br/>
+hardware. Further&#160;writes (by the SW-C) will have no effect on the hardware.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+&#160;&#160;This&#160;service&#160;will be generated, if&#160;‘IoHwAbAccess’&#160;of&#160;a user-defined&#160;signal is set to ‘Output’&#160;and&#160;<br/>
+‘IoHwAbDcmAccess’&#160;is enabled.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by the DCM&#160;<br/>
+Table 5-13&#160;IoHwAb_DCM_Output&lt;UserDefSignalName&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The upper service description does&#160;not refer to&#160;a certain&#160;API function, but to a function&#160;<br/>
+&#160;&#160;that will be generated by the IOHWAB.&#160;The service name, as well as the&#160;parameter&#160;<br/>
+format is influenced by the configuration settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+32&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=33></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-33_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-33_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.4.11&#160;&#160;IoHwAb_&lt;SignalHandlerName&gt;&#160;</b><br/>
+<b>Prototype&#160;</b><br/>
+void&#160;<b>IoHwAb_&lt;SignalHandlerName&gt;&#160;</b>( void )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+--&#160;<br/>
+--&#160;<br/>
+<b>Return code&#160;</b><br/>
+void&#160;<br/>
+--&#160;<br/>
+<b>Functional Description&#160;</b><br/>
+This function&#160;stub can be used to implement a special signal processing, e.g. debouncing.&#160;<br/>
+<b>Particularities and Limitations&#160;</b><br/>
+&#160;&#160;This&#160;service&#160;is&#160;synchronous.&#160;<br/>
+&#160;&#160;This&#160;service is&#160;non re-entrant.&#160;<br/>
+Expected Caller Context&#160;<br/>
+&#160;&#160;Expected to be&#160;called by the RTE.&#160;<br/>
+Table 5-14&#160;IoHwAb_&lt;SignalHandlerName&gt;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The upper service description does&#160;not refer to&#160;a certain&#160;API function, but to a function&#160;<br/>
+&#160;&#160;that will be generated by the IOHWAB.&#160;The service name is influenced by&#160;the&#160;<br/>
+configuration settings.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>5.5&#160;&#160;Services used by&#160;IOHWAB&#160;</b><br/>
+In the following table services provided&#160;by other components, which are used by the&#160;<br/>IOHWAB are listed. For details about prototype and functionality,&#160;refer to the&#160;<br/>documentation of the&#160;providing component.&#160;<br/>
+<b>Component&#160;</b><br/>
+<b>API&#160;</b><br/>
+DET&#160;Det_ReportError&#160;<br/>
+(optional)&#160;<br/>
+DIO&#160;Dio_WriteChannel&#160;<br/>
+(optional)&#160;<br/>
+DIO&#160;Dio_WriteChannelGroup&#160;<br/>
+(optional)&#160;<br/>
+DIO&#160;Dio_WritePort&#160;<br/>
+(optional)&#160;<br/>
+DIO&#160;Dio_ReadChannel&#160;<br/>
+(optional)&#160;<br/>
+DIO&#160;Dio_ReadChannelGroup&#160;<br/>
+(optional)&#160;<br/>
+DIO&#160;Dio_ReadPort&#160;<br/>
+(optional)&#160;<br/>
+Table 5-15&#160;Services used by the IOHWAB&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+33&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=34></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-34_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-34_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.6&#160;&#160;Callback Functions&#160;</b><br/>
+This release of the IOHWAB does not implement any callback functions. If necessary, the&#160;<br/>user may implement prototypes of callback functions in the file IoHwAb_Cbk.h.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>It is not possible to pass an approaching callback function through the RTE to the&#160;<br/>
+<b>&#160;&#160;</b>software component.&#160;Actions for handling callbacks have to be implemented inside the&#160;<br/>
+IOHWAB.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>5.7&#160;&#160;Configurable Interfaces&#160;</b><br/>
+<b>5.7.1&#160;</b><br/>
+<b>Notifications&#160;</b><br/>
+The IOHWAB does not provide notifications.&#160;<br/>
+<b>5.8&#160;&#160;Service Ports&#160;</b><br/>
+<b>5.8.1&#160;</b><br/>
+<b>Client Server Interface&#160;</b><br/>
+A&#160;client server interface is related to a Provide Port at the server&#160;side and a&#160;Require Port&#160;<br/>at client side. &#160;<br/>
+<b>5.8.1.1&#160;&#160;Provide Ports&#160;</b><br/>
+At the Provide Ports of the IOHWAB the&#160;<a href="TechnicalReference_Asr_IoHwAbs.html#22">API functions described in&#160;5.3</a>&#160;are available as&#160;<br/>Runnable Entities.&#160;The Runnable&#160;Entities&#160;are invoked via Operations.&#160;The mapping from a&#160;<br/>SWC client&#160;call to an Operation is performed by the RTE. In&#160;this mapping, the RTE adds&#160;<br/>Port Defined&#160;Argument Values to the client call of the SWC,&#160;if configured.&#160;<br/>
+The following table presents the Provide Ports defined for the IOHWAB and the Operations&#160;<br/>defined for&#160;the Provide Ports, the&#160;API functions related to the Operations and the Port&#160;<br/>Defined&#160;Argument Values to be added by the RTE:&#160;<br/>
+&#160;<br/>
+<b>Provide Port&#160;</b><br/>
+<b>Operation&#160;</b><br/>
+<b>API Function&#160;</b><br/>
+<b>Port Defined&#160;Argument Values&#160;</b><br/>
+&lt;CalSignalName&gt;&#160;<br/>
+OP_GET&#160;<br/>
+IoHwAb_Get&lt;CalSign<br/>
+*IoHwAb_BoolType/&#160;<br/>
+alName&gt;&#160;<br/>
+*IoHwAb_DiscreteGoupType&#160;<br/>
+OP_SET&#160;<br/>
+IoHwAb_Set&lt;CalSign<br/>
+IoHwAb_BoolType/&#160;<br/>
+alName&gt;&#160;<br/>
+IoHwAb_DiscreteGoupType&#160;<br/>
+OP_DIAG&#160;<br/>
+IoHwAb_Diag&lt;CalSig<br/>
+IoHwAb_BoolType/&#160;<br/>
+nalName&gt;&#160;<br/>
+IoHwAb_DiscreteGoupType&#160;<br/>
+&lt;UserDefPortName&gt;&#160;&#160;&lt;UserDefSignalNa<br/>
+IoHwAb_Input&lt;UserD<br/>
+*&lt;Configured&#160;data type&gt;&#160;<br/>
+me&gt;&#160;<br/>
+efSignalName&gt;&#160;<br/>
+&lt;UserDefPortName&gt;&#160;&#160;&lt;UserDefSignalNa<br/>
+IoHwAb_Output&lt;User<br/>
+&lt;Configured data&#160;type&gt;&#160;<br/>
+me&gt;&#160;<br/>
+DefSignalName&gt;&#160;<br/>
+Table 5-16&#160;Provide Ports on&#160;BSW module side&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+34&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=35></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-35_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-35_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>5.8.1.2&#160;&#160;Require Ports&#160;</b><br/>
+The current version of the IOHWAB&#160;does not use any Require Ports.&#160;<br/>
+<b>5.9&#160;&#160;Software Component Template&#160;</b><br/>
+<b>5.9.1&#160;</b><br/>
+<b>Generation&#160;</b><br/>
+The definition of the Provide Ports is described in an XML&#160;file.&#160;This&#160;file describes the&#160;<br/>IOHWAB as a software component with ports to&#160;which other applications can connect.&#160;This&#160;<br/>XML&#160;file is created, when the module is&#160;generated in DaVinci Configurator.&#160;<br/>
+<b>5.9.2&#160;</b><br/>
+<b>Import to the DaVinci&#160;modeling tool&#160;</b><br/>
+For further processing, the generated software&#160;component template has to be imported&#160;<br/>into DaVinci Developer.&#160;In an existing DaVinci Developer project&#160;use ‘File-&gt;Import XML&#160;<br/>File…’&#160;and choose the correct file.&#160;<br/>
+&#160;<br/>
+Figure 5-2&#160;&#160;Import a new software component&#160;into DaVinci&#160;<br/>
+After importing the IOHWAB as a software component, there is a new component type with&#160;<br/>all the configured ports&#160;available in the library view.&#160;You can open the software&#160;component&#160;<br/>by a double click.&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+35&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=36></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-36_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-36_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-36_3.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Figure 5-3&#160;&#160;The imported software component&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>The ports&#160;in&#160;the DaVinci&#160;modeling tool contain the operations configured in the DaVinci&#160;<br/>
+<b>&#160;&#160;</b>Configurator. It may be irritating, that&#160;e.g. an output operation&#160;of a user-defined signal&#160;<br/>
+looks as follows:&#160;<br/>
+UserOperation_1(In IoHwAbSignalDiagnosisType signal) [E_NOT_OK]&#160;<br/>
+In this case,&#160;‘In’&#160;means that the operation’s parameter is an input parameter.&#160;To avoid&#160;<br/>confusion,&#160;mind the following:&#160;<br/>
+1.&#160;&#160;Input operations (OP_GET,&#160;OP_DIAG,&#160;Input) always have output parameters&#160;(‘by&#160;<br/>
+reference’).&#160;<br/>
+Output operations (OP_SET, Output) always&#160;have input parameters (‘by&#160;value’).&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+36&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=37></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-37_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-37_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-37_3.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>6&#160;&#160;Configuration&#160;</b><br/>
+In the IOHWAB, the attributes can be&#160;configured with the following methods:&#160;<br/>
+&#160;&#160;Configuration in DaVinci Configurator for a det<a href="TechnicalReference_Asr_IoHwAbs.html#37">ailed description see&#160;6.1</a>&#160;&#160;<br/>
+&#160;&#160;Configuration with a standard&#160;AUTOSAR GCE – this option&#160;will not be described&#160;<br/>
+explicitly&#160;<br/>
+<b>6.1&#160;&#160;Configuration of IOHWAB with DaVinci Configurator&#160;</b><br/>
+The IOHWAB is configured with the help of the configuration&#160;tool DaVinci Configurator.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>In case of object delivery modifications are without effect,&#160;if a&#160;parameter is&#160;specified as&#160;<br/>
+&#160;&#160;a pre-compile value. Different object&#160;code is needed for different settings. Other object&#160;<br/>
+files can&#160;be&#160;obtained at Vector Informatik.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>6.1.1&#160;</b><br/>
+<b>Start configuration of the IOHWAB&#160;</b><br/>
+The component name of the IOHWAB in DaVinci Configurator is “IoHwAb”. In the&#160;<br/>“Architecture view” (initial page) of the DaVinci Configurator, the IOHWAB can be opened&#160;<br/>by its context menu to&#160;start its configuration. Optionally, the IOHWAB can be opened for&#160;<br/>configuration with the component&#160;list under the “System” tab located at the left&#160;side of the&#160;<br/>DaVinci Configurator.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>Please save your project right after creation to ensure data consistency.&#160;<br/>
+<b>&#160;&#160;</b>The configuration tool needs data from the saved&#160;file to calculate further configuration&#160;<br/>
+options as well as values of GUI elements.&#160;<br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>6.1.2&#160;</b><br/>
+<b>Tab ‘IoHwAb Configuration’&#160;</b><br/>
+<b>6.1.2.1&#160;&#160;Node ‘IoHwAbCalSignals’&#160;</b><br/>
+This node contains&#160;the configuration of MCAL&#160;signals.&#160;This&#160;version of the IOHWAB&#160;<br/>abstracts the complete functionality of the&#160;DIO driver, i.e. Channels, Channel Groups and&#160;<br/>Ports can be read and written.&#160;<br/>
+To&#160;add a MCAL&#160;signal,&#160;right-click on this node&#160;and choose ‘Append IoHwAbDiscrete’&#160;in the&#160;<br/>context menu.&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+37&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=38></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-38_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-38_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Figure 6-1&#160;&#160;Adding a MCAL&#160;signal&#160;<br/>
+<b>6.1.2.1.1&#160;&#160;Node ‘IoHwAbDiscrete’&#160;</b><br/>
+This node contains the configuration of a single MCAL&#160;signal.&#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value Type&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+The default&#160;<br/>value is&#160;<br/>written in bold<br/>
+Create OP_SET&#160;for&#160;<br/>
+pre-compile&#160;Boolean&#160;<br/>
+<b>ON&#160;</b><br/>
+This switch&#160;enables/disables&#160;<br/>
+Signal&#160;<br/>
+OFF&#160;<br/>
+the generation&#160;of an OP_SET&#160;<br/>function for the current signal.<br/>
+Create OP_GET&#160;for&#160;<br/>
+pre-compile&#160;Boolean&#160;<br/>
+ON&#160;<br/>
+This switch&#160;enables/disables&#160;<br/>
+Signal&#160;<br/>
+<b>OFF&#160;</b><br/>
+the generation&#160;of an OP_GET&#160;<br/>function for the current signal.<br/>
+Create OP_DIAG for&#160;<br/>
+pre-compile&#160;Boolean&#160;<br/>
+ON&#160;<br/>
+This switch&#160;enables/disables&#160;<br/>
+Signal&#160;<br/>
+<b>OFF&#160;</b><br/>
+the generation&#160;of an&#160;<br/>OP_DIAG function for the&#160;<br/>current&#160;signal.&#160;<br/>
+Used DIO Entity&#160;<br/>
+pre-compile&#160;<br/>
+Reference to a&#160;<br/>
+<b>--&#160;</b><br/>
+This dropdown field&#160;<br/>
+DIO entity&#160;<br/>
+configured&#160;the reference to&#160;<br/>the DIO entity that is used&#160;by&#160;<br/>this&#160;signal.&#160;<br/>
+Enable DCM&#160;Access&#160;<br/>
+pre-compile&#160;Boolean&#160;<br/>
+<b>ON&#160;</b><br/>
+This switch&#160;enables/disables&#160;<br/>
+functionality&#160;<br/>
+OFF&#160;<br/>
+the generation&#160;of DCM&#160;<br/>access&#160;functions&#160;for the&#160;<br/>OP_SET&#160;and&#160;OP_GET&#160;<br/>function of the current signal.&#160;<br/>
+Default Value&#160;<br/>
+pre-compile&#160;<br/>
+IoHwAb_BoolType&#160;<b>0&#160;</b><br/>
+This field configures&#160;the&#160;<br/>
+/IoHwAb_Discrete<br/>
+default value&#160;that will be&#160;<br/>
+GroupType&#160;<br/>
+assigned to the signal if the&#160;<br/>associated&#160;DCM service is&#160;<br/>called with the attribute&#160;<br/>IOHWAB_RESETTODEFAULT.<br/>
+Table 6-1&#160;&#160;&#160;Node ‘IoHwAbDiscrete’&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+38&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=39></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-39_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-39_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-39_3.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>6.1.2.2&#160;&#160;Node ‘IoHwAbUserDefSignals’&#160;</b><br/>
+This node contains user-defined&#160;ports.&#160;These ports are similar to the MCAL&#160;signals, but do&#160;<br/>not contain the abstraction of a certain driver. Unlike the MCAL&#160;signals user-defined ports&#160;<br/>are not limited to predefined&#160;operations&#160;(OP_SET, OP_GET, OP_DIAG), but they can&#160;<br/>contain a various number of customizable operations.&#160;<br/>
+To&#160;add a user-defined port right-click on this node and choose ‘Append&#160;<br/>IoHwAbUserDefPort’&#160;in the context menu.&#160;<br/>
+&#160;<br/>
+Figure 6-2&#160;&#160;Adding a user-defined port&#160;<br/>
+<b>6.1.2.2.1&#160;&#160;Node ‘IoHwAbUserDefPort’&#160;</b><br/>
+This node contains user-defined signals.&#160;<br/>
+To&#160;add a user-defined signal right-click on this node and choose ‘Append&#160;<br/>IoHwAbUserDefOp’&#160;in the context menu.&#160;<br/>
+&#160;<br/>
+Figure 6-3&#160;&#160;Adding a user-defined operation&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+39&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=40></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-40_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>6.1.2.2.1.1&#160;&#160;Node ‘IoHwAbUserDefOp’&#160;</b><br/>
+<b>Attribute&#160;</b><br/>
+<b>Configuration&#160;&#160;Value Type&#160;Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Name&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+The default value&#160;is written in bold&#160;<br/>
+Access&#160;pre-compile&#160;<br/>
+Boolean&#160;<br/>
+<b>Output&#160;</b><br/>
+This switch&#160;configures&#160;<br/>
+Input&#160;<br/>
+the direction&#160;of the&#160;<br/>operation: input&#160;<br/>operations&#160;read from&#160;<br/>the driver layer,&#160;output&#160;<br/>operations&#160;write to the&#160;<br/>driver layer.&#160;<br/>
+Data&#160;Type&#160;<br/>
+pre-compile&#160;<br/>
+String&#160;<br/>
+IoHwAb_BoolType&#160;<br/>
+This field configures&#160;<br/>
+parameter&#160;<br/>
+IoHwAb_CurrentType&#160;<br/>
+the data type of the&#160;<br/>operation’s parameter.&#160;<br/>
+IoHwAb_VoltageType&#160;<br/>
+IoHwAb_ResistanceType&#160;<br/>
+IoHwAb_SignalDiagnosisType<br/>
+IoHwAb_PwxPeriodType&#160;<br/>
+IoHwAb_PwxDutyCycleType&#160;<br/>
+sint8&#160;<br/>
+<b>uint8&#160;</b><br/>
+sint16&#160;<br/>
+uint16&#160;<br/>
+sint32&#160;<br/>
+uint32&#160;<br/>
+float32&#160;<br/>
+float64&#160;<br/>
+Unit&#160;--&#160;<br/>
+String&#160;<br/>
+mV&#160;<br/>
+This field configures&#160;<br/>
+parameter&#160;<br/>
+V&#160;<br/>
+the unit of the&#160;<br/>operation. No&#160;output&#160;<br/>
+Ohm&#160;<br/>
+will be generated from&#160;<br/>
+kOhm&#160;<br/>
+this configuration&#160;<br/>
+A&#160;<br/>
+element.&#160;<br/>
+mA&#160;<br/>
+µA&#160;<br/>
+°C&#160;<br/>
+Percent&#160;<br/>
+<b>n/a&#160;</b><br/>
+Range Min&#160;<br/>
+--&#160;<br/>
+Numeric&#160;<br/>
+<b>0&#160;</b><br/>
+This field contains the&#160;<br/>
+value&#160;<br/>
+minimum value of the&#160;<br/>operation’s unit. &#160;<br/>
+No output will&#160;be&#160;<br/>generated from&#160;this&#160;<br/>configuration element.&#160;<br/>
+Range Max&#160;<br/>
+--&#160;<br/>
+Numeric&#160;<br/>
+<b>--&#160;</b><br/>
+This field contains the&#160;<br/>
+value&#160;<br/>
+maximum value of the&#160;<br/>operation’s unit. &#160;<br/>
+No output will&#160;be&#160;<br/>generated from&#160;this&#160;<br/>configuration element.&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+40&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=41></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-41_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-41_2.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>Attribute&#160;</b><br/>
+<b>Configuration&#160;&#160;Value Type&#160;Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Name&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+The default value&#160;is written in bold&#160;<br/>
+Resolution&#160;--&#160;<br/>
+Numeric&#160;<br/>
+<b>--&#160;</b><br/>
+This field contains the&#160;<br/>
+value&#160;<br/>
+hardware resolution of&#160;<br/>the signal. &#160;<br/>
+No output will&#160;be&#160;<br/>generated from&#160;this&#160;<br/>configuration element.&#160;<br/>
+Enable DCM&#160;<br/>
+pre-compile&#160;Boolean&#160;<br/>
+ON&#160;<br/>
+This switch&#160;<br/>
+Access&#160;<br/>
+<b>OFF&#160;</b><br/>
+enables/disables &#160;the&#160;<br/>
+Functionality&#160;<br/>
+generation of&#160;DCM&#160;<br/>access&#160;functions&#160;for the&#160;<br/>current operation.&#160;<br/>
+Default Value&#160;&#160;pre-compile&#160;<br/>
+Depends on&#160;&#160;<b>--&#160;</b><br/>
+This field contains the&#160;<br/>
+the data&#160;<br/>
+default value,&#160;that will&#160;<br/>
+type of the&#160;<br/>
+be assigned to&#160;the&#160;<br/>
+signal&#160;<br/>
+signal if the associated&#160;<br/>DCM function is&#160;called&#160;<br/>with the parameter&#160;<br/>IOHWAB_RESETTODEF<br/>AULT.&#160;<br/>
+&#160;<br/>
+<b>6.1.2.3&#160;&#160;Node ‘IoHwAbHandlers’&#160;</b><br/>
+This node contains all the signal handler functions. Signal&#160;handlers are called cyclically&#160;<br/>and can be used for special signal processing.&#160;<br/>
+To&#160;add a handler function right-click on this&#160;node and choose ‘Append&#160;IoHwAbHandler’&#160;in&#160;<br/>the context menu.&#160;<br/>
+&#160;<br/>
+Figure 6-4&#160;&#160;Adding a handler&#160;function&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+41&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=42></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-42_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>6.1.2.3.1&#160;&#160;Node ‘IoHwAbHandler’&#160;</b><br/>
+This node contains the configuration of a signal handler&#160;function.&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;<br/>is written in bold&#160;<br/>
+Trigger&#160;Period&#160;<br/>
+pre-compile&#160;<br/>
+Numeric&#160;<br/>
+<b>10&#160;</b><br/>
+This field contains the trigger&#160;<br/>
+Value&#160;<br/>
+period for the&#160;signal handler&#160;<br/>function.&#160;<br/>
+Timebase&#160;pre-compile&#160;<br/>
+String&#160;<br/>
+sec&#160;<br/>
+This&#160;switch configures the&#160;time&#160;<br/>
+parameter&#160;<b>msec&#160;</b><br/>
+base of the handler’s&#160;trigger&#160;<br/>period.&#160;<br/>
+&#160;<br/>
+<b>6.1.2.4&#160;&#160;Node IoHwAbDataTypeSizes&#160;</b><br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configu&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>ration&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default&#160;<br/>
+<b>Variant&#160;</b><br/>
+value is&#160;<br/>written in bold<br/>
+Size&#160;of&#160;<br/>
+pre-<br/>
+String&#160;<br/>
+<b>uint8&#160;</b><br/>
+This field determines the&#160;size of the&#160;<br/>
+IoHwAb_DiscreteGroupSize&#160;<br/>
+compile&#160;<br/>
+parameter&#160;&#160;uint16&#160;<br/>
+data type&#160;<br/>IoHwAb_DiscreteGroupType.&#160;<br/>
+uint32&#160;<br/>
+Size of IoHwAb_CurrentType&#160;<br/>
+pre-<br/>
+String&#160;<br/>
+<b>uint16&#160;</b><br/>
+This field determines the&#160;size of the&#160;<br/>
+compile&#160;<br/>
+parameter&#160;&#160;uint32&#160;<br/>
+data type&#160;IoHwAb_CurrentType.&#160;<br/>
+Size of IoHwAb_VoltageType&#160;<br/>
+pre-<br/>
+String&#160;<br/>
+<b>uint16&#160;</b><br/>
+This field determines the&#160;size of the&#160;<br/>
+compile&#160;<br/>
+parameter&#160;&#160;uint32&#160;<br/>
+data type&#160;IoHwAb_VoltageType.&#160;<br/>
+Size&#160;of&#160;<br/>
+pre-<br/>
+String&#160;<br/>
+<b>uint16&#160;</b><br/>
+This field determines the&#160;size of the&#160;<br/>
+IoHwAb_ResistanceType&#160;<br/>
+compile&#160;<br/>
+parameter&#160;&#160;uint32&#160;<br/>
+data type&#160;<br/>IoHwAb_ResistanceType.&#160;<br/>
+Size&#160;of&#160;<br/>
+pre-<br/>
+String&#160;<br/>
+<b>uint16&#160;</b><br/>
+This field determines the&#160;size of the&#160;<br/>
+IoHwAb_SignalDiagnosisType&#160;&#160;compile&#160;<br/>
+parameter&#160;&#160;uint32&#160;<br/>
+data type&#160;<br/>IoHwAb_SignalDiagnosisType.&#160;<br/>
+Size&#160;of&#160;<br/>
+pre-<br/>
+String&#160;<br/>
+<b>uint16&#160;</b><br/>
+This field determines the&#160;size of the&#160;<br/>
+IoHwAb_PwxPeriodType&#160;<br/>
+compile&#160;<br/>
+parameter&#160;&#160;uint32&#160;<br/>
+data type&#160;<br/>IoHwAb_PwxPeriodType.&#160;<br/>
+Size&#160;of&#160;<br/>
+pre-<br/>
+String&#160;<br/>
+<b>uint16&#160;</b><br/>
+This field determines the&#160;size of the&#160;<br/>
+IoHwAb_PwxDutyCycleType&#160;<br/>
+compile&#160;<br/>
+parameter&#160;&#160;uint32&#160;<br/>
+data type&#160;<br/>IoHwAb_PwxDutyCycleType.&#160;<br/>
+&#160;<br/>
+<b>6.1.3&#160;</b><br/>
+<b>Tab ‘General Settings’&#160;</b><br/>
+This tab contains the general&#160;configuration of the&#160;IOHWAB.&#160;<br/>
+<b>6.1.3.1&#160;&#160;Area ‘Error Detection – Development Mode’&#160;</b><br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;is&#160;<br/>written in bold&#160;<br/>
+Development&#160;Mode&#160;<br/>
+pre-compile&#160;<br/>
+Boolean&#160;<br/>
+<b>ON&#160;</b><br/>
+This switch&#160;enables/disables&#160;<br/>
+OFF&#160;<br/>
+the development error&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+42&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=43></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-43_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;is&#160;<br/>written in bold&#160;<br/>
+detection&#160;of the IOHWAB.&#160;<br/>
+Check Parameter&#160;<br/>
+pre-compile&#160;Boolean&#160;<br/>
+<b>ON&#160;</b><br/>
+This switch&#160;enables/disables&#160;<br/>
+Pointer&#160;<br/>
+OFF&#160;<br/>
+the pointer&#160;parameter check of&#160;<br/>the generated&#160;API functions.&#160;<br/>The parameter will be&#160;checked&#160;<br/>for not being&#160;a NULL_PTR.&#160;<br/>
+Development&#160;Error&#160;<br/>
+pre-compile&#160;Boolean&#160;<br/>
+<b>ON&#160;</b><br/>
+This switch&#160;enables/disables&#160;<br/>
+Reporting&#160;<br/>
+OFF<b>&#160;</b><br/>
+the reporting&#160;of detected&#160;<br/>development errors to the error&#160;<br/>tracer&#160;module&#160;(by default:&#160;<br/>DET).&#160;<br/>
+Errorhook Function&#160;<br/>
+pre-compile&#160;<br/>
+C-function&#160;&#160;<b>Det_ReportError&#160;</b>This field contains the function&#160;<br/>identifier&#160;<br/>
+name of the development error&#160;<br/>reporting function.&#160;<br/>
+Include File&#160;<br/>
+pre-compile&#160;<br/>
+Header&#160;<br/>
+<b>Det.h&#160;</b><br/>
+This FileEdit is&#160;for inclusion of&#160;<br/>
+file&#160;<br/>
+the header file that contains&#160;the&#160;<br/>development error reporting&#160;<br/>function.&#160;<br/>
+&#160;<br/>
+<b>6.1.3.2&#160;&#160;Area ‘Interrupt Services’&#160;</b><br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;is written in&#160;<br/>bold&#160;<br/>
+Critical Section&#160;<br/>
+pre-compile&#160;--&#160;&#160;<b>UseSuspendFunctions&#160;&#160;</b>This field configures&#160;the&#160;<br/>
+Handling&#160;<br/>
+UseOSFunctions&#160;<br/>
+critical section handling of&#160;<br/>the IOHWAB.&#160;<br/>
+UseEnableFunctions&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+43&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=44></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-44_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-44_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-44_3.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Info&#160;<br/></b>The values in this list can be configured in the platform specific configuration:&#160;<br/>
+&#160;&#160;&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>6.1.3.3&#160;&#160;Area ‘Common Settings’&#160;</b><br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;is&#160;<br/>written in bold&#160;<br/>
+Use RTE&#160;<br/>
+pre-compile&#160;<br/>
+Boolean&#160;<br/>
+<b>ON&#160;</b><br/>
+This switch&#160;enables/disables&#160;<br/>
+OFF&#160;<br/>
+RTE usage. If RTE usage is&#160;on,&#160;<br/>IoHwAb types and function&#160;<br/>prototypes&#160;are generated&#160;by&#160;<br/>the RTE generator. Otherwise&#160;<br/>IoHwAb types will be generated&#160;<br/>into IoHwAb_types.h and&#160;<br/>function prototypes will be&#160;<br/>added to IoHwAb_Cfg.h&#160;<br/>
+Export As&#160;Service&#160;<br/>
+pre-compile&#160;Boolean&#160;<br/>
+ON&#160;<br/>
+This&#160;parameter&#160;<br/>
+Component&#160;<br/>
+<b>OFF&#160;</b><br/>
+enables/disables the&#160;<br/>generation of&#160;the I/O Hardware&#160;<br/>Abstraction as&#160;a Service&#160;<br/>Component.&#160;<br/>
+By Default, the I/O Hardware&#160;<br/>Abstraction is&#160;an&#160;Application&#160;<br/>Component. By enabling this&#160;<br/>option, the module&#160;can be&#160;<br/>declared as a&#160;Service&#160;<br/>Component.&#160;<br/>
+Component Name&#160;&#160;pre-compile&#160;<br/>
+String&#160;<br/>
+<b>IoHwAbstraction&#160;</b><br/>
+This field contains the&#160;<br/>
+parameter&#160;<br/>
+component name of the&#160;<br/>IOHWAB.&#160;After importing the&#160;<br/>IOHWAB to a DaVinci&#160;<br/>Developer project, the service&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+44&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=45></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-45_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;is&#160;<br/>written in bold&#160;<br/>
+component will have this name.<br/>
+&#160;<br/>
+<b>6.1.3.4&#160;&#160;Area ‘Include List’&#160;</b><br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuratio&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>n Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;<br/>is written in bold&#160;<br/>
+IoHwAbCfgIncludeList&#160;pre-compile&#160;&#160;String&#160;<br/>
+<b>Dio.h&#160;</b><br/>
+This field contains all necessary&#160;<br/>
+parameter<br/>
+includes of lower level drivers.&#160;<br/>
+&#160;<br/>
+<b>6.1.4&#160;</b><br/>
+<b>Tab ‘Module API’&#160;</b><br/>
+<b>6.1.4.1&#160;&#160;Area ‘API Optimization’&#160;</b><br/>
+<b>Attribute Name&#160;</b><br/>
+<b>Configuration&#160;&#160;Value&#160;</b><br/>
+<b>Values&#160;</b><br/>
+<b>Description&#160;</b><br/>
+<b>Variant&#160;</b><br/>
+<b>Type&#160;</b><br/>
+The default value&#160;<br/>is written in bold&#160;<br/>
+Use IoHwAb_Init&#160;<br/>
+pre-compile&#160;<br/>
+Boolean&#160;<br/>
+<b>ON&#160;</b><br/>
+This switch&#160;enables/disables&#160;<br/>
+OFF&#160;<br/>
+the service&#160;IoHwAb_Init().&#160;<br/>
+Use&#160;<br/>
+pre-compile&#160;Boolean&#160;<br/>
+<b>ON&#160;</b><br/>
+This switch&#160;enables/disables&#160;<br/>
+IoHwAb_GetVersionInfo&#160;<br/>
+OFF&#160;<br/>
+the service&#160;<br/>IoHwAb_GetVersionInfo().<br/>
+&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+45&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=46></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-46_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>7&#160;&#160;AUTOSAR Standard Compliance&#160;</b><br/>
+&#160;<br/>
+The current version of the IOHWAB has only full support of the DIO&#160;driver implemented,&#160;<br/>i.e. the access to the DIO driver’s&#160;API is&#160;generated completely and needs no further&#160;<br/>modification.&#160;Abstraction of further&#160;AUTOSAR drivers as well as&#160;custom&#160;drivers has to be&#160;<br/>done manually by using the generated function stubs.&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+46&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=47></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-47_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>8&#160;&#160;Glossary and&#160;Abbreviations&#160;</b><br/>
+<b>8.1&#160;&#160;Glossary&#160;</b><br/>
+<b>Term&#160;</b><br/>
+<b>Description&#160;</b><br/>
+DaVinci Configurator&#160;&#160;Configuration and generation tool for&#160;MICROSAR BSW components&#160;<br/>
+Table 8-1&#160;&#160;&#160;Glossary&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>8.2&#160;&#160;Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+API&#160;Application&#160;<br/>
+Programming&#160;<br/>
+Interface&#160;<br/>
+&#160;<br/>
+AUTOSAR&#160;Automotive&#160;<br/>
+Open&#160;<br/>
+System&#160;<br/>
+Architecture&#160;<br/>
+BSW&#160;Basis&#160;<br/>
+Software&#160;<br/>
+DCM&#160;Diagnostic&#160;<br/>
+Communication&#160;<br/>
+Manager&#160;<br/>
+DET&#160;Development&#160;<br/>
+Error&#160;<br/>
+Tracer&#160;<br/>
+ECU&#160;<br/>
+Electronic Control Unit&#160;<br/>
+GCE&#160;Generic&#160;<br/>
+Configuration&#160;<br/>
+Editor&#160;<br/>
+HIS&#160;<br/>
+Hersteller Initiative Software&#160;<br/>
+IOHWAB&#160;Input/Output&#160;<br/>
+Hardware&#160;<br/>
+Abstraction&#160;<br/>
+ISR&#160;<br/>
+Interrupt Service Routine&#160;<br/>
+MICROSAR&#160;<br/>
+Microcontroller Open System&#160;Architecture (the Vector&#160;AUTOSAR&#160;<br/>solution)&#160;<br/>
+PPort&#160;Provide&#160;<br/>
+Port&#160;<br/>
+RPort&#160;Require&#160;<br/>
+Port&#160;<br/>
+RTE&#160;Runtime&#160;<br/>
+Environment&#160;<br/>
+SRS&#160;<br/>
+Software Requirement Specification&#160;<br/>
+SW-C&#160;Software&#160;<br/>
+Component&#160;<br/>
+SWS&#160;Software&#160;<br/>
+Specification&#160;<br/>
+Table 8-2&#160;&#160;&#160;Abbreviations&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+47&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name=48></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_IoHwAb-48_1.png"/><br/>
+Technical Reference MICROSAR IOHWAB &#160;<br/>
+&#160;<br/>
+<b>9&#160;&#160;Contact&#160;</b><br/>
+Visit our website for more information on&#160;<br/>&#160;<br/>&gt;&#160; &#160;News&#160;<br/>&gt;&#160; &#160;Products&#160;<br/>&gt;&#160; &#160;Demo software&#160;<br/>&gt;&#160; &#160;Support&#160;<br/>&gt;&#160; &#160;Training data&#160;<br/>&gt;&#160; &#160;Addresses&#160;<br/>&#160;<br/>
+<a href="http://www.vector-informatik.com/"><b>www.vector-informatik.com&#160;</b></a><br/>
+&#160;<br/>
+©2010, Vector Informatik GmbH&#160;<br/>
+Version: 2.02.02&#160;<br/>
+48&#160;/ 48<br/>
+based on template&#160;version 3.1&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#2">1 Document Information</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#2">1.1 History</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#3">1.2 Reference Documents</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#8">2 Introduction</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#9">2.1 Architecture Overview</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#11">3 Functional Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#11">3.1 Features</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#11">3.2 Initialization</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#12">3.3 States</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#12">3.4 Main Functions</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#12">3.5 Error Handling</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#12">3.5.1 Development Error Reporting</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#13">3.5.1.1 Parameter Checking</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#13">3.5.2 Production Code Error Reporting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#14">4 Integration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#14">4.1 Scope of Delivery</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#14">4.1.1 Static Files</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#14">4.1.2 Dynamic Files</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#16">4.2 Include Structure</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#16">4.3 Compiler Abstraction and Memory Mapping&#160;</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#17">4.4 Critical Sections</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#17">4.5 Generated Template Files</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#18">4.5.1 Generated services in template files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#20">5 API Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#20">5.1 Interfaces Overview</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#21">5.2 Type Definitions</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#22">5.3 Services provided by IOHWAB</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#22">5.3.1 IoHwAb_Init</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#22">5.3.2 IoHwAb_GetVersionInfo</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#23">5.4 Generated API functions</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#23">5.4.1 IoHwAb_Set&lt;CalSignalName&gt;</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#24">5.4.2 IoHwAb_Get&lt;CalSignalName&gt;</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#25">5.4.3 IoHwAb_DCM_&lt;CalSignalName&gt;</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#26">5.4.4 IoHwAb_DCM_Read&lt;CalSignalName&gt;</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#27">5.4.5 IoHwAb_Diag&lt;CalSignalName&gt;</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#28">5.4.6 IoHwAb_Input&lt;UserDefSignalName&gt;</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#29">5.4.7 IoHwAb_DCM_Input&lt;UserDefSignalName&gt;</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#30">5.4.8 IoHwAb_DCM_Read&lt;UserDefSignalName&gt;</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#31">5.4.9 IoHwAb_Output&lt;UserDefSignalName&gt;</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#32">5.4.10 IoHwAb_DCM_Output&lt;UserDefSignalName&gt;</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#33">5.4.11 IoHwAb_&lt;SignalHandlerName&gt;</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#33">5.5 Services used by IOHWAB</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#34">5.6 Callback Functions</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#34">5.7 Configurable Interfaces</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#34">5.7.1 Notifications</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#34">5.8 Service Ports</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#34">5.8.1 Client Server Interface</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#34">5.8.1.1 Provide Ports</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#35">5.8.1.2 Require Ports</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#35">5.9 Software Component Template</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#35">5.9.1 Generation</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#35">5.9.2 Import to the DaVinci modeling tool</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#37">6 Configuration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#37">6.1 Configuration of IOHWAB with DaVinci Configurator</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#37">6.1.1 Start configuration of the IOHWAB</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#37">6.1.2 Tab ‘IoHwAb Configuration’</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#37">6.1.2.1 Node ‘IoHwAbCalSignals’</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#38">6.1.2.1.1 Node ‘IoHwAbDiscrete’</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#39">6.1.2.2 Node ‘IoHwAbUserDefSignals’</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#39">6.1.2.2.1 Node ‘IoHwAbUserDefPort’</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#40">6.1.2.2.1.1 Node ‘IoHwAbUserDefOp’</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#41">6.1.2.3 Node ‘IoHwAbHandlers’</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#42">6.1.2.3.1 Node ‘IoHwAbHandler’</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#42">6.1.2.4 Node IoHwAbDataTypeSizes</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#42">6.1.3 Tab ‘General Settings’</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#42">6.1.3.1 Area ‘Error Detection – Development Mode’</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#43">6.1.3.2 Area ‘Interrupt Services’</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#44">6.1.3.3 Area ‘Common Settings’</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#45">6.1.3.4 Area ‘Include List’</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#45">6.1.4 Tab ‘Module API’</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#45">6.1.4.1 Area ‘API Optimization’</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#46">7 AUTOSAR Standard Compliance</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#47">8 Glossary and Abbreviations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#47">8.1 Glossary</a></li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#47">8.2 Abbreviations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_IoHwAbs.html#48">9 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

@@ -1,0 +1,588 @@
+---
+title: Nhet_1_MDD
+linkTitle: Nhet_1_MDD
+weight: 8
+---
+
+<h1 class="unnumbered" id="module-nhet">Module – NHET</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module implements NHET1 and HTU1 initialization per ES-34B NHET1 subfunctions, and NHET2 initialization, currently not documented in an FDD.</p>
+<h1 id="figures">Figures</h1>
+<p>None</p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">HET_INIT1_PST</td>
+<td>Nhet_Htu1RstFail_Cnt_G_lgc</td>
+</tr>
+<tr class="even">
+<td colspan="2">HET_INIT0_PST</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">Nhet_HtuDataTrq_Cnt_G_str</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 21%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nhet_HtuDataTrq_Cnt_G_str</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>NHET_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<p>(Refer the included ref for more details of register)</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HtuDataTrq_Str</td>
+<td>HtuDataTrq1_Cnt_u32 [8]</td>
+<td>Uint32</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>HtuDataTrq2_Cnt_u32 [8]</td>
+<td>Uint32</td>
+<td>0</td>
+<td>FULL</td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_SENTSyncDelay_Cnt_u32</td>
+</tr>
+<tr class="even">
+<td>k_SENTSyncTrgMin_Cnt_u32</td>
+</tr>
+<tr class="odd">
+<td>k_SPI50UOff_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td>k_SPI1mOff_Cnt_u16</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 24%" />
+<col style="width: 15%" />
+<col style="width: 32%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_INSTTODATARATIO_CNT_U16</td>
+<td>1</td>
+<td>Counts</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>D_DATAFLDOFFSET_CNT_U16</td>
+<td>1</td>
+<td>Counts</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>D_BASEADDNHETRAM_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>0xFF460000UL</td>
+</tr>
+<tr class="even">
+<td>D_WCAPHTUADDR1_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>D_BASEADDNHETRAM_CNT_U32 + (16U*pHET_T1MSGCNTST_0) + 8UL</td>
+</tr>
+<tr class="odd">
+<td>D_WCAPHTUADDR2_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>D_BASEADDNHETRAM_CNT_U32 + (16U*pHET_T2MSGCNTST_0) + 8UL</td>
+</tr>
+<tr class="even">
+<td>D_CELEMENT_CNT_U16</td>
+<td>1</td>
+<td>Counts</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>D_CBUFLEN_CNT_U16</td>
+<td>1</td>
+<td>Counts</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>D_CONFIGHETREGDMA_CNT_U32</td>
+<td>1</td>
+<td>Counts</td>
+<td>Configurable. 0UL if no DMA needs to be enabled and 1UL if using DMA</td>
+</tr>
+<tr class="odd">
+<td>D_CFRAME_CNT_U16</td>
+<td>1</td>
+<td>Counts</td>
+<td>(D_CBUFLEN_CNT_U16/D_CELEMENT_CNT_U16)</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>HET Macros</p></li>
+<li><p>HTU MACROS</p></li>
+<li><p>Memcpy</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="global-functions-1-for-detailed-info-regarding-values-assigned-to-registers-refer-reference-pdf-attached-below">Global Functions #1 (For detailed info regarding values assigned to registers refer Reference Pdf attached below)</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>NHET_Init1</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>All NHET1 initialization, including HTU1 initialization, is done before enabling NHET1. All NHET2 initialization is done before enabling NHET2. (NOTE that flowcharts are not accurate as of Rev 7 of this document; to be updated as part of CR 12943.)</p>
+<h4 id="description">Description</h4>
+<p><strong><u>NHET1 (called NHET1 in TI documentation and in FDDs; uses registers named NHET0):</u></strong></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<p><strong><u>NHET2 (called NHET2 in TI documentation and in FDDs; uses registers named NHET1):</u></strong></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="local-functions-1">Local Functions #1 </h3>
+<h3 class="unnumbered" id="section-1"></h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>HTU1_Init</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>Only one memory protection region is enabled; per TI documentation updates, HTU access to NHET memory is independent of the HTU memory protection and therefore the HTU memory protection only needs to be configured to allow access to the R4 main memory region used by the HTU.</p>
+<p>A global variable, Nhet_Htu1RstFail_Cnt_G_lgc, is used for the HTU1 Reset Test Fail flag, because the HTU1_Init function is called from ECU Startup before the RTE is running.</p>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init">Init: </h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>This component does not have an RTE Init function, however NHET direction register settings are configured in the integration project and initialized in generated code. See the integration manual.</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<p>None</p>
+<h4 id="initialize-nhet-direction-register">Initialize NHET Direction Register</h4>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="transition-functions">Transition Functions</h2>
+<p>None</p>
+<h2 id="section-2"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-rates-for-sub-modules-called-by-the-subroutine">Execution Rates for sub-modules called by the Subroutine</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Global Function Name</th>
+<th>Calling Frequency</th>
+<th>Function in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NHET_Init1</td>
+<td>On Event</td>
+<td>ECU start up</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NHET_Init1</td>
+<td>#define NHET_START_SEC_CODE</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-4"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-5"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>NOTE that the flowcharts have not been updated for the Rev 7 change. Flowcharts to be updated under CR 12943.</p></li>
+<li></li>
+</ol>
+<h1 class="unnumbered" id="section-6"></h1>
+<h1 id="reference"> Reference </h1>
+<p>Register Reference</p>
+<h1 class="unnumbered" id="section-7"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></h1>
+<h1 class="unnumbered" id="section-8"></h1>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 68%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1.0</td>
+<td>Initial Version ( FDD 34B)</td>
+<td></td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>2.0</td>
+<td>Updated to FDD 34B v003</td>
+<td>19-Jun-13</td>
+<td>OT/SELVA</td>
+</tr>
+<tr class="even">
+<td>3.0</td>
+<td>Removed “NHETPINDIS” in Nhet1</td>
+<td>01-Aug-13</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>4.0</td>
+<td>Updated to FDD34B v004</td>
+<td>4-Apr-14</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>5.0</td>
+<td>Anomaly fix 6589 - Correct the value for the HTU MP0E register CR 11799</td>
+<td>23-Apr-14</td>
+<td>SB</td>
+</tr>
+<tr class="odd">
+<td>6.0</td>
+<td>Anomaly fix 6844 - ePWM/ES34B: HTU is enabled before HTU MPU config is set up</td>
+<td>26-Nov-14</td>
+<td>VT</td>
+</tr>
+<tr class="even">
+<td>7.0</td>
+<td>Updated per ES-34B v008</td>
+<td>28-Jan-15</td>
+<td>KMC</td>
+</tr>
+</tbody>
+</table>

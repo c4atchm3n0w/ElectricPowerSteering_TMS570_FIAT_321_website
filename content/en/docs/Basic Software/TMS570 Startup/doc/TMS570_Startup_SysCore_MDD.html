@@ -1,0 +1,944 @@
+---
+title: TMS570_Startup_SysCore_MDD
+linkTitle: TMS570_Startup_SysCore_MDD
+weight: 11
+---
+
+<h1 id="high-level-description">High-Level Description</h1>
+<p>sys_core provides assembly language functions for processor register data access and system startup.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>No Shared Data</p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">&lt;None&gt;</td>
+<td>&lt;None&gt;</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>NOTE that all global functions in this module must be assembled in ARM mode. Therefore the .asm source file includes the .arm directive at the beginning of the file, applying the directive to all functions in the file.</p>
+<h3 id="global-function-1">Global Function #1</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>_coreEnableVfp_</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p>Enables VFP co-processor unit.</p>
+<p>.def _coreEnableVfp_</p>
+<p>.asmfunc</p>
+<p>_coreEnableVfp_</p>
+<p>mrc p15, #0x00, r0, c1, c0, #0x02</p>
+<p>orr r0, r0, #0xF00000</p>
+<p>mcr p15, #0x00, r0, c1, c0, #0x02</p>
+<p>mov r0, #0x40000000</p>
+<p>fmxr fpexc, r0</p>
+<p>bx lr</p>
+<p>.endasmfunc</p>
+<h3 id="global-function-2">Global Function #2</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>_coreInitRegisters_</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p>Initialize CPU Registers, including banked registers for all modes. This is required to be done at startup to ensure that both cores of the controller have identical starting register values to prevent a false trip of the core compare module. Included are all core registers as well as all floating point registers. Additionally, this function initializes the stack pointers for all modes of the uController. Therefore, this function needs to get executed prior to any stack usage and prior to any read usage of any core or floating point registers. The stack pointers are referenced by externally defined symbols (typically defined in the linker file) to allow for user configuration of the individual stack sizes.</p>
+<p>.ref _StackUSER_</p>
+<p>.ref _StackFIQ_</p>
+<p>.ref _StackUND_</p>
+<p>.ref _StackIRQ_</p>
+<p>.ref _StackABORT_</p>
+<p>.ref _StackSVC_</p>
+<p>.def _coreInitRegisters_</p>
+<p>.asmfunc</p>
+<p>_coreInitRegisters_</p>
+<p>; After reset, the CPU is in the Supervisor mode (M = 10011)</p>
+<p>mov r0, lr</p>
+<p>mov r1, #0x0000</p>
+<p>mov r2, #0x0000</p>
+<p>mov r3, #0x0000</p>
+<p>mov r4, #0x0000</p>
+<p>mov r5, #0x0000</p>
+<p>mov r6, #0x0000</p>
+<p>mov r7, #0x0000</p>
+<p>mov r8, #0x0000</p>
+<p>mov r9, #0x0000</p>
+<p>mov r10, #0x0000</p>
+<p>mov r11, #0x0000</p>
+<p>mov r12, #0x0000</p>
+<p>ldr sp, svcSp</p>
+<p>; Switch to FIQ mode (M = 10001)</p>
+<p>cps #17</p>
+<p>mov r8, #0x0000</p>
+<p>mov r9, #0x0000</p>
+<p>mov r10, #0x0000</p>
+<p>mov r11, #0x0000</p>
+<p>mov r12, #0x0000</p>
+<p>; Abort mode</p>
+<p>cps #23</p>
+<p>ldr sp, abortSp</p>
+<p>mov lr, r0</p>
+<p>; Undefined instruction mode</p>
+<p>cps #27</p>
+<p>ldr sp, undefSp</p>
+<p>mov lr, r0</p>
+<p>; FIQ mode</p>
+<p>cps #17</p>
+<p>ldr sp, fiqSp</p>
+<p>mov lr, r0</p>
+<p>; IRQ mode</p>
+<p>cps #18</p>
+<p>ldr sp, irqSp</p>
+<p>mov lr, r0</p>
+<p>; System mode</p>
+<p>cps #31</p>
+<p>ldr sp, userSp ; SYS mode shares stack with User mode</p>
+<p>mov lr, r0</p>
+<p>; Switch back to Supervisor Mode (M = 10011)</p>
+<p>cps #19</p>
+<p>fmdrr d0, r1, r1</p>
+<p>fmdrr d1, r1, r1</p>
+<p>fmdrr d2, r1, r1</p>
+<p>fmdrr d3, r1, r1</p>
+<p>fmdrr d4, r1, r1</p>
+<p>fmdrr d5, r1, r1</p>
+<p>fmdrr d6, r1, r1</p>
+<p>fmdrr d7, r1, r1</p>
+<p>fmdrr d8, r1, r1</p>
+<p>fmdrr d9, r1, r1</p>
+<p>fmdrr d10, r1, r1</p>
+<p>fmdrr d11, r1, r1</p>
+<p>fmdrr d12, r1, r1</p>
+<p>fmdrr d13, r1, r1</p>
+<p>fmdrr d14, r1, r1</p>
+<p>fmdrr d15, r1, r1</p>
+<p>bl next1</p>
+<p>next1</p>
+<p>bl next2</p>
+<p>next2</p>
+<p>bl next3</p>
+<p>next3</p>
+<p>bl next4</p>
+<p>next4</p>
+<p>bx r0</p>
+<p>userSp .word _StackUSER_</p>
+<p>svcSp .word _StackSVC_</p>
+<p>fiqSp .word _StackFIQ_</p>
+<p>irqSp .word _StackIRQ_</p>
+<p>abortSp .word _StackABORT_</p>
+<p>undefSp .word _StackUND_</p>
+<p>.endasmfunc</p>
+<h3 id="global-function-3">Global Function #3</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>_esmCcmErrorsClear_</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-2">Description</h4>
+<p>Clear ESM CCM errors. This function is required for ERRATA DEVICE#140 workaround found in gladiator silicon revision A. It will clear all CCM error flags in the ESM status registers, clear the ESMKEY register to reset the ESM error pin state, clear the ESMH VIM interrupt request flag, and clear the core compare status register compare error flag.</p>
+<p>.def _esmCcmErrorsClear_</p>
+<p>.asmfunc</p>
+<p>_esmCcmErrorsClear_:</p>
+<p>ldr r0, ESMSR1_REG ; load the ESMSR1 status register address</p>
+<p>ldr r2, ESMSR1_ERR_CLR</p>
+<p>str r2, [r0] ; clear the ESMSR1 register</p>
+<p>ldr r0, ESMSR2_REG ; load the ESMSR2 status register address</p>
+<p>ldr r2, ESMSR2_ERR_CLR</p>
+<p>str r2, [r0] ; clear the ESMSR2 register</p>
+<p>ldr r0, ESMSSR2_REG ; load the ESMSSR2 status register address</p>
+<p>ldr r2, ESMSSR2_ERR_CLR</p>
+<p>str r2, [r0] ; clear the ESMSSR2 register</p>
+<p>ldr r0, ESMKEY_REG ; load the ESMKEY register address</p>
+<p>mov r2, #0x5 ; load R2 with 0x5</p>
+<p>str r2, [r0] ; clear the ESMKEY register</p>
+<p>ldr r0, VIM_INTREQ ; load the INTREQ register address</p>
+<p>ldr r2, VIM_INT_CLR</p>
+<p>str r2, [r0] ; clear the INTREQ register</p>
+<p>ldr r0, CCMR4_STAT_REG ; load the CCMR4 status register address</p>
+<p>ldr r2, CCMR4_ERR_CLR</p>
+<p>str r2, [r0] ; clear the CCMR4 status register</p>
+<p>bx lr</p>
+<p>ESMSR1_REG .word 0xFFFFF518</p>
+<p>ESMSR2_REG .word 0xFFFFF51C</p>
+<p>ESMKEY_REG .word 0xFFFFF538</p>
+<p>ESMSSR2_REG .word 0xFFFFF53C</p>
+<p>CCMR4_STAT_REG .word 0xFFFFF600</p>
+<p>CCMR4_ERR_CLR .word 0x00010000</p>
+<p>ESMSR1_ERR_CLR .word 0x80000000</p>
+<p>ESMSR2_ERR_CLR .word 0x00000004</p>
+<p>ESMSSR2_ERR_CLR .word 0x00000004</p>
+<p>VIM_INT_CLR .word 0x00000001</p>
+<p>VIM_INTREQ .word 0xFFFFFE20</p>
+<p>.endasmfunc</p>
+<h3 id="global-function-4">Global Function #4</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>_coreEnableRamEcc_</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-3">Description</h4>
+<p>Enable RAM ECC Support.</p>
+<p>.def _coreEnableRamEcc_</p>
+<p>.asmfunc</p>
+<p>_coreEnableRamEcc_</p>
+<p>mrc p15, #0x00, r0, c1, c0, #0x01</p>
+<p>orr r0, r0, #0x0C000000</p>
+<p>dmb</p>
+<p>mcr p15, #0x00, r0, c1, c0, #0x01</p>
+<p>isb</p>
+<p>bx lr</p>
+<p>.endasmfunc</p>
+<h3 id="global-function-5">Global Function #5</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>_coreDisableRamEcc_</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-4">Description</h4>
+<p>Disable RAM ECC Support.</p>
+<p>.def _coreDisableRamEcc_</p>
+<p>.asmfunc</p>
+<p>_coreDisableRamEcc_</p>
+<p>mrc p15, #0x00, r0, c1, c0, #0x01</p>
+<p>bic r0, r0, #0x0C000000</p>
+<p>dmb</p>
+<p>mcr p15, #0x00, r0, c1, c0, #0x01</p>
+<p>isb</p>
+<p>bx lr</p>
+<p>.endasmfunc</p>
+<h3 id="global-function-6">Global Function #6</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>_coreGetDebugStatusAndControlRegister_</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Value of DBGDSCR register</td>
+<td>uint32</td>
+<td></td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-5">Description</h4>
+<p>Get contents of debug status and control register.</p>
+<p>.def _coreGetDebugStatusAndControlRegister_</p>
+<p>.asmfunc</p>
+<p>_coreGetDebugStatusAndControlRegister_:</p>
+<p>mrc p14, #0x00, r0, c0, c1, #0x00</p>
+<p>bx lr</p>
+<p>.endasmfunc</p>
+<h3 id="global-function-7">Global Function #7</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>_coreGetSecondaryAuxiliaryControlRegister_</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Value of Secondary Auxiliary Control Register</td>
+<td>uint32</td>
+<td></td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-6">Description</h4>
+<p>Get contents of Secondary Auxiliary Control Register.</p>
+<p>.def _coreGetSecondaryAuxiliaryControlRegister_</p>
+<p>.asmfunc</p>
+<p>_coreGetSecondaryAuxiliaryControlRegister_:</p>
+<p>mrc p15, #0, r0, c15, c0, #0</p>
+<p>bx lr</p>
+<p>.endasmfunc</p>
+<h3 id="global-function-8">Global Function #8</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>_coreSetSecondaryAuxiliaryControlRegister_</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Value to be stored in Secondary Auxiliary Control Register</td>
+<td>uint32</td>
+<td></td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-7">Description</h4>
+<p>Set contents of Secondary Auxiliary Control Register.</p>
+<p>.def _coreSetSecondaryAuxiliaryControlRegister_</p>
+<p>.asmfunc</p>
+<p>_coreSetSecondaryAuxiliaryControlRegister_:</p>
+<p>mcr p15, #0, r0, c15, c0, #0</p>
+<p>bx lr</p>
+<p>.endasmfunc</p>
+<h3 id="global-function-9">Global Function #9</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 10%" />
+<col style="width: 4%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>_coreGetFPSCR_</td>
+<td>Type</td>
+<td>Dir.</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>Value of FPSCR register</td>
+<td>uint32</td>
+<td></td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-8">Description</h4>
+<p>Get contents of Floating Point Status and Control Register.</p>
+<p>.def _coreGetFPSCR_</p>
+<p>.asmfunc</p>
+<p>_coreGetFPSCR_:</p>
+<p>fmrx r0, FPSCR</p>
+<p>bx lr</p>
+<p>.endasmfunc</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>None</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>None</p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 class="unnumbered" id="section-1"></h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N/A</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Local Function</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<p>None</p>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1.0</td>
+<td>Initial Revision of MDD</td>
+<td>6/6/2013</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2.0</td>
+<td>Added disable RAM ECC function</td>
+<td>10/03/13</td>
+<td>LWW</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,2001 @@
+---
+title: TechnicalReference_Asr_CanTrcv_30_GenericDios
+linkTitle: TechnicalReference_Asr_CanTrcv_30_GenericDios
+weight: 27
+---
+
+<!DOCTYPE html><html>
+<head>
+<title></title>
+<style type="text/css">
+<!--
+.xflip {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: fliph;
+}
+.yflip {
+    -moz-transform: scaleY(-1);
+    -webkit-transform: scaleY(-1);
+    -o-transform: scaleY(-1);
+    transform: scaleY(-1);
+    filter: flipv;
+}
+.xyflip {
+    -moz-transform: scaleX(-1) scaleY(-1);
+    -webkit-transform: scaleX(-1) scaleY(-1);
+    -o-transform: scaleX(-1) scaleY(-1);
+    transform: scaleX(-1) scaleY(-1);
+    filter: fliph + flipv;
+}
+-->
+</style>
+</head>
+<body>
+<a name=1></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-1_1.png"/><br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/><b>MICROSAR CAN Transceiver Driver&#160;<br/></b>Technical Reference&#160;<br/>&#160;<br/>Generic&#160;<br/>Version&#160;3.02.00&#160;<br/>&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+Authors&#160;<br/>
+Matthias&#160;&#160;Fleischmann,&#160;&#160;Senol&#160;&#160;Cendere,&#160;&#160;Mihai&#160;&#160;Olariu,&#160;<br/>Timo Vanoni&#160;<br/>
+Status&#160;<br/>
+Released&#160;<br/>
+&#160;<br/>
+<hr/>
+<a name=2></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-2_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>1&#160;&#160;Document&#160;Information&#160;</b><br/>
+<b>1.1&#160;</b><br/>
+<b>History&#160;</b><br/>
+<b>Author&#160;</b><br/>
+<b>Date&#160;</b><br/>
+<b>Version&#160;</b><br/>
+<b>Remarks&#160;</b><br/>
+Matthias Fleischmann&#160;<br/>
+2008-04-21&#160;<br/>
+1.00&#160;<br/>
+Creation&#160;<br/>
+Senol&#160;Cendere&#160;<br/>
+2008-06-10&#160;<br/>
+1.01&#160;<br/>
+Rework&#160;file names&#160;<br/>Rework&#160;tool&#160;description&#160;<br/>
+Mihai&#160;Olariu&#160;<br/>
+2008-07-10&#160;<br/>
+1.02&#160;<br/>
+Rename&#160;the&#160;placeholders&#160;<br/>
+Mihai&#160;Olariu&#160;<br/>
+2008-10-13&#160;<br/>
+1.03&#160;<br/>
+Minor&#160;changes in&#160;the&#160;GENy&#160;<br/>GUI&#160;<br/>
+Mihai&#160;Olariu&#160;<br/>
+2008-12-15&#160;<br/>
+1.04&#160;<br/>
+Add&#160;support&#160;for&#160;the&#160;platforms&#160;<br/>which cannot&#160;wakeup&#160;by&#160;CAN&#160;<br/>bus&#160;activity&#160;<br/>
+Matthias Fleischmann&#160;<br/>
+2009-07-01&#160;<br/>
+1.05&#160;<br/>
+Updated&#160;description&#160;for&#160;ICU&#160;<br/>notification&#160;function&#160;and&#160;<br/>GENy&#160;configuration.&#160;<br/>Added&#160;description&#160;for&#160;<br/>BSWMD&#160;file&#160;configuration.&#160;<br/>
+Timo Vanoni&#160;<br/>
+2009-11-12&#160;<br/>
+1.06&#160;<br/>
+Added&#160;API&#160;<br/>CanTrcv_30_&lt;Your_Trcv&gt;_W<br/>ait()&#160;<br/>Filenames&#160;were&#160;renamed to&#160;<br/>match&#160;BSW00347.&#160;<br/>Change of&#160;initialization&#160;flow.&#160;<br/>
+Timo Vanoni&#160;<br/>
+2010-05-06&#160;<br/>
+1.06.1&#160;<br/>
+Fixed&#160;example in&#160;chapter<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#15">&#160;4.5&#160;</a><br/>
+Timo Vanoni&#160;<br/>
+2011-01-26&#160;<br/>
+1.07.00&#160;<br/>
+Added&#160;support&#160;for&#160;Identity&#160;<br/>Manager&#160;Configurations&#160;<br/>
+Timo Vanoni&#160;<br/>
+2011-07-19&#160;<br/>
+2.00.00&#160;<br/>
+Implementation&#160;according&#160;<br/>ASR3.2.1&#160;<br/>
+Timo Vanoni&#160;<br/>
+2011-12-06&#160;<br/>
+2.01.00&#160;<br/>
+Add&#160;support&#160;for&#160;selective&#160;<br/>wakeup (partial&#160;networking)&#160;<br/>Add&#160;support&#160;for&#160;SPI&#160;Interface&#160;<br/>
+Timo Vanoni&#160;<br/>
+2012-08-22&#160;<br/>
+3.00.00&#160;<br/>
+Add&#160;support&#160;for&#160;<br/>SetPNActivationState&#160;API&#160;(ch.&#160;<br/><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#42">6.1.16)</a>&#160;<br/>Change wakeup&#160;detection of&#160;<br/>CB_WakeupByBus to&#160;<br/>conform&#160;to&#160;ASR3.2.2&#160;<br/>(<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#35">ch.6.1.8)</a>&#160;<br/>
+Timo Vanoni&#160;<br/>
+2012-09-28&#160;<br/>
+3.01.00&#160;<br/>
+Add&#160;support&#160;for&#160;ASR4.0.3&#160;<br/>
+Timo Vanoni&#160;<br/>
+2013-04-12&#160;<br/>
+3.02.00&#160;<br/>
+Small&#160;reworks,&#160;add note&#160;in&#160;<br/>chapter<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#15">&#160;4.4&#160;</a>&#160;<br/>
+Table&#160;1-1&#160;&#160;&#160;History&#160;of&#160;the&#160;document&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+2&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=3></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-3_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-3_2.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>1.2&#160;</b><br/>
+<b>Reference&#160;Documents&#160;</b><br/>
+<b>No.&#160;</b><br/>
+<b>Title&#160;</b><br/>
+<b>Version&#160;</b><br/>
+[1]&#160;&#160;&#160;<br/>
+AUTOSAR_SWS_CAN_TransceiverDriver.pdf&#160;<br/>
+2.0.01,&#160;3.0.0&#160;<br/>
+[2]&#160;&#160;&#160;<br/>
+AUTOSAR_SWS_DET.pdf&#160;<br/>
+2.2.1&#160;<br/>
+[3]&#160;&#160;&#160;<br/>
+AUTOSAR_SWS_DEM.pdf&#160;<br/>
+2.2.0&#160;<br/>
+[4]&#160;&#160;&#160;<br/>
+AUTOSAR_BasicSoftwareModules.pdf&#160;<br/>
+V1.0.0&#160;<br/>
+Table&#160;1-2&#160;&#160;&#160;Reference&#160;documents&#160;<br/>
+&#160;<br/>
+<b>1.3&#160;</b><br/>
+<b>Scope&#160;of&#160;the&#160;Document&#160;&#160;</b><br/>
+This&#160;technical&#160;reference&#160;describes&#160;the&#160;specific&#160;use&#160;of&#160;the&#160;Generic&#160;CAN&#160;transceiver&#160;driver.&#160;<br/>Note&#160;&#160;that&#160;&#160;the&#160;&#160;substrings&#160;&#160;“__Your_Trcv__”&#160;&#160;and&#160;&#160;“__YOUR_TRCV__”&#160;&#160;are&#160;&#160;just&#160;&#160;placeholders&#160;<br/>for the&#160;real&#160;name&#160;of&#160;the&#160;CAN&#160;transceiver&#160;(e.g.&#160;Tja1041&#160;and&#160;TJA1041).&#160;<br/>
+&#160;<br/>
+<b>Please&#160;note&#160;<br/></b>We&#160;have configured&#160;the&#160;programs&#160;in&#160;accordance&#160;with&#160;your&#160;specifications&#160;in the&#160;<br/>
+&#160;&#160;questionnaire.&#160;Whereas&#160;the&#160;programs&#160;do&#160;support&#160;other&#160;configurations&#160;than&#160;the&#160;one&#160;<br/>
+specified&#160;in your&#160;questionnaire,&#160;Vector’s&#160;release&#160;of&#160;the&#160;programs&#160;delivered to&#160;your&#160;<br/>company&#160;is&#160;expressly&#160;restricted&#160;to&#160;the&#160;configuration&#160;you&#160;have&#160;specified&#160;in&#160;the&#160;<br/>questionnaire.&#160;<br/>
+&#160;<br/>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;&#160;&#160; &#160;&#160;<br/>
+1&#160;From&#160;R3.2&#160;Rev&#160;2&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+3&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=4></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-4_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>Contents&#160;</b><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#2"><b>1</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#2"><b>Document&#160;Information&#160;.................................................................................................&#160;2</b>&#160;<br/>1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#2">History&#160;...............................................................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">Reference&#160;Documents&#160;.......................................................................................&#160;3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">Scope of&#160;the&#160;Document......................................................................................&#160;3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#8"><b>2</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#8"><b>Introduction...................................................................................................................&#160;8</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9"><b>3</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9"><b>Functional&#160;Description&#160;.................................................................................................&#160;9</b>&#160;<br/>3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9">Features&#160;............................................................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9">3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9">Initialization&#160;........................................................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">3.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">Set&#160;operation&#160;mode&#160;..........................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">3.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">Get&#160;operation&#160;mode&#160;.........................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">3.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">Get&#160;version info&#160;................................................................................................&#160;10&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">3.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">Wakeup&#160;by&#160;bus&#160;event&#160;detection&#160;.......................................................................&#160;10&#160;<br/></a><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#11">3.6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#11">Get&#160;bus&#160;wakeup&#160;reason&#160;...................................................................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#11">3.6.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#11">Set&#160;wakeup&#160;mode&#160;............................................................................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#11">3.6.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#11">Development&#160;Error&#160;Reporting&#160;...........................................................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#12">3.6.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#12">Production Code&#160;Error&#160;Reporting&#160;.....................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13"><b>4</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13"><b>Integration&#160;...................................................................................................................&#160;13</b>&#160;<br/>4.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">Scope of&#160;Delivery&#160;.............................................................................................&#160;13&#160;<br/>4.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">Static Files&#160;.......................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">4.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">Dynamic&#160;Files&#160;..................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#14">4.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#14">Compiler&#160;Abstraction&#160;and Memory&#160;Mapping&#160;.....................................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#15">4.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#15">Data&#160;consistency..............................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#15">4.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#15">Integration&#160;........................................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#15">4.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#15">Timers&#160;..............................................................................................................&#160;15&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#17">4.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#17">Generated&#160;Data&#160;...............................................................................................&#160;17&#160;<br/>4.6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#17">CanTrcv_30___Your_Trcv___Channel&#160;.............................................&#160;17&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#18">4.6.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#18">Partial&#160;networking&#160;data&#160;.....................................................................&#160;18&#160;<br/>4.6.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#18">CanTrcv_30___Your_Trcv___PnData&#160;............................&#160;18&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#18">4.6.2.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#18">CanTrcv_30___Your_Trcv___PnActivationState&#160;............&#160;18&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#19">4.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#19">Handling&#160;of&#160;asynchronous&#160;APIs&#160;.......................................................................&#160;19&#160;<br/></a><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#20">4.7.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#20">Request&#160;handling&#160;.............................................................................&#160;20&#160;<br/>4.7.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#20">Concurrent&#160;operation&#160;modes&#160;..........................................&#160;20&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#22">4.7.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#22">Request&#160;to CheckWakeFlag&#160;/&#160;ClearTrcvWufFlag&#160;/&#160;<br/>CB_WakeupByBus&#160;........................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#22">4.7.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#22">Status&#160;Flag&#160;handling&#160;......................................................&#160;22&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#23">4.7.1.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#23">Indication handling&#160;.........................................................&#160;23&#160;</a><br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+4&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=5></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-5_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24"><b>5</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24"><b>Dependencies&#160;to&#160;other&#160;components&#160;.........................................................................&#160;24</b>&#160;<br/>5.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24">Dio driver&#160;.........................................................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24">5.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24">SPI&#160;driver&#160;.........................................................................................................&#160;24&#160;<br/>5.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24">SPI&#160;Configuration&#160;.............................................................................&#160;24&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#25">5.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#25">Icu driver&#160;..........................................................................................................&#160;25&#160;<br/>5.3.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#25">ICU&#160;configuration&#160;.............................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#27">5.3.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#27">Implementation&#160;of&#160;the&#160;signal&#160;notification&#160;function&#160;.............................&#160;27&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#28"><b>6</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#28"><b>API&#160;Description&#160;...........................................................................................................&#160;28</b>&#160;<br/>6.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#28">Services provided by&#160;CANTRCV&#160;......................................................................&#160;28&#160;<br/>6.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#28">CanTrcv_30___Your_Trcv___InitMemory&#160;........................................&#160;28&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#29">6.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#29">CanTrcv_30___Your_Trcv___Init&#160;.....................................................&#160;29&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#30">6.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#30">CanTrcv_30___Your_Trcv___SetOpMode&#160;.......................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#31">6.1.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#31">CanTrcv_30___Your_Trcv___GetOpMode&#160;.......................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#32">6.1.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#32">CanTrcv_30___Your_Trcv___GetBusWuReason&#160;.............................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#33">6.1.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#33">CanTrcv_30___Your_Trcv___SetWakeupMode&#160;...............................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#34">6.1.7&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#34">CanTrcv_30___Your_Trcv___GetVersionInfo...................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#35">6.1.8&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#35">CanTrcv_30___Your_Trcv___CB_WakeupByBus&#160;............................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#36">6.1.9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#36">CanTrcv_30___Your_Trcv___GetTrcvSystemData&#160;..........................&#160;36&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#37">6.1.10&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#37">CanTrcv_30___Your_Trcv___ClearTrcvWufFlag&#160;..............................&#160;37&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#38">6.1.11&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#38">CanTrcv_30___Your_Trcv___ReadTrcvTimeoutFlag&#160;.......................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#38">6.1.12&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#38">CanTrcv_30___Your_Trcv___ClearTrcvTimeoutFlag&#160;.......................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#39">6.1.13&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#39">CanTrcv_30___Your_Trcv___ReadTrcvSilenceFlag&#160;........................&#160;39&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#40">6.1.14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#40">CanTrcv_30___Your_Trcv___CheckWakeFlag&#160;................................&#160;40&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#41">6.1.15&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#41">CanTrcv_30___Your_Trcv___MainFunction&#160;.....................................&#160;41&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#42">6.1.16&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#42">CanTrcv_30___Your_Trcv___SetPNActivationState&#160;........................&#160;42&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#43">6.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#43">Services used by&#160;CANTRCV&#160;...........................................................................&#160;43&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44"><b>7</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44"><b>Configuration&#160;..............................................................................................................&#160;44</b>&#160;<br/>7.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">Configuration with GENy&#160;..................................................................................&#160;44&#160;<br/>7.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">Component&#160;Selection&#160;.......................................................................&#160;44&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">7.1.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">General&#160;settings&#160;...............................................................................&#160;44&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#46">7.1.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#46">Channel&#160;Specific&#160;Configuration&#160;Options&#160;...........................................&#160;46&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#47">7.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#47">Configuration with DaVinci&#160;Configurator&#160;5&#160;........................................................&#160;47&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48"><b>8</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48"><b>AUTOSAR&#160;Standard&#160;Compliance...............................................................................&#160;48</b>&#160;<br/>8.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">Additions/&#160;Extensions&#160;.......................................................................................&#160;48&#160;<br/>8.1.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">Memory&#160;initialization&#160;.........................................................................&#160;48&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">8.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">Deviations&#160;........................................................................................................&#160;48&#160;<br/>8.2.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">Notification&#160;functions&#160;........................................................................&#160;48&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">8.2.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">CanIf_CheckTrcvWakeFlagIndication is always&#160;called&#160;.....................&#160;48&#160;</a><br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+5&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=6></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-6_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">8.2.3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">No re-initialization will&#160;occur&#160;if&#160;POR&#160;is&#160;set&#160;in CanTrcv_SetOpMode&#160;..&#160;48&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#49">8.2.4&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#49">Const&#160;removed&#160;from&#160;API&#160;CanTrcv_GetTrcvSystemData&#160;..................&#160;49&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#49">8.2.5&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#49">Unused&#160;BSWMD&#160;parameters&#160;...........................................................&#160;49&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#49">8.2.6&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#49">Modified&#160;return value&#160;of&#160;CanTrcv_CB_WakeupByBus&#160;......................&#160;49&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50"><b>9</b>&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50"><b>Glossary&#160;and&#160;Abbreviations&#160;......................................................................................&#160;50</b>&#160;<br/>9.1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50">Glossary&#160;..........................................................................................................&#160;50&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50">9.2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50">Abbreviations&#160;...................................................................................................&#160;50&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#51"><b>10</b>&#160;&#160;<b>Contact&#160;........................................................................................................................&#160;51</b>&#160;<br/></a><b>&#160;</b><br/>
+<b>Illustrations&#160;</b><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#25">Figure&#160;5-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#25">Add&#160;an&#160;ICU&#160;channel&#160;..................................................................................&#160;25&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#26">Figure&#160;5-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#26">ICU&#160;channel&#160;configuration&#160;for&#160;wakeup&#160;via transceiver&#160;...............................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#26">Figure&#160;5-3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#26">ICU&#160;wakeup capability&#160;..............................................................................&#160;26&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">Figure&#160;7-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">CANTRCV&#160;component&#160;selection&#160;...............................................................&#160;44&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">Figure&#160;7-2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">CANTRCV&#160;general&#160;configuration&#160;..............................................................&#160;44&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#46">Figure&#160;7-3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#46">CANTRCV&#160;channel&#160;dependent&#160;configuration&#160;............................................&#160;46&#160;</a><br/>
+&#160;<br/>
+<b>Tables&#160;<br/></b><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#2">Table&#160;1-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#2">History&#160;of&#160;the&#160;document&#160;..............................................................................&#160;2&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">Table&#160;1-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">Reference&#160;documents&#160;.................................................................................&#160;3&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9">Table&#160;3-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9">Supported&#160;SWS&#160;features&#160;............................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9">Table&#160;3-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9">Not&#160;supported&#160;SWS&#160;features&#160;......................................................................&#160;9&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#11">Table&#160;3-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#11">Mapping&#160;of&#160;service IDs&#160;to services&#160;...........................................................&#160;11&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#12">Table&#160;3-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#12">Errors&#160;reported&#160;to DET&#160;.............................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#12">Table&#160;3-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#12">Errors&#160;reported&#160;to DEM&#160;.............................................................................&#160;12&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">Table&#160;4-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">Static&#160;files&#160;.................................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">Table&#160;4-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">Generated&#160;files&#160;.........................................................................................&#160;13&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#14">Table&#160;4-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#14">Compiler&#160;abstraction&#160;and&#160;memory&#160;mapping&#160;..............................................&#160;14&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#16">Table&#160;4-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#16">Timer&#160;indexes and their&#160;wait&#160;times&#160;............................................................&#160;16&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#28">Table&#160;6-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#28">CanTrcv_30___Your_Trcv___InitMemory&#160;.................................................&#160;28&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#29">Table&#160;6-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#29">CanTrcv_30___Your_Trcv___Init&#160;..............................................................&#160;29&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#30">Table&#160;6-3&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#30">CanTrcv_30___Your_Trcv___SetOpMode&#160;................................................&#160;30&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#31">Table&#160;6-4&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#31">CanTrcv_30___Your_Trcv___GetOpMode&#160;...............................................&#160;31&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#32">Table&#160;6-5&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#32">CanTrcv_30___Your_Trcv___GetBusWuReason&#160;.....................................&#160;32&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#33">Table&#160;6-6&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#33">CanTrcv_30___Your_Trcv___SetWakeupMode........................................&#160;33&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#34">Table&#160;6-7&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#34">CanTrcv_30___Your_Trcv___GetVersionInfo&#160;...........................................&#160;34&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#35">Table&#160;6-8&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#35">CanTrcv_30___Your_Trcv___CB_WakeupByBus&#160;.....................................&#160;35&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#36">Table&#160;6-9&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#36">CanTrcv_30___Your_Trcv___GetTrcvSystemData&#160;...................................&#160;36&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#37">Table&#160;6-10&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#37">CanTrcv_30___Your_Trcv___ClearTrcvWufFlag&#160;......................................&#160;37&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#38">Table&#160;6-11&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#38">CanTrcv_30___Your_Trcv___ReadTrcvTimeoutFlag&#160;................................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#38">Table&#160;6-12&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#38">CanTrcv_30___Your_Trcv___ClearTrcvTimeoutFlag&#160;................................&#160;38&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#39">Table&#160;6-13&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#39">CanTrcv_30___Your_Trcv___ReadTrcvSilenceFlag&#160;.................................&#160;39&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#40">Table&#160;6-14&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#40">CanTrcv_30___Your_Trcv___CheckWakeFlag&#160;.........................................&#160;40&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#41">Table&#160;6-15&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#41">CanTrcv_30___Your_Trcv___MainFunction&#160;.............................................&#160;41&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#42">Table&#160;6-16&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#42">CanTrcv_30___Your_Trcv___SetPNActivationState&#160;.................................&#160;42&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#43">Table&#160;6-17&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#43">Services used by&#160;the&#160;CANTRCV&#160;..............................................................&#160;43&#160;</a><br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+6&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=7></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-7_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">Table&#160;8-1&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">Deviation of&#160;APIs&#160;used&#160;by&#160;CanTrcv&#160;...........................................................&#160;48&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50">Table&#160;9-1&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50">Glossary&#160;...................................................................................................&#160;50&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50">Table&#160;9-2&#160;&#160;</a><br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50">Abbreviations&#160;............................................................................................&#160;50&#160;</a><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+7&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=8></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-8_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-8_2.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>2&#160;&#160;Introduction&#160;</b><br/>
+This&#160;&#160;document&#160;&#160;describes&#160;&#160;the&#160;&#160;functionality,&#160;API&#160;&#160;and&#160;&#160;configuration&#160;&#160;of&#160;&#160;the&#160;AUTOSAR&#160;&#160;BSW&#160;<br/>module&#160;CANTRCV&#160;as&#160;specified&#160;<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">in&#160;[1].&#160;</a>The&#160;CAN&#160;transceiver&#160;driver&#160;provides&#160;an&#160;abstraction&#160;<br/>layer&#160;for&#160;the&#160;used&#160;CAN&#160;transceiver&#160;hardware.&#160;It&#160;offers&#160;a&#160;hardware&#160;independent&#160;interface&#160;to&#160;<br/>the&#160;upper layer components.&#160;<br/>
+&#160;<br/>
+<b>Supported&#160;</b><br/>
+3*&#160;and&#160;4.0.3&#160;<br/>
+<b>AUTOSAR&#160;R<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#8">elease*:</a></b><b>&#160;<br/>Supported&#160;</b><br/>
+Pre-compile&#160;<br/>
+<b>Configuration&#160;<br/>Variants:&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>Vendor&#160;ID:&#160;</b><br/>
+CANTRCV_30___YOUR_TRCV___VENDOR_ID&#160;<br/>
+30&#160;decimal&#160;<br/>(=&#160;&#160;Vector-Informatik,&#160;<br/>according&#160;to&#160;HIS)&#160;<br/>
+<b>Module&#160;ID:&#160;</b><br/>
+CANTRCV_30___YOUR_TRCV___MODULE_ID&#160;<br/>
+[ModuleID]&#160;<br/>(according&#160;to ref<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">.&#160;<b>[4]</b>)</a>&#160;<br/>
+<b>Instance&#160;ID:&#160;</b><br/>
+CANTRCV_30___YOUR_TRCV___INSTANCE_ID&#160;&#160;Specified&#160;&#160;as&#160;&#160;pre-&#160;<br/>
+compile&#160;&#160;parameter&#160;<br/>in&#160;&#160;the&#160;&#160;Generation&#160;<br/>Tool.&#160;<br/>
+*&#160;For&#160;the precise&#160;AUTOSAR Release&#160;3.x&#160;please see the&#160;release specific&#160;documentation.&#160;&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>Replace&#160;the&#160;placeholders __Your_Trcv__&#160;and&#160;__YOUR_TRCV__&#160;with&#160;the&#160;<br/>
+&#160;&#160;according&#160;name&#160;of&#160;the&#160;used&#160;transceiver.&#160;This&#160;must&#160;be&#160;done&#160;in&#160;the&#160;source&#160;code&#160;<br/>
+and&#160;the&#160;BSWMD&#160;files.&#160;<br/>&#160;<br/>__YOUR_TRCV__&#160;is used&#160;for definitions in&#160;upper case&#160;(e.g.&#160;TJA1041).&#160;<br/>&#160;<br/>__Your_Trcv__&#160;is used&#160;for variables&#160;in&#160;camel case&#160;(e.g.&#160;Tja1041).&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+8&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=9></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-9_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>3&#160;&#160;Functional&#160;Description&#160;</b><br/>
+<b>3.1&#160;</b><br/>
+<b>Features&#160;</b><br/>
+The&#160;features listed&#160;in&#160;this chapter cover the&#160;complete&#160;functionality&#160;specified&#160;in<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">&#160;[1].</a>&#160;<br/>The&#160;supported&#160;and&#160;not&#160;supported&#160;features&#160;are&#160;presented&#160;in&#160;the&#160;following&#160;two&#160;tables.&#160;&#160;<br/>
+&#160;<br/>
+<b>Supported&#160;features&#160;<br/></b>CAN&#160;Transceiver&#160;initialization.&#160;<br/>CAN&#160;Transceiver&#160;control&#160;via DIO.&#160;<br/>Detection&#160;of&#160;wakeup&#160;(optional:&#160;incl.&#160;partial&#160;networking)&#160;<br/>Getting&#160;and&#160;setting&#160;operation mode&#160;of&#160;CAN&#160;transceiver.&#160;<br/>CAN&#160;Transceiver&#160;control&#160;via&#160;SPI.&#160;(optional)&#160;<br/>CAN&#160;Transceiver&#160;self-diagnostics.&#160;(optional)&#160;<br/>
+Table&#160;3-1&#160;&#160;&#160;Supported&#160;SWS&#160;features&#160;<br/>
+<b>Not&#160;supported&#160;features&#160;</b><br/>
+-&#160;<br/>
+Table&#160;3-2&#160;&#160;&#160;Not&#160;supported&#160;SWS&#160;features&#160;<br/>
+The&#160;CAN transceiver driver provides service&#160;functions&#160;for initialization,&#160;operation&#160;mode&#160;<br/>change&#160;and&#160;operation&#160;mode&#160;detection&#160;of&#160;the&#160;used&#160;CAN&#160;transceiver&#160;hardware.&#160;Optional&#160;<br/>service&#160;functions&#160;and&#160;callback&#160;functions are&#160;provided&#160;to&#160;detect&#160;wakeup&#160;by&#160;bus&#160;events&#160;and&#160;<br/>report them&#160;to&#160;the&#160;upper layer components.&#160;<br/>&#160;<br/>
+<b>3.2&#160;</b><br/>
+<b>Initialization&#160;</b><br/>
+After&#160;power on&#160;the&#160;CAN transceiver hardware has&#160;to&#160;be&#160;initialized.&#160;Therefore&#160;the&#160;CAN&#160;<br/>transceiver driver provides two&#160;service&#160;functions.&#160;<br/>The&#160;function&#160;CanTrcv_30___Your_Trcv___InitMemory&#160;initializes all&#160;necessary&#160;<br/>values for the&#160;transceiver driver.&#160;This function&#160;has&#160;to&#160;be&#160;called&#160;first&#160;after&#160;power on&#160;or reset.&#160;<br/>The&#160;function&#160;CanTrcv_30___Your_Trcv___Init&#160;initializes all&#160;CAN&#160;transceiver&#160;<br/>channels&#160;which&#160;are selected&#160;by&#160;the&#160;generation&#160;tool. Each&#160;CAN transceiver is switched&#160;into&#160;<br/>the&#160;configured&#160;channel&#160;specific init&#160;mode.&#160;Operation&#160;mode&#160;after&#160;power on&#160;or reset&#160;can&#160;be&#160;<br/>normal,&#160;standby&#160;or sleep.&#160;CanTrcv_30___Your_Trcv___InitMemory&#160;has to&#160;be&#160;called&#160;<br/>before&#160;this&#160;function&#160;is called.&#160;<br/>If&#160;a&#160;wakeup&#160;event&#160;was&#160;pending&#160;before the&#160;initialization&#160;the&#160;CAN transceiver driver stores&#160;<br/>this event&#160;and&#160;notifies&#160;it&#160;with&#160;the&#160;CanTrcv_30___Your_Trcv___CB_WakeupByBus&#160;<br/>function.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+9&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=10></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-10_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>3.3&#160;</b><br/>
+<b>Set operation mode&#160;</b><br/>
+The&#160;operation&#160;mode&#160;of&#160;the&#160;CAN&#160;transceiver hardware is&#160;changed&#160;by&#160;service&#160;function&#160;<br/>CanTrcv_30___Your_Trcv___SetOpMode.&#160;It&#160;can&#160;be&#160;switched&#160;from&#160;normal into&#160;<br/>standby&#160;mode,&#160;from&#160;standby&#160;into&#160;sleep&#160;mode&#160;and&#160;from&#160;standby&#160;or sleep&#160;mode&#160;into&#160;normal&#160;<br/>mode.&#160;Mode&#160;change&#160;from&#160;normal into&#160;sleep&#160;mode&#160;or&#160;from&#160;sleep&#160;into&#160;standby&#160;mode&#160;is not&#160;<br/>supported&#160;by&#160;this&#160;function&#160;corresponding&#160;to&#160;the&#160;specification.&#160;<br/>&#160;<br/>
+<b>3.4&#160;</b><br/>
+<b>Get operation mode&#160;</b><br/>
+To&#160;retrieve&#160;the&#160;current&#160;operation&#160;mode&#160;of&#160;a&#160;specified&#160;CAN&#160;transceiver hardware,&#160;the&#160;<br/>service&#160;function&#160;CanTrcv_30___Your_Trcv___GetOpMode&#160;has to&#160;be&#160;called.&#160;&#160;<br/>&#160;<br/>
+<b>3.5&#160;</b><br/>
+<b>Get version info&#160;</b><br/>
+The&#160;service&#160;function&#160;CanTrcv_30___Your_Trcv___GetVersionInfo&#160;can&#160;be&#160;called&#160;to&#160;<br/>get&#160;the&#160;version&#160;info&#160;of&#160;the&#160;software module.&#160;This&#160;function&#160;must&#160;be&#160;enabled&#160;in&#160;the&#160;<br/>configuration&#160;tool by&#160;setting&#160;the&#160;checkbox&#160;<b>Version Info&#160;Api</b>.&#160;<br/>The&#160;version&#160;of&#160;the&#160;CAN&#160;transceiver&#160;driver&#160;module&#160;can&#160;be&#160;acquired&#160;in&#160;two&#160;different&#160;ways.&#160;<br/>Calling&#160;&#160;the&#160;&#160;function&#160;&#160;CanTrcv_30___Your_Trcv___GetVersionInfo&#160;&#160;will&#160;&#160;return&#160;&#160;the&#160;<br/>version&#160;of&#160;the&#160;module&#160;in&#160;the&#160;structure&#160;Std_VersionInfoType&#160;which&#160;additionally&#160;includes&#160;the&#160;<br/>VendorID&#160;&#160;and&#160;&#160;the&#160;&#160;ModuleID.&#160;&#160;Accessing&#160;&#160;the&#160;&#160;version&#160;&#160;defines&#160;&#160;which&#160;&#160;are&#160;&#160;specified&#160;&#160;in&#160;&#160;the&#160;<br/>header&#160;file&#160;CanTrcv_30___Your_Trcv__.h:&#160;<br/>
+&#160;<br/>
+AUTOSAR&#160;Revision:&#160;<br/>CANTRCV_30___YOUR_TRCV___AR_MAJOR_VERSION&#160;<br/>
+CANTRCV_30___YOUR_TRCV___AR_MINOR_VERSION&#160;<br/>
+CANTRCV_30___YOUR_TRCV___AR_PATCH_VERSION&#160;<br/>
+&#160;<br/>
+Module&#160;Version:&#160;<br/>CANTRCV_30___YOUR_TRCV___SW_MAJOR_VERSION&#160;<br/>
+CANTRCV_30___YOUR_TRCV___SW_MINOR_VERSION&#160;<br/>
+CANTRCV_30___YOUR_TRCV___SW_PATCH_VERSION&#160;<br/>
+&#160;<br/>
+<b>3.6&#160;</b><br/>
+<b>Wakeup by&#160;bus&#160;event&#160;detection&#160;</b><br/>
+&#160;<br/>If&#160;wakeup&#160;by&#160;bus detection&#160;is enabled&#160;in&#160;the&#160;configuration&#160;tool the&#160;callback&#160;function&#160;<br/>CanTrcv_30___Your_Trcv___CB_WakeupByBus&#160;has to&#160;be&#160;called&#160;by&#160;the&#160;lower layer in&#160;<br/>case&#160;of&#160;a&#160;wakeup.&#160;This&#160;function&#160;checks the&#160;specified&#160;CAN&#160;transceiver channel. If&#160;the&#160;<br/>transceiver hardware is&#160;in&#160;sleep&#160;mode&#160;and&#160;a&#160;wakeup&#160;by&#160;bus event&#160;is detected&#160;then&#160;the&#160;<br/>function&#160;returns&#160;E_OK,&#160;otherwise&#160;E_NOT_OK.&#160;<br/>&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+10&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=11></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-11_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>3.6.1&#160;</b><br/>
+<b>Get bus&#160;wakeup reason&#160;</b><br/>
+The&#160;service&#160;function&#160;CanTrcv_30___Your_Trcv___GetBusWakeupReason&#160;returns&#160;the&#160;<br/>reason&#160;which&#160;caused&#160;the&#160;wakeup.&#160;<br/>&#160;<br/>
+<b>3.6.2&#160;</b><br/>
+<b>Set&#160;wakeup mode&#160;</b><br/>
+The&#160;service&#160;function&#160;CanTrcv_30___Your_Trcv___SetWakeupMode&#160;sets&#160;the&#160;wakeup&#160;<br/>mode&#160;which&#160;is required&#160;by&#160;the&#160;CAN&#160;interface.&#160;<br/>&#160;<br/>
+<b>3.6.3&#160;</b><br/>
+<b>Development&#160;Error&#160;Reporting&#160;</b><br/>
+Development&#160;errors&#160;are&#160;reported&#160;to&#160;DET&#160;using&#160;the&#160;service&#160;Det_ReportError,&#160;if&#160;the&#160;pre-<br/>compile&#160;parameter&#160;CANTRCV_30___YOUR_TRCV___DEV_ERROR_DETECT&#160;== STD_ON.&#160;<br/>
+The&#160;reported&#160;CANTRCV&#160;instance&#160;ID&#160;must&#160;be&#160;specified&#160;in&#160;GENy.&#160;For&#160;details&#160;please&#160;refer&#160;to&#160;<br/><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">Configuration&#160;with&#160;GENy.</a>&#160;<br/>The&#160;&#160;reported&#160;&#160;service&#160;&#160;IDs&#160;&#160;identify&#160;&#160;the&#160;&#160;services&#160;&#160;which&#160;&#160;are&#160;&#160;described&#160;&#160;<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#28">in&#160;&#160;6.1.&#160;&#160;</a>The&#160;&#160;following&#160;<br/>table&#160;presents&#160;the&#160;service&#160;IDs and&#160;the&#160;related&#160;services:&#160;<br/>
+<b>Service&#160;ID&#160;</b><br/>
+<b>Service&#160;</b><br/>
+0x00&#160;<br/>
+CanTrcv_30___Your_Trcv___Init&#160;<br/>
+0x01&#160;<br/>
+CanTrcv_30___Your_Trcv___SetOpMode&#160;<br/>
+0x02&#160;<br/>
+CanTrcv_30___Your_Trcv___GetOpMode&#160;<br/>
+0x03&#160;<br/>
+CanTrcv_30___Your_Trcv___GetBusWuReason&#160;<br/>
+0x05&#160;<br/>
+CanTrcv_30___Your_Trcv___SetWakeupMode&#160;<br/>
+0x07&#160;<br/>
+AUTOSAR3:&#160;CanTrcv_30___Your_Trcv___CB_WakeupByBus&#160;<br/>AUTOSAR4:&#160;CanTrcv_30___Your_Trcv___CheckWakeup&#160;&#160;<br/>
+0x04&#160;<br/>
+CanTrcv_30___Your_Trcv___GetVersionInfo&#160;<br/>
+0x06&#160;<br/>
+CanTrcv_30___Your_Trcv___MainFunction&#160;<br/>
+0x08&#160;<br/>
+CanTrcv_30___Your_Trcv___MainFunctionDiagnosti&#160;<br/>
+0x09&#160;<br/>
+CanTrcv_30___Your_Trcv___GetTrcvSystemData&#160;<br/>
+0x0A&#160;<br/>
+CanTrcv_30___Your_Trcv___ClearTrcvWufFlag&#160;<br/>
+0x0B&#160;<br/>
+CanTrcv_30___Your_Trcv___ReadTrcvTimeoutFlag&#160;<br/>
+0x0C&#160;<br/>
+CanTrcv_30___Your_Trcv___ClearTrcvTimeoutFlag&#160;<br/>
+0x0D&#160;<br/>
+CanTrcv_30___Your_Trcv___ReadTrcvSilenceFlag&#160;<br/>
+0x0E&#160;<br/>
+CanTrcv_30___Your_Trcv___CheckWakeFlag&#160;<br/>
+0x0F&#160;<br/>
+CanTrcv_30___Your_Trcv___SetPNActivationState&#160;<br/>
+Table&#160;3-3&#160;&#160;&#160;Mapping&#160;of&#160;service&#160;IDs&#160;to&#160;services&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+11&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=12></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-12_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+The&#160;errors reported&#160;to&#160;DET&#160;are&#160;described&#160;in&#160;the&#160;following&#160;table:&#160;<br/>
+<b>Error&#160;Code&#160;</b><br/>
+<b>Description&#160;</b><br/>
+0x01&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_INVALI&#160;Invalid channel&#160;index&#160;is&#160;used in&#160;<br/>D_CAN_NETWORK&#160;<br/>
+function&#160;argument&#160;list.&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_INVALI<br/>D_TRANSCEIVER&#160;<br/>
+0x02&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_PARAM&#160;Invalid pointer&#160;NULL_PTR&#160;is&#160;used in&#160;<br/>_POINTER&#160;<br/>
+function&#160;argument&#160;list.&#160;<br/>
+0x11&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_UNINIT&#160;&#160;CAN&#160;transceiver&#160;hardware is not&#160;<br/>
+initialized.&#160;<br/>
+0x21&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_TRCV_&#160;CAN&#160;transceiver&#160;hardware is not&#160;in&#160;<br/>NOT_STANDBY&#160;<br/>
+standby&#160;mode.&#160;<br/>
+0x22&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_TRCV_&#160;CAN&#160;transceiver&#160;hardware is not&#160;in&#160;<br/>NOT_NORMAL&#160;<br/>
+normal&#160;operation&#160;mode.&#160;<br/>
+0x23&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_PARAM&#160;The&#160;requested&#160;wakeup&#160;mode&#160;is&#160;not&#160;<br/>_TRCV_WAKEUP_MODE&#160;<br/>
+valid.&#160;<br/>
+0x24&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_PARAM&#160;The&#160;requested&#160;operation&#160;mode&#160;is&#160;not&#160;<br/>_TRCV_OPMODE&#160;<br/>
+supported&#160;by&#160;the&#160;underlying&#160;<br/>transceiver&#160;hardware.&#160;<br/>
+0x25&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_BAUDR&#160;The&#160;selected&#160;baudrate is&#160;not&#160;<br/>ATE_NOT_SUPPORTED&#160;<br/>
+supported&#160;by&#160;the&#160;underlying&#160;<br/>transceiver&#160;hardware.&#160;<br/>
+0x40&#160;<br/>
+AUTOSAR4&#160;only:&#160;&#160;<br/>
+If&#160;the&#160;CAN&#160;transceiver&#160;is&#160;not&#160;under&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_NO_TR&#160;control,&#160;which means&#160;that&#160;the&#160;<br/>CV_CONTROL&#160;<br/>
+transceiver&#160;does&#160;remains&#160;in an&#160;invalid&#160;<br/>state,&#160;this&#160;production&#160;error&#160;is&#160;raised.&#160;<br/>
+Table&#160;3-4&#160;&#160;&#160;Errors&#160;reported&#160;to&#160;DET&#160;<br/>
+&#160;<br/>
+<b>3.6.4&#160;</b><br/>
+<b>Production Code&#160;Error Reporting&#160;</b><br/>
+Production&#160;&#160;code&#160;&#160;related&#160;&#160;errors&#160;&#160;are&#160;&#160;reported&#160;&#160;to&#160;&#160;DEM&#160;&#160;using&#160;&#160;the&#160;&#160;service&#160;<br/>Dem_ReportErrorStatus&#160;&#160;(specified&#160;&#160;in&#160;&#160;<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">[3]),&#160;&#160;</a>if&#160;&#160;the&#160;&#160;pre-compile&#160;&#160;parameter&#160;<br/>CANTRCV_30___YOUR_TRCV___PROD_ERROR_DETECT&#160;== STD_ON.&#160;<br/>
+The&#160;errors reported&#160;to&#160;DEM are described&#160;in&#160;the&#160;following&#160;table:&#160;<br/>
+<b>Error&#160;Code&#160;</b><br/>
+<b>Description&#160;</b><br/>
+AUTOSAR3 only:&#160;<br/>
+If&#160;the&#160;CAN&#160;transceiver&#160;is&#160;not&#160;under&#160;control,&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_NO_TRC&#160;which means&#160;that&#160;the&#160;transceiver&#160;remains&#160;in&#160;<br/>V_CONTROL&#160;<br/>
+an&#160;invalid&#160;state,&#160;this&#160;production error&#160;is&#160;raised.&#160;<br/>
+CANTRCV_30___YOUR_TRCV___E_BUS_ER<br/>
+A&#160;physical&#160;BUS&#160;error&#160;occurred.&#160;<br/>
+ROR&#160;<br/>
+Table&#160;3-5&#160;&#160;&#160;Errors&#160;reported&#160;to&#160;DEM&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+12&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=13></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-13_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>4&#160;&#160;Integration&#160;</b><br/>
+This&#160;chapter&#160;gives&#160;necessary&#160;information&#160;for&#160;the&#160;integration&#160;of&#160;the&#160;MICROSAR&#160;CANTRCV&#160;<br/>into&#160;an&#160;application&#160;environment&#160;of&#160;an&#160;ECU.&#160;<br/>
+<b>4.1&#160;</b><br/>
+<b>Scope&#160;of&#160;Delivery&#160;</b><br/>
+The&#160;delivery&#160;of&#160;the&#160;CANTRCV&#160;contains&#160;the&#160;files&#160;which&#160;are&#160;described&#160;in&#160;the&#160;chapters<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">&#160;4.1.1&#160;<br/>and&#160;4.1.2:</a>&#160;&#160;<br/>
+<b>4.1.1&#160;</b><br/>
+<b>Static&#160;Files&#160;</b><br/>
+<b>File&#160;Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+CanTrcv_30___Your_Trcv__.h&#160;<br/>
+Header&#160;file which has&#160;to&#160;be&#160;included&#160;by&#160;higher&#160;layers.&#160;<br/>
+CanTrcv_30___Your_Trcv__.c&#160;<br/>
+Implementation&#160;<br/>
+AUTOSAR3 only:&#160;<br/>
+Header&#160;file which has&#160;to&#160;be&#160;included&#160;by&#160;lower&#160;layers&#160;to&#160;<br/>
+CanTrcv_30___Your_Trcv___Cbk.h&#160;<br/>
+access&#160;the&#160;supported&#160;callback&#160;functions.&#160;<br/>
+Table&#160;4-1&#160;&#160;&#160;Static&#160;files&#160;<br/>
+&#160;<br/>
+<b>4.1.2&#160;</b><br/>
+<b>Dynamic&#160;Files&#160;</b><br/>
+The&#160;dynamic&#160;files are&#160;generated&#160;by&#160;the&#160;configuration&#160;tool&#160;GENy&#160;(see<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">&#160;7.1.27.1.1)</a>.&#160;<br/>
+<b>File&#160;Name&#160;</b><br/>
+<b>Description&#160;</b><br/>
+CanTrcv_30___Your_Trcv___Cfg.h&#160;<br/>
+Header&#160;file contains&#160;type&#160;definitions&#160;and&#160;external&#160;data&#160;<br/>declarations.&#160;It&#160;is&#160;included&#160;by&#160;<br/>CanTrcv_30___Your_Trcv__.h.&#160;<br/>
+CanTrcv_30___Your_Trcv___Cfg.c&#160;<br/>
+Contains the&#160;configuration data.&#160;<br/>
+AUTOSAR4 only:&#160;<br/>
+Header&#160;file&#160;that&#160;contains&#160;all&#160;CanTrcv&#160;types&#160;specified&#160;by&#160;<br/>
+CanTrcv_GeneralTypes.h&#160;<br/>
+SWS.&#160;This&#160;file&#160;can&#160;be&#160;included&#160;by&#160;<br/>Can_GeneralTypes.h.&#160;<br/>
+Table&#160;4-2&#160;&#160;&#160;Generated&#160;files&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+13&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=14></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-14_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>4.2&#160;</b><br/>
+<b>Compiler&#160;Abstraction and Memory&#160;Mapping&#160;&#160;</b><br/>
+The&#160;&#160;objects&#160;&#160;(e.g.&#160;&#160;variables,&#160;&#160;functions,&#160;&#160;constants)&#160;&#160;are&#160;&#160;declared&#160;&#160;by&#160;&#160;compiler&#160;&#160;independent&#160;<br/>definitions&#160;&#160;–&#160;&#160;the&#160;&#160;compiler&#160;&#160;abstraction&#160;&#160;definitions.&#160;&#160;Each&#160;&#160;compiler&#160;&#160;abstraction&#160;&#160;definition&#160;&#160;is&#160;<br/>assigned&#160;to&#160;a&#160;memory&#160;section.&#160;<br/>The&#160;&#160;following&#160;&#160;table&#160;&#160;contains&#160;&#160;the&#160;&#160;memory&#160;&#160;section&#160;&#160;names&#160;&#160;and&#160;&#160;the&#160;&#160;compiler&#160;&#160;abstraction&#160;<br/>definitions&#160;that&#160;are&#160;defined&#160;for&#160;the&#160;CANTRCV&#160;and&#160;illustrates&#160;their&#160;assignment&#160;among&#160;each&#160;<br/>other.&#160;<br/>
+<b>Compiler&#160;Abstraction&#160;</b><br/>
+&#160;<br/>
+<b>Definitions&#160;</b><br/>
+&#160;<br/>R<br/>
+DE<br/>
+<b>&#160;</b><br/>
+A<br/>V<br/>
+&#160;<br/>T<br/>
+&#160;<br/>
+CO<br/>
+&#160;<br/>
+&#160;<br/>
+L_<br/>
+S<br/>
+E<br/>
+L_<br/>
+R<br/>
+P<br/>
+N<br/>
+D<br/>
+P<br/>
+&#160;<br/>
+A<br/>
+P<br/>
+P<br/>
+A<br/>
+A<br/>
+_V<br/>
+_<br/>
+_CO<br/>
+_CO<br/>
+_<br/>
+&#160;<br/>
+_<br/>
+_<br/>
+_<br/>
+_<br/>
+_<br/>
+&#160;<br/>&#160;<br/>
+RCV_<br/>
+RCV_<br/>
+RCV_<br/>
+RCV_<br/>
+RCV_<br/>
+&#160;<br/>
+UR_T<br/>
+UR_T<br/>
+UR_T<br/>
+UR_T<br/>
+UR_T<br/>
+<b>Memory&#160;Mapping&#160;</b><br/>
+O<br/>
+O<br/>
+O<br/>
+O<br/>
+O<br/>
+Y<br/>
+Y<br/>
+Y<br/>
+Y<br/>
+Y<br/>
+<b>Sections&#160;</b><br/>
+__<br/>
+__<br/>
+__<br/>
+__<br/>
+__<br/>
+_<br/>
+_<br/>
+_<br/>
+_<br/>
+_<br/>
+30<br/>
+30<br/>
+30<br/>
+30<br/>
+30<br/>
+_<br/>
+_<br/>
+_<br/>
+_<br/>
+_<br/>
+V<br/>
+V<br/>
+V<br/>
+V<br/>
+V<br/>
+RC<br/>
+RC<br/>
+RC<br/>
+RC<br/>
+RC<br/>
+NT<br/>
+NT<br/>
+NT<br/>
+NT<br/>
+NT<br/>
+CA<br/>
+CA<br/>
+CA<br/>
+CA<br/>
+CA<br/>
+CANTRCV_30___YOUR_TRCV___START_SEC_CODE&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANTRCV_30___YOUR_TRCV___STOP_SEC_CODE&#160;<br/>
+CANTRCV_30___YOUR_TRCV___START_SEC_CONST_UNSPECIFI<br/>ED&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANTRCV_30___YOUR_TRCV___STOP_SEC_CONST_UNSPECIFI<br/>ED&#160;<br/>
+CANTRCV_30___YOUR_TRCV___START_SEC_VAR_NOINIT_UNSP<br/>ECIFIED&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+CANTRCV_30___YOUR_TRCV___STOP_SEC_VAR_NOINIT_&#160;<br/>UNSPECIFIED&#160;<br/>
+Table&#160;4-3&#160;&#160;&#160;Compiler&#160;abstraction&#160;and&#160;memory&#160;mapping&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+14&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=15></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-15_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-15_2.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>4.3&#160;</b><br/>
+<b>Data&#160;consistency&#160;</b><br/>
+The&#160;&#160;CAN&#160;&#160;transceiver&#160;&#160;driver&#160;&#160;calls&#160;&#160;service&#160;&#160;functions&#160;&#160;of&#160;&#160;upper&#160;&#160;layers&#160;&#160;in&#160;&#160;order&#160;&#160;to&#160;&#160;prevent&#160;<br/>interruption&#160;when&#160;accessing&#160;the&#160;CAN&#160;transceiver pins.&#160;&#160;<br/>These&#160;&#160;service&#160;&#160;functions&#160;&#160;have&#160;&#160;to&#160;&#160;be&#160;&#160;provided&#160;&#160;by&#160;&#160;the&#160;&#160;components&#160;&#160;VStdLib,&#160;&#160;Schedule&#160;<br/>Manager&#160;&#160;or&#160;&#160;OSEK&#160;&#160;OS&#160;&#160;depending&#160;&#160;on&#160;&#160;which&#160;&#160;of&#160;&#160;these&#160;&#160;components&#160;&#160;is&#160;&#160;used&#160;&#160;for&#160;&#160;interrupt&#160;<br/>disable/restore&#160;handling.&#160;The&#160;component&#160;for&#160;interrupt&#160;control&#160;handling&#160;has&#160;to&#160;be&#160;selected&#160;<br/>in&#160;the&#160;configuration&#160;tool.&#160;<br/>
+<b>4.4&#160;</b><br/>
+<b>Integration&#160;</b><br/>
+The&#160;&#160;driver&#160;&#160;has&#160;&#160;to&#160;&#160;be&#160;&#160;extended&#160;&#160;by&#160;&#160;hardware&#160;&#160;specific&#160;&#160;functionality.&#160;&#160;Within&#160;<br/>CanTrcv_30___Your_Trcv__.c&#160;&#160;and&#160;&#160;CanTrcv_30___Your_Trcv__.h,&#160;&#160;the&#160;&#160;parts&#160;&#160;that&#160;&#160;have&#160;&#160;to&#160;<br/>be&#160;implemented&#160;are&#160;marked&#160;with&#160;the&#160;following&#160;token:&#160;<br/>&lt;Your_Trcv_Code&gt;&#160;&#160;<br/>Please&#160;refer&#160;to&#160;the&#160;comments&#160;at&#160;the&#160;dedicated&#160;code&#160;part&#160;for&#160;integration&#160;tips.&#160;Also&#160;refer&#160;to&#160;<br/>the&#160;following&#160;chapters&#160;for details.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;<br/>Info&#160;<br/></b>Replace&#160;the&#160;placeholders __Your_Trcv__&#160;and&#160;__YOUR_TRCV__&#160;with&#160;the&#160;<br/>
+&#160;&#160;according&#160;name&#160;of&#160;the&#160;used&#160;transceiver.&#160;This&#160;procedure has to&#160;be&#160;done&#160;in&#160;both,&#160;<br/>
+the&#160;source&#160;code&#160;and&#160;the&#160;BSWMD&#160;files.&#160;<br/>&#160;<br/>__YOUR_TRCV__&#160;is used&#160;for&#160;definitions in&#160;upper case&#160;(e.g.&#160;TJA1041).&#160;<br/>&#160;<br/>__Your_Trcv__&#160;is used&#160;for variables&#160;in&#160;camel case&#160;(e.g.&#160;Tja1041).&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+<b>4.5&#160;</b><br/>
+<b>Timers&#160;</b><br/>
+As&#160;the&#160;underlying&#160;transceiver&#160;hardware&#160;may&#160;have&#160;some&#160;time&#160;constraints&#160;that&#160;must&#160;be&#160;met,&#160;<br/>the&#160;&#160;transceiver&#160;&#160;driver&#160;&#160;sometimes&#160;&#160;needs&#160;&#160;to&#160;&#160;wait&#160;&#160;some&#160;&#160;time&#160;&#160;until&#160;&#160;the&#160;&#160;next&#160;&#160;request&#160;&#160;to&#160;&#160;the&#160;<br/>hardware can&#160;be&#160;made.&#160;&#160;<br/>An&#160;&#160;application&#160;&#160;function&#160;&#160;which&#160;&#160;handles&#160;&#160;this&#160;&#160;wait&#160;&#160;states&#160;&#160;is&#160;&#160;declared&#160;&#160;in&#160;<br/>CanTrcv_30___Your_Trcv___Cbk.h&#160;and&#160;has&#160;to&#160;be&#160;implemented&#160;by&#160;the&#160;user.&#160;To&#160;enable&#160;or&#160;<br/>disable&#160;this&#160;callback&#160;function&#160;and&#160;all&#160;predefined&#160;timers,&#160;you&#160;have&#160;to&#160;specify&#160;the&#160;following&#160;<br/>constant&#160;in&#160;the&#160;CanTrcv_30___Your_Trcv__.h:&#160;<br/>&#160;<br/>
+# define&#160;CANTRCV_30___YOUR_TRCV___USE_TIMERS &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;STD_ON&#160;<br/>
+Declaration:&#160;<br/>FUNC(void, CANTRCV_30___YOUR_TRCV___CODE) Appl_CanTrcv_30___Your_Trcv___Wait(uint8&#160;<br/>TimerIndex);&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+15&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=16></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-16_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-16_2.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+The&#160;parameter&#160;TimerIndex&#160;is used&#160;to&#160;distinguish&#160;between&#160;the&#160;timers needed&#160;by&#160;the&#160;<br/>transceiver driver.&#160;TimerIndex&#160;is represented&#160;by&#160;a&#160;symbolic constant&#160;that&#160;is defined&#160;in&#160;<br/>the&#160;CanTrcv_30___Your_Trcv__.h.&#160;The&#160;following&#160;table&#160;lists&#160;all&#160;available&#160;timer indexes:&#160;<br/>&#160;<br/>
+<b>Timer&#160;Index&#160;(symbolic&#160;constant)&#160;</b><br/>
+<b>Wait&#160;Time&#160;&#160;Description&#160;</b><br/>
+kCanTrcv_30___Your_Trcv___Loo<br/>
+&gt;&#160;50µs&#160;<br/>
+This&#160;timer&#160;is&#160;called&#160;by&#160;the transceiver&#160;driver&#160;in&#160;<br/>
+pInit&#160;<br/>
+function&#160;Init()after&#160;the transition&#160;to normal&#160;<br/>mode was made&#160;and&#160;before&#160;switching&#160;to&#160;the&#160;<br/>mode,&#160;specified&#160;in&#160;the&#160;configuration&#160;tool.&#160;<br/>
+Table&#160;4-4&#160;&#160;&#160;Timer&#160;indexes&#160;and&#160;their wait&#160;times&#160;<br/>&#160;<br/>
+<b>&#160;</b><br/>
+<b>Example of&#160;the&#160;implementation&#160;<br/></b>&#160;<br/>
+&#160;&#160;FUNC(void, CANTRCV_30___YOUR_TRCV___CODE)&#160;&#160;<br/>
+Appl_CanTrcv_30___Your_Trcv___Wait(uint8 TimerIndex)&#160;<br/>
+{&#160;<br/>&#160; &#160;&#160;uint32 timer;&#160;<br/>&#160;<br/>&#160; &#160;&#160;switch (TimerIndex)&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160;&#160;case&#160;kCanTrcv_30___Your_Trcv___LoopInit:&#160;<br/>&#160; &#160; &#160; &#160;&#160;timer = 100;&#160;<br/>&#160; &#160; &#160; &#160;&#160;break;&#160;<br/>&#160;<br/>&#160; &#160; &#160;&#160;default:&#160;<br/>&#160; &#160; &#160; &#160;&#160;timer = 0;&#160;<br/>&#160; &#160; &#160; &#160;&#160;break;&#160;<br/>&#160; &#160;&#160;}&#160;<br/>&#160;<br/>&#160; &#160;&#160;for&#160;(timer; timer&#160;!=&#160;0;&#160;--timer)&#160;<br/>&#160; &#160; &#160; &#160;/* nothing to do */;&#160;<br/>}&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+16&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=17></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-17_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-17_2.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>4.6&#160;</b><br/>
+<b>Generated&#160;Data&#160;</b><br/>
+The&#160;&#160;configuration&#160;&#160;tool&#160;&#160;generates&#160;&#160;various&#160;&#160;tables&#160;&#160;that&#160;&#160;can&#160;&#160;be&#160;&#160;used&#160;&#160;within&#160;&#160;the&#160;<br/>implementation.&#160;Also&#160;refer to&#160;the&#160;following&#160;files:&#160;<br/>CanTrcv_30___Your_Trcv___Cfg.h&#160;(Type&#160;definitions,&#160;declarations)&#160;<br/>CanTrcv_30___Your_Trcv___Cfg.c&#160;&#160;(Initializers, definitions)&#160;<br/>
+&#160;<br/>
+<b>4.6.1&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___Channel&#160;</b><br/>
+This&#160;array&#160;contains&#160;generic data&#160;for each&#160;channel.&#160;It&#160;has the&#160;following&#160;elements.&#160;<br/>
+CanIf_TransceiverModeType&#160;&#160;State&#160;that&#160;shall&#160;be&#160;reached&#160;after&#160;CanTrcv_Init()&#160;has&#160;finished.&#160;<br/>CanTrcvInitState&#160;<br/>
+boolean&#160;<br/>
+TRUE&#160;&#160;if&#160;&#160;Wakeup&#160;&#160;By&#160;&#160;Bus&#160;&#160;over&#160;&#160;CanTrcv&#160;&#160;is&#160;&#160;activated&#160;&#160;for&#160;&#160;the&#160;<br/>
+CanTrcvWakeupByBusUsed&#160;<br/>
+given&#160;channel,&#160;FALSE&#160;otherwise.&#160;<br/>
+boolean&#160;<br/>
+TRUE&#160;if&#160;the&#160;channel&#160;has&#160;to be&#160;used,&#160;FALSE&#160;otherwise.&#160;<br/>
+CanTrcvChannelUsed&#160;<br/>
+EcuM_WakeupSourceType&#160;<br/>
+Wakeup&#160;&#160;Source&#160;&#160;of&#160;&#160;the&#160;&#160;given&#160;&#160;channel&#160;&#160;that&#160;&#160;will&#160;&#160;be&#160;&#160;reported&#160;&#160;to&#160;<br/>
+WakeupSource&#160;<br/>
+EcuM&#160;after&#160;a&#160;wakeup&#160;was detected.&#160;<br/>
+<b>Only&#160;if&#160;CANTRCV_30___YOUR_TRCV___USE_ICU == TRUE:&#160;<br/></b>boolean IcuChannelSet&#160;<br/>
+TRUE&#160;&#160;if&#160;&#160;an&#160;&#160;ICU&#160;&#160;channel&#160;&#160;has&#160;&#160;been&#160;&#160;configured&#160;&#160;for&#160;&#160;the&#160;&#160;given&#160;<br/>channel,&#160;FALSE&#160;otherwise.&#160;<br/>
+Icu_ChannelType&#160;<br/>
+Configured&#160;&#160;ICU&#160;&#160;channel&#160;&#160;for&#160;&#160;the&#160;&#160;given&#160;&#160;CanTrcv&#160;&#160;channel.&#160;&#160;Only&#160;<br/>
+IcuChannel&#160;<br/>
+valid if&#160;IcuChannelSet&#160;==&#160;TRUE.&#160;<br/>
+<b>Only&#160;for&#160;DIO&#160;Interface:&#160;<br/></b>Dio_ChannelType &lt;Pin&gt;&#160;<br/>
+For&#160;&#160;each&#160;&#160;configured&#160;&#160;DIO&#160;&#160;pin,&#160;&#160;one&#160;member&#160;&#160;is&#160;&#160;generated.&#160;The&#160;<br/>
+(E.g. DIO_PIN_TRCV_RX)&#160;<br/>
+value&#160;&#160;of&#160;&#160;this&#160;&#160;Member&#160;&#160;is&#160;&#160;&lt;Pin&gt;_&lt;Channel&#160;&#160;Index&gt;&#160;&#160;in&#160;&#160;upper&#160;<br/>case.&#160;(E.g.&#160;DIO_PIN_TRCV_RX_0).&#160;<br/>
+&#160;<br/>
+The&#160;&#160;unmodified&#160;&#160;template&#160;&#160;driver&#160;&#160;uses&#160;&#160;all&#160;&#160;members&#160;&#160;with&#160;&#160;exception&#160;&#160;of&#160;&#160;“Dio_ChannelType&#160;<br/>&lt;Pin&gt;”.&#160;Except&#160;for the&#160;DIO&#160;Pins,&#160;no&#160;code&#160;has&#160;to&#160;be&#160;implemented.&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Note&#160;<br/></b>When using&#160;SPI&#160;interface all&#160;sequences&#160;/&#160;channels&#160;for&#160;a&#160;given&#160;channel&#160;must&#160;be&#160;<br/>
+&#160;&#160;generated&#160;“by&#160;hand”&#160;e.g.&#160;by&#160;using&#160;a static&#160;table within the&#160;driver&#160;code.&#160;There is no&#160;tool&#160;<br/>
+support&#160;to&#160;configure any&#160;reference&#160;to a&#160;SPI&#160;sequence&#160;/&#160;channel&#160;/&#160;job.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+17&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=18></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-18_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>4.6.2&#160;</b><br/>
+<b>Partial&#160;networking data&#160;</b><br/>
+If&#160;&#160;the&#160;&#160;underlying&#160;&#160;CanTrcv&#160;&#160;supports&#160;&#160;selective&#160;&#160;wakeup&#160;&#160;the&#160;&#160;following&#160;&#160;tables&#160;&#160;can&#160;&#160;be&#160;<br/>generated.&#160;<br/>
+<b>4.6.2.1&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___PnData&#160;</b><br/>
+This&#160;&#160;array&#160;&#160;contains&#160;&#160;the&#160;&#160;configured&#160;&#160;partial&#160;&#160;networking&#160;&#160;data&#160;&#160;for&#160;&#160;each&#160;&#160;channel.&#160;&#160;It&#160;&#160;has&#160;&#160;the&#160;<br/>following&#160;elements:&#160;<br/>
+&#160;<br/>
+uint32 ID&#160;<br/>
+Contains the&#160;ID&#160;as entered&#160;in the&#160;corresponding&#160;field in&#160;the&#160;generation&#160;<br/>tool.&#160;<br/>
+uint32 MASK&#160;<br/>
+Contains&#160;&#160;the&#160;&#160;MASK&#160;&#160;as&#160;&#160;entered&#160;&#160;in&#160;&#160;the&#160;&#160;corresponding&#160;&#160;field&#160;&#160;in&#160;&#160;the&#160;<br/>generation&#160;tool.&#160;<br/>
+uint8 DATA[8]&#160;<br/>
+Contains&#160;the&#160;DATA&#160;bytes.&#160;The&#160;index&#160;is&#160;the&#160;same&#160;as&#160;of&#160;the&#160;corresponding&#160;<br/>field in&#160;the&#160;generation&#160;tool&#160;<br/>
+uint8 DLC&#160;<br/>
+Contains the&#160;configured&#160;DLC.&#160;<br/>
+uint8 MATCH_EXT&#160;<br/>
+Has value&#160;“1”&#160;if&#160;the&#160;ID/MASK&#160;shall&#160;be&#160;interpreted&#160;as extended&#160;ID.&#160;<br/>
+uint8 BAUDRATE&#160;<br/>
+Configurator&#160;5&#160;only:&#160;Baudrate&#160;(e.g.&#160;125,&#160;250,&#160;500,&#160;…)&#160;<br/>
+&#160;<br/>
+None&#160;&#160;of&#160;&#160;these&#160;&#160;values&#160;&#160;are&#160;&#160;used&#160;&#160;in&#160;&#160;the&#160;&#160;unmodified&#160;&#160;template&#160;&#160;driver.&#160;&#160;It&#160;&#160;is&#160;&#160;up&#160;&#160;to&#160;&#160;the&#160;&#160;user&#160;&#160;to&#160;<br/>implement&#160;the&#160;code&#160;necessary&#160;to&#160;download&#160;the&#160;data&#160;to&#160;the&#160;underlying&#160;CanTrcv&#160;hardware.&#160;&#160;<br/>The&#160;data&#160;must&#160;be&#160;written&#160;at&#160;Init_Channel_PnData&#160;in&#160;CanTrcv_30___Your_Trcv__.c.&#160;<br/>
+&#160;<br/>
+<b>4.6.2.2&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___PnActivationState&#160;</b><br/>
+This&#160;array&#160;indicates&#160;per&#160;channel&#160;whether&#160;selective&#160;wakeup&#160;is&#160;enabled&#160;or&#160;not.&#160;It&#160;contains&#160;a&#160;<br/>“1” if&#160;selective&#160;wakeup&#160;is activated&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+18&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=19></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-19_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-19_2.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>4.7&#160;</b><br/>
+<b>Handling of&#160;asynchronous&#160;APIs&#160;</b><br/>
+&#160;<br/>
+<b>Please&#160;note&#160;<br/></b>This&#160;chapter&#160;only&#160;affects&#160;CanTrcv&#160;hardware&#160;that&#160;uses an&#160;asynchronous&#160;SPI&#160;Interface.&#160;<br/>
+&#160;&#160;Transceivers&#160;with DIO&#160;interface&#160;are&#160;always&#160;synchronous&#160;and&#160;thus&#160;do&#160;not&#160;need any&#160;<br/>
+special&#160;behavior.&#160;<br/>&#160;<br/>Due&#160;to&#160;the&#160;complexity&#160;of&#160;the&#160;implementation&#160;it&#160;is&#160;NOT&#160;RECOMMENDED&#160;to use&#160;<br/>asynchronous&#160;SPI&#160;access.&#160;<br/>
+&#160;<br/>
+Throughout&#160;&#160;this&#160;&#160;chapter,&#160;&#160;CanTrcv_*&#160;&#160;instead&#160;&#160;of&#160;&#160;CanTrcv_30___Your_Trcv__*&#160;&#160;is&#160;&#160;used&#160;&#160;in&#160;<br/>order to&#160;improve&#160;readability.&#160;<br/>
+&#160;<br/>
+When&#160;&#160;using&#160;&#160;asynchronous&#160;&#160;SPI&#160;&#160;access,&#160;&#160;all&#160;&#160;APIs&#160;&#160;except&#160;&#160;CanTrcv_Init&#160;&#160;shall&#160;&#160;behave&#160;<br/>asynchronously.&#160;&#160;This&#160;&#160;usually&#160;&#160;means&#160;&#160;that&#160;&#160;a&#160;&#160;call&#160;&#160;to&#160;&#160;an&#160;&#160;API&#160;&#160;only&#160;&#160;<i>requests</i>&#160;&#160;the&#160;&#160;dedicated&#160;<br/>action&#160;but&#160;does&#160;not&#160;actually&#160;<i>perform</i>&#160;it.&#160;Instead&#160;the&#160;request&#160;shall&#160;be&#160;held&#160;pending&#160;until&#160;the&#160;<br/>requested&#160;action&#160;is either completely&#160;performed&#160;or&#160;another concurrent&#160;action&#160;is requested.&#160;&#160;<br/>
+&#160;<br/>
+As&#160;there&#160;are&#160;no&#160;restrictions&#160;basically&#160;each&#160;request&#160;can&#160;be&#160;interrupted&#160;by&#160;another&#160;request.&#160;<br/>The&#160;&#160;driver&#160;&#160;must&#160;&#160;thus&#160;&#160;handle&#160;&#160;concurrent&#160;&#160;and&#160;&#160;interrupted&#160;&#160;requests&#160;&#160;in&#160;&#160;order&#160;&#160;to&#160;&#160;guarantee&#160;<br/>proper&#160;functionality.&#160;&#160;<br/>
+&#160;<br/>
+It&#160;is&#160;also&#160;required&#160;by&#160;the&#160;driver&#160;to&#160;inform&#160;upper&#160;layers&#160;about&#160;finished&#160;or&#160;cancelled&#160;requests&#160;<br/>according&#160;to&#160;the&#160;SWS.&#160;<br/>
+&#160;<br/>
+The&#160;&#160;template&#160;&#160;driver&#160;&#160;contains&#160;&#160;a&#160;few&#160;&#160;mechanisms&#160;&#160;to&#160;&#160;help&#160;&#160;the&#160;&#160;user&#160;to&#160;&#160;implement&#160;&#160;a&#160;&#160;correct&#160;<br/>driver.&#160;&#160;Depending&#160;&#160;on&#160;&#160;the&#160;&#160;underlying&#160;&#160;CanTrcv&#160;&#160;hardware&#160;&#160;the&#160;&#160;actual&#160;&#160;requirements&#160;&#160;for&#160;<br/>implementation&#160;varies.&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+19&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=20></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-20_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>4.7.1&#160;</b><br/>
+<b>Request handling&#160;</b><br/>
+&#160;<br/>
+The&#160;template&#160;driver&#160;already&#160;implements&#160;a&#160;mechanism&#160;to&#160;handle&#160;requests&#160;in&#160;a&#160;correct&#160;way.&#160;<br/>If&#160;asynchronous&#160;SPI&#160;access&#160;is&#160;used,&#160;the&#160;template&#160;driver&#160;uses&#160;CanTrcv_Set*Req&#160;to&#160;store&#160;<br/>requests.&#160;These&#160;&#160;requests&#160;&#160;can&#160;be&#160;&#160;queried&#160;&#160;with&#160;&#160;the&#160;&#160;CanTrcv_Get*Req&#160;&#160;macros.&#160;&#160;Refer&#160;&#160;to&#160;<br/>CanTrcv_30___Your_Trcv__.c&#160;for&#160;details.&#160;<br/>
+&#160;<br/>
+Example:&#160;<br/>If&#160;&#160;CanTrcv_SetOpMode&#160;&#160;is&#160;&#160;called,&#160;&#160;the&#160;&#160;template&#160;&#160;driver&#160;&#160;stores&#160;&#160;the&#160;&#160;request&#160;&#160;with&#160;<br/>CanTrcv_SetOpModeReq.&#160;&#160;In&#160;&#160;context&#160;&#160;of&#160;&#160;CanTrcv_MainFunction&#160;&#160;the&#160;&#160;user&#160;<br/>implementation&#160;has&#160;to&#160;check&#160;the&#160;pending&#160;request&#160;with&#160;CanTrcv_GetOpModeReq&#160;and&#160;has&#160;<br/>to&#160;perform&#160;all&#160;necessary&#160;tasks to&#160;complete&#160;it.&#160;<br/>
+&#160;<br/>
+<b>4.7.1.1&#160;</b><br/>
+<b>Concurrent&#160;operation&#160;modes&#160;</b><br/>
+It&#160;is&#160;required&#160;that&#160;always&#160;the&#160;last&#160;pending&#160;operation&#160;mode&#160;request&#160;is&#160;completed.&#160;If&#160;another&#160;<br/>operation&#160;mode&#160;request&#160;is&#160;currently&#160;pending&#160;the&#160;driver&#160;has&#160;to&#160;safely&#160;cancel&#160;this old&#160;request&#160;<br/>before&#160;completing&#160;the&#160;new&#160;request.&#160;<br/>Higher&#160;&#160;layer&#160;&#160;has&#160;&#160;to&#160;&#160;be&#160;&#160;informed&#160;&#160;only&#160;&#160;for&#160;&#160;the&#160;&#160;last&#160;&#160;operation&#160;&#160;mode&#160;&#160;request.&#160;&#160;Thus&#160;&#160;the&#160;<br/>implementation&#160;has to&#160;take&#160;care that&#160;no&#160;invalid&#160;indication&#160;is called.&#160;<br/>
+&#160;<br/>
+The&#160;template&#160;driver&#160;takes&#160;care&#160;about&#160;this&#160;in&#160;a&#160;limited&#160;manner.&#160;To&#160;query&#160;a&#160;new&#160;request&#160;the&#160;<br/>user&#160;has&#160;to&#160;implement&#160;SetOpModeNormal,&#160;SetOpModeStandby&#160;and&#160;SetOpModeSleep&#160;<br/>in&#160;CanTrcv_30___Your_Trcv__.c.&#160;&#160;<br/>
+&#160;<br/>
+Within&#160;CanTrcv_SetOpMode&#160;it&#160;is&#160;NOT&#160;ALLOWED&#160;to&#160;perform&#160;any&#160;SPI&#160;request.&#160;Instead&#160;all&#160;<br/>hardware access&#160;must&#160;be&#160;done&#160;in&#160;context&#160;of&#160;CanTrcv_MainFunction.&#160;&#160;<br/>
+&#160;<br/>
+As&#160;soon&#160;as&#160;the&#160;request&#160;is&#160;finished&#160;the&#160;internal&#160;callback&#160;CanTrcv_TrcvModeIndication&#160;<br/>MUST&#160;be&#160;called&#160;by&#160;the&#160;user implementation.&#160;<br/>
+&#160;<br/>
+The&#160;following&#160;table&#160;illustrates the&#160;necessary&#160;steps to&#160;change&#160;an&#160;operation&#160;mode.&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+20&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=21></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-21_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>Requested&#160;Mode&#160;</b><br/>
+<b>Actions&#160;</b><br/>
+NORMAL&#160;<br/>
+Call&#160;CanTrcv_SetConfirmPnAvaibilityRequest&#160;<br/>
+Read the&#160;status&#160;flags&#160;(via GetStatusFlags)&#160;<br/>
+Call&#160;&#160;CanTrcv_GetStatusFlagsIndication&#160;&#160;as&#160;&#160;soon&#160;&#160;as&#160;the&#160;<br/>status&#160;flags&#160;are&#160;read.&#160;<br/>
+Perform&#160;the&#160;actual&#160;mode&#160;change&#160;<br/>
+Call&#160;&#160;CanTrcv_TrcvModeIndication&#160;&#160;as&#160;&#160;soon&#160;&#160;as&#160;&#160;the&#160;&#160;mode&#160;<br/>change&#160;is&#160;complete&#160;<br/>
+STANDBY&#160;<br/>
+Perform&#160;the&#160;actual&#160;mode&#160;change&#160;<br/>
+Call&#160;&#160;CanTrcv_TrcvModeIndication&#160;&#160;as&#160;&#160;soon&#160;&#160;as&#160;&#160;the&#160;<br/>mode change&#160;is&#160;complete&#160;<br/>
+SLEEP&#160;<br/>
+Perform&#160;the&#160;actual&#160;mode&#160;change&#160;<br/>
+Call&#160;&#160;CanTrcv_TrcvModeIndication&#160;&#160;as&#160;&#160;soon&#160;&#160;as&#160;&#160;the&#160;<br/>mode change&#160;is&#160;complete&#160;<br/>
+&#160;<br/>
+If&#160;a&#160;mode&#160;change&#160;request&#160;is&#160;not&#160;yet&#160;completed&#160;when&#160;another&#160;new&#160;mode&#160;is&#160;requested&#160;the&#160;<br/>template&#160;driver&#160;executes&#160;the&#160;code&#160;located&#160;at&#160;&#160;CancelOpModeReq.&#160;&#160;Here,&#160;&#160;the&#160;user&#160;has&#160;to&#160;<br/>implement&#160;&#160;a&#160;&#160;function&#160;&#160;to&#160;&#160;safely&#160;&#160;cancel&#160;&#160;the&#160;&#160;old&#160;&#160;request.&#160;&#160;If&#160;&#160;it&#160;&#160;is&#160;&#160;necessary&#160;&#160;to&#160;&#160;wait&#160;&#160;for&#160;&#160;any&#160;<br/>event&#160;(e.g.&#160;SPI&#160;Indication)&#160;CanTrcv_MainFunction&#160;must&#160;handle&#160;the&#160;cancel request.&#160;<br/>
+&#160;<br/>
+While&#160;a&#160;request&#160;is&#160;marked&#160;as&#160;“to&#160;be&#160;cancelled”&#160;the&#160;user&#160;implementation&#160;has&#160;to&#160;take&#160;care&#160;<br/>that&#160;the&#160;internal callback&#160;CanTrcv_TrcvModeIndication&#160;is NOT&#160;being&#160;called.&#160;<br/>
+&#160;<br/>
+As&#160;&#160;soon&#160;&#160;as&#160;&#160;the&#160;&#160;old&#160;&#160;request&#160;&#160;is&#160;&#160;cancelled,&#160;&#160;the&#160;&#160;user&#160;&#160;implementation&#160;&#160;MUST&#160;&#160;call&#160;&#160;the&#160;&#160;macro&#160;<br/>CanTrcv_ProcessNextRequest.&#160;And&#160;check if&#160;a&#160;new&#160;request&#160;is pending.&#160;<br/>
+&#160;<br/>
+If&#160;an&#160;action&#160;other&#160;than&#160;mode&#160;change&#160;is&#160;requested&#160;the&#160;user&#160;implementation&#160;must&#160;handle&#160;the&#160;<br/>other request&#160;AFTER the&#160;mode&#160;change&#160;request&#160;has completed.&#160;<br/>
+&#160;<br/>
+If&#160;&#160;another&#160;&#160;action&#160;&#160;is&#160;&#160;currently&#160;&#160;performed&#160;&#160;while&#160;&#160;a&#160;&#160;mode&#160;&#160;change&#160;&#160;is&#160;&#160;requested&#160;&#160;the&#160;&#160;user&#160;<br/>implementation&#160;&#160;must&#160;&#160;handle&#160;&#160;the&#160;&#160;operation&#160;&#160;mode&#160;&#160;change&#160;&#160;AFTER&#160;&#160;the&#160;&#160;other&#160;&#160;request&#160;&#160;has&#160;<br/>completed.&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+21&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=22></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-22_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>4.7.1.2&#160;</b><br/>
+<b>Request to CheckWakeFlag&#160;/&#160;ClearTrcvWufFlag /&#160;CB_WakeupByBus&#160;</b><br/>
+If&#160;&#160;a&#160;&#160;request&#160;&#160;to&#160;&#160;CheckWakeFlag&#160;&#160;or&#160;&#160;ClearTrcvWufFlag&#160;&#160;is&#160;&#160;pending,&#160;&#160;the&#160;&#160;corresponding&#160;<br/>code&#160;in&#160;CanTrcv_30__Your_Trcv__.c&#160;is executed.&#160;&#160;<br/>The&#160;user&#160;implementation&#160;MUST&#160;NOT&#160;ignore&#160;any&#160;of&#160;these&#160;requests.&#160;If&#160;there&#160;is&#160;more&#160;than&#160;<br/>one&#160;request&#160;of&#160;the&#160;same&#160;type&#160;pending,&#160;the&#160;confirmation&#160;must&#160;be&#160;done&#160;only&#160;once.&#160;<br/>Within&#160;the&#160;APIs&#160;it&#160;is&#160;not&#160;allowed&#160;to&#160;use&#160;SPI&#160;access.&#160;Instead&#160;the&#160;handling&#160;must&#160;be&#160;done&#160;in&#160;<br/>context&#160;of&#160;CanTrcv_Mainfunction.&#160;<br/>
+As&#160;&#160;soon&#160;&#160;as&#160;&#160;a&#160;&#160;request&#160;&#160;has&#160;&#160;completed&#160;&#160;the&#160;&#160;user&#160;&#160;implementation&#160;&#160;MUST&#160;&#160;call&#160;&#160;the&#160;<br/>corresponding&#160;<br/>
+internal&#160;<br/>
+callback&#160;<br/>
+(CanTrcv_CheckWakeFlagIndication&#160;<br/>
+/&#160;<br/>
+CanTrcv_ClearTrcvWufFlagIndication&#160;<br/>
+/&#160;<br/>
+CanTrcv_CbWakeupByBusIndication).&#160;<br/>
+&#160;<br/>
+If&#160;&#160;the&#160;&#160;hardware&#160;&#160;implementation&#160;&#160;allows&#160;&#160;handling&#160;&#160;multiple&#160;&#160;requests&#160;&#160;with&#160;&#160;the&#160;&#160;same&#160;&#160;SPI&#160;<br/>communication,&#160;it is allowed&#160;to&#160;call&#160;multiple&#160;internal callbacks at&#160;the&#160;same&#160;time.&#160;<br/>
+&#160;<br/>
+<b>4.7.1.3&#160;</b><br/>
+<b>Status&#160;Flag handling&#160;</b><br/>
+When&#160;status&#160;flags&#160;are&#160;queried&#160;(at&#160;GetStatusFlags&#160;in&#160;CanTrcv__30___Your_Trcv__.c),&#160;the&#160;<br/>driver&#160;&#160;has&#160;&#160;to&#160;&#160;read&#160;&#160;out&#160;&#160;all&#160;&#160;status&#160;&#160;flags&#160;&#160;of&#160;&#160;the&#160;&#160;underlying&#160;&#160;CanTrcv&#160;&#160;hardware&#160;&#160;as&#160;&#160;soon&#160;&#160;as&#160;<br/>possible.&#160;&#160;<br/>Upon&#160;&#160;request,&#160;&#160;the&#160;&#160;current&#160;&#160;status&#160;&#160;flags&#160;&#160;have&#160;&#160;to&#160;&#160;be&#160;&#160;marked&#160;&#160;as&#160;&#160;invalid&#160;&#160;by&#160;&#160;setting&#160;<br/>CanTrcv_30___Your_Trcv___Prob[index].statusFlagsRdy = FALSE.&#160;<br/>
+If&#160;the&#160;SPI&#160;is&#160;currently&#160;blocked&#160;by&#160;another&#160;request,&#160;the&#160;request&#160;to&#160;read&#160;the&#160;status&#160;flags&#160;shall&#160;<br/>be&#160;held&#160;pending.&#160;<br/>As&#160;soon&#160;as&#160;the&#160;status&#160;flags&#160;are&#160;completely&#160;read,&#160;the&#160;user&#160;implementation&#160;has&#160;to&#160;call&#160;the&#160;<br/>internal callback&#160;CanTrcv_GetStatusFlagsIndication.&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+22&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=23></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-23_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>4.7.1.4&#160;</b><br/>
+<b>Indication handling&#160;</b><br/>
+Most&#160;&#160;internal&#160;&#160;callbacks&#160;&#160;can&#160;&#160;be&#160;&#160;executed&#160;&#160;directly&#160;&#160;from&#160;&#160;a&#160;&#160;SPI&#160;&#160;callback.&#160;&#160;Depending&#160;&#160;on&#160;&#160;the&#160;<br/>last&#160;&#160;executed&#160;&#160;SPI&#160;&#160;command,&#160;&#160;the&#160;&#160;pending&#160;&#160;request&#160;&#160;and&#160;&#160;the&#160;&#160;state&#160;&#160;of&#160;&#160;the&#160;&#160;driver,&#160;&#160;the&#160;<br/>corresponding&#160;callback&#160;should&#160;be&#160;called.&#160;&#160;<br/>Below&#160;is an&#160;example&#160;of&#160;the&#160;Elmos E520.13&#160;implementation:&#160;<br/>FUNC(void, CANTRCV_30_E52013_CODE) CanTrcv_30_E52013_SpiIndication(uint8 CanTrcvIndex)&#160;<br/>{&#160;<br/>&#160;&#160;uint8 event = CANTRCV_30_E52013_WORKER_EV_NONE;&#160;<br/>&#160;&#160;switch(CanTrcv_30_E52013SpiCmdBuffer[CanTrcvIndex])&#160;<br/>&#160;&#160;{&#160;<br/>&#160;&#160;case CANTRCV_30_E52013_RD_SYS_DIAG:&#160;<br/>&#160; &#160;&#160;event = CANTRCV_30_E52013_WORKER_EV_RD_SYS_DIAG;&#160;<br/>&#160; &#160;&#160;break;&#160;<br/>&#160;<br/>&#160;&#160;case CANTRCV_30_E52013_RD_SYS_SET:&#160;<br/>&#160; &#160;&#160;event = CANTRCV_30_E52013_WORKER_EV_RD_SYS_SET;&#160;<br/>&#160; &#160;&#160;break;&#160;<br/>&#160;<br/>&#160;&#160;case CANTRCV_30_E52013_WR_SYS_SET:&#160;<br/>&#160; &#160;&#160;event = CANTRCV_30_E52013_WORKER_EV_WR_SYS_SET;&#160;<br/>&#160;&#160; &#160;break;&#160;<br/>&#160;<br/>&#160;&#160;default:&#160;<br/>&#160; &#160;&#160;break;&#160;<br/>&#160;&#160;}&#160;<br/>&#160;<br/>&#160;&#160;if (event != CANTRCV_30_E52013_WORKER_EV_NONE)&#160;<br/>&#160;&#160;{&#160;<br/>&#160; &#160;&#160;if (event == CANTRCV_30_E52013_WORKER_EV_RD_SYS_DIAG)&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160;&#160;/* New status flags received... */&#160;<br/>&#160; &#160; &#160;&#160;CanTrcv_30_E52013_GetStatusFlagsIndication(CanTrcvIndex);&#160;<br/>&#160; &#160;&#160;} &#160;&#160;&#160;<br/>&#160; &#160;&#160;/*&#160;ModeWorker */&#160;<br/>&#160; &#160;&#160;if ( &#160; (CanTrcv_30_E52013_Prob[CanTrcvIndex].WorkerState != CANTRCV_30_E52013_WORKER_STOPPED)&#160;<br/>&#160; &#160; &#160; &#160;&#160;&amp;&amp; (CanTrcv_30_E52013_Prob[CanTrcvIndex].isInit == CANTRCV_30_E52013_IS_INIT)&#160;<br/>&#160; &#160; &#160; &#160;&#160;)&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160;&#160;/* Inform worker&#160;about this event */&#160;<br/>&#160; &#160; &#160;&#160;(void)CanTrcv_30_E52013_ModeWorker(CanTrcvIndex, event);&#160;<br/>&#160; &#160;&#160;}&#160;<br/>&#160; &#160;&#160;&#160;<br/>&#160; &#160;&#160;/*&#160;--&#160;Indications */&#160;<br/>&#160; &#160;&#160;if (event == CANTRCV_30_E52013_WORKER_EV_RD_SYS_DIAG)&#160;<br/>&#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160;&#160;if (CanTrcv_30_E52013_GetClrWufFlagReq(CanTrcvIndex) != 0x0u)&#160;<br/>&#160; &#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;CanTrcv_30_E52013_ClearTrcvWufFlagIndication(CanTrcvIndex);&#160;<br/>&#160; &#160; &#160;&#160;}&#160;<br/>&#160;<br/>&#160; &#160; &#160;&#160;if (CanTrcv_30_E52013_IsReqFlagPnd(CanTrcvIndex))&#160;<br/>&#160; &#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160;&#160;if (CanTrcv_30_E52013_GetChkWakFlagReq(CanTrcvIndex) != 0x0u)&#160;<br/>&#160; &#160; &#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160; &#160;&#160;CanTrcv_30_E52013_CheckWakeFlagIndication(CanTrcvIndex);&#160;<br/>&#160; &#160; &#160; &#160;&#160;}&#160;<br/>&#160; &#160; &#160; &#160;&#160;if (CanTrcv_30_E52013_GetCbByBusFlagReq(CanTrcvIndex) != 0x0u)&#160;<br/>&#160; &#160; &#160; &#160;&#160;{&#160;<br/>&#160; &#160; &#160; &#160; &#160;&#160;CanTrcv_30_E52013_CbWakeupByBusIndication(CanTrcvIndex);&#160;<br/>&#160; &#160; &#160; &#160;&#160;}&#160;<br/>&#160; &#160; &#160; &#160;&#160;/* Release RdDiag request here as new requests to read DIAG should be queried */&#160;<br/>&#160; &#160; &#160; &#160;&#160;CanTrcv_30_E52013_Prob[CanTrcvIndex].ReadDiagRequestState =&#160;<br/>CANTRCV_30_E52013_RD_DIAG_STATE_IDLE;&#160;<br/>&#160; &#160; &#160;&#160;}&#160;<br/>&#160; &#160;&#160;}&#160;<br/>&#160;&#160;}&#160;<br/>&#160;&#160;/* Free&#160;SPI&#160;*/&#160;<br/>&#160;&#160;CanTrcv_30_E52013SpiCmdBuffer[CanTrcvIndex] = CANTRCV_30_E52013_NO_REQ;&#160;&#160;&#160;<br/>}&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+23&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=24></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-24_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>5&#160;&#160;Dependencies&#160;to&#160;other&#160;components&#160;</b><br/>
+<b>5.1&#160;</b><br/>
+<b>Dio driver&#160;</b><br/>
+Depending&#160;on&#160;the&#160;configuration,&#160;the&#160;CanTrcv&#160;driver&#160;performs&#160;hardware&#160;access&#160;by&#160;calling&#160;<br/>service&#160;functions&#160;of&#160;the&#160;lower layer component&#160;Dio&#160;driver:&#160;<br/>
+<b>&gt;&#160;&#160;</b>Function&#160;Dio_WriteChannel()&#160;is used&#160;to&#160;set&#160;the&#160;logical level of&#160;the&#160;channel pins&#160;to&#160;<br/>
+which&#160;the&#160;CAN&#160;transceiver hardware is&#160;connected.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Function&#160;Dio_ReadChannel()&#160;is used&#160;to&#160;get&#160;the&#160;logical level of&#160;the&#160;channel pins&#160;to&#160;<br/>
+which&#160;the&#160;CAN&#160;transceiver hardware is&#160;connected.&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;Dio&#160;driver has&#160;to&#160;provide&#160;the&#160;channel dependent&#160;assignment&#160;for&#160;the&#160;CAN&#160;<br/>
+transceiver hardware pins&#160;which&#160;are specified&#160;in&#160;the&#160;tool.&#160;These&#160;pins&#160;are referred&#160;by&#160;<br/>the&#160;CAN&#160;transceiver driver by&#160;using&#160;the&#160;symbolic names&#160;specified&#160;in&#160;the&#160;tool.&#160;<br/>
+&#160;<br/>
+<b>5.2&#160;</b><br/>
+<b>SPI&#160;driver&#160;</b><br/>
+Depending&#160;on&#160;the&#160;configuration,&#160;the&#160;CanTrcv&#160;driver&#160;performs&#160;hardware&#160;access&#160;by&#160;calling&#160;<br/>service&#160;functions&#160;of&#160;the&#160;lower layer component&#160;SPI&#160;driver:&#160;<br/>
+&#160;&#160;Function&#160;&#160;Spi_SyncTransmit()&#160;&#160;/&#160;&#160;Spi_AsyncTransmit()&#160;&#160;is&#160;&#160;used&#160;&#160;to&#160;&#160;issue&#160;&#160;a&#160;&#160;sequence&#160;&#160;in&#160;<br/>
+order to&#160;read&#160;from&#160;or write&#160;to&#160;the&#160;transceiver hardware.&#160;&#160;<br/>
+&#160;&#160;The&#160;&#160;SPI&#160;&#160;driver&#160;&#160;must&#160;&#160;be&#160;&#160;configured&#160;&#160;to&#160;&#160;allow&#160;access&#160;to&#160;&#160;the&#160;&#160;transceiver.&#160;This&#160;means&#160;that&#160;<br/>
+sequences,&#160;jobs&#160;and&#160;channels&#160;must&#160;be&#160;defined&#160;prior&#160;using&#160;the&#160;transceiver driver.&#160;<br/>
+&#160;<br/>
+<b>5.2.1&#160;</b><br/>
+<b>SPI&#160;Configuration&#160;</b><br/>
+The&#160;configuration&#160;of&#160;the&#160;SPI&#160;driver&#160;strongly&#160;depends&#160;on&#160;the&#160;underlying&#160;CanTrcv&#160;hardware.&#160;<br/>There&#160;is&#160;no&#160;tool&#160;support&#160;for&#160;specifying&#160;which&#160;sequences&#160;/&#160;channels&#160;/&#160;jobs&#160;are&#160;used&#160;by&#160;the&#160;<br/>CanTrcv&#160;driver.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+24&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=25></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-25_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-25_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-25_3.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>5.3&#160;</b><br/>
+<b>Icu driver&#160;</b><br/>
+The&#160;CAN&#160;transceiver&#160;driver&#160;performs&#160;hardware&#160;access&#160;by&#160;calling&#160;service&#160;functions&#160;of&#160;the&#160;<br/>lower layer component&#160;Icu&#160;driver:&#160;<br/>
+<b>&gt;&#160;&#160;</b>Function&#160;Icu_DisableNotification&#160;is used&#160;by&#160;the&#160;transceiver driver to&#160;disable&#160;<br/>
+the&#160;ICU&#160;notification&#160;after&#160;wakeup&#160;event&#160;notification.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Function&#160;Icu_EnableNotification&#160;is used&#160;by&#160;the&#160;transceiver driver to&#160;enable&#160;the&#160;<br/>
+ICU notification&#160;during&#160;the&#160;transition&#160;into&#160;the&#160;STANDBY&#160;mode.&#160;<br/>
+&#160;<br/>
+<b>Please&#160;note&#160;<br/></b>The&#160;following&#160;chapter&#160;applies only&#160;to this&#160;use&#160;case:&#160;<br/>
+&#160;&#160;-&#160;the&#160;used&#160;CAN&#160;controller&#160;does&#160;not&#160;support&#160;the&#160;feature&#160;&#34;wakeup&#160;by&#160;CAN&#160;bus&#34;,&#160;i.e.&#160;the&#160;<br/>
+CAN&#160;controller&#160;cannot&#160;detect&#160;incoming&#160;CAN&#160;messages&#160;and&#160;generate a&#160;so-called&#160;<br/>wakeup-interrupt&#160;<br/>-&#160;the&#160;ECU&#160;shall&#160;wake&#160;up&#160;and start&#160;its&#160;own communication due&#160;to detected&#160;<br/>communication&#160;on&#160;the&#160;CAN&#160;bus&#160;<br/>
+&#160;<br/>
+The&#160;proposal&#160;described&#160;in&#160;this&#160;chapter&#160;enables&#160;the&#160;user&#160;to&#160;support&#160;the&#160;use-case&#160;by&#160;using&#160;<br/>an&#160;additional&#160;µC&#160;I/O&#160;port&#160;to&#160;generate&#160;the&#160;wakeup&#160;information&#160;via&#160;the&#160;ICU&#160;driver.&#160;This&#160;I/&#160;O&#160;<br/>port&#160;&#160;is&#160;&#160;connected&#160;&#160;either&#160;&#160;parallel&#160;&#160;to&#160;&#160;the&#160;&#160;CAN&#160;&#160;Rx&#160;&#160;port&#160;&#160;or&#160;&#160;is&#160;&#160;directly&#160;&#160;attached&#160;&#160;to&#160;&#160;the&#160;&#160;CAN&#160;<br/>transceivers&#160;ERR&#160;port&#160;(depending&#160;on&#160;the&#160;used&#160;CAN&#160;transceiver).&#160;The&#160;following&#160;steps&#160;have&#160;<br/>to&#160;be&#160;done&#160;for every&#160;CAN channel that&#160;shall&#160;be&#160;able&#160;to&#160;wake&#160;up&#160;via&#160;the&#160;CAN&#160;bus:&#160;<br/>
+&#160;<br/>
+<b>5.3.1&#160;</b><br/>
+<b>ICU configuration&#160;</b><br/>
+Add&#160;an&#160;ICU&#160;channel&#160;<br/>
+<b>&gt;&#160;</b><br/>
+&#160;<br/>
+Figure&#160;5-1&#160;&#160;Add&#160;an&#160;ICU&#160;channel&#160;<br/>
+The&#160;user has&#160;to&#160;configure the&#160;ICU&#160;channel and&#160;to&#160;add&#160;a&#160;signal notification&#160;function.&#160;<br/>Additionally&#160;the&#160;wakeup&#160;source&#160;for&#160;the&#160;CAN&#160;channel&#160;which&#160;shall&#160;be&#160;handled&#160;via&#160;this&#160;ICU&#160;<br/>channel have&#160;to&#160;be&#160;chosen.&#160;<br/>In&#160;&#160;dependency&#160;&#160;of&#160;&#160;the&#160;&#160;provided&#160;&#160;ICU&#160;&#160;configuration&#160;&#160;options&#160;&#160;it&#160;&#160;is&#160;&#160;possible&#160;&#160;to&#160;&#160;configure&#160;&#160;the&#160;<br/>“IcuDefaultStartEdge”.&#160;This option&#160;should&#160;be&#160;configured&#160;to&#160;ICU_FALLING_EDGE,&#160;because&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+25&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=26></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-26_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-26_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-26_3.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+the&#160;wakeup&#160;event&#160;is&#160;provided&#160;by&#160;the&#160;Rx&#160;pin&#160;and/&#160;or&#160;the&#160;ERR&#160;pin&#160;via&#160;a&#160;level&#160;change&#160;from&#160;<br/>recessive&#160;to&#160;dominant.&#160;<br/>
+<b>&gt;&#160;</b><br/>
+&#160;<br/>
+Figure&#160;5-2&#160;&#160;ICU&#160;channel&#160;configuration&#160;for&#160;wakeup&#160;via&#160;transceiver&#160;<br/>
+&#160;<br/>
+If&#160;&#160;the&#160;&#160;transceiver&#160;&#160;shall&#160;&#160;also&#160;&#160;wake&#160;&#160;up&#160;&#160;the&#160;&#160;ECU&#160;&#160;and&#160;&#160;not&#160;&#160;only&#160;&#160;the&#160;&#160;CAN&#160;&#160;channel&#160;&#160;then&#160;&#160;it&#160;&#160;is&#160;<br/>necessary&#160;to&#160;activate&#160;the&#160;“Wakeup&#160;Capability” for this ICU channel.&#160;<br/>
+<b>&gt;&#160;</b><br/>
+&#160;<br/>
+Figure&#160;5-3&#160;&#160;ICU&#160;wakeup&#160;capability&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+26&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=27></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-27_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-27_2.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>5.3.2&#160;</b><br/>
+<b>Implementation of&#160;the&#160;signal&#160;notification function&#160;</b><br/>
+The&#160;&#160;user&#160;&#160;has&#160;&#160;to&#160;&#160;implement&#160;&#160;the&#160;&#160;signal&#160;&#160;notification&#160;&#160;function&#160;&#160;as&#160;&#160;shown&#160;&#160;in&#160;&#160;the&#160;&#160;following&#160;<br/>example:&#160;<br/>
+<b>Example</b>&#160;<br/>&#160;<br/>void&#160;Icu_TrcvWakeUpNotification_0(void)&#160;<br/>{&#160;<br/>&#160;&#160;/* inform the EcuM about the wakeup&#160;event,&#160;the parameter&#160;&#160;<br/>&#160; &#160;&#160;&#160;is&#160;the configured transceiver wakeup source&#160;*/&#160;<br/>&#160;&#160;EcuM_CheckWakeUp(ECUM_WKSOURCE_CAN0);&#160;<br/>}&#160;<br/>
+&#160;<br/>
+<b>Please&#160;note&#160;<br/></b>If&#160;no&#160;wakeup&#160;validation&#160;is&#160;used&#160;for&#160;the&#160;configured&#160;wakeup source,&#160;then it&#160;is&#160;possible to&#160;<br/>
+&#160;&#160;call&#160;EcuM_SetWakeUpEvent()&#160;instead of&#160;EcuM_CheckWakeUp().&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+27&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=28></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-28_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6&#160;&#160;API&#160;Description&#160;</b><br/>
+<b>6.1&#160;</b><br/>
+<b>Services&#160;provided by&#160;CANTRCV&#160;</b><br/>
+The&#160;CANTRCV&#160;API&#160;consists of&#160;services,&#160;which&#160;are realized&#160;by&#160;function&#160;calls.&#160;<br/>
+<b>6.1.1&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___InitMemory&#160;&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>CanTrcv_30___Your_Trcv___InitMemory&#160;</b>(&#160;void&#160;)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+This&#160;function&#160;initializes&#160;the&#160;memory&#160;and&#160;needed&#160;values&#160;of&#160;the CAN&#160;transceiver&#160;driver.&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>This&#160;function&#160;must&#160;be&#160;called&#160;before&#160;any&#160;other&#160;functionality&#160;of&#160;the&#160;CAN&#160;transceiver&#160;driver.&#160;<br/>Expected&#160;Caller&#160;Context&#160;<br/>
+<b>&gt;&#160;&#160;</b>This&#160;function&#160;must&#160;be&#160;called&#160;from&#160;task&#160;level&#160;and is not&#160;reentrant.&#160;<br/>
+Table&#160;6-1&#160;&#160;&#160;CanTrcv_30___Your_Trcv___InitMemory&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+28&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=29></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-29_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.2&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___Init&#160;&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>CanTrcv_30___Your_Trcv___Init&#160;</b>(&#160;<br/>CanTrcv_30___Your_Trcv___ConfigType* ConfigPtr&#160;)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+ConfigPtr&#160;<br/>
+Pointer&#160;to the&#160;CanTrcv_30___Your_Trcv___Config&#160;struct. If&#160;multiple&#160;<br/>configurations&#160;are&#160;available, the&#160;active configuration&#160;can be selected by&#160;using&#160;<br/>the&#160;related&#160;CanTrcv_30___Your_Trcv___Config_&lt;IdentityName&gt;&#160;<br/>struct&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>This&#160;function&#160;initializes all&#160;channels&#160;of&#160;the&#160;CAN&#160;Transceiver&#160;driver&#160;which&#160;are&#160;configured&#160;in&#160;the&#160;<br/>configuration&#160;tool.&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;function&#160;CanTrcv_30___Your_Trcv___InitMemory&#160;must&#160;be&#160;called&#160;before&#160;the&#160;<br/>
+function&#160;CanTrcv_30___Your_Trcv___Init&#160;can&#160;be&#160;called.&#160;<br/>
+<b>&gt;&#160;&#160;</b>This&#160;function&#160;must&#160;be&#160;called&#160;before&#160;any&#160;other&#160;service&#160;functionality&#160;of&#160;the&#160;Transceiver&#160;driver.&#160;<br/>Expected&#160;Caller&#160;Context&#160;<br/>
+<b>&gt;&#160;&#160;</b>This&#160;function&#160;must&#160;be&#160;called&#160;from&#160;task&#160;level&#160;and is not&#160;reentrant.&#160;<br/>
+Table&#160;6-2&#160;&#160;&#160;CanTrcv_30___Your_Trcv___Init&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+29&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=30></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-30_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.3&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___SetOpMode&#160;</b><br/>
+<b>Prototype&#160;<br/></b>AUTOSAR3:&#160;<br/>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___SetOpMode&#160;</b>(&#160;<br/>CanIf_TransceiverModeType OpMode, uint8 CanTrcvIndex )&#160;<br/>AUTOSAR4:&#160;<br/>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___SetOpMode&#160;</b>(uint8&#160;CanTrcvIndex,&#160;<br/>CanTrcv_TrcvModeType OpMode&#160;)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+OpMode&#160;<br/>
+Pointer&#160;which contains&#160;the&#160;desired&#160;operation&#160;mode.&#160;<br/>
+CanTrcvIndex&#160;<br/>
+Index&#160;of&#160;the selected&#160;transceiver.&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK&#160;/ E_NOT_OK&#160;<br/>
+E_OK:&#160;is&#160;returned&#160;if&#160;the&#160;transceiver state&#160;has&#160;been changed&#160;to&#160;the&#160;requested&#160;<br/>mode.&#160;<br/>E_NOT_OK:&#160;is&#160;returned if&#160;the&#160;transceiver state change has&#160;failed&#160;or the&#160;<br/>parameter&#160;is&#160;out&#160;of&#160;the allowed&#160;range.&#160;The&#160;previous&#160;state&#160;has&#160;not&#160;been&#160;<br/>changed.&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+Sets&#160;the&#160;CAN transceiver to the&#160;requested&#160;operation&#160;mode.&#160;These operation modes&#160;are:&#160;<br/>
+&#160;<br/>
+AUTOSAR3:&#160;CANIF_TRCV_MODE_…&#160;<br/>AUTOSAR4:&#160;CANTRCV_TRCVMODE_…&#160;<br/>&#160;&#160;…NORMAL&#160;<br/>
+&#160;&#160;…STANDBY&#160;<br/>
+&#160;&#160;…SLEEP&#160;<br/>
+&#160;<br/>If&#160;the transceiver&#160;is&#160;requested&#160;to&#160;change&#160;into&#160;NORMAL&#160;mode and&#160;selective&#160;wakeup is&#160;enabled&#160;on&#160;channel&#160;<br/>CanTrcvIndex&#160;the&#160;hardware is&#160;queried&#160;for error flags. If&#160;no&#160;error&#160;was&#160;detected&#160;the&#160;driver calls&#160;the&#160;<br/>notification&#160;function&#160;CanIf_30___Your_Trcv___ConfirmPnAvailability&#160;in order&#160;to confirm&#160;that&#160;<br/>selective&#160;wakeup feature&#160;is&#160;available.&#160;<br/>&#160;<br/>If&#160;return code&#160;is&#160;E_OK&#160;the&#160;notification&#160;function&#160;CanIf_30___Your_Trcv___TrcvModIndication&#160;will&#160;<br/>be&#160;called if&#160;mode change is&#160;completed.&#160;Note&#160;that the&#160;notification&#160;may&#160;occur in interrupt context,&#160;in&#160;task&#160;<br/>context or&#160;in context of&#160;CanTrcv_30___Your_Trcv___SetOpMode.&#160;Also,&#160;it&#160;is&#160;not&#160;ensured that&#160;the&#160;mode&#160;<br/>notified to&#160;CanIf_30___Your_Trcv___TrcvModeIndication&#160;matches&#160;the requested&#160;mode.&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;CAN transceiver driver&#160;must be initialized.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Not each transition&#160;from&#160;one mode&#160;to&#160;any&#160;other is&#160;allowed.&#160;For&#160;these&#160;limitations&#160;please refer to&#160;chapter&#160;<br/>
+<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">Set&#160;operation mode.</a>&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+<b>&gt;&#160;&#160;</b>This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;or interrupt level&#160;and&#160;is&#160;not&#160;reentrant.&#160;<br/>
+Table&#160;6-3&#160;&#160;&#160;CanTrcv_30___Your_Trcv___SetOpMode&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+30&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=31></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-31_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.4&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___GetOpMode&#160;</b><br/>
+<b>Prototype&#160;<br/></b>AUTOSAR3:&#160;<br/>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___GetOpMode&#160;<br/></b>(CanIf_TransceiverModeType&#160;*OpMode, uint8 CanTrcvIndex&#160;)&#160;<br/>AUTOSAR4:&#160;<br/>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___GetOpMode&#160;</b>(uint8 CanTrcvIndex,&#160;<br/>CanTrcv_TrcvModeType&#160;*OpMode )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+OpMode&#160;<br/>
+Pointer&#160;to&#160;operation&#160;mode of&#160;the bus&#160;the&#160;API&#160;is&#160;applied to.&#160;<br/>
+CanTrcvIndex&#160;<br/>
+Index&#160;of&#160;the selected&#160;transceiver.&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK&#160;/ E_NOT_OK&#160;<br/>
+E_OK:&#160;is&#160;returned&#160;if&#160;the&#160;operation mode&#160;was&#160;detected.&#160;<br/>E_NOT_OK:&#160;is&#160;returned&#160;if&#160;the&#160;operation&#160;mode was&#160;not&#160;detected.&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+Stores&#160;the&#160;current&#160;operation mode of&#160;the selected&#160;CAN transceiver&#160;to&#160;OpMode.&#160;These operation&#160;modes&#160;<br/>are:&#160;<br/>AUTOSAR3:&#160;CANIF_TRCV_MODE_…&#160;<br/>AUTOSAR4:&#160;CANTRCV_TRCVMODE_…&#160;<br/>
+<b>&gt;&#160;&#160;</b>…NORMAL&#160;<br/>
+<b>&gt;&#160;&#160;</b>…STANDBY&#160;<br/>
+<b>&gt;&#160;&#160;</b>…SLEEP&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+<b>&gt;&#160;&#160;</b>If&#160;a&#160;mode&#160;change was requested&#160;before,&#160;the&#160;reported&#160;operation&#160;mode&#160;may&#160;not&#160;be&#160;valid until&#160;<br/>
+the&#160;mode change is&#160;completed&#160;and&#160;CanIf_30___Your_Trcv___TrcvModIndication&#160;<br/>was called.&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+<b>&gt;&#160;&#160;</b>This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;or&#160;interrupt&#160;level&#160;and is not&#160;reentrant.&#160;<br/>
+Table&#160;6-4&#160;&#160;&#160;CanTrcv_30___Your_Trcv___GetOpMode&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+31&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=32></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-32_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.5&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___GetBusWuReason&#160;</b><br/>
+<b>Prototype&#160;<br/></b>AUTOSAR3:&#160;<br/>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___GetBusWuReason&#160;</b>(uint8&#160;<br/>CanTrcvIndex, CanIf_TrcvWakeupReasonType *Reason )&#160;<br/>AUTOSAR4:&#160;<br/>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___GetBusWuReason&#160;</b>(uint8&#160;<br/>CanTrcvIndex,&#160;CanTrcv_TrcvWakeupReasonType&#160;*Reason )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+CanTrcvIndex&#160;<br/>
+Index&#160;of&#160;the selected&#160;transceiver.&#160;<br/>
+Reason&#160;<br/>
+Pointer&#160;to&#160;wake up reason&#160;of&#160;the bus&#160;the&#160;API&#160;is&#160;applied to.&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK&#160;/ E_NOT_OK&#160;<br/>
+E_OK:&#160;is&#160;returned&#160;if&#160;the&#160;wake up reason&#160;was&#160;detected.&#160;<br/>E_NOT_OK:&#160;is&#160;returned&#160;if&#160;the&#160;wake up reason&#160;was&#160;not&#160;detected.&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+Stores&#160;the&#160;last&#160;the&#160;wakeup&#160;reason&#160;for the&#160;channel&#160;CanTrcvIndex&#160;to&#160;Reason.&#160;These&#160;wakeup reasons&#160;<br/>are:&#160;<br/>AUTOSAR3:&#160;CANIF_TRCV_…&#160;<br/>AUTOSAR4:&#160;CANTRCV_…&#160;<br/>
+<b>&gt;&#160;&#160;</b>…WU_INTERNALLY:&#160;The&#160;wakeup was caused&#160;by&#160;setting&#160;the&#160;CAN&#160;transceiver&#160;to normal&#160;<br/>
+operation&#160;mode via&#160;CanTrcv_30___Your_Trcv___SetOpMode.&#160;<br/>
+<b>&gt;&#160;&#160;</b>…WU_ERROR:&#160;No wakeup&#160;was detected&#160;by&#160;the&#160;transceiver&#160;and no&#160;reason&#160;is&#160;stored.&#160;The&#160;<br/>
+function&#160;returns&#160;E_NOT_OK.&#160;<br/>
+<b>&gt;&#160;&#160;</b>…WU_NOT_SUPPORTED:&#160;No wakeup detection&#160;supported&#160;by&#160;this&#160;CAN&#160;transceiver.&#160;The&#160;function&#160;<br/>
+returns&#160;E_NOT_OK.&#160;<br/>
+<b>&gt;&#160;&#160;</b>…WU_BY_BUS:&#160;The&#160;wakeup&#160;was caused&#160;by&#160;an&#160;external&#160;bus&#160;wakeup.&#160;<br/>
+<b>&gt;&#160;&#160;</b>…WU_RESET:&#160;The&#160;wakeup was&#160;detected&#160;after&#160;a&#160;reset.&#160;<br/>
+<b>&gt;&#160;&#160;</b>…WU_POWER_ON:&#160;The&#160;transceiver&#160;detected&#160;a&#160;power-on&#160;wakeup&#160;<br/>
+<b>&gt;&#160;&#160;</b>…WU_BY_SYSERR:&#160;An internal&#160;hardware&#160;error&#160;occurred&#160;that&#160;caused&#160;the&#160;transceiver&#160;to wake&#160;up.&#160;<br/>
+<b>&gt;&#160;&#160;</b>…WU_BY_PIN:&#160;The&#160;wakeup&#160;was caused&#160;by&#160;applying&#160;an&#160;edge&#160;to&#160;the&#160;WAKE&#160;pin.&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+<b>&gt;&#160;&#160;</b>The&#160;wakeup&#160;reason&#160;represents&#160;always&#160;the&#160;last&#160;detected&#160;wakeup&#160;reason.&#160;If&#160;there was more&#160;<br/>
+than one&#160;wakeup detected&#160;only&#160;the&#160;last&#160;one will&#160;be&#160;reported.&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+<b>&gt;&#160;&#160;</b>This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;or&#160;interrupt&#160;level&#160;and&#160;is&#160;not&#160;reentrant.&#160;<br/>
+Table&#160;6-5&#160;&#160;&#160;CanTrcv_30___Your_Trcv___GetBusWuReason&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+32&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=33></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-33_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.6&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___SetWakeupMode&#160;</b><br/>
+<b>Prototype&#160;<br/></b>AUTOSAR3:&#160;<br/>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___SetWakeupMode&#160;<br/></b>(CanIf_TrcvWakeupModeType TrcvWakeupMode, uint8 CanTrcvIndex )&#160;<br/>AUTOSAR4:&#160;<br/>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___SetWakeupMode&#160;</b>(uint8 CanTrcvIndex&#160;<br/>, CanTrcv_TrcvWakeupModeType TrcvWakeupMode )&#160;<br/>
+<b>Parameter&#160;</b><br/>
+TrcvWakeupMode&#160;<br/>
+Requested&#160;transceiver&#160;wakeup reason.&#160;<br/>
+CanTrcvIndex&#160;<br/>
+Index&#160;of&#160;the selected&#160;transceiver.&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK&#160;/ E_NOT_OK&#160;<br/>
+E_OK:&#160;is&#160;returned, if&#160;the&#160;wakeup state has&#160;been changed&#160;to&#160;the&#160;requested&#160;<br/>mode.&#160;<br/>E_NOT_OK:&#160;is&#160;returned, if&#160;the&#160;wakeup state&#160;change has&#160;failed&#160;or the&#160;<br/>parameter&#160;is&#160;out&#160;of&#160;the allowed&#160;range.&#160;The&#160;previous&#160;state&#160;has&#160;not&#160;been&#160;<br/>changed.&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+Enables,&#160;disables&#160;or clears&#160;reporting&#160;of&#160;wakeup events&#160;on&#160;channel&#160;CanTrcvIndex.&#160;&#160;<br/>AUTOSAR3:&#160;CANIF_TRCV_WU_…&#160;<br/>AUTOSAR4:&#160;CANTRCV_WUMODE_…&#160;<br/>
+<b>&gt;&#160;&#160;</b>…ENABLE:&#160;Report&#160;wakeup events&#160;to upper&#160;layer.&#160;<br/>
+<b>&gt;&#160;&#160;</b>…DISABLE:&#160;Do not&#160;report&#160;wakeup&#160;events&#160;to upper&#160;layer.&#160;<br/>
+<b>&gt;&#160;&#160;</b>…CLEAR:&#160;Clear&#160;a&#160;pending wakeup event.&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+<b>&gt;&#160;&#160;</b>If&#160;the&#160;wakeup handling&#160;is&#160;not&#160;enabled&#160;in&#160;GENy&#160;the&#160;function&#160;always&#160;return&#160;E_NOT_OK.&#160;<br/>Expected&#160;Caller&#160;Context&#160;<br/>
+<b>&gt;&#160;&#160;</b>This&#160;function&#160;is&#160;called&#160;from&#160;task&#160;or&#160;interrupt&#160;level&#160;and not&#160;reentrant.&#160;<br/>
+Table&#160;6-6&#160;&#160;&#160;CanTrcv_30___Your_Trcv___SetWakeupMode&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+33&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=34></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-34_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.7&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___GetVersionInfo&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>CanTrcv_30___Your_Trcv___GetVersionInfo&#160;</b>(Std_VersionInfoType&#160;<br/>VersionInfo)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+VersionInfo&#160;<br/>
+Pointer&#160;to&#160;version information&#160;of&#160;this&#160;module.&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+Gets&#160;the&#160;version of&#160;the&#160;module and returns&#160;it&#160;in&#160;VersionInfo.&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>Expected&#160;Caller&#160;Context&#160;<br/>
+<b>&gt;&#160;&#160;</b>This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;or&#160;interrupt&#160;level&#160;and&#160;is&#160;not&#160;reentrant.&#160;<br/>
+Table&#160;6-7&#160;&#160;&#160;CanTrcv_30___Your_Trcv___GetVersionInfo&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+34&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=35></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-35_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.8&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___CB_WakeupByBus&#160;</b><br/>
+<b>Prototype&#160;<br/></b>AUTOSAR3:&#160;<br/>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___CB_WakeupByBus</b>&#160;(uint8&#160;<br/>CanTrcvIndex)&#160;<br/>AUTOSAR4:&#160;<br/>Std_ReturnType:&#160;<b>CanTrcv_30___Your_Trcv___CheckWakeup</b>&#160;(uint8&#160;CanTrcvIndex)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+CanTrcvIndex&#160;<br/>
+Index&#160;of&#160;the selected&#160;transceiver.&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK /&#160;E_NOT_OK&#160;<br/>
+In&#160;synchronous&#160;mode:&#160;<br/>E_OK&#160;a&#160;wakeup-by-bus&#160;event&#160;was&#160;detected&#160;<br/>
+E_NOT_OK&#160;no&#160;wakeup&#160;was&#160;detected or&#160;an error&#160;occurred&#160;<br/>&#160;<br/>
+In&#160;asynchronous&#160;mode:&#160;<br/>E_OK:&#160;the&#160;request to&#160;check&#160;for wakeup&#160;was&#160;acknowledged.&#160;<br/>
+E_NOT_OK:&#160;an&#160;error occurred.&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+This&#160;function&#160;requests&#160;the&#160;CanTrcv&#160;driver to check&#160;for&#160;wakeups&#160;and report them. If&#160;a&#160;wakeup&#160;was&#160;detected,&#160;<br/>the&#160;CanTrcv&#160;reports&#160;it&#160;by&#160;calling&#160;of&#160;EcuM_SetWakeupEvent.&#160;<br/>In&#160;asynchronous&#160;mode,&#160;if&#160;no&#160;wakeup&#160;was&#160;detected&#160;EcuM_EndCheckWakeup&#160;is&#160;called.&#160;&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+<b>&gt;&#160;&#160;</b>The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+<b>&gt;&#160;&#160;</b>Do not&#160;use&#160;return value&#160;E_OK&#160;for&#160;wakeup&#160;detection.&#160;A&#160;wakeup can&#160;be&#160;considered&#160;as&#160;valid only&#160;<br/>
+if&#160;EcuM_SetWakeupEvent&#160;was called&#160;for&#160;the&#160;corresponding&#160;wakeup&#160;source.&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+<b>&gt;&#160;&#160;</b>This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;or&#160;interrupt&#160;level&#160;and&#160;is&#160;not&#160;reentrant.&#160;<br/>
+Table&#160;6-8&#160;&#160;&#160;CanTrcv_30___Your_Trcv___CB_WakeupByBus&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+35&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=36></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-36_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.9&#160;</b><br/>
+<b>CanTrcv_30___Your_Trcv___GetTrcvSystemData&#160;</b><br/>
+<b>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___GetTrcvSystemData&#160;</b>(uint8&#160;<br/>CanTrcvIndex, uint32*&#160;TrcvSysData)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+CanTrcvIndex&#160;<br/>
+Index&#160;of&#160;the selected&#160;transceiver&#160;<br/>
+TrcvSysData&#160;<br/>
+Pointer&#160;to the diagnosis&#160;data buffer to store the&#160;information&#160;in.&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK&#160;/&#160;E_NOT_OK&#160;<br/>
+E_OK&#160;if&#160;the&#160;diagnosis&#160;register&#160;was&#160;successfully&#160;read,&#160;E_NOT_OK&#160;otherwise.&#160;&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+Reads&#160;the&#160;diagnosis&#160;registers&#160;of&#160;the underlying&#160;transceiver hardware&#160;and&#160;stores&#160;them&#160;in&#160;TrcvSysData.&#160;&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+&#160;&#160;The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+&#160;&#160;The&#160;underlying&#160;transceiver&#160;hardware&#160;must&#160;support&#160;Selective&#160;Wakeup&#160;/&#160;Partial&#160;Networking&#160;<br/>
+&#160;&#160;SysDiagData&#160;contains&#160;only&#160;valid information if&#160;E_OK&#160;was returned.&#160;<br/>
+&#160;&#160;The&#160;function&#160;will&#160;not&#160;accept&#160;any&#160;requests&#160;if&#160;there&#160;are&#160;still&#160;SPI&#160;requests&#160;pending.&#160;In&#160;this&#160;case&#160;<br/>
+E_NOT_OK&#160;is&#160;returned.&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;or&#160;interrupt&#160;level&#160;and&#160;is&#160;not&#160;reentrant.&#160;<br/>
+Table&#160;6-9&#160;&#160;&#160;CanTrcv_30___Your_Trcv___GetTrcvSystemData&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+36&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=37></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-37_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.10&#160;&#160;CanTrcv_30___Your_Trcv___ClearTrcvWufFlag&#160;</b><br/>
+<b>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___ClearTrcvWufFlag&#160;</b>(uint8&#160;<br/>CanTrcvIndex)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+CanTrcvIndex&#160;<br/>
+Index&#160;of&#160;the selected&#160;transceiver&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK&#160;/&#160;E_NOT_OK&#160;<br/>
+E_OK&#160;if&#160;the&#160;WUF&#160;flag&#160;has&#160;been cleared,&#160;E_NOT_OK&#160;otherwise.&#160;&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+This&#160;service requests&#160;the&#160;transceiver driver&#160;to&#160;clear&#160;all&#160;wakeup flags&#160;from&#160;the underlying transceiver&#160;<br/>hardware.&#160;&#160;<br/>If&#160;E_OK&#160;is&#160;returned,&#160;the&#160;driver&#160;will&#160;call&#160;the&#160;notification&#160;function&#160;<br/>CanIf_30___Your_Trcv___ClearTrcvWufFlagIndication&#160;as&#160;soon&#160;as&#160;the request has&#160;been&#160;<br/>completed.&#160;Note&#160;that the&#160;notification&#160;may&#160;occur in interrupt context,&#160;in&#160;task&#160;context or&#160;in&#160;context&#160;of<b>&#160;<br/></b>CanTrcv_30___Your_Trcv___ClearTrcvWufFlag.&#160;&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+&#160;&#160;The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+&#160;&#160;The&#160;underlying&#160;transceiver&#160;hardware&#160;must&#160;support&#160;Selective&#160;Wakeup&#160;/&#160;Partial&#160;Networking&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;or&#160;interrupt&#160;level&#160;and&#160;is&#160;not&#160;reentrant.&#160;<br/>
+Table&#160;6-10&#160;&#160;&#160;CanTrcv_30___Your_Trcv___ClearTrcvWufFlag&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+37&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=38></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-38_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.11&#160;&#160;CanTrcv_30___Your_Trcv___ReadTrcvTimeoutFlag&#160;</b><br/>
+<b>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___ReadTrcvTimeoutFlag&#160;</b>(uint8&#160;<br/>CanTrcvIndex, CanTrcv_30___Your_Trcv___FlagStateType* FlagState)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+CanTrcvIndex&#160;<br/>
+Index&#160;of&#160;the selected&#160;transceiver&#160;<br/>
+FlagState&#160;<br/>
+State of&#160;the&#160;timeout&#160;flag.&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK&#160;/&#160;E_NOT_OK&#160;<br/>
+E_OK&#160;if&#160;status&#160;of&#160;the timeout&#160;flag&#160;is&#160;successfully&#160;read.&#160;E_NOT_OK&#160;otherwise.&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+Reads&#160;the&#160;status&#160;of&#160;the timeout&#160;flag from&#160;the underlying transceiver&#160;hardware and&#160;stores&#160;it to&#160;FlagState.&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+&#160;&#160;The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;or&#160;interrupt&#160;level&#160;and&#160;is&#160;not&#160;reentrant.&#160;<br/>
+Table&#160;6-11&#160;&#160;&#160;CanTrcv_30___Your_Trcv___ReadTrcvTimeoutFlag&#160;<br/>
+<b>6.1.12&#160;&#160;CanTrcv_30___Your_Trcv___ClearTrcvTimeoutFlag&#160;</b><br/>
+<b>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___ClearTrcvTimeoutFlag&#160;</b>(uint8&#160;<br/>CanTrcvIndex)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+CanTrcvIndex&#160;<br/>
+Index&#160;of&#160;the selected&#160;transceiver&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK&#160;/&#160;E_NOT_OK&#160;<br/>
+E_OK&#160;if&#160;the timeout&#160;flag&#160;has&#160;been cleared,&#160;E_NOT_OK&#160;otherwise.&#160;&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+Clears&#160;the timeout&#160;flag&#160;from&#160;the underlying&#160;transceiver&#160;hardware.&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+&#160;&#160;The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;or&#160;interrupt&#160;level&#160;and&#160;is&#160;not&#160;reentrant.&#160;<br/>
+Table&#160;6-12&#160;&#160;&#160;CanTrcv_30___Your_Trcv___ClearTrcvTimeoutFlag&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+38&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=39></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-39_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.13&#160;&#160;CanTrcv_30___Your_Trcv___ReadTrcvSilenceFlag&#160;</b><br/>
+<b>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___ReadTrcvSilenceFlag&#160;</b>(uint8&#160;<br/>CanTrcvIndex, CanTrcv_30___Your_Trcv___FlagStateType* FlagState)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+CanTrcvIndex&#160;<br/>
+Index&#160;of&#160;the selected&#160;transceiver&#160;<br/>
+FlagState&#160;<br/>
+State of&#160;the silence flag.&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK&#160;/&#160;E_NOT_OK&#160;<br/>
+E_OK&#160;if&#160;status&#160;of&#160;the silence flag&#160;is&#160;successfully&#160;read.&#160;E_NOT_OK&#160;otherwise.&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+Reads&#160;the&#160;status&#160;of&#160;the silence flag&#160;from&#160;the underlying transceiver&#160;hardware and&#160;stores&#160;it to&#160;FlagState.&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+&#160;&#160;The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;or&#160;interrupt&#160;level&#160;and&#160;is&#160;not&#160;reentrant.&#160;<br/>
+Table&#160;6-13&#160;&#160;&#160;CanTrcv_30___Your_Trcv___ReadTrcvSilenceFlag&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+39&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=40></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-40_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.14&#160;&#160;CanTrcv_30___Your_Trcv___CheckWakeFlag&#160;</b><br/>
+<b>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___CheckWakeFlag&#160;</b>(uint8&#160;<br/>CanTrcvIndex)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+CanTrcvIndex&#160;<br/>
+Index&#160;of&#160;the selected&#160;transceiver&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK&#160;/&#160;E_NOT_OK&#160;<br/>
+E_OK&#160;if&#160;request for checking&#160;wakeup flag&#160;has&#160;been&#160;accepted,&#160;E_NOT_OK&#160;<br/>otherwise.&#160;&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+Requests&#160;the&#160;driver to check&#160;the status&#160;of&#160;the&#160;wake flag&#160;of&#160;the&#160;underlying transceiver hardware.&#160;Any&#160;<br/>detected&#160;wakeup&#160;will&#160;be&#160;reported&#160;through&#160;service&#160;EcuM_SetWakeupEvent.&#160;The&#160;correct wakeup reason&#160;can&#160;<br/>be&#160;determined by&#160;using&#160;CanTrcv_30___Your_Trcv___GetBusWuReason.&#160;<br/>
+&#160;<br/>If&#160;E_OK&#160;is&#160;returned,&#160;the&#160;driver&#160;will&#160;call&#160;the&#160;notification&#160;function&#160;<br/>CanIf_30___Your_Trcv___CheckTrcvWakeFlagIndication&#160;as&#160;soon&#160;as&#160;the&#160;request has&#160;been&#160;<br/>completed.&#160;Note&#160;that the&#160;notification&#160;may&#160;occur in interrupt context,&#160;in&#160;task&#160;context or&#160;in&#160;context&#160;of<b>&#160;<br/></b>CanTrcv_30___Your_Trcv___CheckWakeFlag.&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+&#160;&#160;The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;or&#160;interrupt&#160;level&#160;and&#160;is&#160;not&#160;reentrant.&#160;<br/>
+Table&#160;6-14&#160;&#160;&#160;CanTrcv_30___Your_Trcv___CheckWakeFlag&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+40&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=41></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-41_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.15&#160;&#160;CanTrcv_30___Your_Trcv___MainFunction&#160;</b><br/>
+<b>Prototype&#160;<br/></b>void&#160;<b>CanTrcv_30___Your_Trcv___MainFunction&#160;</b>(void)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+-&#160;<br/>
+-&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+This&#160;service can&#160;be&#160;called&#160;from&#160;task&#160;level&#160;and&#160;periodically&#160;checks&#160;if&#160;a&#160;wakeup&#160;was&#160;detected by&#160;the&#160;<br/>underlying transceiver hardware.&#160;&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+&#160;&#160;The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+This&#160;function&#160;can&#160;be&#160;called&#160;from&#160;task&#160;context&#160;and&#160;is&#160;not&#160;reentrant.&#160;<br/>
+Table&#160;6-15&#160;&#160;&#160;CanTrcv_30___Your_Trcv___MainFunction&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+41&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=42></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-42_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.1.16&#160;&#160;CanTrcv_30___Your_Trcv___SetPNActivationState&#160;</b><br/>
+<b>Prototype&#160;<br/></b>Std_ReturnType&#160;<b>CanTrcv_30___Your_Trcv___SetPNActivationState&#160;<br/></b>(CanTrcv_30___Your_Trcv___PNActivationType ActivationState)&#160;<br/>
+<b>Parameter&#160;</b><br/>
+ActivationState&#160;<br/>
+Specifies&#160;whether&#160;to&#160;enable or&#160;disable selective&#160;wakeup.&#160;<br/>
+<b>Return&#160;code&#160;</b><br/>
+E_OK / E_NOT_OK&#160;<br/>
+E_OK&#160;is&#160;returned&#160;if&#160;PN activation state&#160;was&#160;successfully&#160;changed.&#160;<br/>
+E_NOT_OK&#160;is&#160;returned&#160;if&#160;PN&#160;activation&#160;state&#160;could&#160;not&#160;be changed&#160;or an&#160;error&#160;<br/>occurred.&#160;<br/>
+<b>Functional&#160;Description&#160;</b><br/>
+This&#160;service changes&#160;the state&#160;of&#160;the selective&#160;wakeup feature. If&#160;called&#160;with&#160;PN_ENABLED&#160;CanTrcv&#160;<br/>hardware&#160;will&#160;be&#160;configured&#160;to&#160;wake up&#160;on&#160;configured&#160;frames&#160;only&#160;(WUF).&#160;<br/>If&#160;called&#160;with&#160;PN_DISABLED&#160;CanTrcv&#160;hardware&#160;will&#160;be&#160;configured&#160;to&#160;wake up on&#160;any&#160;bus&#160;activity&#160;(WUP).&#160;<br/>In&#160;order&#160;to&#160;enable selective&#160;wakeup it must be also configured&#160;as&#160;enabled&#160;in&#160;generation tool.&#160;&#160;<br/>
+<b>Particularities&#160;and&#160;Limitations&#160;</b><br/>
+&#160;&#160;The&#160;CAN&#160;transceiver&#160;driver&#160;must&#160;be&#160;initialized.&#160;<br/>
+&#160;&#160;State&#160;change&#160;to&#160;PN_DISABLED&#160;will&#160;be&#160;effective after&#160;next&#160;mode&#160;change.&#160;<br/>
+&#160;&#160;Selective&#160;wakeup can&#160;be&#160;enabled&#160;only&#160;for&#160;channels&#160;that&#160;have PN&#160;activated&#160;in&#160;generation&#160;tool.&#160;<br/>
+&#160;&#160;It&#160;is&#160;strongly&#160;recommended&#160;to&#160;use&#160;this&#160;API&#160;only&#160;directly&#160;after&#160;<br/>
+CanTrcv_30___Your_Trcv___Init().&#160;<br/>
+Expected&#160;Caller&#160;Context&#160;<br/>
+This&#160;function&#160;must&#160;be&#160;called&#160;from&#160;task&#160;and&#160;is&#160;not&#160;reentrant.&#160;The&#160;API&#160;must&#160;not&#160;be&#160;interrupted&#160;by&#160;<br/>any&#160;other&#160;CanTrcv&#160;API.&#160;<br/>
+Table&#160;6-16&#160;&#160;&#160;CanTrcv_30___Your_Trcv___SetPNActivationState&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+42&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=43></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-43_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>6.2&#160;</b><br/>
+<b>Services&#160;used&#160;by&#160;CANTRCV&#160;</b><br/>
+In&#160;&#160;the&#160;&#160;following&#160;&#160;table&#160;&#160;services&#160;&#160;provided&#160;&#160;by&#160;&#160;other&#160;&#160;components,&#160;&#160;which&#160;&#160;are&#160;&#160;used&#160;&#160;by&#160;&#160;the&#160;<br/>CANTRCV&#160;&#160;are&#160;&#160;listed.&#160;&#160;For&#160;&#160;details&#160;&#160;about&#160;&#160;prototype&#160;&#160;and&#160;&#160;functionality&#160;&#160;refer&#160;&#160;to&#160;&#160;the&#160;<br/>documentation&#160;of&#160;the&#160;providing&#160;component.&#160;<br/>
+<b>Component&#160;</b><br/>
+<b>API&#160;</b><br/>
+DET&#160;<br/>
+Det_ReportError&#160;<br/>
+DEM&#160;<br/>
+Dem_SetEventStatus&#160;<br/>
+SPI&#160;<br/>
+Spi_SetupEB&#160;<br/>
+SPI&#160;<br/>
+Spi_SyncTransmit&#160;<br/>
+SPI&#160;<br/>
+Spi_AsyncTransmit&#160;<br/>
+DIO&#160;<br/>
+Dio_WriteChannel&#160;<br/>
+DIO&#160;<br/>
+Dio_ReadChannel&#160;<br/>
+CANIF&#160;<br/>
+CanIf_TrcvModeIndication&#160;<br/>
+CANIF&#160;<br/>
+CanIf_ConfirmPnAvailability&#160;<br/>
+CANIF&#160;<br/>
+CanIf_ClearTrcvWufFlagIndication&#160;<br/>
+CANIF&#160;<br/>
+CanIf_CheckTrcvWakeFlagIndication&#160;<br/>
+CANIF&#160;<br/>
+CanIf_TrcvModeIndication&#160;<br/>
+ICU&#160;<br/>
+Icu_EnableNotification&#160;<br/>
+ICU&#160;<br/>
+Icu_DisableNotification&#160;<br/>
+ECUM&#160;<br/>
+EcuM_SetWakeupEvent&#160;<br/>
+ECUM&#160;<br/>
+EcuM_CheckWakeup&#160;<br/>
+ECUM&#160;<br/>
+EcuM_EndCheckWakeup&#160;<br/>
+Table&#160;6-17&#160;&#160;&#160;Services&#160;used&#160;by&#160;the&#160;CANTRCV&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+43&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=44></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-44_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-44_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-44_3.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>7&#160;&#160;Configuration&#160;</b><br/>
+<b>7.1&#160;</b><br/>
+<b>Configuration&#160;with GENy&#160;</b><br/>
+The&#160;CANTRCV&#160;is configured&#160;with&#160;the&#160;help&#160;of&#160;the&#160;configuration&#160;tool GENy.&#160;<br/>
+<b>7.1.1&#160;</b><br/>
+<b>Component Selection&#160;</b><br/>
+&#160;<br/>
+Figure&#160;7-1&#160;&#160;CANTRCV&#160;component&#160;selection&#160;<br/>
+The&#160;&#160;component&#160;&#160;CAN&#160;&#160;transceiver&#160;&#160;generic&#160;&#160;driver&#160;&#160;can&#160;&#160;be&#160;&#160;added&#160;&#160;to&#160;&#160;the&#160;&#160;system&#160;&#160;channel&#160;<br/>configuration&#160;&#160;by&#160;&#160;enabling&#160;&#160;the&#160;&#160;checkbox&#160;&#160;CanTrcv_Generic&lt;x&gt;&#160;&#160;(x&#160;&#160;=&#160;&#160;1..3)&#160;&#160;in&#160;&#160;the&#160;&#160;software&#160;<br/>component&#160;&#160;selection.&#160;&#160;Note&#160;&#160;that&#160;&#160;up&#160;&#160;to&#160;3&#160;&#160;generic&#160;&#160;transceivers&#160;&#160;can&#160;be&#160;used&#160;&#160;in&#160;&#160;the&#160;&#160;system,&#160;<br/>but&#160;it is&#160;not&#160;mandatory&#160;to&#160;use&#160;all&#160;of&#160;them.&#160;<br/>
+&#160;<br/>
+<b>7.1.2&#160;</b><br/>
+<b>General&#160;settings&#160;</b><br/>
+The&#160;general settings affect&#160;all&#160;enabled&#160;CAN transceiver channels.&#160;<br/>
+&#160;<br/>
+Figure&#160;7-2&#160;&#160;CANTRCV&#160;general&#160;configuration&#160;<br/>
+<b>&gt;&#160;&#160;Version Info&#160;Api:</b>&#160;Enable&#160;this checkbox&#160;if&#160;service&#160;function&#160;<br/>
+CanTrcv___Your_Trcv___GetVersionInfo()&#160;is used.&#160;<br/>
+<b>&gt;&#160;&#160;Dev&#160;Error&#160;Detection:</b>&#160;Enable/&#160;disable&#160;the&#160;development&#160;error notification&#160;to&#160;DET.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+44&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=45></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-45_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-45_2.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>&gt;&#160;&#160;Prod&#160;Error&#160;Detection:</b>&#160;Enable/&#160;disable&#160;the&#160;product&#160;error notification&#160;to&#160;DEM.&#160;<br/>
+<b>&gt;&#160;&#160;User Config File:</b>&#160;The&#160;content&#160;of&#160;this specified&#160;user&#160;file&#160;is added&#160;to&#160;the&#160;file&#160;<br/>
+CanTrcv_30___Your_Trcv__dio_Cfg.h.&#160;<br/>
+<b>&gt;&#160;&#160;Component specific&#160;Name:&#160;</b>Insert&#160;user specific name&#160;of&#160;the&#160;transceiver component.&#160;<br/>
+Names&#160;of&#160;files&#160;CanTrcv_30___Your_Trcv__.c,&#160;CanTrcv_30___Your_Trcv__..h&#160;and&#160;<br/>CanTrcv_30_Xdio_Cbk.h&#160;c&#160;have&#160;to&#160;be&#160;adapted.&#160;Replace&#160;&#34;X&#34;&#160;by&#160;the&#160;component&#160;<br/>specific name&#160;in&#160;camel case.&#160;In&#160;each&#160;generic&#160;transceiver driver&#160;file&#160;(static or&#160;<br/>generated)&#160;replace&#160;every&#160;&#34;__YOUR_TRCV__&#34;&#160;by&#160;the&#160;component&#160;specific name&#160;in&#160;<br/>upper case&#160;and&#160;replace&#160;every&#160;&#34;__Your_Trcv__&#34;&#160;by&#160;the&#160;component&#160;specific name&#160;in&#160;<br/>camel case.&#160;<br/>
+<b>&gt;&#160;&#160;Use&#160;SPI:</b>&#160;Enable&#160;if&#160;the&#160;underlying&#160;CanTrcv&#160;hardware is&#160;controlled&#160;via&#160;SPI&#160;<br/>
+<b>&gt;&#160;&#160;Use&#160;synchronous&#160;SPI:</b>&#160;Specifies&#160;whether accesses over&#160;SPI&#160;should&#160;be&#160;done&#160;<br/>
+asynchronously&#160;or not.&#160;If&#160;disabled&#160;it&#160;is required&#160;that&#160;the&#160;SPI&#160;driver is&#160;configured&#160;as&#160;<br/>level 1&#160;or level 2&#160;driver.&#160;Additionally&#160;it&#160;is required&#160;that&#160;the&#160;function&#160;<br/>CanTrcv_Mainfunction&#160;is called&#160;periodically.&#160;<br/>
+<b>&gt;&#160;&#160;Supports&#160;Partial&#160;Networking:</b>&#160;Enable&#160;if&#160;the&#160;underlying&#160;CanTrcv&#160;hardware supports&#160;<br/>
+selective&#160;wakeup.&#160;<br/>
+<b>&gt;&#160;&#160;Index:</b>&#160;Specify&#160;the&#160;instance&#160;id&#160;which&#160;is used&#160;for DET&#160;error reporting&#160;for this&#160;module.&#160;A&#160;<br/>
+default of&#160;0&#160;is set.&#160;<br/>
+<b>&gt;&#160;&#160;Wake&#160;Up Support:</b>&#160;Select&#160;the&#160;type&#160;of&#160;wakeup&#160;event&#160;detection,&#160;&#34;ISR&#34;&#160;or &#34;Polling&#34;.&#160;<br/>
+Select&#160;&#34;None&#34;&#160;if&#160;wakeup&#160;event&#160;detection&#160;is&#160;not&#160;used.&#160;<br/>
+<b>Please&#160;note&#160;<br/></b>In order&#160;to&#160;enable the&#160;extension&#160;regarding support&#160;for&#160;the&#160;CAN&#160;controllers&#160;which do&#160;not&#160;<br/>
+&#160;&#160;support&#160;the&#160;wakeup by&#160;bus (see<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24">&#160;5.3)</a>,&#160;a&#160;user&#160;config&#160;file has&#160;to&#160;be&#160;created.&#160;The&#160;user&#160;will&#160;<br/>
+contain the&#160;following&#160;definition:&#160;&#160;<br/>#define&#160;CANTRCV_30___YOUR_TRCV___USE_ICU&#160;STD_ON&#160;<br/>
+&#160;<br/>
+<b>&gt;&#160;&#160;DIO&#160;Pin:&#160;</b>Press&#160;button&#160;&#34;Add&#34;&#160;to&#160;get&#160;as&#160;many&#160;pins&#160;as required.&#160;Insert&#160;a&#160;unique&#160;pin&#160;<br/>
+name&#160;into&#160;each&#160;field.&#160;The&#160;CAN&#160;transceiver driver refers the&#160;DIO&#160;pin&#160;channel&#160;<br/>assignment&#160;by&#160;using&#160;these&#160;pin&#160;names.&#160;The&#160;component&#160;DIO&#160;has&#160;to&#160;provide&#160;these&#160;pins&#160;<br/>assignment&#160;with&#160;channel postfix,&#160;e.g.&#160;PIN_STB_0&#160;is&#160;used&#160;for transceiver channel 0&#160;<br/>and&#160;PIN_STB_1&#160;is used&#160;for transceiver channel 1.&#160;<br/>
+<b>&gt;&#160;&#160;DEM&#160;Event:</b>&#160;Press&#160;button&#160;“Add” to&#160;add&#160;a&#160;custom&#160;DEM&#160;Event&#160;for this&#160;transceiver driver&#160;<br/>
+instance.&#160;The&#160;DEM event&#160;will also&#160;be&#160;allocated&#160;at&#160;DEM module&#160;<br/>
+&#160;<br/>
+<b>&#160;</b><br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+45&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=46></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-46_1.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-46_2.png"/><br/>
+<img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-46_3.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>7.1.3&#160;</b><br/>
+<b>Channel&#160;Specific&#160;Configuration Options&#160;</b><br/>
+Select&#160;the&#160;transceiver&#160;channel view&#160;to&#160;set&#160;the&#160;channel specific configuration&#160;options.&#160;<br/>
+&#160;<br/>
+Figure&#160;7-3&#160;&#160;CANTRCV&#160;channel&#160;dependent&#160;configuration&#160;<br/>
+<b>&gt;&#160;&#160;Wakeup&#160;By&#160;Bus&#160;Used:</b>&#160;Enable&#160;this checkbox&#160;if&#160;wakeup&#160;by&#160;bus is&#160;used&#160;on&#160;the&#160;<br/>
+selected&#160;channel.&#160;<br/>
+<b>&gt;&#160;&#160;Channel&#160;Used:</b>&#160;Enable&#160;this checkbox&#160;if&#160;the&#160;selected&#160;channel has&#160;to&#160;be&#160;handled&#160;by&#160;the&#160;<br/>
+CAN transceiver driver.&#160;<br/>
+<b>&gt;&#160;&#160;Init&#160;State:</b>&#160;Select&#160;the&#160;operation&#160;mode&#160;which&#160;has to&#160;be&#160;set&#160;when&#160;the&#160;CAN transceiver is&#160;<br/>
+first&#160;time&#160;initialized&#160;after power on&#160;or reset.&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>Caution&#160;<br/></b>It&#160;is&#160;not&#160;recommended&#160;to&#160;select&#160;any&#160;other&#160;Init&#160;State&#160;than&#160;Normal&#160;if&#160;the&#160;attached CAN&#160;<br/>
+<b>&#160;&#160;</b>Controller&#160;is&#160;unable to&#160;initialize&#160;with a&#160;permanent&#160;dominant&#160;Rx&#160;pin.&#160;&#160;<br/>
+<b>&#160;</b><br/>
+<b>&#160;</b><br/>
+<b>&gt;&#160;&#160;Icu Handling:</b>&#160;If&#160;enabled,&#160;the&#160;transceiver will&#160;enable&#160;or&#160;disable&#160;the&#160;selected&#160;Icu&#160;<br/>
+channel on&#160;certain&#160;mode&#160;changes.&#160;See&#160;chapte<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24">r&#160;5.3&#160;</a>for details.&#160;<br/>
+<b>&gt;&#160;&#160;Icu Channel&#160;Ref:</b>&#160;Select&#160;the&#160;Icu&#160;channel&#160;for this transceiver.&#160;The&#160;value&#160;can&#160;only&#160;be&#160;<br/>
+specified&#160;if&#160;Icu&#160;handling&#160;is enabled.&#160;See&#160;chapte<a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24">r&#160;5.3&#160;</a>for&#160;details.&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+46&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=47></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-47_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>&gt;&#160;&#160;Use&#160;Partial&#160;Networking</b>:&#160;Enables&#160;or&#160;disables&#160;the&#160;partial&#160;networking&#160;feature which&#160;<br/>
+allows the&#160;transceiver to&#160;be&#160;woken&#160;up&#160;only&#160;by&#160;a&#160;specific wakeup&#160;frame&#160;specified&#160;by&#160;<br/>Identifier,&#160;Mask,&#160;DLC and&#160;Data&#160;Bye&#160;0-7.&#160;<br/>
+<b>&gt;&#160;&#160;Detect bus&#160;errors</b>:&#160;Enables&#160;for handling&#160;of&#160;BUSERR&#160;flag.&#160;When&#160;activated&#160;on&#160;at&#160;least&#160;<br/>
+one&#160;channel,&#160;the&#160;API&#160;CanTrcv_30___Your_Trcv___MainFunctionDiagnostics&#160;<br/>can&#160;be&#160;used&#160;to&#160;poll&#160;the&#160;state&#160;of&#160;the&#160;BUSERR&#160;flag&#160;for&#160;all&#160;channels where this&#160;attribute&#160;is&#160;<br/>set&#160;to&#160;TRUE.&#160;<br/>
+<b>&gt;&#160;&#160;Match Extended&#160;IDs</b>:&#160;Enables support&#160;for extended&#160;IDs.&#160;If&#160;activated,&#160;the&#160;configured&#160;<br/>
+Identifier and&#160;Mask is considered&#160;to&#160;be&#160;29&#160;instead&#160;of&#160;11bit.&#160;<br/>
+<b>&gt;&#160;&#160;Identifier</b>:&#160;Specifies&#160;the&#160;ID of&#160;the&#160;wakeup&#160;frame&#160;used&#160;for selective&#160;wakeup.&#160;If&#160;&#34;Match&#160;<br/>
+Extended&#160;IDs”&#160;is set&#160;to&#160;false,&#160;the&#160;ID has to&#160;be&#160;entered&#160;as&#160;11bit&#160;ID (0x0&#160;-&#160;0x7ff).&#160;<br/>Otherwise,&#160;you&#160;have&#160;to&#160;enter a&#160;29&#160;bit&#160;ID (0x0&#160;-&#160;0x1fffffff).&#160;<br/>
+<b>&gt;&#160;&#160;Mask</b>:&#160;You&#160;may&#160;set&#160;a&#160;mask to&#160;specify&#160;an&#160;ID range&#160;used&#160;for selective&#160;wakeup.&#160;If&#160;&#34;Match&#160;<br/>
+Extended&#160;IDs&#34;&#160;is set&#160;to&#160;false,&#160;the&#160;Mask has to&#160;be&#160;entered&#160;as&#160;11bit&#160;Mask&#160;(0x0&#160;-&#160;0x7ff).&#160;<br/>Otherwise,&#160;you&#160;have&#160;to&#160;enter a&#160;29bit Mask (0x0&#160;-&#160;0x1fffffff).&#160;If&#160;a&#160;bit&#160;is&#160;set&#160;to&#160;0,&#160;the&#160;<br/>corresponding&#160;bit of&#160;the&#160;received&#160;frame&#160;must&#160;match&#160;to&#160;the&#160;corresponding&#160;bit value&#160;<br/>specified&#160;in&#160;ID.&#160;If&#160;a&#160;bit is set&#160;to&#160;1,&#160;the&#160;bit&#160;of&#160;the&#160;received&#160;frame&#160;is&#160;ignored&#160;and&#160;<br/>considered&#160;as&#160;always&#160;correct.&#160;<br/>
+<b>&gt;&#160;&#160;Data&#160;length code&#160;(DLC)</b>:&#160;Specified&#160;the&#160;length&#160;of&#160;the&#160;wakeup&#160;frame&#160;used&#160;for selective&#160;<br/>
+wake&#160;up&#160;the&#160;transceiver.&#160;<br/>
+<b>&gt;&#160;&#160;Data&#160;Byte [0-7]</b>:&#160;Defines the&#160;n-th&#160;byte&#160;(Byte0&#160;= LSB) of&#160;the&#160;data&#160;payload&#160;mask&#160;to&#160;be&#160;<br/>
+used&#160;on&#160;the&#160;received&#160;payload&#160;in&#160;order to&#160;determine&#160;if&#160;the&#160;Transceiver must&#160;be&#160;woken&#160;<br/>up&#160;by&#160;the&#160;received&#160;Remote&#160;Wakeup&#160;Frame.&#160;The&#160;payload&#160;matches if&#160;the&#160;first&#160;bit with&#160;<br/>value&#160;one&#160;of&#160;the&#160;received&#160;frame&#160;matches the&#160;first&#160;bit with&#160;value&#160;one&#160;of&#160;the&#160;configured&#160;<br/>payload.&#160;<br/>
+<b>&gt;&#160;&#160;Wakeup&#160;Source:</b>&#160;Select&#160;the&#160;wakeup&#160;source&#160;for the&#160;according&#160;CAN&#160;transceiver&#160;<br/>
+channel.&#160;<br/>
+&#160;<br/>
+<b>7.2&#160;</b><br/>
+<b>Configuration&#160;with DaVinci&#160;Configurator 5&#160;</b><br/>
+Refer to&#160;the&#160;integrated&#160;online&#160;help&#160;and&#160;parameter descriptions&#160;of&#160;Configurator 5.&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+47&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=48></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-48_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>8&#160;&#160;AUTOSAR&#160;Standard&#160;Compliance&#160;</b><br/>
+<b>8.1&#160;</b><br/>
+<b>Additions/&#160;Extensions&#160;</b><br/>
+<b>8.1.1&#160;</b><br/>
+<b>Memory&#160;initialization&#160;</b><br/>
+To&#160;have&#160;an&#160;independent&#160;memory&#160;initialization&#160;for&#160;this&#160;BSW&#160;module&#160;the&#160;additional&#160;function&#160;&#160;<br/>CanTrcv_30___Your_Trcv___InitMemory&#160;was added.&#160;<br/>
+<b>8.2&#160;</b><br/>
+<b>Deviations&#160;</b><br/>
+While&#160;the&#160;driver&#160;is&#160;implemented&#160;according&#160;[1],&#160;some&#160;requirements&#160;could&#160;not&#160;be&#160;fulfilled&#160;in&#160;<br/>order to&#160;ensure proper&#160;functionality.&#160;The&#160;following&#160;chapter lists&#160;these&#160;deviations.&#160;<br/>
+<b>8.2.1&#160;</b><br/>
+<b>Notification functions&#160;</b><br/>
+According&#160;to&#160;SWS&#160;[1]&#160;the&#160;transceiver&#160;shall&#160;call&#160;notification&#160;functions&#160;in&#160;CanIf.&#160;As&#160;the&#160;given&#160;<br/>CanTrcvChannelId&#160;is&#160;valid&#160;only&#160;for&#160;one&#160;transceiver&#160;driver&#160;instance,&#160;it&#160;was&#160;decided&#160;to&#160;call&#160;<br/>the&#160;following&#160;notification&#160;functions&#160;instead:&#160;<br/>
+<b>SWS&#160;API&#160;</b><br/>
+<b>Used&#160;API&#160;</b><br/>
+CanIf_TrcvModeIndication&#160;<br/>
+CanIf_30___Your_Trcv___TrcvModeIndication&#160;<br/>
+CanIf_ConfirmPnAvailability&#160;<br/>
+CanIf_30___Your_Trcv___ConfirmPnAvailability&#160;<br/>
+CanIf_ClearTrcvWufFlagIndication&#160;<br/>
+CanIf_30___Your_Trcv___ClearTrcvWufFlagIndication&#160;<br/>
+CanIf_CheckTrcvWakeFlagIndication&#160;&#160;CanIf_30___Your_Trcv___CheckTrcvWakeFlagIndication&#160;<br/>
+Table&#160;8-1&#160;<br/>
+Deviation&#160;of&#160;APIs&#160;used&#160;by&#160;CanTrcv&#160;<br/>
+Within&#160;these&#160;functions recalculation&#160;of&#160;the&#160;given&#160;CanTrcvIndex&#160;has&#160;to&#160;be&#160;performed&#160;so&#160;that&#160;<br/>the&#160;local index&#160;of&#160;the&#160;driver matches the&#160;global index&#160;of&#160;the&#160;CanIf.&#160;<br/>Affected&#160;requirements:&#160;CanTrcv086,&#160;CanTrcv222,&#160;CanTrcv239,&#160;CanTrcv238&#160;<br/>
+<b>8.2.2&#160;</b><br/>
+<b>CanIf_CheckTrcvWakeFlagIndication is&#160;always&#160;called&#160;</b><br/>
+According&#160;to&#160;SWS&#160;[1],&#160;CanIf_CheckTrcvWakeFlagIndication&#160;shall&#160;be&#160;called&#160;only&#160;if&#160;<br/>a&#160;wakeup&#160;was&#160;detected.&#160;As&#160;this&#160;would&#160;lock&#160;CanSm,&#160;it&#160;was&#160;decided&#160;to&#160;call&#160;this&#160;notification&#160;<br/>function&#160;&#160;in&#160;&#160;every&#160;&#160;case,&#160;&#160;even&#160;&#160;if&#160;&#160;no&#160;&#160;wakeup&#160;&#160;was&#160;&#160;detected.&#160;&#160;If&#160;&#160;a&#160;&#160;wakeup&#160;&#160;was&#160;&#160;detected,&#160;<br/>EcuM_SetWakeupEvent&#160;is called&#160;by&#160;the&#160;transceiver driver.&#160;<br/>
+Affected&#160;requirements:&#160;CanTrcv238&#160;<br/>
+&#160;<br/>
+<b>8.2.3&#160;</b><br/>
+<b>No re-initialization&#160;will&#160;occur&#160;if POR is&#160;set&#160;in CanTrcv_SetOpMode&#160;</b><br/>
+According&#160;to&#160;SWS&#160;[1],&#160;the&#160;transceiver&#160;driver&#160;shall&#160;perform&#160;a&#160;re-initialization&#160;if&#160;POR&#160;is&#160;set&#160;<br/>when&#160;entering&#160;normal&#160;mode.&#160;This&#160;situation&#160;can&#160;only&#160;happen&#160;if&#160;Vs&#160;and&#160;Vcc&#160;drops&#160;below&#160;the&#160;<br/>
+lower&#160;&#160;boundary&#160;&#160;and&#160;&#160;recovers&#160;&#160;again&#160;&#160;while&#160;&#160;MCU&#160;&#160;is&#160;&#160;still&#160;&#160;active.&#160;&#160;In&#160;&#160;this&#160;&#160;case,&#160;&#160;it&#160;&#160;is&#160;&#160;always&#160;<br/>required&#160;to&#160;perform&#160;a&#160;complete&#160;re-initialization&#160;of&#160;the&#160;whole&#160;&#160;MCU&#160;&#160;as&#160;correct&#160;functionality&#160;<br/>cannot&#160;be&#160;ensured&#160;anymore.&#160;During&#160;this&#160;re-initialization,&#160;CanTrcv_Init&#160;has&#160;to&#160;be&#160;called&#160;<br/>that&#160;reinitializes the&#160;underlying&#160;transceiver hardware.&#160;<br/>Affected&#160;requirements:&#160;CanTrcv221&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+48&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=49></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-49_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>8.2.4&#160;</b><br/>
+<b>Const removed from&#160;API&#160;CanTrcv_GetTrcvSystemData&#160;</b><br/>
+According&#160;to&#160;SWS&#160;[1],&#160;the&#160;API&#160;&#160;CanTrcv_GetTrcvSystemData&#160;&#160;shall&#160;have&#160;a&#160;parameter&#160;<br/>TrcvSysData&#160;&#160;of&#160;&#160;type&#160;&#160;const&#160;&#160;uint32*.&#160;&#160;&#160;&#160;As&#160;&#160;this&#160;&#160;parameter&#160;&#160;has&#160;&#160;to&#160;&#160;be&#160;&#160;filled&#160;&#160;by&#160;&#160;the&#160;<br/>transceiver driver it&#160;was decided&#160;to&#160;remove&#160;this&#160;const&#160;qualifier.&#160;<br/>
+Affected&#160;requirements:&#160;CanTrcv152&#160;<br/>
+<b>8.2.5&#160;</b><br/>
+<b>Unused BSWMD parameters&#160;</b><br/>
+According&#160;<br/>
+to&#160;<br/>
+SWS&#160;<br/>
+[1],&#160;<br/>
+the&#160;<br/>
+parameters&#160;<br/>
+CanTrcvSPICommRetries&#160;<br/>
+and&#160;<br/>
+CanTrcvSPICommTimeout&#160;&#160;shall&#160;&#160;have&#160;&#160;the&#160;&#160;multiplicity&#160;&#160;1.&#160;As&#160;&#160;the&#160;&#160;SWS&#160;&#160;does&#160;&#160;not&#160;&#160;describe&#160;<br/>where&#160;to&#160;use&#160;these&#160;values,&#160;it&#160;was&#160;decided&#160;to&#160;set&#160;multiplicity&#160;to&#160;0..1&#160;so&#160;they&#160;do&#160;not&#160;have&#160;to&#160;<br/>be&#160;used.&#160;<br/>Affected&#160;requirements:&#160;CanTrcv172,&#160;CanTrcv171&#160;<br/>
+<b>8.2.6&#160;</b><br/>
+<b>Modified return value&#160;of CanTrcv_CB_WakeupByBus&#160;</b><br/>
+According&#160;to&#160;SWS&#160;[1]&#160;the&#160;API&#160;CanTrcv_CB_WakeupByBus&#160;shall&#160;return&#160;E_OK&#160;if&#160;a&#160;wakeup&#160;<br/>was&#160;detected.&#160;As&#160;&#160;SPI&#160;can&#160;be&#160;asynchronous&#160;the&#160;return&#160;value&#160;was&#160;modified&#160;so&#160;that&#160;E_OK&#160;<br/>means&#160;&#160;that&#160;&#160;the&#160;&#160;request&#160;&#160;to&#160;&#160;check&#160;&#160;for&#160;&#160;Wakeups&#160;&#160;has&#160;&#160;been&#160;&#160;acknowledged.&#160;&#160;The&#160;&#160;actual&#160;<br/>completion&#160;of&#160;this request&#160;may&#160;be&#160;done&#160;in&#160;MainFunction.&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+49&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=50></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-50_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>9&#160;&#160;Glossary&#160;and&#160;Abbreviations&#160;</b><br/>
+<b>9.1&#160;</b><br/>
+<b>Glossary&#160;</b><br/>
+<b>Term&#160;</b><br/>
+<b>Description&#160;</b><br/>
+GENy&#160;<br/>
+Generation&#160;tool&#160;for&#160;CANbedded&#160;and MICROSAR&#160;components&#160;<br/>
+Table&#160;9-1&#160;&#160;&#160;Glossary&#160;<br/>
+&#160;<br/>
+&#160;<br/>
+<b>9.2&#160;</b><br/>
+<b>Abbreviations&#160;</b><br/>
+<b>Abbreviation&#160;</b><br/>
+<b>Description&#160;</b><br/>
+API&#160;<br/>
+Application Programming Interface&#160;&#160;&#160;<br/>
+AUTOSAR&#160;<br/>
+Automotive Open System&#160;Architecture&#160;<br/>
+BSW&#160;<br/>
+Basis&#160;Software&#160;<br/>
+DEM&#160;<br/>
+Diagnostic&#160;Event&#160;Manager&#160;<br/>
+DET&#160;<br/>
+Development&#160;Error&#160;Tracer&#160;<br/>
+ECU&#160;<br/>
+Electronic&#160;Control&#160;Unit&#160;<br/>
+MICROSAR&#160;<br/>
+Microcontroller&#160;Open&#160;System&#160;Architecture&#160;(the&#160;Vector&#160;AUTOSAR&#160;<br/>solution)&#160;<br/>
+SRS&#160;<br/>
+Software&#160;Requirement&#160;Specification&#160;<br/>
+SWC&#160;<br/>
+Software&#160;Component&#160;<br/>
+SWS&#160;<br/>
+Software&#160;Specification&#160;<br/>
+WUP&#160;<br/>
+Wakeup&#160;Pattern&#160;<br/>
+WUF&#160;<br/>
+Wakeup&#160;Frame&#160;<br/>
+AUTOSAR3&#160;<br/>
+AUTOSAR&#160;R3.2&#160;Rev1 +&#160;Rev2&#160;<br/>
+AUTOSAR4&#160;<br/>
+AUTOSAR&#160;R4.0&#160;Rev3&#160;<br/>
+POR&#160;<br/>
+Power-on&#160;reset&#160;<br/>
+MCU&#160;<br/>
+Microcontroller&#160;Unit&#160;<br/>
+SPI&#160;<br/>
+Serial&#160;Peripheral&#160;Interface&#160;<br/>
+Table&#160;9-2&#160;&#160;&#160;Abbreviations&#160;<br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+50&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name=51></a><img src="ElectricPowerSteering_TMS570_FIAT_321_website/content/en/docs/Fiasa_326_327_EPS_TMS570/HLDD/BSW/TechnicalReference_Asr_CanTrcv_30_GenericDio-51_1.png"/><br/>
+Technical Reference&#160;MICROSAR CAN&#160;Transceiver Driver&#160;<br/>
+<b>10&#160;&#160;Contact&#160;</b><br/>
+Visit&#160;our website&#160;for&#160;more information&#160;on&#160;<br/>&#160;<br/>&gt;&#160; &#160;News&#160;<br/>&gt;&#160; &#160;Products&#160;<br/>&gt;&#160; &#160;Demo&#160;software&#160;<br/>&gt;&#160; &#160;Support&#160;<br/>&gt;&#160; &#160;Training&#160;data&#160;<br/>&gt;&#160; &#160;Addresses&#160;<br/>&#160;<br/>
+<a href="http://www.vector-informatik.com/"><b>www.vector-informatik.com&#160;</b></a><br/>
+&#160;<br/>
+2013,&#160;Vector&#160;Informatik&#160;GmbH&#160;<br/>
+Version:&#160;3.02.00&#160;<br/>
+51&#160;/&#160;51&#160;<br/>
+based&#160;on&#160;template&#160;version&#160;3.1&#160;<br/>
+<hr/>
+<a name="outline"></a><h1>Document Outline</h1>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#2">1 Document Information</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#2">1.1 History</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">1.2 &#160;Reference Documents</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#3">1.3 Scope of the Document</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#8">2 Introduction</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9">3 Functional Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9">3.1 Features</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#9">3.2 Initialization</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">3.3 Set operation mode</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">3.4 Get operation mode</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">3.5 Get version info</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#10">3.6 Wakeup by bus event detection</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#11">3.6.1 Get bus wakeup reason</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#11">3.6.2 Set wakeup mode</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#11">3.6.3 Development Error Reporting</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#12">3.6.4 Production Code Error Reporting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">4 Integration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">4.1 Scope of Delivery</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">4.1.1 Static Files</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#13">4.1.2 Dynamic Files</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#14">4.2 &#160;Compiler Abstraction and Memory Mapping</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#15">4.3 &#160;Data consistency</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#15">4.4 Integration</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#15">4.5 Timers</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#17">4.6 &#160;Generated Data</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#17">4.6.1 CanTrcv_30___Your_Trcv___Channel</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#18">4.6.2 &#160;Partial networking data</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#18">4.6.2.1 CanTrcv_30___Your_Trcv___PnData</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#18">4.6.2.2 CanTrcv_30___Your_Trcv___PnActivationState</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#19">4.7 Handling of asynchronous APIs</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#20">4.7.1 &#160;Request handling</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#20">4.7.1.1 Concurrent operation modes</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#22">4.7.1.2 &#160;Request to CheckWakeFlag / ClearTrcvWufFlag / CB_WakeupByBus</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#22">4.7.1.3 Status Flag handling</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#23">4.7.1.4 &#160;Indication handling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24">5 Dependencies to other components</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24">5.1 Dio driver</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24">5.2 SPI driver</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#24">5.2.1 SPI Configuration</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#25">5.3 &#160;Icu driver</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#25">5.3.1 ICU configuration</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#27">5.3.2 &#160;Implementation of the signal notification function</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#28">6 API Description</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#28">6.1 Services provided by CANTRCV</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#28">6.1.1 CanTrcv_30___Your_Trcv___InitMemory</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#29">6.1.2 CanTrcv_30___Your_Trcv___Init</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#30">6.1.3 &#160;CanTrcv_30___Your_Trcv___SetOpMode</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#31">6.1.4 &#160;CanTrcv_30___Your_Trcv___GetOpMode</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#32">6.1.5 &#160;CanTrcv_30___Your_Trcv___GetBusWuReason</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#33">6.1.6 &#160;CanTrcv_30___Your_Trcv___SetWakeupMode</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#34">6.1.7 &#160;CanTrcv_30___Your_Trcv___GetVersionInfo</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#35">6.1.8 &#160;CanTrcv_30___Your_Trcv___CB_WakeupByBus</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#36">6.1.9 &#160;CanTrcv_30___Your_Trcv___GetTrcvSystemData</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#37">6.1.10 &#160;CanTrcv_30___Your_Trcv___ClearTrcvWufFlag</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#38">6.1.11 &#160;CanTrcv_30___Your_Trcv___ReadTrcvTimeoutFlag</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#38">6.1.12 CanTrcv_30___Your_Trcv___ClearTrcvTimeoutFlag</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#39">6.1.13 &#160;CanTrcv_30___Your_Trcv___ReadTrcvSilenceFlag</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#40">6.1.14 &#160;CanTrcv_30___Your_Trcv___CheckWakeFlag</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#41">6.1.15 &#160;CanTrcv_30___Your_Trcv___MainFunction</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#42">6.1.16 CanTrcv_30___Your_Trcv___SetPNActivationState</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#43">6.2 Services used by CANTRCV</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">7 Configuration</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">7.1 Configuration with GENy</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">7.1.1 Component Selection</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#44">7.1.2 General settings</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#46">7.1.3 Channel Specific Configuration Options</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#47">7.2 Configuration with DaVinci Configurator 5</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">8 AUTOSAR Standard Compliance</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">8.1 Additions/ Extensions</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">8.1.1 Memory initialization</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">8.2 Deviations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">8.2.1 Notification functions</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">8.2.2 CanIf_CheckTrcvWakeFlagIndication is always called</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#48">8.2.3 No re-initialization will occur if POR is set in CanTrcv_SetOpMode</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#49">8.2.4 Const removed from API CanTrcv_GetTrcvSystemData</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#49">8.2.5 Unused BSWMD parameters</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#49">8.2.6 Modified return value of CanTrcv_CB_WakeupByBus</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50">9 Glossary and Abbreviations</a>
+<ul>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50">9.1 Glossary</a></li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#50">9.2 Abbreviations</a></li>
+</ul>
+</li>
+<li><a href="TechnicalReference_Asr_CanTrcv_30_GenericDios.html#51">10 Contact</a></li>
+</ul>
+<hr/>
+</body>
+</html>

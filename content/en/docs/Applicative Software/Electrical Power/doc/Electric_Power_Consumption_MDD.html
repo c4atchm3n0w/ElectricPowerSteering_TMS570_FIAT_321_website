@@ -1,0 +1,495 @@
+---
+title: Electric_Power_Consumption_MDD
+linkTitle: Electric_Power_Consumption_MDD
+weight: 3
+---
+
+<h1 class="unnumbered" id="module----electric-power-consumption">Module -- Electric Power Consumption</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module estimates the instantaneous electric power at the input of the control module and the supply current.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-component-diagram">Diagram – Component Diagram</h2>
+<h2 class="unnumbered" id="section"></h2>
+<h2 class="unnumbered" id="section-1"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.png" style="width:2.97569in;height:2.54375in" /> </h2>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th>Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vecu_Volt_f32</td>
+<td>ElectricPower_Watt_f32</td>
+</tr>
+<tr class="even">
+<td>MtrVoltDax_Volt_f32</td>
+<td>SupplyCurrent_Amp_f32</td>
+</tr>
+<tr class="odd">
+<td>MtrVoltQax_Volt_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>MtrCurrDax_Amp_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>MtrCurrQax_Amp_f32</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 class="unnumbered" id="section-2"></h3>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ModInPower_Watt_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-2000</td>
+<td>2000</td>
+<td>ELEPWR_START_SEC_VAR_CLEARED _32</td>
+</tr>
+<tr class="even">
+<td>DropInPower_Watt_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>-200</td>
+<td>200</td>
+<td>ELEPWR_START_SEC_VAR_CLEARED _32</td>
+</tr>
+</tbody>
+</table>
+<h3 class="unnumbered" id="section-3"></h3>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_CntlrInResist_Ohm_f32</td>
+</tr>
+<tr class="even">
+<td>k_PstcPowerLoss_Watt_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-4"></h2>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_SQRT3OVR2_ULS_F32</td>
+<td>Single precision Float</td>
+<td>Float32</td>
+<td>0.866025403784</td>
+</tr>
+<tr class="even">
+<td>D_ELECPOWERLOLMT_WATT_F32</td>
+<td>Single precision Float</td>
+<td>Watt</td>
+<td>(-2000.0)</td>
+</tr>
+<tr class="odd">
+<td>D_ELECPOWERHILMT_WATT_F32</td>
+<td>Single precision Float</td>
+<td>Watt</td>
+<td>2000.0</td>
+</tr>
+<tr class="even">
+<td>D_SUPPLYCURRENTLOLMT_AMP_F32</td>
+<td>Single precision Float</td>
+<td>Amp</td>
+<td>(-200.0)</td>
+</tr>
+<tr class="odd">
+<td>D_SUPPLYCURRENTHILMT_AMP_F32</td>
+<td>Single precision Float</td>
+<td>Amp</td>
+<td>(200.0)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="global">Global</h4>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+<tr class="even">
+<td>D_VECUMIN_VOLTS_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library functions / Macros that are called by the various sub modules are identified below,</p>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>None</p>
+<h1 id="software-module-implementation"><br />
+Software Module Implementation</h1>
+<h2 id="initial-data-values">Initial Data Values</h2>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rte_InitValue_Vecu_Volt_f32</td>
+<td>5.0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_MtrVoltDax_Volt_f32</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_MtrVoltQax_Volt_f32</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_MtrCurrDax_Amp_f32</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_MtrCurrQax_Amp_f32</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_ElectricPower_Watt_f32</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-5"></h2>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-elepwr_per1">Per: ElePwr_Per1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>Rte_Call_ElePwr_Per1_CP0_CheckpointReached()</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Local Copy</th>
+<th>Module Input</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vecu_Volt_f32</td>
+<td>Rte_IRead_ElePwr_Per1_Vecu_Volt_f32()</td>
+</tr>
+<tr class="even">
+<td>MtrVoltDax_Volt_f32</td>
+<td>Rte_IRead_ElePwr_Per1_ MtrVoltDax_Volt_f32 ()</td>
+</tr>
+<tr class="odd">
+<td>MtrVoltQax_Volt_f32</td>
+<td>Rte_IRead_ElePwr_Per1_ MtrVoltQax_Volt_f32 ()</td>
+</tr>
+<tr class="even">
+<td>MtrCurrDax_Amp_f32</td>
+<td>Rte_IRead_ElePwr_Per1_ MtrCurrDax_Amp_f32</td>
+</tr>
+<tr class="odd">
+<td>MtrCurrQax_Amp_f32</td>
+<td>Rte_IRead_ElePwr_Per1_ MtrCurrQax_Amp_f32 ()</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section-6"></h4>
+<h4 id="calculate-modulator-input-power">Calculate Modulator Input Power</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Local Copy</th>
+<th>Module Output</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ElecPower_Watt_T_f32</td>
+<td>Rte_IWrite_ElePwr_Per1_ ElectricPower_Watt_f32()</td>
+</tr>
+<tr class="even">
+<td>SupplyCurrent_Amp_T_f32</td>
+<td>Rte_IWrite_ElePwr_Per1_SupplyCurrent_Amp_f32 ()</td>
+</tr>
+</tbody>
+</table>
+<h4 id="program-flow-end">Program Flow End</h4>
+<h2 class="unnumbered" id="rte_call_elepwr_per1_cp1_checkpointreached">Rte_Call_ElePwr_Per1_CP1_CheckpointReached()</h2>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 22%" />
+<col style="width: 38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ElePwr_Per1</td>
+<td>10 ms</td>
+<td>All</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-7"></h2>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-8"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ElePwr_Per1</td>
+<td>RTE_AP_ELEPWR_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-9"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-10"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 56%" />
+<col style="width: 17%" />
+<col style="width: 16%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial AUTOSAR version (SF08 v001).</td>
+<td>1-Dec-12</td>
+<td>Selva</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Name changed from CmElecPwr to ElePwr</td>
+<td>10-Dec-12</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Anomaly 6242 Limit Outputs</td>
+<td>02-Apr-14</td>
+<td>SB</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Changed Vecu Initial value from 0 to 5, Changed naming for module display variables</td>
+<td>08-May-14</td>
+<td>SB</td>
+</tr>
+</tbody>
+</table>

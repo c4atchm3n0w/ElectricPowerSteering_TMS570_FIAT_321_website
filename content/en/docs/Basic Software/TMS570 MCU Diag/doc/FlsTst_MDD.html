@@ -1,0 +1,565 @@
+---
+title: FlsTst_MDD
+linkTitle: FlsTst_MDD
+weight: 7
+---
+
+<h1 class="unnumbered" id="module---">Module -- </h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This is module implements the FLASH Memory testing requirements specified in “<a href="http://misagweb01.nexteer.com/eRoomReq/Files/erooms8/NextGeneration/0_14dbbf/EA3.x%20FDD%2032%20%20-%20uC%20Diagnostics%20000D.docx">EA3.x FDD 32 - uC Diagnostics 000D</a>” according to the AUTOSAR “<a href="http://www.autosar.org/download/R4.0/AUTOSAR_SWS_FlashTest.pdf">Specification of Flash Test v1.2.0</a> ” API definition. This SWC is TI TMS570 target specific.</p>
+<p>This module extends the AUTOSAR API definition by including a hardware Self Test function and including support for hardware IRQ’s.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>This diagram shows all data that is shared between functions within the module.</p>
+<p>(Note – If no data is shared between functions, the Text “No Shared Data” can be used in place of a graphic. Also note that init functions need not be shown unless they compute non-zero data to be used by other functions in the module).</p>
+<h3 id="diagram-function-name">Diagram – Function (Name)</h3>
+<p>This diagram describes the functional characteristics and data flow of a given function.</p>
+<p>(Note – This is not mandatory, only used where a graphical representation helps explain the function. It is left to the author’s discretion. New headers of this level (Level 3) should be created for each function.</p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">&lt;VarName_Units_Type&gt;</td>
+<td>&lt;VarName_Units_Type&gt;</td>
+</tr>
+<tr class="even">
+<td colspan="2"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 16%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>(Name given for the user defined typdef of type struct/union)</p>
+<p>(Variable name qualified similar to all other variables)</p></td>
+<td>(Variable name qualified similar to all other variables)</td>
+<td>as other variables</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(Variable name qualified similar to all other variables)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+<li></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+<li></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="global-function-1">Global Function #1</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Function Name</strong></th>
+<th>(Exact name used)</th>
+<th>Type</th>
+<th>Min</th>
+<th>Max</th>
+<th>UTP Tol.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Arguments Passed</strong></td>
+<td>(if none, write None)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(Insert more rows for additional passed arguments)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>(if no value returned, write N/A)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p>(Place flowchart/design for local function)</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="local-function-1">Local Function #1</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 43%" />
+<col style="width: 12%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Function Name</strong></th>
+<th>(Exact name used)</th>
+<th>Type</th>
+<th>Min</th>
+<th>Max</th>
+<th>UTP Tol.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Arguments Passed</strong></td>
+<td>(if none, write None)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>(Insert more rows for additional passed arguments)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>(if no value returned, write N/A)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p>(Place flowchart/design for local function)</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<p>(Note: For multiple init functions, insert new headers at the “Header 2” level – subset of “5.1 Initialization Functions” and follow the same sub-section design shown below)</p>
+<h3 id="init-_l_initn">Init: _L_Init(n)</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>(Add design rationale specifically related to this FUNCTION. If none required, place the text “None”)</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>(Initialize all module outputs in this section)</p>
+<h4 id="module-internal">Module Internal </h4>
+<p>(Initialize all module internal variables in this section)</p>
+<h2 id="periodic-functions"><br />
+Periodic Functions</h2>
+<p>(Note: For multiple periodic functions, insert new headers at the “Header 2” level – subset of “5.2 Periodic Functions” and follow the same sub-section design shown below)</p>
+<h3 id="per-_l_pern">Per: _L_Per(n)</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>(Add design rationale specifically related to this FUNCTION. If none required, place the text “None”)</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>(If program flow is required by the module, the function to store the unique identifier to a temporary variable is done here – start of the function)</p>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>(If not required based on design, insert text “None”)</p>
+<h4 id="processing-of-function">(Processing of function)………</h4>
+<p>(Breakdown the function into smaller sections to add clarity to the design).</p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>(If not required based on design, insert text “None”)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>(If program flow is required by the module, the function to add the temporary variable to the global accumulator is done here)</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>(Note: For multiple functions, insert new headers at the “Header 2” level – subset of “5.3 Fault Recovery Functions” and follow the same sub-section design shown below)</p>
+<h3 id="faultrec-_l_faultrecn">FaultRec: _L_FaultRec(n)</h3>
+<h4 id="design-rationale-2">Design Rationale</h4>
+<p>(Add design rationale specifically related to this FUNCTION. If none required, place the text “None”)</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>(If program flow is required by the module, the function to store the unique identifier to a temporary variable is done here – start of the function)</p>
+<h4 id="store-module-inputs-to-local-copies-1">Store Module Inputs to Local copies</h4>
+<p>(If not required based on design, insert text “None”)</p>
+<h4 id="processing-of-function-1">(Processing of function)………</h4>
+<p>(Breakdown the function into smaller sections to add clarity to the design).</p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-1">Store Local copy of outputs into Module Outputs</h4>
+<p>(If not required based on design, insert text “None”)</p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>(If program flow is required by the module, the function to add the temporary variable to the global accumulator is done here)</p>
+<h2 id="shutdown-functions"><br />
+Shutdown Functions</h2>
+<p>(Note: For multiple functions, insert new headers at the “Header 2” level – subset of “5.4 Shutdown Functions” and follow the same sub-section design shown below)</p>
+<h3 id="shtdn-_l_shtdnn">Shtdn: _L_Shtdn(n)</h3>
+<h4 id="design-rationale-3">Design Rationale</h4>
+<p>(Add design rationale specifically related to this FUNCTION. If none required, place the text “None”)</p>
+<h4 id="program-flow-start-2">Program Flow Start</h4>
+<p>(If program flow is required by the module, the function to store the unique identifier to a temporary variable is done here – start of the function)</p>
+<h4 id="store-module-inputs-to-local-copies-2">Store Module Inputs to Local copies</h4>
+<p>(If not required based on design, insert text “None”)</p>
+<h4 id="processing-of-function-2">(Processing of function)………</h4>
+<p>(Breakdown the function into smaller sections to add clarity to the design).</p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-2">Store Local copy of outputs into Module Outputs</h4>
+<p>(If not required based on design, insert text “None”)</p>
+<h4 id="program-flow-end-2">Program Flow End</h4>
+<p>(If program flow is required by the module, the function to add the temporary variable to the global accumulator is done here)</p>
+<h2 id="interrupt-functions"><br />
+Interrupt Functions</h2>
+<p>(Note: For multiple functions, insert new headers at the “Header 2” level – subset of “5.5 Interrupt Functions” and follow the same sub-section design shown below)</p>
+<h3 id="isr-_l_isrn">Isr: _L_Isr(n)</h3>
+<h4 id="design-rationale-4">Design Rationale</h4>
+<p>(Add design rationale specifically related to this FUNCTION. If none required, place the text “None”)</p>
+<h4 id="processing-of-the-isr-function..">(Processing of the ISR function)…..</h4>
+<p>(Note: Multiple headings can be used to break apart the functionality)</p>
+<h2 id="serial-communication-functions"><br />
+Serial Communication Functions</h2>
+<p>(Note: For multiple functions, insert new headers at the “Header 2” level – subset of “5.6 Serial Communication Functions” and follow the same sub-section design shown below)</p>
+<h3 id="scomm-_l_scommn">SComm: _L_SComm(n)</h3>
+<h4 id="design-rationale-5">Design Rationale</h4>
+<p>(Add design rationale specifically related to this FUNCTION. If none required, place the text “None”)</p>
+<h4 id="program-flow-start-3">Program Flow Start</h4>
+<p>(If program flow is required by the module, the function to store the unique identifier to a temporary variable is done here – start of the function)</p>
+<h4 id="store-module-inputs-to-local-copies-3">Store Module Inputs to Local copies</h4>
+<p>(If not required based on design, insert text “None”)</p>
+<h4 id="processing-of-function-3">(Processing of function)………</h4>
+<p>(Breakdown the function into smaller sections to add clarity to the design).</p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs-3">Store Local copy of outputs into Module Outputs</h4>
+<p>(If not required based on design, insert text “None”)</p>
+<h4 id="program-flow-end-3">Program Flow End</h4>
+<p>(If program flow is required by the module, the function to add the temporary variable to the global accumulator is done here)</p>
+<h2 id="section-1"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>(Item #1)</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Item #</strong></th>
+<th><strong>Rev #</strong></th>
+<th><strong>Change Description</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author Initials</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1.0</td>
+<td>Initial creation</td>
+<td>7/4/2012</td>
+<td>JJW</td>
+</tr>
+</tbody>
+</table>

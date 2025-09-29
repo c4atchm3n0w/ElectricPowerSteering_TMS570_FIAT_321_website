@@ -1,0 +1,1605 @@
+---
+title: Spi_Nexteer_MDD
+linkTitle: Spi_Nexteer_MDD
+weight: 3
+---
+
+<h1 class="unnumbered" id="module----spi-driver">Module -- Spi Driver</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module provides the following Autosar API:</p>
+<ol type="1">
+<li><p>Spi_SetupEB()</p></li>
+<li><p>Spi_Init()</p></li>
+<li><p>Spi_AsyncTransmit()</p></li>
+<li><p>Spi_GetSequenceResult()</p></li>
+</ol>
+<p>This module provides the following TI Halcogen API:</p>
+<ol type="1">
+<li><p>mibspiSetCtrlData() – <em>Note: this is a modified form of the standard mibspiSetData() API</em></p></li>
+<li><p>mibspiTransfer()</p></li>
+<li><p>mibspiGetData()</p></li>
+<li><p>mibspiSetData()</p></li>
+</ol>
+<p>The Autosar API naming has been altered from the Autosar standard to allow co-existence of this module and a Third Party Spi driver implementation in the same project. SWC’s operating within the Rte can be mapped to either the Spi service ports offered by this BSW or the Third Parties Spi driver service ports by only changing the Rte service port mapping.</p>
+<p>This driver exists to provide configurations/use cases that cannot provided by the third party Spi driver due to limitations in the design of the module.</p>
+<p>The subset of the Texas Instruments Halcogen mibspi API is provided specifically to support the Turns Counter Flash Programming SWC and the Digital MSB SWC. If the Turns Counter Flash Programming SWC design and the Digital MSB design changed to use the standard Autosar API, then the provided mibspi API could be changed to module internal functions or removed. However, the requirements of the Digital MSB component are such that its SPI usage does not fit easily into the Autosar API definition (more detail provided in section 9).</p>
+<h2 id="references">References</h2>
+<ol type="1">
+<li><p>PIC16(L)F1847 Data Sheet – DS41453B (41453B.pdf)</p></li>
+<li><p>Turns Counter Column Position Sensor FDD 20C (<a href="http://misagweb01.nexteer.com/eRoomReq/Files/erooms8/NextGeneration/0_138945/FDD%2020C%20Turns%20Counter%20Column%20Position%20Sensor%20(BMW-EA3)%20Rev%20003.doc">FDD 20C Turns Counter Column Position Sensor (BMW EA3) Rev 03.doc</a>)</p></li>
+<li><p>TMS570LS31x/21x 16/32-Bit RISC Flash Microcontroller Technical Reference Manual – September 2011 (spnu499.pdf)</p></li>
+<li><p>Specification of the SPI Handler/Driver v3.0.0 (AUTOSAR_SWS_SPIHandlerDriver.pdf)</p></li>
+<li><p>Turns Counter Flash Programming FDD 98 Rev 002</p></li>
+<li><p>Digital MSB FDD ES50ARev005 7-Feb-14</p></li>
+<li><p>Allegro A1331 Data Sheet Addendum – Programming Reference A1331-ADD1</p></li>
+</ol>
+<h1 id="figures">Figures</h1>
+<h2 id="diagram-function-data-sharing">Diagram – Function Data Sharing</h2>
+<p>This diagram shows all data that is shared between functions within the module.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<h3 id="diagram-function-name">Diagram – Function (Name)</h3>
+<p>This diagram describes the functional characteristics and data flow of a given function.</p>
+<p>(Note – This is not mandatory, only used where a graphical representation helps explain the function. It is left to the author’s discretion. New headers of this level (Level 3) should be created for each function.</p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<p>(Note: Full variable names required in table.)</p>
+<p>(Note: All global variables including End Of Line data used should be shown here)</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">None</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 17%" />
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>ExtBufCfg_Str</p>
+<p>[D_SPINXTNUMCHAN_CNT_U16]</p></td>
+<td>See structure definition</td>
+<td>See structure definition</td>
+<td>See structure definition</td>
+<td>SPINXT_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td><p>SeqResult_Enum</p>
+<p>[D_SPINXTNUMSEQ_CNT_U16]</p></td>
+<td>Enum</td>
+<td>SPI_SEQ_OK (= 0)</td>
+<td>SPI_SEQ_CANCELLED (=4)</td>
+<td>SPINXT_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 22%" />
+<col style="width: 26%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EbCfg_Type</td>
+<td>SrcDataBufferPtr</td>
+<td>Spi_DataType</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DesDataBufferPtr</td>
+<td>Spi_DataType</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Length</td>
+<td>Spi_NumberOfDataType</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 8%" />
+<col style="width: 9%" />
+<col style="width: 25%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value when D_SPINXTUSEWITH_CNT_ENUM == D_SPINXTUSEWITHTC</th>
+<th>Value when D_SPINXTUSEWITH_CNT_ENUM == D_SPINXTUSEWITHDIGMSB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_SPINXTUSEWITHTC</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>D_SPINXTUSEWITHDIGMSB</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>D_SPINXTUSEWITH_CNT_ENUM</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>SPI_TCDATA_CH</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0</td>
+<td>Not Defined</td>
+</tr>
+<tr class="odd">
+<td>SPI_TCDATA_SEQ</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0</td>
+<td>Not Defined</td>
+</tr>
+<tr class="even">
+<td>SPI_DIE1DATA_CH</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Not Defined</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>SPI_DIE2DATA_CH</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Not Defined</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>SPI_DIE1DATA_SEQ</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Not Defined</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>SPI_DIE2DATA_SEQ</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Not Defined</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>D_SPINXTNUMCHAN_CNT_U16</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>D_SPINXTNUMSEQ_CNT_U16</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>D_TGSIZE_CNT_U16</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Not Defined</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI3_GCR1</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>MIBSPI5_GCR1</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI3_DELAY</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0xFFFF0000</td>
+<td>0x04010000</td>
+</tr>
+<tr class="even">
+<td>MIBSPI5_DELAY</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0</td>
+<td>0x04010000</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI3_FMT0</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0xFF00FF08</td>
+<td>0x04020710</td>
+</tr>
+<tr class="even">
+<td>MIBSPI5_FMT0</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x5E148206</td>
+<td>0x04020710</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI5_FMT1</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x5E148210</td>
+<td>Not Defined</td>
+</tr>
+<tr class="even">
+<td>MIBSPI5_FMT2</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x0014820B</td>
+<td>Not Defined</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI3_TGCNTRL0</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x403F0000</td>
+<td>0x001C0000</td>
+</tr>
+<tr class="even">
+<td>MIBSPI3_TGCNTRL1</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x00000A00</td>
+<td>0x402C0300</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI3_TGCTRL2</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Not Defined</td>
+<td>0x00700600</td>
+</tr>
+<tr class="even">
+<td>MIBSPI3_TOTALTGLENGTH</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>10</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI5_TGCNTRL0</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x40700000</td>
+<td>0x001E0000</td>
+</tr>
+<tr class="even">
+<td>MIBSPI5_TGCNTRL1</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x40700300</td>
+<td>0x402E0300</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI5_TGCNTRL2</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x40700600</td>
+<td>0x00700600</td>
+</tr>
+<tr class="even">
+<td>MIBSPI5_TGCNTRL3</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x40701000</td>
+<td>Not Defined</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI5_TGCNTRL4</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x40701400</td>
+<td>Not Defined</td>
+</tr>
+<tr class="even">
+<td>MIBSPI5_TGCNTRL5</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x40707500</td>
+<td>Not Defined</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI5_TOTALTGLENGTH</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>117</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>MIBSPI3_BUFRAMCTRLINIT</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x84F7</td>
+<td>0x8CFE</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI5_BUFRAMCTRLINIT</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Not Defined</td>
+<td>0x8CFE</td>
+</tr>
+<tr class="even">
+<td>MIBSPI3_INTCFG</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Defined</td>
+<td>Not Defined</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI3_LVL</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0</td>
+<td>Not Defined</td>
+</tr>
+<tr class="even">
+<td>MIBSPI3_INT0</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0</td>
+<td>Not Defined</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI3_TICKCNT</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>0x80000010</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>MIBSPI5_TICKCNT</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Not Defined</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI3_TG0_NOTIF</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Defined</td>
+<td>Not Defined</td>
+</tr>
+<tr class="even">
+<td>MIBSPI3_DMACTRL0</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Not Defined</td>
+<td>0x02108000 when BC_SPINXT_USEDMA is STD_ON; otherwise undefined</td>
+</tr>
+<tr class="odd">
+<td>MIBSPI5_DMACTRL0</td>
+<td>Count</td>
+<td>Unitless</td>
+<td>Not Defined</td>
+<td>0x02108000 when BC_SPINXT_USEDMA is STD_ON; otherwise undefined</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<p>(This is for lookup tables (arrays) with fixed values, same name as other tables)</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>CALL_MIBSPI3_NOTIFFCN()</p></li>
+<li></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+<li></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<h3 id="spi-setup-external-buffer">Spi Setup External Buffer</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 33%" />
+<col style="width: 21%" />
+<col style="width: 7%" />
+<col style="width: 11%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SpiNxt_SetupEB</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Channel</td>
+<td>Spi_ChannelType</td>
+<td>0</td>
+<td>255</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>SrcDataBufferPtr</td>
+<td>Spi_DataType</td>
+<td>NA</td>
+<td>NA</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>DesDataBufferPtr</td>
+<td>Spi_DataType</td>
+<td>NA</td>
+<td>NA</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Length</td>
+<td>Spi_NumberOfDataType</td>
+<td>0</td>
+<td>65535</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td>Std_ReturnType</td>
+<td>E_OK</td>
+<td>E_NOT_OK</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p>This driver function is a minimalist implementation intended for use with the Turns Counter component. Additionally this function does not provide any error detection at this time. The function body is conditionally compiled such that the SetupEB functionality is provided when D_SPINXTUSEWITH_CNT_ENUM == D_SPINXT_USEWITHTC, and the function simply returns E_NOT_OK when D_SPINXTUSEWITH_CNT_ENUM has any other value.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.emf" /></p>
+<h3 id="spi-get-sequence-result">Spi Get Sequence Result</h3>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 27%" />
+<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 21%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SpiNxt_GetSequenceResult</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Sequence</td>
+<td>Spi_SequenceType</td>
+<td>0</td>
+<td>255</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td></td>
+<td>Spi_SeqResultType</td>
+<td>SPI_SEQ_OK</td>
+<td>SPI_SEQ_CANCELLED</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></p>
+<h3 id="mibspi-transfer">MIBSPI Transfer</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 31%" />
+<col style="width: 21%" />
+<col style="width: 11%" />
+<col style="width: 9%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>mibspiTransfer</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>mibspi</td>
+<td>mibspiBASE_t *</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>group</td>
+<td>uint32</td>
+<td>0</td>
+<td>7</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-2">Description</h4>
+<p>Set the Enable Transfer Group bit in the appropriate register to enable the transfer (when triggered) of the mibspi transfer group defined by the arguments:</p>
+<p>mibspi-&gt;TGCTRL[group] |= 0x80000000UL</p>
+<h3 id="spi-asynchronous-transmit">Spi Asynchronous Transmit</h3>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 35%" />
+<col style="width: 17%" />
+<col style="width: 7%" />
+<col style="width: 11%" />
+<col style="width: 7%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>SpiNxt_AsyncTransmit</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>Sequence</td>
+<td>Spi_SequenceType</td>
+<td>0</td>
+<td>255</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>result_T_Cnt</td>
+<td>Std_ReturnType</td>
+<td>E_OK</td>
+<td>E_NOT_OK</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-3">Description</h4>
+<p>This driver function is a minimalist implementation intended for use with the Turns Counter component. It assumes one-to-one channel-to-sequence correspondence. The function body is conditionally compiled such that the Turns Counter-specific Asynchrounous Transmit functionality is provided when D_SPINXTUSEWITH_CNT_ENUM == D_SPINXT_USEWITHTC, and the function simply returns E_NOT_OK when D_SPINXTUSEWITH_CNT_ENUM has any other value.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h3 id="mibspi-set-data">MIBSPI Set Data</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>mibspiSetData</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>mibspi</td>
+<td>mibspiBASE_t*</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>group</td>
+<td>uint32</td>
+<td>0</td>
+<td>7</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>data</td>
+<td>uint16[]</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-4">Description</h4>
+<p>This function copies transmit data from the data[] argument into the appropriate mibspi ram transmit buffer, as selected by the mibspi and group arguments. It is based on the Halcogen function of the same name.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.emf" /></p>
+<h3 id="mibspi-set-control-and-data">MIBSPI Set Control and Data</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>mibspiSetCtrlData</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>mibspi</td>
+<td>mibspiBASE_t*</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>group</td>
+<td>uint32</td>
+<td>0</td>
+<td>7</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>data</td>
+<td>Uint32[]</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-5">Description</h4>
+<p>This function copies transmit control and data words from the data[] argument into the appropriate mibspi ram transmit buffer, as selected by the mibspi and group arguments. It is based on the Halcogen function mibspiSetData, modified to copy the complete transmit buffer including both control and data</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.emf" /></p>
+<h3 id="mibspi-get-data">MIBSPI Get Data</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>mibspiGetData</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>mibspi</td>
+<td>mibspiBASE_t*</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>group</td>
+<td>uint32</td>
+<td>0</td>
+<td>7</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>data</td>
+<td>uint16[]</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>[error flags]</td>
+<td>uint32</td>
+<td>0</td>
+<td>0x5F</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-6">Description</h4>
+<p>This function copies receive data from the appropriate mibspi ram receive buffer, as selected by the mibspi and group arguments, into the data[] argument. It is based on the Halcogen function of the same name, modified to optimize for use with the Digital MSB since it will be called from the Motor Control ISR. The function is conditionally compiled such that optimized Digital MSB specific functionality is provided when D_SPINXTUSEWITH_CNT_ENUM == D_SPINXT_USEWITHDIGMSB, and the original Halcogen functionality is provided when D_SPINXTUSEWITH_CNT_ENUM has any other value.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.emf" /></p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="mibspi-set-data-8-bit">MIBSPI Set Data 8 Bit</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>mibspiSetData8</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>mibspi</td>
+<td>mibspiBASE_t*</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>group</td>
+<td>uint32</td>
+<td>0</td>
+<td>7</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>data</td>
+<td>uint8[]</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-7">Description</h4>
+<p>This function copies transmit data from the data[] argument into the appropriate mibspi ram transmit buffer, as selected by the mibspi and group arguments. It is based on the Halcogen function mibspiSetData, modified to copy from a uint8 buffer rather than uint16. <img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.emf" /></p>
+<h3 id="mibspi-get-data-8-bit">MIBSPI Get Data 8 Bit</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>mibspiSetData8</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>mibspi</td>
+<td>mibspiBASE_t*</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>group</td>
+<td>uint32</td>
+<td>0</td>
+<td>7</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>data</td>
+<td>uint8[]</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>[error flags]</td>
+<td>uint32</td>
+<td>0</td>
+<td>0x5F</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-8">Description</h4>
+<p>This function copies receive data from the appropriate mibspi ram transmit buffer, as selected by the mibspi and group arguments, into the data[] argument. It is based on the Halcogen function mibspiGetData, modified to copy to a uint8 buffer rather than uint16. <img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.emf" /></p>
+<h3 id="mibspi-enable-group-notification">MIBSPI Enable Group Notification</h3>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 30%" />
+<col style="width: 22%" />
+<col style="width: 11%" />
+<col style="width: 10%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>mibspiEnableGroupNotification</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>mibspi</td>
+<td>mibspiBASE_t *</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>group</td>
+<td>uint32</td>
+<td>0</td>
+<td>7</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>level</td>
+<td>uint32</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-9">Description</h4>
+<p>This function enables the transfer group interrupt for the mibspi, transfer group, and interrupt level defined by the arguments.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.emf" /></p>
+<h3 id="mibspi-notification">MIBSPI Notification</h3>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 41%" />
+<col style="width: 16%" />
+<col style="width: 5%" />
+<col style="width: 0%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>mibspiNotification</td>
+<td>Type</td>
+<td>Min</td>
+<td colspan="2">Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td><strong>mibspi</strong></td>
+<td><strong>mibspiBASE_t*</strong></td>
+<td colspan="2"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>flags</td>
+<td>uint32</td>
+<td></td>
+<td colspan="2"></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td colspan="2"></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-10">Description</h4>
+<p>This is an error callback that is provided by the application and is called on an error interrupt. The parameter passed to the callback is a copy of the error interrupt flag register. It is hardcoded for channel 0/sequence 0 and the Turns Counter application. Because it is hardcoded for the Turns Counter application, it is conditionally compiled such that it provides the Turns Counter error callback functionality when compiled with D_SPINXTUSEWITH_CNT_ENUM == D_SPINXT_USEWITHTC, and returns without doing anything when compiled with D_SPINXTUSEWITH_CNT_ENUM set to any other value.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.emf" /></p>
+<h3 id="mibspi-group-notification">MIBSPI Group Notification</h3>
+<table>
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 42%" />
+<col style="width: 14%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>mibspiGroupNotification</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+<td>UTP Tol.</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>mibspi</td>
+<td>mibspiBASE_t*</td>
+<td>FULL</td>
+<td>FULL</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>group</td>
+<td>uint32</td>
+<td>0</td>
+<td>7</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Return Value</strong></td>
+<td>N/A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-11">Description</h4>
+<p>This is a callback function provided by the application. It is called when a transfer is complete. The parameter is the transfer group that triggered the interrupt. This driver is designed to only receive data on mibspi3 group 0 for the Turns Counter communication function. Because it is hardcoded for the Turns Counter application, it is conditionally compiled such that it provides the Turns Counter error callback functionality when compiled with D_SPINXTUSEWITH_CNT_ENUM == D_SPINXT_USEWITHTC, and returns without doing anything when compiled with D_SPINXTUSEWITH_CNT_ENUM set to any other value.</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.emf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-spinxt_init">Init: SpiNxt_Init</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>The initialization function initializes mibspi3 and mibspi5 registers as needed by the Turns Counter and Turns Counter Flash Programming components, or by the Digital MSB component, controlled by a SpiNxt configuration parameter (see Integration Manual) which controls a constant value in the generated SpiNxt_Cfg.h file. The initialization values are hardcoded in the SpiNxt.h file and are specified by the Turns Counter (FDD20C), Turns Counter Reflash (FDD98) and Digital MSB (ES-50A) FDDs.</p>
+<p>Additional information regarding initialization of MIBSPI3 when used by Turns Counter (per FDD20C):</p>
+<p>The actual chip select for the PIC Turns Counter SPI transfers on MIBSPI3 uses a Dio channel, configured by the Dio and Port components as SPI_TCCS. The required chip select hold time before SPI clocking begins is controlled by the use of the MIBSPI3 tick counter triggering the SPI transfer. (See SpiNxt_AsyncTransmit and the value of MIBSPI3_TICKCNT.)</p>
+<p>The Dio chip select must remain low throughout the 10 byte transfer, with a minimum 9.5 usec delay between bytes. It is desired to implement the 9.5 usec delay in hardware. In order to accomplish this with the TMS570 SPI peripheral, it is necessary to use the C2TDELAY, the T2CDELAY, and WDELAY as the sum of all three is needed to reach the desired delay time at an 80MHz VCLK rate. More details provided in the C2TDELAY, T2CDELAY, and WDELAY sections of the tables below, to explain the values of MIBSPI3_DELAY and MIBSPI3_FMT0.</p>
+<p>However, use of C2TDELAY and T2CDELAY requires transmit control words configured to use a MIBSPI3 chip select pin and to release the chip select between transfers. Therefore a “dummy” SPI chip select is used in the control words in the transmit buffer (see value of MIBSPI3_BUFRAMCTRLINIT). This chip select is toggled during the SPI transfer but only to accomplish the delay timing; it is not toggling a pin on the PIC Turns Counter.</p>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 16%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td colspan="3"><strong>MIBSPI 3 SPI Delay Register (SPIDELAY)</strong></td>
+</tr>
+<tr class="even">
+<td>Position</td>
+<td>Desired Value</td>
+<td>Description</td>
+</tr>
+<tr class="odd">
+<td>bit 31-24</td>
+<td>255</td>
+<td><p><strong>C2TDELAY:</strong> Chip-select-active to transmit-start delay</p>
+<p>t C2TDELAY= (C2TDELAY + 2) <strong>*</strong>VCLK Period</p>
+<ul>
+<li><p>Per §8.5.3 of [2] parameter 3 specifies a 9.5 uS clock idle time between bytes.</p></li>
+<li><p>It is desired to implement the delay in hardware. In order to accomplish this with the TMS570 SPI peripheral, the Spi to CS CLK start delay is used.</p></li>
+<li><p>Per [2] the FDD design desires to maximize the clock idle time between bytes using the hardware delays available.</p></li>
+<li><p>Table 24-26 of [3] indicates the C2TDELAY has a max of 1FFh, however, the field is 8 bits wide so this is considered a typo in the data sheet and the actual max is FFh (255). With an 80MHz VCLK, using the equation in the table yields a maximum delay of 3.2125 uS.</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>bit 23-16</td>
+<td>255</td>
+<td><p><strong>T2CDELAY:</strong> Transmit-end-to-chip-select-inactive-delay</p>
+<p>t T2CDELAY= (T2CDELAY +1) <strong>*</strong>VCLK Period</p>
+<ul>
+<li><p>Per §8.5.3 of [2] parameter 4 specifies a minimum 1.5 uS delay.</p></li>
+<li><p>Per [2] the FDD design desires to maximize the clock idle time between bytes using the hardware delays available.</p></li>
+<li><p>Table 24-26 of [3] indicates the T2CDELAY has a max of 1FFh, however, the field is 8 bits wide so this is considered a typo in the data sheet and the actual max is FFh (255). With an 80MHz VCLK, using the equation in the table yields a maximum delay of 3.2 uS.</p></li>
+<li><p>The maximum delay of 3.2 uS is achieved by setting this parameter to 255.</p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>bit 15-8</td>
+<td>0</td>
+<td><p><strong>T2EDELAY:</strong> Transmit-data-finished to ENA-pin-inactive time-out</p>
+<p>ENA pin functionality is disabled, so this parameter has no effect. It is set arbitrarily set to 0.</p></td>
+</tr>
+<tr class="even">
+<td>bit 7-0</td>
+<td>0</td>
+<td><p><strong>C2EDELAY:</strong> Chip-select-active to ENA-signal-active time-out</p>
+<p>ENA pin functionality is disabled, so this parameter has no effect. It is set arbitrarily set to 0.</p></td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 16%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td colspan="3"><strong>MIBSPI 3 SPI Data Format 0 Register (SPIFMT0)</strong></td>
+</tr>
+<tr class="even">
+<td>Position</td>
+<td>Desired Value</td>
+<td>Description</td>
+</tr>
+<tr class="odd">
+<td>bit 31-24</td>
+<td>255</td>
+<td><p><strong>WDELAY:</strong> Delay in between transmissions for data</p>
+<p>WDELAY * PVCLK + 2 * PVCLK</p>
+<ul>
+<li><p>The inter-byte delay is accomplished via a combination of the CS activation and deactivation delays and this parameter. The other 2 delays are 3.212uS + 3.200uS = 6.412uS. Per [2] the FDD design desires to maximize the clock idle time between bytes using the hardware delays available.</p></li>
+<li><p>Table 24-28 of [3] indicates the WDELAY has a max of 63, which is an error in the data sheet, 254 is the actual max reported by Eric Best, TI FAE. With an 80MHz VCLK, using the equation in the table yields a maximum delay of 3.2 uS.</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>bit 23</td>
+<td>0</td>
+<td><p><strong>PARPOL:</strong> Parity polarity: even or odd</p>
+<p>Parity not enabled, so this has parameter has no effect. Arbitrarily se to 0.</p></td>
+</tr>
+<tr class="odd">
+<td>bit 22</td>
+<td>0</td>
+<td><p><strong>PARITYENA:</strong> Parity enable for data</p>
+<blockquote>
+<p>Per §8.5.3 of [2], Data Format specifies Parity to be disabled, so this parameter is set to 0.</p>
+</blockquote></td>
+</tr>
+<tr class="even">
+<td>bit 21</td>
+<td>0</td>
+<td><p><strong>WAITENA:</strong></p>
+<blockquote>
+<p>Per §8.5.3 of [2], Data Format specifies WAITENA to be disabled, so this parameter is set to 0.</p>
+</blockquote></td>
+</tr>
+<tr class="odd">
+<td>bit 20</td>
+<td>0</td>
+<td><p><strong>SHIFTDIR:</strong> Shift direction for data</p>
+<blockquote>
+<p>Per §8.5.3 of [2], Data Format specifies MSB shifted out first, so this parameter is set to 0.</p>
+</blockquote></td>
+</tr>
+<tr class="even">
+<td>bit 19</td>
+<td>0</td>
+<td><strong>Reserved:</strong></td>
+</tr>
+<tr class="odd">
+<td>bit 18</td>
+<td>0</td>
+<td><p><strong>DIS CS TIMERS:</strong> Disable chip-select timers for this format.</p>
+<p>Delays specified by C2TDELAY and T2CDELAY are required for creating the inter byte delay specified in §8.5.3 of [2], so this is set to 0 to enable the delays.</p></td>
+</tr>
+<tr class="even">
+<td>bit 17</td>
+<td>0</td>
+<td><p><strong>POLARITY:</strong> SPI data clock polarity</p>
+<blockquote>
+<p>§8.5.3 of [2], Clock settings specify the polarity to be Inactive-Low, so this is set to 0. (Note that the Active-High, requirement is not understood and is ignored in the configuration in this module. When the clock is active it is toggling states to provide edges, thus specifying the active state as a constant level has an unknown meaning)</p>
+</blockquote></td>
+</tr>
+<tr class="odd">
+<td>bit 16</td>
+<td>0</td>
+<td><p><strong>PHASE:</strong> SPI data clock delay</p>
+<blockquote>
+<p>§8.5.3 of [2], Clock settings specify the SCLK edges to be synchronized with the data stream, so this is set to 0.</p>
+</blockquote></td>
+</tr>
+<tr class="even">
+<td>bit 15-8</td>
+<td>255</td>
+<td><p><strong>PRESCALE:</strong> PRESCALE is use to derive SPICLK from VCLK</p>
+<p>BRFormat = VBUSPCLK / (PRESCALEx ÷ 1)</p>
+<ul>
+<li><p>Turns Counter function in [2]§8.5.3 requires a clock source frequency of 300 kHz, however this is not an actual requirement as discussed with the FDD owner, but rather a documentation of the implementation choice at the time of FDD release. The physical maximum for SPI clock is specified in [1]Table 30-15 by SP71 and SP72 parameters. With the 8MHz PIC clock the time parameters = 1/(8MHz/4) + 20ns = 250ns + 20ns = 270 ns. This results in an overall period of 540ns = 1.85 MHz</p></li>
+<li><p>Table 24-28 of [3] indicates the PRESCALE is 8 bits wide providing a max of 255. With an 80MHz VCLK, this results in a minimum of baud rate of approx. 314 baud.</p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>bit 7-5</td>
+<td>0</td>
+<td><strong>Reserved:</strong></td>
+</tr>
+<tr class="even">
+<td>bit 4-0</td>
+<td>8</td>
+<td><p><strong>CHARLEN:</strong> SPI data data-word length.</p>
+<blockquote>
+<p>Per §8.5.3 of [2], Data Format specifies a value of 8 for this parameter.</p>
+</blockquote></td>
+</tr>
+</tbody>
+</table>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<h4 class="unnumbered" id="section-1"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.emf" /> </h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image15.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image16.emf" /><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image17.emf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image18.emf" /></p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<p>None</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<h3 id="isr-_irqunit2txrx">Isr: _IrqUnit2TxRx</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<p>None</p>
+<h4 id="spinxt_irqunit2txrx">SpiNxt_IrqUnit2TxRx</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image19.wmf" /></p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>None</p>
+<h3 id="isr-_irqunit2txrxerr">Isr: _IrqUnit2TxRxERR</h3>
+<p>None</p>
+<h4 id="program-flow-start-1">Program Flow Start</h4>
+<p>None</p>
+<h4 id="spinxt_irqunit2txrxerr">SpiNxt_IrqUnit2TxRxERR</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image20.wmf" /></p>
+<h4 id="program-flow-end-1">Program Flow End</h4>
+<p>None</p>
+<h2 id="serial-communication-functions"><br />
+Serial Communication Functions</h2>
+<p>None</p>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>(Describe in words relevant details about the execution sequence of the different sub modules.)</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;None&gt;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Spi_SetupEB()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+<tr class="even">
+<td>Spi_GetSequenceResult()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+<tr class="odd">
+<td>Spi_AsyncTransmit()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+<tr class="even">
+<td>Spi_Init()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+<tr class="odd">
+<td>mibspiSetData()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+<tr class="even">
+<td>mibspiSetCtrlData()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+<tr class="odd">
+<td>mibspiGetData()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+<tr class="even">
+<td>mibspiTransfer()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mibspiSetData8()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+<tr class="even">
+<td>mibspiGetData8()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+<tr class="odd">
+<td>mibspiEnableGroupNotification()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+<tr class="even">
+<td>mibspiNotification()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+<tr class="odd">
+<td>mibspiGroupNotification()</td>
+<td>SPINXT_START_SEC_CODE</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>Driver has several functions and all initializations hardcoded for what is needed by the Turns Counter , the Turns Counter Reflash, or the Digital MSB. Future modifications of the SPI interface of those components will probably require changes to this driver. New uses of the SPI driver would also require driver changes. Currently the only configurability is through the configuration parameter SpiNxt/SpiNxtGeneral/SpiNxtUseWith which selects either Turns Counter or Digital MSB functionality.</p></li>
+<li><p>The Autosar API was not implemented for use by the Digital MSB for the following reasons:<br />
+a) The digital MSB triggers SPI transfers external to the SPI driver, through the NHET as set up in the ePWM component. This means the SpiNxt_AsyncTransmit () function (if implemented for use by digital MSB) could not follow the Autosar requirement to initiate the transfer and set the driver/handler status accordingly.<br />
+b) The digital MSB transfers require chip select to be released after each word transferred. This means the four words would have to be defined as four channels/four jobs. Each channel requires its own buffer (internal or external). Because the SPI data reads and writes occur in the motor control ISR, they need to be very efficient and cannot afford the overhead of four calls to SpiNxt_SetupEB() that would be needed to implement the double buffering being done on the read data. Use of a possible SpiNxt_ReadIB() would have this same issue even without the double buffering.</p></li>
+<li><p>Several of the initialization constants (delay fields in the delay registers and data format registers, and the baudrate prescale field in the data format registers) have values that depend on the VCLK frequency. These are currently hardcoded for 80 MHz VCLK for Digital MSB, and have values that will work for both 75MHz and 80MHz VCLK for Turns Counter / Turns Counter Reflash (see spreadsheet attached to Turns Counter Reflash FDD). A future improvement would be to calculate these values based on a VCLK configuration parameter.</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 64%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Item #</strong></td>
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>Initial versiond</td>
+<td></td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>2</td>
+<td><p>AsyncTransmit design improvement using exclusive areas and message transmit state check to ensure proper management of data transmission.</p>
+<p>Added setting DIO CS channels to inactive during init</p>
+<p>Added mibspi unit check around Error notification processing</p></td>
+<td>15-Mar-12</td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>3</td>
+<td>Added Notification function hook for end of sequence notification</td>
+<td>23-Mar-12</td>
+<td>JJW</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>4</td>
+<td>Increased WDELAY and T2CDELAY to meet updated FDD 20C requirements</td>
+<td>27-Mar-12</td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>5</td>
+<td>Added metrics hooks to interrupt service routines.</td>
+<td>22-Mar-13</td>
+<td>BWL</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>6</td>
+<td>Completed documentation of all functions in the module, along with changes required for the Digital MSB and the fix for anomaly 4713.</td>
+<td>05-Aug-13</td>
+<td>KMC</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>7</td>
+<td>Removed conditionally-compiled mibspiSetData() functionality for digital MSB; modified conditionally-compiled mibspiGetData() functionality for digital MSB per ES-50A v005,changed initialization constant values, and added DMA control initialization, all per ES-50A v005 and fix for anomaly 5929.</td>
+<td>01-Apr-14</td>
+<td>KMC</td>
+</tr>
+</tbody>
+</table>

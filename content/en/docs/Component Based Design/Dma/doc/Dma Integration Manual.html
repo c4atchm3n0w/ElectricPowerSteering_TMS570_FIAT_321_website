@@ -1,0 +1,701 @@
+---
+title: Dma Integration Manual
+linkTitle: Dma Integration Manual
+weight: 4
+---
+
+<p><a href="#dependencies">1 Dependencies <span>2</span></a></p>
+<p><a href="#swcs">1.1 SWCs <span>2</span></a></p>
+<p><a href="#global-functionsnon-rte-to-be-provided-to-integration-project">1.2 Global Functions(Non RTE) to be provided to Integration Project <span>2</span></a></p>
+<p><a href="#configuration">2 Configuration <span>3</span></a></p>
+<p><a href="#build-time-config">2.1 Build Time Config <span>3</span></a></p>
+<p><a href="#configuration-files-to-be-provided-by-integration-project">2.2 Configuration Files to be provided by Integration Project <span>3</span></a></p>
+<p><a href="#da-vinci-parameter-configuration-changes">2.2.1 Da Vinci Parameter Configuration Changes <span>3</span></a></p>
+<p><a href="#davinci-interrupt-configuration-changes">2.2.2 DaVinci Interrupt Configuration Changes <span>3</span></a></p>
+<p><a href="#manual-configuration-changes">2.2.3 Manual Configuration Changes <span>3</span></a></p>
+<p><a href="#integration">3 Integration <span>4</span></a></p>
+<p><a href="#required-global-data-inputs">3.1 Required Global Data Inputs <span>4</span></a></p>
+<p><a href="#required-global-data-outputs">3.2 Required Global Data Outputs <span>4</span></a></p>
+<p><a href="#specific-include-path-present">3.3 Specific Include Path present <span>4</span></a></p>
+<p><a href="#runnable-scheduling">4 Runnable Scheduling <span>5</span></a></p>
+<p><a href="#memory-mapping">5 Memory Mapping <span>6</span></a></p>
+<p><a href="#mapping">5.1 Mapping <span>6</span></a></p>
+<p><a href="#usage">5.2 Usage <span>6</span></a></p>
+<p><a href="#non-rte-nvm-blocks">5.3 Non RTE NvM Blocks <span>6</span></a></p>
+<p><a href="#rte-nvm-blocks">5.4 RTE NvM Blocks <span>6</span></a></p>
+<p><a href="#compiler-settings">6 Compiler Settings <span>6</span></a></p>
+<p><a href="#preprocessor-macro">6.1 Preprocessor MACRO <span>6</span></a></p>
+<p><a href="#optimization-settings">6.2 Optimization Settings <span>6</span></a></p>
+<p><a href="#architectural-concerns">7 Architectural Concerns <span>7</span></a></p>
+<p><a href="#overall-dma-architecture">7.1 Overall DMA Architecture <span>8</span></a></p>
+<p><a href="#affected-modules">7.2 Affected Modules <span>9</span></a></p>
+<p><a href="#iohwabstractionusr">7.2.1 IoHwAbstractionUsr <span>9</span></a></p>
+<p><a href="#adc">7.2.2 Adc <span>9</span></a></p>
+<p><a href="#mtrctrl_irq">7.2.3 MtrCtrl_Irq <span>9</span></a></p>
+<p><a href="#udiag">7.2.4 uDiag <span>10</span></a></p>
+<p><a href="#_Toc384642189">8 Revision Control Log <span>12</span></a></p>
+<h1 id="dependencies">Dependencies</h1>
+<h2 id="swcs">SWCs</h2>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Required Feature</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Adc</td>
+<td>Using ADC triggers for DMA transfers as well as ADC conversion group sizes to calculate buffer sizes. Only required if ADC DMA channels are enabled. Requires version FDD33C_008_and_FDD33E_002.3 or later.</td>
+</tr>
+<tr class="even">
+<td>SpiNxt</td>
+<td>Using SPI Rx buffer full triggers for DMA transfers as well as SPI transfer group sizes to calculate DMA buffer sizes. Only required if SPI DMA channels are used. Requires version ASR038_2.3.0_8 or later.</td>
+</tr>
+<tr class="odd">
+<td>uDiag</td>
+<td>If the FlsTst channels are enabled, uDiag is responsible for initializing and enabling these blocks. Requires version FDD32B_TMS570_uDiag_000.24 or later.</td>
+</tr>
+<tr class="even">
+<td>ePWM</td>
+<td>Using NHET triggers for DMA transfers as well as NHET program addresses for destination addresses. Only required if NHET DMA channels are enabled. Requires version FDD34B_EPWM_NHETSENT_005.0 or later.</td>
+</tr>
+<tr class="odd">
+<td>TMS570_Startup</td>
+<td>Note that the DMA parity functionality requires version FDD32B_TMS570_Startup_000.19 or later in the bootloader. Note that DMA MPU startup test functionality requires FDD32B_TMS570_startup_000.21 or later in the application.</td>
+</tr>
+<tr class="even">
+<td>DiagMgr</td>
+<td>Error reporting mechanism required if either of the slow SPI or ADC channels are enabled.</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Referencing the external components should be avoided in most cases. Only in unavoidable circumstance external components should be referred. Developer should track the references.</p>
+<h2 id="global-functionsnon-rte-to-be-provided-to-integration-project">Global Functions(Non RTE) to be provided to Integration Project</h2>
+<p>Dma_Init</p>
+<p>Dma_SlowADCGroupValidity</p>
+<p>Dma_InvalidateSlowADCGroup</p>
+<p>Dma_SetupMtrCtrlGroups</p>
+<p>Dma_SetupFlsTstBlock</p>
+<p>Dma_EnableFlsTstBlock</p>
+<p>Dma_DisableFlsTstBlock</p>
+<h1 id="configuration">Configuration</h1>
+<h2 id="build-time-config">Build Time Config</h2>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 53%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modules</th>
+<th>Notes</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-files-to-be-provided-by-integration-project">Configuration Files to be provided by Integration Project</h2>
+<p>Dma_Cfg.h should be manually generated based on the template provided in the Tools folder.</p>
+<h3 id="da-vinci-parameter-configuration-changes">Da Vinci Parameter Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 47%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="davinci-interrupt-configuration-changes">DaVinci Interrupt Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 9%" />
+<col style="width: 38%" />
+<col style="width: 34%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ISR Name</th>
+<th>VIM #</th>
+<th>Priority Dependency</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MtrCtrl_Irq</td>
+<td>40</td>
+<td></td>
+<td>If using the Fast ADC channel, update this to use IRQ40.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-configuration-changes">Manual Configuration Changes</h3>
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 40%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Notes</th>
+<th>SWC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_DMAFLSTSTENABLED_CNT_ENUM</td>
+<td>STD_ON or STD_OFF – used to enable the FlsTst DMA channels.</td>
+<td>Dma_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_FASTSPIGROUPENABLED_CNT_ENUM</td>
+<td>STD_ON or STD_OFF – used to enable the MtrCtrl ISR SPI DMA channels.</td>
+<td>Dma_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_FASTADCGROUPENABLED_CNT_ENUM</td>
+<td>STD_ON or STD_OFF – used to enable the MtrCtrl ISR ADC DMA channel.</td>
+<td>Dma_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>D_FASTPWMGROUPENABLED_CNT_ENUM</td>
+<td>STD_ON or STD_OFF – used to enable the MtrCtrl ISR NHET and ePWM DMA channels.</td>
+<td>Dma_Cfg.h</td>
+</tr>
+<tr class="odd">
+<td>D_SLOWADCGROUPENABLED_CNT_ENUM</td>
+<td>STD_ON or STD_OFF – used to enable the 2ms ADC DMA channel.</td>
+<td>Dma_Cfg.h</td>
+</tr>
+<tr class="even">
+<td>DMA_PARITY_ENABLE</td>
+<td>STD_ON or STD_OFF – used to enable the parity check. This should be enabled on all programs – note that there is a required change in the bootloader to accommodate this.</td>
+<td>appinit_cfg.h</td>
+</tr>
+<tr class="odd">
+<td>DMA_REPORTERRORSTATUS</td>
+<td>Set to NxtrDiagMgrX_ReportNTCStatus, where X is the application calling the group validity check functions.</td>
+<td>Dma_Cfg.h</td>
+</tr>
+</tbody>
+</table>
+<h1 id="integration">Integration</h1>
+<h2 id="required-global-data-inputs">Required Global Data Inputs</h2>
+<p>None</p>
+<h2 id="required-global-data-outputs">Required Global Data Outputs</h2>
+<p>DMAData_G_str</p>
+<p>Dma_DmaRstFail_Cnt_G_lgc</p>
+<h2 id="specific-include-path-present">Specific Include Path present</h2>
+<p>Yes</p>
+<h1 id="runnable-scheduling">Runnable Scheduling </h1>
+<p>This section specifies the required runnable scheduling.</p>
+<table>
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 51%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Init</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dma_Init</td>
+<td>Must be scheduled before FlsTst_Init (uDiag)</td>
+<td>Init</td>
+</tr>
+<tr class="even">
+<td>Dma_SetupMtrCtrlGroups</td>
+<td>Must be scheduled after Dma_Init. Should be scheduled after other used peripherals are enabled (SPI, ADC, ePWM, NHET, CRC). Should be scheduled before the MtrCtrl ISR is enabled. Only required if any of the SPI, ADC, or PWM groups are enabled.</td>
+<td>Init</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 47%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Runnable</th>
+<th>Scheduling Requirements</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dma_SlowADCGroupValidity</td>
+<td>Must be scheduled before the data is collected from the 2ms ADC buffer. Only required if the slow ADC channel is used.</td>
+<td>2ms</td>
+</tr>
+<tr class="even">
+<td>Dma_InvalidateSlowADCGroup</td>
+<td>Must be scheduled after the data is collected from the 2ms ADC buffer. Only required if the slow ADC channel is used.</td>
+<td>2ms</td>
+</tr>
+</tbody>
+</table>
+<h1 id="memory-mapping">Memory Mapping</h1>
+<h2 id="mapping">Mapping</h2>
+<table>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 31%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Memory Section</th>
+<th>Contents</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DMA_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+<td>All global DMA variables in RAM (source and destination).</td>
+<td>This section can be mapped to an application only available in supervisor mode. In this case, Dma_InvalidateSlowADCGroup will need to be accessed with a trusted function call.</td>
+</tr>
+<tr class="even">
+<td>DMA_START_SEC_VAR_CLEARED_BOOLEAN</td>
+<td>DMA reset fail flag</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>* Each …START_SEC… constant is terminated by a …STOP_SEC… constant as specified in the AUTOSAR Memory Mapping requirements.</p>
+<h2 id="usage">Usage</h2>
+<table>
+<colgroup>
+<col style="width: 55%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>RAM</th>
+<th>ROM</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Table 1: ARM Cortex R4 Memory Usage</p>
+<h2 id="non-rte-nvm-blocks">Non RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h2 id="rte-nvm-blocks"> RTE NvM Blocks</h2>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>Note : Size of the NVM block if configured in developer</p>
+<h1 id="compiler-settings">Compiler Settings</h1>
+<h2 id="preprocessor-macro"> Preprocessor MACRO</h2>
+<p>None</p>
+<h2 id="optimization-settings">Optimization Settings</h2>
+<p>Dma.c should use the same optimization settings as other functions called from the MtrCtrl ISR (generally, optimize = 3, optimize for speed = 5).</p>
+<h1 id="architectural-concerns">Architectural Concerns</h1>
+<p>DMA is a module that largely impacts the system architecture, particularly at the MtrCtrl ISR time domain. As such, this section includes some considerations for integrating DMA into an integration project for the first time.</p>
+<p>The examples show integration of every DMA channel; if only a subset is used, not all of these examples may apply.</p>
+<h2 id="overall-dma-architecture">Overall DMA Architecture</h2>
+<p>The following diagram is taken from FDD52, and shows how the DMA channels fit into the MtrCtrl ISR process:</p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.emf" /></p>
+<h2 id="affected-modules">Affected Modules</h2>
+<h3 id="iohwabstractionusr">IoHwAbstractionUsr</h3>
+<p>Historically, ADC conversions were triggered by the 2ms loop through the MtrCtrl ISR (the MtrCtrl ISR would perform a software trigger to the “slow” ADC groups directly). With DMA, the “slow” ADC group conversion is now triggered by ePWM SOCB, driven by ePWM4 using CMPB.</p>
+<p>In this new architecture, IoHwAbstractionUsr must perform the following:</p>
+<ol type="1">
+<li><p>Before CDDInterface_Per1, an IoHwAbstractionUsr runnable must update the value of ePWM4 CMPB (refer to the ePWM component for the interface). It must also clear the ADC1 G2 Conversions Ended bit as follows:</p></li>
+</ol>
+<blockquote>
+<p>adcREG1-&gt;GxSR[2u] = 1u;</p>
+</blockquote>
+<ol start="2" type="1">
+<li><p>After the conversion completes, an IoHwAbstractionUsr runnable must update the value of ePWM4 CMPB to disable the ADC conversion (refer to the ePWM component).</p></li>
+<li><p>After the conversion completes but before the ADC values are required to be used, an IoHwAbstractionUsr runnable must read and process the data from the DMA destination buffer. The buffer can optionally be cleared at this point. Note that this can be done from the same runnable as disabling the ADC conversion.</p></li>
+<li><p>An IoHwAbstraction runnable can be called from the MtrCtrl ISR to capture any data from the “fast” ADC conversion needed by the 2ms loop (ex. a redundant read of switched battery voltage). The DMA buffer should be copied to a standard CDDInterface global variable and read by CDDInterface_Per1 along with the rest of the MtrCtrl ISR data used by the 2ms loop.</p></li>
+</ol>
+<p>The final IoHwAbstractionUsr component could then look something like this:</p>
+<p>IoHwAb_CaptureADC – reads Switched Battery Voltage from ADC2 DMA buffer and writes it to a CDD variable.</p>
+<p>IoHwAb_StartADC – enables the ADC1 conversion and clears the ADC1 G2 Conversions Ended bit. Scheduled in the 2ms loop just before CDDInterface_Per1.</p>
+<p>IoHwAb_ReadADC – checks that the ADC1 conversion completed and disables the ADC1 conversion. Reads the values from the ADC1 DMA buffer as well as the redundant Switched Battery Voltage from CDDInterface. Converts all of these signals to engineering units and outputs them to the rest of the RTE. Scheduled in the 2ms loop at the end of the forward path. See ePWM component for minimum elapsed time between enabling and disabling the ADC conversion via the write of the ePWM4 CMPB value.</p>
+<h3 id="adc">Adc</h3>
+<p>The intended DMA architecture uses two ADC conversion groups: ADC1 Group 2 (“slow” ADC) and ADC2 Group 1 (“fast” ADC). Historically, ADC2 Event Group was used instead of ADC2 Group 1 – this may mean that integrating DMA will require a program to switch the ADC group being used.</p>
+<h3 id="mtrctrl_irq">MtrCtrl_Irq</h3>
+<p>If this is the first integration of DMA into a program, the existing ADC triggering mechanism will need to be removed and replaced with the method described above. This will largely involve calling an IoHwAbstractionUsr runnable. In addition, the ADC Conversion Complete flag will still need to be cleared (though it may have changed, see above), as well as the DMA interrupt that calls the MtrCtrl ISR. It can be cleared as follows:</p>
+<p>DMACTRLREG-&gt;BTCFLAG = (1 &lt;&lt; 3)</p>
+<h3 id="udiag">uDiag</h3>
+<p>The following entries should be added to the Static Register Check list. Note that these values are subject to change depending on which channels are enabled.</p>
+<table>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 27%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Address</th>
+<th>Expected Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DMA_PAR0 *</td>
+<td>0xFFFFF094</td>
+<td>0x44440440</td>
+</tr>
+<tr class="even">
+<td>DMA_PAR1 *</td>
+<td>0xFFFFF098</td>
+<td>0x04004000</td>
+</tr>
+<tr class="odd">
+<td>DMA_DMAPCR</td>
+<td>0xFFFFF1A8</td>
+<td>0x0000000A</td>
+</tr>
+<tr class="even">
+<td>DMA_DMAMPCTRL *</td>
+<td>0xFFFFF1B0</td>
+<td>0x0F090909</td>
+</tr>
+<tr class="odd">
+<td>DMA_DMAMPR0S</td>
+<td>0xFFFFF1B8</td>
+<td>0xFF0A0000</td>
+</tr>
+<tr class="even">
+<td>DMA_DMAMPR0E</td>
+<td>0xFFFFF1BC</td>
+<td>0xFF473FFF</td>
+</tr>
+<tr class="odd">
+<td>DMA_DMAMPR1S</td>
+<td>0xFFFFF1C0</td>
+<td>0xFCF78C00</td>
+</tr>
+<tr class="even">
+<td>DMA_DMAMPR1E</td>
+<td>0xFFFFF1C4</td>
+<td>0xFE0001FF</td>
+</tr>
+<tr class="odd">
+<td>DMA_DMAMPR3S</td>
+<td>0xFFFFF1D0</td>
+<td>0x00200000</td>
+</tr>
+<tr class="even">
+<td>DMA_DMAMPR3E</td>
+<td>0xFFFFF1D4</td>
+<td>0xFFFFFFFF</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP00_IDADDR *</td>
+<td>0xFFF80004</td>
+<td>0xFE000068</td>
+</tr>
+<tr class="even">
+<td>DMA_CP00_ITCOUNT *</td>
+<td>0xFFF80008</td>
+<td>0x00010001</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP00_CHCTRL *</td>
+<td>0xFFF80010</td>
+<td>0x0000F000</td>
+</tr>
+<tr class="even">
+<td>DMA_CP01_IDADDR *</td>
+<td>0xFFF80024</td>
+<td>0xFE000060</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP01_CHCTRL *</td>
+<td>0xFFF80030</td>
+<td>0x0000F108</td>
+</tr>
+<tr class="even">
+<td>DMA_CP02_ISADDR *</td>
+<td>0xFFF80040</td>
+<td>0xFF0C0202</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP02_ITCOUNT *</td>
+<td>0xFFF80048</td>
+<td>0x00010003</td>
+</tr>
+<tr class="even">
+<td>DMA_CP02_CHCTRL *</td>
+<td>0xFFF80050</td>
+<td>0x0000511F</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP02_EIOFF *</td>
+<td>0xFFF80054</td>
+<td>0x00020004</td>
+</tr>
+<tr class="even">
+<td>DMA_CP03_ISADDR *</td>
+<td>0xFFF80060</td>
+<td>0xFF3A0002</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP03_ITCOUNT *</td>
+<td>0xFFF80068</td>
+<td>0x00010004</td>
+</tr>
+<tr class="even">
+<td>DMA_CP03_CHCTRL *</td>
+<td>0xFFF80070</td>
+<td>0x0000511F</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP03_EIOFF *</td>
+<td>0xFFF80074</td>
+<td>0x00020004</td>
+</tr>
+<tr class="even">
+<td>DMA_CP05_IDADDR *</td>
+<td>0xFFF800A4</td>
+<td>0xFF4600E8</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP05_ITCOUNT *</td>
+<td>0xFFF800A8</td>
+<td>0x00010001</td>
+</tr>
+<tr class="even">
+<td>DMA_CP05_CHCTRL *</td>
+<td>0xFFF800B0</td>
+<td>0x0007A101</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP06_IDADDR *</td>
+<td>0xFFF800C4</td>
+<td>0xFCF78C10</td>
+</tr>
+<tr class="even">
+<td>DMA_CP06_CHCTRL *</td>
+<td>0xFFF800D0</td>
+<td>0x0000511F</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP09_ISADDR *</td>
+<td>0xFFF80120</td>
+<td>0xFF3E00F2</td>
+</tr>
+<tr class="even">
+<td>DMA_CP09_ITCOUNT *</td>
+<td>0xFFF80128</td>
+<td>0x00010004</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP09_CHCTRL *</td>
+<td>0xFFF80130</td>
+<td>0x0000511F</td>
+</tr>
+<tr class="even">
+<td>DMA_CP09_EIOFF *</td>
+<td>0xFFF80134</td>
+<td>0x00020004</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP12_ISADDR *</td>
+<td>0xFFF80180</td>
+<td>0xFF0A0202</td>
+</tr>
+<tr class="even">
+<td>DMA_CP12_ITCOUNT *</td>
+<td>0xFFF80188</td>
+<td>0x00010003</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP12_CHCTRL *</td>
+<td>0xFFF80190</td>
+<td>0x0000511F</td>
+</tr>
+<tr class="even">
+<td>DMA_CP12_EIOFF *</td>
+<td>0xFFF80194</td>
+<td>0x00020004</td>
+</tr>
+</tbody>
+</table>
+<p><strong>*</strong> These values are dependent on whether certain channels are enabled in the configuration.</p>
+<p>The following entries should be defined as link-time determined.</p>
+<table>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 15%" />
+<col style="width: 40%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Address</th>
+<th>Expected Value</th>
+<th>Offset</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>DMA_DMAMPR2S *</td>
+<td>0xFFFFF1C8</td>
+<td>DMAData_G_str</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>DMA_DMAMPR2E *</td>
+<td>0xFFFFF1CC</td>
+<td>DMAData_G_str</td>
+<td>sizeof(DMAData_G_str) – 1U</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP02_IDADDR *</td>
+<td>0xFFF80044</td>
+<td>DMAData_G_str.FastSPI_Cnt_u16[0]</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>DMA_CP03_IDADDR *</td>
+<td>0xFFF80064</td>
+<td>DMAData_G_str.FastADC_Cnt_u16[0]</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP05_ISADDR *</td>
+<td>0xFFF800A0</td>
+<td>DMAData_G_str.PWMPeriod_Cnt_u32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>DMA_CP06_ISADDR *</td>
+<td>0xFFF800C0</td>
+<td>DMAData_G_str.PWMCmp_Cnt_u16[0][0]</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>DMA_CP09_IDADDR *</td>
+<td>0xFFF80124</td>
+<td>DMAData_G_str.SlowADC_Cnt_u16[0]</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>DMA_CP12_IDADDR *</td>
+<td>0xFFF80184</td>
+<td>DMAData_G_str.SlowSPI_Cnt_u16[0]</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>*</strong> These values are dependent on whether certain channels are enabled in the configuration.</p>
+<p><span id="_Toc384642189" class="anchor"></span></p>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 71%" />
+<col style="width: 12%" />
+<col style="width: 8%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Initial version</td>
+<td>10-Apr-14</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Updates for safety mechanisms, data integrity mechanisms (FDD 52 v001)</td>
+<td>30-Apr-14</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Removed slow SPI integrity scheme functions (FDD 52 v002)</td>
+<td>02-May-14</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Added DMA Reset Failed global output per ES-52 v004; updated section 7.2.* per ES 52 v004 and latest updates to associated components</td>
+<td>31-Jan-2015</td>
+<td>KMC</td>
+</tr>
+</tbody>
+</table>

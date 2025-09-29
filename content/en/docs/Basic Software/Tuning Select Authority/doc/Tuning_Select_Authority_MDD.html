@@ -1,0 +1,516 @@
+---
+title: Tuning_Select_Authority_MDD
+linkTitle: Tuning_Select_Authority_MDD
+weight: 3
+---
+
+<h1 class="unnumbered" id="module-tuning-select-authority">Module – Tuning Select Authority</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This function broadcasts an authority to allow switching between calibration subsets while driving. It compares handwheel torque and vehicle speed to calibratable thresholds and outputs either a zero or a one.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image1.jpeg" style="width:2.77895in;height:2.29172in" alt="TunSelAuth.jpg" /></p>
+<h1 id="variable-data-dictionary"><br />
+Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module Inputs</th>
+<th colspan="2">Module Outputs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td colspan="2">HwTorque_HwNm_f32</td>
+<td>ActiveTunPers_Cnt_u16</td>
+</tr>
+<tr class="even">
+<td colspan="2">VehicleSpeed_Kph_f32</td>
+<td>ActiveTunSet_Cnt_u16</td>
+</tr>
+<tr class="odd">
+<td colspan="2">DesiredTunPers_Cnt_u16</td>
+<td>TunPer_Ptr_Str *</td>
+</tr>
+<tr class="even">
+<td colspan="2">DesiredTunSet_Cnt_u16</td>
+<td>TunSet_Ptr_Str *</td>
+</tr>
+<tr class="odd">
+<td colspan="2">ActiveTunOvrPtrAddr_Cnt_u32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">TuningSessionActPtr_Cnt_u8</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><em>* Note: For unit testing purposes these inputs are defined as pointers to uint16 (as opposed to pointers to tuning structures) for simplicity.</em></p>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 15%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+<col style="width: 26%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Resolution</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>*HwTrqLPFiltSV_HwNm_M_str</td>
+<td>Multiple</td>
+<td>Multiple</td>
+<td>Multiple</td>
+<td>TUNINGSELAUTH_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td><ul>
+<li><p>K_Uls_f32</p></li>
+</ul></td>
+<td>Single Precision Float</td>
+<td>0.0124877435</td>
+<td>0.4665119090</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><ul>
+<li><p>SV_HwNm_f32</p></li>
+</ul></td>
+<td>Single Precision Float</td>
+<td>-10</td>
+<td>10</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>PrevTunSet_Cnt_M_u16</td>
+<td>1</td>
+<td>0</td>
+<td>100</td>
+<td>TUNINGSELAUTH_START_SEC_VAR_CLEARED _16</td>
+</tr>
+<tr class="odd">
+<td>PrevTunPers_Cnt_M_u16</td>
+<td>1</td>
+<td>0</td>
+<td>100</td>
+<td>TUNINGSELAUTH_START_SEC_VAR_CLEARED _16</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Typedef Name</th>
+<th>Element Name</th>
+<th>User Defined Type</th>
+<th><p>Legal Range</p>
+<p>(min)</p></th>
+<th><p>Legal Range</p>
+<p>(max)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>This section lists the calibrations used by the module. For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>k_TunSelHwTrqThresh_HwNm_f32</td>
+</tr>
+<tr class="even">
+<td>k_TunSelVehSpdThresh_Kph_f32</td>
+</tr>
+<tr class="odd">
+<td>k_TunSelHwTrqLPFKn_Hz_f32</td>
+</tr>
+</tbody>
+</table>
+<h2 id="programfixed-constants">Program(fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 39%" />
+<col style="width: 22%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Units</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_10MS_SEC_F32</td>
+<td>Single Precision Float</td>
+<td>Sec</td>
+<td>0.010</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D_TRUE_CNT_LGC</td>
+</tr>
+<tr class="even">
+<td>D_FALSE_CNT_LGC</td>
+</tr>
+<tr class="odd">
+<td>T_TunSetSelectionTbl_Ptr_Str[] *</td>
+</tr>
+<tr class="even">
+<td>T_TunPersSelectionTbl_Ptr_Str[][] *</td>
+</tr>
+</tbody>
+</table>
+<p><em>* Note: For unit testing purposes, these arrays of pointers are of size [3] and [3][5] respectively and are defined as pointers to uint16 (as opposed to pointers to tuning structures) for simplicity.</em></p>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Constant Name</th>
+<th>Resolution</th>
+<th>Value</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules"><br />
+Functions/Macros used by the Sub-Modules </h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>Abs_f32_m</p></li>
+<li><p>LPF_OpUpdate_f32_m</p></li>
+<li><p>LPF_KUpdate_f32_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>&lt;None&gt;</p></li>
+<li></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<p>None</p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HwTorque_HwNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>VehicleSpeed_Kph_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>DesiredTunPers_Cnt_u16</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>DesiredTunSet_Cnt_u16</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>ActiveTunPers_Cnt_u16</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>ActiveTunSet_Cnt_u16</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>ActiveTunOvrPtrAddr_Cnt_u32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>TuningSessionActPtr_Cnt_u8</td>
+<td>255</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-tuningselauth_init1">Init: TuningSelAuth_Init1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>LPF_KUpdate_f32 is used to initialize the LPF filter instead of the full LPF_Init_f32 macro as an optimization since the required initial state of the filter is 0, which is the initialized value of the RAM, so there is no need to explicitly initialize the state variables in this init function.</p>
+<h4 id="initialize-low-pass-filters">Initialize Low Pass Filters</h4>
+<h4 class="unnumbered" id="section-1"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.emf" /></h4>
+<h3 id="periodic-functions">Periodic Functions</h3>
+<h4 id="per-tuningselauth_per1">Per: TuningSelAuth_Per1</h4>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<h4 id="rte_call_tuningselauth_per1_cp0_checkpointreached-store-module-inputs-to-local-copies">Rte_Call_TuningSelAuth_Per1_CP0_CheckpointReached() Store Module Inputs to Local copies</h4>
+<p>See below section</p>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.emf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs">Store Local copy of outputs into Module Outputs</h4>
+<p>See above section</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_TuningSelAuth_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions"><br />
+Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-function">Serial Communication Function</h2>
+<p>None</p>
+<h2 id="transition-functions">Transition Functions</h2>
+<p>None</p>
+<h2 id="section-2"><br />
+</h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<blockquote>
+<p>If something besides the defaults of “0” for desired tuning set and desired personality are required at poweron, Init1 must run after the init function that provides these initial values.</p>
+</blockquote>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Calling Frequency</th>
+<th>System State(s) in which the function is called</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TuningSelAuth_Init1</td>
+<td>Once at Startup</td>
+<td>COLDINIT</td>
+</tr>
+<tr class="even">
+<td>TuningSelAuth_Per1</td>
+<td>10 ms</td>
+<td>ALL</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function Name</th>
+<th>Sub-Module called by (Serial Comm Function Name)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-3"></h1>
+<h1 id="memory-map-definition-requirements"><br />
+Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TuningSelAuth _Init1</td>
+<td>RTE_START_SEC_AP_TUNINGSELAUTH_APPL_CODE</td>
+</tr>
+<tr class="even">
+<td>TuningSelAuth_Per1</td>
+<td>RTE_START_SEC_AP_TUNINGSELAUTH_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-4"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name of Sub Module</th>
+<th>Software Segment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-5"></h1>
+<h1 id="known-issues-limitations-with-design"><br />
+Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions defined in “GlobalMacro.h” are not unit tested</p></li>
+<li><p>The FDD indicates that this module will store the EEPROM value for tuning set, however, this implementation doesn’t provide this block. Instead, it is assumed that some other module will contain the tuning selection block. This was done to enable programs that don’t have multiple tuning sets to just use the default “0” without having to manage an EEPROM block.</p></li>
+</ol>
+<h1 id="revision-control-log"><br />
+Revision Control Log</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 63%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Item #</strong></th>
+<th><strong>Rev #</strong></th>
+<th><strong>Change Description</strong></th>
+<th><strong>Date</strong></th>
+<th><strong>Author Initials</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1.0</td>
+<td>Initial MDD implementing FDD SF-23 v001</td>
+<td>03Jul12</td>
+<td>VK</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>2.0</td>
+<td>Updates to provide the switching of tuning sets and personalities</td>
+<td>03/08/12</td>
+<td>LWW</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>3.0</td>
+<td>Added checkpoints and memmap software segment is updated for static variables</td>
+<td>24-Sep-12</td>
+<td>Selva</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>4.0</td>
+<td>Updated trigger rate for Per1</td>
+<td>24-Oct-12</td>
+<td>BWL</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>5.0</td>
+<td>Updated per1 for tune-on-the-fly phase 1 support.</td>
+<td>30-Jul-13</td>
+<td>KJS</td>
+</tr>
+</tbody>
+</table>

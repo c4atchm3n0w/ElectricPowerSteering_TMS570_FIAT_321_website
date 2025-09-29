@@ -1,0 +1,1573 @@
+---
+title: Damping_Firewall_MDD
+linkTitle: Damping_Firewall_MDD
+weight: 2
+---
+
+<h1 class="unnumbered" id="module-damping-firewall">Module – Damping Firewall</h1>
+<h1 id="high-level-description">High-Level Description</h1>
+<p>This module regulates the damping command according to safety specifications.</p>
+<h1 id="figures">Figures</h1>
+<h2 id="component-diagram">Component Diagram</h2>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image2.png" style="width:3.09306in;height:3.25972in" /></p>
+<h1 id="variable-data-dictionary">Variable Data Dictionary</h1>
+<p>For details on module input / output variable, refer to the Data Dictionary for the application. Input / output variable names are listed here for reference.</p>
+<table>
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 0%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Module Inputs</td>
+<td colspan="2">Module Outputs</td>
+</tr>
+<tr class="even">
+<td colspan="2">AsstFirewallActive_Uls_f32</td>
+<td>CombinedDamping_MtrNm_f32</td>
+</tr>
+<tr class="odd">
+<td colspan="2">DampingCmd_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">HwTorque_HwNm_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">InertiaComp_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">MtrVelCRF_MtrRadpS_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">VehicleSpeed_Kph_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">BaseAssistCmd_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">WIRCmdAmpBlnd_MtrNm_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">FreqDepDmpSrlComSvcDft_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">VehicleLonAccel_KphpS_f32</td>
+<td></td>
+</tr>
+<tr class="even">
+<td colspan="2">Defeat_Damping_Svc_Cnt_lgc</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td colspan="2">MEC_Counter_Cnt_enum</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="module-internal-variables">Module Internal Variables</h2>
+<p>This section identifies the name, range and resolutions for module specific data created by this module. If there are no range restrictions on the variable, the term “FULL” is placed into the table for legal range.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 15%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 25%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Variable Name</td>
+<td>Resolution</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>DampFWVBICErrFiltSv_M_str</td>
+<td>LPF32KSV_Str</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>DampFWActiveKSV_M_str</td>
+<td>LPF32KSV_Str</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>DampFWUprBoundKSV_M_str</td>
+<td>LPF32KSV_Str</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="odd">
+<td>DampFWLwrBoundKSV_M_str</td>
+<td>LPF32KSV_Str</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>DampFWUprBoundFilt_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DampFWLwrBoundFilt_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DampFWUprBound_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DampFWLwrBound_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DampFWAddedDamp_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DampFWAddedDampAFW_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DampFWAddedDampDFW_MtrNm_D_f32</td>
+<td>Single Precision Float</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DampFWTbarVelFiltSv_M_str</td>
+<td>LPF32KSV_Str</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_UNSPECIFIED</td>
+</tr>
+<tr class="even">
+<td>DampFWSatDamp_MtrNm_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DampFWPrevTbarAng_HwDeg_M_s6p9</td>
+<td>2^-9</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DampFWPrev1SclDrvVel_MtrRadpS_M_s14p1</td>
+<td>2^-1</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DampFWPrev2SclDrvVel_MtrRadpS_M_s14p1</td>
+<td>2^-1</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DampFWPrev1PreAttnComp_MtrNm_M_s9p6</td>
+<td>2^-6</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DampFWPrev2PreAttnComp_MtrNm_M_s9p6</td>
+<td>2^-6</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DampFWOverBound_Uls_D_lgc</td>
+<td>N/A</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>ReducedPerfSV_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>DampFWVBICOverThresh_Cnt_D_lgc</td>
+<td>N/A</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>DampFWVBICReducedPerfSV_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>DampFWDiverseVBIC_MtrNm_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DampFWDefltDamp_MtrNm_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DampFWDampActive_Uls_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DampFWLimitedVBIC_MtrNm_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DampFWInrtCmpPNStatus_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="odd">
+<td>DampFWPNCountStatus_Cnt_M_lgc</td>
+<td>N/A</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>InrtCmpPNAccum_Cnt_M_u16</td>
+<td>UINT16</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DampPNAcc_Cnt_M_u16</td>
+<td>UNIT16</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>PNAcc_Cnt_M_u16</td>
+<td>1</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>DampFWOverBound_Cnt_D_lgc</td>
+<td>N/A</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_BOOLEAN</td>
+</tr>
+<tr class="even">
+<td>LimitedDamp_MtrNm_D_f32</td>
+<td>Single Precision Floating Point</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DriverVel_MtrRadpSec_D_s24p7</td>
+<td>2^-7</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>PrevDecelGain_Uls_M_u5p11</td>
+<td>2^-11</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>FiltFreq_RadpS_D_s10p5</td>
+<td>2^-5</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>ScaledDriverVel_MtrRadpS_D_s14p1</td>
+<td>2^-1</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>OutputAtten_Uls_D_u8p8</td>
+<td>2^-8</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>RawDecelGain_Uls_D_u5p11</td>
+<td>2^-11</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>DecelGain_Uls_D_u5p11</td>
+<td>2^-11</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>ADDCoefCalc_MtrNmSpRad_D_u0p16</td>
+<td>2^-16</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="even">
+<td>InertiaCompCalc_MtrNm_D_u9p7</td>
+<td>2^-7</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_16</td>
+</tr>
+<tr class="odd">
+<td>PreFiltVBICError_MtrNm_D_f32</td>
+<td>0</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>PostFiltVBICError_MtrNm_D_f32</td>
+<td>0</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="odd">
+<td>DampFWPrev1PreAttnComp_MtrNm_M_s20p11</td>
+<td>2^-11</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+<tr class="even">
+<td>DampFWPrev2PreAttnComp_MtrNm_M_s20p11</td>
+<td>2^-11</td>
+<td>see Data Dictionary</td>
+<td>see Data Dictionary</td>
+<td>DAMPINGFIREWALL_START_SEC_VAR_CLEARED_32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-defined-typedef-definitiondeclaration">User defined typedef definition/declaration </h3>
+<p>This section documents any user types uniquely used for the module.</p>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 24%" />
+<col style="width: 16%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Typedef Name</td>
+<td>Element Name</td>
+<td>User Defined Type</td>
+<td><p>Legal Range</p>
+<p>(min)</p></td>
+<td><p>Legal Range</p>
+<p>(max)</p></td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="constant-data-dictionary">Constant Data Dictionary</h1>
+<h2 id="calibration-constants">Calibration Constants</h2>
+<p>For details on calibration constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="program-fixed-constants">Program (fixed) Constants</h2>
+<h3 id="embedded-constants">Embedded Constants</h3>
+<p>All embedded constants whose values are provided in Eng units will be evaluated to the equivalent counts by using the FPM_InitFixedPoint_m() macro within the #define statement.</p>
+<h4 id="local">Local</h4>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 15%" />
+<col style="width: 18%" />
+<col style="width: 19%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Units</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>D_ONEOVR2MS_SEC_U9P7</td>
+<td>2^-7</td>
+<td>Sec</td>
+<td>500.0</td>
+</tr>
+<tr class="odd">
+<td>D_2MS_SEC_U0P16</td>
+<td>2^-16</td>
+<td>Sec</td>
+<td>0.002</td>
+</tr>
+<tr class="even">
+<td>D_2MS_SEC_U2P14</td>
+<td>2^-14</td>
+<td>Sec</td>
+<td>0.002</td>
+</tr>
+<tr class="odd">
+<td>D_PIOVR180_ULS_S4P11</td>
+<td>2^-11</td>
+<td>Unitless</td>
+<td>0.0174532925199</td>
+</tr>
+<tr class="even">
+<td>D_ONE_ULS_U2P14</td>
+<td>2^-14</td>
+<td>Unitless</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td>D_ONE_ULS_U8P8</td>
+<td>2^-8</td>
+<td>Unitless</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td>D_ONE_ULS_U5P11</td>
+<td>2^-11</td>
+<td>Unitless</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td>D_TWO_ULS_S2P13</td>
+<td>2^-13</td>
+<td>Unitless</td>
+<td>2.0</td>
+</tr>
+<tr class="even">
+<td>D_2PI_ULS_U2P13</td>
+<td>2^-13</td>
+<td>Unitless</td>
+<td>6.2831853071796</td>
+</tr>
+<tr class="odd">
+<td>D_TBARVELFILTVAL_HWDEGPSEC_S15P16</td>
+<td>2^-16</td>
+<td>HwDegpSec</td>
+<td>1024.0</td>
+</tr>
+<tr class="even">
+<td>D_TBARVELFILTVAL_HWDEGPSEC_S15P16</td>
+<td>2^-16</td>
+<td>HwDegpSec</td>
+<td>2047.9375</td>
+</tr>
+<tr class="odd">
+<td>D_TERMA_MTRRADPSEC_S20P11</td>
+<td>2^-11</td>
+<td>MtrRadpS</td>
+<td>4095.875</td>
+</tr>
+<tr class="even">
+<td>D_EIGHT_ULS_U10P6</td>
+<td>2^-6</td>
+<td>Unitless</td>
+<td>8.0</td>
+</tr>
+<tr class="odd">
+<td>D_SCALEDDRIVERVEL_MTRRADPS_S17P14</td>
+<td>2^-14</td>
+<td>MtrRadpS</td>
+<td>10000.0</td>
+</tr>
+<tr class="even">
+<td>D_COMPENSATIONLIMIT_MTRNM_S11P20</td>
+<td>2^-20</td>
+<td>MtrNm</td>
+<td>8.8</td>
+</tr>
+<tr class="odd">
+<td>D_INERTIACOMPCALCLIMIT_MTRNM_U15P1</td>
+<td>2^-1</td>
+<td>MtrNm</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td>D_FOUR_ULS_S3P12</td>
+<td>2^-12</td>
+<td>Unitless</td>
+<td>4.0</td>
+</tr>
+<tr class="odd">
+<td>D_ADDCOEFCALCHILIMIT_MTRNMSPRAD_U1P15</td>
+<td>2^-15</td>
+<td>MtrNmSpRad</td>
+<td>0.05</td>
+</tr>
+<tr class="even">
+<td>D_ADDCOEFCALCHILIMIT_MTRNMSPRAD_U3P13</td>
+<td>2^-13</td>
+<td>MtrNmSpRad</td>
+<td>0.05</td>
+</tr>
+<tr class="odd">
+<td>D_ABSSCALEDRIVERVELHI_MTRRADPS_U15P1</td>
+<td>2^-1</td>
+<td>MtrNmSpRad</td>
+<td>4095. 5</td>
+</tr>
+<tr class="even">
+<td>VEHICLELONACCEL_MIN_F32</td>
+<td>Float32</td>
+<td>KphpS</td>
+<td>-64.0</td>
+</tr>
+<tr class="odd">
+<td>VEHICLELONACCEL_MAX_F32</td>
+<td>Float32</td>
+<td>KphpS</td>
+<td>63.99804</td>
+</tr>
+<tr class="even">
+<td>D_ONE_ULS_U11P21</td>
+<td>Uint32</td>
+<td>Unitless</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h4 class="unnumbered" id="section"></h4>
+<h4 id="global">Global</h4>
+<p>This section lists the global constants used by the module. For details on global constants, refer to the Data Dictionary for the application.</p>
+<table>
+<colgroup>
+<col style="width: 100%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+</tr>
+<tr class="even">
+<td>D_2MS_SEC_F32</td>
+</tr>
+<tr class="odd">
+<td>D_PIOVR180_ULS_F32</td>
+</tr>
+<tr class="even">
+<td>D_ZERO_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td>D_FALSE_CNT_LGC</td>
+</tr>
+<tr class="even">
+<td>D_2PI_ULS_F32</td>
+</tr>
+<tr class="odd">
+<td>D_MTRTRQCMDHILMT_MTRNM_F32</td>
+</tr>
+<tr class="even">
+<td>D_ONE_ULS_F32</td>
+</tr>
+</tbody>
+</table>
+<h3 id="module-specific-lookup-tables-constants">Module specific Lookup Tables Constants</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 11%" />
+<col style="width: 40%" />
+<col style="width: 16%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Constant Name</td>
+<td>Resolution</td>
+<td>Value</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>None</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="functionsmacros-used-by-the-sub-modules">Functions/Macros Used By the Sub-Modules</h1>
+<h2 id="library-functions-macros">Library Functions / Macros </h2>
+<p>The library and functions / Macros that are called by the various sub modules are identified below,</p>
+<ol type="1">
+<li><p>LPF_KUpdate_f32_m</p></li>
+<li><p>LPF_OpUpdate_f32_m</p></li>
+<li><p>HPF_KUpdate_f32_m</p></li>
+<li><p>HPF_OpUpdate_f32_m</p></li>
+<li><p>FPM_FloatToFixed_m</p></li>
+<li><p>FPM_FixedToFloat_m</p></li>
+<li><p>IntplVarXY_u16_u16Xu16Y_Cnt</p></li>
+<li><p>BilinearXYM_s16_s16Xs16YM_Cnt</p></li>
+<li><p>TableSize_m</p></li>
+<li><p>Limit_m</p></li>
+<li><p>Sign_f32_m</p></li>
+<li><p>Rte_Call_NxtrDiagMgr_SetNTCStatus</p></li>
+<li><p>FPM_Fix_m</p></li>
+<li><p>Abs_s32_m</p></li>
+</ol>
+<h2 id="data-hiding-functions">Data Hiding Functions</h2>
+<ol type="1">
+<li><p>None</p></li>
+</ol>
+<h2 id="global-functionsmacros-defined-by-this-module">Global Functions/Macros Defined by this Module</h2>
+<p>None</p>
+<h2 id="local-functionsmacros-used-by-this-mdd-only">Local Functions/Macros Used by this MDD only</h2>
+<h3 id="local-function-1">Local Function #1</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>DriverVelCalc</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>HwTorque_HwNm_T_f32</td>
+<td>float32</td>
+<td>-10</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>CRFMotorVel_MtrRadpS_T_f32</td>
+<td>float32</td>
+<td>-1350</td>
+<td>1350</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>511</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>ScaledDriverVel_MtrRadpS_T_s14p1</td>
+<td>float32</td>
+<td>-10000</td>
+<td>10000</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image3.wmf" /></p>
+<h3 id="calculate-add-coefficient">Calculate ADD Coefficient</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>ADDCoefCalc</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>BaseAssistCmd_MtrNm_T_f32</td>
+<td>float32</td>
+<td>-8.8</td>
+<td>8.8</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>WIRCmdAmpBlnd_MtrNm_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>511</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>CRFMotorVel_MtrRadpS_T_f32</td>
+<td>Float32</td>
+<td>-1350</td>
+<td>1350</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>VehicleLonAccel_KphpS_T_f32</td>
+<td>Float32</td>
+<td>-50</td>
+<td>50</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>ADDCoefCalc_MtrNmSpRad_T_u0p16</td>
+<td>uint16</td>
+<td>0.0</td>
+<td>0.05</td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-1">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image4.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image5.wmf" /></p>
+<h3 id="calculate-filter-coefficients">Calculate Filter Coefficients</h3>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 34%" />
+<col style="width: 13%" />
+<col style="width: 18%" />
+<col style="width: 20%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td>FilterCoefCalc</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td>ADDCoefCalc_MtrNmSpRad_T_u0p16</td>
+<td>uint16</td>
+<td>0.0</td>
+<td>0.05</td>
+</tr>
+<tr class="odd">
+<td><mark></mark></td>
+<td>WIRCmdAmpBlnd_MtrNm_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>8.8</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>VehicleSpeed_Kph_T_f32</td>
+<td>float32</td>
+<td>0</td>
+<td>511</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>filtCoef_Uls_T_Str</td>
+<td>filterCoef_T*</td>
+<td>N/A (address)</td>
+<td>N/A (address)</td>
+</tr>
+<tr class="even">
+<td><strong>Outputs Returned (by reference)</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>filtCoef_Uls_T_Str-&gt;b0_Uls_ s0p15</td>
+<td>sint16</td>
+<td>-0.975097656</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>filtCoef_Uls_T_Str-&gt;b1_Uls_ u0p16</td>
+<td>uint16</td>
+<td>0.0</td>
+<td>0.400024414</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>filtCoef_Uls_T_Str-&gt;b2_Uls_ s0p15</td>
+<td>sint16</td>
+<td>-0.322692871</td>
+<td>0.575073242</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>filtCoef_Uls_T_Str-&gt;a0_Uls_ u2p14</td>
+<td>uint16</td>
+<td>0.539428711</td>
+<td>3.949829102</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>filtCoef_Uls_T_Str-&gt;a1_Uls_s4p11</td>
+<td>sint16</td>
+<td>-8</td>
+<td>-4.797363281</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>filtCoef_Uls_T_Str-&gt;a2_Uls_u5p11</td>
+<td>uint16</td>
+<td>4.050292969</td>
+<td>10.66308594</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td>none</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="description-2">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image6.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image7.wmf" /></p>
+<h3 id="generate-command">Generate Command</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 23%" />
+<col style="width: 17%" />
+<col style="width: 11%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Function Name</strong></td>
+<td colspan="2">GenFddIcCmd</td>
+<td>Type</td>
+<td>Min</td>
+<td>Max</td>
+</tr>
+<tr class="even">
+<td><strong>Arguments Passed</strong></td>
+<td colspan="2">ScaledDriverVel_MtrRadpS_T_s14p1</td>
+<td>sint16</td>
+<td>-10000</td>
+<td>10000</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td rowspan="6">*filtCoef_Uls_Str</td>
+<td>b0_Uls_ s0p15</td>
+<td>sint16</td>
+<td>-0.975097656</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>b1_Uls_ u0p16</td>
+<td>uint16</td>
+<td>0.0</td>
+<td>0.400024414</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>b2_Uls_ s0p15</td>
+<td>sint16</td>
+<td>-0.322692871</td>
+<td>0.575073242</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>a0_Uls_ u2p14</td>
+<td>uint16</td>
+<td>0.539428711</td>
+<td>3.949829102</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>a1_Uls_s4p11</td>
+<td>sint16</td>
+<td>-8</td>
+<td>-4.797363281</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>a2_Uls_u5p11</td>
+<td>uint16</td>
+<td>4.050292969</td>
+<td>10.66308594</td>
+</tr>
+<tr class="odd">
+<td><strong>Return Value</strong></td>
+<td colspan="2">Compenstation_MtrNm_T_ s11p20</td>
+<td>Sint32</td>
+<td>-8.8</td>
+<td>8.8</td>
+</tr>
+</tbody>
+</table>
+<h4 id="unit-testing-considerations">Unit Testing Considerations</h4>
+<p>This function is designed to work with argument values from the calling function as used with the other functions in the module, and outputs may be out of the expected range if tested with arbitrary combinations of input values. Unit testing of this function should use only passed argument value combinations coming from the calling function.</p>
+<h4 id="description-3">Description</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image8.wmf" /></p>
+<h1 id="software-module-implementation">Software Module Implementation</h1>
+<h2 id="runtime-environment-rte-initial-values">Runtime Environment (RTE) Initial Values</h2>
+<p>This section lists the initial values of data written by this module but controlled by the RTE. After RTE initialization, the data in this table will contain these values.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Data</td>
+<td>Value</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_AsstFirewallActive_Uls_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_CombinedDamping_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_DampingCmd_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_HwTorque_HwNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_InertiaComp_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_MtrVelCRF_MtrRadpS_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue_VehicleSpeed_Kph_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue_ BaseAssistCmd_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue _WIRCmdAmpBlnd_MtrNm_f32</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Rte_InitValue _ VehicleLonAccel_KphpS_f32</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Rte_InitValue _ FreqDepDmpSrlComSvcDft_Cnt_lgc</td>
+<td>FALSE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization-functions">Initialization Functions</h2>
+<h3 id="init-dampingfirewall_init1">Init: DampingFirewall_Init1</h3>
+<h4 id="design-rationale">Design Rationale</h4>
+<p>None</p>
+<h4 id="module-outputs">Module Outputs</h4>
+<p>None</p>
+<h4 id="module-internal">Module Internal </h4>
+<p>None</p>
+<h4 id="initialize-filters">Initialize Filters</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image9.wmf" /></p>
+<h2 id="periodic-functions">Periodic Functions</h2>
+<h3 id="per-dampingfirewall_per1">Per: DampingFirewall_Per1</h3>
+<h4 id="design-rationale-1">Design Rationale</h4>
+<p>None</p>
+<h4 id="program-flow-start">Program Flow Start</h4>
+<h4 class="unnumbered" id="rte_call_activepull_per1_cp0_checkpointreached">Rte_Call_ActivePull_Per1_CP0_CheckpointReached()</h4>
+<h4 id="store-module-inputs-to-local-copies">Store Module Inputs to Local copies</h4>
+<p>DefeatDampingSvc_Cnt_T_lgc = Rte_IRead_DampingFirewall_Per1_Defeat_Damping_Svc_Cnt_lgc()</p>
+<p>MECCounter_Cnt_T_enum = Rte_IRead_DampingFirewall_Per1_MEC_Counter_Cnt_enum()</p>
+<p>AsstFirewallActive_Uls_T_f32 = Rte_IRead_DampingFirewall_Per1_AsstFirewallActive_Uls_f32()</p>
+<p>DampingCmd_MtrNm_T_f32 = Rte_IRead_DampingFirewall_Per1_DampingCmd_MtrNm_f32()</p>
+<p>HwTorque_HwNm_T_f32 = Rte_IRead_DampingFirewall_Per1_HwTorque_HwNm_f32()</p>
+<p>InertiaComp_MtrNm_T_f32 = Rte_IRead_DampingFirewall_Per1_InertiaComp_MtrNm_f32()</p>
+<p>MtrVelCRF_MtrRadpS_T_f32 = Rte_IRead_DampingFirewall_Per1_MtrVelCRF_MtrRadpS_f32()</p>
+<p>VehicleSpeed_Kph_T_f32 = Rte_IRead_DampingFirewall_Per1_VehicleSpeed_Kph_f32()</p>
+<p>BaseAsstCmd_MtrNm_T_f32 = Rte_IRead_DampingFirewall_Per1_BaseAssistCmd_MtrNm_f32()</p>
+<p>WIRCmdAmpBlnd_MtrNm_T_f32 = Rte_IRead_DampingFirewall_Per1_WIRCmdAmpBlnd_MtrNm_f32()</p>
+<p>FDDDefSrvFlg_Cnt_T_lgc = Rte_IRead_DampingFirewall_Per1_FreqDepDmpSrlComSvcDft_Cnt_lgc()</p>
+<p>VehicleLonAccel_KphpS_T_f32 = Rte_IRead_DampingFirewall_Per1_VehicleLonAccel_KphpS_f32()</p>
+<p>DampFWPstepNstep_Cnt_T_str.PStep = k_DampFWPstep_Cnt_u16</p>
+<p>DampFWPstepNstep_Cnt_T_str.NStep = k_DampFWNstep_Cnt_u16</p>
+<p>DampFWPstepNstep_Cnt_T_str.Threshold = t_DampFWPNstepThresh_Cnt_u16[1]</p>
+<p>DampFWInrtCmpPstepNstep_Cnt_T_str.PStep = k_DampFWInCmpPStep_Cnt_u16</p>
+<p>DampFWInrtCmpPstepNstep_Cnt_T_str.NStep = k_DampFWInCmpNStep_Cnt_u16</p>
+<p>DampFWInrtCmpPstepNstep_Cnt_T_str.Threshold = t_DampFWDampInrtCmpPNThesh_Cnt_u16[1]</p>
+<h4 id="damping-limiter-interpolate-and-filter-boundaries">Damping Limiter – Interpolate and Filter Boundaries</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image10.wmf" /></p>
+<h4 id="pncounter">PNCounter</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image11.wmf" /></p>
+<h4 id="additional-damping">Additional Damping</h4>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image12.wmf" /></p>
+<p><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image13.wmf" /></p>
+<h4 id="store-local-copy-of-outputs-into-module-outputs"><img src="ElectricPowerSteering_TMS570_FIAT_321_website/static/media/image14.wmf" />Store Local copy of outputs into Module Outputs</h4>
+<p>DampFWUprBound_MtrNm_D_f32 = UprBoundRaw_MtrNm_T_f32</p>
+<p>Rte_IWrite_DampingFirewall_Per1_CombinedDamping_MtrNm_f32(CombinedDamping_MtrNm_T_f32)</p>
+<h4 id="program-flow-end">Program Flow End</h4>
+<p>Rte_Call_ActivePull_Per1_CP1_CheckpointReached()</p>
+<h2 id="fault-recovery-functions">Fault Recovery Functions</h2>
+<p>None</p>
+<h2 id="shutdown-functions">Shutdown Functions</h2>
+<p>None</p>
+<h2 id="interrupt-functions">Interrupt Functions</h2>
+<p>None</p>
+<h2 id="serial-communication-functions">Serial Communication Functions</h2>
+<p>None</p>
+<h2 id="section-1"></h2>
+<h1 id="execution-requirements">Execution Requirements</h1>
+<h2 id="execution-sequence-of-the-module">Execution Sequence of the Module</h2>
+<p>DampingFirewall_Per1 is called at a rate of 2 ms.</p>
+<h2 id="execution-rates-for-sub-modules-called-by-the-scheduler">Execution Rates for sub-modules called by the Scheduler</h2>
+<p>This table serves as reference for the Scheduler design</p>
+<table>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 23%" />
+<col style="width: 41%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Calling Frequency</td>
+<td>System State(s) in which the function is called</td>
+</tr>
+<tr class="even">
+<td>DampingFirewall_Init1</td>
+<td>On Event</td>
+<td>On Init</td>
+</tr>
+<tr class="odd">
+<td>DampingFirewall_Per1</td>
+<td>2 ms</td>
+<td>OPERATE, DISABLE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execution-requirements-for-serial-communication-functions">Execution Requirements for Serial Communication Functions </h2>
+<table>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 59%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Function Name</td>
+<td>Sub-Module called by (Serial Comm Function Name)</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-2"><br />
+</h1>
+<h1 id="memory-map-definition-requirements">Memory Map Definition Requirements</h1>
+<h2 id="sub-modules-functions">Sub Modules (Functions)</h2>
+<p>This table identifies the software segments for functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 45%" />
+<col style="width: 54%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>DampingFirewall_Init1</td>
+<td>RTE_START_SEC_AP_DAMPINGFIREWALL_APPL_CODE</td>
+</tr>
+<tr class="odd">
+<td>DampingFirewall_Per1</td>
+<td>RTE_START_SEC_AP_DAMPINGFIREWALL_APPL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h2 class="unnumbered" id="section-3"></h2>
+<h2 id="local-functions">Local Functions</h2>
+<p>This table identifies the software segments for local functions identified in this module.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Name of Sub Module</td>
+<td>Software Segment</td>
+</tr>
+<tr class="even">
+<td>DriverVelCalc</td>
+<td>AP_DAMPINGFIREWALL_CODE</td>
+</tr>
+<tr class="odd">
+<td>ADDCoefCalc</td>
+<td>AP_DAMPINGFIREWALL_CODE</td>
+</tr>
+<tr class="even">
+<td>FilterCoefCalc</td>
+<td>AP_DAMPINGFIREWALL_CODE</td>
+</tr>
+<tr class="odd">
+<td>GenFddIcCmd</td>
+<td>AP_DAMPINGFIREWALL_CODE</td>
+</tr>
+</tbody>
+</table>
+<h1 class="unnumbered" id="section-4"><br />
+</h1>
+<h1 id="known-issues-limitations-with-design">Known Issues / Limitations With Design</h1>
+<ol type="1">
+<li><p>INLINE functions defined in GlobalMacro.h are not unit tested.</p></li>
+<li><p>Due to the requirement to use fixed point arithmetic in the “diverse implementation” of SF-14 (VBIC), precision of some calculations, especially of the filter coefficients and especially at the extremes of the input ranges, is significantly less than the resolution of the data types of the variables. For example, the a0 coefficient is stored in a variable with 2^-14 resolution, but the a0 min value is accurate to approximately 2^-6 as compared to the expected results of the same calculation using Excel. This is an inherent limitation of using fixed point arithmetic on the widely differing magnitudes of the inputs to the calculations and the resulting rescaling that reduces the precision of the result; the scaling currently in use was determined through informal testing during initial development. The ranges given for the filter coefficients for unit test purposes are the actual expected ranges given the fixed point calculations being used, and some are wider than the expected ranges that would be calculated using another method such as an Excel spreadsheet. Per conversations with Michael Hales, this function is working and no changes should be made at this time.</p></li>
+<li><p> Agreed with the FDD owner Scott Millsap to leave the resolutions of calconstants as they are in v11.2 of implementation.</p></li>
+<li></li>
+</ol>
+<h1 id="revision-control-log">Revision Control Log</h1>
+<table>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 65%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Rev #</strong></td>
+<td><strong>Change Description</strong></td>
+<td><strong>Date</strong></td>
+<td><strong>Author Initials</strong></td>
+</tr>
+<tr class="even">
+<td>1.0</td>
+<td>Initial Version</td>
+<td>27-Apr-12</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>2.0</td>
+<td>Fixed UTP Issues (naming consistency)</td>
+<td>08-May-12</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>3.0</td>
+<td>Fixed calibration naming conflict</td>
+<td>10-May-12</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>4.0</td>
+<td>Anomaly 3324 (using wrong value for boundary calc), fixed units in names</td>
+<td>18-May-12</td>
+<td>OT</td>
+</tr>
+<tr class="even">
+<td>5.0</td>
+<td>Updated to SF-35 v002 (anomaly 3325)</td>
+<td>22-May-12</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>6.0</td>
+<td>Updated to SF-35 v003</td>
+<td>29-May-12</td>
+<td>JW</td>
+</tr>
+<tr class="even">
+<td>7.0</td>
+<td>Updated to SF-35 v004</td>
+<td>31-May-12</td>
+<td>OT</td>
+</tr>
+<tr class="odd">
+<td>8.0</td>
+<td>Updated to SF-35 V005</td>
+<td>7-Aug-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>9.0</td>
+<td>Updated to SF-35 V006. Removed input limit on inertia comp input for VBIC limiter. Added multiple display variables. Variable name changes for state variables for filter.</td>
+<td>28-Aug-12</td>
+<td>KJS</td>
+</tr>
+<tr class="odd">
+<td>10.0</td>
+<td>Added watchdog checkpoints</td>
+<td>16-Sept-12</td>
+<td>BWLs</td>
+</tr>
+<tr class="even">
+<td>11.0</td>
+<td>Corrected software segments of internal variables</td>
+<td>19-Sep-12</td>
+<td>SSK</td>
+</tr>
+<tr class="odd">
+<td>12.0</td>
+<td>MDD updates based on UTP catch up</td>
+<td>23-oct-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="even">
+<td>13.0</td>
+<td>Anom 3957- VBICFaultmode is not set</td>
+<td>25-Oct-12</td>
+<td>NRAR</td>
+</tr>
+<tr class="odd">
+<td>14.0</td>
+<td>Updates as per the implementation of v007 of the FDD</td>
+<td>10-Feb-13</td>
+<td>VK</td>
+</tr>
+<tr class="even">
+<td>13.1.1</td>
+<td>Updates for anomaly 4407</td>
+<td>12-Apr-13</td>
+<td>SP</td>
+</tr>
+<tr class="odd">
+<td>13.1.2</td>
+<td>Updates for anomaly 4809</td>
+<td>16-Apr-13</td>
+<td>LN</td>
+</tr>
+<tr class="even">
+<td>14.0</td>
+<td>Anomaly 4913 fixes</td>
+<td>30-Apr-13</td>
+<td>SP</td>
+</tr>
+<tr class="odd">
+<td>14.1.1</td>
+<td>VBIC Error filter robustness change</td>
+<td>07-Jun-13</td>
+<td>JJW</td>
+</tr>
+<tr class="even">
+<td>15.0</td>
+<td>Updated to SF-35 Ver 008, Generate Cmd calculations changed to fixed point</td>
+<td>15-May-13</td>
+<td>SP</td>
+</tr>
+<tr class="odd">
+<td>16.0</td>
+<td>Updated to SF-35 Ver 009, undone Generate Cmd fixed point changes and merged 14.1.1 changes</td>
+<td>18-Jun-13</td>
+<td>SP</td>
+</tr>
+<tr class="even">
+<td>17.0</td>
+<td>Updated to SF-35 Ver 010 – add filtering on LwrBound and UprBound</td>
+<td>03-Oct-13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>18.0</td>
+<td>A5206 anomaly fix</td>
+<td>18-Nov-13</td>
+<td>SP</td>
+</tr>
+<tr class="even">
+<td>19.0</td>
+<td>Corrections for issues found in UTP</td>
+<td>17-Dec-13</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>20.0</td>
+<td>Additional corrections for issues found in unit test</td>
+<td>4-Feb-14</td>
+<td>KMC</td>
+</tr>
+<tr class="even">
+<td>21.0</td>
+<td>Changed ranges of filter coefficients to account for fixed point math and worst case inputs, and added design limitation regarding resolution of filter coefficient calculations.</td>
+<td>24-Feb-14</td>
+<td>KMC</td>
+</tr>
+<tr class="odd">
+<td>22.0</td>
+<td>A6259 anomaly fix</td>
+<td>29-Aug-14</td>
+<td>SB</td>
+</tr>
+<tr class="even">
+<td>23.0</td>
+<td>UTP fixes</td>
+<td>1-Jan-15</td>
+<td>KPIT/SB</td>
+</tr>
+<tr class="odd">
+<td>24.0</td>
+<td>Updated the Rates and State execution; QAC cleanup</td>
+<td>1-Jan-15</td>
+<td>SB</td>
+</tr>
+<tr class="even">
+<td>25.0</td>
+<td>Fix for anomalies EA3#5983 and those associated with CompCR EA3#8741</td>
+<td>14-Jun-16</td>
+<td>KK</td>
+</tr>
+</tbody>
+</table>
